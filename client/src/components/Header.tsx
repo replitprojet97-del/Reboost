@@ -3,7 +3,6 @@ import { Button } from './ui/button';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
-import ThemeToggle from './ThemeToggle';
 import { useTranslations } from '@/lib/i18n';
 import {
   NavigationMenu,
@@ -104,8 +103,7 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:flex items-center gap-2">
-            <LanguageSwitcher />
-            <ThemeToggle />
+            <LanguageSwitcher scrolled={scrolled} />
             <Link href="/login">
               <Button 
                 variant={scrolled ? "default" : "secondary"} 
@@ -191,8 +189,7 @@ export default function Header() {
                 {t.nav.contact}
               </Link>
               <div className="flex items-center gap-2 pt-2">
-                <LanguageSwitcher />
-                <ThemeToggle />
+                <LanguageSwitcher scrolled={scrolled} />
               </div>
               <Link 
                 href="/login" 

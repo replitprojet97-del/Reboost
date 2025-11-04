@@ -18,7 +18,11 @@ const languages: { code: Language; name: string; flag: string }[] = [
   { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
 ];
 
-export default function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  scrolled?: boolean;
+}
+
+export default function LanguageSwitcher({ scrolled = false }: LanguageSwitcherProps) {
   const { language, setLanguage } = useLanguage();
   const currentLang = languages.find((l) => l.code === language);
 
@@ -28,7 +32,7 @@ export default function LanguageSwitcher() {
         <Button
           variant="ghost"
           size="sm"
-          className="gap-2"
+          className={`gap-2 ${scrolled ? '' : 'text-white hover:text-white hover:bg-white/20 dark:text-white dark:hover:text-white'}`}
           data-testid="button-language-toggle"
         >
           <Globe className="h-4 w-4" />

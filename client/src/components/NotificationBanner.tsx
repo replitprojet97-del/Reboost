@@ -26,18 +26,7 @@ interface NotificationStore {
 export const useNotifications = create<NotificationStore>()(
   persist(
     (set) => ({
-      notifications: [
-        {
-          id: 'welcome-2025',
-          message: '🎉 Nouveau : Tableau d\'amortissement interactif disponible ! Simulez vos remboursements en temps réel.',
-          variant: 'info',
-          dismissible: true,
-          link: {
-            text: 'Découvrir',
-            href: '/loans',
-          },
-        },
-      ],
+      notifications: [],
       dismissedIds: [],
       dismissNotification: (id) =>
         set((state) => ({
