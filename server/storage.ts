@@ -13,6 +13,14 @@ import {
   type InsertAdminSetting,
   type AuditLog,
   type InsertAuditLog,
+  type TransferValidationCode,
+  type InsertTransferValidationCode,
+  type TransferEvent,
+  type InsertTransferEvent,
+  type AdminMessage,
+  type InsertAdminMessage,
+  type ExternalAccount,
+  type InsertExternalAccount,
   users,
   loans,
   transfers,
@@ -20,6 +28,10 @@ import {
   transactions,
   adminSettings,
   auditLogs,
+  transferValidationCodes,
+  transferEvents,
+  adminMessages,
+  externalAccounts,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -76,6 +88,21 @@ export interface IStorage {
     totalLoans: number;
     activeLoans: number;
   }>;
+  
+  getUserExternalAccounts(userId: string): Promise<ExternalAccount[]>;
+  getExternalAccount(id: string): Promise<ExternalAccount | undefined>;
+  createExternalAccount(account: InsertExternalAccount): Promise<ExternalAccount>;
+  
+  createValidationCode(code: InsertTransferValidationCode): Promise<TransferValidationCode>;
+  getTransferValidationCodes(transferId: string): Promise<TransferValidationCode[]>;
+  validateCode(transferId: string, code: string, sequence: number): Promise<TransferValidationCode | undefined>;
+  
+  createTransferEvent(event: InsertTransferEvent): Promise<TransferEvent>;
+  getTransferEvents(transferId: string): Promise<TransferEvent[]>;
+  
+  getUserMessages(userId: string): Promise<AdminMessage[]>;
+  createAdminMessage(message: InsertAdminMessage): Promise<AdminMessage>;
+  markMessageAsRead(id: string): Promise<AdminMessage | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -86,6 +113,10 @@ export class MemStorage implements IStorage {
   private transactions: Map<string, Transaction>;
   private adminSettings: Map<string, AdminSetting>;
   private auditLogs: AuditLog[];
+  private externalAccounts: Map<string, ExternalAccount>;
+  private validationCodes: Map<string, TransferValidationCode>;
+  private transferEvents: Map<string, TransferEvent>;
+  private adminMessages: Map<string, AdminMessage>;
 
   constructor() {
     this.users = new Map();
@@ -95,6 +126,10 @@ export class MemStorage implements IStorage {
     this.transactions = new Map();
     this.adminSettings = new Map();
     this.auditLogs = [];
+    this.externalAccounts = new Map();
+    this.validationCodes = new Map();
+    this.transferEvents = new Map();
+    this.adminMessages = new Map();
     this.seedData();
   }
 
@@ -624,6 +659,109 @@ export class MemStorage implements IStorage {
       activeLoans: loans.filter(l => l.status === 'active').length,
     };
   }
+
+  async getUserExternalAccounts(userId: string): Promise<ExternalAccount[]> {
+    return Array.from(this.externalAccounts.values()).filter(
+      (account) => account.userId === userId
+    );
+  }
+
+  async getExternalAccount(id: string): Promise<ExternalAccount | undefined> {
+    return this.externalAccounts.get(id);
+  }
+
+  async createExternalAccount(insertAccount: InsertExternalAccount): Promise<ExternalAccount> {
+    const id = randomUUID();
+    const account: ExternalAccount = {
+      ...insertAccount,
+      id,
+      bic: insertAccount.bic || null,
+      isDefault: insertAccount.isDefault || false,
+      createdAt: new Date(),
+    };
+    this.externalAccounts.set(id, account);
+    return account;
+  }
+
+  async createValidationCode(insertCode: InsertTransferValidationCode): Promise<TransferValidationCode> {
+    const id = randomUUID();
+    const code: TransferValidationCode = {
+      ...insertCode,
+      id,
+      sequence: insertCode.sequence || 1,
+      issuedAt: new Date(),
+      consumedAt: insertCode.consumedAt || null,
+    };
+    this.validationCodes.set(id, code);
+    return code;
+  }
+
+  async getTransferValidationCodes(transferId: string): Promise<TransferValidationCode[]> {
+    return Array.from(this.validationCodes.values())
+      .filter((code) => code.transferId === transferId)
+      .sort((a, b) => a.sequence - b.sequence);
+  }
+
+  async validateCode(transferId: string, code: string, sequence: number): Promise<TransferValidationCode | undefined> {
+    const validationCode = Array.from(this.validationCodes.values()).find(
+      (vc) => vc.transferId === transferId && vc.code === code && vc.sequence === sequence && !vc.consumedAt
+    );
+    
+    if (validationCode && new Date() <= validationCode.expiresAt) {
+      const updated = { ...validationCode, consumedAt: new Date() };
+      this.validationCodes.set(validationCode.id, updated);
+      return updated;
+    }
+    
+    return undefined;
+  }
+
+  async createTransferEvent(insertEvent: InsertTransferEvent): Promise<TransferEvent> {
+    const id = randomUUID();
+    const event: TransferEvent = {
+      ...insertEvent,
+      id,
+      metadata: insertEvent.metadata || null,
+      createdAt: new Date(),
+    };
+    this.transferEvents.set(id, event);
+    return event;
+  }
+
+  async getTransferEvents(transferId: string): Promise<TransferEvent[]> {
+    return Array.from(this.transferEvents.values())
+      .filter((event) => event.transferId === transferId)
+      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+  }
+
+  async getUserMessages(userId: string): Promise<AdminMessage[]> {
+    return Array.from(this.adminMessages.values())
+      .filter((msg) => msg.userId === userId)
+      .sort((a, b) => b.deliveredAt.getTime() - a.deliveredAt.getTime());
+  }
+
+  async createAdminMessage(insertMessage: InsertAdminMessage): Promise<AdminMessage> {
+    const id = randomUUID();
+    const message: AdminMessage = {
+      ...insertMessage,
+      id,
+      transferId: insertMessage.transferId || null,
+      severity: insertMessage.severity || 'info',
+      isRead: insertMessage.isRead || false,
+      deliveredAt: new Date(),
+      readAt: insertMessage.readAt || null,
+    };
+    this.adminMessages.set(id, message);
+    return message;
+  }
+
+  async markMessageAsRead(id: string): Promise<AdminMessage | undefined> {
+    const message = this.adminMessages.get(id);
+    if (!message) return undefined;
+    const updated = { ...message, isRead: true, readAt: new Date() };
+    this.adminMessages.set(id, updated);
+    return updated;
+  }
 }
 
 export class DbStorage implements IStorage {
@@ -793,6 +931,77 @@ export class DbStorage implements IStorage {
       totalLoans: allLoans.length,
       activeLoans: allLoans.filter(l => l.status === 'active').length,
     };
+  }
+
+  async getUserExternalAccounts(userId: string): Promise<ExternalAccount[]> {
+    return await db.select().from(externalAccounts).where(eq(externalAccounts.userId, userId));
+  }
+
+  async getExternalAccount(id: string): Promise<ExternalAccount | undefined> {
+    const result = await db.select().from(externalAccounts).where(eq(externalAccounts.id, id));
+    return result[0];
+  }
+
+  async createExternalAccount(insertAccount: InsertExternalAccount): Promise<ExternalAccount> {
+    const result = await db.insert(externalAccounts).values(insertAccount).returning();
+    return result[0];
+  }
+
+  async createValidationCode(insertCode: InsertTransferValidationCode): Promise<TransferValidationCode> {
+    const result = await db.insert(transferValidationCodes).values(insertCode).returning();
+    return result[0];
+  }
+
+  async getTransferValidationCodes(transferId: string): Promise<TransferValidationCode[]> {
+    return await db.select().from(transferValidationCodes).where(eq(transferValidationCodes.transferId, transferId));
+  }
+
+  async validateCode(transferId: string, code: string, sequence: number): Promise<TransferValidationCode | undefined> {
+    const result = await db.select()
+      .from(transferValidationCodes)
+      .where(
+        eq(transferValidationCodes.transferId, transferId)
+      );
+    
+    const validationCode = result.find(
+      (vc) => vc.code === code && vc.sequence === sequence && !vc.consumedAt
+    );
+    
+    if (validationCode && new Date() <= validationCode.expiresAt) {
+      const updated = await db.update(transferValidationCodes)
+        .set({ consumedAt: new Date() })
+        .where(eq(transferValidationCodes.id, validationCode.id))
+        .returning();
+      return updated[0];
+    }
+    
+    return undefined;
+  }
+
+  async createTransferEvent(insertEvent: InsertTransferEvent): Promise<TransferEvent> {
+    const result = await db.insert(transferEvents).values(insertEvent).returning();
+    return result[0];
+  }
+
+  async getTransferEvents(transferId: string): Promise<TransferEvent[]> {
+    return await db.select().from(transferEvents).where(eq(transferEvents.transferId, transferId));
+  }
+
+  async getUserMessages(userId: string): Promise<AdminMessage[]> {
+    return await db.select().from(adminMessages).where(eq(adminMessages.userId, userId)).orderBy(desc(adminMessages.deliveredAt));
+  }
+
+  async createAdminMessage(insertMessage: InsertAdminMessage): Promise<AdminMessage> {
+    const result = await db.insert(adminMessages).values(insertMessage).returning();
+    return result[0];
+  }
+
+  async markMessageAsRead(id: string): Promise<AdminMessage | undefined> {
+    const result = await db.update(adminMessages)
+      .set({ isRead: true, readAt: new Date() })
+      .where(eq(adminMessages.id, id))
+      .returning();
+    return result[0];
   }
 }
 
