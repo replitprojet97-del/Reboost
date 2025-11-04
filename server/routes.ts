@@ -85,6 +85,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/user", async (req, res) => {
+    try {
+      const user = await storage.getUser(DEMO_USER_ID);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch user' });
+    }
+  });
+
   app.get("/api/loans", async (req, res) => {
     try {
       const loans = await storage.getUserLoans(DEMO_USER_ID);
@@ -347,6 +359,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(account);
     } catch (error) {
       res.status(400).json({ error: 'Failed to create external account' });
+    }
+  });
+
+  app.delete("/api/external-accounts/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deleteExternalAccount(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: 'External account not found' });
+      }
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to delete external account' });
     }
   });
 

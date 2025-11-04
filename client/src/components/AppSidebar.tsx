@@ -10,7 +10,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Home, CreditCard, ArrowRightLeft, History, Settings, LogOut, ShieldCheck, Users, FileText, BarChart } from 'lucide-react';
+import { Home, CreditCard, ArrowRightLeft, History, Settings, LogOut, ShieldCheck, Users, FileText, BarChart, Building2 } from 'lucide-react';
 import { useTranslations } from '@/lib/i18n';
 import { useLocation } from 'wouter';
 
@@ -24,6 +24,7 @@ export default function AppSidebar() {
     { title: t.nav.dashboard, url: '/dashboard', icon: Home },
     { title: t.nav.loans, url: '/loans', icon: CreditCard },
     { title: t.nav.transfers, url: '/transfers', icon: ArrowRightLeft },
+    { title: 'Comptes bancaires', url: '/accounts', icon: Building2 },
     { title: t.nav.history, url: '/history', icon: History },
     { title: t.nav.settings, url: '/settings', icon: Settings },
   ];

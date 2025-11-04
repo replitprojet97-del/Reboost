@@ -1,29 +1,59 @@
-import { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslations } from '@/lib/i18n';
 import { useToast } from '@/hooks/use-toast';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Upload, FileText, CheckCircle2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import type { User } from '@shared/schema';
 
 interface NewLoanDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
+const LOAN_TYPES = {
+  personal: { name: 'Prêt personnel', minRate: 2.9, maxRate: 7.9 },
+  business: { name: 'Prêt professionnel', minRate: 3.5, maxRate: 8.5 },
+  auto: { name: 'Prêt auto', minRate: 1.9, maxRate: 5.9 },
+  green: { name: 'Prêt vert', minRate: 0.5, maxRate: 4.5 },
+  renovation: { name: 'Prêt rénovation', minRate: 2.5, maxRate: 6.9 },
+  student: { name: 'Prêt étudiant', minRate: 1.5, maxRate: 3.5 },
+} as const;
+
 export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps) {
   const t = useTranslations();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  
+  const [loanType, setLoanType] = useState<keyof typeof LOAN_TYPES>('personal');
   const [formData, setFormData] = useState({
     amount: '',
     interestRate: '',
     duration: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [documentsUploaded, setDocumentsUploaded] = useState(false);
+
+  const { data: user, isLoading: userLoading } = useQuery<User>({
+    queryKey: ['/api/user'],
+    enabled: open,
+  });
+
+  const needsKYC = user?.kycStatus === 'pending';
+
+  useEffect(() => {
+    if (loanType) {
+      const selectedType = LOAN_TYPES[loanType];
+      const avgRate = ((selectedType.minRate + selectedType.maxRate) / 2).toFixed(1);
+      setFormData(prev => ({ ...prev, interestRate: avgRate }));
+    }
+  }, [loanType]);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -49,6 +79,10 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
       newErrors.duration = 'La durée ne peut pas dépasser 360 mois';
     }
 
+    if (needsKYC && !documentsUploaded) {
+      newErrors.documents = 'Vous devez télécharger vos documents KYC pour votre première demande';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -71,8 +105,7 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
         description: 'Votre demande de prêt a été soumise avec succès.',
       });
       onOpenChange(false);
-      setFormData({ amount: '', interestRate: '', duration: '' });
-      setErrors({});
+      resetForm();
     },
     onError: () => {
       toast({
@@ -87,6 +120,24 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
     e.preventDefault();
     if (validateForm()) {
       createLoanMutation.mutate(formData);
+    }
+  };
+
+  const resetForm = () => {
+    setFormData({ amount: '', interestRate: '', duration: '' });
+    setLoanType('personal');
+    setErrors({});
+    setDocumentsUploaded(false);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setDocumentsUploaded(true);
+      toast({
+        title: 'Documents téléchargés',
+        description: `${files.length} document(s) ajouté(s) avec succès.`,
+      });
     }
   };
 
@@ -106,81 +157,169 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
 
   const monthlyPayment = calculateMonthlyPayment();
 
+  if (userLoading) {
+    return null;
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[550px]">
+      <DialogContent className="sm:max-w-[650px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl">{t.dashboard.newLoan}</DialogTitle>
           <DialogDescription>
-            Remplissez le formulaire pour soumettre une nouvelle demande de prêt
+            {needsKYC 
+              ? "Première demande : veuillez fournir vos documents d'identité et compléter le formulaire"
+              : "Remplissez le formulaire pour soumettre une nouvelle demande de prêt"
+            }
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-6 mt-4">
-          <div className="space-y-2">
-            <Label htmlFor="amount">Montant du prêt (€)</Label>
-            <Input
-              id="amount"
-              type="number"
-              placeholder="100000"
-              value={formData.amount}
-              onChange={(e) => {
-                setFormData({ ...formData, amount: e.target.value });
-                setErrors({ ...errors, amount: '' });
-              }}
-              className={errors.amount ? 'border-destructive' : ''}
-              data-testid="input-loan-amount"
-            />
-            {errors.amount && (
-              <p className="text-sm text-destructive">{errors.amount}</p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="interestRate">Taux d'intérêt annuel (%)</Label>
-            <Input
-              id="interestRate"
-              type="number"
-              step="0.1"
-              placeholder="3.5"
-              value={formData.interestRate}
-              onChange={(e) => {
-                setFormData({ ...formData, interestRate: e.target.value });
-                setErrors({ ...errors, interestRate: '' });
-              }}
-              className={errors.interestRate ? 'border-destructive' : ''}
-              data-testid="input-loan-interest-rate"
-            />
-            {errors.interestRate && (
-              <p className="text-sm text-destructive">{errors.interestRate}</p>
-            )}
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="duration">Durée (mois)</Label>
-            <Input
-              id="duration"
-              type="number"
-              placeholder="60"
-              value={formData.duration}
-              onChange={(e) => {
-                setFormData({ ...formData, duration: e.target.value });
-                setErrors({ ...errors, duration: '' });
-              }}
-              className={errors.duration ? 'border-destructive' : ''}
-              data-testid="input-loan-duration"
-            />
-            {errors.duration && (
-              <p className="text-sm text-destructive">{errors.duration}</p>
-            )}
-          </div>
 
-          {monthlyPayment > 0 && (
-            <Alert>
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                <strong>Mensualité estimée:</strong>{' '}
-                {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(monthlyPayment)}
-              </AlertDescription>
-            </Alert>
-          )}
+        {needsKYC && (
+          <Alert className="border-primary">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              <strong>Première demande :</strong> Vos documents seront vérifiés une seule fois. 
+              Les demandes suivantes ne nécessiteront plus de documents.
+            </AlertDescription>
+          </Alert>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <Tabs value={needsKYC && !documentsUploaded ? "documents" : "loan"} className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="documents" disabled={!needsKYC} data-testid="tab-documents">
+                {documentsUploaded ? <CheckCircle2 className="h-4 w-4 mr-2 text-green-600" /> : <FileText className="h-4 w-4 mr-2" />}
+                Documents KYC
+              </TabsTrigger>
+              <TabsTrigger value="loan" data-testid="tab-loan-details">
+                Détails du prêt
+              </TabsTrigger>
+            </TabsList>
+
+            {needsKYC && (
+              <TabsContent value="documents" className="space-y-4">
+                <div className="border-2 border-dashed rounded-lg p-8 text-center space-y-4">
+                  <Upload className="h-12 w-12 mx-auto text-muted-foreground" />
+                  <div>
+                    <h3 className="font-semibold mb-2">Documents requis</h3>
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      <li>• Pièce d'identité (Carte d'identité ou Passeport)</li>
+                      <li>• Justificatif de domicile (moins de 3 mois)</li>
+                      <li>• Relevé bancaire (derniers 3 mois)</li>
+                    </ul>
+                  </div>
+                  <Input
+                    type="file"
+                    multiple
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    onChange={handleFileUpload}
+                    className="max-w-xs mx-auto"
+                    data-testid="input-kyc-documents"
+                  />
+                  {documentsUploaded && (
+                    <div className="flex items-center justify-center gap-2 text-green-600">
+                      <CheckCircle2 className="h-5 w-5" />
+                      <span className="text-sm font-medium">Documents téléchargés avec succès</span>
+                    </div>
+                  )}
+                </div>
+                {errors.documents && (
+                  <p className="text-sm text-destructive text-center">{errors.documents}</p>
+                )}
+              </TabsContent>
+            )}
+
+            <TabsContent value="loan" className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="loanType">Type de prêt</Label>
+                <Select value={loanType} onValueChange={(value) => setLoanType(value as keyof typeof LOAN_TYPES)}>
+                  <SelectTrigger id="loanType" data-testid="select-loan-type">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(LOAN_TYPES).map(([key, value]) => (
+                      <SelectItem key={key} value={key}>
+                        {value.name} ({value.minRate}% - {value.maxRate}%)
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="amount">Montant du prêt (€)</Label>
+                <Input
+                  id="amount"
+                  type="number"
+                  placeholder="100000"
+                  value={formData.amount}
+                  onChange={(e) => {
+                    setFormData({ ...formData, amount: e.target.value });
+                    setErrors({ ...errors, amount: '' });
+                  }}
+                  className={errors.amount ? 'border-destructive' : ''}
+                  data-testid="input-loan-amount"
+                />
+                {errors.amount && (
+                  <p className="text-sm text-destructive">{errors.amount}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="interestRate">
+                  Taux d'intérêt annuel (%)
+                  <span className="text-xs text-muted-foreground ml-2">
+                    (Taux suggéré basé sur le type de prêt)
+                  </span>
+                </Label>
+                <Input
+                  id="interestRate"
+                  type="number"
+                  step="0.1"
+                  placeholder="3.5"
+                  value={formData.interestRate}
+                  onChange={(e) => {
+                    setFormData({ ...formData, interestRate: e.target.value });
+                    setErrors({ ...errors, interestRate: '' });
+                  }}
+                  className={errors.interestRate ? 'border-destructive' : ''}
+                  data-testid="input-loan-interest-rate"
+                />
+                {errors.interestRate && (
+                  <p className="text-sm text-destructive">{errors.interestRate}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="duration">Durée (mois)</Label>
+                <Input
+                  id="duration"
+                  type="number"
+                  placeholder="60"
+                  value={formData.duration}
+                  onChange={(e) => {
+                    setFormData({ ...formData, duration: e.target.value });
+                    setErrors({ ...errors, duration: '' });
+                  }}
+                  className={errors.duration ? 'border-destructive' : ''}
+                  data-testid="input-loan-duration"
+                />
+                {errors.duration && (
+                  <p className="text-sm text-destructive">{errors.duration}</p>
+                )}
+              </div>
+
+              {monthlyPayment > 0 && (
+                <Alert>
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    <strong>Mensualité estimée:</strong>{' '}
+                    {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(monthlyPayment)}
+                  </AlertDescription>
+                </Alert>
+              )}
+            </TabsContent>
+          </Tabs>
 
           <div className="flex justify-end gap-3">
             <Button 
@@ -188,14 +327,17 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
               variant="outline" 
               onClick={() => {
                 onOpenChange(false);
-                setFormData({ amount: '', interestRate: '', duration: '' });
-                setErrors({});
+                resetForm();
               }}
               data-testid="button-cancel-loan"
             >
               Annuler
             </Button>
-            <Button type="submit" disabled={createLoanMutation.isPending} data-testid="button-submit-loan">
+            <Button 
+              type="submit" 
+              disabled={createLoanMutation.isPending || (needsKYC && !documentsUploaded)} 
+              data-testid="button-submit-loan"
+            >
               {createLoanMutation.isPending ? 'Envoi...' : 'Soumettre la demande'}
             </Button>
           </div>

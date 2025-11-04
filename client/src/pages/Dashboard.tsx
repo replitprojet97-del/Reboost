@@ -6,7 +6,6 @@ import FeeSection from '@/components/FeeSection';
 import PendingTransfers from '@/components/PendingTransfers';
 import AvailableFundsChart from '@/components/AvailableFundsChart';
 import UpcomingRepaymentsChart from '@/components/UpcomingRepaymentsChart';
-import LoanAmortizationSection from '@/components/LoanAmortizationSection';
 import { useTranslations } from '@/lib/i18n';
 import { useDashboard, useAvailableFundsChart, useUpcomingRepaymentsChart } from '@/hooks/use-dashboard';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -88,8 +87,6 @@ export default function Dashboard() {
           <UpcomingRepaymentsChart data={repaymentsData} />
         ) : null}
       </div>
-
-      <LoanAmortizationSection loans={dashboardData.loans} />
     </div>
   );
 }
