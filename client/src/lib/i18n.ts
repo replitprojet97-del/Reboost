@@ -185,16 +185,55 @@ type TranslationKeys = {
       section7Content: string;
     };
   };
+  individualLoans: {
+    title: string;
+    subtitle: string;
+    personalLoan: string;
+    personalLoanDesc: string;
+    mortgageLoan: string;
+    mortgageLoanDesc: string;
+    autoLoan: string;
+    autoLoanDesc: string;
+    studentLoan: string;
+    studentLoanDesc: string;
+    greenLoan: string;
+    greenLoanDesc: string;
+    renovationLoan: string;
+    renovationLoanDesc: string;
+    amount: string;
+    rate: string;
+    duration: string;
+    rateDisclaimer: string;
+    compareLoans: string;
+  };
+  features: {
+    title: string;
+    subtitle: string;
+    security: string;
+    securityDesc: string;
+    fast: string;
+    fastDesc: string;
+    competitive: string;
+    competitiveDesc: string;
+    flexible: string;
+    flexibleDesc: string;
+  };
+  stats: {
+    clients: string;
+    funded: string;
+    satisfaction: string;
+    years: string;
+  };
 };
 
 export const translations: Record<Language, TranslationKeys> = {
   fr: {
     hero: {
-      title: 'Financez la croissance de votre entreprise',
-      subtitle: 'Des solutions de prêt professionnel flexibles avec des taux compétitifs et un processus de validation transparent',
+      title: 'Réalisez vos projets avec ProLoan',
+      subtitle: 'Solutions de financement pour particuliers et professionnels - Taux compétitifs et processus transparent',
       cta1: 'Demander un prêt',
       cta2: 'Mon espace',
-      trustIndicator: 'Plus de 10 000 entreprises nous font confiance',
+      trustIndicator: 'Plus de 15 000 clients satisfaits nous font confiance',
     },
     nav: {
       home: 'Accueil',
@@ -384,14 +423,53 @@ export const translations: Record<Language, TranslationKeys> = {
         section7Content: 'Si vous avez des questions concernant cette politique de confidentialité, veuillez nous contacter à privacy@proloan.com',
       },
     },
+    individualLoans: {
+      title: 'Prêts pour Particuliers',
+      subtitle: 'Des solutions de financement adaptées à tous vos projets de vie',
+      personalLoan: 'Prêt Personnel',
+      personalLoanDesc: 'Financement flexible pour tous vos projets personnels sans justificatif',
+      mortgageLoan: 'Prêt Immobilier',
+      mortgageLoanDesc: 'Financez l\'achat de votre résidence principale ou secondaire',
+      autoLoan: 'Crédit Auto',
+      autoLoanDesc: 'Achetez votre véhicule neuf ou d\'occasion aux meilleurs taux',
+      studentLoan: 'Prêt Étudiant',
+      studentLoanDesc: 'Financez vos études supérieures avec des conditions avantageuses',
+      greenLoan: 'Prêt Vert',
+      greenLoanDesc: 'Financez vos projets de rénovation énergétique et transition écologique',
+      renovationLoan: 'Prêt Travaux',
+      renovationLoanDesc: 'Rénovez et améliorez votre logement',
+      amount: 'Montant',
+      rate: 'Taux TAEG',
+      duration: 'Durée',
+      rateDisclaimer: 'Taux indicatifs soumis à conditions. TAEG fixe.',
+      compareLoans: 'Comparer tous les prêts',
+    },
+    features: {
+      title: 'Pourquoi Choisir ProLoan ?',
+      subtitle: 'Une plateforme de prêt moderne qui met vos besoins au centre',
+      security: 'Sécurisé et Confidentiel',
+      securityDesc: 'Vos données sont protégées avec les plus hauts standards de sécurité bancaire',
+      fast: 'Réponse Rapide',
+      fastDesc: 'Obtenez une réponse de principe en 24-48h et les fonds sous 5 jours',
+      competitive: 'Taux Compétitifs',
+      competitiveDesc: 'Bénéficiez de taux parmi les plus bas du marché grâce à notre réseau',
+      flexible: 'Conditions Flexibles',
+      flexibleDesc: 'Remboursement anticipé sans frais et modulation possible des mensualités',
+    },
+    stats: {
+      clients: 'Clients Satisfaits',
+      funded: 'Prêts Accordés',
+      satisfaction: 'Taux de Satisfaction',
+      years: 'Années d\'Expérience',
+    },
   },
   en: {
     hero: {
-      title: 'Finance Your Business Growth',
-      subtitle: 'Flexible professional loan solutions with competitive rates and a transparent validation process',
+      title: 'Make Your Projects a Reality with ProLoan',
+      subtitle: 'Financing solutions for individuals and businesses - Competitive rates and transparent process',
       cta1: 'Request a Loan',
       cta2: 'My Account',
-      trustIndicator: 'Trusted by 10,000+ businesses',
+      trustIndicator: 'Trusted by 15,000+ satisfied clients',
     },
     nav: {
       home: 'Home',
@@ -581,14 +659,53 @@ export const translations: Record<Language, TranslationKeys> = {
         section7Content: 'If you have questions about this Privacy Policy, please contact us at privacy@proloan.com',
       },
     },
+    individualLoans: {
+      title: 'Personal Loans',
+      subtitle: 'Financing solutions tailored to all your life projects',
+      personalLoan: 'Personal Loan',
+      personalLoanDesc: 'Flexible financing for all your personal projects without proof of use',
+      mortgageLoan: 'Mortgage Loan',
+      mortgageLoanDesc: 'Finance the purchase of your primary or secondary residence',
+      autoLoan: 'Auto Loan',
+      autoLoanDesc: 'Buy your new or used vehicle at the best rates',
+      studentLoan: 'Student Loan',
+      studentLoanDesc: 'Finance your higher education with favorable conditions',
+      greenLoan: 'Green Loan',
+      greenLoanDesc: 'Finance your energy renovation and ecological transition projects',
+      renovationLoan: 'Home Improvement Loan',
+      renovationLoanDesc: 'Renovate and improve your home',
+      amount: 'Amount',
+      rate: 'APR Rate',
+      duration: 'Duration',
+      rateDisclaimer: 'Indicative rates subject to conditions. Fixed APR.',
+      compareLoans: 'Compare all loans',
+    },
+    features: {
+      title: 'Why Choose ProLoan?',
+      subtitle: 'A modern lending platform that puts your needs first',
+      security: 'Secure and Confidential',
+      securityDesc: 'Your data is protected with the highest banking security standards',
+      fast: 'Fast Response',
+      fastDesc: 'Get an approval response within 24-48 hours and funds within 5 days',
+      competitive: 'Competitive Rates',
+      competitiveDesc: 'Benefit from some of the lowest rates on the market thanks to our network',
+      flexible: 'Flexible Terms',
+      flexibleDesc: 'Early repayment without fees and possible modulation of monthly payments',
+    },
+    stats: {
+      clients: 'Satisfied Clients',
+      funded: 'Loans Provided',
+      satisfaction: 'Satisfaction Rate',
+      years: 'Years of Experience',
+    },
   },
   es: {
     hero: {
-      title: 'Financie el Crecimiento de su Empresa',
-      subtitle: 'Soluciones de préstamos profesionales flexibles con tasas competitivas y un proceso de validación transparente',
+      title: 'Haga Realidad sus Proyectos con ProLoan',
+      subtitle: 'Soluciones de financiamiento para particulares y empresas - Tasas competitivas y proceso transparente',
       cta1: 'Solicitar Préstamo',
       cta2: 'Mi Cuenta',
-      trustIndicator: 'Más de 10,000 empresas confían en nosotros',
+      trustIndicator: 'Más de 15,000 clientes satisfechos confían en nosotros',
     },
     nav: {
       home: 'Inicio',
@@ -777,6 +894,45 @@ export const translations: Record<Language, TranslationKeys> = {
         section7Title: '7. Contáctenos',
         section7Content: 'Si tiene preguntas sobre esta Política de Privacidad, contáctenos en privacy@proloan.com',
       },
+    },
+    individualLoans: {
+      title: 'Préstamos para Particulares',
+      subtitle: 'Soluciones de financiamiento adaptadas a todos sus proyectos de vida',
+      personalLoan: 'Préstamo Personal',
+      personalLoanDesc: 'Financiamiento flexible para todos sus proyectos personales sin justificante',
+      mortgageLoan: 'Préstamo Hipotecario',
+      mortgageLoanDesc: 'Financie la compra de su residencia principal o secundaria',
+      autoLoan: 'Crédito Automotriz',
+      autoLoanDesc: 'Compre su vehículo nuevo o usado a las mejores tasas',
+      studentLoan: 'Préstamo Estudiantil',
+      studentLoanDesc: 'Financie sus estudios superiores con condiciones favorables',
+      greenLoan: 'Préstamo Verde',
+      greenLoanDesc: 'Financie sus proyectos de renovación energética y transición ecológica',
+      renovationLoan: 'Préstamo para Reformas',
+      renovationLoanDesc: 'Renueve y mejore su vivienda',
+      amount: 'Monto',
+      rate: 'Tasa TAE',
+      duration: 'Duración',
+      rateDisclaimer: 'Tasas indicativas sujetas a condiciones. TAE fija.',
+      compareLoans: 'Comparar todos los préstamos',
+    },
+    features: {
+      title: '¿Por Qué Elegir ProLoan?',
+      subtitle: 'Una plataforma de préstamos moderna que prioriza sus necesidades',
+      security: 'Seguro y Confidencial',
+      securityDesc: 'Sus datos están protegidos con los más altos estándares de seguridad bancaria',
+      fast: 'Respuesta Rápida',
+      fastDesc: 'Obtenga una respuesta de aprobación en 24-48 horas y fondos en 5 días',
+      competitive: 'Tasas Competitivas',
+      competitiveDesc: 'Benefíciese de algunas de las tasas más bajas del mercado gracias a nuestra red',
+      flexible: 'Condiciones Flexibles',
+      flexibleDesc: 'Pago anticipado sin cargos y posible modulación de pagos mensuales',
+    },
+    stats: {
+      clients: 'Clientes Satisfechos',
+      funded: 'Préstamos Otorgados',
+      satisfaction: 'Tasa de Satisfacción',
+      years: 'Años de Experiencia',
     },
   },
 };
