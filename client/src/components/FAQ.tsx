@@ -16,7 +16,11 @@ export default function FAQ() {
     },
     {
       question: 'Quel est le délai pour obtenir une réponse ?',
-      answer: 'Vous recevrez une réponse de principe sous 24 à 48 heures après soumission de votre dossier complet. Une fois approuvé, les fonds peuvent être débloqués en 5 à 7 jours ouvrés.',
+      answer: 'Grâce à notre technologie d\'analyse en temps réel, vous recevrez une réponse de principe en quelques minutes à 24 heures maximum après soumission de votre dossier complet. C\'est l\'un des délais les plus rapides du marché !',
+    },
+    {
+      question: 'Comment et quand puis-je accéder à mes fonds ?',
+      answer: 'Une fois votre demande approuvée, vos fonds sont immédiatement débloqués sur votre compte sécurisé Altus Group. Vous pouvez ensuite les transférer quand vous le souhaitez vers votre compte bancaire personnel ou professionnel, directement depuis votre espace client. Les transferts sont instantanés et sans frais supplémentaires.',
     },
     {
       question: 'Puis-je rembourser mon prêt par anticipation ?',
@@ -28,7 +32,7 @@ export default function FAQ() {
     },
     {
       question: 'Comment fonctionne le processus de demande en ligne ?',
-      answer: '1) Remplissez notre formulaire en ligne (10 minutes). 2) Soumettez vos documents justificatifs. 3) Recevez une réponse de principe sous 48h. 4) Signez électroniquement votre contrat. 5) Recevez les fonds sous 5-7 jours.',
+      answer: '1) Remplissez notre formulaire en ligne (4 minutes). 2) Soumettez vos documents justificatifs. 3) Recevez une réponse en quelques minutes à 24h maximum. 4) Vos fonds sont débloqués sur votre compte Altus. 5) Transférez les fonds vers votre compte bancaire quand vous le souhaitez.',
     },
     {
       question: 'Quelle est la différence entre prêt affecté et non affecté ?',
@@ -37,10 +41,6 @@ export default function FAQ() {
     {
       question: 'Y a-t-il des frais de dossier ?',
       answer: 'Les frais de dossier varient selon le type et le montant du prêt. Pour les prêts particuliers, ils sont généralement de 1% du montant (plafonné à 500€). Pour les prêts professionnels, ils peuvent aller de 1% à 2%. Ces frais sont clairement indiqués dans votre simulation.',
-    },
-    {
-      question: 'Que se passe-t-il si je ne peux plus rembourser ?',
-      answer: 'En cas de difficultés financières temporaires, contactez immédiatement notre service client. Nous pouvons étudier des solutions comme le report d\'échéances, la modulation des mensualités ou un rééchelonnement du prêt. Notre assurance emprunteur peut également couvrir certaines situations.',
     },
   ];
 

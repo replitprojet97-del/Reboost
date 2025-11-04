@@ -14,10 +14,10 @@ export default function FeaturesSection() {
     },
     {
       icon: Clock,
-      title: t.features?.fast || 'Réponse Rapide',
+      title: t.features?.fast || 'Réponse Express',
       description:
         t.features?.fastDesc ||
-        'Obtenez une réponse de principe en 24-48h et les fonds sous 5 jours',
+        'Réponse en quelques minutes à 24h. Fonds immédiatement sur votre compte Altus sécurisé.',
     },
     {
       icon: TrendingDown,
