@@ -19,7 +19,17 @@ ProLoan is a multi-language professional loan management platform designed for b
 
 ## Recent Changes (November 2025)
 
-1. **Automatic Fee Payment Validation System** (Latest):
+1. **Complete Authentication System** (Latest):
+   - **Differentiated Signup Flows**: Separate account types for individuals (particuliers) and professionals (entreprises)
+   - **Email Verification**: SendGrid integration for transactional email verification during signup
+   - **Business-Specific Fields**: Professional accounts collect companyName, SIRET, businessType during registration
+   - **Security**: Bcrypt password hashing, UUID-based verification tokens, email verification enforcement on login
+   - **User Experience**: Clean signup/login pages with French localization, error handling, and loading states
+   - **Routes Added**: `/signup`, `/login`, `/verify/:token` for complete authentication flow
+   - **Database Schema**: Extended users table with emailVerified, verificationToken, and business fields
+   - **Architect Validated**: Security, validation, error handling, and SendGrid integration all reviewed and approved
+
+2. **Automatic Fee Payment Validation System**:
    - **Atomic Transaction Architecture**: All fee creation and payment operations wrapped in database transactions
    - **Auto-Payment on Code Usage**: Fees are automatically marked as paid when users successfully use validation codes
    - **Concurrency Protection**: Race condition guards prevent duplicate fee payments from simultaneous code validations
