@@ -21,6 +21,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
     legacyHeaders: false,
   });
 
+  const adminLimiter = rateLimit({
+    windowMs: 5 * 60 * 1000,
+    max: 100,
+    message: { error: 'Trop de requêtes administratives. Veuillez ralentir.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  const transferLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 10,
+    message: { error: 'Trop de transferts initiés. Veuillez réessayer dans 1 heure.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  const uploadLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 20,
+    message: { error: 'Trop d\'uploads. Veuillez réessayer dans 1 heure.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  const validationLimiter = rateLimit({
+    windowMs: 5 * 60 * 1000,
+    max: 10,
+    message: { error: 'Trop de tentatives de validation. Veuillez réessayer dans 5 minutes.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
   const loginSchema = z.object({
     email: z.string().email('Email invalide'),
     password: z.string().min(1, 'Mot de passe requis'),
@@ -441,7 +473,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/kyc/upload", requireAuth, upload.single('document'), async (req, res) => {
+  app.post("/api/kyc/upload", requireAuth, uploadLimiter, upload.single('document'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'Aucun fichier fourni' });
@@ -607,7 +639,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/transfers", requireAuth, async (req, res) => {
+  app.post("/api/transfers", requireAuth, transferLimiter, async (req, res) => {
     try {
       const validated = insertTransferSchema.parse({
         ...req.body,
@@ -628,7 +660,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/transfers/initiate", requireAuth, async (req, res) => {
+  app.post("/api/transfers/initiate", requireAuth, transferLimiter, async (req, res) => {
     try {
       const { amount, externalAccountId, recipient } = req.body;
       
@@ -704,7 +736,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/transfers/:id/send-code", requireAuth, async (req, res) => {
+  app.post("/api/transfers/:id/send-code", requireAuth, validationLimiter, async (req, res) => {
     try {
       const transfer = await storage.getTransfer(req.params.id);
       if (!transfer) {
@@ -755,7 +787,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/transfers/:id/validate-code", requireAuth, async (req, res) => {
+  app.post("/api/transfers/:id/validate-code", requireAuth, validationLimiter, async (req, res) => {
     try {
       const { code, sequence } = req.body;
       const transfer = await storage.getTransfer(req.params.id);
@@ -1162,7 +1194,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/messages", requireAdmin, async (req, res) => {
+  app.post("/api/admin/messages", requireAdmin, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminSendMessageSchema.parse(req.body);
       
@@ -1231,7 +1263,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/loans/:id/approve", requireAdmin, async (req, res) => {
+  app.post("/api/admin/loans/:id/approve", requireAdmin, adminLimiter, async (req, res) => {
     try {
       const loan = await storage.getLoan(req.params.id);
       if (!loan) {
@@ -1267,7 +1299,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/loans/:id/reject", requireAdmin, async (req, res) => {
+  app.post("/api/admin/loans/:id/reject", requireAdmin, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminRejectLoanSchema.parse(req.body);
       const loan = await storage.getLoan(req.params.id);
@@ -1360,7 +1392,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/users/:id/suspend", requireAdmin, async (req, res) => {
+  app.post("/api/admin/users/:id/suspend", requireAdmin, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminSuspendUserSchema.parse(req.body);
       const updated = await storage.suspendUser(req.params.id, new Date(validatedData.until), validatedData.reason);
@@ -1395,7 +1427,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/users/:id/block", requireAdmin, async (req, res) => {
+  app.post("/api/admin/users/:id/block", requireAdmin, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminBlockUserSchema.parse(req.body);
       const updated = await storage.blockUser(req.params.id, validatedData.reason);
@@ -1460,7 +1492,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/users/:id/block-transfers", requireAdmin, async (req, res) => {
+  app.post("/api/admin/users/:id/block-transfers", requireAdmin, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminBlockTransfersSchema.parse(req.body);
       const updated = await storage.blockExternalTransfers(req.params.id, validatedData.reason);
@@ -1525,7 +1557,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/transfers/:id/issue-code", requireAdmin, async (req, res) => {
+  app.post("/api/admin/transfers/:id/issue-code", requireAdmin, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminIssueCodeSchema.parse(req.body);
       const transfer = await storage.getTransfer(req.params.id);
@@ -1562,7 +1594,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/notifications/send-with-fee", requireAdmin, async (req, res) => {
+  app.post("/api/admin/notifications/send-with-fee", requireAdmin, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminSendNotificationWithFeeSchema.parse(req.body);
       
