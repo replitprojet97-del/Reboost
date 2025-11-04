@@ -7,6 +7,10 @@ import { randomUUID } from "crypto";
 import { sendVerificationEmail, sendWelcomeEmail } from "./email";
 import rateLimit from "express-rate-limit";
 import { z } from "zod";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
+import { fileTypeFromFile } from "file-type";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   const authLimiter = rateLimit({
@@ -125,6 +129,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const tier = tiers.find((t: any) => amount >= t.min && amount < t.max);
     return tier ? tier.rate : 4.0;
   };
+
+  const uploadsDir = path.join(process.cwd(), 'uploads', 'kyc');
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  }
+
+  const kycStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, uploadsDir);
+    },
+    filename: function (req, file, cb) {
+      const uniqueName = `${randomUUID()}${path.extname(file.originalname)}`;
+      cb(null, uniqueName);
+    }
+  });
+
+  const upload = multer({
+    storage: kycStorage,
+    limits: {
+      fileSize: 5 * 1024 * 1024,
+    }
+  });
 
 
   app.post("/api/auth/signup", authLimiter, async (req, res) => {
@@ -412,6 +438,119 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error marking welcome message as seen:', error);
       res.status(500).json({ error: 'Failed to mark welcome message as seen' });
+    }
+  });
+
+  app.post("/api/kyc/upload", requireAuth, upload.single('document'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'Aucun fichier fourni' });
+      }
+
+      const fileType = await fileTypeFromFile(req.file.path);
+      
+      const allowedTypes = new Set(['application/pdf', 'image/jpeg', 'image/png']);
+      const allowedExtensions = new Set(['pdf', 'jpg', 'jpeg', 'png']);
+      
+      if (!fileType || !allowedTypes.has(fileType.mime) || !allowedExtensions.has(fileType.ext)) {
+        try {
+          await fs.promises.unlink(req.file.path);
+        } catch (cleanupError) {
+          console.error('Error cleaning up invalid file:', cleanupError);
+        }
+        return res.status(400).json({ 
+          error: 'Type de fichier non autorisé. Seuls les fichiers PDF, JPEG et PNG sont acceptés.' 
+        });
+      }
+
+      const kycUploadSchema = z.object({
+        documentType: z.string().min(1, 'Type de document requis'),
+        loanType: z.string().min(1, 'Type de prêt requis'),
+        loanId: z.string().optional(),
+      });
+
+      const validatedData = kycUploadSchema.parse(req.body);
+
+      const document = await storage.createKycDocument({
+        userId: req.session.userId!,
+        loanId: validatedData.loanId || null,
+        documentType: validatedData.documentType,
+        loanType: validatedData.loanType,
+        status: 'pending',
+        fileUrl: req.file.filename,
+        fileName: req.file.originalname,
+        fileSize: req.file.size,
+      });
+
+      res.status(201).json({ 
+        success: true, 
+        document,
+        message: 'Document téléchargé avec succès'
+      });
+    } catch (error: any) {
+      if (req.file) {
+        try {
+          await fs.promises.unlink(req.file.path);
+        } catch (cleanupError) {
+          console.error('Error cleaning up file after error:', cleanupError);
+        }
+      }
+
+      if (error.name === 'ZodError') {
+        const firstError = error.errors[0];
+        return res.status(400).json({ error: firstError.message });
+      }
+
+      if (error.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ error: 'Fichier trop volumineux. La taille maximale est de 5MB.' });
+      }
+
+      console.error('KYC upload error:', error);
+      res.status(500).json({ error: 'Erreur lors du téléchargement du document' });
+    }
+  });
+
+  app.get("/api/kyc/documents", requireAuth, async (req, res) => {
+    try {
+      const documents = await storage.getUserKycDocuments(req.session.userId!);
+      res.json(documents);
+    } catch (error) {
+      res.status(500).json({ error: 'Erreur lors de la récupération des documents' });
+    }
+  });
+
+  app.get("/api/kyc/download/:id", requireAuth, async (req, res) => {
+    try {
+      const document = await storage.getKycDocument(req.params.id);
+      
+      if (!document) {
+        return res.status(404).json({ error: 'Document non trouvé' });
+      }
+
+      if (document.userId !== req.session.userId) {
+        const user = await storage.getUser(req.session.userId!);
+        if (!user || user.role !== 'admin') {
+          return res.status(403).json({ error: 'Accès refusé' });
+        }
+      }
+
+      const filePath = path.join(uploadsDir, document.fileUrl);
+      
+      if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ error: 'Fichier non trouvé sur le serveur' });
+      }
+
+      res.download(filePath, document.fileName, (err) => {
+        if (err) {
+          console.error('Error downloading file:', err);
+          if (!res.headersSent) {
+            res.status(500).json({ error: 'Erreur lors du téléchargement du fichier' });
+          }
+        }
+      });
+    } catch (error) {
+      console.error('KYC download error:', error);
+      res.status(500).json({ error: 'Erreur lors du téléchargement du document' });
     }
   });
 

@@ -21,6 +21,8 @@ import {
   type InsertAdminMessage,
   type ExternalAccount,
   type InsertExternalAccount,
+  type KycDocument,
+  type InsertKycDocument,
   users,
   loans,
   transfers,
@@ -32,6 +34,7 @@ import {
   transferEvents,
   adminMessages,
   externalAccounts,
+  kycDocuments,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -139,6 +142,11 @@ export interface IStorage {
   
   getUnpaidFees(userId: string): Promise<Fee[]>;
   markFeeAsPaid(feeId: string): Promise<Fee | undefined>;
+  
+  getUserKycDocuments(userId: string): Promise<KycDocument[]>;
+  getKycDocument(id: string): Promise<KycDocument | undefined>;
+  createKycDocument(document: InsertKycDocument): Promise<KycDocument>;
+  updateKycDocumentStatus(id: string, status: string): Promise<KycDocument | undefined>;
 }
 
 // export class MemStorage implements IStorage {
@@ -1973,6 +1981,35 @@ export class DatabaseStorage implements IStorage {
     const result = await db.update(fees)
       .set({ isPaid: true, paidAt: new Date() })
       .where(eq(fees.id, feeId))
+      .returning();
+    return result[0];
+  }
+
+  async getUserKycDocuments(userId: string): Promise<KycDocument[]> {
+    return await db.select()
+      .from(kycDocuments)
+      .where(eq(kycDocuments.userId, userId))
+      .orderBy(desc(kycDocuments.uploadedAt));
+  }
+
+  async getKycDocument(id: string): Promise<KycDocument | undefined> {
+    const result = await db.select()
+      .from(kycDocuments)
+      .where(eq(kycDocuments.id, id));
+    return result[0];
+  }
+
+  async createKycDocument(document: InsertKycDocument): Promise<KycDocument> {
+    const result = await db.insert(kycDocuments)
+      .values(document)
+      .returning();
+    return result[0];
+  }
+
+  async updateKycDocumentStatus(id: string, status: string): Promise<KycDocument | undefined> {
+    const result = await db.update(kycDocuments)
+      .set({ status })
+      .where(eq(kycDocuments.id, id))
       .returning();
     return result[0];
   }
