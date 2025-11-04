@@ -62,3 +62,30 @@ externalAccounts (id, userId, accountType, accountName, iban, bic, createdAt)
 **Development Tools:** Replit Plugins (runtime error modal, cartographer, dev banner), TypeScript, and ESBuild.
 
 **Authentication:** SendGrid for transactional email verification.
+
+## Documentation
+
+### Security Documentation
+- **SECURITY_AUDIT.md**: Initial security audit identifying IDOR vulnerabilities, code exposure, and validation gaps
+- **DEEP_SECURITY_AUDIT.md**: Comprehensive security analysis covering all API routes with detailed vulnerability assessments and remediation status
+- **Security implementations completed:**
+  - IDOR protection with resource ownership verification
+  - Zod validation on all admin routes
+  - XSS protection with input sanitization
+  - Strong password requirements (12+ characters)
+  - UUID usernames for anonymity
+  - Generic error messages to prevent information disclosure
+  - File upload validation with magic byte verification
+  - Comprehensive rate limiting on sensitive endpoints
+  - Email verification token expiration (48 hours)
+  - User status verification in authentication middleware (suspended/blocked/inactive)
+
+### Admin Documentation
+- **ADMIN_FEATURES.md**: Complete reference of all administrative functionalities including:
+  - User management (CRUD, suspension, blocking, borrowing capacity)
+  - Loan management (approval, rejection, deletion)
+  - Transfer management (status updates, validation codes)
+  - System settings management
+  - Communication tools (messages, notifications with fees)
+  - Statistics and audit logs
+  - Detailed validation schemas and security measures
