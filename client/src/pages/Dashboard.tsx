@@ -52,13 +52,15 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <BalanceOverview
-          currentBalance={dashboardData.balance.currentBalance}
-          activeLoansCount={dashboardData.balance.activeLoansCount}
-          totalBorrowed={dashboardData.balance.totalBorrowed}
-          availableCredit={dashboardData.balance.availableCredit}
-          lastUpdated={dashboardData.balance.lastUpdated}
-        />
+        <div className="lg:col-span-2">
+          <BalanceOverview
+            currentBalance={dashboardData.balance.currentBalance}
+            activeLoansCount={dashboardData.balance.activeLoansCount}
+            totalBorrowed={dashboardData.balance.totalBorrowed}
+            availableCredit={dashboardData.balance.availableCredit}
+            lastUpdated={dashboardData.balance.lastUpdated}
+          />
+        </div>
         <BorrowingCapacity
           maxCapacity={dashboardData.borrowingCapacity.maxCapacity}
           currentCapacity={dashboardData.borrowingCapacity.currentCapacity}
@@ -66,8 +68,8 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <ActiveLoans loans={dashboardData.loans} />
         <QuickActions />
+        <ActiveLoans loans={dashboardData.loans} />
         <FeeSection fees={dashboardData.fees} />
       </div>
 
@@ -75,13 +77,13 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {isFundsLoading ? (
-          <Skeleton className="h-96 lg:col-span-2" />
+          <Skeleton className="h-96" />
         ) : fundsData ? (
           <AvailableFundsChart data={fundsData} />
         ) : null}
         
         {isRepaymentsLoading ? (
-          <Skeleton className="h-96 lg:col-span-2" />
+          <Skeleton className="h-96" />
         ) : repaymentsData ? (
           <UpcomingRepaymentsChart data={repaymentsData} />
         ) : null}
