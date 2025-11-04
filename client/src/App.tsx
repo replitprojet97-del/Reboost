@@ -21,6 +21,9 @@ import AdminSettings from '@/pages/AdminSettings';
 import AdminReports from '@/pages/AdminReports';
 import IndividualLoans from '@/pages/IndividualLoans';
 import TransferFlow from '@/pages/TransferFlow';
+import Transfers from '@/pages/Transfers';
+import History from '@/pages/History';
+import Settings from '@/pages/Settings';
 import AppSidebar from '@/components/AppSidebar';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import ThemeToggle from '@/components/ThemeToggle';
@@ -41,9 +44,9 @@ function Router() {
       <Route path="/loans" component={IndividualLoans} />
       <Route path="/transfer/new" component={TransferFlow} />
       <Route path="/transfer/:id" component={TransferFlow} />
-      <Route path="/transfers" component={Dashboard} />
-      <Route path="/history" component={Dashboard} />
-      <Route path="/settings" component={Dashboard} />
+      <Route path="/transfers" component={Transfers} />
+      <Route path="/history" component={History} />
+      <Route path="/settings" component={Settings} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/admin/users" component={AdminUsers} />
       <Route path="/admin/transfers" component={AdminTransfers} />
