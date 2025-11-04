@@ -1,4 +1,4 @@
-import { Globe } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -32,24 +32,24 @@ export default function LanguageSwitcher({ scrolled = false }: LanguageSwitcherP
         <Button
           variant="ghost"
           size="sm"
-          className={`gap-2 ${scrolled ? '' : 'text-white hover:text-white hover:bg-white/20 dark:text-white dark:hover:text-white'}`}
+          className="gap-1.5 hover:bg-accent"
           data-testid="button-language-toggle"
         >
-          <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline">{currentLang?.flag} {currentLang?.name}</span>
-          <span className="sm:hidden">{currentLang?.flag}</span>
+          <span className="text-2xl leading-none">{currentLang?.flag}</span>
+          <span className="hidden sm:inline text-sm font-medium">{currentLang?.name}</span>
+          <ChevronDown className="h-3.5 w-3.5 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="min-w-[180px]">
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
             onClick={() => setLanguage(lang.code)}
-            className={language === lang.code ? 'bg-accent' : ''}
+            className={`cursor-pointer ${language === lang.code ? 'bg-accent' : ''}`}
             data-testid={`button-language-${lang.code}`}
           >
-            <span className="mr-2">{lang.flag}</span>
-            {lang.name}
+            <span className="text-2xl mr-3">{lang.flag}</span>
+            <span className="font-medium">{lang.name}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
