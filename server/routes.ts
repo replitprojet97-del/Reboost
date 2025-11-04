@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertLoanSchema, insertTransferSchema, insertUserSchema } from "@shared/schema";
 import bcrypt from "bcrypt";
-import { randomUUID } from "crypto";
+import { randomUUID, randomBytes } from "crypto";
 import { sendVerificationEmail, sendWelcomeEmail } from "./email";
 import rateLimit from "express-rate-limit";
 import { z } from "zod";
@@ -13,6 +13,27 @@ import fs from "fs";
 import { fileTypeFromFile } from "file-type";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  const generateCSRFToken = (): string => {
+    return randomBytes(32).toString('hex');
+  };
+
+  const requireCSRF = (req: any, res: any, next: any) => {
+    if (req.method === 'GET' || req.method === 'HEAD' || req.method === 'OPTIONS') {
+      return next();
+    }
+
+    if (!req.session || !req.session.csrfToken) {
+      return res.status(403).json({ error: 'Session invalide - token CSRF manquant' });
+    }
+
+    const token = req.headers['x-csrf-token'] || req.body._csrf;
+    if (!token || token !== req.session.csrfToken) {
+      return res.status(403).json({ error: 'Token CSRF invalide ou manquant' });
+    }
+
+    next();
+  };
+
   const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 5,
@@ -133,6 +154,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     feeAmount: z.string().min(1, 'Montant requis'),
     feeReason: z.string().min(1, 'Raison requise'),
   }).strict();
+
+  app.get("/api/csrf-token", (req, res) => {
+    if (!req.session.csrfToken) {
+      req.session.csrfToken = generateCSRFToken();
+    }
+    res.json({ csrfToken: req.session.csrfToken });
+  });
 
   const requireAuth = async (req: any, res: any, next: any) => {
     if (!req.session || !req.session.userId) {
