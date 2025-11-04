@@ -20,6 +20,7 @@ import AdminTransfers from '@/pages/AdminTransfers';
 import AdminSettings from '@/pages/AdminSettings';
 import AdminReports from '@/pages/AdminReports';
 import IndividualLoans from '@/pages/IndividualLoans';
+import TransferFlow from '@/pages/TransferFlow';
 import AppSidebar from '@/components/AppSidebar';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import ThemeToggle from '@/components/ThemeToggle';
@@ -38,6 +39,8 @@ function Router() {
       <Route path="/privacy" component={Privacy} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/loans" component={IndividualLoans} />
+      <Route path="/transfer/new" component={TransferFlow} />
+      <Route path="/transfer/:id" component={TransferFlow} />
       <Route path="/transfers" component={Dashboard} />
       <Route path="/history" component={Dashboard} />
       <Route path="/settings" component={Dashboard} />

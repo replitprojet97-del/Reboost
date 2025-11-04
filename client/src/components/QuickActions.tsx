@@ -1,16 +1,16 @@
 import { useState } from 'react';
+import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useTranslations } from '@/lib/i18n';
 import { Plus, ArrowRightLeft, History } from 'lucide-react';
 import NewLoanDialog from './NewLoanDialog';
-import NewTransferDialog from './NewTransferDialog';
 import TransactionHistoryDialog from './TransactionHistoryDialog';
 
 export default function QuickActions() {
   const t = useTranslations();
+  const [, setLocation] = useLocation();
   const [loanDialogOpen, setLoanDialogOpen] = useState(false);
-  const [transferDialogOpen, setTransferDialogOpen] = useState(false);
   const [historyDialogOpen, setHistoryDialogOpen] = useState(false);
 
   return (
@@ -34,7 +34,7 @@ export default function QuickActions() {
             variant="secondary"
             size="lg"
             data-testid="button-transfer-funds"
-            onClick={() => setTransferDialogOpen(true)}
+            onClick={() => setLocation('/transfer/new')}
           >
             <ArrowRightLeft className="h-5 w-5" />
             {t.dashboard.transferFunds}
@@ -53,7 +53,6 @@ export default function QuickActions() {
       </Card>
 
       <NewLoanDialog open={loanDialogOpen} onOpenChange={setLoanDialogOpen} />
-      <NewTransferDialog open={transferDialogOpen} onOpenChange={setTransferDialogOpen} />
       <TransactionHistoryDialog open={historyDialogOpen} onOpenChange={setHistoryDialogOpen} />
     </>
   );

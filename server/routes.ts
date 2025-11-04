@@ -137,6 +137,240 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/transfers/initiate", async (req, res) => {
+    try {
+      const { amount, externalAccountId, recipient } = req.body;
+      
+      const settingCodesCount = await storage.getAdminSetting('validation_codes_count');
+      const settingFee = await storage.getAdminSetting('default_transfer_fee');
+      
+      const codesRequired = (settingCodesCount?.settingValue as any)?.default || 1;
+      const feeAmount = (settingFee?.settingValue as any)?.amount || 25;
+      
+      const transfer = await storage.createTransfer({
+        userId: DEMO_USER_ID,
+        externalAccountId: externalAccountId || null,
+        amount: amount.toString(),
+        recipient,
+        status: 'pending',
+        currentStep: 1,
+        progressPercent: 10,
+        feeAmount: feeAmount.toString(),
+        requiredCodes: codesRequired,
+        codesValidated: 0,
+      });
+
+      const validationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      const expiresAt = new Date();
+      expiresAt.setMinutes(expiresAt.getMinutes() + 15);
+
+      await storage.createValidationCode({
+        transferId: transfer.id,
+        code: validationCode,
+        deliveryMethod: 'email',
+        sequence: 1,
+        expiresAt,
+      });
+
+      await storage.createTransferEvent({
+        transferId: transfer.id,
+        eventType: 'initiated',
+        message: 'Transfert initié - Code de validation envoyé',
+        metadata: { method: 'email', sequence: 1 },
+      });
+
+      res.status(201).json({ 
+        transfer,
+        message: 'Code de validation envoyé à votre email',
+        codeForDemo: validationCode,
+      });
+    } catch (error) {
+      console.error('Transfer initiation error:', error);
+      res.status(400).json({ error: 'Failed to initiate transfer' });
+    }
+  });
+
+  app.get("/api/transfers/:id", async (req, res) => {
+    try {
+      const transfer = await storage.getTransfer(req.params.id);
+      if (!transfer) {
+        return res.status(404).json({ error: 'Transfer not found' });
+      }
+
+      const events = await storage.getTransferEvents(req.params.id);
+      const codes = await storage.getTransferValidationCodes(req.params.id);
+
+      res.json({ transfer, events, codes });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch transfer' });
+    }
+  });
+
+  app.post("/api/transfers/:id/send-code", async (req, res) => {
+    try {
+      const transfer = await storage.getTransfer(req.params.id);
+      if (!transfer) {
+        return res.status(404).json({ error: 'Transfer not found' });
+      }
+
+      const nextSequence = transfer.codesValidated + 1;
+      if (nextSequence > transfer.requiredCodes) {
+        return res.status(400).json({ error: 'All codes already validated' });
+      }
+
+      const validationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      const expiresAt = new Date();
+      expiresAt.setMinutes(expiresAt.getMinutes() + 15);
+
+      await storage.createValidationCode({
+        transferId: transfer.id,
+        code: validationCode,
+        deliveryMethod: req.body.method || 'email',
+        sequence: nextSequence,
+        expiresAt,
+      });
+
+      await storage.createTransferEvent({
+        transferId: transfer.id,
+        eventType: 'code_sent',
+        message: `Code de validation ${nextSequence}/${transfer.requiredCodes} envoyé`,
+        metadata: { method: req.body.method || 'email', sequence: nextSequence },
+      });
+
+      res.json({ 
+        message: 'Code envoyé',
+        codeForDemo: validationCode,
+        sequence: nextSequence,
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to send code' });
+    }
+  });
+
+  app.post("/api/transfers/:id/validate-code", async (req, res) => {
+    try {
+      const { code, sequence } = req.body;
+      const transfer = await storage.getTransfer(req.params.id);
+      
+      if (!transfer) {
+        return res.status(404).json({ error: 'Transfer not found' });
+      }
+
+      const validatedCode = await storage.validateCode(transfer.id, code, sequence);
+      if (!validatedCode) {
+        await storage.createTransferEvent({
+          transferId: transfer.id,
+          eventType: 'validation_failed',
+          message: 'Code de validation incorrect ou expiré',
+          metadata: { sequence },
+        });
+        return res.status(400).json({ error: 'Invalid or expired code' });
+      }
+
+      const newCodesValidated = transfer.codesValidated + 1;
+      const progressIncrement = Math.floor(80 / transfer.requiredCodes);
+      const newProgress = Math.min(10 + (newCodesValidated * progressIncrement), 90);
+      
+      const isComplete = newCodesValidated >= transfer.requiredCodes;
+      const newStatus = isComplete ? 'in-progress' : 'pending';
+
+      await storage.updateTransfer(transfer.id, {
+        codesValidated: newCodesValidated,
+        progressPercent: newProgress,
+        status: newStatus,
+        currentStep: newCodesValidated + 1,
+        approvedAt: isComplete ? new Date() : transfer.approvedAt,
+      });
+
+      await storage.createTransferEvent({
+        transferId: transfer.id,
+        eventType: 'code_validated',
+        message: `Code ${newCodesValidated}/${transfer.requiredCodes} validé avec succès`,
+        metadata: { sequence, codesValidated: newCodesValidated },
+      });
+
+      if (isComplete) {
+        await storage.createTransferEvent({
+          transferId: transfer.id,
+          eventType: 'processing',
+          message: 'Transfert en cours de traitement',
+          metadata: null,
+        });
+
+        setTimeout(async () => {
+          await storage.updateTransfer(transfer.id, {
+            status: 'completed',
+            progressPercent: 100,
+            completedAt: new Date(),
+          });
+
+          await storage.createTransferEvent({
+            transferId: transfer.id,
+            eventType: 'completed',
+            message: 'Transfert complété avec succès',
+            metadata: null,
+          });
+        }, 5000);
+      }
+
+      res.json({ 
+        success: true,
+        message: `Code validé (${newCodesValidated}/${transfer.requiredCodes})`,
+        isComplete,
+        progress: newProgress,
+      });
+    } catch (error) {
+      console.error('Code validation error:', error);
+      res.status(500).json({ error: 'Failed to validate code' });
+    }
+  });
+
+  app.get("/api/external-accounts", async (req, res) => {
+    try {
+      const accounts = await storage.getUserExternalAccounts(DEMO_USER_ID);
+      res.json(accounts);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch external accounts' });
+    }
+  });
+
+  app.post("/api/external-accounts", async (req, res) => {
+    try {
+      const account = await storage.createExternalAccount({
+        userId: DEMO_USER_ID,
+        bankName: req.body.bankName,
+        iban: req.body.iban,
+        bic: req.body.bic,
+        accountLabel: req.body.accountLabel,
+        isDefault: req.body.isDefault || false,
+      });
+      res.status(201).json(account);
+    } catch (error) {
+      res.status(400).json({ error: 'Failed to create external account' });
+    }
+  });
+
+  app.get("/api/messages", async (req, res) => {
+    try {
+      const messages = await storage.getUserMessages(DEMO_USER_ID);
+      res.json(messages);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch messages' });
+    }
+  });
+
+  app.post("/api/messages/:id/read", async (req, res) => {
+    try {
+      const message = await storage.markMessageAsRead(req.params.id);
+      if (!message) {
+        return res.status(404).json({ error: 'Message not found' });
+      }
+      res.json(message);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to mark message as read' });
+    }
+  });
+
   app.get("/api/fees", async (req, res) => {
     try {
       const fees = await storage.getUserFees(DEMO_USER_ID);
@@ -370,6 +604,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(updated);
     } catch (error) {
       res.status(500).json({ error: 'Failed to update setting' });
+    }
+  });
+
+  app.post("/api/admin/messages", requireAdmin, async (req, res) => {
+    try {
+      const { userId, transferId, subject, content, severity } = req.body;
+      
+      const message = await storage.createAdminMessage({
+        userId,
+        transferId: transferId || null,
+        subject,
+        content,
+        severity: severity || 'info',
+      });
+
+      await storage.createAuditLog({
+        actorId: 'admin-001',
+        actorRole: 'admin',
+        action: 'send_message',
+        entityType: 'admin_message',
+        entityId: message.id,
+        metadata: { userId, subject },
+      });
+
+      res.status(201).json(message);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to send message' });
     }
   });
 

@@ -3,7 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Save } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Save, Send } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
@@ -19,6 +21,15 @@ export default function AdminSettings() {
   const [maxCodes, setMaxCodes] = useState(3);
   const [defaultCodes, setDefaultCodes] = useState(2);
   const [threshold, setThreshold] = useState(50000);
+  
+  const [messageUserId, setMessageUserId] = useState('');
+  const [messageSubject, setMessageSubject] = useState('');
+  const [messageContent, setMessageContent] = useState('');
+  const [messageSeverity, setMessageSeverity] = useState('info');
+
+  const { data: users } = useQuery({
+    queryKey: ["/api/admin/users"],
+  });
 
   useEffect(() => {
     if (settings && Array.isArray(settings)) {
@@ -74,6 +85,48 @@ export default function AdminSettings() {
     updateSettingMutation.mutate({
       key: "validation_code_amount_threshold",
       value: { amount: threshold, currency: "EUR" },
+    });
+  };
+
+  const sendMessageMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const response = await apiRequest('POST', '/api/admin/messages', data);
+      return await response.json();
+    },
+    onSuccess: () => {
+      setMessageUserId('');
+      setMessageSubject('');
+      setMessageContent('');
+      setMessageSeverity('info');
+      toast({
+        title: "Message envoyé",
+        description: "Le message a été envoyé à l'utilisateur",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Erreur",
+        description: "Impossible d'envoyer le message",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSendMessage = () => {
+    if (!messageUserId || !messageSubject || !messageContent) {
+      toast({
+        title: "Champs requis",
+        description: "Veuillez remplir tous les champs",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    sendMessageMutation.mutate({
+      userId: messageUserId,
+      subject: messageSubject,
+      content: messageContent,
+      severity: messageSeverity,
     });
   };
 
@@ -216,6 +269,75 @@ export default function AdminSettings() {
             >
               <Save className="h-4 w-4 mr-2" />
               Enregistrer
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="md:col-span-2" data-testid="card-send-message">
+          <CardHeader>
+            <CardTitle>Envoyer un message à un utilisateur</CardTitle>
+            <CardDescription>Communiquer directement avec les utilisateurs via leur Dashboard</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="user-select">Utilisateur</Label>
+                <Select value={messageUserId} onValueChange={setMessageUserId}>
+                  <SelectTrigger data-testid="select-user">
+                    <SelectValue placeholder="Sélectionner un utilisateur" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Array.isArray(users) && users.map((user: any) => (
+                      <SelectItem key={user.id} value={user.id}>
+                        {user.fullName} ({user.email})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="severity-select">Priorité</Label>
+                <Select value={messageSeverity} onValueChange={setMessageSeverity}>
+                  <SelectTrigger data-testid="select-severity">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="info">Info</SelectItem>
+                    <SelectItem value="warning">Avertissement</SelectItem>
+                    <SelectItem value="error">Erreur</SelectItem>
+                    <SelectItem value="success">Succès</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="message-subject">Sujet</Label>
+              <Input
+                id="message-subject"
+                placeholder="Objet du message"
+                value={messageSubject}
+                onChange={(e) => setMessageSubject(e.target.value)}
+                data-testid="input-message-subject"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="message-content">Contenu</Label>
+              <Textarea
+                id="message-content"
+                placeholder="Contenu du message..."
+                value={messageContent}
+                onChange={(e) => setMessageContent(e.target.value)}
+                rows={4}
+                data-testid="textarea-message-content"
+              />
+            </div>
+            <Button
+              onClick={handleSendMessage}
+              disabled={sendMessageMutation.isPending}
+              data-testid="button-send-message"
+            >
+              <Send className="h-4 w-4 mr-2" />
+              {sendMessageMutation.isPending ? 'Envoi...' : 'Envoyer'}
             </Button>
           </CardContent>
         </Card>
