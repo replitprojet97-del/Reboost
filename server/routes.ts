@@ -293,7 +293,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
 
-  app.post("/api/auth/signup", authLimiter, async (req, res) => {
+  app.post("/api/auth/signup", authLimiter, requireCSRF, async (req, res) => {
     try {
       const signupSchema = z.object({
         email: z.string().email('Email invalide'),
@@ -363,7 +363,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/auth/login", authLimiter, async (req, res) => {
+  app.post("/api/auth/login", authLimiter, requireCSRF, async (req, res) => {
     try {
       const validatedInput = loginSchema.parse(req.body);
       const { email, password } = validatedInput;
@@ -394,6 +394,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       req.session.userId = user.id;
       req.session.userRole = user.role;
+      req.session.csrfToken = generateCSRFToken();
 
       await new Promise<void>((resolve, reject) => {
         req.session.save((err) => {
@@ -428,7 +429,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/auth/logout", async (req, res) => {
+  app.post("/api/auth/logout", requireCSRF, async (req, res) => {
     try {
       const userId = req.session.userId;
       const userRole = req.session.userRole || 'user';
@@ -489,7 +490,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/auth/resend-verification", async (req, res) => {
+  app.post("/api/auth/resend-verification", requireCSRF, async (req, res) => {
     try {
       const { email } = req.body;
       
@@ -606,7 +607,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/user/mark-welcome-seen", requireAuth, async (req, res) => {
+  app.post("/api/user/mark-welcome-seen", requireAuth, requireCSRF, async (req, res) => {
     try {
       await storage.markWelcomeMessageAsSeen(req.session.userId!);
       res.json({ success: true });
@@ -616,7 +617,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/kyc/upload", requireAuth, uploadLimiter, upload.single('document'), async (req, res) => {
+  app.post("/api/kyc/upload", requireAuth, requireCSRF, uploadLimiter, upload.single('document'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'Aucun fichier fourni' });
@@ -738,7 +739,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/loans", requireAuth, loanLimiter, async (req, res) => {
+  app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, async (req, res) => {
     try {
       const loanRequestSchema = z.object({
         loanType: z.enum(['business', 'personal', 'real_estate']),
@@ -804,7 +805,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/transfers", requireAuth, transferLimiter, async (req, res) => {
+  app.post("/api/transfers", requireAuth, requireCSRF, transferLimiter, async (req, res) => {
     try {
       const validated = insertTransferSchema.parse({
         ...req.body,
@@ -825,7 +826,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/transfers/initiate", requireAuth, transferLimiter, async (req, res) => {
+  app.post("/api/transfers/initiate", requireAuth, requireCSRF, transferLimiter, async (req, res) => {
     try {
       const { amount, externalAccountId, recipient } = req.body;
       
@@ -901,7 +902,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/transfers/:id/send-code", requireAuth, validationLimiter, async (req, res) => {
+  app.post("/api/transfers/:id/send-code", requireAuth, requireCSRF, validationLimiter, async (req, res) => {
     try {
       const transfer = await storage.getTransfer(req.params.id);
       if (!transfer) {
@@ -952,7 +953,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/transfers/:id/validate-code", requireAuth, validationLimiter, async (req, res) => {
+  app.post("/api/transfers/:id/validate-code", requireAuth, requireCSRF, validationLimiter, async (req, res) => {
     try {
       const { code, sequence } = req.body;
       const transfer = await storage.getTransfer(req.params.id);
@@ -1043,7 +1044,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/external-accounts", requireAuth, async (req, res) => {
+  app.post("/api/external-accounts", requireAuth, requireCSRF, async (req, res) => {
     try {
       const account = await storage.createExternalAccount({
         userId: req.session.userId!,
@@ -1059,7 +1060,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/external-accounts/:id", requireAuth, async (req, res) => {
+  app.delete("/api/external-accounts/:id", requireAuth, requireCSRF, async (req, res) => {
     try {
       const account = await storage.getExternalAccount(req.params.id);
       if (!account) {
@@ -1089,7 +1090,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/messages/:id/read", requireAuth, async (req, res) => {
+  app.post("/api/messages/:id/read", requireAuth, requireCSRF, async (req, res) => {
     try {
       const message = await storage.getMessage(req.params.id);
       if (!message) {
@@ -1226,7 +1227,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/admin/users/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/users/:id", requireAdmin, requireCSRF, async (req, res) => {
     try {
       const validatedData = adminUpdateUserSchema.parse(req.body);
       
@@ -1254,7 +1255,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/admin/users/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/users/:id", requireAdmin, requireCSRF, async (req, res) => {
     try {
       const deleted = await storage.deleteUser(req.params.id);
       if (!deleted) {
@@ -1295,7 +1296,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/admin/transfers/:id", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/transfers/:id", requireAdmin, requireCSRF, async (req, res) => {
     try {
       const validatedData = adminUpdateTransferSchema.parse(req.body);
       
@@ -1335,7 +1336,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/admin/settings/:key", requireAdmin, async (req, res) => {
+  app.put("/api/admin/settings/:key", requireAdmin, requireCSRF, async (req, res) => {
     try {
       const validatedData = adminUpdateSettingSchema.parse(req.body);
       const updated = await storage.updateAdminSetting(req.params.key, validatedData.value, req.session.userId!);
@@ -1359,7 +1360,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/messages", requireAdmin, adminLimiter, async (req, res) => {
+  app.post("/api/admin/messages", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminSendMessageSchema.parse(req.body);
       
@@ -1428,7 +1429,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/loans/:id/approve", requireAdmin, adminLimiter, async (req, res) => {
+  app.post("/api/admin/loans/:id/approve", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
     try {
       const loan = await storage.getLoan(req.params.id);
       if (!loan) {
@@ -1464,7 +1465,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/loans/:id/reject", requireAdmin, adminLimiter, async (req, res) => {
+  app.post("/api/admin/loans/:id/reject", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminRejectLoanSchema.parse(req.body);
       const loan = await storage.getLoan(req.params.id);
@@ -1505,7 +1506,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/admin/loans/:id", requireAdmin, async (req, res) => {
+  app.delete("/api/admin/loans/:id", requireAdmin, requireCSRF, async (req, res) => {
     try {
       const { reason } = req.body;
       const loan = await storage.getLoan(req.params.id);
@@ -1530,7 +1531,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/admin/users/:id/borrowing-capacity", requireAdmin, async (req, res) => {
+  app.patch("/api/admin/users/:id/borrowing-capacity", requireAdmin, requireCSRF, async (req, res) => {
     try {
       const validatedData = adminBorrowingCapacitySchema.parse(req.body);
       const updated = await storage.updateUserBorrowingCapacity(req.params.id, validatedData.maxLoanAmount);
@@ -1557,7 +1558,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/users/:id/suspend", requireAdmin, adminLimiter, async (req, res) => {
+  app.post("/api/admin/users/:id/suspend", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminSuspendUserSchema.parse(req.body);
       const updated = await storage.suspendUser(req.params.id, new Date(validatedData.until), validatedData.reason);
@@ -1592,7 +1593,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/users/:id/block", requireAdmin, adminLimiter, async (req, res) => {
+  app.post("/api/admin/users/:id/block", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminBlockUserSchema.parse(req.body);
       const updated = await storage.blockUser(req.params.id, validatedData.reason);
@@ -1627,7 +1628,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/users/:id/unblock", requireAdmin, async (req, res) => {
+  app.post("/api/admin/users/:id/unblock", requireAdmin, requireCSRF, async (req, res) => {
     try {
       const updated = await storage.unblockUser(req.params.id);
       if (!updated) {
@@ -1657,7 +1658,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/users/:id/block-transfers", requireAdmin, adminLimiter, async (req, res) => {
+  app.post("/api/admin/users/:id/block-transfers", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminBlockTransfersSchema.parse(req.body);
       const updated = await storage.blockExternalTransfers(req.params.id, validatedData.reason);
@@ -1692,7 +1693,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/users/:id/unblock-transfers", requireAdmin, async (req, res) => {
+  app.post("/api/admin/users/:id/unblock-transfers", requireAdmin, requireCSRF, async (req, res) => {
     try {
       const updated = await storage.unblockExternalTransfers(req.params.id);
       if (!updated) {
@@ -1722,7 +1723,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/transfers/:id/issue-code", requireAdmin, adminLimiter, async (req, res) => {
+  app.post("/api/admin/transfers/:id/issue-code", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminIssueCodeSchema.parse(req.body);
       const transfer = await storage.getTransfer(req.params.id);
@@ -1759,7 +1760,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/admin/notifications/send-with-fee", requireAdmin, adminLimiter, async (req, res) => {
+  app.post("/api/admin/notifications/send-with-fee", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminSendNotificationWithFeeSchema.parse(req.body);
       

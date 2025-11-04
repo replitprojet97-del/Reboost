@@ -3,8 +3,13 @@ import session from "express-session";
 import helmet from "helmet";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import ConnectPgSimple from "connect-pg-simple";
+import pkg from "pg";
+const { Pool } = pkg;
 
 const app = express();
+
+app.set("trust proxy", 1);
 
 declare module 'express-session' {
   interface SessionData {
@@ -33,14 +38,19 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: process.env.NODE_ENV === 'production' 
+        ? ["'self'"]
+        : ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      styleSrc: process.env.NODE_ENV === 'production'
+        ? ["'self'"]
+        : ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],
       connectSrc: ["'self'"],
       fontSrc: ["'self'", "data:"],
       objectSrc: ["'none'"],
       mediaSrc: ["'self'"],
       frameSrc: ["'none'"],
+      upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null,
     },
   },
   crossOriginEmbedderPolicy: false,
@@ -56,7 +66,25 @@ app.use(helmet({
   xssFilter: true,
 }));
 
+const PgSession = ConnectPgSimple(session);
+const sessionStore = process.env.DATABASE_URL 
+  ? new PgSession({
+      pool: new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+      }),
+      tableName: 'user_sessions',
+      createTableIfMissing: true,
+    })
+  : undefined;
+
+if (!sessionStore && process.env.NODE_ENV === 'production') {
+  console.error('FATAL: DATABASE_URL must be set for session storage in production');
+  process.exit(1);
+}
+
 app.use(session({
+  store: sessionStore,
   secret: process.env.SESSION_SECRET || 'altus-group-secret-key-dev-only',
   resave: false,
   saveUninitialized: false,
