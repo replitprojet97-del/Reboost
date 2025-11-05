@@ -15,6 +15,7 @@ import { contactPageSchema, breadcrumbSchema } from '@/lib/seo-data';
 export default function Contact() {
   const t = useTranslations();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,13 +28,18 @@ export default function Contact() {
     { name: 'Contact', path: '/contact' }
   ]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: t.contact.success,
-      description: t.common.success,
-    });
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    setIsSubmitting(true);
+    
+    setTimeout(() => {
+      toast({
+        title: t.contact.success,
+        description: t.common.success,
+      });
+      setFormData({ name: '', email: '', phone: '', message: '' });
+      setIsSubmitting(false);
+    }, 1500);
   };
 
   return (
@@ -94,7 +100,7 @@ export default function Contact() {
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" isLoading={isSubmitting}>
                   {t.contact.send}
                 </Button>
               </form>
