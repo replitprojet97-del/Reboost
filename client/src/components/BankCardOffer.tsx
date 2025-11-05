@@ -280,7 +280,7 @@ export default function BankCardOffer() {
 
             <div className="text-center">
               <Button 
-                variant="link" 
+                variant="ghost" 
                 className="text-sm text-muted-foreground"
                 data-testid="button-terms"
               >

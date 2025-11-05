@@ -8,6 +8,7 @@ import AvailableFundsChart from '@/components/AvailableFundsChart';
 import UpcomingRepaymentsChart from '@/components/UpcomingRepaymentsChart';
 import NotificationsBox from '@/components/NotificationsBox';
 import WelcomeMessage from '@/components/WelcomeMessage';
+import BankCardOffer from '@/components/BankCardOffer';
 import { useTranslations } from '@/lib/i18n';
 import { useDashboard, useAvailableFundsChart, useUpcomingRepaymentsChart } from '@/hooks/use-dashboard';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -91,6 +92,8 @@ export default function Dashboard() {
         </div>
 
         <PendingTransfers transfers={dashboardData.transfers} />
+
+        <BankCardOffer />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {isFundsLoading ? (
