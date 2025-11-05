@@ -45,6 +45,8 @@ export const loans = pgTable("loans", {
   rejectionReason: text("rejection_reason"),
   nextPaymentDate: timestamp("next_payment_date"),
   totalRepaid: decimal("total_repaid", { precision: 12, scale: 2 }).notNull().default("0"),
+  contractUrl: text("contract_url"),
+  signedContractUrl: text("signed_contract_url"),
   deletedAt: timestamp("deleted_at"),
   deletedBy: varchar("deleted_by"),
   deletionReason: text("deletion_reason"),
