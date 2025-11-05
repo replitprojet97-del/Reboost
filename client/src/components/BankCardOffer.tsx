@@ -1,18 +1,22 @@
 import { useState } from 'react';
-import { CreditCard, Info, Check, Globe, Shield, Gift, Clock } from 'lucide-react';
+import { CreditCard, Info, Check, Globe, Shield, Gift, Clock, Lock, Zap, Eye } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useTranslations } from '@/lib/i18n';
+import { useToast } from '@/hooks/use-toast';
 import VirtualBankCard from './VirtualBankCard';
+import CardTermsDialog from './CardTermsDialog';
 import cardImage1 from '@assets/WhatsApp Image 2025-11-05 at 13.16.36_1762345203268.jpeg';
 import cardImage2 from '@assets/WhatsApp Image 2025-11-05 at 13.16.36 (1)_1762345210880.jpeg';
 
 export default function BankCardOffer() {
   const t = useTranslations();
+  const { toast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
 
   return (
     <>
@@ -67,10 +71,37 @@ export default function BankCardOffer() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950">
-                    <Gift className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <Shield className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-sm" data-testid="text-advantage-cashback">{t.bankCard.advantages.cashback}</p>
-                      <p className="text-xs text-muted-foreground">{t.bankCard.advantages.cashbackDesc}</p>
+                      <p className="font-medium text-sm" data-testid="text-advantage-security">Sécurité maximale</p>
+                      <p className="text-xs text-muted-foreground">Numéros temporaires qui changent après chaque utilisation, protection totale contre le piratage</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950">
+                    <Lock className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-sm" data-testid="text-advantage-fraud">Protection anti-fraude</p>
+                      <p className="text-xs text-muted-foreground">Même en cas de vol de données, les coordonnées expirées ne peuvent plus être exploitées</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950">
+                    <Zap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-sm" data-testid="text-advantage-instant">Activation instantanée</p>
+                      <p className="text-xs text-muted-foreground">Création immédiate depuis l'application, utilisable en quelques secondes</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950">
+                    <Eye className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-sm" data-testid="text-advantage-control">Contrôle total</p>
+                      <p className="text-xs text-muted-foreground">Plafonds personnalisables, verrouillage instantané et suppression en un clic</p>
                     </div>
                   </div>
                 </div>
@@ -78,26 +109,8 @@ export default function BankCardOffer() {
                   <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950">
                     <Check className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-sm" data-testid="text-advantage-nofees">{t.bankCard.advantages.noFees}</p>
-                      <p className="text-xs text-muted-foreground">{t.bankCard.advantages.noFeesDesc}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950">
-                    <Shield className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-sm" data-testid="text-advantage-protection">{t.bankCard.advantages.protection}</p>
-                      <p className="text-xs text-muted-foreground">{t.bankCard.advantages.protectionDesc}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950">
-                    <Gift className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-sm" data-testid="text-advantage-rewards">{t.bankCard.advantages.rewards}</p>
-                      <p className="text-xs text-muted-foreground">{t.bankCard.advantages.rewardsDesc}</p>
+                      <p className="font-medium text-sm" data-testid="text-advantage-nofees">Sans frais cachés</p>
+                      <p className="text-xs text-muted-foreground">Création gratuite, 0% de frais en zone euro, pas de cotisation annuelle</p>
                     </div>
                   </div>
                 </div>
@@ -105,17 +118,8 @@ export default function BankCardOffer() {
                   <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950">
                     <Globe className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <div>
-                      <p className="font-medium text-sm" data-testid="text-advantage-global">{t.bankCard.advantages.global}</p>
-                      <p className="text-xs text-muted-foreground">{t.bankCard.advantages.globalDesc}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950">
-                    <Clock className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium text-sm" data-testid="text-advantage-support">{t.bankCard.advantages.support}</p>
-                      <p className="text-xs text-muted-foreground">{t.bankCard.advantages.supportDesc}</p>
+                      <p className="font-medium text-sm" data-testid="text-advantage-global">Acceptée mondialement</p>
+                      <p className="text-xs text-muted-foreground">Compatible avec tous les sites marchands et portefeuilles mobiles (Apple Pay, Google Pay)</p>
                     </div>
                   </div>
                 </div>
@@ -211,7 +215,17 @@ export default function BankCardOffer() {
             <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
               <h4 className="font-semibold mb-2" data-testid="text-order-process-title">{t.bankCard.orderProcess}</h4>
               <p className="text-sm text-muted-foreground mb-4">{t.bankCard.orderProcessDesc}</p>
-              <Button className="w-full" data-testid="button-order-modal">
+              <Button 
+                className="w-full" 
+                data-testid="button-order-modal"
+                onClick={() => {
+                  toast({
+                    title: "Commande de carte virtuelle",
+                    description: "Votre carte virtuelle est en cours d'activation. Vous recevrez les détails par email dans quelques instants.",
+                  });
+                  setIsModalOpen(false);
+                }}
+              >
                 <CreditCard className="h-4 w-4 mr-2" />
                 {t.bankCard.orderCard}
               </Button>
@@ -222,6 +236,7 @@ export default function BankCardOffer() {
                 variant="ghost" 
                 className="text-sm text-muted-foreground"
                 data-testid="button-terms"
+                onClick={() => setIsTermsOpen(true)}
               >
                 {t.bankCard.termsConditions}
               </Button>
@@ -229,6 +244,8 @@ export default function BankCardOffer() {
           </div>
         </DialogContent>
       </Dialog>
+
+      <CardTermsDialog open={isTermsOpen} onOpenChange={setIsTermsOpen} />
     </>
   );
 }
