@@ -162,6 +162,14 @@ app.use((req, res, next) => {
     res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
   });
 
+  if (process.env.NODE_ENV === "development") {
+    const { setupVite } = await import("./vite");
+    await setupVite(app, server);
+  } else {
+    const { serveStatic } = await import("./vite");
+    serveStatic(app);
+  }
+
   const port = parseInt(process.env.PORT || '5000', 10);
   server.listen({
     port,
