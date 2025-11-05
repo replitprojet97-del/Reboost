@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link, useLocation } from 'wouter';
 import { useMutation } from '@tanstack/react-query';
-import { apiRequest } from '@/lib/queryClient';
+import { apiRequest, clearCsrfToken } from '@/lib/queryClient';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -95,6 +95,7 @@ export default function Auth() {
       return response.json();
     },
     onSuccess: () => {
+      clearCsrfToken();
       toast({
         title: t.auth.loginSuccess,
         description: t.auth.loginSuccessDesc,
