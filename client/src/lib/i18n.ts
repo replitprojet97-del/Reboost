@@ -288,6 +288,67 @@ type TranslationKeys = {
     passwordSpecial: string;
     passwordMatch: string;
   };
+  bankCard: {
+    title: string;
+    subtitle: string;
+    learnMore: string;
+    orderNow: string;
+    orderCard: string;
+    modalTitle: string;
+    modalSubtitle: string;
+    advantagesTitle: string;
+    advantages: {
+      cashback: string;
+      cashbackDesc: string;
+      noFees: string;
+      noFeesDesc: string;
+      protection: string;
+      protectionDesc: string;
+      rewards: string;
+      rewardsDesc: string;
+      global: string;
+      globalDesc: string;
+      support: string;
+      supportDesc: string;
+    };
+    usageZonesTitle: string;
+    usageZones: {
+      worldwide: string;
+      worldwideDesc: string;
+      online: string;
+      onlineDesc: string;
+      stores: string;
+      storesDesc: string;
+      atm: string;
+      atmDesc: string;
+    };
+    feesTitle: string;
+    fees: {
+      annualFee: string;
+      annualFeeAmount: string;
+      transactionFee: string;
+      transactionFeeAmount: string;
+      withdrawalFee: string;
+      withdrawalFeeAmount: string;
+      foreignFee: string;
+      foreignFeeAmount: string;
+    };
+    specificationsTitle: string;
+    specifications: {
+      cardType: string;
+      cardTypeValue: string;
+      creditLimit: string;
+      creditLimitValue: string;
+      validity: string;
+      validityValue: string;
+      delivery: string;
+      deliveryValue: string;
+    };
+    orderProcess: string;
+    orderProcessDesc: string;
+    termsConditions: string;
+    close: string;
+  };
 };
 
 export const translations: Record<Language, TranslationKeys> = {
@@ -641,6 +702,67 @@ export const translations: Record<Language, TranslationKeys> = {
       passwordSpecial: 'Le mot de passe doit contenir au moins un caractère spécial',
       passwordMatch: 'Les mots de passe ne correspondent pas',
     },
+    bankCard: {
+      title: 'Carte Bancaire Professionnelle',
+      subtitle: 'Profitez d\'une carte bancaire dédiée à vos transactions professionnelles',
+      learnMore: 'En savoir plus',
+      orderNow: 'Commander maintenant',
+      orderCard: 'Commander ma carte',
+      modalTitle: 'Carte Bancaire Professionnelle Altus',
+      modalSubtitle: 'Une carte bancaire complète pour tous vos besoins professionnels',
+      advantagesTitle: 'Avantages de la carte',
+      advantages: {
+        cashback: 'Cashback 2%',
+        cashbackDesc: 'Profitez de 2% de cashback sur tous vos achats professionnels',
+        noFees: 'Sans frais cachés',
+        noFeesDesc: 'Transparence totale sur tous les frais et commissions',
+        protection: 'Protection maximale',
+        protectionDesc: 'Assurance achats et protection contre la fraude incluses',
+        rewards: 'Programme de récompenses',
+        rewardsDesc: 'Cumulez des points sur chaque transaction',
+        global: 'Acceptée mondialement',
+        globalDesc: 'Utilisable dans plus de 200 pays et territoires',
+        support: 'Support 24/7',
+        supportDesc: 'Service client disponible à tout moment',
+      },
+      usageZonesTitle: 'Zones d\'utilisation',
+      usageZones: {
+        worldwide: 'Paiements internationaux',
+        worldwideDesc: 'Acceptée dans tous les commerces et sites web du monde entier',
+        online: 'Achats en ligne',
+        onlineDesc: 'Sécurisée pour tous vos achats sur internet',
+        stores: 'En magasin',
+        storesDesc: 'Paiement sans contact et avec code PIN',
+        atm: 'Retraits d\'espèces',
+        atmDesc: 'Retraits gratuits dans notre réseau de distributeurs partenaires',
+      },
+      feesTitle: 'Frais et tarification',
+      fees: {
+        annualFee: 'Cotisation annuelle',
+        annualFeeAmount: 'Gratuit la première année, puis 49€/an',
+        transactionFee: 'Frais de transaction',
+        transactionFeeAmount: '0% en zone euro',
+        withdrawalFee: 'Retrait d\'espèces',
+        withdrawalFeeAmount: 'Gratuit dans le réseau partenaire',
+        foreignFee: 'Paiement en devise étrangère',
+        foreignFeeAmount: '1,5% hors zone euro',
+      },
+      specificationsTitle: 'Caractéristiques techniques',
+      specifications: {
+        cardType: 'Type de carte',
+        cardTypeValue: 'Visa Business Premium',
+        creditLimit: 'Plafond',
+        creditLimitValue: 'Jusqu\'à 50 000€ par mois',
+        validity: 'Validité',
+        validityValue: '5 ans',
+        delivery: 'Délai de livraison',
+        deliveryValue: '5-7 jours ouvrés',
+      },
+      orderProcess: 'Comment commander',
+      orderProcessDesc: 'Commandez votre carte en quelques clics. Après validation de votre demande, vous recevrez votre carte sous 5-7 jours ouvrés.',
+      termsConditions: 'Voir les conditions générales',
+      close: 'Fermer',
+    },
   },
   en: {
     hero: {
@@ -980,6 +1102,67 @@ export const translations: Record<Language, TranslationKeys> = {
       passwordSpecial: 'Password must contain at least one special character',
       passwordMatch: 'Passwords do not match',
     },
+    bankCard: {
+      title: 'Professional Bank Card',
+      subtitle: 'Enjoy a bank card dedicated to your professional transactions',
+      learnMore: 'Learn more',
+      orderNow: 'Order now',
+      orderCard: 'Order my card',
+      modalTitle: 'Altus Professional Bank Card',
+      modalSubtitle: 'A complete bank card for all your professional needs',
+      advantagesTitle: 'Card Benefits',
+      advantages: {
+        cashback: '2% Cashback',
+        cashbackDesc: 'Enjoy 2% cashback on all your professional purchases',
+        noFees: 'No Hidden Fees',
+        noFeesDesc: 'Complete transparency on all fees and commissions',
+        protection: 'Maximum Protection',
+        protectionDesc: 'Purchase insurance and fraud protection included',
+        rewards: 'Rewards Program',
+        rewardsDesc: 'Earn points on every transaction',
+        global: 'Accepted Worldwide',
+        globalDesc: 'Usable in over 200 countries and territories',
+        support: '24/7 Support',
+        supportDesc: 'Customer service available at all times',
+      },
+      usageZonesTitle: 'Usage Zones',
+      usageZones: {
+        worldwide: 'International Payments',
+        worldwideDesc: 'Accepted at all stores and websites worldwide',
+        online: 'Online Shopping',
+        onlineDesc: 'Secure for all your internet purchases',
+        stores: 'In Store',
+        storesDesc: 'Contactless payment and PIN code',
+        atm: 'Cash Withdrawals',
+        atmDesc: 'Free withdrawals at our partner ATM network',
+      },
+      feesTitle: 'Fees and Pricing',
+      fees: {
+        annualFee: 'Annual Fee',
+        annualFeeAmount: 'Free first year, then £49/year',
+        transactionFee: 'Transaction Fee',
+        transactionFeeAmount: '0% in Eurozone',
+        withdrawalFee: 'Cash Withdrawal',
+        withdrawalFeeAmount: 'Free at partner network',
+        foreignFee: 'Foreign Currency Payment',
+        foreignFeeAmount: '1.5% outside Eurozone',
+      },
+      specificationsTitle: 'Technical Specifications',
+      specifications: {
+        cardType: 'Card Type',
+        cardTypeValue: 'Visa Business Premium',
+        creditLimit: 'Limit',
+        creditLimitValue: 'Up to £50,000 per month',
+        validity: 'Validity',
+        validityValue: '5 years',
+        delivery: 'Delivery Time',
+        deliveryValue: '5-7 business days',
+      },
+      orderProcess: 'How to Order',
+      orderProcessDesc: 'Order your card in a few clicks. After validation of your request, you will receive your card within 5-7 business days.',
+      termsConditions: 'View terms and conditions',
+      close: 'Close',
+    },
   },
   es: {
     hero: {
@@ -1313,6 +1496,67 @@ export const translations: Record<Language, TranslationKeys> = {
       passwordNumber: 'La contraseña debe contener al menos un número',
       passwordSpecial: 'La contraseña debe contener al menos un carácter especial',
       passwordMatch: 'Las contraseñas no coinciden',
+    },
+    bankCard: {
+      title: 'Tarjeta Bancaria Profesional',
+      subtitle: 'Disfrute de una tarjeta bancaria dedicada a sus transacciones profesionales',
+      learnMore: 'Más información',
+      orderNow: 'Ordenar ahora',
+      orderCard: 'Ordenar mi tarjeta',
+      modalTitle: 'Tarjeta Bancaria Profesional Altus',
+      modalSubtitle: 'Una tarjeta bancaria completa para todas sus necesidades profesionales',
+      advantagesTitle: 'Ventajas de la tarjeta',
+      advantages: {
+        cashback: 'Cashback 2%',
+        cashbackDesc: 'Disfrute del 2% de cashback en todas sus compras profesionales',
+        noFees: 'Sin comisiones ocultas',
+        noFeesDesc: 'Transparencia total en todas las comisiones',
+        protection: 'Protección máxima',
+        protectionDesc: 'Seguro de compras y protección contra fraude incluidos',
+        rewards: 'Programa de recompensas',
+        rewardsDesc: 'Acumule puntos en cada transacción',
+        global: 'Aceptada mundialmente',
+        globalDesc: 'Utilizable en más de 200 países y territorios',
+        support: 'Soporte 24/7',
+        supportDesc: 'Servicio al cliente disponible en todo momento',
+      },
+      usageZonesTitle: 'Zonas de uso',
+      usageZones: {
+        worldwide: 'Pagos internacionales',
+        worldwideDesc: 'Aceptada en todos los comercios y sitios web del mundo',
+        online: 'Compras en línea',
+        onlineDesc: 'Segura para todas sus compras en internet',
+        stores: 'En tienda',
+        storesDesc: 'Pago sin contacto y con código PIN',
+        atm: 'Retiros de efectivo',
+        atmDesc: 'Retiros gratuitos en nuestra red de cajeros asociados',
+      },
+      feesTitle: 'Tarifas y precios',
+      fees: {
+        annualFee: 'Cuota anual',
+        annualFeeAmount: 'Gratis el primer año, luego 49€/año',
+        transactionFee: 'Comisión de transacción',
+        transactionFeeAmount: '0% en zona euro',
+        withdrawalFee: 'Retiro de efectivo',
+        withdrawalFeeAmount: 'Gratis en la red asociada',
+        foreignFee: 'Pago en moneda extranjera',
+        foreignFeeAmount: '1,5% fuera de la zona euro',
+      },
+      specificationsTitle: 'Características técnicas',
+      specifications: {
+        cardType: 'Tipo de tarjeta',
+        cardTypeValue: 'Visa Business Premium',
+        creditLimit: 'Límite',
+        creditLimitValue: 'Hasta 50.000€ por mes',
+        validity: 'Validez',
+        validityValue: '5 años',
+        delivery: 'Plazo de entrega',
+        deliveryValue: '5-7 días hábiles',
+      },
+      orderProcess: 'Cómo ordenar',
+      orderProcessDesc: 'Ordene su tarjeta en unos pocos clics. Después de la validación de su solicitud, recibirá su tarjeta en 5-7 días hábiles.',
+      termsConditions: 'Ver términos y condiciones',
+      close: 'Cerrar',
     },
   },
   pt: {
@@ -1648,6 +1892,67 @@ export const translations: Record<Language, TranslationKeys> = {
       passwordSpecial: 'A senha deve conter pelo menos um caractere especial',
       passwordMatch: 'As senhas não coincidem',
     },
+    bankCard: {
+      title: 'Cartão Bancário Profissional',
+      subtitle: 'Aproveite um cartão bancário dedicado às suas transações profissionais',
+      learnMore: 'Saiba mais',
+      orderNow: 'Encomendar agora',
+      orderCard: 'Encomendar meu cartão',
+      modalTitle: 'Cartão Bancário Profissional Altus',
+      modalSubtitle: 'Um cartão bancário completo para todas as suas necessidades profissionais',
+      advantagesTitle: 'Vantagens do cartão',
+      advantages: {
+        cashback: 'Cashback 2%',
+        cashbackDesc: 'Aproveite 2% de cashback em todas as suas compras profissionais',
+        noFees: 'Sem taxas ocultas',
+        noFeesDesc: 'Transparência total em todas as taxas e comissões',
+        protection: 'Proteção máxima',
+        protectionDesc: 'Seguro de compras e proteção contra fraude incluídos',
+        rewards: 'Programa de recompensas',
+        rewardsDesc: 'Acumule pontos em cada transação',
+        global: 'Aceito mundialmente',
+        globalDesc: 'Utilizável em mais de 200 países e territórios',
+        support: 'Suporte 24/7',
+        supportDesc: 'Atendimento ao cliente disponível a qualquer momento',
+      },
+      usageZonesTitle: 'Zonas de uso',
+      usageZones: {
+        worldwide: 'Pagamentos internacionais',
+        worldwideDesc: 'Aceito em todos os comércios e sites do mundo',
+        online: 'Compras online',
+        onlineDesc: 'Seguro para todas as suas compras na internet',
+        stores: 'Em loja',
+        storesDesc: 'Pagamento sem contato e com código PIN',
+        atm: 'Levantamentos de dinheiro',
+        atmDesc: 'Levantamentos gratuitos na nossa rede de caixas eletrônicos parceiros',
+      },
+      feesTitle: 'Taxas e preços',
+      fees: {
+        annualFee: 'Taxa anual',
+        annualFeeAmount: 'Grátis no primeiro ano, depois 49€/ano',
+        transactionFee: 'Taxa de transação',
+        transactionFeeAmount: '0% na zona euro',
+        withdrawalFee: 'Levantamento de dinheiro',
+        withdrawalFeeAmount: 'Grátis na rede parceira',
+        foreignFee: 'Pagamento em moeda estrangeira',
+        foreignFeeAmount: '1,5% fora da zona euro',
+      },
+      specificationsTitle: 'Características técnicas',
+      specifications: {
+        cardType: 'Tipo de cartão',
+        cardTypeValue: 'Visa Business Premium',
+        creditLimit: 'Limite',
+        creditLimitValue: 'Até 50.000€ por mês',
+        validity: 'Validade',
+        validityValue: '5 anos',
+        delivery: 'Prazo de entrega',
+        deliveryValue: '5-7 dias úteis',
+      },
+      orderProcess: 'Como encomendar',
+      orderProcessDesc: 'Encomende o seu cartão em poucos cliques. Após a validação do seu pedido, receberá o seu cartão em 5-7 dias úteis.',
+      termsConditions: 'Ver termos e condições',
+      close: 'Fechar',
+    },
   },
   it: {
     hero: {
@@ -1981,6 +2286,67 @@ export const translations: Record<Language, TranslationKeys> = {
       passwordNumber: 'La password deve contenere almeno un numero',
       passwordSpecial: 'La password deve contenere almeno un carattere speciale',
       passwordMatch: 'Le password non corrispondono',
+    },
+    bankCard: {
+      title: 'Carta Bancaria Professionale',
+      subtitle: 'Goditi una carta bancaria dedicata alle tue transazioni professionali',
+      learnMore: 'Scopri di più',
+      orderNow: 'Ordina ora',
+      orderCard: 'Ordina la mia carta',
+      modalTitle: 'Carta Bancaria Professionale Altus',
+      modalSubtitle: 'Una carta bancaria completa per tutte le tue esigenze professionali',
+      advantagesTitle: 'Vantaggi della carta',
+      advantages: {
+        cashback: 'Cashback 2%',
+        cashbackDesc: 'Goditi il 2% di cashback su tutti i tuoi acquisti professionali',
+        noFees: 'Senza costi nascosti',
+        noFeesDesc: 'Trasparenza totale su tutte le commissioni',
+        protection: 'Protezione massima',
+        protectionDesc: 'Assicurazione acquisti e protezione antifrode incluse',
+        rewards: 'Programma premi',
+        rewardsDesc: 'Accumula punti ad ogni transazione',
+        global: 'Accettata in tutto il mondo',
+        globalDesc: 'Utilizzabile in oltre 200 paesi e territori',
+        support: 'Supporto 24/7',
+        supportDesc: 'Servizio clienti disponibile in ogni momento',
+      },
+      usageZonesTitle: 'Zone di utilizzo',
+      usageZones: {
+        worldwide: 'Pagamenti internazionali',
+        worldwideDesc: 'Accettata in tutti i negozi e siti web del mondo',
+        online: 'Acquisti online',
+        onlineDesc: 'Sicura per tutti i tuoi acquisti su internet',
+        stores: 'In negozio',
+        storesDesc: 'Pagamento contactless e con codice PIN',
+        atm: 'Prelievi di contante',
+        atmDesc: 'Prelievi gratuiti presso la nostra rete di sportelli partner',
+      },
+      feesTitle: 'Tariffe e prezzi',
+      fees: {
+        annualFee: 'Quota annuale',
+        annualFeeAmount: 'Gratis il primo anno, poi 49€/anno',
+        transactionFee: 'Commissione transazione',
+        transactionFeeAmount: '0% nella zona euro',
+        withdrawalFee: 'Prelievo contante',
+        withdrawalFeeAmount: 'Gratis nella rete partner',
+        foreignFee: 'Pagamento in valuta estera',
+        foreignFeeAmount: '1,5% fuori zona euro',
+      },
+      specificationsTitle: 'Caratteristiche tecniche',
+      specifications: {
+        cardType: 'Tipo di carta',
+        cardTypeValue: 'Visa Business Premium',
+        creditLimit: 'Limite',
+        creditLimitValue: 'Fino a 50.000€ al mese',
+        validity: 'Validità',
+        validityValue: '5 anni',
+        delivery: 'Tempo di consegna',
+        deliveryValue: '5-7 giorni lavorativi',
+      },
+      orderProcess: 'Come ordinare',
+      orderProcessDesc: 'Ordina la tua carta in pochi clic. Dopo la convalida della tua richiesta, riceverai la tua carta entro 5-7 giorni lavorativi.',
+      termsConditions: 'Visualizza termini e condizioni',
+      close: 'Chiudi',
     },
   },
   de: {
@@ -2316,6 +2682,67 @@ export const translations: Record<Language, TranslationKeys> = {
       passwordSpecial: 'Das Passwort muss mindestens ein Sonderzeichen enthalten',
       passwordMatch: 'Passwörter stimmen nicht überein',
     },
+    bankCard: {
+      title: 'Professionelle Bankkarte',
+      subtitle: 'Genießen Sie eine Bankkarte für Ihre Geschäftstransaktionen',
+      learnMore: 'Mehr erfahren',
+      orderNow: 'Jetzt bestellen',
+      orderCard: 'Meine Karte bestellen',
+      modalTitle: 'Altus Professionelle Bankkarte',
+      modalSubtitle: 'Eine vollständige Bankkarte für alle Ihre geschäftlichen Bedürfnisse',
+      advantagesTitle: 'Kartenvorteile',
+      advantages: {
+        cashback: '2% Cashback',
+        cashbackDesc: 'Genießen Sie 2% Cashback auf alle Ihre geschäftlichen Einkäufe',
+        noFees: 'Keine versteckten Gebühren',
+        noFeesDesc: 'Vollständige Transparenz bei allen Gebühren und Provisionen',
+        protection: 'Maximaler Schutz',
+        protectionDesc: 'Kaufversicherung und Betrugsschutz inklusive',
+        rewards: 'Prämienprogramm',
+        rewardsDesc: 'Sammeln Sie Punkte bei jeder Transaktion',
+        global: 'Weltweit akzeptiert',
+        globalDesc: 'Nutzbar in über 200 Ländern und Territorien',
+        support: '24/7 Support',
+        supportDesc: 'Kundenservice jederzeit verfügbar',
+      },
+      usageZonesTitle: 'Nutzungsbereiche',
+      usageZones: {
+        worldwide: 'Internationale Zahlungen',
+        worldwideDesc: 'Akzeptiert in allen Geschäften und Websites weltweit',
+        online: 'Online-Einkäufe',
+        onlineDesc: 'Sicher für alle Ihre Einkäufe im Internet',
+        stores: 'Im Geschäft',
+        storesDesc: 'Kontaktlose Zahlung und mit PIN-Code',
+        atm: 'Bargeldabhebungen',
+        atmDesc: 'Kostenlose Abhebungen in unserem Partner-Geldautomatennetz',
+      },
+      feesTitle: 'Gebühren und Preise',
+      fees: {
+        annualFee: 'Jahresgebühr',
+        annualFeeAmount: 'Erstes Jahr kostenlos, dann 49€/Jahr',
+        transactionFee: 'Transaktionsgebühr',
+        transactionFeeAmount: '0% in der Eurozone',
+        withdrawalFee: 'Bargeldabhebung',
+        withdrawalFeeAmount: 'Kostenlos im Partnernetzwerk',
+        foreignFee: 'Fremdwährungszahlung',
+        foreignFeeAmount: '1,5% außerhalb der Eurozone',
+      },
+      specificationsTitle: 'Technische Spezifikationen',
+      specifications: {
+        cardType: 'Kartentyp',
+        cardTypeValue: 'Visa Business Premium',
+        creditLimit: 'Limit',
+        creditLimitValue: 'Bis zu 50.000€ pro Monat',
+        validity: 'Gültigkeit',
+        validityValue: '5 Jahre',
+        delivery: 'Lieferzeit',
+        deliveryValue: '5-7 Werktage',
+      },
+      orderProcess: 'So bestellen Sie',
+      orderProcessDesc: 'Bestellen Sie Ihre Karte mit wenigen Klicks. Nach Validierung Ihrer Anfrage erhalten Sie Ihre Karte innerhalb von 5-7 Werktagen.',
+      termsConditions: 'Allgemeine Geschäftsbedingungen ansehen',
+      close: 'Schließen',
+    },
   },
   nl: {
     hero: {
@@ -2649,6 +3076,67 @@ export const translations: Record<Language, TranslationKeys> = {
       passwordNumber: 'Wachtwoord moet minimaal één cijfer bevatten',
       passwordSpecial: 'Wachtwoord moet minimaal één speciaal teken bevatten',
       passwordMatch: 'Wachtwoorden komen niet overeen',
+    },
+    bankCard: {
+      title: 'Professionele Bankkaart',
+      subtitle: 'Geniet van een bankkaart gewijd aan uw professionele transacties',
+      learnMore: 'Meer informatie',
+      orderNow: 'Nu bestellen',
+      orderCard: 'Mijn kaart bestellen',
+      modalTitle: 'Altus Professionele Bankkaart',
+      modalSubtitle: 'Een complete bankkaart voor al uw professionele behoeften',
+      advantagesTitle: 'Kaartvoordelen',
+      advantages: {
+        cashback: '2% Cashback',
+        cashbackDesc: 'Geniet van 2% cashback op al uw professionele aankopen',
+        noFees: 'Geen verborgen kosten',
+        noFeesDesc: 'Volledige transparantie over alle kosten en commissies',
+        protection: 'Maximale bescherming',
+        protectionDesc: 'Aankoopverzekering en fraudebescherming inbegrepen',
+        rewards: 'Beloningsprogramma',
+        rewardsDesc: 'Verzamel punten bij elke transactie',
+        global: 'Wereldwijd geaccepteerd',
+        globalDesc: 'Bruikbaar in meer dan 200 landen en gebieden',
+        support: '24/7 Ondersteuning',
+        supportDesc: 'Klantenservice altijd beschikbaar',
+      },
+      usageZonesTitle: 'Gebruikszones',
+      usageZones: {
+        worldwide: 'Internationale betalingen',
+        worldwideDesc: 'Geaccepteerd in alle winkels en websites wereldwijd',
+        online: 'Online winkelen',
+        onlineDesc: 'Veilig voor al uw internetaankopen',
+        stores: 'In de winkel',
+        storesDesc: 'Contactloos betalen en met pincode',
+        atm: 'Contant opnemen',
+        atmDesc: 'Gratis opnames bij ons partnernetwerk van geldautomaten',
+      },
+      feesTitle: 'Kosten en tarieven',
+      fees: {
+        annualFee: 'Jaarlijkse bijdrage',
+        annualFeeAmount: 'Eerste jaar gratis, daarna €49/jaar',
+        transactionFee: 'Transactiekosten',
+        transactionFeeAmount: '0% in de eurozone',
+        withdrawalFee: 'Contant opnemen',
+        withdrawalFeeAmount: 'Gratis in het partnernetwerk',
+        foreignFee: 'Betaling in vreemde valuta',
+        foreignFeeAmount: '1,5% buiten de eurozone',
+      },
+      specificationsTitle: 'Technische specificaties',
+      specifications: {
+        cardType: 'Kaarttype',
+        cardTypeValue: 'Visa Business Premium',
+        creditLimit: 'Limiet',
+        creditLimitValue: 'Tot €50.000 per maand',
+        validity: 'Geldigheid',
+        validityValue: '5 jaar',
+        delivery: 'Levertijd',
+        deliveryValue: '5-7 werkdagen',
+      },
+      orderProcess: 'Hoe te bestellen',
+      orderProcessDesc: 'Bestel uw kaart met een paar klikken. Na validatie van uw aanvraag ontvangt u uw kaart binnen 5-7 werkdagen.',
+      termsConditions: 'Algemene voorwaarden bekijken',
+      close: 'Sluiten',
     },
   },
 };
