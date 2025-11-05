@@ -45,30 +45,30 @@ export default function Hero() {
       ))}
       <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/50" />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 text-center">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 transition-all duration-700">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 transition-all duration-700 leading-tight">
           {slides[currentSlide].title}
         </h1>
-        <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto transition-all duration-700">
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto transition-all duration-700">
           {slides[currentSlide].subtitle}
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-          <Link href="/loan-request">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12 px-2">
+          <Link href="/loan-request" className="w-full sm:w-auto">
             <Button
               size="lg"
-              className="bg-primary text-primary-foreground hover-elevate active-elevate-2 gap-2"
+              className="bg-primary text-primary-foreground hover-elevate active-elevate-2 gap-2 w-full sm:w-auto text-sm sm:text-base"
               data-testid="button-request-loan"
             >
               {t.hero.cta1}
-              <ArrowRight className="h-5 w-5" />
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
           </Link>
-          <Link href="/login">
+          <Link href="/login" className="w-full sm:w-auto">
             <Button
               size="lg"
               variant="outline"
-              className="backdrop-blur-md bg-white/20 text-white border-white/30 hover:bg-white/30"
+              className="backdrop-blur-md bg-white/20 text-white border-white/30 hover:bg-white/30 w-full sm:w-auto text-sm sm:text-base"
               data-testid="button-my-account"
             >
               {t.hero.cta2}

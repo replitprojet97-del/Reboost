@@ -150,13 +150,13 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-3 sm:p-4 md:p-6">
       <Card className="w-full max-w-2xl shadow-2xl">
-        <CardHeader className="text-center space-y-2">
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent">
+        <CardHeader className="text-center space-y-2 px-4 sm:px-6">
+          <CardTitle className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent">
             {t.auth.title}
           </CardTitle>
-          <CardDescription className="text-base">
+          <CardDescription className="text-sm sm:text-base">
             {t.auth.subtitle}
           </CardDescription>
         </CardHeader>

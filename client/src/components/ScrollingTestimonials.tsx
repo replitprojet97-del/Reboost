@@ -66,11 +66,11 @@ export default function ScrollingTestimonials() {
         className="relative overflow-hidden hide-scrollbar"
         style={{ whiteSpace: 'nowrap' }}
       >
-        <div className="scroll-content inline-flex gap-6 pr-6">
+        <div className="scroll-content inline-flex gap-4 sm:gap-6 pr-4 sm:pr-6">
           {t.testimonials.reviews.map((review, index) => (
             <Card 
               key={index} 
-              className="inline-block w-[350px] p-6 align-top bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transition-shadow"
+              className="inline-block w-[280px] sm:w-[320px] md:w-[350px] p-4 sm:p-6 align-top bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transition-shadow"
               style={{ whiteSpace: 'normal' }}
               data-testid={`card-review-${index}`}
             >

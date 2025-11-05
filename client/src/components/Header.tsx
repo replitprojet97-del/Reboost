@@ -35,11 +35,11 @@ export default function Header() {
         : 'bg-white dark:bg-slate-900 shadow-sm'
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-all">
-              <img src={logoUrl} alt="Altus Group" className="h-10 w-auto" />
-              <span className="text-xl font-bold text-primary">
+        <div className="flex items-center justify-between h-14 sm:h-16">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-90 transition-all">
+              <img src={logoUrl} alt="Altus Group" className="h-8 sm:h-10 w-auto" />
+              <span className="text-lg sm:text-xl font-bold text-primary hidden sm:inline">
                 Altus Group
               </span>
             </Link>

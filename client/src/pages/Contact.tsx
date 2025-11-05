@@ -52,15 +52,15 @@ export default function Contact() {
         structuredData={[contactPageSchema, contactBreadcrumb]}
       />
       <Header />
-      <main className="pt-24 pb-16">
+      <main className="pt-20 sm:pt-24 pb-12 sm:pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4">{t.contact.title}</h1>
-            <p className="text-xl text-muted-foreground">{t.contact.subtitle}</p>
+          <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">{t.contact.title}</h1>
+            <p className="text-lg sm:text-xl text-muted-foreground">{t.contact.subtitle}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <Card className="p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
+            <Card className="p-6 sm:p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="name">{t.contact.name}</Label>

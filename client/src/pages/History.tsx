@@ -100,15 +100,15 @@ export default function History() {
   }
 
   return (
-    <div className="p-6 md:p-8 space-y-6">
+    <div className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl md:text-4xl font-semibold mb-2">Historique des transactions</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">Historique des transactions</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Consultez l'historique complet de toutes vos transactions
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
