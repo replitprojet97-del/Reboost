@@ -89,3 +89,33 @@ externalAccounts (id, userId, accountType, accountName, iban, bic, createdAt)
   - Communication tools (messages, notifications with fees)
   - Statistics and audit logs
   - Detailed validation schemas and security measures
+
+### Business Workflows
+
+#### Loan Disbursement Workflow
+The loan disbursement process follows a strict multi-step approval workflow to ensure proper administrative control:
+
+1. **Loan Request (status: 'pending')**: User submits a loan application
+2. **Admin Review & Approval (status: 'approved')**: Admin reviews and approves the loan, generating the contract
+3. **Contract Signing (status: 'signed')**: User uploads signed contract, which triggers:
+   - Status change to 'signed'
+   - Admin notification message
+   - **No automatic fund disbursement**
+4. **Manual Fund Disbursement (status: 'active')**: Admin manually reviews signed contract and triggers fund disbursement via the admin panel, which:
+   - Changes loan status to 'active'
+   - Creates a credit transaction for the loan amount
+   - Sends success notification to user
+   - Logs the action in audit trail
+5. **Fund Access**: Only loans with 'active' status allow transfers
+
+**Key Security Controls:**
+- Fund disbursement requires explicit admin action (POST /api/admin/loans/:id/disburse)
+- Route protected with requireAdmin, CSRF token, and rate limiting
+- Validates loan is in 'signed' status and has signed contract before disbursement
+- Transfer creation verifies at least one 'active' loan exists
+- All actions logged in audit trail
+
+**Implementation Files:**
+- Backend route: `server/routes.ts` (lines 947-960 for contract upload, 1800-1852 for disbursement)
+- Admin interface: `client/src/pages/AdminLoans.tsx`
+- Status display: `client/src/components/LoanDetailsDialog.tsx`, `client/src/pages/IndividualLoans.tsx`
