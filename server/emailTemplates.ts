@@ -51,25 +51,25 @@ const translations = {
       business: "professionnel/entreprise"
     },
     verification: {
-      subject: "Vérifiez votre adresse email - ALTUS",
+      subject: "Vérifiez votre adresse email - ALTUS FINANCE GROUP",
       tagline: "Solutions de financement",
       greeting: "Bonjour",
-      thankYou: "Merci de vous être inscrit sur ALTUS en tant que",
+      thankYou: "Merci de vous être inscrit sur ALTUS FINANCE GROUP en tant que",
       instruction: "Pour activer votre compte et accéder à nos services de financement, veuillez vérifier votre adresse email en cliquant sur le bouton ci-dessous :",
       buttonText: "Vérifier mon email",
       alternativeText: "Si le bouton ne fonctionne pas, copiez et collez ce lien dans votre navigateur :",
-      disclaimerText: "Si vous n'avez pas créé de compte sur ALTUS, vous pouvez ignorer cet email.",
+      disclaimerText: "Si vous n'avez pas créé de compte sur ALTUS FINANCE GROUP, vous pouvez ignorer cet email.",
       footer: "Tous droits réservés.",
       textVersion: {
-        thankYou: "Merci de vous être inscrit sur ALTUS en tant que",
+        thankYou: "Merci de vous être inscrit sur ALTUS FINANCE GROUP en tant que",
         instruction: "Pour activer votre compte, veuillez vérifier votre adresse email en visitant ce lien :",
-        disclaimer: "Si vous n'avez pas créé de compte sur ALTUS, vous pouvez ignorer cet email.",
-        signature: "ALTUS - Solutions de financement"
+        disclaimer: "Si vous n'avez pas créé de compte sur ALTUS FINANCE GROUP, vous pouvez ignorer cet email.",
+        signature: "ALTUS FINANCE GROUP - Solutions de financement"
       }
     },
     welcome: {
-      subject: "Bienvenue sur ALTUS !",
-      headerTitle: "🎉 Bienvenue sur ALTUS !",
+      subject: "Bienvenue sur ALTUS FINANCE GROUP !",
+      headerTitle: "🎉 Bienvenue sur ALTUS FINANCE GROUP !",
       greeting: "Bonjour",
       verifiedMessage: "Votre email a été vérifié avec succès ! Votre compte",
       activeMessage: "est maintenant actif.",
@@ -85,7 +85,7 @@ const translations = {
       footer: "Tous droits réservés."
     },
     contract: {
-      subject: "Votre contrat de prêt est disponible - ALTUS",
+      subject: "Votre contrat de prêt est disponible - ALTUS FINANCE GROUP",
       headerTitle: "🎉 Félicitations !",
       headerSubtitle: "Votre prêt est approuvé",
       greeting: "Bonjour",
@@ -108,7 +108,7 @@ const translations = {
       footer: "Tous droits réservés."
     },
     fundingRelease: {
-      subject: "Vos fonds ont été débloqués - ALTUS",
+      subject: "Vos fonds ont été débloqués - ALTUS FINANCE GROUP",
       headerTitle: "✅ Fonds débloqués",
       headerSubtitle: "Votre argent est disponible",
       greeting: "Bonjour",
@@ -135,25 +135,25 @@ const translations = {
       business: "business/professional"
     },
     verification: {
-      subject: "Verify your email address - ALTUS",
+      subject: "Verify your email address - ALTUS FINANCE GROUP",
       tagline: "Financing Solutions",
       greeting: "Hello",
-      thankYou: "Thank you for signing up on ALTUS as a",
+      thankYou: "Thank you for signing up on ALTUS FINANCE GROUP as a",
       instruction: "To activate your account and access our financing services, please verify your email address by clicking the button below:",
       buttonText: "Verify my email",
       alternativeText: "If the button doesn't work, copy and paste this link into your browser:",
-      disclaimerText: "If you didn't create an account on ALTUS, you can ignore this email.",
+      disclaimerText: "If you didn't create an account on ALTUS FINANCE GROUP, you can ignore this email.",
       footer: "All rights reserved.",
       textVersion: {
-        thankYou: "Thank you for signing up on ALTUS as a",
+        thankYou: "Thank you for signing up on ALTUS FINANCE GROUP as a",
         instruction: "To activate your account, please verify your email address by visiting this link:",
-        disclaimer: "If you didn't create an account on ALTUS, you can ignore this email.",
-        signature: "ALTUS - Financing Solutions"
+        disclaimer: "If you didn't create an account on ALTUS FINANCE GROUP, you can ignore this email.",
+        signature: "ALTUS FINANCE GROUP - Financing Solutions"
       }
     },
     welcome: {
-      subject: "Welcome to ALTUS!",
-      headerTitle: "🎉 Welcome to ALTUS!",
+      subject: "Welcome to ALTUS FINANCE GROUP!",
+      headerTitle: "🎉 Welcome to ALTUS FINANCE GROUP!",
       greeting: "Hello",
       verifiedMessage: "Your email has been successfully verified! Your",
       activeMessage: "account is now active.",
@@ -169,7 +169,7 @@ const translations = {
       footer: "All rights reserved."
     },
     contract: {
-      subject: "Your loan contract is available - ALTUS",
+      subject: "Your loan contract is available - ALTUS FINANCE GROUP",
       headerTitle: "🎉 Congratulations!",
       headerSubtitle: "Your loan is approved",
       greeting: "Hello",
@@ -192,7 +192,7 @@ const translations = {
       footer: "All rights reserved."
     },
     fundingRelease: {
-      subject: "Your funds have been released - ALTUS",
+      subject: "Your funds have been released - ALTUS FINANCE GROUP",
       headerTitle: "✅ Funds Released",
       headerSubtitle: "Your money is available",
       greeting: "Hello",
@@ -219,25 +219,25 @@ const translations = {
       business: "profesional/empresa"
     },
     verification: {
-      subject: "Verifica tu dirección de correo electrónico - ALTUS",
+      subject: "Verifica tu dirección de correo electrónico - ALTUS FINANCE GROUP",
       tagline: "Soluciones de financiación",
       greeting: "Hola",
-      thankYou: "Gracias por registrarte en ALTUS como",
+      thankYou: "Gracias por registrarte en ALTUS FINANCE GROUP como",
       instruction: "Para activar tu cuenta y acceder a nuestros servicios de financiación, verifica tu dirección de correo electrónico haciendo clic en el botón a continuación:",
       buttonText: "Verificar mi correo",
       alternativeText: "Si el botón no funciona, copia y pega este enlace en tu navegador:",
-      disclaimerText: "Si no creaste una cuenta en ALTUS, puedes ignorar este correo.",
+      disclaimerText: "Si no creaste una cuenta en ALTUS FINANCE GROUP, puedes ignorar este correo.",
       footer: "Todos los derechos reservados.",
       textVersion: {
-        thankYou: "Gracias por registrarte en ALTUS como",
+        thankYou: "Gracias por registrarte en ALTUS FINANCE GROUP como",
         instruction: "Para activar tu cuenta, verifica tu dirección de correo electrónico visitando este enlace:",
-        disclaimer: "Si no creaste una cuenta en ALTUS, puedes ignorar este correo.",
-        signature: "ALTUS - Soluciones de financiación"
+        disclaimer: "Si no creaste una cuenta en ALTUS FINANCE GROUP, puedes ignorar este correo.",
+        signature: "ALTUS FINANCE GROUP - Soluciones de financiación"
       }
     },
     welcome: {
-      subject: "¡Bienvenido a ALTUS!",
-      headerTitle: "🎉 ¡Bienvenido a ALTUS!",
+      subject: "¡Bienvenido a ALTUS FINANCE GROUP!",
+      headerTitle: "🎉 ¡Bienvenido a ALTUS FINANCE GROUP!",
       greeting: "Hola",
       verifiedMessage: "¡Tu correo ha sido verificado con éxito! Tu cuenta",
       activeMessage: "está ahora activa.",
@@ -253,7 +253,7 @@ const translations = {
       footer: "Todos los derechos reservados."
     },
     contract: {
-      subject: "Tu contrato de préstamo está disponible - ALTUS",
+      subject: "Tu contrato de préstamo está disponible - ALTUS FINANCE GROUP",
       headerTitle: "🎉 ¡Felicitaciones!",
       headerSubtitle: "Tu préstamo está aprobado",
       greeting: "Hola",
@@ -276,7 +276,7 @@ const translations = {
       footer: "Todos los derechos reservados."
     },
     fundingRelease: {
-      subject: "Tus fondos han sido liberados - ALTUS",
+      subject: "Tus fondos han sido liberados - ALTUS FINANCE GROUP",
       headerTitle: "✅ Fondos Liberados",
       headerSubtitle: "Tu dinero está disponible",
       greeting: "Hola",
@@ -303,25 +303,25 @@ const translations = {
       business: "profissional/empresa"
     },
     verification: {
-      subject: "Verifique seu endereço de email - ALTUS",
+      subject: "Verifique seu endereço de email - ALTUS FINANCE GROUP",
       tagline: "Soluções de financiamento",
       greeting: "Olá",
-      thankYou: "Obrigado por se inscrever no ALTUS como",
+      thankYou: "Obrigado por se inscrever no ALTUS FINANCE GROUP como",
       instruction: "Para ativar sua conta e acessar nossos serviços de financiamento, verifique seu endereço de email clicando no botão abaixo:",
       buttonText: "Verificar meu email",
       alternativeText: "Se o botão não funcionar, copie e cole este link no seu navegador:",
-      disclaimerText: "Se você não criou uma conta no ALTUS, pode ignorar este email.",
+      disclaimerText: "Se você não criou uma conta no ALTUS FINANCE GROUP, pode ignorar este email.",
       footer: "Todos os direitos reservados.",
       textVersion: {
-        thankYou: "Obrigado por se inscrever no ALTUS como",
+        thankYou: "Obrigado por se inscrever no ALTUS FINANCE GROUP como",
         instruction: "Para ativar sua conta, verifique seu endereço de email visitando este link:",
-        disclaimer: "Se você não criou uma conta no ALTUS, pode ignorar este email.",
-        signature: "ALTUS - Soluções de financiamento"
+        disclaimer: "Se você não criou uma conta no ALTUS FINANCE GROUP, pode ignorar este email.",
+        signature: "ALTUS FINANCE GROUP - Soluções de financiamento"
       }
     },
     welcome: {
-      subject: "Bem-vindo ao ALTUS!",
-      headerTitle: "🎉 Bem-vindo ao ALTUS!",
+      subject: "Bem-vindo ao ALTUS FINANCE GROUP!",
+      headerTitle: "🎉 Bem-vindo ao ALTUS FINANCE GROUP!",
       greeting: "Olá",
       verifiedMessage: "Seu email foi verificado com sucesso! Sua conta",
       activeMessage: "está agora ativa.",
@@ -337,7 +337,7 @@ const translations = {
       footer: "Todos os direitos reservados."
     },
     contract: {
-      subject: "Seu contrato de empréstimo está disponível - ALTUS",
+      subject: "Seu contrato de empréstimo está disponível - ALTUS FINANCE GROUP",
       headerTitle: "🎉 Parabéns!",
       headerSubtitle: "Seu empréstimo foi aprovado",
       greeting: "Olá",
@@ -360,7 +360,7 @@ const translations = {
       footer: "Todos os direitos reservados."
     },
     fundingRelease: {
-      subject: "Seus fundos foram liberados - ALTUS",
+      subject: "Seus fundos foram liberados - ALTUS FINANCE GROUP",
       headerTitle: "✅ Fundos Liberados",
       headerSubtitle: "Seu dinheiro está disponível",
       greeting: "Olá",
@@ -387,25 +387,25 @@ const translations = {
       business: "professionale/aziendale"
     },
     verification: {
-      subject: "Verifica il tuo indirizzo email - ALTUS",
+      subject: "Verifica il tuo indirizzo email - ALTUS FINANCE GROUP",
       tagline: "Soluzioni di finanziamento",
       greeting: "Ciao",
-      thankYou: "Grazie per esserti iscritto su ALTUS come",
+      thankYou: "Grazie per esserti iscritto su ALTUS FINANCE GROUP come",
       instruction: "Per attivare il tuo account e accedere ai nostri servizi di finanziamento, verifica il tuo indirizzo email cliccando sul pulsante qui sotto:",
       buttonText: "Verifica la mia email",
       alternativeText: "Se il pulsante non funziona, copia e incolla questo link nel tuo browser:",
-      disclaimerText: "Se non hai creato un account su ALTUS, puoi ignorare questa email.",
+      disclaimerText: "Se non hai creato un account su ALTUS FINANCE GROUP, puoi ignorare questa email.",
       footer: "Tutti i diritti riservati.",
       textVersion: {
-        thankYou: "Grazie per esserti iscritto su ALTUS come",
+        thankYou: "Grazie per esserti iscritto su ALTUS FINANCE GROUP come",
         instruction: "Per attivare il tuo account, verifica il tuo indirizzo email visitando questo link:",
-        disclaimer: "Se non hai creato un account su ALTUS, puoi ignorare questa email.",
-        signature: "ALTUS - Soluzioni di finanziamento"
+        disclaimer: "Se non hai creato un account su ALTUS FINANCE GROUP, puoi ignorare questa email.",
+        signature: "ALTUS FINANCE GROUP - Soluzioni di finanziamento"
       }
     },
     welcome: {
-      subject: "Benvenuto su ALTUS!",
-      headerTitle: "🎉 Benvenuto su ALTUS!",
+      subject: "Benvenuto su ALTUS FINANCE GROUP!",
+      headerTitle: "🎉 Benvenuto su ALTUS FINANCE GROUP!",
       greeting: "Ciao",
       verifiedMessage: "La tua email è stata verificata con successo! Il tuo account",
       activeMessage: "è ora attivo.",
@@ -421,7 +421,7 @@ const translations = {
       footer: "Tutti i diritti riservati."
     },
     contract: {
-      subject: "Il tuo contratto di prestito è disponibile - ALTUS",
+      subject: "Il tuo contratto di prestito è disponibile - ALTUS FINANCE GROUP",
       headerTitle: "🎉 Congratulazioni!",
       headerSubtitle: "Il tuo prestito è approvato",
       greeting: "Ciao",
@@ -444,7 +444,7 @@ const translations = {
       footer: "Tutti i diritti riservati."
     },
     fundingRelease: {
-      subject: "I tuoi fondi sono stati rilasciati - ALTUS",
+      subject: "I tuoi fondi sono stati rilasciati - ALTUS FINANCE GROUP",
       headerTitle: "✅ Fondi Rilasciati",
       headerSubtitle: "Il tuo denaro è disponibile",
       greeting: "Ciao",
@@ -471,25 +471,25 @@ const translations = {
       business: "geschäftlich/unternehmen"
     },
     verification: {
-      subject: "Bestätigen Sie Ihre E-Mail-Adresse - ALTUS",
+      subject: "Bestätigen Sie Ihre E-Mail-Adresse - ALTUS FINANCE GROUP",
       tagline: "Finanzierungslösungen",
       greeting: "Hallo",
-      thankYou: "Vielen Dank für Ihre Anmeldung bei ALTUS als",
+      thankYou: "Vielen Dank für Ihre Anmeldung bei ALTUS FINANCE GROUP als",
       instruction: "Um Ihr Konto zu aktivieren und auf unsere Finanzierungsdienstleistungen zuzugreifen, bestätigen Sie bitte Ihre E-Mail-Adresse, indem Sie auf die Schaltfläche unten klicken:",
       buttonText: "Meine E-Mail bestätigen",
       alternativeText: "Wenn die Schaltfläche nicht funktioniert, kopieren Sie diesen Link und fügen Sie ihn in Ihren Browser ein:",
-      disclaimerText: "Wenn Sie kein Konto bei ALTUS erstellt haben, können Sie diese E-Mail ignorieren.",
+      disclaimerText: "Wenn Sie kein Konto bei ALTUS FINANCE GROUP erstellt haben, können Sie diese E-Mail ignorieren.",
       footer: "Alle Rechte vorbehalten.",
       textVersion: {
-        thankYou: "Vielen Dank für Ihre Anmeldung bei ALTUS als",
+        thankYou: "Vielen Dank für Ihre Anmeldung bei ALTUS FINANCE GROUP als",
         instruction: "Um Ihr Konto zu aktivieren, bestätigen Sie bitte Ihre E-Mail-Adresse, indem Sie diesen Link besuchen:",
-        disclaimer: "Wenn Sie kein Konto bei ALTUS erstellt haben, können Sie diese E-Mail ignorieren.",
-        signature: "ALTUS - Finanzierungslösungen"
+        disclaimer: "Wenn Sie kein Konto bei ALTUS FINANCE GROUP erstellt haben, können Sie diese E-Mail ignorieren.",
+        signature: "ALTUS FINANCE GROUP - Finanzierungslösungen"
       }
     },
     welcome: {
-      subject: "Willkommen bei ALTUS!",
-      headerTitle: "🎉 Willkommen bei ALTUS!",
+      subject: "Willkommen bei ALTUS FINANCE GROUP!",
+      headerTitle: "🎉 Willkommen bei ALTUS FINANCE GROUP!",
       greeting: "Hallo",
       verifiedMessage: "Ihre E-Mail wurde erfolgreich bestätigt! Ihr Konto",
       activeMessage: "ist jetzt aktiv.",
@@ -505,7 +505,7 @@ const translations = {
       footer: "Alle Rechte vorbehalten."
     },
     contract: {
-      subject: "Ihr Kreditvertrag ist verfügbar - ALTUS",
+      subject: "Ihr Kreditvertrag ist verfügbar - ALTUS FINANCE GROUP",
       headerTitle: "🎉 Herzlichen Glückwunsch!",
       headerSubtitle: "Ihr Kredit wurde genehmigt",
       greeting: "Hallo",
@@ -528,7 +528,7 @@ const translations = {
       footer: "Alle Rechte vorbehalten."
     },
     fundingRelease: {
-      subject: "Ihre Mittel wurden freigegeben - ALTUS",
+      subject: "Ihre Mittel wurden freigegeben - ALTUS FINANCE GROUP",
       headerTitle: "✅ Mittel Freigegeben",
       headerSubtitle: "Ihr Geld ist verfügbar",
       greeting: "Hallo",
@@ -555,25 +555,25 @@ const translations = {
       business: "professioneel/zakelijk"
     },
     verification: {
-      subject: "Verifieer uw e-mailadres - ALTUS",
+      subject: "Verifieer uw e-mailadres - ALTUS FINANCE GROUP",
       tagline: "Financieringsoplossingen",
       greeting: "Hallo",
-      thankYou: "Bedankt voor uw aanmelding bij ALTUS als",
+      thankYou: "Bedankt voor uw aanmelding bij ALTUS FINANCE GROUP als",
       instruction: "Om uw account te activeren en toegang te krijgen tot onze financieringsdiensten, verifieert u uw e-mailadres door op de onderstaande knop te klikken:",
       buttonText: "Verifieer mijn e-mail",
       alternativeText: "Als de knop niet werkt, kopieer en plak deze link in uw browser:",
-      disclaimerText: "Als u geen account heeft aangemaakt bij ALTUS, kunt u deze e-mail negeren.",
+      disclaimerText: "Als u geen account heeft aangemaakt bij ALTUS FINANCE GROUP, kunt u deze e-mail negeren.",
       footer: "Alle rechten voorbehouden.",
       textVersion: {
-        thankYou: "Bedankt voor uw aanmelding bij ALTUS als",
+        thankYou: "Bedankt voor uw aanmelding bij ALTUS FINANCE GROUP als",
         instruction: "Om uw account te activeren, verifieert u uw e-mailadres door deze link te bezoeken:",
-        disclaimer: "Als u geen account heeft aangemaakt bij ALTUS, kunt u deze e-mail negeren.",
-        signature: "ALTUS - Financieringsoplossingen"
+        disclaimer: "Als u geen account heeft aangemaakt bij ALTUS FINANCE GROUP, kunt u deze e-mail negeren.",
+        signature: "ALTUS FINANCE GROUP - Financieringsoplossingen"
       }
     },
     welcome: {
-      subject: "Welkom bij ALTUS!",
-      headerTitle: "🎉 Welkom bij ALTUS!",
+      subject: "Welkom bij ALTUS FINANCE GROUP!",
+      headerTitle: "🎉 Welkom bij ALTUS FINANCE GROUP!",
       greeting: "Hallo",
       verifiedMessage: "Uw e-mail is succesvol geverifieerd! Uw account",
       activeMessage: "is nu actief.",
@@ -589,7 +589,7 @@ const translations = {
       footer: "Alle rechten voorbehouden."
     },
     contract: {
-      subject: "Uw leningscontract is beschikbaar - ALTUS",
+      subject: "Uw leningscontract is beschikbaar - ALTUS FINANCE GROUP",
       headerTitle: "🎉 Gefeliciteerd!",
       headerSubtitle: "Uw lening is goedgekeurd",
       greeting: "Hallo",
@@ -612,7 +612,7 @@ const translations = {
       footer: "Alle rechten voorbehouden."
     },
     fundingRelease: {
-      subject: "Uw middelen zijn vrijgegeven - ALTUS",
+      subject: "Uw middelen zijn vrijgegeven - ALTUS FINANCE GROUP",
       headerTitle: "✅ Middelen Vrijgegeven",
       headerSubtitle: "Uw geld is beschikbaar",
       greeting: "Hallo",
@@ -660,7 +660,7 @@ function getVerificationTemplate(lang: Language, vars: VerificationVariables): E
     <body>
       <div class="container">
         <div class="header">
-          <h1 style="margin: 0; font-size: 28px;">ALTUS</h1>
+          <h1 style="margin: 0; font-size: 28px;">ALTUS FINANCE GROUP</h1>
           <p style="margin: 10px 0 0 0; opacity: 0.9;">${t.tagline}</p>
         </div>
         <div class="content">
@@ -677,7 +677,7 @@ function getVerificationTemplate(lang: Language, vars: VerificationVariables): E
           </p>
         </div>
         <div class="footer">
-          <p>&copy; ${currentYear} ALTUS. ${t.footer}</p>
+          <p>&copy; ${currentYear} ALTUS FINANCE GROUP. ${t.footer}</p>
         </div>
       </div>
     </body>
@@ -747,7 +747,7 @@ function getWelcomeTemplate(lang: Language, vars: WelcomeVariables): EmailTempla
           </p>
         </div>
         <div class="footer">
-          <p>&copy; ${currentYear} ALTUS. ${t.footer}</p>
+          <p>&copy; ${currentYear} ALTUS FINANCE GROUP. ${t.footer}</p>
         </div>
       </div>
     </body>
@@ -766,7 +766,7 @@ function getWelcomeTemplate(lang: Language, vars: WelcomeVariables): EmailTempla
     
     ${t.supportText}
     
-    ALTUS
+    ALTUS FINANCE GROUP
   `;
 
   return {
@@ -843,7 +843,7 @@ function getContractTemplate(lang: Language, vars: ContractVariables): EmailTemp
         </div>
         <div class="footer">
           <p>${t.contactText} ${escapeHtml(vars.fromEmail)}</p>
-          <p>&copy; ${currentYear} ALTUS. ${t.footer}</p>
+          <p>&copy; ${currentYear} ALTUS FINANCE GROUP. ${t.footer}</p>
         </div>
       </div>
     </body>
@@ -873,7 +873,7 @@ function getContractTemplate(lang: Language, vars: ContractVariables): EmailTemp
     
     ${t.contactText} ${vars.fromEmail}
     
-    ALTUS
+    ALTUS FINANCE GROUP
   `;
 
   return {
@@ -943,7 +943,7 @@ function getFundingReleaseTemplate(lang: Language, vars: FundingReleaseVariables
           </p>
         </div>
         <div class="footer">
-          <p>&copy; ${currentYear} ALTUS. ${t.footer}</p>
+          <p>&copy; ${currentYear} ALTUS FINANCE GROUP. ${t.footer}</p>
         </div>
       </div>
     </body>
@@ -972,7 +972,7 @@ function getFundingReleaseTemplate(lang: Language, vars: FundingReleaseVariables
     
     ${t.supportText}
     
-    ALTUS
+    ALTUS FINANCE GROUP
   `;
 
   return {

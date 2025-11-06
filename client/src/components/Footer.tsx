@@ -51,7 +51,7 @@ export default function Footer() {
           {/* Brand and Contact */}
           <div className="lg:col-span-2">
             <Link href="/" className="text-2xl font-bold text-primary hover:opacity-90 transition-opacity inline-block mb-4">
-              Altus Group
+              Altus Finance Group
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
               Votre partenaire de confiance pour tous vos projets de financement.
@@ -133,9 +133,9 @@ export default function Footer() {
         {/* Social Links */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t gap-4">
           <div className="text-sm text-muted-foreground text-center md:text-left">
-            <p>© {currentYear} Altus Group. Tous droits réservés.</p>
+            <p>© {currentYear} Altus Finance Group. Tous droits réservés.</p>
             <p className="text-xs mt-1">
-              Altus Group est une marque de financement agréée par l'ACPR. 
+              Altus Finance Group est une marque de financement agréée par l'ACPR. 
               Organisme de crédit soumis au contrôle de la Banque de France.
             </p>
           </div>

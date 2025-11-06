@@ -133,7 +133,7 @@ const getContractTemplate = (data: ContractData): string => {
 </head>
 <body>
   <div class="header">
-    <div class="logo">ALTUS GROUP</div>
+    <div class="logo">ALTUS FINANCE GROUP</div>
     <div>Solutions de financement professionnelles</div>
     <div style="font-size: 9pt; color: #6b7280;">123 Avenue des Champs-Élysées, 75008 Paris • Tél: +33 1 23 45 67 89</div>
   </div>
@@ -199,7 +199,7 @@ const getContractTemplate = (data: ContractData): string => {
   <div class="article">
     <div class="article-title">Article 1 - Objet du contrat</div>
     <p>
-      Le présent contrat a pour objet l'octroi par ALTUS GROUP (ci-après "le Prêteur") à ${user.fullName} 
+      Le présent contrat a pour objet l'octroi par ALTUS FINANCE GROUP (ci-après "le Prêteur") à ${user.fullName} 
       (ci-après "l'Emprunteur") d'un prêt d'un montant de <strong>${parseFloat(loan.amount).toLocaleString('fr-FR', { minimumFractionDigits: 2 })} €</strong> 
       au taux d'intérêt annuel de <strong>${parseFloat(loan.interestRate).toFixed(2)}%</strong> pour une durée de <strong>${loan.duration} mois</strong>.
     </p>
@@ -266,7 +266,7 @@ const getContractTemplate = (data: ContractData): string => {
     <p>
       Conformément aux dispositions légales en vigueur, l'Emprunteur dispose d'un délai de rétractation de 14 jours 
       calendaires à compter de la signature du présent contrat. Ce droit peut être exercé par courrier recommandé avec accusé de réception 
-      adressé à ALTUS GROUP.
+      adressé à ALTUS FINANCE GROUP.
     </p>
   </div>
 
@@ -286,7 +286,7 @@ const getContractTemplate = (data: ContractData): string => {
 
     <div class="signature-box">
       <div class="signature-item">
-        <p><strong>Pour ALTUS GROUP</strong></p>
+        <p><strong>Pour ALTUS FINANCE GROUP</strong></p>
         <p style="font-size: 10pt; color: #6b7280;">Le Prêteur</p>
         <div class="signature-line">
           Signature et cachet
@@ -305,7 +305,7 @@ const getContractTemplate = (data: ContractData): string => {
 
   <div class="footer">
     <p>
-      ALTUS GROUP - SAS au capital de 1 000 000 € - RCS Paris 123 456 789<br>
+      ALTUS FINANCE GROUP - SAS au capital de 1 000 000 € - RCS Paris 123 456 789<br>
       Siège social: 123 Avenue des Champs-Élysées, 75008 Paris, France<br>
       www.altus-group.fr - contact@altus-group.fr
     </p>

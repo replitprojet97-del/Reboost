@@ -62,7 +62,7 @@ export const breadcrumbSchema = (items: Array<{name: string, path: string}>) => 
 
 export const loanProductSchema = {
   "@type": "LoanOrCredit",
-  "name": "Prêt Professionnel Altus Group",
+  "name": "Prêt Professionnel Altus Finance Group",
   "description": "Prêt professionnel flexible avec des taux compétitifs",
   "provider": {
     "@type": "FinancialService",
@@ -89,7 +89,7 @@ export const faqSchema = (faqs: Array<{question: string, answer: string}>) => ({
 
 export const contactPageSchema = {
   "@type": "ContactPage",
-  "name": "Contact Altus Group",
+  "name": "Contact Altus Finance Group",
   "description": "Contactez-nous pour toutes vos questions sur nos solutions de financement",
   "url": `${seoConfig.siteUrl}/contact`
 };

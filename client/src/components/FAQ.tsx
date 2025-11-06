@@ -20,7 +20,7 @@ export default function FAQ() {
     },
     {
       question: 'Comment et quand puis-je accéder à mes fonds ?',
-      answer: 'Une fois votre demande approuvée, vos fonds sont immédiatement débloqués sur votre compte sécurisé Altus Group. Vous pouvez ensuite les transférer quand vous le souhaitez vers votre compte bancaire personnel ou professionnel, directement depuis votre espace client. Les transferts sont instantanés et sans frais supplémentaires.',
+      answer: 'Une fois votre demande approuvée, vos fonds sont immédiatement débloqués sur votre compte sécurisé Altus Finance Group. Vous pouvez ensuite les transférer quand vous le souhaitez vers votre compte bancaire personnel ou professionnel, directement depuis votre espace client. Les transferts sont instantanés et sans frais supplémentaires.',
     },
     {
       question: 'Puis-je rembourser mon prêt par anticipation ?',

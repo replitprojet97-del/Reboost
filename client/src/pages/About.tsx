@@ -24,9 +24,9 @@ export default function About() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="À propos d'Altus Group - Notre Mission et Nos Valeurs | Solutions de Financement"
-        description="Découvrez Altus Group, leader en solutions de prêt professionnel avec plus de 15 ans d'expérience, 10 000+ clients satisfaits et 500M€ de prêts accordés. Notre mission : rendre le financement accessible à tous."
-        keywords="à propos Altus Group, mission Altus Group, valeurs entreprise financement, expérience prêt professionnel, financement entreprise fiable"
+        title="À propos d'Altus Finance Group - Notre Mission et Nos Valeurs | Solutions de Financement"
+        description="Découvrez Altus Finance Group, leader en solutions de prêt professionnel avec plus de 15 ans d'expérience, 10 000+ clients satisfaits et 500M€ de prêts accordés. Notre mission : rendre le financement accessible à tous."
+        keywords="à propos Altus Finance Group, mission Altus Finance Group, valeurs entreprise financement, expérience prêt professionnel, financement entreprise fiable"
         path="/about"
         structuredData={[organizationSchema, aboutBreadcrumb]}
       />

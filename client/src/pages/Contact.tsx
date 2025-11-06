@@ -45,9 +45,9 @@ export default function Contact() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Contactez-nous - Altus Group | Questions sur nos Prêts Professionnels"
-        description="Une question sur nos solutions de financement ? Contactez Altus Group. Notre équipe est à votre disposition pour vous accompagner dans votre projet de prêt professionnel. Réponse rapide garantie."
-        keywords="contact Altus Group, nous contacter, service client prêt, aide financement entreprise, support client Altus"
+        title="Contactez-nous - Altus Finance Group | Questions sur nos Prêts Professionnels"
+        description="Une question sur nos solutions de financement ? Contactez Altus Finance Group. Notre équipe est à votre disposition pour vous accompagner dans votre projet de prêt professionnel. Réponse rapide garantie."
+        keywords="contact Altus Finance Group, nous contacter, service client prêt, aide financement entreprise, support client Altus"
         path="/contact"
         structuredData={[contactPageSchema, contactBreadcrumb]}
       />

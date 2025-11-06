@@ -383,14 +383,14 @@ type TranslationKeys = {
 export const translations: Record<Language, TranslationKeys> = {
   fr: {
     hero: {
-      title: 'Réalisez vos projets avec Altus Group',
+      title: 'Réalisez vos projets avec Altus Finance Group',
       subtitle: 'Solutions de financement pour particuliers et professionnels - Taux compétitifs et processus transparent',
       cta1: 'Demander un prêt',
       cta2: 'Mon espace',
       trustIndicator: 'Plus de 15 000 clients satisfaits nous font confiance',
       slides: [
         {
-          title: 'Réalisez vos projets avec Altus Group',
+          title: 'Réalisez vos projets avec Altus Finance Group',
           subtitle: 'Solutions de financement pour particuliers et professionnels - Taux compétitifs et processus transparent',
         },
         {
@@ -476,10 +476,10 @@ export const translations: Record<Language, TranslationKeys> = {
       success: 'Succès',
     },
     about: {
-      title: 'À propos d\'Altus Group',
+      title: 'À propos d\'Altus Finance Group',
       subtitle: 'Votre partenaire de confiance pour le financement des particuliers et professionnels',
       mission: 'Notre Mission',
-      missionText: 'Chez Altus Group, nous démocratisons l\'accès au financement pour tous. Que vous soyez un particulier avec un projet personnel ou une entreprise en développement, nous proposons des solutions de crédit modernes, transparentes et adaptées à vos besoins. Notre technologie de pointe nous permet d\'analyser rapidement votre situation et de vous proposer des offres personnalisées avec des taux compétitifs. Nous croyons en la transparence totale : pas de frais cachés, des conditions claires et un accompagnement à chaque étape.',
+      missionText: 'Chez Altus Finance Group, nous démocratisons l\'accès au financement pour tous. Que vous soyez un particulier avec un projet personnel ou une entreprise en développement, nous proposons des solutions de crédit modernes, transparentes et adaptées à vos besoins. Notre technologie de pointe nous permet d\'analyser rapidement votre situation et de vous proposer des offres personnalisées avec des taux compétitifs. Nous croyons en la transparence totale : pas de frais cachés, des conditions claires et un accompagnement à chaque étape.',
       stats: {
         clients: 'Clients actifs',
         loansProvided: 'Prêts accordés',
@@ -495,9 +495,9 @@ export const translations: Record<Language, TranslationKeys> = {
       step2Title: 'Réponse ultra-rapide - Quelques minutes à 24h',
       step2Desc: 'Notre technologie d\'évaluation de crédit analyse votre profil financier, vos revenus et votre historique en temps réel. Grâce à nos algorithmes avancés et l\'intégration aux bureaux de crédit, nous vous donnons une réponse de principe en quelques minutes à 24h maximum.',
       step3Title: 'Déblocage des fonds - Immédiat',
-      step3Desc: 'Une fois votre demande approuvée, les fonds sont immédiatement débloqués sur votre compte sécurisé Altus Group. Vous gardez le contrôle total de vos fonds avec accès 24/7 depuis votre espace client.',
+      step3Desc: 'Une fois votre demande approuvée, les fonds sont immédiatement débloqués sur votre compte sécurisé Altus Finance Group. Vous gardez le contrôle total de vos fonds avec accès 24/7 depuis votre espace client.',
       step4Title: 'Transfert vers votre compte - À votre rythme',
-      step4Desc: 'Transférez vos fonds quand vous le souhaitez vers votre compte bancaire personnel ou professionnel directement depuis votre espace Altus. Transferts instantanés ou programmés selon vos besoins, sans frais supplémentaires.',
+      step4Desc: 'Transférez vos fonds quand vous le souhaitez vers votre compte bancaire personnel ou professionnel directement depuis votre espace Altus Finance Group. Transferts instantanés ou programmés selon vos besoins, sans frais supplémentaires.',
     },
     products: {
       title: 'Nos Solutions de Prêts',
@@ -535,7 +535,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Combien de temps prend le processus d\'approbation ?',
-          answer: 'Grâce à notre technologie d\'analyse en temps réel, vous recevez une réponse de principe en quelques minutes à 24 heures maximum. Une fois approuvé, les fonds sont immédiatement débloqués sur votre compte sécurisé Altus Group. Vous pouvez ensuite les transférer vers votre compte bancaire personnel ou professionnel quand vous le souhaitez, instantanément et sans frais supplémentaires.',
+          answer: 'Grâce à notre technologie d\'analyse en temps réel, vous recevez une réponse de principe en quelques minutes à 24 heures maximum. Une fois approuvé, les fonds sont immédiatement débloqués sur votre compte sécurisé Altus Finance Group. Vous pouvez ensuite les transférer vers votre compte bancaire personnel ou professionnel quand vous le souhaitez, instantanément et sans frais supplémentaires.',
         },
         {
           question: 'Quel est le montant minimum et maximum que je peux emprunter ?',
@@ -577,17 +577,17 @@ export const translations: Record<Language, TranslationKeys> = {
       lastUpdated: 'Dernière mise à jour : Janvier 2025',
       terms: {
         section1Title: '1. Acceptation des Conditions',
-        section1Content: 'En accédant et en utilisant les services de Altus Group, vous acceptez et acceptez d\'être lié par les termes et dispositions de cet accord.',
+        section1Content: 'En accédant et en utilisant les services de Altus Finance Group, vous acceptez et acceptez d\'être lié par les termes et dispositions de cet accord.',
         section2Title: '2. Licence d\'Utilisation',
-        section2Content: 'L\'autorisation est accordée pour accéder temporairement aux matériaux (informations ou logiciels) sur la plateforme de Altus Group pour une visualisation personnelle et non commerciale uniquement.',
+        section2Content: 'L\'autorisation est accordée pour accéder temporairement aux matériaux (informations ou logiciels) sur la plateforme de Altus Finance Group pour une visualisation personnelle et non commerciale uniquement.',
         section3Title: '3. Contrat de Prêt',
         section3Content: 'Tous les prêts sont soumis à l\'approbation de crédit. Les termes et conditions seront fournis dans un contrat de prêt séparé lors de l\'approbation de votre demande.',
         section4Title: '4. Déclarations et Garanties',
         section4Content: 'Vous déclarez et garantissez que toutes les informations fournies dans votre demande de prêt sont exactes, complètes et à jour.',
         section5Title: '5. Limitation de Responsabilité',
-        section5Content: 'En aucun cas Altus Group ou ses fournisseurs ne seront responsables de tout dommage découlant de l\'utilisation ou de l\'impossibilité d\'utiliser les matériaux sur la plateforme de Altus Group.',
+        section5Content: 'En aucun cas Altus Finance Group ou ses fournisseurs ne seront responsables de tout dommage découlant de l\'utilisation ou de l\'impossibilité d\'utiliser les matériaux sur la plateforme de Altus Finance Group.',
         section6Title: '6. Modifications',
-        section6Content: 'Altus Group peut réviser ces conditions d\'utilisation à tout moment sans préavis. En utilisant cette plateforme, vous acceptez d\'être lié par la version actuelle de ces conditions.',
+        section6Content: 'Altus Finance Group peut réviser ces conditions d\'utilisation à tout moment sans préavis. En utilisant cette plateforme, vous acceptez d\'être lié par la version actuelle de ces conditions.',
       },
       privacy: {
         section1Title: '1. Informations que Nous Collectons',
@@ -639,7 +639,7 @@ export const translations: Record<Language, TranslationKeys> = {
       compareLoans: 'Comparer tous les prêts',
     },
     features: {
-      title: 'Pourquoi Choisir Altus Group ?',
+      title: 'Pourquoi Choisir Altus Finance Group ?',
       subtitle: 'Une plateforme de prêt moderne et transparente qui met vos besoins au centre',
       security: 'Sécurité Bancaire de Niveau Entreprise',
       securityDesc: 'Cryptage AES-256, conformité RGPD, certification SOC 2 Type II et ISO 27001. Vos données financières sont protégées avec les mêmes standards que les grandes banques. Authentification multi-facteurs et surveillance 24/7 contre la fraude.',
@@ -660,11 +660,11 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Ce que disent nos clients',
       subtitle: 'Plus de 15 000 particuliers et professionnels nous font confiance',
       reviews: [
-        { name: 'Sophie Martin', role: 'Chef d\'entreprise', company: 'Boutique Bio Paris', text: 'Altus Group m\'a permis d\'obtenir un financement rapide pour développer mon commerce. Le processus était simple et transparent, j\'ai reçu les fonds en moins d\'une semaine.', rating: 5 },
+        { name: 'Sophie Martin', role: 'Chef d\'entreprise', company: 'Boutique Bio Paris', text: 'Altus Finance Group m\'a permis d\'obtenir un financement rapide pour développer mon commerce. Le processus était simple et transparent, j\'ai reçu les fonds en moins d\'une semaine.', rating: 5 },
         { name: 'Thomas Dubois', role: 'Particulier', company: 'Propriétaire', text: 'Excellent service pour mon prêt immobilier. Les conseillers sont à l\'écoute et m\'ont trouvé le meilleur taux. Je recommande vivement leurs services.', rating: 5 },
-        { name: 'Marie Laurent', role: 'Directrice Financière', company: 'Tech Solutions SARL', text: 'Grâce à Altus Group, nous avons pu financer l\'achat de nouveaux équipements. La flexibilité de remboursement et le taux compétitif ont fait la différence.', rating: 5 },
+        { name: 'Marie Laurent', role: 'Directrice Financière', company: 'Tech Solutions SARL', text: 'Grâce à Altus Finance Group, nous avons pu financer l\'achat de nouveaux équipements. La flexibilité de remboursement et le taux compétitif ont fait la différence.', rating: 5 },
         { name: 'Pierre Moreau', role: 'Artisan', company: 'Boulangerie Traditionnelle', text: 'Un service professionnel et efficace. J\'ai obtenu mon prêt travaux sans complications. L\'équipe m\'a accompagné à chaque étape.', rating: 5 },
-        { name: 'Isabelle Rousseau', role: 'Commerçante', company: 'Mode & Accessoires', text: 'Je suis très satisfaite du financement obtenu pour l\'expansion de ma boutique. Altus Group comprend vraiment les besoins des entrepreneurs.', rating: 5 },
+        { name: 'Isabelle Rousseau', role: 'Commerçante', company: 'Mode & Accessoires', text: 'Je suis très satisfaite du financement obtenu pour l\'expansion de ma boutique. Altus Finance Group comprend vraiment les besoins des entrepreneurs.', rating: 5 },
         { name: 'Jean Petit', role: 'Particulier', company: 'Père de famille', text: 'Mon crédit auto a été approuvé rapidement avec un excellent taux. Le simulateur en ligne m\'a permis de comparer facilement les offres.', rating: 5 },
         { name: 'Caroline Durand', role: 'Infirmière', company: 'Hôpital Saint-Louis', text: 'J\'ai pu financer mes travaux de rénovation énergétique grâce à leur prêt vert. Les taux bonifiés et les conseils sur les aides d\'État m\'ont beaucoup aidée.', rating: 5 },
         { name: 'Marc Lefebvre', role: 'Gérant', company: 'Restaurant Le Gourmet', text: 'La ligne de crédit renouvelable a sauvé ma trésorerie pendant la période difficile. Flexibilité maximale et remboursement anticipé sans frais.', rating: 5 },
@@ -795,14 +795,14 @@ export const translations: Record<Language, TranslationKeys> = {
   },
   en: {
     hero: {
-      title: 'Make Your Projects a Reality with Altus Group',
+      title: 'Make Your Projects a Reality with Altus Finance Group',
       subtitle: 'Financing solutions for individuals and businesses - Competitive rates and transparent process',
       cta1: 'Request a Loan',
       cta2: 'My Account',
       trustIndicator: 'Trusted by 15,000+ satisfied clients',
       slides: [
         {
-          title: 'Make Your Projects a Reality with Altus Group',
+          title: 'Make Your Projects a Reality with Altus Finance Group',
           subtitle: 'Financing solutions for individuals and businesses - Competitive rates and transparent process',
         },
         {
@@ -888,10 +888,10 @@ export const translations: Record<Language, TranslationKeys> = {
       success: 'Success',
     },
     about: {
-      title: 'About Altus Group',
+      title: 'About Altus Finance Group',
       subtitle: 'Your trusted partner for financing individuals and businesses',
       mission: 'Our Mission',
-      missionText: 'At Altus Group, we democratize access to financing for everyone. Whether you\'re an individual with a personal project or a growing business, we offer modern, transparent credit solutions tailored to your needs. Our cutting-edge technology enables us to quickly analyze your situation and offer personalized deals with competitive rates. We believe in total transparency: no hidden fees, clear terms, and support at every step.',
+      missionText: 'At Altus Finance Group, we democratize access to financing for everyone. Whether you\'re an individual with a personal project or a growing business, we offer modern, transparent credit solutions tailored to your needs. Our cutting-edge technology enables us to quickly analyze your situation and offer personalized deals with competitive rates. We believe in total transparency: no hidden fees, clear terms, and support at every step.',
       stats: {
         clients: 'Active clients',
         loansProvided: 'Loans provided',
@@ -907,7 +907,7 @@ export const translations: Record<Language, TranslationKeys> = {
       step2Title: 'Ultra-Fast Response - Minutes to 24h',
       step2Desc: 'Our credit assessment technology analyzes your financial profile, income, and history in real-time. Thanks to our advanced algorithms and credit bureau integration, we give you an approval response in minutes to 24 hours maximum.',
       step3Title: 'Immediate Fund Disbursement',
-      step3Desc: 'Once your application is approved, funds are immediately released to your secure Altus Group account. You maintain full control of your funds with 24/7 access from your client dashboard.',
+      step3Desc: 'Once your application is approved, funds are immediately released to your secure Altus Finance Group account. You maintain full control of your funds with 24/7 access from your client dashboard.',
       step4Title: 'Transfer to Your Account - At Your Pace',
       step4Desc: 'Transfer your funds whenever you want to your personal or business bank account directly from your Altus dashboard. Instant or scheduled transfers according to your needs, with no additional fees.',
     },
@@ -947,7 +947,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'How long does the approval process take?',
-          answer: 'Thanks to our real-time analysis technology, you receive an approval response in minutes to 24 hours maximum. Once approved, funds are immediately released to your secure Altus Group account. You can then transfer them to your personal or business bank account whenever you want, instantly and at no extra cost.',
+          answer: 'Thanks to our real-time analysis technology, you receive an approval response in minutes to 24 hours maximum. Once approved, funds are immediately released to your secure Altus Finance Group account. You can then transfer them to your personal or business bank account whenever you want, instantly and at no extra cost.',
         },
         {
           question: 'What is the minimum and maximum amount I can borrow?',
@@ -989,17 +989,17 @@ export const translations: Record<Language, TranslationKeys> = {
       lastUpdated: 'Last updated: January 2025',
       terms: {
         section1Title: '1. Acceptance of Terms',
-        section1Content: 'By accessing and using Altus Group\'s services, you accept and agree to be bound by the terms and provision of this agreement.',
+        section1Content: 'By accessing and using Altus Finance Group\'s services, you accept and agree to be bound by the terms and provision of this agreement.',
         section2Title: '2. Use License',
-        section2Content: 'Permission is granted to temporarily access the materials (information or software) on Altus Group\'s platform for personal, non-commercial transitory viewing only.',
+        section2Content: 'Permission is granted to temporarily access the materials (information or software) on Altus Finance Group\'s platform for personal, non-commercial transitory viewing only.',
         section3Title: '3. Loan Agreement',
         section3Content: 'All loans are subject to credit approval. Terms and conditions will be provided in a separate loan agreement upon approval of your application.',
         section4Title: '4. Representations and Warranties',
         section4Content: 'You represent and warrant that all information provided in your loan application is accurate, complete, and current.',
         section5Title: '5. Limitation of Liability',
-        section5Content: 'In no event shall Altus Group or its suppliers be liable for any damages arising out of the use or inability to use the materials on Altus Group\'s platform.',
+        section5Content: 'In no event shall Altus Finance Group or its suppliers be liable for any damages arising out of the use or inability to use the materials on Altus Finance Group\'s platform.',
         section6Title: '6. Modifications',
-        section6Content: 'Altus Group may revise these terms of service at any time without notice. By using this platform, you agree to be bound by the current version of these terms.',
+        section6Content: 'Altus Finance Group may revise these terms of service at any time without notice. By using this platform, you agree to be bound by the current version of these terms.',
       },
       privacy: {
         section1Title: '1. Information We Collect',
@@ -1051,7 +1051,7 @@ export const translations: Record<Language, TranslationKeys> = {
       compareLoans: 'Compare all loans',
     },
     features: {
-      title: 'Why Choose Altus Group?',
+      title: 'Why Choose Altus Finance Group?',
       subtitle: 'A modern and transparent lending platform that puts your needs first',
       security: 'Enterprise-Grade Banking Security',
       securityDesc: 'AES-256 encryption, GDPR compliance, SOC 2 Type II and ISO 27001 certification. Your financial data is protected with the same standards as major banks. Multi-factor authentication and 24/7 fraud monitoring.',
@@ -1072,11 +1072,11 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'What Our Clients Say',
       subtitle: 'Trusted by 15,000+ individuals and businesses',
       reviews: [
-        { name: 'Sophie Martin', role: 'Business Owner', company: 'Organic Store Paris', text: 'Altus Group enabled me to obtain quick financing to develop my business. The process was simple and transparent, I received the funds in less than a week.', rating: 5 },
+        { name: 'Sophie Martin', role: 'Business Owner', company: 'Organic Store Paris', text: 'Altus Finance Group enabled me to obtain quick financing to develop my business. The process was simple and transparent, I received the funds in less than a week.', rating: 5 },
         { name: 'Thomas Dubois', role: 'Individual', company: 'Homeowner', text: 'Excellent service for my mortgage. The advisors are attentive and found me the best rate. I highly recommend their services.', rating: 5 },
-        { name: 'Marie Laurent', role: 'CFO', company: 'Tech Solutions Ltd', text: 'Thanks to Altus Group, we were able to finance the purchase of new equipment. The repayment flexibility and competitive rate made all the difference.', rating: 5 },
+        { name: 'Marie Laurent', role: 'CFO', company: 'Tech Solutions Ltd', text: 'Thanks to Altus Finance Group, we were able to finance the purchase of new equipment. The repayment flexibility and competitive rate made all the difference.', rating: 5 },
         { name: 'Pierre Moreau', role: 'Craftsman', company: 'Traditional Bakery', text: 'A professional and efficient service. I got my home improvement loan without complications. The team supported me every step of the way.', rating: 5 },
-        { name: 'Isabelle Rousseau', role: 'Retailer', company: 'Fashion & Accessories', text: 'I am very satisfied with the financing obtained for the expansion of my shop. Altus Group truly understands the needs of entrepreneurs.', rating: 5 },
+        { name: 'Isabelle Rousseau', role: 'Retailer', company: 'Fashion & Accessories', text: 'I am very satisfied with the financing obtained for the expansion of my shop. Altus Finance Group truly understands the needs of entrepreneurs.', rating: 5 },
         { name: 'Jean Petit', role: 'Individual', company: 'Family Man', text: 'My car loan was approved quickly with an excellent rate. The online simulator allowed me to easily compare offers.', rating: 5 },
         { name: 'Caroline Durand', role: 'Nurse', company: 'Saint-Louis Hospital', text: 'I was able to finance my energy renovation work thanks to their green loan. The subsidized rates and advice on state aid helped me a lot.', rating: 5 },
         { name: 'Marc Lefebvre', role: 'Manager', company: 'Le Gourmet Restaurant', text: 'The revolving credit line saved my cash flow during the difficult period. Maximum flexibility and free early repayment.', rating: 5 },
@@ -1195,14 +1195,14 @@ export const translations: Record<Language, TranslationKeys> = {
   },
   es: {
     hero: {
-      title: 'Haga Realidad sus Proyectos con Altus Group',
+      title: 'Haga Realidad sus Proyectos con Altus Finance Group',
       subtitle: 'Soluciones de financiamiento para particulares y empresas - Tasas competitivas y proceso transparente',
       cta1: 'Solicitar Préstamo',
       cta2: 'Mi Cuenta',
       trustIndicator: 'Más de 15,000 clientes satisfechos confían en nosotros',
       slides: [
         {
-          title: 'Haga Realidad sus Proyectos con Altus Group',
+          title: 'Haga Realidad sus Proyectos con Altus Finance Group',
           subtitle: 'Soluciones de financiamiento para particulares y empresas - Tasas competitivas y proceso transparente',
         },
         {
@@ -1288,10 +1288,10 @@ export const translations: Record<Language, TranslationKeys> = {
       success: 'Éxito',
     },
     about: {
-      title: 'Acerca de Altus Group',
+      title: 'Acerca de Altus Finance Group',
       subtitle: 'Su socio de confianza para financiar particulares y empresas',
       mission: 'Nuestra Misión',
-      missionText: 'En Altus Group, democratizamos el acceso al financiamiento para todos. Ya sea que sea un particular con un proyecto personal o una empresa en desarrollo, ofrecemos soluciones de crédito modernas, transparentes y adaptadas a sus necesidades. Nuestra tecnología de vanguardia nos permite analizar rápidamente su situación y ofrecerle ofertas personalizadas con tasas competitivas. Creemos en la transparencia total: sin cargos ocultos, condiciones claras y acompañamiento en cada paso.',
+      missionText: 'En Altus Finance Group, democratizamos el acceso al financiamiento para todos. Ya sea que sea un particular con un proyecto personal o una empresa en desarrollo, ofrecemos soluciones de crédito modernas, transparentes y adaptadas a sus necesidades. Nuestra tecnología de vanguardia nos permite analizar rápidamente su situación y ofrecerle ofertas personalizadas con tasas competitivas. Creemos en la transparencia total: sin cargos ocultos, condiciones claras y acompañamiento en cada paso.',
       stats: {
         clients: 'Clientes activos',
         loansProvided: 'Préstamos otorgados',
@@ -1307,7 +1307,7 @@ export const translations: Record<Language, TranslationKeys> = {
       step2Title: 'Respuesta ultra-rápida - Minutos a 24h',
       step2Desc: 'Nuestra tecnología de evaluación crediticia analiza su perfil financiero, ingresos e historial en tiempo real. Gracias a nuestros algoritmos avanzados y la integración con burós de crédito, le damos una respuesta de principio en minutos a 24 horas máximo.',
       step3Title: 'Desembolso de fondos - Inmediato',
-      step3Desc: 'Una vez aprobada su solicitud, los fondos se desbloquean inmediatamente en su cuenta segura de Altus Group. Mantiene el control total de sus fondos con acceso 24/7 desde su panel de cliente.',
+      step3Desc: 'Una vez aprobada su solicitud, los fondos se desbloquean inmediatamente en su cuenta segura de Altus Finance Group. Mantiene el control total de sus fondos con acceso 24/7 desde su panel de cliente.',
       step4Title: 'Transferencia a su cuenta - A su ritmo',
       step4Desc: 'Transfiera sus fondos cuando lo desee a su cuenta bancaria personal o empresarial directamente desde su panel de Altus. Transferencias instantáneas o programadas según sus necesidades, sin cargos adicionales.',
     },
@@ -1347,7 +1347,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: '¿Cuánto tiempo toma el proceso de aprobación?',
-          answer: 'Gracias a nuestra tecnología de análisis en tiempo real, recibe una respuesta de aprobación en minutos a 24 horas máximo. Una vez aprobado, los fondos se liberan inmediatamente en su cuenta segura Altus Group. Luego puede transferirlos a su cuenta bancaria personal o profesional cuando lo desee, instantáneamente y sin cargos adicionales.',
+          answer: 'Gracias a nuestra tecnología de análisis en tiempo real, recibe una respuesta de aprobación en minutos a 24 horas máximo. Una vez aprobado, los fondos se liberan inmediatamente en su cuenta segura Altus Finance Group. Luego puede transferirlos a su cuenta bancaria personal o profesional cuando lo desee, instantáneamente y sin cargos adicionales.',
         },
         {
           question: '¿Cuál es el monto mínimo y máximo que puedo pedir prestado?',
@@ -1389,17 +1389,17 @@ export const translations: Record<Language, TranslationKeys> = {
       lastUpdated: 'Última actualización: Enero 2025',
       terms: {
         section1Title: '1. Aceptación de Términos',
-        section1Content: 'Al acceder y utilizar los servicios de Altus Group, acepta y está de acuerdo en estar sujeto a los términos y disposiciones de este acuerdo.',
+        section1Content: 'Al acceder y utilizar los servicios de Altus Finance Group, acepta y está de acuerdo en estar sujeto a los términos y disposiciones de este acuerdo.',
         section2Title: '2. Licencia de Uso',
-        section2Content: 'Se otorga permiso para acceder temporalmente a los materiales (información o software) en la plataforma de Altus Group solo para visualización personal y no comercial.',
+        section2Content: 'Se otorga permiso para acceder temporalmente a los materiales (información o software) en la plataforma de Altus Finance Group solo para visualización personal y no comercial.',
         section3Title: '3. Contrato de Préstamo',
         section3Content: 'Todos los préstamos están sujetos a aprobación de crédito. Los términos y condiciones se proporcionarán en un contrato de préstamo separado al aprobar su solicitud.',
         section4Title: '4. Declaraciones y Garantías',
         section4Content: 'Usted declara y garantiza que toda la información proporcionada en su solicitud de préstamo es precisa, completa y actual.',
         section5Title: '5. Limitación de Responsabilidad',
-        section5Content: 'En ningún caso Altus Group o sus proveedores serán responsables de cualquier daño que surja del uso o la imposibilidad de usar los materiales en la plataforma de Altus Group.',
+        section5Content: 'En ningún caso Altus Finance Group o sus proveedores serán responsables de cualquier daño que surja del uso o la imposibilidad de usar los materiales en la plataforma de Altus Finance Group.',
         section6Title: '6. Modificaciones',
-        section6Content: 'Altus Group puede revisar estos términos de servicio en cualquier momento sin previo aviso. Al usar esta plataforma, acepta estar sujeto a la versión actual de estos términos.',
+        section6Content: 'Altus Finance Group puede revisar estos términos de servicio en cualquier momento sin previo aviso. Al usar esta plataforma, acepta estar sujeto a la versión actual de estos términos.',
       },
       privacy: {
         section1Title: '1. Información que Recopilamos',
@@ -1451,7 +1451,7 @@ export const translations: Record<Language, TranslationKeys> = {
       compareLoans: 'Comparar todos los préstamos',
     },
     features: {
-      title: '¿Por Qué Elegir Altus Group?',
+      title: '¿Por Qué Elegir Altus Finance Group?',
       subtitle: 'Una plataforma de préstamos moderna y transparente que prioriza sus necesidades',
       security: 'Seguridad Bancaria de Nivel Empresarial',
       securityDesc: 'Cifrado AES-256, cumplimiento RGPD, certificación SOC 2 Type II e ISO 27001. Sus datos financieros están protegidos con los mismos estándares que los grandes bancos. Autenticación multifactor y monitoreo 24/7 contra fraude.',
@@ -1472,9 +1472,9 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Lo que dicen nuestros clientes',
       subtitle: 'Más de 15,000 particulares y profesionales confían en nosotros',
       reviews: [
-        { name: 'Carlos García', role: 'Empresario', company: 'Restaurante El Sabor', text: 'Altus Group me permitió obtener financiamiento rápido para expandir mi negocio. El proceso fue simple y transparente.', rating: 5 },
+        { name: 'Carlos García', role: 'Empresario', company: 'Restaurante El Sabor', text: 'Altus Finance Group me permitió obtener financiamiento rápido para expandir mi negocio. El proceso fue simple y transparente.', rating: 5 },
         { name: 'María Rodríguez', role: 'Arquitecta', company: 'Estudio Creativo', text: 'Excelente servicio para mi préstamo inmobiliario. Los asesores encontraron la mejor tasa para mí.', rating: 5 },
-        { name: 'José Martínez', role: 'Ingeniero', company: 'Tech Solutions', text: 'Gracias a Altus Group financiamos nuevos equipos. La flexibilidad de pago fue perfecta.', rating: 5 },
+        { name: 'José Martínez', role: 'Ingeniero', company: 'Tech Solutions', text: 'Gracias a Altus Finance Group financiamos nuevos equipos. La flexibilidad de pago fue perfecta.', rating: 5 },
         { name: 'Ana López', role: 'Comerciante', company: 'Moda Boutique', text: 'Proceso 100% digital y rápido. Obtuve mi préstamo profesional en 3 días.', rating: 5 },
         { name: 'Miguel Sánchez', role: 'Estudiante', company: 'Universidad', text: 'El préstamo estudiantil con pago diferido me permitió financiar mis estudios sin estrés.', rating: 5 },
       ],
@@ -1590,14 +1590,14 @@ export const translations: Record<Language, TranslationKeys> = {
   },
   pt: {
     hero: {
-      title: 'Realize seus projetos com Altus Group',
+      title: 'Realize seus projetos com Altus Finance Group',
       subtitle: 'Soluções de financiamento para particulares e profissionais - Taxas competitivas e processo transparente',
       cta1: 'Solicitar empréstimo',
       cta2: 'Meu espaço',
       trustIndicator: 'Mais de 15.000 clientes satisfeitos confiam em nós',
       slides: [
         {
-          title: 'Realize seus projetos com Altus Group',
+          title: 'Realize seus projetos com Altus Finance Group',
           subtitle: 'Soluções de financiamento para particulares e profissionais - Taxas competitivas e processo transparente',
         },
         {
@@ -1683,10 +1683,10 @@ export const translations: Record<Language, TranslationKeys> = {
       success: 'Sucesso',
     },
     about: {
-      title: 'Sobre Altus Group',
+      title: 'Sobre Altus Finance Group',
       subtitle: 'Seu parceiro de confiança para financiamento de particulares e profissionais',
       mission: 'Nossa Missão',
-      missionText: 'Na Altus Group, democratizamos o acesso ao financiamento para todos. Seja você um particular com um projeto pessoal ou uma empresa em desenvolvimento, oferecemos soluções de crédito modernas, transparentes e adaptadas às suas necessidades. Nossa tecnologia de ponta nos permite analisar rapidamente sua situação e oferecer ofertas personalizadas com taxas competitivas. Acreditamos na transparência total: sem taxas ocultas, condições claras e acompanhamento em cada etapa.',
+      missionText: 'Na Altus Finance Group, democratizamos o acesso ao financiamento para todos. Seja você um particular com um projeto pessoal ou uma empresa em desenvolvimento, oferecemos soluções de crédito modernas, transparentes e adaptadas às suas necessidades. Nossa tecnologia de ponta nos permite analisar rapidamente sua situação e oferecer ofertas personalizadas com taxas competitivas. Acreditamos na transparência total: sem taxas ocultas, condições claras e acompanhamento em cada etapa.',
       stats: {
         clients: 'Clientes ativos',
         loansProvided: 'Empréstimos concedidos',
@@ -1702,7 +1702,7 @@ export const translations: Record<Language, TranslationKeys> = {
       step2Title: 'Resposta ultra-rápida - Minutos a 24h',
       step2Desc: 'Nossa tecnologia de avaliação de crédito analisa seu perfil financeiro, rendimentos e histórico em tempo real. Graças aos nossos algoritmos avançados e integração com agências de crédito, damos uma resposta de aprovação em minutos a 24 horas no máximo.',
       step3Title: 'Liberação de fundos - Imediata',
-      step3Desc: 'Uma vez aprovada sua solicitação, os fundos são imediatamente liberados em sua conta segura Altus Group. Você mantém controle total de seus fundos com acesso 24/7 do seu painel de cliente.',
+      step3Desc: 'Uma vez aprovada sua solicitação, os fundos são imediatamente liberados em sua conta segura Altus Finance Group. Você mantém controle total de seus fundos com acesso 24/7 do seu painel de cliente.',
       step4Title: 'Transferência para sua conta - No seu ritmo',
       step4Desc: 'Transfira seus fundos quando quiser para sua conta bancária pessoal ou profissional diretamente do seu painel Altus. Transferências instantâneas ou programadas conforme suas necessidades, sem taxas adicionais.',
     },
@@ -1742,7 +1742,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Quanto tempo leva o processo de aprovação?',
-          answer: 'Graças à nossa tecnologia de análise em tempo real, você recebe uma resposta de aprovação em minutos a 24 horas no máximo. Uma vez aprovado, os fundos são imediatamente liberados em sua conta segura Altus Group. Você pode então transferi-los para sua conta bancária pessoal ou profissional quando desejar, instantaneamente e sem taxas adicionais.',
+          answer: 'Graças à nossa tecnologia de análise em tempo real, você recebe uma resposta de aprovação em minutos a 24 horas no máximo. Uma vez aprovado, os fundos são imediatamente liberados em sua conta segura Altus Finance Group. Você pode então transferi-los para sua conta bancária pessoal ou profissional quando desejar, instantaneamente e sem taxas adicionais.',
         },
         {
           question: 'Qual é o valor mínimo e máximo que posso emprestar?',
@@ -1784,17 +1784,17 @@ export const translations: Record<Language, TranslationKeys> = {
       lastUpdated: 'Última atualização: Janeiro 2025',
       terms: {
         section1Title: '1. Aceitação dos Termos',
-        section1Content: 'Ao acessar e usar os serviços da Altus Group, você aceita e concorda em estar vinculado aos termos e disposições deste acordo.',
+        section1Content: 'Ao acessar e usar os serviços da Altus Finance Group, você aceita e concorda em estar vinculado aos termos e disposições deste acordo.',
         section2Title: '2. Licença de Uso',
-        section2Content: 'É concedida permissão para acessar temporariamente os materiais (informações ou software) na plataforma Altus Group para visualização pessoal e não comercial apenas.',
+        section2Content: 'É concedida permissão para acessar temporariamente os materiais (informações ou software) na plataforma Altus Finance Group para visualização pessoal e não comercial apenas.',
         section3Title: '3. Contrato de Empréstimo',
         section3Content: 'Todos os empréstimos estão sujeitos à aprovação de crédito. Os termos e condições serão fornecidos em um contrato de empréstimo separado após a aprovação da sua solicitação.',
         section4Title: '4. Declarações e Garantias',
         section4Content: 'Você declara e garante que todas as informações fornecidas na sua solicitação de empréstimo são precisas, completas e atualizadas.',
         section5Title: '5. Limitação de Responsabilidade',
-        section5Content: 'Em nenhum caso a Altus Group ou seus fornecedores serão responsáveis por quaisquer danos decorrentes do uso ou incapacidade de usar os materiais na plataforma Altus Group.',
+        section5Content: 'Em nenhum caso a Altus Finance Group ou seus fornecedores serão responsáveis por quaisquer danos decorrentes do uso ou incapacidade de usar os materiais na plataforma Altus Finance Group.',
         section6Title: '6. Modificações',
-        section6Content: 'A Altus Group pode revisar estes termos de uso a qualquer momento sem aviso prévio. Ao usar esta plataforma, você concorda em estar vinculado à versão atual destes termos.',
+        section6Content: 'A Altus Finance Group pode revisar estes termos de uso a qualquer momento sem aviso prévio. Ao usar esta plataforma, você concorda em estar vinculado à versão atual destes termos.',
       },
       privacy: {
         section1Title: '1. Informações que Coletamos',
@@ -1846,7 +1846,7 @@ export const translations: Record<Language, TranslationKeys> = {
       compareLoans: 'Comparar todos os empréstimos',
     },
     features: {
-      title: 'Por Que Escolher Altus Group?',
+      title: 'Por Que Escolher Altus Finance Group?',
       subtitle: 'Uma plataforma de empréstimo moderna e transparente que coloca suas necessidades no centro',
       security: 'Segurança Bancária de Nível Empresarial',
       securityDesc: 'Criptografia AES-256, conformidade RGPD, certificação SOC 2 Type II e ISO 27001. Seus dados financeiros são protegidos com os mesmos padrões dos grandes bancos. Autenticação multifator e monitoramento 24/7 contra fraude.',
@@ -1867,9 +1867,9 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'O que dizem nossos clientes',
       subtitle: 'Mais de 15.000 particulares e profissionais confiam em nós',
       reviews: [
-        { name: 'Pedro Silva', role: 'Empresário', company: 'Café Lisboa', text: 'Altus Group me permitiu obter financiamento rápido para desenvolver meu negócio. O processo foi simples e transparente.', rating: 5 },
+        { name: 'Pedro Silva', role: 'Empresário', company: 'Café Lisboa', text: 'Altus Finance Group me permitiu obter financiamento rápido para desenvolver meu negócio. O processo foi simples e transparente.', rating: 5 },
         { name: 'Ana Santos', role: 'Arquiteta', company: 'Studio Criativo', text: 'Excelente serviço para meu empréstimo imobiliário. Os consultores encontraram a melhor taxa para mim.', rating: 5 },
-        { name: 'João Costa', role: 'Engenheiro', company: 'Tech Solutions', text: 'Graças ao Altus Group financiamos novos equipamentos. A flexibilidade de pagamento foi perfeita.', rating: 5 },
+        { name: 'João Costa', role: 'Engenheiro', company: 'Tech Solutions', text: 'Graças ao Altus Finance Group financiamos novos equipamentos. A flexibilidade de pagamento foi perfeita.', rating: 5 },
         { name: 'Maria Oliveira', role: 'Comerciante', company: 'Moda Boutique', text: 'Processo 100% digital e rápido. Obtive meu empréstimo profissional em 3 dias.', rating: 5 },
         { name: 'Carlos Ferreira', role: 'Estudante', company: 'Universidade', text: 'O empréstimo estudantil com pagamento diferido me permitiu financiar meus estudos sem estresse.', rating: 5 },
       ],
@@ -1985,14 +1985,14 @@ export const translations: Record<Language, TranslationKeys> = {
   },
   it: {
     hero: {
-      title: 'Realizza i tuoi progetti con Altus Group',
+      title: 'Realizza i tuoi progetti con Altus Finance Group',
       subtitle: 'Soluzioni di finanziamento per privati e professionisti - Tassi competitivi e processo trasparente',
       cta1: 'Richiedi un prestito',
       cta2: 'Il mio spazio',
       trustIndicator: 'Più di 15.000 clienti soddisfatti si fidano di noi',
       slides: [
         {
-          title: 'Realizza i tuoi progetti con Altus Group',
+          title: 'Realizza i tuoi progetti con Altus Finance Group',
           subtitle: 'Soluzioni di finanziamento per privati e professionisti - Tassi competitivi e processo trasparente',
         },
         {
@@ -2078,10 +2078,10 @@ export const translations: Record<Language, TranslationKeys> = {
       success: 'Successo',
     },
     about: {
-      title: 'Chi siamo - Altus Group',
+      title: 'Chi siamo - Altus Finance Group',
       subtitle: 'Il tuo partner di fiducia per il finanziamento di privati e professionisti',
       mission: 'La Nostra Missione',
-      missionText: 'In Altus Group, democratizziamo l\'accesso al finanziamento per tutti. Che tu sia un privato con un progetto personale o un\'azienda in sviluppo, offriamo soluzioni di credito moderne, trasparenti e adattate alle tue esigenze. La nostra tecnologia all\'avanguardia ci permette di analizzare rapidamente la tua situazione e offrirti offerte personalizzate con tassi competitivi. Crediamo nella trasparenza totale: nessuna commissione nascosta, condizioni chiare e supporto ad ogni passo.',
+      missionText: 'In Altus Finance Group, democratizziamo l\'accesso al finanziamento per tutti. Che tu sia un privato con un progetto personale o un\'azienda in sviluppo, offriamo soluzioni di credito moderne, trasparenti e adattate alle tue esigenze. La nostra tecnologia all\'avanguardia ci permette di analizzare rapidamente la tua situazione e offrirti offerte personalizzate con tassi competitivi. Crediamo nella trasparenza totale: nessuna commissione nascosta, condizioni chiare e supporto ad ogni passo.',
       stats: {
         clients: 'Clienti attivi',
         loansProvided: 'Prestiti concessi',
@@ -2097,7 +2097,7 @@ export const translations: Record<Language, TranslationKeys> = {
       step2Title: 'Risposta ultra-rapida - Minuti a 24h',
       step2Desc: 'La nostra tecnologia di valutazione del credito analizza il tuo profilo finanziario, redditi e storico in tempo reale. Grazie ai nostri algoritmi avanzati e all\'integrazione con le agenzie di credito, ti diamo una risposta di approvazione in minuti a 24 ore massimo.',
       step3Title: 'Erogazione fondi - Immediata',
-      step3Desc: 'Una volta approvata la tua richiesta, i fondi vengono immediatamente sbloccati sul tuo conto sicuro Altus Group. Mantieni il controllo totale dei tuoi fondi con accesso 24/7 dal tuo pannello cliente.',
+      step3Desc: 'Una volta approvata la tua richiesta, i fondi vengono immediatamente sbloccati sul tuo conto sicuro Altus Finance Group. Mantieni il controllo totale dei tuoi fondi con accesso 24/7 dal tuo pannello cliente.',
       step4Title: 'Trasferimento sul tuo conto - Al tuo ritmo',
       step4Desc: 'Trasferisci i tuoi fondi quando vuoi sul tuo conto bancario personale o professionale direttamente dal tuo pannello Altus. Trasferimenti istantanei o programmati secondo le tue esigenze, senza commissioni aggiuntive.',
     },
@@ -2137,7 +2137,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Quanto tempo richiede il processo di approvazione?',
-          answer: 'Grazie alla nostra tecnologia di analisi in tempo reale, ricevi una risposta di approvazione in pochi minuti fino a 24 ore massimo. Una volta approvato, i fondi vengono immediatamente sbloccati sul tuo conto sicuro Altus Group. Puoi poi trasferirli sul tuo conto bancario personale o professionale quando vuoi, istantaneamente e senza costi aggiuntivi.',
+          answer: 'Grazie alla nostra tecnologia di analisi in tempo reale, ricevi una risposta di approvazione in pochi minuti fino a 24 ore massimo. Una volta approvato, i fondi vengono immediatamente sbloccati sul tuo conto sicuro Altus Finance Group. Puoi poi trasferirli sul tuo conto bancario personale o professionale quando vuoi, istantaneamente e senza costi aggiuntivi.',
         },
         {
           question: 'Qual è l\'importo minimo e massimo che posso prendere in prestito?',
@@ -2179,17 +2179,17 @@ export const translations: Record<Language, TranslationKeys> = {
       lastUpdated: 'Ultimo aggiornamento: Gennaio 2025',
       terms: {
         section1Title: '1. Accettazione dei Termini',
-        section1Content: 'Accedendo e utilizzando i servizi di Altus Group, accetti e accetti di essere vincolato dai termini e disposizioni di questo accordo.',
+        section1Content: 'Accedendo e utilizzando i servizi di Altus Finance Group, accetti e accetti di essere vincolato dai termini e disposizioni di questo accordo.',
         section2Title: '2. Licenza d\'Uso',
-        section2Content: 'L\'autorizzazione è concessa per accedere temporaneamente ai materiali (informazioni o software) sulla piattaforma Altus Group solo per visualizzazione personale e non commerciale.',
+        section2Content: 'L\'autorizzazione è concessa per accedere temporaneamente ai materiali (informazioni o software) sulla piattaforma Altus Finance Group solo per visualizzazione personale e non commerciale.',
         section3Title: '3. Contratto di Prestito',
         section3Content: 'Tutti i prestiti sono soggetti all\'approvazione del credito. I termini e le condizioni verranno forniti in un contratto di prestito separato all\'approvazione della tua richiesta.',
         section4Title: '4. Dichiarazioni e Garanzie',
         section4Content: 'Dichiari e garantisci che tutte le informazioni fornite nella tua richiesta di prestito sono accurate, complete e aggiornate.',
         section5Title: '5. Limitazione di Responsabilità',
-        section5Content: 'In nessun caso Altus Group o i suoi fornitori saranno responsabili per eventuali danni derivanti dall\'uso o dall\'impossibilità di utilizzare i materiali sulla piattaforma Altus Group.',
+        section5Content: 'In nessun caso Altus Finance Group o i suoi fornitori saranno responsabili per eventuali danni derivanti dall\'uso o dall\'impossibilità di utilizzare i materiali sulla piattaforma Altus Finance Group.',
         section6Title: '6. Modifiche',
-        section6Content: 'Altus Group può rivedere questi termini di utilizzo in qualsiasi momento senza preavviso. Utilizzando questa piattaforma, accetti di essere vincolato dalla versione corrente di questi termini.',
+        section6Content: 'Altus Finance Group può rivedere questi termini di utilizzo in qualsiasi momento senza preavviso. Utilizzando questa piattaforma, accetti di essere vincolato dalla versione corrente di questi termini.',
       },
       privacy: {
         section1Title: '1. Informazioni che Raccogliamo',
@@ -2241,7 +2241,7 @@ export const translations: Record<Language, TranslationKeys> = {
       compareLoans: 'Confronta tutti i prestiti',
     },
     features: {
-      title: 'Perché Scegliere Altus Group?',
+      title: 'Perché Scegliere Altus Finance Group?',
       subtitle: 'Una piattaforma di prestito moderna e trasparente che mette le tue esigenze al centro',
       security: 'Sicurezza Bancaria di Livello Aziendale',
       securityDesc: 'Crittografia AES-256, conformità GDPR, certificazione SOC 2 Type II e ISO 27001. I tuoi dati finanziari sono protetti con gli stessi standard delle grandi banche. Autenticazione a più fattori e monitoraggio 24/7 contro le frodi.',
@@ -2262,9 +2262,9 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Cosa dicono i nostri clienti',
       subtitle: 'Più di 15.000 privati e professionisti si fidano di noi',
       reviews: [
-        { name: 'Marco Rossi', role: 'Imprenditore', company: 'Ristorante Roma', text: 'Altus Group mi ha permesso di ottenere un finanziamento rapido per sviluppare il mio business. Il processo era semplice e trasparente.', rating: 5 },
+        { name: 'Marco Rossi', role: 'Imprenditore', company: 'Ristorante Roma', text: 'Altus Finance Group mi ha permesso di ottenere un finanziamento rapido per sviluppare il mio business. Il processo era semplice e trasparente.', rating: 5 },
         { name: 'Giulia Bianchi', role: 'Architetto', company: 'Studio Creativo', text: 'Servizio eccellente per il mio prestito immobiliare. I consulenti hanno trovato il miglior tasso per me.', rating: 5 },
-        { name: 'Luca Ferrari', role: 'Ingegnere', company: 'Tech Solutions', text: 'Grazie ad Altus Group abbiamo finanziato nuove attrezzature. La flessibilità di pagamento è stata perfetta.', rating: 5 },
+        { name: 'Luca Ferrari', role: 'Ingegnere', company: 'Tech Solutions', text: 'Grazie ad Altus Finance Group abbiamo finanziato nuove attrezzature. La flessibilità di pagamento è stata perfetta.', rating: 5 },
         { name: 'Sofia Romano', role: 'Commerciante', company: 'Boutique Moda', text: 'Processo 100% digitale e veloce. Ho ottenuto il mio prestito professionale in 3 giorni.', rating: 5 },
         { name: 'Alessandro Marino', role: 'Studente', company: 'Università', text: 'Il prestito studenti con pagamento differito mi ha permesso di finanziare i miei studi senza stress.', rating: 5 },
       ],
@@ -2380,14 +2380,14 @@ export const translations: Record<Language, TranslationKeys> = {
   },
   de: {
     hero: {
-      title: 'Verwirklichen Sie Ihre Projekte mit Altus Group',
+      title: 'Verwirklichen Sie Ihre Projekte mit Altus Finance Group',
       subtitle: 'Finanzierungslösungen für Privatpersonen und Unternehmen - Wettbewerbsfähige Zinsen und transparenter Prozess',
       cta1: 'Kredit beantragen',
       cta2: 'Mein Bereich',
       trustIndicator: 'Mehr als 15.000 zufriedene Kunden vertrauen uns',
       slides: [
         {
-          title: 'Verwirklichen Sie Ihre Projekte mit Altus Group',
+          title: 'Verwirklichen Sie Ihre Projekte mit Altus Finance Group',
           subtitle: 'Finanzierungslösungen für Privatpersonen und Unternehmen - Wettbewerbsfähige Zinsen und transparenter Prozess',
         },
         {
@@ -2473,10 +2473,10 @@ export const translations: Record<Language, TranslationKeys> = {
       success: 'Erfolg',
     },
     about: {
-      title: 'Über Altus Group',
+      title: 'Über Altus Finance Group',
       subtitle: 'Ihr vertrauenswürdiger Partner für die Finanzierung von Privatpersonen und Unternehmen',
       mission: 'Unsere Mission',
-      missionText: 'Bei Altus Group demokratisieren wir den Zugang zu Finanzierungen für alle. Ob Sie eine Privatperson mit einem persönlichen Projekt oder ein wachsendes Unternehmen sind, wir bieten moderne, transparente Kreditlösungen, die auf Ihre Bedürfnisse zugeschnitten sind. Unsere modernste Technologie ermöglicht es uns, Ihre Situation schnell zu analysieren und personalisierte Angebote mit wettbewerbsfähigen Zinsen anzubieten. Wir glauben an totale Transparenz: keine versteckten Gebühren, klare Bedingungen und Unterstützung bei jedem Schritt.',
+      missionText: 'Bei Altus Finance Group demokratisieren wir den Zugang zu Finanzierungen für alle. Ob Sie eine Privatperson mit einem persönlichen Projekt oder ein wachsendes Unternehmen sind, wir bieten moderne, transparente Kreditlösungen, die auf Ihre Bedürfnisse zugeschnitten sind. Unsere modernste Technologie ermöglicht es uns, Ihre Situation schnell zu analysieren und personalisierte Angebote mit wettbewerbsfähigen Zinsen anzubieten. Wir glauben an totale Transparenz: keine versteckten Gebühren, klare Bedingungen und Unterstützung bei jedem Schritt.',
       stats: {
         clients: 'Aktive Kunden',
         loansProvided: 'Gewährte Kredite',
@@ -2492,7 +2492,7 @@ export const translations: Record<Language, TranslationKeys> = {
       step2Title: 'Ultra-schnelle Antwort - Minuten bis 24h',
       step2Desc: 'Unsere Kreditbewertungstechnologie analysiert Ihr Finanzprofil, Einkommen und Historie in Echtzeit. Dank unserer fortschrittlichen Algorithmen und Integration mit Kreditbüros geben wir Ihnen eine Genehmigungsantwort in Minuten bis 24 Stunden maximal.',
       step3Title: 'Freigabe der Mittel - Sofort',
-      step3Desc: 'Sobald Ihr Antrag genehmigt ist, werden die Mittel sofort auf Ihr sicheres Altus Group-Konto freigegeben. Sie behalten die volle Kontrolle über Ihre Mittel mit 24/7-Zugriff von Ihrem Kunden-Dashboard.',
+      step3Desc: 'Sobald Ihr Antrag genehmigt ist, werden die Mittel sofort auf Ihr sicheres Altus Finance Group-Konto freigegeben. Sie behalten die volle Kontrolle über Ihre Mittel mit 24/7-Zugriff von Ihrem Kunden-Dashboard.',
       step4Title: 'Überweisung auf Ihr Konto - In Ihrem Tempo',
       step4Desc: 'Überweisen Sie Ihre Mittel, wann immer Sie möchten, auf Ihr persönliches oder geschäftliches Bankkonto direkt von Ihrem Altus-Dashboard. Sofortige oder geplante Überweisungen nach Ihren Bedürfnissen, ohne zusätzliche Gebühren.',
     },
@@ -2532,7 +2532,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Wie lange dauert der Genehmigungsprozess?',
-          answer: 'Dank unserer Echtzeit-Analysetechnologie erhalten Sie eine Genehmigungsantwort in wenigen Minuten bis maximal 24 Stunden. Nach der Genehmigung werden die Mittel sofort auf Ihr sicheres Altus Group-Konto freigegeben. Sie können sie dann jederzeit auf Ihr persönliches oder geschäftliches Bankkonto überweisen, sofort und ohne zusätzliche Kosten.',
+          answer: 'Dank unserer Echtzeit-Analysetechnologie erhalten Sie eine Genehmigungsantwort in wenigen Minuten bis maximal 24 Stunden. Nach der Genehmigung werden die Mittel sofort auf Ihr sicheres Altus Finance Group-Konto freigegeben. Sie können sie dann jederzeit auf Ihr persönliches oder geschäftliches Bankkonto überweisen, sofort und ohne zusätzliche Kosten.',
         },
         {
           question: 'Was ist der Mindest- und Höchstbetrag, den ich leihen kann?',
@@ -2574,17 +2574,17 @@ export const translations: Record<Language, TranslationKeys> = {
       lastUpdated: 'Letzte Aktualisierung: Januar 2025',
       terms: {
         section1Title: '1. Annahme der Bedingungen',
-        section1Content: 'Durch den Zugriff auf und die Nutzung der Dienste von Altus Group akzeptieren Sie und erklären sich damit einverstanden, an die Bedingungen und Bestimmungen dieser Vereinbarung gebunden zu sein.',
+        section1Content: 'Durch den Zugriff auf und die Nutzung der Dienste von Altus Finance Group akzeptieren Sie und erklären sich damit einverstanden, an die Bedingungen und Bestimmungen dieser Vereinbarung gebunden zu sein.',
         section2Title: '2. Nutzungslizenz',
-        section2Content: 'Die Erlaubnis wird erteilt, vorübergehend auf die Materialien (Informationen oder Software) auf der Altus Group-Plattform nur für persönliche, nichtkommerzielle vorübergehende Ansicht zuzugreifen.',
+        section2Content: 'Die Erlaubnis wird erteilt, vorübergehend auf die Materialien (Informationen oder Software) auf der Altus Finance Group-Plattform nur für persönliche, nichtkommerzielle vorübergehende Ansicht zuzugreifen.',
         section3Title: '3. Kreditvertrag',
         section3Content: 'Alle Kredite unterliegen der Kreditgenehmigung. Die Bedingungen werden in einem separaten Kreditvertrag bei Genehmigung Ihres Antrags bereitgestellt.',
         section4Title: '4. Erklärungen und Garantien',
         section4Content: 'Sie erklären und garantieren, dass alle in Ihrem Kreditantrag bereitgestellten Informationen genau, vollständig und aktuell sind.',
         section5Title: '5. Haftungsbeschränkung',
-        section5Content: 'In keinem Fall haften Altus Group oder seine Lieferanten für Schäden, die sich aus der Nutzung oder Unfähigkeit zur Nutzung der Materialien auf der Altus Group-Plattform ergeben.',
+        section5Content: 'In keinem Fall haften Altus Finance Group oder seine Lieferanten für Schäden, die sich aus der Nutzung oder Unfähigkeit zur Nutzung der Materialien auf der Altus Finance Group-Plattform ergeben.',
         section6Title: '6. Änderungen',
-        section6Content: 'Altus Group kann diese Nutzungsbedingungen jederzeit ohne Vorankündigung überarbeiten. Durch die Nutzung dieser Plattform erklären Sie sich damit einverstanden, an die aktuelle Version dieser Bedingungen gebunden zu sein.',
+        section6Content: 'Altus Finance Group kann diese Nutzungsbedingungen jederzeit ohne Vorankündigung überarbeiten. Durch die Nutzung dieser Plattform erklären Sie sich damit einverstanden, an die aktuelle Version dieser Bedingungen gebunden zu sein.',
       },
       privacy: {
         section1Title: '1. Informationen, die wir sammeln',
@@ -2636,7 +2636,7 @@ export const translations: Record<Language, TranslationKeys> = {
       compareLoans: 'Alle Kredite vergleichen',
     },
     features: {
-      title: 'Warum Altus Group wählen?',
+      title: 'Warum Altus Finance Group wählen?',
       subtitle: 'Eine moderne und transparente Kreditplattform, die Ihre Bedürfnisse in den Mittelpunkt stellt',
       security: 'Bank-Sicherheit auf Unternehmensniveau',
       securityDesc: 'AES-256-Verschlüsselung, DSGVO-Konformität, SOC 2 Type II und ISO 27001-Zertifizierung. Ihre Finanzdaten sind mit denselben Standards geschützt wie bei großen Banken. Multi-Faktor-Authentifizierung und 24/7-Überwachung gegen Betrug.',
@@ -2657,9 +2657,9 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Was unsere Kunden sagen',
       subtitle: 'Über 15.000 Privatpersonen und Unternehmen vertrauen uns',
       reviews: [
-        { name: 'Hans Müller', role: 'Unternehmer', company: 'Restaurant Berlin', text: 'Altus Group ermöglichte mir eine schnelle Finanzierung für die Entwicklung meines Geschäfts. Der Prozess war einfach und transparent.', rating: 5 },
+        { name: 'Hans Müller', role: 'Unternehmer', company: 'Restaurant Berlin', text: 'Altus Finance Group ermöglichte mir eine schnelle Finanzierung für die Entwicklung meines Geschäfts. Der Prozess war einfach und transparent.', rating: 5 },
         { name: 'Anna Schmidt', role: 'Architektin', company: 'Kreativstudio', text: 'Ausgezeichneter Service für meine Hypothek. Die Berater fanden den besten Zinssatz für mich.', rating: 5 },
-        { name: 'Michael Weber', role: 'Ingenieur', company: 'Tech Solutions', text: 'Dank Altus Group haben wir neue Ausrüstung finanziert. Die Rückzahlungsflexibilität war perfekt.', rating: 5 },
+        { name: 'Michael Weber', role: 'Ingenieur', company: 'Tech Solutions', text: 'Dank Altus Finance Group haben wir neue Ausrüstung finanziert. Die Rückzahlungsflexibilität war perfekt.', rating: 5 },
         { name: 'Sarah Fischer', role: 'Händlerin', company: 'Mode Boutique', text: '100% digitaler und schneller Prozess. Ich erhielt meinen Geschäftskredit in 3 Tagen.', rating: 5 },
         { name: 'Thomas Becker', role: 'Student', company: 'Universität', text: 'Der Studentenkredit mit Zahlungsaufschub ermöglichte mir, mein Studium stressfrei zu finanzieren.', rating: 5 },
       ],
@@ -2775,14 +2775,14 @@ export const translations: Record<Language, TranslationKeys> = {
   },
   nl: {
     hero: {
-      title: 'Realiseer uw projecten met Altus Group',
+      title: 'Realiseer uw projecten met Altus Finance Group',
       subtitle: 'Financieringsoplossingen voor particulieren en professionals - Concurrerende tarieven en transparant proces',
       cta1: 'Lening aanvragen',
       cta2: 'Mijn ruimte',
       trustIndicator: 'Meer dan 15.000 tevreden klanten vertrouwen ons',
       slides: [
         {
-          title: 'Realiseer uw projecten met Altus Group',
+          title: 'Realiseer uw projecten met Altus Finance Group',
           subtitle: 'Financieringsoplossingen voor particulieren en professionals - Concurrerende tarieven en transparant proces',
         },
         {
@@ -2868,10 +2868,10 @@ export const translations: Record<Language, TranslationKeys> = {
       success: 'Succes',
     },
     about: {
-      title: 'Over Altus Group',
+      title: 'Over Altus Finance Group',
       subtitle: 'Uw vertrouwde partner voor financiering van particulieren en bedrijven',
       mission: 'Onze Missie',
-      missionText: 'Bij Altus Group democratiseren we de toegang tot financiering voor iedereen. Of u nu een particulier bent met een persoonlijk project of een groeiend bedrijf, wij bieden moderne, transparante kredietoplossingen die zijn afgestemd op uw behoeften. Onze geavanceerde technologie stelt ons in staat uw situatie snel te analyseren en gepersonaliseerde aanbiedingen met concurrerende tarieven aan te bieden. Wij geloven in totale transparantie: geen verborgen kosten, duidelijke voorwaarden en ondersteuning bij elke stap.',
+      missionText: 'Bij Altus Finance Group democratiseren we de toegang tot financiering voor iedereen. Of u nu een particulier bent met een persoonlijk project of een groeiend bedrijf, wij bieden moderne, transparante kredietoplossingen die zijn afgestemd op uw behoeften. Onze geavanceerde technologie stelt ons in staat uw situatie snel te analyseren en gepersonaliseerde aanbiedingen met concurrerende tarieven aan te bieden. Wij geloven in totale transparantie: geen verborgen kosten, duidelijke voorwaarden en ondersteuning bij elke stap.',
       stats: {
         clients: 'Actieve klanten',
         loansProvided: 'Verstrekte leningen',
@@ -2887,7 +2887,7 @@ export const translations: Record<Language, TranslationKeys> = {
       step2Title: 'Ultra-snel antwoord - Minuten tot 24u',
       step2Desc: 'Onze kredietbeoordelingstechnologie analyseert uw financiële profiel, inkomsten en geschiedenis in real-time. Dankzij onze geavanceerde algoritmen en integratie met kredietbureaus geven we u een goedkeuringsantwoord in minuten tot 24 uur maximaal.',
       step3Title: 'Vrijgave van middelen - Onmiddellijk',
-      step3Desc: 'Zodra uw aanvraag is goedgekeurd, worden de middelen onmiddellijk vrijgegeven op uw beveiligde Altus Group-account. U behoudt volledige controle over uw middelen met 24/7-toegang vanaf uw klantenpaneel.',
+      step3Desc: 'Zodra uw aanvraag is goedgekeurd, worden de middelen onmiddellijk vrijgegeven op uw beveiligde Altus Finance Group-account. U behoudt volledige controle over uw middelen met 24/7-toegang vanaf uw klantenpaneel.',
       step4Title: 'Transfer naar uw rekening - Op uw tempo',
       step4Desc: 'Maak uw middelen over wanneer u wilt naar uw persoonlijke of zakelijke bankrekening rechtstreeks vanaf uw Altus-dashboard. Onmiddellijke of geplande overboekingen volgens uw behoeften, zonder extra kosten.',
     },
@@ -2927,7 +2927,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Hoe lang duurt het goedkeuringsproces?',
-          answer: 'Dankzij onze realtime analysetechnologie ontvangt u een goedkeuringsantwoord in enkele minuten tot maximaal 24 uur. Na goedkeuring worden de middelen onmiddellijk vrijgegeven op uw veilige Altus Group-rekening. U kunt ze vervolgens wanneer u maar wilt naar uw persoonlijke of zakelijke bankrekening overboeken, direct en zonder extra kosten.',
+          answer: 'Dankzij onze realtime analysetechnologie ontvangt u een goedkeuringsantwoord in enkele minuten tot maximaal 24 uur. Na goedkeuring worden de middelen onmiddellijk vrijgegeven op uw veilige Altus Finance Group-rekening. U kunt ze vervolgens wanneer u maar wilt naar uw persoonlijke of zakelijke bankrekening overboeken, direct en zonder extra kosten.',
         },
         {
           question: 'Wat is het minimale en maximale bedrag dat ik kan lenen?',
@@ -2969,17 +2969,17 @@ export const translations: Record<Language, TranslationKeys> = {
       lastUpdated: 'Laatst bijgewerkt: Januari 2025',
       terms: {
         section1Title: '1. Aanvaarding van de Voorwaarden',
-        section1Content: 'Door toegang te krijgen tot en gebruik te maken van de diensten van Altus Group, accepteert u en gaat u akkoord gebonden te zijn aan de voorwaarden en bepalingen van deze overeenkomst.',
+        section1Content: 'Door toegang te krijgen tot en gebruik te maken van de diensten van Altus Finance Group, accepteert u en gaat u akkoord gebonden te zijn aan de voorwaarden en bepalingen van deze overeenkomst.',
         section2Title: '2. Gebruikslicentie',
-        section2Content: 'Toestemming wordt verleend om tijdelijk toegang te krijgen tot de materialen (informatie of software) op het Altus Group-platform alleen voor persoonlijke, niet-commerciële tijdelijke weergave.',
+        section2Content: 'Toestemming wordt verleend om tijdelijk toegang te krijgen tot de materialen (informatie of software) op het Altus Finance Group-platform alleen voor persoonlijke, niet-commerciële tijdelijke weergave.',
         section3Title: '3. Leningovereenkomst',
         section3Content: 'Alle leningen zijn onderworpen aan kredietgoedkeuring. De voorwaarden worden verstrekt in een afzonderlijke leningovereenkomst bij goedkeuring van uw aanvraag.',
         section4Title: '4. Verklaringen en Garanties',
         section4Content: 'U verklaart en garandeert dat alle informatie die in uw leningaanvraag is verstrekt nauwkeurig, volledig en actueel is.',
         section5Title: '5. Beperking van Aansprakelijkheid',
-        section5Content: 'In geen geval zijn Altus Group of zijn leveranciers aansprakelijk voor schade die voortvloeit uit het gebruik of het onvermogen om de materialen op het Altus Group-platform te gebruiken.',
+        section5Content: 'In geen geval zijn Altus Finance Group of zijn leveranciers aansprakelijk voor schade die voortvloeit uit het gebruik of het onvermogen om de materialen op het Altus Finance Group-platform te gebruiken.',
         section6Title: '6. Wijzigingen',
-        section6Content: 'Altus Group kan deze gebruiksvoorwaarden op elk moment zonder voorafgaande kennisgeving herzien. Door dit platform te gebruiken, gaat u akkoord gebonden te zijn aan de huidige versie van deze voorwaarden.',
+        section6Content: 'Altus Finance Group kan deze gebruiksvoorwaarden op elk moment zonder voorafgaande kennisgeving herzien. Door dit platform te gebruiken, gaat u akkoord gebonden te zijn aan de huidige versie van deze voorwaarden.',
       },
       privacy: {
         section1Title: '1. Informatie die We Verzamelen',
@@ -3031,7 +3031,7 @@ export const translations: Record<Language, TranslationKeys> = {
       compareLoans: 'Alle leningen vergelijken',
     },
     features: {
-      title: 'Waarom Kiezen voor Altus Group?',
+      title: 'Waarom Kiezen voor Altus Finance Group?',
       subtitle: 'Een modern en transparant leningplatform dat uw behoeften centraal stelt',
       security: 'Bankbeveiliging op Bedrijfsniveau',
       securityDesc: 'AES-256-versleuteling, GDPR-naleving, SOC 2 Type II en ISO 27001-certificering. Uw financiële gegevens zijn beschermd met dezelfde normen als grote banken. Multi-factor authenticatie en 24/7-monitoring tegen fraude.',
@@ -3052,9 +3052,9 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Wat onze klanten zeggen',
       subtitle: 'Meer dan 15.000 particulieren en bedrijven vertrouwen ons',
       reviews: [
-        { name: 'Jan de Vries', role: 'Ondernemer', company: 'Restaurant Amsterdam', text: 'Altus Group stelde me in staat om snel financiering te krijgen voor de ontwikkeling van mijn bedrijf. Het proces was eenvoudig en transparant.', rating: 5 },
+        { name: 'Jan de Vries', role: 'Ondernemer', company: 'Restaurant Amsterdam', text: 'Altus Finance Group stelde me in staat om snel financiering te krijgen voor de ontwikkeling van mijn bedrijf. Het proces was eenvoudig en transparant.', rating: 5 },
         { name: 'Sophie Jansen', role: 'Architect', company: 'Creatieve Studio', text: 'Uitstekende service voor mijn hypotheek. De adviseurs vonden het beste tarief voor mij.', rating: 5 },
-        { name: 'Peter van Dam', role: 'Ingenieur', company: 'Tech Solutions', text: 'Dankzij Altus Group hebben we nieuwe apparatuur gefinancierd. De terugbetalingsflexibiliteit was perfect.', rating: 5 },
+        { name: 'Peter van Dam', role: 'Ingenieur', company: 'Tech Solutions', text: 'Dankzij Altus Finance Group hebben we nieuwe apparatuur gefinancierd. De terugbetalingsflexibiliteit was perfect.', rating: 5 },
         { name: 'Emma Bakker', role: 'Handelaar', company: 'Mode Boetiek', text: '100% digitaal en snel proces. Ik kreeg mijn zakelijke lening in 3 dagen.', rating: 5 },
         { name: 'Lucas Visser', role: 'Student', company: 'Universiteit', text: 'De studentenlening met uitgestelde betaling stelde me in staat mijn studie zonder stress te financieren.', rating: 5 },
       ],

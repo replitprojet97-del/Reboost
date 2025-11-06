@@ -55,15 +55,12 @@ export default function AppSidebar() {
           <div className="px-4 py-4 mb-2 flex items-center gap-3" data-testid="sidebar-logo">
             <img 
               src="/logo.png" 
-              alt="Altus Logo" 
+              alt="Altus Finance Group Logo" 
               className="w-12 h-12 object-contain"
             />
             <div>
               <div className="text-base font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                ALTUS
-              </div>
-              <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">
-                FINANCE GROUP
+                ALTUS FINANCE GROUP
               </div>
             </div>
           </div>

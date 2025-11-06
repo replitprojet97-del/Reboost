@@ -16,8 +16,8 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Altus Group - Prêt Professionnel & Personnel | Financement Rapide et Compétitif"
-        description="Solutions de prêt professionnel et personnel avec Altus Group. Obtenez un financement rapide pour votre entreprise ou projet personnel. Taux compétitifs, processus simple et transparent."
+        title="Altus Finance Group - Prêt Professionnel & Personnel | Financement Rapide et Compétitif"
+        description="Solutions de prêt professionnel et personnel avec Altus Finance Group. Obtenez un financement rapide pour votre entreprise ou projet personnel. Taux compétitifs, processus simple et transparent."
         keywords={getKeywordsByPage('home')}
         path="/"
         structuredData={[organizationSchema, websiteSchema]}

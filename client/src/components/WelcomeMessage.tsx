@@ -70,7 +70,7 @@ export default function WelcomeMessage() {
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <DialogTitle className="text-2xl">
-              Bienvenue sur Altus Group !
+              Bienvenue sur Altus Finance Group !
             </DialogTitle>
           </div>
           <DialogDescription className="text-base">
