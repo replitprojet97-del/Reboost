@@ -1,15 +1,22 @@
 # Guide de Déploiement - ALTUS
 
-## 🚨 PROBLÈME RÉSOLU : Inscription en Production
+## 🚨 PROBLÈMES RÉSOLUS
 
-### Symptôme
-L'inscription ne fonctionnait pas en production sur altusfinancegroup.com
+### 1. Inscription ne fonctionnait pas en production
 
-### Cause
-Le frontend sur Vercel faisait des requêtes **relatives** (`/api/...`) qui ne savaient pas où trouver le backend API sur Render
+**Symptôme** : Impossible de créer un compte sur altusfinancegroup.com
 
-### Solution
-Configuration de la variable d'environnement `VITE_API_URL` pour pointer vers l'API backend
+**Cause** : Le frontend sur Vercel faisait des requêtes **relatives** (`/api/...`) qui ne savaient pas où trouver le backend API sur Render
+
+**Solution** : Configuration de la variable d'environnement `VITE_API_URL` sur Vercel pour pointer vers l'API backend
+
+### 2. Liens de vérification pointaient vers localhost
+
+**Symptôme** : Les emails de vérification contenaient des liens comme `http://localhost:5000/verify/...`
+
+**Cause** : La fonction `getBaseUrl()` ne prenait pas en compte l'URL de production du frontend
+
+**Solution** : Utilisation de la variable `FRONTEND_URL` dans les emails pour générer les bons liens
 
 ---
 
@@ -52,7 +59,9 @@ Configuration de la variable d'environnement `VITE_API_URL` pour pointer vers l'
    ⚠️ **CRITIQUE** :
    - `FRONTEND_URL` doit correspondre exactement à l'URL de votre frontend Vercel
    - **PAS de slash `/` à la fin**
-   - Cette variable est utilisée pour la configuration CORS
+   - Cette variable est utilisée pour :
+     - La configuration CORS (autoriser les requêtes du frontend)
+     - Les liens dans les emails (vérification de compte, contrats, etc.)
 
 5. **Health Check Path** : `/health`
 

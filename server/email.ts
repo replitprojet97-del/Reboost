@@ -30,6 +30,9 @@ async function getUncachableSendGridClient() {
 }
 
 function getBaseUrl(): string {
+  if (process.env.NODE_ENV === 'production' && process.env.FRONTEND_URL) {
+    return process.env.FRONTEND_URL;
+  }
   return process.env.REPLIT_DEV_DOMAIN 
     ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
     : 'http://localhost:5000';
