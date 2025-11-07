@@ -2,6 +2,38 @@
 
 ## Recent Changes
 
+### November 7, 2025 - Google Authenticator 2FA Implementation (TOTP)
+- **Complete 2FA System:** Implemented TOTP-based two-factor authentication using Google Authenticator as an alternative to email OTP
+- **Backend Implementation:**
+  - Added `twoFactorSecret` and `twoFactorEnabled` columns to users table
+  - Created 2FA service using `speakeasy` and `qrcode` libraries for TOTP generation and QR code display
+  - Implemented 4 secure API routes: POST /api/2fa/setup, POST /api/2fa/verify, POST /api/2fa/validate, POST /api/2fa/disable
+  - All routes protected with requireAuth middleware, CSRF tokens, and rate limiting
+  - Modified login flow to check for 2FA and redirect to appropriate verification method
+  - Added storage methods for enabling/disabling 2FA (enable2FA, disable2FA)
+- **Frontend Implementation:**
+  - Created `/security/2fa` page with interactive 3-step setup process (install app → scan QR code → verify code)
+  - Created `/verify-2fa` page for entering TOTP code during login
+  - Updated Settings page with functional 2FA toggle (shows enabled/disabled status with visual indicators)
+  - Updated Auth page to handle 2FA redirect during login
+  - All pages fully responsive with proper loading states and error handling
+- **User Experience:**
+  - Users can enable 2FA in Settings → Security → Configure button
+  - QR code displayed for easy Google Authenticator setup
+  - Manual secret key provided as backup
+  - During login: If 2FA enabled → requires TOTP code; If disabled → requires email OTP
+  - Users can disable 2FA at any time from Settings
+- **Security Features:**
+  - TOTP codes are 6 digits with 30-second validity window
+  - Secrets stored encrypted in database
+  - Rate limiting on all 2FA endpoints
+  - Audit logs for 2FA enable/disable actions
+  - Session validation after successful 2FA verification
+- **Translations:** Full 2FA support in all 7 supported languages (fr, en, es, pt, it, de, nl)
+- **Files Modified/Created:** 
+  - Backend: server/services/twoFactor.ts (new), server/storage.ts, server/routes.ts, shared/schema.ts
+  - Frontend: client/src/pages/TwoFactorSetup.tsx (new), client/src/pages/VerifyTwoFactor.tsx (new), client/src/pages/Auth.tsx, client/src/pages/Settings.tsx, client/src/App.tsx
+
 ### November 7, 2025 - Two-Factor Authentication (2FA) Implementation
 - **Email-Based 2FA:** Implemented secure two-factor authentication using 6-digit OTP codes sent via SendGrid
 - **Security Features:**
@@ -72,7 +104,7 @@ Preferred communication style: Simple, everyday language.
 
 **Database Schema:**
 ```
-users (id, username, password, email, fullName, accountType, role, status, kycStatus, maxLoanAmount, hasSeenWelcomeMessage, suspendedUntil, suspensionReason, externalTransfersBlocked, transferBlockReason, activeSessionId, createdAt, updatedAt)
+users (id, username, password, email, fullName, accountType, role, status, kycStatus, maxLoanAmount, hasSeenWelcomeMessage, suspendedUntil, suspensionReason, externalTransfersBlocked, transferBlockReason, activeSessionId, twoFactorSecret, twoFactorEnabled, createdAt, updatedAt)
 loans (id, userId, loanType, amount, interestRate, duration, status, approvedAt, approvedBy, rejectedAt, rejectionReason, nextPaymentDate, totalRepaid, deletedAt, deletedBy, deletionReason, createdAt)
 transfers (id, userId, amount, recipient, status, currentStep, validationMethod, createdAt, updatedAt)
 fees (id, userId, feeType, reason, amount, relatedMessageId, isPaid, paidAt, createdAt)
