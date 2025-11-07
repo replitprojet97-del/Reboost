@@ -141,6 +141,24 @@ export const getQueryFn: <T>(options: {
     return await res.json();
   };
 
+function shouldRetry(failureCount: number, error: Error): boolean {
+  if (failureCount >= 3) return false;
+  
+  const errorMessage = error.message.toLowerCase();
+  if (errorMessage.includes('401') || errorMessage.includes('403') || 
+      errorMessage.includes('authentification')) {
+    return false;
+  }
+  
+  if (errorMessage.includes('network') || errorMessage.includes('fetch') || 
+      errorMessage.includes('timeout') || errorMessage.includes('502') || 
+      errorMessage.includes('503') || errorMessage.includes('504')) {
+    return true;
+  }
+  
+  return false;
+}
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -148,10 +166,12 @@ export const queryClient = new QueryClient({
       refetchInterval: false,
       refetchOnWindowFocus: false,
       staleTime: Infinity,
-      retry: false,
+      retry: shouldRetry,
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000),
     },
     mutations: {
-      retry: false,
+      retry: shouldRetry,
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000),
     },
   },
 });
