@@ -15,7 +15,18 @@ import { fileTypeFromFile } from "file-type";
 import { db } from "./db";
 import { generateAndSendOTP, verifyOTP } from "./services/otp";
 import { generateTwoFactorSecret, generateQRCode, verifyTwoFactorToken } from "./services/twoFactor";
-import { notifyLoanApproved, notifyLoanRejected, notifyLoanDisbursed, notifyTransferCompleted, notifyCodeIssued } from "./notification-helper";
+import { 
+  notifyLoanApproved, 
+  notifyLoanRejected, 
+  notifyLoanDisbursed, 
+  notifyLoanRequest,
+  notifyLoanContractGenerated,
+  notifyLoanContractSigned,
+  notifyTransferInitiated,
+  notifyTransferCompleted, 
+  notifyCodeIssued,
+  notifyAdminMessage
+} from "./notification-helper";
 import cloudinary from "./config/cloudinary";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -1548,14 +1559,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const loan = await storage.createLoan(validated);
       
-      await storage.createNotification({
-        userId: req.session.userId!,
-        type: 'loan_request',
-        title: 'Demande de prêt soumise',
-        message: `Votre demande de prêt ${loanType} de ${amount} EUR a été soumise avec succès. Notre équipe examinera votre demande dans les plus brefs délais.`,
-        severity: 'success',
-        metadata: { loanId: loan.id, loanType, amount },
-      });
+      await notifyLoanRequest(req.session.userId!, loan.id, amount, loanType);
 
       await storage.createAdminMessage({
         userId: req.session.userId!,
@@ -1714,6 +1718,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         signedContractUrl,
         status: 'signed',
       });
+
+      await notifyLoanContractSigned(loan.userId, loan.id, loan.amount);
 
       await storage.createAdminMessage({
         userId: loan.userId,
@@ -2572,6 +2578,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       await notifyLoanApproved(loan.userId, loan.id, loan.amount);
 
       if (contractGenerated && contractUrl) {
+        await notifyLoanContractGenerated(loan.userId, loan.id, loan.amount);
+        
         try {
           const { sendContractEmail } = await import('./email');
           await sendContractEmail(
