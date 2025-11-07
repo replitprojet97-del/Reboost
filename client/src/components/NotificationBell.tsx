@@ -12,6 +12,8 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useEffect, useRef } from 'react';
+import { useTranslations } from '@/lib/i18n';
+import { useLanguage } from '@/lib/i18n';
 
 interface Notification {
   id: string;
@@ -28,6 +30,8 @@ interface Notification {
 
 export default function NotificationBell() {
   const previousCountRef = useRef<number | null>(null);
+  const t = useTranslations();
+  const { language } = useLanguage();
   
   const { data: notifications = [], isLoading } = useQuery<Notification[]>({
     queryKey: ['/api/notifications'],
@@ -99,10 +103,49 @@ export default function NotificationBell() {
     const hours = Math.floor(diff / 3600000);
     const days = Math.floor(diff / 86400000);
 
-    if (minutes < 1) return 'À l\'instant';
-    if (minutes < 60) return `Il y a ${minutes} min`;
-    if (hours < 24) return `Il y a ${hours}h`;
-    return `Il y a ${days}j`;
+    if (language === 'fr') {
+      if (minutes < 1) return 'À l\'instant';
+      if (minutes < 60) return `Il y a ${minutes} min`;
+      if (hours < 24) return `Il y a ${hours}h`;
+      return `Il y a ${days}j`;
+    } else if (language === 'es') {
+      if (minutes < 1) return 'Ahora';
+      if (minutes < 60) return `Hace ${minutes} min`;
+      if (hours < 24) return `Hace ${hours}h`;
+      return `Hace ${days}d`;
+    } else {
+      if (minutes < 1) return 'Just now';
+      if (minutes < 60) return `${minutes} min ago`;
+      if (hours < 24) return `${hours}h ago`;
+      return `${days}d ago`;
+    }
+  };
+
+  const interpolateMessage = (template: string, metadata: any): string => {
+    if (!metadata) return template;
+    
+    return Object.keys(metadata).reduce((result, key) => {
+      const value = metadata[key];
+      const placeholder = `{${key}}`;
+      return result.replace(new RegExp(placeholder.replace(/[{}]/g, '\\$&'), 'g'), String(value));
+    }, template);
+  };
+
+  const getNotificationContent = (notif: Notification) => {
+    const notifType = notif.type as keyof typeof t.notifications;
+    const notifTranslation = t.notifications[notifType];
+    
+    if (notifTranslation && typeof notifTranslation === 'object' && 'title' in notifTranslation) {
+      return {
+        title: interpolateMessage(notifTranslation.title, notif.metadata),
+        message: interpolateMessage(notifTranslation.message, notif.metadata),
+      };
+    }
+    
+    return {
+      title: interpolateMessage(notif.title, notif.metadata),
+      message: interpolateMessage(notif.message, notif.metadata),
+    };
   };
 
   return (
@@ -128,7 +171,7 @@ export default function NotificationBell() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80" data-testid="menu-notifications">
         <div className="flex items-center justify-between px-4 py-2">
-          <h3 className="font-semibold">Notifications</h3>
+          <h3 className="font-semibold">{t.dashboard.notifications}</h3>
           {unreadCount > 0 && (
             <Button
               variant="ghost"
@@ -138,46 +181,49 @@ export default function NotificationBell() {
               className="h-auto p-1 text-xs"
               data-testid="button-mark-all-read"
             >
-              Tout marquer comme lu
+              {t.notifications.markAllRead}
             </Button>
           )}
         </div>
         <DropdownMenuSeparator />
         {isLoading ? (
           <div className="p-4 text-center text-sm text-muted-foreground">
-            Chargement...
+            {t.common.loading}
           </div>
         ) : notifications.length === 0 ? (
           <div className="p-4 text-center text-sm text-muted-foreground">
-            Aucune notification
+            {t.dashboard.noNotifications}
           </div>
         ) : (
           <ScrollArea className="h-[400px]">
-            {notifications.map((notif) => (
-              <DropdownMenuItem
-                key={notif.id}
-                className={`flex flex-col items-start gap-1 p-3 cursor-pointer ${
-                  !notif.isRead ? 'bg-blue-50 dark:bg-blue-950' : ''
-                }`}
-                onClick={() => !notif.isRead && markAsReadMutation.mutate(notif.id)}
-                data-testid={`notification-${notif.id}`}
-              >
-                <div className="flex items-start justify-between w-full gap-2">
-                  <div className="flex-1">
-                    <p className="font-medium text-sm">{notif.title}</p>
-                    {notif.message && (
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {notif.message}
-                      </p>
+            {notifications.map((notif) => {
+              const content = getNotificationContent(notif);
+              return (
+                <DropdownMenuItem
+                  key={notif.id}
+                  className={`flex flex-col items-start gap-1 p-3 cursor-pointer ${
+                    !notif.isRead ? 'bg-blue-50 dark:bg-blue-950' : ''
+                  }`}
+                  onClick={() => !notif.isRead && markAsReadMutation.mutate(notif.id)}
+                  data-testid={`notification-${notif.id}`}
+                >
+                  <div className="flex items-start justify-between w-full gap-2">
+                    <div className="flex-1">
+                      <p className="font-medium text-sm">{content.title}</p>
+                      {content.message && (
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {content.message}
+                        </p>
+                      )}
+                    </div>
+                    {!notif.isRead && (
+                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-1 flex-shrink-0" />
                     )}
                   </div>
-                  {!notif.isRead && (
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-1 flex-shrink-0" />
-                  )}
-                </div>
-                <p className="text-xs text-muted-foreground">{formatTime(notif.createdAt)}</p>
-              </DropdownMenuItem>
-            ))}
+                  <p className="text-xs text-muted-foreground">{formatTime(notif.createdAt)}</p>
+                </DropdownMenuItem>
+              );
+            })}
           </ScrollArea>
         )}
       </DropdownMenuContent>

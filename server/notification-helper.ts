@@ -48,10 +48,10 @@ export async function notifyLoanApproved(userId: string, loanId: string, amount:
   return await createUserNotification({
     userId,
     type: 'loan_approved',
-    title: 'Prêt approuvé',
-    message: `Votre demande de prêt de ${amount} € a été approuvée. Vous pouvez maintenant procéder à la signature du contrat.`,
+    title: 'Loan Approved',
+    message: `Your loan application has been approved. You can now proceed to contract signing.`,
     severity: 'success',
-    metadata: { loanId },
+    metadata: { loanId, amount },
   });
 }
 
@@ -59,8 +59,8 @@ export async function notifyLoanRejected(userId: string, loanId: string, reason:
   return await createUserNotification({
     userId,
     type: 'loan_rejected',
-    title: 'Prêt refusé',
-    message: `Votre demande de prêt a été refusée. Raison : ${reason}`,
+    title: 'Loan Rejected',
+    message: `Your loan application has been rejected.`,
     severity: 'error',
     metadata: { loanId, reason },
   });
@@ -70,10 +70,10 @@ export async function notifyLoanDisbursed(userId: string, loanId: string, amount
   return await createUserNotification({
     userId,
     type: 'loan_disbursed',
-    title: 'Fonds déboursés',
-    message: `Votre prêt de ${amount} € a été déboursé avec succès. Les fonds sont disponibles sur votre compte.`,
+    title: 'Funds Disbursed',
+    message: `Your loan funds have been successfully disbursed to your account.`,
     severity: 'success',
-    metadata: { loanId },
+    metadata: { loanId, amount },
   });
 }
 
@@ -81,10 +81,10 @@ export async function notifyTransferCompleted(userId: string, transferId: string
   return await createUserNotification({
     userId,
     type: 'transfer_completed',
-    title: 'Transfert terminé',
-    message: `Votre transfert de ${amount} € a été complété avec succès.`,
+    title: 'Transfer Completed',
+    message: `Your transfer has been completed successfully.`,
     severity: 'success',
-    metadata: { transferId },
+    metadata: { transferId, amount },
   });
 }
 
@@ -92,8 +92,8 @@ export async function notifyTransferApproved(userId: string, transferId: string)
   return await createUserNotification({
     userId,
     type: 'transfer_approved',
-    title: 'Transfert approuvé',
-    message: 'Votre demande de transfert a été approuvée par l\'administration.',
+    title: 'Transfer Approved',
+    message: 'Your transfer request has been approved by the administration.',
     severity: 'success',
     metadata: { transferId },
   });
@@ -103,8 +103,8 @@ export async function notifyTransferSuspended(userId: string, transferId: string
   return await createUserNotification({
     userId,
     type: 'transfer_suspended',
-    title: 'Transfert suspendu',
-    message: `Votre transfert a été suspendu. Raison : ${reason}`,
+    title: 'Transfer Suspended',
+    message: `Your transfer has been suspended.`,
     severity: 'warning',
     metadata: { transferId, reason },
   });
@@ -114,8 +114,8 @@ export async function notifyCodeIssued(userId: string, transferId: string, seque
   return await createUserNotification({
     userId,
     type: 'code_issued',
-    title: 'Code de validation émis',
-    message: `Un nouveau code de validation (#${sequence}) a été émis pour votre transfert. Vérifiez vos emails.`,
+    title: 'Validation Code Issued',
+    message: `A new validation code has been issued for your transfer. Check your emails.`,
     severity: 'info',
     metadata: { transferId, sequence },
   });
@@ -125,8 +125,8 @@ export async function notifyKycApproved(userId: string) {
   return await createUserNotification({
     userId,
     type: 'kyc_approved',
-    title: 'Documents KYC approuvés',
-    message: 'Vos documents ont été vérifiés et approuvés. Votre compte est maintenant actif.',
+    title: 'KYC Documents Approved',
+    message: 'Your documents have been verified and approved. Your account is now active.',
     severity: 'success',
   });
 }
@@ -135,8 +135,8 @@ export async function notifyKycRejected(userId: string, reason: string) {
   return await createUserNotification({
     userId,
     type: 'kyc_rejected',
-    title: 'Documents KYC refusés',
-    message: `Vos documents ont été refusés. Raison : ${reason}. Veuillez soumettre de nouveaux documents.`,
+    title: 'KYC Documents Rejected',
+    message: `Your documents have been rejected. Please submit new documents.`,
     severity: 'error',
     metadata: { reason },
   });
@@ -146,10 +146,10 @@ export async function notifyFeeAdded(userId: string, feeId: string, amount: stri
   return await createUserNotification({
     userId,
     type: 'fee_added',
-    title: 'Nouveaux frais',
-    message: `Des frais de ${amount} € ont été ajoutés à votre compte. Raison : ${reason}`,
+    title: 'New Fee',
+    message: `New fees have been added to your account.`,
     severity: 'warning',
-    metadata: { feeId, reason },
+    metadata: { feeId, amount, reason },
   });
 }
 
@@ -157,10 +157,8 @@ export async function notifyAccountStatusChanged(userId: string, newStatus: stri
   return await createUserNotification({
     userId,
     type: 'account_status_changed',
-    title: 'Statut du compte modifié',
-    message: reason 
-      ? `Le statut de votre compte a changé: ${newStatus}. Raison : ${reason}`
-      : `Le statut de votre compte a changé: ${newStatus}`,
+    title: 'Account Status Changed',
+    message: `Your account status has been updated.`,
     severity: newStatus === 'active' ? 'success' : 'warning',
     metadata: { newStatus, reason },
   });
@@ -170,8 +168,8 @@ export async function notifyLoanRequest(userId: string, loanId: string, amount: 
   return await createUserNotification({
     userId,
     type: 'loan_request',
-    title: 'Demande de prêt soumise',
-    message: `Votre demande de prêt ${loanType} de ${amount} € a été soumise avec succès. Notre équipe examinera votre demande dans les plus brefs délais.`,
+    title: 'Loan Request Submitted',
+    message: `Your loan request has been successfully submitted. We will review your application shortly.`,
     severity: 'success',
     metadata: { loanId, loanType, amount },
   });
@@ -181,10 +179,10 @@ export async function notifyLoanUnderReview(userId: string, loanId: string, amou
   return await createUserNotification({
     userId,
     type: 'loan_under_review',
-    title: 'Demande en cours d\'examen',
-    message: `Votre demande de prêt de ${amount} € est actuellement en cours d'examen par notre équipe. Vous recevrez une réponse prochainement.`,
+    title: 'Application Under Review',
+    message: `Your loan application is currently being reviewed by our team.`,
     severity: 'info',
-    metadata: { loanId },
+    metadata: { loanId, amount },
   });
 }
 
@@ -192,10 +190,10 @@ export async function notifyLoanContractGenerated(userId: string, loanId: string
   return await createUserNotification({
     userId,
     type: 'loan_contract_generated',
-    title: 'Contrat de prêt disponible',
-    message: `Votre contrat de prêt de ${amount} € est maintenant disponible. Veuillez le télécharger, le signer et le retourner pour débloquer les fonds.`,
+    title: 'Loan Contract Available',
+    message: `Your loan contract is now available. Please download it, sign it, and return it.`,
     severity: 'success',
-    metadata: { loanId },
+    metadata: { loanId, amount },
   });
 }
 
@@ -203,10 +201,10 @@ export async function notifyLoanContractSigned(userId: string, loanId: string, a
   return await createUserNotification({
     userId,
     type: 'loan_contract_signed',
-    title: 'Contrat signé reçu',
-    message: `Votre contrat signé pour le prêt de ${amount} € a été reçu avec succès. Les fonds seront débloqués prochainement.`,
+    title: 'Signed Contract Received',
+    message: `We have received your signed contract. Your loan will be processed shortly.`,
     severity: 'success',
-    metadata: { loanId },
+    metadata: { loanId, amount },
   });
 }
 
@@ -214,9 +212,10 @@ export async function notifyAdminMessage(userId: string, subject: string, severi
   return await createUserNotification({
     userId,
     type: 'admin_message_sent',
-    title: 'Nouveau message de l\'administration',
+    title: 'New Admin Message',
     message: subject,
     severity,
+    metadata: { subject },
   });
 }
 
@@ -224,9 +223,9 @@ export async function notifyTransferInitiated(userId: string, transferId: string
   return await createUserNotification({
     userId,
     type: 'transfer_initiated',
-    title: 'Transfert initié',
-    message: `Votre transfert de ${amount} € vers ${recipientName} a été initié avec succès. Il sera traité dans les plus brefs délais.`,
+    title: 'Transfer Initiated',
+    message: `Your transfer request has been initiated and is being processed.`,
     severity: 'success',
-    metadata: { transferId, recipientName },
+    metadata: { transferId, amount, recipientName },
   });
 }
