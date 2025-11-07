@@ -772,9 +772,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       await sendWelcomeEmail(user.email, user.fullName, user.accountType, user.preferredLanguage || 'fr');
       
+      await new Promise<void>((resolve, reject) => {
+        req.session.regenerate((err) => {
+          if (err) reject(err);
+          else resolve();
+        });
+      });
+      
+      req.session.userId = user.id;
+      req.session.userRole = user.role;
+      req.session.csrfToken = generateCSRFToken();
+
+      await new Promise<void>((resolve, reject) => {
+        req.session.save((err) => {
+          if (err) reject(err);
+          else resolve();
+        });
+      });
+      
+      await storage.updateUserSessionId(user.id, req.session.id);
+      
+      const { password: _, verificationToken: __, ...userWithoutSensitive } = user;
+      
+      await storage.createAuditLog({
+        actorId: user.id,
+        actorRole: user.role,
+        action: 'email_verified_auto_login',
+        entityType: 'user',
+        entityId: user.id,
+        ipAddress: req.ip || req.headers['x-forwarded-for'] as string || 'unknown',
+        userAgent: req.headers['user-agent'] || 'unknown',
+      });
+      
       res.json({
-        message: 'Email vérifié avec succès ! Vous pouvez maintenant vous connecter.',
-        success: true
+        message: 'Email vérifié avec succès ! Vous êtes maintenant connecté.',
+        success: true,
+        redirect: '/dashboard',
+        user: userWithoutSensitive
       });
     } catch (error: any) {
       console.error('Verification error:', error);

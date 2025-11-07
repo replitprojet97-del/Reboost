@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRoute, Link } from 'wouter';
+import { useRoute, Link, useLocation } from 'wouter';
 import { useMutation } from '@tanstack/react-query';
 import { apiRequest, getApiUrl } from '@/lib/queryClient';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,12 +8,15 @@ import { CheckCircle2, XCircle, Loader2 } from 'lucide-react';
 
 export default function Verify() {
   const [, params] = useRoute('/verify/:token');
+  const [, setLocation] = useLocation();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('');
 
   const verifyMutation = useMutation({
     mutationFn: async (token: string) => {
-      const response = await fetch(getApiUrl(`/api/auth/verify/${token}`));
+      const response = await fetch(getApiUrl(`/api/auth/verify/${token}`), {
+        credentials: 'include',
+      });
       const data = await response.json();
       
       if (!response.ok) {
@@ -25,6 +28,12 @@ export default function Verify() {
     onSuccess: (data) => {
       setStatus('success');
       setMessage(data.message);
+      
+      if (data.redirect) {
+        setTimeout(() => {
+          setLocation(data.redirect);
+        }, 2000);
+      }
     },
     onError: (error: any) => {
       setStatus('error');
@@ -70,12 +79,12 @@ export default function Verify() {
             <div className="space-y-4">
               <div className="p-4 bg-green-50 dark:bg-green-950 rounded-lg border border-green-200 dark:border-green-800">
                 <p className="text-sm text-green-800 dark:text-green-200">
-                  Votre compte est maintenant actif ! Vous pouvez vous connecter et accéder à tous nos services de financement.
+                  Votre compte est maintenant actif ! Vous êtes automatiquement connecté et serez redirigé vers votre tableau de bord dans quelques secondes...
                 </p>
               </div>
-              <Link href="/login">
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800" data-testid="button-login">
-                  Se connecter
+              <Link href="/dashboard">
+                <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800" data-testid="button-dashboard">
+                  Aller au tableau de bord
                 </Button>
               </Link>
             </div>
