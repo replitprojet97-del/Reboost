@@ -44,6 +44,19 @@ if (!process.env.SESSION_SECRET) {
   console.warn('WARNING: Using default SESSION_SECRET. Set SESSION_SECRET environment variable for production.');
 }
 
+const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN || (process.env.NODE_ENV === 'production' ? '.altusfinancegroup.com' : undefined);
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+
+console.log('='.repeat(60));
+console.log(`[CONFIG] Environment: ${process.env.NODE_ENV || 'development'}`);
+console.log(`[CONFIG] Cookie Domain: ${COOKIE_DOMAIN || 'none (localhost)'}`);
+console.log(`[CONFIG] Cookie SameSite: ${IS_PRODUCTION ? 'none' : 'lax'}`);
+console.log(`[CONFIG] Cookie Secure: ${IS_PRODUCTION}`);
+console.log(`[CONFIG] CORS Allowed Origins: ${IS_PRODUCTION ? 'production domains' : 'localhost'}`);
+console.log(`[CONFIG] Frontend URL: ${process.env.FRONTEND_URL || 'NOT SET'}`);
+console.log(`[CONFIG] Trust Proxy: enabled`);
+console.log('='.repeat(60));
+
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? [
       'https://altusfinancegroup.com',
@@ -51,19 +64,6 @@ const allowedOrigins = process.env.NODE_ENV === 'production'
       process.env.FRONTEND_URL
     ].filter(Boolean)
   : ['http://localhost:5000', 'http://localhost:5173', 'http://127.0.0.1:5000'];
-
-app.use((req, res, next) => {
-  if (process.env.NODE_ENV === 'production') {
-    console.log(`[CORS DEBUG] Incoming request: ${req.method} ${req.path}`);
-    console.log(`[CORS DEBUG] Origin: ${req.headers.origin || 'NO ORIGIN'}`);
-    console.log(`[CORS DEBUG] Headers: ${JSON.stringify({
-      'content-type': req.headers['content-type'],
-      'x-csrf-token': req.headers['x-csrf-token'] ? 'present' : 'missing',
-      'user-agent': req.headers['user-agent']?.substring(0, 50)
-    })}`);
-  }
-  next();
-});
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -141,14 +141,26 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
+    secure: IS_PRODUCTION,
     httpOnly: true,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    domain: process.env.NODE_ENV === 'production' ? '.altusfinancegroup.com' : undefined,
+    sameSite: IS_PRODUCTION ? 'none' : 'lax',
+    domain: COOKIE_DOMAIN,
   },
   name: 'sessionId',
 }));
+
+app.use((req, res, next) => {
+  if (IS_PRODUCTION) {
+    console.log(`[REQUEST DEBUG] ${req.method} ${req.path}`);
+    console.log(`[REQUEST DEBUG] Origin: ${req.headers.origin || 'NO ORIGIN'}`);
+    console.log(`[REQUEST DEBUG] Cookie Header: ${req.headers.cookie ? 'PRESENT' : 'MISSING'}`);
+    console.log(`[REQUEST DEBUG] Session Exists: ${req.session?.id ? 'YES' : 'NO'}`);
+    console.log(`[REQUEST DEBUG] Authenticated: ${req.session?.userId ? 'YES' : 'NO'}`);
+    console.log(`[REQUEST DEBUG] CSRF Token: ${req.headers['x-csrf-token'] ? 'present' : 'missing'}`);
+  }
+  next();
+});
 
 app.use(express.json({
   verify: (req, _res, buf) => {
@@ -230,9 +242,9 @@ app.use((req, res, next) => {
     if (process.env.NODE_ENV === 'production') {
       console.log(`[CONFIG] FRONTEND_URL: ${process.env.FRONTEND_URL || 'NOT SET'}`);
       console.log(`[CONFIG] Allowed Origins: ${JSON.stringify(allowedOrigins)}`);
-      console.log(`[CONFIG] Cookie Domain: .altusfinancegroup.com`);
-      console.log(`[CONFIG] Cookie Secure: true`);
-      console.log(`[CONFIG] Cookie SameSite: none`);
+      console.log(`[CONFIG] Session Cookie Domain: ${COOKIE_DOMAIN}`);
+      console.log(`[CONFIG] Session Cookie Secure: ${IS_PRODUCTION}`);
+      console.log(`[CONFIG] Session Cookie SameSite: ${IS_PRODUCTION ? 'none' : 'lax'}`);
     }
   });
 })();

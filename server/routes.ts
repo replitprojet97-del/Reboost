@@ -538,6 +538,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         userAgent: req.headers['user-agent'] || 'unknown',
       });
       
+      if (process.env.NODE_ENV === 'production') {
+        const cookieDomain = process.env.COOKIE_DOMAIN || '.altusfinancegroup.com';
+        console.log(`[AUTH SUCCESS] User authenticated successfully`);
+        console.log(`[AUTH SUCCESS] Session created and will be sent as cookie`);
+        console.log(`[AUTH SUCCESS] Cookie domain: ${cookieDomain}`);
+      }
+      
       res.json({
         message: 'Connexion réussie',
         user: userWithoutSensitive
@@ -803,6 +810,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ipAddress: req.ip || req.headers['x-forwarded-for'] as string || 'unknown',
         userAgent: req.headers['user-agent'] || 'unknown',
       });
+      
+      if (process.env.NODE_ENV === 'production') {
+        const cookieDomain = process.env.COOKIE_DOMAIN || '.altusfinancegroup.com';
+        console.log(`[EMAIL VERIFY SUCCESS] Email verified and user auto-logged in`);
+        console.log(`[EMAIL VERIFY SUCCESS] Session created and will be sent as cookie`);
+        console.log(`[EMAIL VERIFY SUCCESS] Cookie domain: ${cookieDomain}`);
+      }
       
       res.json({
         message: 'Email vérifié avec succès ! Vous êtes maintenant connecté.',
