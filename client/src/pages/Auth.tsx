@@ -99,15 +99,23 @@ export default function Auth() {
       return response.json();
     },
     onSuccess: (data) => {
-      clearCsrfToken();
-      toast({
-        title: t.auth.loginSuccess,
-        description: t.auth.loginSuccessDesc,
-      });
-      if (data.user?.role === 'admin') {
-        setLocation('/admin');
+      if (data.requiresOtp) {
+        toast({
+          title: t.common.success,
+          description: data.message || 'Code de vérification envoyé',
+        });
+        setLocation(`/verify-otp/${data.userId}`);
       } else {
-        setLocation('/dashboard');
+        clearCsrfToken();
+        toast({
+          title: t.auth.loginSuccess,
+          description: t.auth.loginSuccessDesc,
+        });
+        if (data.user?.role === 'admin') {
+          setLocation('/admin');
+        } else {
+          setLocation('/dashboard');
+        }
       }
     },
     onError: (error: any) => {

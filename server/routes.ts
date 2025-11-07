@@ -491,7 +491,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ error: 'Code invalide ou expiré' });
       }
       
-      const user = await storage.getUserById(userId);
+      const user = await storage.getUser(userId);
       if (!user) {
         return res.status(404).json({ error: 'Utilisateur non trouvé' });
       }
