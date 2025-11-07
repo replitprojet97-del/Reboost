@@ -1855,6 +1855,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         codesValidated: 0,
       });
 
+      await notifyTransferInitiated(req.session.userId!, transfer.id, amount.toString(), recipient);
+
       const expiresAt = new Date();
       expiresAt.setMinutes(expiresAt.getMinutes() + 15);
 
@@ -2458,6 +2460,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         content: validatedData.content,
         severity: validatedData.severity || 'info',
       });
+
+      await notifyAdminMessage(
+        validatedData.userId, 
+        validatedData.subject, 
+        (validatedData.severity as 'info' | 'success' | 'warning' | 'error') || 'info'
+      );
 
       await storage.createAuditLog({
         actorId: req.session.userId!,
