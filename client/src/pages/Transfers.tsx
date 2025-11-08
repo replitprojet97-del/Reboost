@@ -10,6 +10,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Plus, ArrowRightLeft, Search, Filter } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { useTranslations } from '@/lib/i18n';
 
 interface Transfer {
   id: string;
@@ -23,6 +24,7 @@ interface Transfer {
 }
 
 export default function Transfers() {
+  const t = useTranslations();
   const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -40,10 +42,10 @@ export default function Transfers() {
 
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline' }> = {
-      pending: { label: 'En attente', variant: 'secondary' },
-      'in-progress': { label: 'En cours', variant: 'default' },
-      completed: { label: 'Complété', variant: 'outline' },
-      suspended: { label: 'Suspendu', variant: 'destructive' },
+      pending: { label: t.transfer.pending, variant: 'secondary' },
+      'in-progress': { label: t.transfer.inProgress, variant: 'default' },
+      completed: { label: t.transfer.completed, variant: 'outline' },
+      suspended: { label: t.transfer.suspended, variant: 'destructive' },
     };
 
     const config = statusMap[status] || { label: status, variant: 'outline' };
@@ -74,9 +76,9 @@ export default function Transfers() {
     <div className="p-6 md:p-8 space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl md:text-4xl font-semibold mb-2">Mes transferts</h1>
+          <h1 className="text-3xl md:text-4xl font-semibold mb-2">{t.transfer.pageTitle}</h1>
           <p className="text-muted-foreground">
-            Gérez et suivez tous vos transferts de fonds
+            {t.transfer.pageDescription}
           </p>
         </div>
         <Button
@@ -85,21 +87,21 @@ export default function Transfers() {
           data-testid="button-new-transfer"
         >
           <Plus className="mr-2 h-5 w-5" />
-          Nouveau transfert
+          {t.transfer.newTransfer}
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Filtres et recherche</CardTitle>
-          <CardDescription>Affinez votre liste de transferts</CardDescription>
+          <CardTitle>{t.transfer.filterTitle}</CardTitle>
+          <CardDescription>{t.transfer.filterDescription}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Rechercher par destinataire ou ID..."
+                placeholder={t.transfer.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -108,14 +110,14 @@ export default function Transfers() {
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger className="w-full md:w-[200px]" data-testid="select-status-filter">
-                <SelectValue placeholder="Statut" />
+                <SelectValue placeholder={t.loan.status} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tous les statuts</SelectItem>
-                <SelectItem value="pending">En attente</SelectItem>
-                <SelectItem value="in-progress">En cours</SelectItem>
-                <SelectItem value="completed">Complétés</SelectItem>
-                <SelectItem value="suspended">Suspendus</SelectItem>
+                <SelectItem value="all">{t.transfer.allStatuses}</SelectItem>
+                <SelectItem value="pending">{t.transfer.pending}</SelectItem>
+                <SelectItem value="in-progress">{t.transfer.inProgress}</SelectItem>
+                <SelectItem value="completed">{t.transfer.completed}</SelectItem>
+                <SelectItem value="suspended">{t.transfer.suspended}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -126,15 +128,15 @@ export default function Transfers() {
         <Card>
           <CardContent className="flex flex-col items-center justify-center py-12">
             <ArrowRightLeft className="h-12 w-12 text-muted-foreground mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Aucun transfert trouvé</h3>
+            <h3 className="text-lg font-semibold mb-2">{t.transfer.noTransfersFound}</h3>
             <p className="text-muted-foreground text-center mb-4">
               {searchQuery || statusFilter !== 'all'
-                ? 'Essayez de modifier vos critères de recherche'
-                : 'Vous n\'avez pas encore effectué de transfert'}
+                ? t.transfer.noTransfersMessage
+                : t.transfer.noTransfersMessage}
             </p>
             <Button onClick={() => setLocation('/transfer/new')}>
               <Plus className="mr-2 h-4 w-4" />
-              Créer un transfert
+              {t.transfer.createTransfer}
             </Button>
           </CardContent>
         </Card>

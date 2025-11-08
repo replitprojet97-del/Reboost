@@ -11,8 +11,10 @@ import { Plus, Building2, CreditCard, Trash2, Star } from 'lucide-react';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { ExternalAccount } from '@shared/schema';
+import { useTranslations } from '@/lib/i18n';
 
 export default function BankAccounts() {
+  const t = useTranslations();
   const { toast } = useToast();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -35,16 +37,16 @@ export default function BankAccounts() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/external-accounts'] });
       toast({
-        title: 'Compte ajouté',
-        description: 'Votre compte bancaire a été ajouté avec succès.',
+        title: t.bankAccounts.addSuccess,
+        description: t.bankAccounts.addSuccessDesc,
       });
       setDialogOpen(false);
       resetForm();
     },
     onError: () => {
       toast({
-        title: 'Erreur',
-        description: 'Impossible d\'ajouter le compte bancaire.',
+        title: t.common.error,
+        description: t.bankAccounts.addError,
         variant: 'destructive',
       });
     },
@@ -57,14 +59,14 @@ export default function BankAccounts() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/external-accounts'] });
       toast({
-        title: 'Compte supprimé',
-        description: 'Le compte bancaire a été supprimé avec succès.',
+        title: t.bankAccounts.deleteSuccess,
+        description: t.bankAccounts.deleteSuccessDesc,
       });
     },
     onError: () => {
       toast({
-        title: 'Erreur',
-        description: 'Impossible de supprimer le compte bancaire.',
+        title: t.common.error,
+        description: t.bankAccounts.deleteError,
         variant: 'destructive',
       });
     },
@@ -74,21 +76,21 @@ export default function BankAccounts() {
     const newErrors: Record<string, string> = {};
 
     if (!formData.bankName.trim()) {
-      newErrors.bankName = 'Le nom de la banque est requis';
+      newErrors.bankName = t.bankAccounts.bankNameRequired;
     }
 
     if (!formData.iban.trim()) {
-      newErrors.iban = 'L\'IBAN est requis';
+      newErrors.iban = t.bankAccounts.ibanRequired;
     } else if (!/^[A-Z]{2}[0-9]{2}[A-Z0-9]+$/.test(formData.iban.replace(/\s/g, ''))) {
-      newErrors.iban = 'Format IBAN invalide';
+      newErrors.iban = t.bankAccounts.invalidIban;
     }
 
     if (formData.bic && !/^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$/.test(formData.bic.replace(/\s/g, ''))) {
-      newErrors.bic = 'Format BIC invalide';
+      newErrors.bic = t.bankAccounts.invalidBic;
     }
 
     if (!formData.accountLabel.trim()) {
-      newErrors.accountLabel = 'Le libellé du compte est requis';
+      newErrors.accountLabel = t.bankAccounts.accountLabelRequired;
     }
 
     setErrors(newErrors);
@@ -133,9 +135,9 @@ export default function BankAccounts() {
       <div className="p-6 md:p-8 space-y-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-semibold mb-2">Mes comptes bancaires</h1>
+            <h1 className="text-3xl md:text-4xl font-semibold mb-2">{t.bankAccounts.title}</h1>
             <p className="text-muted-foreground">
-              Gérez vos comptes bancaires externes pour les transferts
+              {t.bankAccounts.description}
             </p>
           </div>
           <Button
@@ -144,7 +146,7 @@ export default function BankAccounts() {
             data-testid="button-add-account"
           >
             <Plus className="mr-2 h-5 w-5" />
-            Ajouter un compte
+            {t.bankAccounts.addAccount}
           </Button>
         </div>
 
@@ -152,13 +154,13 @@ export default function BankAccounts() {
           <Card>
             <CardContent className="flex flex-col items-center justify-center py-12">
               <Building2 className="h-16 w-16 text-muted-foreground mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Aucun compte bancaire</h3>
+              <h3 className="text-xl font-semibold mb-2">{t.bankAccounts.noAccountsTitle}</h3>
               <p className="text-muted-foreground text-center mb-6 max-w-md">
-                Ajoutez un compte bancaire externe pour effectuer des transferts de fonds
+                {t.bankAccounts.noAccountsDescription}
               </p>
               <Button onClick={() => setDialogOpen(true)} data-testid="button-add-first-account">
                 <Plus className="mr-2 h-4 w-4" />
-                Ajouter votre premier compte
+                {t.bankAccounts.addFirstAccount}
               </Button>
             </CardContent>
           </Card>
@@ -210,7 +212,7 @@ export default function BankAccounts() {
                       data-testid={`button-delete-account-${account.id}`}
                     >
                       <Trash2 className="h-4 w-4 mr-2" />
-                      Supprimer
+                      {t.bankAccounts.delete}
                     </Button>
                   </div>
                 </CardContent>
@@ -223,17 +225,17 @@ export default function BankAccounts() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="sm:max-w-[550px]">
           <DialogHeader>
-            <DialogTitle className="text-2xl">Ajouter un compte bancaire</DialogTitle>
+            <DialogTitle className="text-2xl">{t.bankAccounts.addAccount} bancaire</DialogTitle>
             <DialogDescription>
-              Ajoutez les informations de votre compte bancaire externe
+              {t.bankAccounts.addAccountDescription}
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-6 mt-4">
             <div className="space-y-2">
-              <Label htmlFor="accountLabel">Libellé du compte</Label>
+              <Label htmlFor="accountLabel">{t.bankAccounts.accountLabelLabel}</Label>
               <Input
                 id="accountLabel"
-                placeholder="Ex: Compte courant principal"
+                placeholder="{t.bankAccounts.accountLabelPlaceholder}"
                 value={formData.accountLabel}
                 onChange={(e) => {
                   setFormData({ ...formData, accountLabel: e.target.value });
@@ -248,10 +250,10 @@ export default function BankAccounts() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="bankName">Nom de la banque</Label>
+              <Label htmlFor="bankName">{t.bankAccounts.bankNameLabel}</Label>
               <Input
                 id="bankName"
-                placeholder="Ex: Crédit Agricole"
+                placeholder="{t.bankAccounts.bankNamePlaceholder}"
                 value={formData.bankName}
                 onChange={(e) => {
                   setFormData({ ...formData, bankName: e.target.value });
@@ -284,7 +286,7 @@ export default function BankAccounts() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="bic">BIC / SWIFT (optionnel)</Label>
+              <Label htmlFor="bic">{t.bankAccounts.bicLabel}</Label>
               <Input
                 id="bic"
                 placeholder="AGRIFRPP"
@@ -311,14 +313,14 @@ export default function BankAccounts() {
                 }}
                 data-testid="button-cancel-account"
               >
-                Annuler
+                {t.common.cancel}
               </Button>
               <Button
                 type="submit"
                 disabled={createAccountMutation.isPending}
                 data-testid="button-submit-account"
               >
-                {createAccountMutation.isPending ? 'Ajout...' : 'Ajouter le compte'}
+                {createAccountMutation.isPending ? '{t.bankAccounts.submitting}' : '{t.bankAccounts.submitting}le compte'}
               </Button>
             </div>
           </form>

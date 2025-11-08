@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Search, TrendingUp, TrendingDown, Receipt, Filter } from 'lucide-react';
+import { useTranslations } from '@/lib/i18n';
 
 interface Transaction {
   id: string;
@@ -16,6 +17,7 @@ interface Transaction {
 }
 
 export default function History() {
+  const t = useTranslations();
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
 
@@ -45,17 +47,17 @@ export default function History() {
       credit: {
         icon: <TrendingUp className="h-4 w-4" />,
         color: 'text-green-600',
-        label: 'Crédit',
+        label: t.history.typeCredit,
       },
       debit: {
         icon: <TrendingDown className="h-4 w-4" />,
         color: 'text-red-600',
-        label: 'Débit',
+        label: t.history.typeDebit,
       },
       fee: {
         icon: <Receipt className="h-4 w-4" />,
         color: 'text-amber-600',
-        label: 'Frais',
+        label: t.history.typeFee,
       },
     };
 
@@ -102,9 +104,9 @@ export default function History() {
   return (
     <div className="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">Historique des transactions</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-2">{t.history.pageTitle}</h1>
         <p className="text-sm sm:text-base text-muted-foreground">
-          Consultez l'historique complet de toutes vos transactions
+          {t.history.pageDescription}
         </p>
       </div>
 
@@ -113,7 +115,7 @@ export default function History() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-green-600" />
-              Total crédits
+              {t.history.totalCredits}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -127,7 +129,7 @@ export default function History() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
               <TrendingDown className="h-4 w-4 text-red-600" />
-              Total débits
+              {t.history.totalDebits}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -141,7 +143,7 @@ export default function History() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
               <Receipt className="h-4 w-4" />
-              Total transactions
+              {t.history.totalTransactions}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -154,15 +156,15 @@ export default function History() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Filtres et recherche</CardTitle>
-          <CardDescription>Affinez votre historique de transactions</CardDescription>
+          <CardTitle>{t.history.filterTitle}</CardTitle>
+          <CardDescription>{t.history.filterDescription}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Rechercher par description ou ID..."
+                placeholder={t.history.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -171,13 +173,13 @@ export default function History() {
             </div>
             <Select value={typeFilter} onValueChange={setTypeFilter}>
               <SelectTrigger className="w-full md:w-[200px]" data-testid="select-type-filter">
-                <SelectValue placeholder="Type" />
+                <SelectValue placeholder={t.history.filterType} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tous les types</SelectItem>
-                <SelectItem value="credit">Crédits</SelectItem>
-                <SelectItem value="debit">Débits</SelectItem>
-                <SelectItem value="fee">Frais</SelectItem>
+                <SelectItem value="all">{t.history.allTypes}</SelectItem>
+                <SelectItem value="credit">{t.history.typeCredit}</SelectItem>
+                <SelectItem value="debit">{t.history.typeDebit}</SelectItem>
+                <SelectItem value="fee">{t.history.typeFee}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -188,18 +190,18 @@ export default function History() {
         <Card>
           <CardContent className="flex flex-col items-center justify-center py-12">
             <Receipt className="h-12 w-12 text-muted-foreground mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Aucune transaction trouvée</h3>
+            <h3 className="text-lg font-semibold mb-2">{t.history.noTransactionsFound}</h3>
             <p className="text-muted-foreground text-center">
               {searchQuery || typeFilter !== 'all'
-                ? 'Essayez de modifier vos critères de recherche'
-                : 'Vous n\'avez pas encore de transactions'}
+                ? t.history.noTransactionsFoundFiltered
+                : t.history.noTransactionsYet}
             </p>
           </CardContent>
         </Card>
       ) : (
         <Card>
           <CardHeader>
-            <CardTitle>Transactions récentes</CardTitle>
+            <CardTitle>{t.history.pageTitle}</CardTitle>
             <CardDescription>
               {filteredTransactions.length} transaction{filteredTransactions.length > 1 ? 's' : ''}
             </CardDescription>

@@ -32,19 +32,19 @@ export default function AppSidebar() {
     { title: t.nav.dashboard, url: '/dashboard', icon: Home, hoverClass: 'hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-indigo-500/10 hover:border-l-4 hover:border-blue-500' },
     { title: t.nav.loans, url: '/loans', icon: CreditCard, hoverClass: 'hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-teal-500/10 hover:border-l-4 hover:border-emerald-500' },
     { title: t.nav.transfers, url: '/transfers', icon: ArrowRightLeft, hoverClass: 'hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-sky-500/10 hover:border-l-4 hover:border-cyan-500' },
-    { title: 'Comptes bancaires', url: '/accounts', icon: Building2, hoverClass: 'hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-violet-500/10 hover:border-l-4 hover:border-purple-500' },
+    { title: t.bankAccounts.title, url: '/accounts', icon: Building2, hoverClass: 'hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-violet-500/10 hover:border-l-4 hover:border-purple-500' },
     { title: t.nav.history, url: '/history', icon: History, hoverClass: 'hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-orange-500/10 hover:border-l-4 hover:border-amber-500' },
     { title: t.nav.settings, url: '/settings', icon: Settings, hoverClass: 'hover:bg-gradient-to-r hover:from-slate-500/10 hover:to-gray-500/10 hover:border-l-4 hover:border-slate-500' },
   ];
 
   const adminMenuItems = [
-    { title: 'Tableau de Bord', url: '/admin', icon: ShieldCheck, hoverClass: 'hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-indigo-500/10 hover:border-l-4 hover:border-blue-500' },
-    { title: 'Utilisateurs', url: '/admin/users', icon: Users, hoverClass: 'hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-violet-500/10 hover:border-l-4 hover:border-purple-500' },
-    { title: 'Prêts', url: '/admin/loans', icon: CreditCard, hoverClass: 'hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-teal-500/10 hover:border-l-4 hover:border-emerald-500' },
-    { title: 'Transferts', url: '/admin/transfers', icon: ArrowRightLeft, hoverClass: 'hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-sky-500/10 hover:border-l-4 hover:border-cyan-500' },
-    { title: 'Documents KYC', url: '/admin/documents', icon: FileText, hoverClass: 'hover:bg-gradient-to-r hover:from-rose-500/10 hover:to-pink-500/10 hover:border-l-4 hover:border-rose-500' },
-    { title: 'Paramètres', url: '/admin/settings', icon: Settings, hoverClass: 'hover:bg-gradient-to-r hover:from-slate-500/10 hover:to-gray-500/10 hover:border-l-4 hover:border-slate-500' },
-    { title: 'Rapports', url: '/admin/reports', icon: BarChart, hoverClass: 'hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-orange-500/10 hover:border-l-4 hover:border-amber-500' },
+    { title: t.nav.dashboard, url: '/admin', icon: ShieldCheck, hoverClass: 'hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-indigo-500/10 hover:border-l-4 hover:border-blue-500' },
+    { title: t.nav.users, url: '/admin/users', icon: Users, hoverClass: 'hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-violet-500/10 hover:border-l-4 hover:border-purple-500' },
+    { title: t.nav.loans, url: '/admin/loans', icon: CreditCard, hoverClass: 'hover:bg-gradient-to-r hover:from-emerald-500/10 hover:to-teal-500/10 hover:border-l-4 hover:border-emerald-500' },
+    { title: t.nav.transfers, url: '/admin/transfers', icon: ArrowRightLeft, hoverClass: 'hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-sky-500/10 hover:border-l-4 hover:border-cyan-500' },
+    { title: t.nav.documents, url: '/admin/documents', icon: FileText, hoverClass: 'hover:bg-gradient-to-r hover:from-rose-500/10 hover:to-pink-500/10 hover:border-l-4 hover:border-rose-500' },
+    { title: t.nav.settings, url: '/admin/settings', icon: Settings, hoverClass: 'hover:bg-gradient-to-r hover:from-slate-500/10 hover:to-gray-500/10 hover:border-l-4 hover:border-slate-500' },
+    { title: t.nav.reports, url: '/admin/reports', icon: BarChart, hoverClass: 'hover:bg-gradient-to-r hover:from-amber-500/10 hover:to-orange-500/10 hover:border-l-4 hover:border-amber-500' },
   ];
 
   const currentMenuItems = isAdminPath ? adminMenuItems : menuItems;
@@ -66,7 +66,7 @@ export default function AppSidebar() {
             </div>
           </div>
           <SidebarGroupLabel className="text-sm font-semibold px-4 py-2 text-blue-700 dark:text-blue-300">
-            {isAdminPath ? 'Admin Console' : 'Tableau de bord'}
+            {t.nav.dashboard}
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

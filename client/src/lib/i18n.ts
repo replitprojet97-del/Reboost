@@ -74,6 +74,9 @@ type TranslationKeys = {
     history: string;
     settings: string;
     logout: string;
+    users: string;
+    documents: string;
+    reports: string;
   };
   dashboard: {
     welcome: string;
@@ -158,11 +161,14 @@ type TranslationKeys = {
     filterTitle: string;
     filterDescription: string;
     searchPlaceholder: string;
+    filterType: string;
     allTypes: string;
     typeCredit: string;
     typeDebit: string;
     typeFee: string;
     noTransactionsFound: string;
+    noTransactionsFoundFiltered: string;
+    noTransactionsYet: string;
   };
   fee: {
     type: string;
@@ -917,6 +923,9 @@ export const translations: Record<Language, TranslationKeys> = {
       history: 'Historique',
       settings: 'Paramètres',
       logout: 'Déconnexion',
+      users: 'Utilisateurs',
+      documents: 'Documents KYC',
+      reports: 'Rapports',
     },
     dashboard: {
       welcome: 'Bienvenue',
@@ -1001,11 +1010,14 @@ export const translations: Record<Language, TranslationKeys> = {
       filterTitle: 'Filtres et recherche',
       filterDescription: 'Affinez votre historique de transactions',
       searchPlaceholder: 'Rechercher par description ou ID...',
+      filterType: 'Type',
       allTypes: 'Tous les types',
       typeCredit: 'Crédit',
       typeDebit: 'Débit',
       typeFee: 'Frais',
       noTransactionsFound: 'Aucune transaction trouvée',
+      noTransactionsFoundFiltered: 'Essayez de modifier vos critères de recherche',
+      noTransactionsYet: 'Vous n\'avez pas encore de transactions',
     },
     fee: {
       type: 'Type de frais',
@@ -1822,6 +1834,9 @@ export const translations: Record<Language, TranslationKeys> = {
       history: 'History',
       settings: 'Settings',
       logout: 'Logout',
+      users: 'Users',
+      documents: 'KYC Documents',
+      reports: 'Reports',
     },
     dashboard: {
       welcome: 'Welcome',
@@ -1906,11 +1921,14 @@ export const translations: Record<Language, TranslationKeys> = {
       filterTitle: 'Filters and search',
       filterDescription: 'Refine your transaction history',
       searchPlaceholder: 'Search by description or ID...',
+      filterType: 'Type',
       allTypes: 'All types',
       typeCredit: 'Credit',
       typeDebit: 'Debit',
       typeFee: 'Fee',
       noTransactionsFound: 'No transactions found',
+      noTransactionsFoundFiltered: 'Try modifying your search criteria',
+      noTransactionsYet: 'You don\'t have any transactions yet',
     },
     fee: {
       type: 'Fee Type',
@@ -2715,6 +2733,9 @@ export const translations: Record<Language, TranslationKeys> = {
       history: 'Historial',
       settings: 'Configuración',
       logout: 'Cerrar Sesión',
+      users: 'Usuarios',
+      documents: 'Documentos KYC',
+      reports: 'Informes',
     },
     dashboard: {
       welcome: 'Bienvenido',
@@ -2799,11 +2820,14 @@ export const translations: Record<Language, TranslationKeys> = {
       filterTitle: 'Filtros y búsqueda',
       filterDescription: 'Refine su historial de transacciones',
       searchPlaceholder: 'Buscar por descripción o ID...',
+      filterType: 'Tipo',
       allTypes: 'Todos los tipos',
       typeCredit: 'Crédito',
       typeDebit: 'Débito',
       typeFee: 'Tarifa',
       noTransactionsFound: 'No se encontraron transacciones',
+      noTransactionsFoundFiltered: 'Intente modificar sus criterios de búsqueda',
+      noTransactionsYet: 'Aún no tiene transacciones',
     },
     fee: {
       type: 'Tipo de Tarifa',
@@ -3603,6 +3627,9 @@ export const translations: Record<Language, TranslationKeys> = {
       history: 'Histórico',
       settings: 'Configurações',
       logout: 'Sair',
+      users: 'Usuários',
+      documents: 'Documentos KYC',
+      reports: 'Relatórios',
     },
     dashboard: {
       welcome: 'Bem-vindo',
@@ -3692,6 +3719,9 @@ export const translations: Record<Language, TranslationKeys> = {
       typeDebit: 'Débito',
       typeFee: 'Taxa',
       noTransactionsFound: 'Nenhuma transação encontrada',
+      filterType: 'Tipo',
+      noTransactionsFoundFiltered: 'Tente modificar seus critérios de pesquisa',
+      noTransactionsYet: 'Você ainda não tem transações',
     },
     fee: {
       type: 'Tipo de Taxa',
@@ -4491,6 +4521,9 @@ export const translations: Record<Language, TranslationKeys> = {
       history: 'Storico',
       settings: 'Impostazioni',
       logout: 'Disconnetti',
+      users: 'Utenti',
+      documents: 'Documenti KYC',
+      reports: 'Rapporti',
     },
     dashboard: {
       welcome: 'Benvenuto',
@@ -4580,6 +4613,9 @@ export const translations: Record<Language, TranslationKeys> = {
       typeDebit: 'Debito',
       typeFee: 'Commissione',
       noTransactionsFound: 'Nessuna transazione trovata',
+      filterType: 'Tipo',
+      noTransactionsFoundFiltered: 'Prova a modificare i criteri di ricerca',
+      noTransactionsYet: 'Non hai ancora transazioni',
     },
     fee: {
       type: 'Tipo di commissione',
@@ -5381,6 +5417,9 @@ export const translations: Record<Language, TranslationKeys> = {
       history: 'Verlauf',
       settings: 'Einstellungen',
       logout: 'Abmelden',
+      users: 'Benutzer',
+      documents: 'KYC-Dokumente',
+      reports: 'Berichte',
     },
     dashboard: {
       welcome: 'Willkommen',
@@ -5470,6 +5509,9 @@ export const translations: Record<Language, TranslationKeys> = {
       typeDebit: 'Belastung',
       typeFee: 'Gebühr',
       noTransactionsFound: 'Keine Transaktionen gefunden',
+      filterType: 'Typ',
+      noTransactionsFoundFiltered: 'Versuchen Sie, Ihre Suchkriterien zu ändern',
+      noTransactionsYet: 'Sie haben noch keine Transaktionen',
     },
     fee: {
       type: 'Gebührenart',
@@ -6241,6 +6283,9 @@ export const translations: Record<Language, TranslationKeys> = {
       history: 'Geschiedenis',
       settings: 'Instellingen',
       logout: 'Afmelden',
+      users: 'Gebruikers',
+      documents: 'KYC-documenten',
+      reports: 'Rapporten',
     },
     dashboard: {
       welcome: 'Welkom',
@@ -6330,6 +6375,9 @@ export const translations: Record<Language, TranslationKeys> = {
       typeDebit: 'Debitering',
       typeFee: 'Kosten',
       noTransactionsFound: 'Geen transacties gevonden',
+      filterType: 'Type',
+      noTransactionsFoundFiltered: 'Probeer uw zoekcriteria te wijzigen',
+      noTransactionsYet: 'U heeft nog geen transacties',
     },
     fee: {
       type: 'Type kosten',
