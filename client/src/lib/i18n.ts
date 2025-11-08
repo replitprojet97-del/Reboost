@@ -105,6 +105,10 @@ type TranslationKeys = {
     moreTransfers: string;
   };
   loan: {
+    pageTitle: string;
+    pageDescription: string;
+    tabMyLoans: string;
+    tabCalculator: string;
     amount: string;
     interestRate: string;
     nextPayment: string;
@@ -117,6 +121,16 @@ type TranslationKeys = {
     loanNumber: string;
   };
   transfer: {
+    pageTitle: string;
+    pageDescription: string;
+    searchPlaceholder: string;
+    allStatuses: string;
+    filterTitle: string;
+    filterDescription: string;
+    noTransfersFound: string;
+    noTransfersMessage: string;
+    createTransfer: string;
+    newTransfer: string;
     requestSubmitted: string;
     documentVerification: string;
     complianceCheck: string;
@@ -134,6 +148,21 @@ type TranslationKeys = {
     onHold: string;
     processing: string;
     processingComplete: string;
+  };
+  history: {
+    pageTitle: string;
+    pageDescription: string;
+    totalCredits: string;
+    totalDebits: string;
+    totalTransactions: string;
+    filterTitle: string;
+    filterDescription: string;
+    searchPlaceholder: string;
+    allTypes: string;
+    typeCredit: string;
+    typeDebit: string;
+    typeFee: string;
+    noTransactionsFound: string;
   };
   fee: {
     type: string;
@@ -742,14 +771,19 @@ type TranslationKeys = {
     ibanLabel: string;
     ibanPlaceholder: string;
     ibanRequired: string;
+    invalidIban: string;
     bicLabel: string;
     bicPlaceholder: string;
+    invalidBic: string;
     submit: string;
     submitting: string;
     cancel: string;
     addSuccess: string;
     addSuccessDesc: string;
     addError: string;
+    addFirstAccount: string;
+    deleteSuccessDesc: string;
+    deleteError: string;
   };
   welcomeModal: {
     title: string;
@@ -884,6 +918,10 @@ export const translations: Record<Language, TranslationKeys> = {
       moreTransfers: 'transfert(s) supplémentaire(s)',
     },
     loan: {
+      pageTitle: 'Mes prêts',
+      pageDescription: 'Gérez vos prêts et simulez vos remboursements',
+      tabMyLoans: 'Mes prêts',
+      tabCalculator: 'Calculateur',
       amount: 'Montant',
       interestRate: 'Taux d\'intérêt',
       nextPayment: 'Prochain paiement',
@@ -896,6 +934,16 @@ export const translations: Record<Language, TranslationKeys> = {
       loanNumber: 'Prêt',
     },
     transfer: {
+      pageTitle: 'Mes transferts',
+      pageDescription: 'Gérez et suivez tous vos transferts de fonds',
+      searchPlaceholder: 'Rechercher par destinataire ou ID...',
+      allStatuses: 'Tous les statuts',
+      filterTitle: 'Filtres et recherche',
+      filterDescription: 'Affinez votre liste de transferts',
+      noTransfersFound: 'Aucun transfert trouvé',
+      noTransfersMessage: 'Vous n\'avez pas encore effectué de transfert',
+      createTransfer: 'Créer un transfert',
+      newTransfer: 'Nouveau transfert',
       requestSubmitted: 'Demande soumise',
       documentVerification: 'Vérification des documents',
       complianceCheck: 'Contrôle de conformité',
@@ -913,6 +961,21 @@ export const translations: Record<Language, TranslationKeys> = {
       onHold: 'Transfert en pause',
       processing: 'Transfert en cours',
       processingComplete: 'Transfert complété',
+    },
+    history: {
+      pageTitle: 'Historique des transactions',
+      pageDescription: 'Consultez l\'historique complet de toutes vos transactions',
+      totalCredits: 'Total crédits',
+      totalDebits: 'Total débits',
+      totalTransactions: 'Total transactions',
+      filterTitle: 'Filtres et recherche',
+      filterDescription: 'Affinez votre historique de transactions',
+      searchPlaceholder: 'Rechercher par description ou ID...',
+      allTypes: 'Tous les types',
+      typeCredit: 'Crédit',
+      typeDebit: 'Débit',
+      typeFee: 'Frais',
+      noTransactionsFound: 'Aucune transaction trouvée',
     },
     fee: {
       type: 'Type de frais',
@@ -1585,14 +1648,19 @@ export const translations: Record<Language, TranslationKeys> = {
       ibanLabel: 'IBAN',
       ibanPlaceholder: 'FR76 1234 5678 9012 3456 7890 123',
       ibanRequired: 'L\'IBAN est requis',
+      invalidIban: 'Format IBAN invalide',
       bicLabel: 'BIC/SWIFT',
       bicPlaceholder: 'BNPAFRPP',
+      invalidBic: 'Format BIC invalide',
       submit: 'Ajouter le compte',
       submitting: 'Ajout...',
       cancel: 'Annuler',
       addSuccess: 'Compte ajouté',
       addSuccessDesc: 'Le compte bancaire a été ajouté avec succès.',
       addError: 'Erreur lors de l\'ajout du compte',
+      addFirstAccount: 'Ajouter votre premier compte',
+      deleteSuccessDesc: 'Le compte bancaire a été supprimé avec succès.',
+      deleteError: 'Impossible de supprimer le compte bancaire.',
     },
     welcomeModal: {
       title: 'Bienvenue sur ALTUS',
@@ -1725,6 +1793,10 @@ export const translations: Record<Language, TranslationKeys> = {
       moreTransfers: 'more transfer(s)',
     },
     loan: {
+      pageTitle: 'My Loans',
+      pageDescription: 'Manage your loans and simulate your repayments',
+      tabMyLoans: 'My Loans',
+      tabCalculator: 'Calculator',
       amount: 'Amount',
       interestRate: 'Interest Rate',
       nextPayment: 'Next Payment',
@@ -1737,6 +1809,16 @@ export const translations: Record<Language, TranslationKeys> = {
       loanNumber: 'Loan',
     },
     transfer: {
+      pageTitle: 'My Transfers',
+      pageDescription: 'Manage and track all your fund transfers',
+      searchPlaceholder: 'Search by recipient or ID...',
+      allStatuses: 'All statuses',
+      filterTitle: 'Filters and search',
+      filterDescription: 'Refine your transfer list',
+      noTransfersFound: 'No transfers found',
+      noTransfersMessage: 'You haven\'t made any transfers yet',
+      createTransfer: 'Create transfer',
+      newTransfer: 'New transfer',
       requestSubmitted: 'Request Submitted',
       documentVerification: 'Document Verification',
       complianceCheck: 'Compliance Check',
@@ -1754,6 +1836,21 @@ export const translations: Record<Language, TranslationKeys> = {
       onHold: 'Transfer on hold',
       processing: 'Transfer in progress',
       processingComplete: 'Transfer completed',
+    },
+    history: {
+      pageTitle: 'Transaction History',
+      pageDescription: 'View the complete history of all your transactions',
+      totalCredits: 'Total credits',
+      totalDebits: 'Total debits',
+      totalTransactions: 'Total transactions',
+      filterTitle: 'Filters and search',
+      filterDescription: 'Refine your transaction history',
+      searchPlaceholder: 'Search by description or ID...',
+      allTypes: 'All types',
+      typeCredit: 'Credit',
+      typeDebit: 'Debit',
+      typeFee: 'Fee',
+      noTransactionsFound: 'No transactions found',
     },
     fee: {
       type: 'Fee Type',
@@ -2414,14 +2511,19 @@ export const translations: Record<Language, TranslationKeys> = {
       ibanLabel: 'IBAN',
       ibanPlaceholder: 'GB29 NWBK 6016 1331 9268 19',
       ibanRequired: 'IBAN is required',
+      invalidIban: 'Invalid IBAN format',
       bicLabel: 'BIC/SWIFT',
       bicPlaceholder: 'NWBKGB2L',
+      invalidBic: 'Invalid BIC format',
       submit: 'Add Account',
       submitting: 'Adding...',
       cancel: 'Cancel',
       addSuccess: 'Account Added',
       addSuccessDesc: 'The bank account has been successfully added.',
       addError: 'Error adding account',
+      addFirstAccount: 'Add your first account',
+      deleteSuccessDesc: 'The bank account has been successfully deleted.',
+      deleteError: 'Unable to delete the bank account.',
     },
     welcomeModal: {
       title: 'Welcome to ALTUS',
@@ -2554,6 +2656,10 @@ export const translations: Record<Language, TranslationKeys> = {
       moreTransfers: 'transferencia(s) adicional(es)',
     },
     loan: {
+      pageTitle: 'Mis Préstamos',
+      pageDescription: 'Gestione sus préstamos y simule sus reembolsos',
+      tabMyLoans: 'Mis Préstamos',
+      tabCalculator: 'Calculadora',
       amount: 'Cantidad',
       interestRate: 'Tasa de Interés',
       nextPayment: 'Próximo Pago',
@@ -2566,6 +2672,16 @@ export const translations: Record<Language, TranslationKeys> = {
       loanNumber: 'Préstamo',
     },
     transfer: {
+      pageTitle: 'Mis Transferencias',
+      pageDescription: 'Gestione y rastree todas sus transferencias de fondos',
+      searchPlaceholder: 'Buscar por destinatario o ID...',
+      allStatuses: 'Todos los estados',
+      filterTitle: 'Filtros y búsqueda',
+      filterDescription: 'Refine su lista de transferencias',
+      noTransfersFound: 'No se encontraron transferencias',
+      noTransfersMessage: 'Aún no ha realizado ninguna transferencia',
+      createTransfer: 'Crear transferencia',
+      newTransfer: 'Nueva transferencia',
       requestSubmitted: 'Solicitud Enviada',
       documentVerification: 'Verificación de Documentos',
       complianceCheck: 'Control de Cumplimiento',
@@ -2583,6 +2699,21 @@ export const translations: Record<Language, TranslationKeys> = {
       onHold: 'Transferencia en pausa',
       processing: 'Transferencia en progreso',
       processingComplete: 'Transferencia completada',
+    },
+    history: {
+      pageTitle: 'Historial de Transacciones',
+      pageDescription: 'Consulte el historial completo de todas sus transacciones',
+      totalCredits: 'Total créditos',
+      totalDebits: 'Total débitos',
+      totalTransactions: 'Total transacciones',
+      filterTitle: 'Filtros y búsqueda',
+      filterDescription: 'Refine su historial de transacciones',
+      searchPlaceholder: 'Buscar por descripción o ID...',
+      allTypes: 'Todos los tipos',
+      typeCredit: 'Crédito',
+      typeDebit: 'Débito',
+      typeFee: 'Tarifa',
+      noTransactionsFound: 'No se encontraron transacciones',
     },
     fee: {
       type: 'Tipo de Tarifa',
@@ -3238,14 +3369,19 @@ export const translations: Record<Language, TranslationKeys> = {
       ibanLabel: 'IBAN',
       ibanPlaceholder: 'ES91 2100 0418 4502 0005 1332',
       ibanRequired: 'El IBAN es requerido',
+      invalidIban: 'Formato de IBAN inválido',
       bicLabel: 'BIC/SWIFT',
       bicPlaceholder: 'CAIXESBBXXX',
+      invalidBic: 'Formato de BIC inválido',
       submit: 'Agregar Cuenta',
       submitting: 'Agregando...',
       cancel: 'Cancelar',
       addSuccess: 'Cuenta Agregada',
       addSuccessDesc: 'La cuenta bancaria ha sido agregada exitosamente.',
       addError: 'Error al agregar cuenta',
+      addFirstAccount: 'Agregar su primera cuenta',
+      deleteSuccessDesc: 'La cuenta bancaria ha sido eliminada exitosamente.',
+      deleteError: 'No se pudo eliminar la cuenta bancaria.',
     },
     welcomeModal: {
       title: 'Bienvenido a ALTUS',
@@ -3378,6 +3514,10 @@ export const translations: Record<Language, TranslationKeys> = {
       moreTransfers: 'transferência(s) adicional(is)',
     },
     loan: {
+      pageTitle: 'Meus Empréstimos',
+      pageDescription: 'Gerencie seus empréstimos e simule seus reembolsos',
+      tabMyLoans: 'Meus Empréstimos',
+      tabCalculator: 'Calculadora',
       amount: 'Valor',
       interestRate: 'Taxa de Juros',
       nextPayment: 'Próximo Pagamento',
@@ -3390,6 +3530,16 @@ export const translations: Record<Language, TranslationKeys> = {
       loanNumber: 'Empréstimo',
     },
     transfer: {
+      pageTitle: 'Minhas Transferências',
+      pageDescription: 'Gerencie e rastreie todas as suas transferências de fundos',
+      searchPlaceholder: 'Buscar por destinatário ou ID...',
+      allStatuses: 'Todos os status',
+      filterTitle: 'Filtros e busca',
+      filterDescription: 'Refine sua lista de transferências',
+      noTransfersFound: 'Nenhuma transferência encontrada',
+      noTransfersMessage: 'Você ainda não fez nenhuma transferência',
+      createTransfer: 'Criar transferência',
+      newTransfer: 'Nova transferência',
       requestSubmitted: 'Solicitação Enviada',
       documentVerification: 'Verificação de Documentos',
       complianceCheck: 'Verificação de Conformidade',
@@ -3407,6 +3557,21 @@ export const translations: Record<Language, TranslationKeys> = {
       onHold: 'Transferência em pausa',
       processing: 'Transferência em andamento',
       processingComplete: 'Transferência concluída',
+    },
+    history: {
+      pageTitle: 'Histórico de Transações',
+      pageDescription: 'Consulte o histórico completo de todas as suas transações',
+      totalCredits: 'Total créditos',
+      totalDebits: 'Total débitos',
+      totalTransactions: 'Total transações',
+      filterTitle: 'Filtros e busca',
+      filterDescription: 'Refine seu histórico de transações',
+      searchPlaceholder: 'Buscar por descrição ou ID...',
+      allTypes: 'Todos os tipos',
+      typeCredit: 'Crédito',
+      typeDebit: 'Débito',
+      typeFee: 'Taxa',
+      noTransactionsFound: 'Nenhuma transação encontrada',
     },
     fee: {
       type: 'Tipo de Taxa',
@@ -4062,14 +4227,19 @@ export const translations: Record<Language, TranslationKeys> = {
       ibanLabel: 'IBAN',
       ibanPlaceholder: 'BRXX XXXX XXXX XXXX XXXX XXXX X',
       ibanRequired: 'O IBAN é obrigatório',
+      invalidIban: 'Formato de IBAN inválido',
       bicLabel: 'BIC/SWIFT',
       bicPlaceholder: 'XXXXXXXX',
+      invalidBic: 'Formato de BIC inválido',
       submit: 'Adicionar Conta',
       submitting: 'Adicionando...',
       cancel: 'Cancelar',
       addSuccess: 'Conta Adicionada!',
       addSuccessDesc: 'Sua conta bancária foi adicionada com sucesso.',
       addError: 'Erro ao adicionar conta',
+      addFirstAccount: 'Adicionar sua primeira conta',
+      deleteSuccessDesc: 'A conta bancária foi excluída com sucesso.',
+      deleteError: 'Não foi possível excluir a conta bancária.',
     },
     welcomeModal: {
       title: 'Bem-vindo à Altus Finance Group',
@@ -4202,6 +4372,10 @@ export const translations: Record<Language, TranslationKeys> = {
       moreTransfers: 'trasferimento/i aggiuntivo/i',
     },
     loan: {
+      pageTitle: 'I miei prestiti',
+      pageDescription: 'Gestisci i tuoi prestiti e simula i tuoi rimborsi',
+      tabMyLoans: 'I miei prestiti',
+      tabCalculator: 'Calcolatore',
       amount: 'Importo',
       interestRate: 'Tasso di interesse',
       nextPayment: 'Prossimo pagamento',
@@ -4214,6 +4388,16 @@ export const translations: Record<Language, TranslationKeys> = {
       loanNumber: 'Prestito',
     },
     transfer: {
+      pageTitle: 'I miei trasferimenti',
+      pageDescription: 'Gestisci e traccia tutti i tuoi trasferimenti di fondi',
+      searchPlaceholder: 'Cerca per destinatario o ID...',
+      allStatuses: 'Tutti gli stati',
+      filterTitle: 'Filtri e ricerca',
+      filterDescription: 'Affina la tua lista di trasferimenti',
+      noTransfersFound: 'Nessun trasferimento trovato',
+      noTransfersMessage: 'Non hai ancora effettuato trasferimenti',
+      createTransfer: 'Crea trasferimento',
+      newTransfer: 'Nuovo trasferimento',
       requestSubmitted: 'Richiesta inviata',
       documentVerification: 'Verifica documenti',
       complianceCheck: 'Controllo conformità',
@@ -4231,6 +4415,21 @@ export const translations: Record<Language, TranslationKeys> = {
       onHold: 'Trasferimento in pausa',
       processing: 'Trasferimento in corso',
       processingComplete: 'Trasferimento completato',
+    },
+    history: {
+      pageTitle: 'Storico transazioni',
+      pageDescription: 'Consulta lo storico completo di tutte le tue transazioni',
+      totalCredits: 'Totale crediti',
+      totalDebits: 'Totale debiti',
+      totalTransactions: 'Totale transazioni',
+      filterTitle: 'Filtri e ricerca',
+      filterDescription: 'Affina il tuo storico transazioni',
+      searchPlaceholder: 'Cerca per descrizione o ID...',
+      allTypes: 'Tutti i tipi',
+      typeCredit: 'Credito',
+      typeDebit: 'Debito',
+      typeFee: 'Commissione',
+      noTransactionsFound: 'Nessuna transazione trovata',
     },
     fee: {
       type: 'Tipo di commissione',
@@ -4888,14 +5087,19 @@ export const translations: Record<Language, TranslationKeys> = {
       ibanLabel: 'IBAN',
       ibanPlaceholder: 'IT XX XXXX XXXX XXXX XXXX XXXX XXX',
       ibanRequired: 'L\'IBAN è obbligatorio',
+      invalidIban: 'Formato IBAN non valido',
       bicLabel: 'BIC/SWIFT',
       bicPlaceholder: 'XXXXXXXX',
+      invalidBic: 'Formato BIC non valido',
       submit: 'Aggiungi conto',
       submitting: 'Aggiunta in corso...',
       cancel: 'Annulla',
       addSuccess: 'Conto bancario aggiunto',
       addSuccessDesc: 'Il tuo conto bancario è stato aggiunto con successo.',
       addError: 'Errore durante l\'aggiunta del conto bancario',
+      addFirstAccount: 'Aggiungi il tuo primo conto',
+      deleteSuccessDesc: 'Il conto bancario è stato eliminato con successo.',
+      deleteError: 'Impossibile eliminare il conto bancario.',
     },
     welcomeModal: {
       title: 'Benvenuto in Altus Finance Group',
@@ -5028,6 +5232,10 @@ export const translations: Record<Language, TranslationKeys> = {
       moreTransfers: 'weitere Überweisung(en)',
     },
     loan: {
+      pageTitle: 'Meine Kredite',
+      pageDescription: 'Verwalten Sie Ihre Kredite und simulieren Sie Ihre Rückzahlungen',
+      tabMyLoans: 'Meine Kredite',
+      tabCalculator: 'Rechner',
       amount: 'Betrag',
       interestRate: 'Zinssatz',
       nextPayment: 'Nächste Zahlung',
@@ -5040,6 +5248,16 @@ export const translations: Record<Language, TranslationKeys> = {
       loanNumber: 'Kredit',
     },
     transfer: {
+      pageTitle: 'Meine Überweisungen',
+      pageDescription: 'Verwalten und verfolgen Sie alle Ihre Geldtransfers',
+      searchPlaceholder: 'Nach Empfänger oder ID suchen...',
+      allStatuses: 'Alle Status',
+      filterTitle: 'Filter und Suche',
+      filterDescription: 'Verfeinern Sie Ihre Überweisungsliste',
+      noTransfersFound: 'Keine Überweisungen gefunden',
+      noTransfersMessage: 'Sie haben noch keine Überweisungen getätigt',
+      createTransfer: 'Überweisung erstellen',
+      newTransfer: 'Neue Überweisung',
       requestSubmitted: 'Anfrage eingereicht',
       documentVerification: 'Dokumentenprüfung',
       complianceCheck: 'Compliance-Prüfung',
@@ -5057,6 +5275,21 @@ export const translations: Record<Language, TranslationKeys> = {
       onHold: 'Überweisung pausiert',
       processing: 'Überweisung wird verarbeitet',
       processingComplete: 'Überweisung abgeschlossen',
+    },
+    history: {
+      pageTitle: 'Transaktionsverlauf',
+      pageDescription: 'Vollständigen Verlauf aller Ihrer Transaktionen anzeigen',
+      totalCredits: 'Gutschriften gesamt',
+      totalDebits: 'Belastungen gesamt',
+      totalTransactions: 'Transaktionen gesamt',
+      filterTitle: 'Filter und Suche',
+      filterDescription: 'Verfeinern Sie Ihren Transaktionsverlauf',
+      searchPlaceholder: 'Nach Beschreibung oder ID suchen...',
+      allTypes: 'Alle Typen',
+      typeCredit: 'Gutschrift',
+      typeDebit: 'Belastung',
+      typeFee: 'Gebühr',
+      noTransactionsFound: 'Keine Transaktionen gefunden',
     },
     fee: {
       type: 'Gebührenart',
@@ -5714,14 +5947,19 @@ export const translations: Record<Language, TranslationKeys> = {
       ibanLabel: 'IBAN',
       ibanPlaceholder: 'DE XX XXXX XXXX XXXX XXXX XX',
       ibanRequired: 'IBAN ist erforderlich',
+      invalidIban: 'Ungültiges IBAN-Format',
       bicLabel: 'BIC/SWIFT',
       bicPlaceholder: 'XXXXXXXX',
+      invalidBic: 'Ungültiges BIC-Format',
       submit: 'Konto hinzufügen',
       submitting: 'Wird hinzugefügt...',
       cancel: 'Abbrechen',
       addSuccess: 'Bankkonto hinzugefügt',
       addSuccessDesc: 'Ihr Bankkonto wurde erfolgreich hinzugefügt.',
       addError: 'Fehler beim Hinzufügen des Bankkontos',
+      addFirstAccount: 'Ihr erstes Konto hinzufügen',
+      deleteSuccessDesc: 'Das Bankkonto wurde erfolgreich gelöscht.',
+      deleteError: 'Bankkonto konnte nicht gelöscht werden.',
     },
     welcomeModal: {
       title: 'Willkommen bei der Altus Finance Group',
@@ -5854,6 +6092,10 @@ export const translations: Record<Language, TranslationKeys> = {
       moreTransfers: 'extra overschrijving(en)',
     },
     loan: {
+      pageTitle: 'Mijn leningen',
+      pageDescription: 'Beheer uw leningen en simuleer uw aflossingen',
+      tabMyLoans: 'Mijn leningen',
+      tabCalculator: 'Calculator',
       amount: 'Bedrag',
       interestRate: 'Rentetarief',
       nextPayment: 'Volgende betaling',
@@ -5866,6 +6108,16 @@ export const translations: Record<Language, TranslationKeys> = {
       loanNumber: 'Lening',
     },
     transfer: {
+      pageTitle: 'Mijn overschrijvingen',
+      pageDescription: 'Beheer en volg al uw geldtransfers',
+      searchPlaceholder: 'Zoek op ontvanger of ID...',
+      allStatuses: 'Alle statussen',
+      filterTitle: 'Filters en zoeken',
+      filterDescription: 'Verfijn uw overschrijvingslijst',
+      noTransfersFound: 'Geen overschrijvingen gevonden',
+      noTransfersMessage: 'U heeft nog geen overschrijvingen gedaan',
+      createTransfer: 'Overschrijving maken',
+      newTransfer: 'Nieuwe overschrijving',
       requestSubmitted: 'Verzoek ingediend',
       documentVerification: 'Documentcontrole',
       complianceCheck: 'Nalevingscontrole',
@@ -5883,6 +6135,21 @@ export const translations: Record<Language, TranslationKeys> = {
       onHold: 'Overschrijving gepauzeerd',
       processing: 'Overschrijving wordt verwerkt',
       processingComplete: 'Overschrijving voltooid',
+    },
+    history: {
+      pageTitle: 'Transactiegeschiedenis',
+      pageDescription: 'Bekijk de volledige geschiedenis van al uw transacties',
+      totalCredits: 'Totaal kredieten',
+      totalDebits: 'Totaal debiteringen',
+      totalTransactions: 'Totaal transacties',
+      filterTitle: 'Filters en zoeken',
+      filterDescription: 'Verfijn uw transactiegeschiedenis',
+      searchPlaceholder: 'Zoek op beschrijving of ID...',
+      allTypes: 'Alle types',
+      typeCredit: 'Krediet',
+      typeDebit: 'Debitering',
+      typeFee: 'Kosten',
+      noTransactionsFound: 'Geen transacties gevonden',
     },
     fee: {
       type: 'Type kosten',
@@ -6540,14 +6807,19 @@ export const translations: Record<Language, TranslationKeys> = {
       ibanLabel: 'IBAN',
       ibanPlaceholder: 'NL XX XXXX XXXX XXXX XX',
       ibanRequired: 'IBAN is verplicht',
+      invalidIban: 'Ongeldig IBAN-formaat',
       bicLabel: 'BIC/SWIFT',
       bicPlaceholder: 'XXXXXXXX',
+      invalidBic: 'Ongeldig BIC-formaat',
       submit: 'Rekening toevoegen',
       submitting: 'Toevoegen...',
       cancel: 'Annuleren',
       addSuccess: 'Bankrekening toegevoegd',
       addSuccessDesc: 'Uw bankrekening is succesvol toegevoegd.',
       addError: 'Fout bij het toevoegen van bankrekening',
+      addFirstAccount: 'Uw eerste rekening toevoegen',
+      deleteSuccessDesc: 'De bankrekening is succesvol verwijderd.',
+      deleteError: 'Kan bankrekening niet verwijderen.',
     },
     welcomeModal: {
       title: 'Welkom bij Altus Finance Group',
