@@ -18,23 +18,23 @@ interface NewLoanDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-const INDIVIDUAL_LOAN_TYPES = {
-  personal: { name: 'Prêt personnel', minRate: 2.9, maxRate: 7.9 },
-  auto: { name: 'Prêt auto', minRate: 1.9, maxRate: 5.9 },
-  mortgage: { name: 'Prêt immobilier', minRate: 2.5, maxRate: 4.5 },
-  green: { name: 'Prêt vert', minRate: 0.5, maxRate: 4.5 },
-  renovation: { name: 'Prêt rénovation', minRate: 2.5, maxRate: 6.9 },
-  student: { name: 'Prêt étudiant', minRate: 1.5, maxRate: 3.5 },
-} as const;
+const getIndividualLoanTypes = (t: any) => ({
+  personal: { minRate: 2.9, maxRate: 7.9 },
+  auto: { minRate: 1.9, maxRate: 5.9 },
+  mortgage: { minRate: 2.5, maxRate: 4.5 },
+  green: { minRate: 0.5, maxRate: 4.5 },
+  renovation: { minRate: 2.5, maxRate: 6.9 },
+  student: { minRate: 1.5, maxRate: 3.5 },
+} as const);
 
-const BUSINESS_LOAN_TYPES = {
-  business: { name: 'Prêt professionnel', minRate: 3.5, maxRate: 8.5 },
-  cashFlow: { name: 'Crédit de trésorerie', minRate: 4.0, maxRate: 9.0 },
-  equipment: { name: 'Financement équipement', minRate: 3.9, maxRate: 7.5 },
-  commercialProperty: { name: 'Prêt immobilier pro', minRate: 2.9, maxRate: 5.5 },
-  lineOfCredit: { name: 'Ligne de crédit', minRate: 5.0, maxRate: 9.5 },
-  vehicleFleet: { name: 'Crédit véhicule pro', minRate: 3.2, maxRate: 6.5 },
-} as const;
+const getBusinessLoanTypes = (t: any) => ({
+  business: { minRate: 3.5, maxRate: 8.5 },
+  cashFlow: { minRate: 4.0, maxRate: 9.0 },
+  equipment: { minRate: 3.9, maxRate: 7.5 },
+  commercialProperty: { minRate: 2.9, maxRate: 5.5 },
+  lineOfCredit: { minRate: 5.0, maxRate: 9.5 },
+  vehicleFleet: { minRate: 3.2, maxRate: 6.5 },
+} as const);
 
 export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps) {
   const t = useTranslations();
@@ -46,10 +46,10 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
     enabled: open,
   });
 
-  const LOAN_TYPES = user?.accountType === 'business' ? BUSINESS_LOAN_TYPES : INDIVIDUAL_LOAN_TYPES;
+  const LOAN_TYPES = user?.accountType === 'business' ? getBusinessLoanTypes(t) : getIndividualLoanTypes(t);
   const defaultLoanType = user?.accountType === 'business' ? 'business' : 'personal';
   
-  const [loanType, setLoanType] = useState<keyof typeof INDIVIDUAL_LOAN_TYPES | keyof typeof BUSINESS_LOAN_TYPES>(defaultLoanType as any);
+  const [loanType, setLoanType] = useState<keyof ReturnType<typeof getIndividualLoanTypes> | keyof ReturnType<typeof getBusinessLoanTypes>>(defaultLoanType as any);
   const [formData, setFormData] = useState({
     amount: '',
     interestRate: '',
@@ -71,48 +71,41 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
 
   useEffect(() => {
     if (loanType && user?.accountType) {
-      const isBusinessAccount = user.accountType === 'business';
-      let selectedType: { name: string; minRate: number; maxRate: number } | undefined;
-      
-      if (isBusinessAccount && loanType in BUSINESS_LOAN_TYPES) {
-        selectedType = BUSINESS_LOAN_TYPES[loanType as keyof typeof BUSINESS_LOAN_TYPES];
-      } else if (!isBusinessAccount && loanType in INDIVIDUAL_LOAN_TYPES) {
-        selectedType = INDIVIDUAL_LOAN_TYPES[loanType as keyof typeof INDIVIDUAL_LOAN_TYPES];
-      }
+      const selectedType = LOAN_TYPES[loanType as keyof typeof LOAN_TYPES];
       
       if (selectedType) {
         const avgRate = ((selectedType.minRate + selectedType.maxRate) / 2).toFixed(1);
         setFormData(prev => ({ ...prev, interestRate: avgRate }));
       }
     }
-  }, [loanType, user?.accountType]);
+  }, [loanType, user?.accountType, LOAN_TYPES]);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
     const amount = parseFloat(formData.amount);
     if (!formData.amount || amount <= 0) {
-      newErrors.amount = 'Le montant doit être supérieur à 0';
+      newErrors.amount = t.dialogs.newLoan.errors.amountMustBePositive;
     } else if (amount > 1000000) {
-      newErrors.amount = 'Le montant ne peut pas dépasser 1 000 000 €';
+      newErrors.amount = t.dialogs.newLoan.errors.amountMaxExceeded;
     }
 
     const rate = parseFloat(formData.interestRate);
     if (!formData.interestRate || rate < 0) {
-      newErrors.interestRate = 'Le taux doit être positif';
+      newErrors.interestRate = t.dialogs.newLoan.errors.rateMustBePositive;
     } else if (rate > 20) {
-      newErrors.interestRate = 'Le taux ne peut pas dépasser 20%';
+      newErrors.interestRate = t.dialogs.newLoan.errors.rateMaxExceeded;
     }
 
     const duration = parseInt(formData.duration);
     if (!formData.duration || duration <= 0) {
-      newErrors.duration = 'La durée doit être supérieure à 0';
+      newErrors.duration = t.dialogs.newLoan.errors.durationMustBePositive;
     } else if (duration > 360) {
-      newErrors.duration = 'La durée ne peut pas dépasser 360 mois';
+      newErrors.duration = t.dialogs.newLoan.errors.durationMaxExceeded;
     }
 
     if (needsKYC && !documentsUploaded) {
-      newErrors.documents = 'Vous devez télécharger vos documents KYC pour votre première demande';
+      newErrors.documents = t.dialogs.newLoan.errors.documentsRequired;
     }
 
     setErrors(newErrors);
@@ -128,16 +121,16 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
       queryClient.invalidateQueries({ queryKey: ['/api/dashboard'] });
       queryClient.invalidateQueries({ queryKey: ['/api/loans'] });
       toast({
-        title: 'Demande de prêt envoyée',
-        description: 'Votre demande de prêt a été soumise avec succès.',
+        title: t.dialogs.newLoan.success.loanSubmitted,
+        description: t.dialogs.newLoan.success.loanSubmittedDesc,
       });
       onOpenChange(false);
       resetForm();
     },
     onError: () => {
       toast({
-        title: 'Erreur',
-        description: 'Impossible de créer la demande de prêt.',
+        title: t.dialogs.newLoan.error.loanError,
+        description: t.dialogs.newLoan.error.loanErrorDesc,
         variant: 'destructive',
       });
     },
@@ -210,15 +203,15 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
         setUploadedFiles(prev => [...prev, ...successfulFiles]);
         setDocumentsUploaded(true);
         toast({
-          title: 'Documents téléchargés',
-          description: `${successfulFiles.length} document(s) envoyé(s) avec succès.`,
+          title: t.dialogs.newLoan.success.documentsUploaded,
+          description: `${successfulFiles.length} ${t.dialogs.newLoan.success.documentsUploadedDesc}`,
         });
       }
 
       if (errorCount > 0) {
         toast({
-          title: 'Erreur partielle',
-          description: `${errorCount} document(s) n'ont pas pu être téléchargés.`,
+          title: t.dialogs.newLoan.error.partialUploadError,
+          description: `${errorCount} ${t.dialogs.newLoan.error.partialUploadErrorDesc}`,
           variant: 'destructive',
         });
       }
@@ -258,8 +251,8 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
           <DialogTitle className="text-2xl">{t.dashboard.newLoan}</DialogTitle>
           <DialogDescription>
             {needsKYC 
-              ? "Première demande : veuillez fournir vos documents d'identité et compléter le formulaire"
-              : "Remplissez le formulaire pour soumettre une nouvelle demande de prêt"
+              ? t.dialogs.newLoan.subtitleFirstRequest
+              : t.dialogs.newLoan.subtitleRegular
             }
           </DialogDescription>
         </DialogHeader>
@@ -268,8 +261,7 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
           <Alert className="border-primary">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-              <strong>Première demande :</strong> Vos documents seront vérifiés une seule fois. 
-              Les demandes suivantes ne nécessiteront plus de documents.
+              <strong>{t.dialogs.newLoan.firstRequestAlert}</strong> {t.dialogs.newLoan.firstRequestAlertDesc}
             </AlertDescription>
           </Alert>
         )}
@@ -279,10 +271,10 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="documents" disabled={!needsKYC} data-testid="tab-documents">
                 {documentsUploaded ? <CheckCircle2 className="h-4 w-4 mr-2 text-green-600" /> : <FileText className="h-4 w-4 mr-2" />}
-                Documents KYC
+                {t.dialogs.newLoan.kycDocumentsTab}
               </TabsTrigger>
               <TabsTrigger value="loan" data-testid="tab-loan-details">
-                Détails du prêt
+                {t.dialogs.newLoan.loanDetailsTab}
               </TabsTrigger>
             </TabsList>
 
@@ -291,11 +283,11 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
                 <div className="border-2 border-dashed rounded-lg p-8 text-center space-y-4">
                   <Upload className="h-12 w-12 mx-auto text-muted-foreground" />
                   <div>
-                    <h3 className="font-semibold mb-2">Documents requis</h3>
+                    <h3 className="font-semibold mb-2">{t.dialogs.newLoan.requiredDocuments}</h3>
                     <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>• Pièce d'identité (Carte d'identité ou Passeport)</li>
-                      <li>• Justificatif de domicile (moins de 3 mois)</li>
-                      <li>• Relevé bancaire (derniers 3 mois)</li>
+                      <li>• {t.dialogs.newLoan.identityDoc}</li>
+                      <li>• {t.dialogs.newLoan.addressProof}</li>
+                      <li>• {t.dialogs.newLoan.bankStatement}</li>
                     </ul>
                   </div>
                   <Input
@@ -310,14 +302,14 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
                   {uploadingFiles && (
                     <div className="flex items-center justify-center gap-2 text-blue-600">
                       <div className="animate-spin h-5 w-5 border-2 border-blue-600 border-t-transparent rounded-full"></div>
-                      <span className="text-sm font-medium">Envoi en cours...</span>
+                      <span className="text-sm font-medium">{t.dialogs.newLoan.uploadingInProgress}</span>
                     </div>
                   )}
                   {documentsUploaded && !uploadingFiles && (
                     <div className="flex items-center justify-center gap-2 text-green-600">
                       <CheckCircle2 className="h-5 w-5" />
                       <span className="text-sm font-medium">
-                        {uploadedFiles.length} document(s) téléchargé(s) avec succès
+                        {uploadedFiles.length} {t.dialogs.newLoan.documentsUploadedSuccess}
                       </span>
                     </div>
                   )}
@@ -330,7 +322,7 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
 
             <TabsContent value="loan" className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="loanType">Type de prêt</Label>
+                <Label htmlFor="loanType">{t.dialogs.newLoan.loanType}</Label>
                 <Select value={loanType} onValueChange={(value) => setLoanType(value as any)}>
                   <SelectTrigger id="loanType" data-testid="select-loan-type">
                     <SelectValue />
@@ -338,7 +330,7 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
                   <SelectContent>
                     {Object.entries(LOAN_TYPES).map(([key, value]) => (
                       <SelectItem key={key} value={key}>
-                        {value.name} ({value.minRate}% - {value.maxRate}%)
+                        {t.dialogs.newLoan.loanTypes[key as keyof typeof t.dialogs.newLoan.loanTypes]} ({value.minRate}% - {value.maxRate}%)
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -346,7 +338,7 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="amount">Montant du prêt (€)</Label>
+                <Label htmlFor="amount">{t.dialogs.newLoan.amount}</Label>
                 <Input
                   id="amount"
                   type="number"
@@ -365,12 +357,7 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="interestRate">
-                  Taux d'intérêt annuel (%)
-                  <span className="text-xs text-muted-foreground ml-2">
-                    (Taux suggéré basé sur le type de prêt)
-                  </span>
-                </Label>
+                <Label htmlFor="interestRate">{t.dialogs.newLoan.estimatedRate}</Label>
                 <Input
                   id="interestRate"
                   type="number"
@@ -390,7 +377,7 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="duration">Durée (mois)</Label>
+                <Label htmlFor="duration">{t.dialogs.newLoan.duration} ({t.dialogs.newLoan.months})</Label>
                 <Input
                   id="duration"
                   type="number"
@@ -412,7 +399,7 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
                 <Alert>
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
-                    <strong>Mensualité estimée:</strong>{' '}
+                    <strong>{t.dialogs.newLoan.monthlyPayment}:</strong>{' '}
                     {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(monthlyPayment)}
                   </AlertDescription>
                 </Alert>
@@ -430,14 +417,14 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
               }}
               data-testid="button-cancel-loan"
             >
-              Annuler
+              {t.dialogs.newLoan.cancel}
             </Button>
             <Button 
               type="submit" 
               disabled={createLoanMutation.isPending || uploadingFiles || (needsKYC && !documentsUploaded)} 
               data-testid="button-submit-loan"
             >
-              {createLoanMutation.isPending ? 'Envoi...' : 'Soumettre la demande'}
+              {createLoanMutation.isPending ? t.dialogs.newLoan.submitting : t.dialogs.newLoan.submit}
             </Button>
           </div>
         </form>
