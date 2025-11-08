@@ -60,7 +60,7 @@ export default function Header() {
                     <ul className="grid w-[350px] xl:w-[400px] gap-3 p-4">
                       <li>
                         <NavigationMenuLink asChild>
-                          <Link href="/products" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                          <Link href="/products" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent">
                             <div className="text-sm font-medium leading-none">{t.products.title}</div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               {t.products.subtitle}
