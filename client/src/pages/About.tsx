@@ -15,7 +15,7 @@ export default function About() {
   ]);
 
   const stats = [
-    { icon: Users, label: t.about.stats.clients, value: '10,000+' },
+    { icon: Users, label: t.about.stats.clients, value: '15,000+' },
     { icon: TrendingUp, label: t.about.stats.loansProvided, value: '€500M+' },
     { icon: Award, label: t.about.stats.successRate, value: '98%' },
     { icon: Clock, label: t.about.stats.yearsExperience, value: '15+' },

@@ -1505,7 +1505,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Comment sont calculés les taux d\'intérêt ?',
-          answer: 'Nos taux sont calculés par un algorithme qui analyse plusieurs facteurs : votre score de crédit, la durée du prêt, le montant emprunté, vos revenus et charges, votre historique de remboursement et la santé financière (pour les entreprises). Les taux varient de 3,5% à 9,0% APR selon le profil. Nos taux sont parmi les plus compétitifs du marché grâce à notre réseau de partenaires financiers.',
+          answer: 'Nos taux sont calculés par un algorithme qui analyse plusieurs facteurs : votre score de crédit, la durée du prêt, le montant emprunté, vos revenus et charges, votre historique de remboursement et la santé financière (pour les entreprises). Les taux varient de 0,5% à 9,0% TAEG selon le profil et le type de prêt. Nos taux sont parmi les plus compétitifs du marché grâce à notre réseau de partenaires financiers.',
         },
         {
           question: 'Y a-t-il des frais de dossier ou frais cachés ?',
@@ -1600,7 +1600,7 @@ export const translations: Record<Language, TranslationKeys> = {
       fast: 'Réponse Express - Quelques Minutes à 24h',
       fastDesc: 'Notre technologie d\'IA analyse votre dossier en temps réel. Réponse de principe en quelques minutes à 24h maximum. Fonds immédiatement débloqués sur votre compte Altus sécurisé. Transférez ensuite vers votre compte bancaire quand vous le souhaitez. 100% digital, zéro paperasse.',
       competitive: 'Taux Parmi Les Plus Bas du Marché',
-      competitiveDesc: 'Grâce à notre réseau de 50+ partenaires financiers et notre technologie d\'évaluation optimisée, nous négocions pour vous les meilleurs taux : de 1,5% à 9,0% selon profil. Comparaison automatique pour vous garantir la meilleure offre.',
+      competitiveDesc: 'Grâce à notre réseau de 50+ partenaires financiers et notre technologie d\'évaluation optimisée, nous négocions pour vous les meilleurs taux : de 0,5% à 9,0% TAEG selon profil et type de prêt. Comparaison automatique pour vous garantir la meilleure offre.',
       flexible: 'Flexibilité Maximale Sans Pénalité',
       flexibleDesc: 'Remboursement anticipé gratuit à tout moment. Modulation des mensualités possible selon votre situation. Report de mensualités en cas de difficultés. Choix de la date de prélèvement. Vous gardez le contrôle total de votre crédit.',
     },
@@ -2668,7 +2668,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'How are interest rates calculated?',
-          answer: 'Our rates are calculated by an algorithm that analyzes several factors: your credit score, loan duration, amount borrowed, income and expenses, repayment history, and financial health (for businesses). Rates range from 3.5% to 9.0% APR depending on profile. Our rates are among the most competitive on the market thanks to our network of financial partners.',
+          answer: 'Our rates are calculated by an algorithm that analyzes several factors: your credit score, loan duration, amount borrowed, income and expenses, repayment history, and financial health (for businesses). Rates range from 0.5% to 9.0% APR depending on profile and loan type. Our rates are among the most competitive on the market thanks to our network of financial partners.',
         },
         {
           question: 'Are there application fees or hidden charges?',
@@ -2763,7 +2763,7 @@ export const translations: Record<Language, TranslationKeys> = {
       fast: 'Express Response - Minutes to 24h',
       fastDesc: 'Our AI technology analyzes your file in real-time. Approval response in minutes to 24 hours maximum. Funds immediately released to your secure Altus account. Then transfer to your bank account whenever you want. 100% digital, zero paperwork.',
       competitive: 'Among The Lowest Rates on the Market',
-      competitiveDesc: 'Thanks to our network of 50+ financial partners and optimized assessment technology, we negotiate the best rates for you: from 1.5% to 9.0% depending on profile. Automatic comparison to guarantee you the best offer.',
+      competitiveDesc: 'Thanks to our network of 50+ financial partners and optimized assessment technology, we negotiate the best rates for you: from 0.5% to 9.0% APR depending on profile and loan type. Automatic comparison to guarantee you the best offer.',
       flexible: 'Maximum Flexibility Without Penalty',
       flexibleDesc: 'Free early repayment anytime. Possible payment modulation according to your situation. Payment deferral in case of difficulties. Choice of debit date. You maintain total control of your credit.',
     },
