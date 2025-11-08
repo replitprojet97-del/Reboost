@@ -83,7 +83,7 @@ export default function ActiveLoans({ loans }: ActiveLoansProps) {
                     <div className="flex items-center gap-1.5 mb-1">
                       <Badge className="bg-yellow-600 hover:bg-yellow-700 text-white text-[10px] px-1.5 py-0 h-5 animate-pulse">
                         <FileSignature className="h-3 w-3 mr-1" />
-                        Contrat à signer
+                        {t.dashboard.contractToSign}
                       </Badge>
                     </div>
                   )}
