@@ -53,7 +53,7 @@ export default function Header() {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-xs xl:text-sm font-medium hover:bg-primary hover:text-white data-[state=open]:bg-primary data-[state=open]:text-white px-2 xl:px-4 whitespace-nowrap">
+                  <NavigationMenuTrigger className="text-xs xl:text-sm font-medium px-2 xl:px-4 whitespace-nowrap">
                     {t.nav.products}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
