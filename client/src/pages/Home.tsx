@@ -13,13 +13,16 @@ import ProcessTimeline from '@/components/ProcessTimeline';
 import SEO from '@/components/SEO';
 import { organizationSchema, websiteSchema } from '@/lib/seo-data';
 import { getKeywordsByPage } from '@/lib/seo-keywords';
+import { useTranslations } from '@/lib/i18n';
 
 export default function Home() {
+  const t = useTranslations();
+  
   return (
     <div className="min-h-screen">
       <SEO
-        title="Altus Finance Group - Prêt Professionnel & Personnel | Financement Rapide et Compétitif"
-        description="Solutions de prêt professionnel et personnel avec Altus Finance Group. Obtenez un financement rapide pour votre entreprise ou projet personnel. Taux compétitifs, processus simple et transparent."
+        title={t.seo.home.title}
+        description={t.seo.home.description}
         keywords={getKeywordsByPage('home')}
         path="/"
         structuredData={[organizationSchema, websiteSchema]}

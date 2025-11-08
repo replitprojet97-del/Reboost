@@ -1237,6 +1237,42 @@ type TranslationKeys = {
     regulatory: string;
     disclaimer: string;
   };
+  seo: {
+    home: {
+      title: string;
+      description: string;
+    };
+    about: {
+      title: string;
+      description: string;
+    };
+    contact: {
+      title: string;
+      description: string;
+    };
+    howItWorks: {
+      title: string;
+      description: string;
+    };
+    forgotPassword: {
+      title: string;
+      description: string;
+      emailSentTitle: string;
+      emailSentDescription: string;
+    };
+    resetPassword: {
+      title: string;
+      description: string;
+    };
+    twoFactorSetup: {
+      title: string;
+      description: string;
+    };
+    verifyTwoFactor: {
+      title: string;
+      description: string;
+    };
+  };
 };
 
 export const translations: Record<Language, TranslationKeys> = {
@@ -2608,6 +2644,42 @@ export const translations: Record<Language, TranslationKeys> = {
       regulatory: 'Altus Finance Group est une marque de financement agréée par l\'ACPR. Organisme de crédit soumis au contrôle de la Banque de France.',
       disclaimer: 'Attention, emprunter de l\'argent coûte aussi de l\'argent. Les informations sur cette page sont données à titre indicatif et ne constituent pas une offre contractuelle. Toute demande de crédit est soumise à l\'étude et à l\'acceptation du dossier. Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.',
     },
+    seo: {
+      home: {
+        title: 'Altus Finance Group - Prêt Professionnel & Personnel | Financement Rapide et Compétitif',
+        description: 'Solutions de prêt professionnel et personnel avec Altus Finance Group. Obtenez un financement rapide pour votre entreprise ou projet personnel. Taux compétitifs, processus simple et transparent.',
+      },
+      about: {
+        title: 'À propos d\'Altus Finance Group - Notre Mission et Nos Valeurs | Solutions de Financement',
+        description: 'Découvrez Altus Finance Group, leader en solutions de prêt professionnel avec plus de 15 ans d\'expérience, 10 000+ clients satisfaits et 500M€ de prêts accordés. Notre mission : rendre le financement accessible à tous.',
+      },
+      contact: {
+        title: 'Contactez-nous - Altus Finance Group | Questions sur nos Prêts Professionnels',
+        description: 'Une question sur nos solutions de financement ? Contactez Altus Finance Group. Notre équipe est à votre disposition pour vous accompagner dans votre projet de prêt professionnel. Réponse rapide garantie.',
+      },
+      howItWorks: {
+        title: 'Comment Obtenir un Prêt Pro - Processus Détaillé | Altus Finance Group',
+        description: 'Découvrez le processus complet pour obtenir un prêt professionnel avec Altus Finance Group. De la demande en ligne au déblocage des fonds : critères, documents requis et délais. Réponse en 24-48h.',
+      },
+      forgotPassword: {
+        title: 'Mot de passe oublié | Altus Finance Group',
+        description: 'Réinitialisez votre mot de passe',
+        emailSentTitle: 'Email envoyé | Altus Finance Group',
+        emailSentDescription: 'Un lien de réinitialisation a été envoyé',
+      },
+      resetPassword: {
+        title: 'Réinitialiser le mot de passe | Altus Finance Group',
+        description: 'Créez un nouveau mot de passe pour votre compte',
+      },
+      twoFactorSetup: {
+        title: 'Configuration 2FA | Altus Finance Group',
+        description: 'Configurez l\'authentification à deux facteurs pour sécuriser votre compte',
+      },
+      verifyTwoFactor: {
+        title: 'Vérification 2FA | Altus Finance Group',
+        description: 'Vérification à deux facteurs',
+      },
+    },
   },
   en: {
     hero: {
@@ -3965,6 +4037,42 @@ export const translations: Record<Language, TranslationKeys> = {
       regulatory: 'Altus Finance Group is a financing brand approved by the ACPR. Credit organization subject to the control of the Bank of France.',
       disclaimer: 'Attention, borrowing money also costs money. The information on this page is provided for informational purposes only and does not constitute a contractual offer. All credit applications are subject to review and acceptance of the file. A credit commits you and must be repaid. Check your repayment capacity before committing.',
     },
+    seo: {
+      home: {
+        title: 'Altus Finance Group - Professional & Personal Loans | Fast and Competitive Financing',
+        description: 'Professional and personal loan solutions with Altus Finance Group. Get fast financing for your business or personal project. Competitive rates, simple and transparent process.',
+      },
+      about: {
+        title: 'About Altus Finance Group - Our Mission and Values | Financing Solutions',
+        description: 'Discover Altus Finance Group, leader in professional loan solutions with over 15 years of experience, 10,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+      },
+      contact: {
+        title: 'Contact Us - Altus Finance Group | Questions About Our Professional Loans',
+        description: 'Have a question about our financing solutions? Contact Altus Finance Group. Our team is available to support you with your professional loan project. Fast response guaranteed.',
+      },
+      howItWorks: {
+        title: 'How to Get a Business Loan - Detailed Process | Altus Finance Group',
+        description: 'Discover the complete process to obtain a professional loan with Altus Finance Group. From online application to fund release: criteria, required documents and timeframes. Response in 24-48h.',
+      },
+      forgotPassword: {
+        title: 'Forgot Password | Altus Finance Group',
+        description: 'Reset your password',
+        emailSentTitle: 'Email Sent | Altus Finance Group',
+        emailSentDescription: 'A reset link has been sent',
+      },
+      resetPassword: {
+        title: 'Reset Password | Altus Finance Group',
+        description: 'Create a new password for your account',
+      },
+      twoFactorSetup: {
+        title: '2FA Setup | Altus Finance Group',
+        description: 'Set up two-factor authentication to secure your account',
+      },
+      verifyTwoFactor: {
+        title: '2FA Verification | Altus Finance Group',
+        description: 'Two-factor verification',
+      },
+    },
   },
   es: {
     hero: {
@@ -5317,6 +5425,42 @@ export const translations: Record<Language, TranslationKeys> = {
       regulatory: 'Altus Finance Group es una marca de financiamiento aprobada por la ACPR. Organismo de crédito sujeto al control del Banco de Francia.',
       disclaimer: 'Atención, pedir dinero prestado también cuesta dinero. La información en esta página se proporciona únicamente con fines informativos y no constituye una oferta contractual. Todas las solicitudes de crédito están sujetas a revisión y aceptación del expediente. Un crédito le compromete y debe ser reembolsado. Verifique su capacidad de reembolso antes de comprometerse.',
     },
+    seo: {
+      home: {
+        title: 'Altus Finance Group - Professional & Personal Loans | Fast and Competitive Financing',
+        description: 'Professional and personal loan solutions with Altus Finance Group. Get fast financing for your business or personal project. Competitive rates, simple and transparent process.',
+      },
+      about: {
+        title: 'About Altus Finance Group - Our Mission and Values | Financing Solutions',
+        description: 'Discover Altus Finance Group, leader in professional loan solutions with over 15 years of experience, 10,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+      },
+      contact: {
+        title: 'Contact Us - Altus Finance Group | Questions About Our Professional Loans',
+        description: 'Have a question about our financing solutions? Contact Altus Finance Group. Our team is available to support you with your professional loan project. Fast response guaranteed.',
+      },
+      howItWorks: {
+        title: 'How to Get a Business Loan - Detailed Process | Altus Finance Group',
+        description: 'Discover the complete process to obtain a professional loan with Altus Finance Group. From online application to fund release: criteria, required documents and timeframes. Response in 24-48h.',
+      },
+      forgotPassword: {
+        title: 'Forgot Password | Altus Finance Group',
+        description: 'Reset your password',
+        emailSentTitle: 'Email Sent | Altus Finance Group',
+        emailSentDescription: 'A reset link has been sent',
+      },
+      resetPassword: {
+        title: 'Reset Password | Altus Finance Group',
+        description: 'Create a new password for your account',
+      },
+      twoFactorSetup: {
+        title: '2FA Setup | Altus Finance Group',
+        description: 'Set up two-factor authentication to secure your account',
+      },
+      verifyTwoFactor: {
+        title: '2FA Verification | Altus Finance Group',
+        description: 'Two-factor verification',
+      },
+    },
   },
   pt: {
     hero: {
@@ -6668,6 +6812,42 @@ export const translations: Record<Language, TranslationKeys> = {
       copyright: 'Altus Finance Group. Todos os direitos reservados.',
       regulatory: 'Altus Finance Group é uma marca de financiamento aprovada pela ACPR. Organismo de crédito sujeito ao controle do Banco da França.',
       disclaimer: 'Atenção, pedir dinheiro emprestado também custa dinheiro. As informações nesta página são fornecidas apenas para fins informativos e não constituem uma oferta contratual. Todas as solicitações de crédito estão sujeitas a revisão e aceitação do arquivo. Um crédito o compromete e deve ser reembolsado. Verifique sua capacidade de reembolso antes de se comprometer.',
+    },
+    seo: {
+      home: {
+        title: 'Altus Finance Group - Professional & Personal Loans | Fast and Competitive Financing',
+        description: 'Professional and personal loan solutions with Altus Finance Group. Get fast financing for your business or personal project. Competitive rates, simple and transparent process.',
+      },
+      about: {
+        title: 'About Altus Finance Group - Our Mission and Values | Financing Solutions',
+        description: 'Discover Altus Finance Group, leader in professional loan solutions with over 15 years of experience, 10,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+      },
+      contact: {
+        title: 'Contact Us - Altus Finance Group | Questions About Our Professional Loans',
+        description: 'Have a question about our financing solutions? Contact Altus Finance Group. Our team is available to support you with your professional loan project. Fast response guaranteed.',
+      },
+      howItWorks: {
+        title: 'How to Get a Business Loan - Detailed Process | Altus Finance Group',
+        description: 'Discover the complete process to obtain a professional loan with Altus Finance Group. From online application to fund release: criteria, required documents and timeframes. Response in 24-48h.',
+      },
+      forgotPassword: {
+        title: 'Forgot Password | Altus Finance Group',
+        description: 'Reset your password',
+        emailSentTitle: 'Email Sent | Altus Finance Group',
+        emailSentDescription: 'A reset link has been sent',
+      },
+      resetPassword: {
+        title: 'Reset Password | Altus Finance Group',
+        description: 'Create a new password for your account',
+      },
+      twoFactorSetup: {
+        title: '2FA Setup | Altus Finance Group',
+        description: 'Set up two-factor authentication to secure your account',
+      },
+      verifyTwoFactor: {
+        title: '2FA Verification | Altus Finance Group',
+        description: 'Two-factor verification',
+      },
     },
   },
   it: {
@@ -8023,6 +8203,42 @@ export const translations: Record<Language, TranslationKeys> = {
       regulatory: 'Altus Finance Group è un marchio di finanziamento approvato dall\'ACPR. Organismo di credito soggetto al controllo della Banca di Francia.',
       disclaimer: 'Attenzione, prendere in prestito denaro costa anche denaro. Le informazioni in questa pagina sono fornite solo a scopo informativo e non costituiscono un\'offerta contrattuale. Tutte le richieste di credito sono soggette a revisione e accettazione del dossier. Un credito vi impegna e deve essere rimborsato. Verificate la vostra capacità di rimborso prima di impegnarvi.',
     },
+    seo: {
+      home: {
+        title: 'Altus Finance Group - Professional & Personal Loans | Fast and Competitive Financing',
+        description: 'Professional and personal loan solutions with Altus Finance Group. Get fast financing for your business or personal project. Competitive rates, simple and transparent process.',
+      },
+      about: {
+        title: 'About Altus Finance Group - Our Mission and Values | Financing Solutions',
+        description: 'Discover Altus Finance Group, leader in professional loan solutions with over 15 years of experience, 10,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+      },
+      contact: {
+        title: 'Contact Us - Altus Finance Group | Questions About Our Professional Loans',
+        description: 'Have a question about our financing solutions? Contact Altus Finance Group. Our team is available to support you with your professional loan project. Fast response guaranteed.',
+      },
+      howItWorks: {
+        title: 'How to Get a Business Loan - Detailed Process | Altus Finance Group',
+        description: 'Discover the complete process to obtain a professional loan with Altus Finance Group. From online application to fund release: criteria, required documents and timeframes. Response in 24-48h.',
+      },
+      forgotPassword: {
+        title: 'Forgot Password | Altus Finance Group',
+        description: 'Reset your password',
+        emailSentTitle: 'Email Sent | Altus Finance Group',
+        emailSentDescription: 'A reset link has been sent',
+      },
+      resetPassword: {
+        title: 'Reset Password | Altus Finance Group',
+        description: 'Create a new password for your account',
+      },
+      twoFactorSetup: {
+        title: '2FA Setup | Altus Finance Group',
+        description: 'Set up two-factor authentication to secure your account',
+      },
+      verifyTwoFactor: {
+        title: '2FA Verification | Altus Finance Group',
+        description: 'Two-factor verification',
+      },
+    },
   } as TranslationKeys,
   de: {
     hero: {
@@ -9347,6 +9563,42 @@ export const translations: Record<Language, TranslationKeys> = {
       regulatory: 'Altus Finance Group ist eine von der ACPR zugelassene Finanzierungsmarke. Kreditinstitut unter Kontrolle der Banque de France.',
       disclaimer: 'Achtung, Geld leihen kostet auch Geld. Die Informationen auf dieser Seite dienen nur zu Informationszwecken und stellen kein vertragliches Angebot dar. Alle Kreditanträge unterliegen der Prüfung und Annahme der Unterlagen. Ein Kredit verpflichtet Sie und muss zurückgezahlt werden. Überprüfen Sie Ihre Rückzahlungsfähigkeit, bevor Sie sich verpflichten.',
     },
+    seo: {
+      home: {
+        title: 'Altus Finance Group - Professional & Personal Loans | Fast and Competitive Financing',
+        description: 'Professional and personal loan solutions with Altus Finance Group. Get fast financing for your business or personal project. Competitive rates, simple and transparent process.',
+      },
+      about: {
+        title: 'About Altus Finance Group - Our Mission and Values | Financing Solutions',
+        description: 'Discover Altus Finance Group, leader in professional loan solutions with over 15 years of experience, 10,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+      },
+      contact: {
+        title: 'Contact Us - Altus Finance Group | Questions About Our Professional Loans',
+        description: 'Have a question about our financing solutions? Contact Altus Finance Group. Our team is available to support you with your professional loan project. Fast response guaranteed.',
+      },
+      howItWorks: {
+        title: 'How to Get a Business Loan - Detailed Process | Altus Finance Group',
+        description: 'Discover the complete process to obtain a professional loan with Altus Finance Group. From online application to fund release: criteria, required documents and timeframes. Response in 24-48h.',
+      },
+      forgotPassword: {
+        title: 'Forgot Password | Altus Finance Group',
+        description: 'Reset your password',
+        emailSentTitle: 'Email Sent | Altus Finance Group',
+        emailSentDescription: 'A reset link has been sent',
+      },
+      resetPassword: {
+        title: 'Reset Password | Altus Finance Group',
+        description: 'Create a new password for your account',
+      },
+      twoFactorSetup: {
+        title: '2FA Setup | Altus Finance Group',
+        description: 'Set up two-factor authentication to secure your account',
+      },
+      verifyTwoFactor: {
+        title: '2FA Verification | Altus Finance Group',
+        description: 'Two-factor verification',
+      },
+    },
   } as TranslationKeys,
   nl: {
     hero: {
@@ -10670,6 +10922,42 @@ export const translations: Record<Language, TranslationKeys> = {
       copyright: 'Altus Finance Group. Alle rechten voorbehouden.',
       regulatory: 'Altus Finance Group is een financieringsmerk goedgekeurd door de ACPR. Kredietinstelling onder toezicht van de Banque de France.',
       disclaimer: 'Let op, geld lenen kost ook geld. De informatie op deze pagina is uitsluitend voor informatieve doeleinden en vormt geen contractueel aanbod. Alle kredietaanvragen zijn onderworpen aan beoordeling en aanvaarding van het dossier. Een krediet verplicht u en moet worden terugbetaald. Controleer uw terugbetalingscapaciteit voordat u zich verbindt.',
+    },
+    seo: {
+      home: {
+        title: 'Altus Finance Group - Professional & Personal Loans | Fast and Competitive Financing',
+        description: 'Professional and personal loan solutions with Altus Finance Group. Get fast financing for your business or personal project. Competitive rates, simple and transparent process.',
+      },
+      about: {
+        title: 'About Altus Finance Group - Our Mission and Values | Financing Solutions',
+        description: 'Discover Altus Finance Group, leader in professional loan solutions with over 15 years of experience, 10,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+      },
+      contact: {
+        title: 'Contact Us - Altus Finance Group | Questions About Our Professional Loans',
+        description: 'Have a question about our financing solutions? Contact Altus Finance Group. Our team is available to support you with your professional loan project. Fast response guaranteed.',
+      },
+      howItWorks: {
+        title: 'How to Get a Business Loan - Detailed Process | Altus Finance Group',
+        description: 'Discover the complete process to obtain a professional loan with Altus Finance Group. From online application to fund release: criteria, required documents and timeframes. Response in 24-48h.',
+      },
+      forgotPassword: {
+        title: 'Forgot Password | Altus Finance Group',
+        description: 'Reset your password',
+        emailSentTitle: 'Email Sent | Altus Finance Group',
+        emailSentDescription: 'A reset link has been sent',
+      },
+      resetPassword: {
+        title: 'Reset Password | Altus Finance Group',
+        description: 'Create a new password for your account',
+      },
+      twoFactorSetup: {
+        title: '2FA Setup | Altus Finance Group',
+        description: 'Set up two-factor authentication to secure your account',
+      },
+      verifyTwoFactor: {
+        title: '2FA Verification | Altus Finance Group',
+        description: 'Two-factor verification',
+      },
     },
   } as TranslationKeys,
 };

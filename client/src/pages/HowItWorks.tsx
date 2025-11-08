@@ -94,8 +94,8 @@ export default function HowItWorks() {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Comment Obtenir un Prêt Pro - Processus Détaillé | Altus Finance Group"
-        description="Découvrez le processus complet pour obtenir un prêt professionnel avec Altus Finance Group. De la demande en ligne au déblocage des fonds : critères, documents requis et délais. Réponse en 24-48h."
+        title={t.seo.howItWorks.title}
+        description={t.seo.howItWorks.description}
         keywords="comment obtenir prêt professionnel, processus crédit pro, documents prêt entreprise, critères éligibilité, délai financement, étapes demande prêt"
         path="/how-it-works"
       />
