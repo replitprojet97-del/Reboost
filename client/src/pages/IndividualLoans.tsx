@@ -85,9 +85,9 @@ export default function IndividualLoans() {
     <>
       <div className="p-6 md:p-8 space-y-6">
         <div>
-          <h1 className="text-3xl md:text-4xl font-semibold mb-2">Mes prêts</h1>
+          <h1 className="text-3xl md:text-4xl font-semibold mb-2">{t.loan.pageTitle}</h1>
           <p className="text-muted-foreground">
-            Gérez vos prêts et simulez vos remboursements
+            {t.loan.pageDescription}
           </p>
         </div>
 
@@ -95,11 +95,11 @@ export default function IndividualLoans() {
           <TabsList className="grid w-full grid-cols-2 max-w-md">
             <TabsTrigger value="loans" data-testid="tab-my-loans">
               <Wallet className="h-4 w-4 mr-2" />
-              Mes prêts
+              {t.loan.tabMyLoans}
             </TabsTrigger>
             <TabsTrigger value="calculator" data-testid="tab-calculator">
               <Calculator className="h-4 w-4 mr-2" />
-              Calculateur
+              {t.loan.tabCalculator}
             </TabsTrigger>
           </TabsList>
 
@@ -108,14 +108,14 @@ export default function IndividualLoans() {
               <TabsList className="grid w-full grid-cols-2 max-w-md">
                 <TabsTrigger value="active" data-testid="tab-active-loans">
                   <CheckCircle2 className="h-4 w-4 mr-2" />
-                  Prêts actifs
+                  {t.dashboard.activeLoans}
                   <Badge variant="secondary" className="ml-2">
                     {activeLoans.length}
                   </Badge>
                 </TabsTrigger>
                 <TabsTrigger value="pending" data-testid="tab-pending-loans">
                   <Clock className="h-4 w-4 mr-2" />
-                  En attente
+                  {t.common.pending}
                   <Badge variant="secondary" className="ml-2">
                     {pendingLoans.length}
                   </Badge>
@@ -138,41 +138,41 @@ export default function IndividualLoans() {
                         >
                           <CardHeader>
                             <div className="flex justify-between items-start">
-                              <CardTitle className="text-lg">Prêt {loan.id.substring(0, 8)}</CardTitle>
+                              <CardTitle className="text-lg">{t.loan.loanNumber} {loan.id.substring(0, 8)}</CardTitle>
                               <Badge variant="default">
-                                {loan.status === 'active' ? 'Actif' : 'Signé'}
+                                {loan.status === 'active' ? t.common.active : t.loan.status}
                               </Badge>
                             </div>
                           </CardHeader>
                           <CardContent className="space-y-4">
                             <div className="space-y-2">
                               <div className="flex justify-between">
-                                <span className="text-sm text-muted-foreground">Montant initial</span>
+                                <span className="text-sm text-muted-foreground">{t.loan.amount}</span>
                                 <span className="font-mono font-semibold">{formatCurrency(loan.amount)}</span>
                               </div>
                               <div className="flex justify-between">
-                                <span className="text-sm text-muted-foreground">Taux</span>
+                                <span className="text-sm text-muted-foreground">{t.loan.interestRate}</span>
                                 <span className="font-semibold">{loan.interestRate}%</span>
                               </div>
                               <div className="flex justify-between">
-                                <span className="text-sm text-muted-foreground">Durée</span>
-                                <span className="font-semibold">{loan.duration} mois</span>
+                                <span className="text-sm text-muted-foreground">{t.dialogs.newLoan.duration}</span>
+                                <span className="font-semibold">{loan.duration} {t.dialogs.newLoan.months}</span>
                               </div>
                               <div className="flex justify-between">
-                                <span className="text-sm text-muted-foreground">Prochain paiement</span>
+                                <span className="text-sm text-muted-foreground">{t.loan.nextPayment}</span>
                                 <span className="font-semibold">{formatDate(loan.nextPaymentDate)}</span>
                               </div>
                             </div>
 
                             <div className="space-y-2">
                               <div className="flex justify-between text-sm">
-                                <span className="text-muted-foreground">Progression</span>
+                                <span className="text-muted-foreground">{t.fee.amount}</span>
                                 <span className="font-semibold">{progress.toFixed(1)}%</span>
                               </div>
                               <Progress value={progress} className="h-2" />
                               <div className="flex justify-between text-xs text-muted-foreground">
-                                <span>Remboursé: {formatCurrency(loan.totalRepaid)}</span>
-                                <span>Restant: {formatCurrency(remainingAmount.toString())}</span>
+                                <span>{t.loan.amount}: {formatCurrency(loan.totalRepaid)}</span>
+                                <span>{t.dashboard.available}: {formatCurrency(remainingAmount.toString())}</span>
                               </div>
                             </div>
                           </CardContent>
@@ -183,7 +183,7 @@ export default function IndividualLoans() {
                 ) : (
                   <Card>
                     <CardContent className="py-12 text-center">
-                      <p className="text-muted-foreground" data-testid="text-no-active-loans">Aucun prêt actif</p>
+                      <p className="text-muted-foreground" data-testid="text-no-active-loans">{t.dashboard.noActiveLoans}</p>
                     </CardContent>
                   </Card>
                 )}
@@ -201,36 +201,36 @@ export default function IndividualLoans() {
                       >
                         <CardHeader>
                           <div className="flex justify-between items-start">
-                            <CardTitle className="text-lg">Prêt {loan.id.substring(0, 8)}</CardTitle>
+                            <CardTitle className="text-lg">{t.loan.loanNumber} {loan.id.substring(0, 8)}</CardTitle>
                             <Badge variant={loan.status === 'approved' ? 'secondary' : 'outline'}>
-                              {loan.status === 'approved' ? 'Approuvé' : 'En attente'}
+                              {loan.status === 'approved' ? t.transfer.approved : t.common.pending}
                             </Badge>
                           </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div className="space-y-2">
                             <div className="flex justify-between">
-                              <span className="text-sm text-muted-foreground">Montant demandé</span>
+                              <span className="text-sm text-muted-foreground">{t.loan.amount}</span>
                               <span className="font-mono font-semibold">{formatCurrency(loan.amount)}</span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-sm text-muted-foreground">Taux</span>
+                              <span className="text-sm text-muted-foreground">{t.loan.interestRate}</span>
                               <span className="font-semibold">{loan.interestRate}%</span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-sm text-muted-foreground">Durée</span>
-                              <span className="font-semibold">{loan.duration} mois</span>
+                              <span className="text-sm text-muted-foreground">{t.dialogs.newLoan.duration}</span>
+                              <span className="font-semibold">{loan.duration} {t.dialogs.newLoan.months}</span>
                             </div>
                             <div className="flex justify-between">
-                              <span className="text-sm text-muted-foreground">Date de demande</span>
+                              <span className="text-sm text-muted-foreground">{t.fee.date}</span>
                               <span className="font-semibold">{formatDate(loan.createdAt)}</span>
                             </div>
                           </div>
                           <div className="p-3 bg-muted rounded-md">
                             <p className="text-sm text-muted-foreground">
                               {loan.status === 'approved' 
-                                ? 'Votre demande a été approuvée. En attente de signature.'
-                                : 'Votre demande est en cours d\'examen.'}
+                                ? t.dialogs.newLoan.submit
+                                : t.common.pending}
                             </p>
                           </div>
                         </CardContent>
@@ -240,7 +240,7 @@ export default function IndividualLoans() {
                 ) : (
                   <Card>
                     <CardContent className="py-12 text-center">
-                      <p className="text-muted-foreground" data-testid="text-no-pending-loans">Aucune demande en attente</p>
+                      <p className="text-muted-foreground" data-testid="text-no-pending-loans">{t.transfer.noTransfersFound}</p>
                     </CardContent>
                   </Card>
                 )}
