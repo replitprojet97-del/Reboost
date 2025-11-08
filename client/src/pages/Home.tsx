@@ -8,6 +8,8 @@ import ScrollingTestimonials from '@/components/ScrollingTestimonials';
 import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 import NotificationBanner from '@/components/NotificationBanner';
+import GuaranteesSection from '@/components/GuaranteesSection';
+import ProcessTimeline from '@/components/ProcessTimeline';
 import SEO from '@/components/SEO';
 import { organizationSchema, websiteSchema } from '@/lib/seo-data';
 import { getKeywordsByPage } from '@/lib/seo-keywords';
@@ -32,6 +34,8 @@ export default function Home() {
       <StatsSection />
       <IndividualLoans />
       <BusinessLoans />
+      <GuaranteesSection />
+      <ProcessTimeline />
       <FeaturesSection />
       <ScrollingTestimonials />
       <FAQ />

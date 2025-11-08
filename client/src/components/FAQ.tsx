@@ -11,36 +11,52 @@ import { HelpCircle } from 'lucide-react';
 export default function FAQ() {
   const faqs = [
     {
-      question: 'Quels sont les documents nécessaires pour une demande de prêt ?',
-      answer: 'Pour les particuliers : pièce d\'identité, justificatif de domicile, derniers bulletins de salaire et avis d\'imposition. Pour les professionnels : Kbis, bilans comptables des 3 dernières années, business plan et relevés bancaires.',
+      question: 'Quels sont les documents nécessaires pour une demande de prêt professionnel ?',
+      answer: 'Pour les professionnels : Kbis de moins de 3 mois, pièce d\'identité du dirigeant, bilans comptables des 3 dernières années, liasse fiscale complète, relevés bancaires professionnels (6 mois), business plan (création), prévisionnel financier. Pour les particuliers : pièce d\'identité, justificatif de domicile, derniers bulletins de salaire et avis d\'imposition.',
     },
     {
-      question: 'Quel est le délai pour obtenir une réponse ?',
-      answer: 'Grâce à notre technologie d\'analyse en temps réel, vous recevrez une réponse de principe en quelques minutes à 24 heures maximum après soumission de votre dossier complet. C\'est l\'un des délais les plus rapides du marché !',
+      question: 'Quel apport personnel est requis pour un prêt professionnel ?',
+      answer: 'L\'apport personnel varie selon le projet : 10-15% pour l\'achat d\'équipement ou de matériel, 20-30% pour une création ou reprise d\'entreprise, 20-25% pour l\'immobilier professionnel. Un apport plus important peut améliorer vos conditions de financement et diminuer votre taux.',
     },
     {
-      question: 'Comment et quand puis-je accéder à mes fonds ?',
-      answer: 'Une fois votre demande approuvée, vos fonds sont immédiatement débloqués sur votre compte sécurisé Altus Finance Group. Vous pouvez ensuite les transférer quand vous le souhaitez vers votre compte bancaire personnel ou professionnel, directement depuis votre espace client. Les transferts sont instantanés et sans frais supplémentaires.',
+      question: 'Quel est le délai pour obtenir une réponse et les fonds ?',
+      answer: 'Réponse de principe en 24-48h après soumission du dossier complet. L\'accord définitif intervient sous 48h. Le déblocage des fonds s\'effectue sous 7 à 15 jours après signature du contrat et mise en place des garanties. Délai total moyen : 2 à 3 semaines.',
     },
     {
-      question: 'Puis-je rembourser mon prêt par anticipation ?',
-      answer: 'Oui, tous nos prêts sont remboursables par anticipation sans frais ni pénalités. Vous pouvez effectuer un remboursement partiel ou total à tout moment depuis votre espace client.',
+      question: 'Quelles garanties puis-je proposer pour mon prêt professionnel ?',
+      answer: 'Plusieurs options : garanties réelles (hypothèque, nantissement fonds de commerce, gage matériel), garanties personnelles (caution solidaire du dirigeant), organismes de cautionnement (BPI France 40-70%, SIAGI, France Active, SOCAMA), ou assurance emprunteur (obligatoire : décès/PTIA, optionnelle : IPT/IPP/ITT).',
     },
     {
-      question: 'Quels sont les taux d\'intérêt appliqués ?',
-      answer: 'Nos taux varient de 0,5% à 8,5% selon le type de prêt, le montant emprunté, la durée et votre profil. Utilisez notre simulateur en ligne pour obtenir une estimation personnalisée. Les taux sont fixes et garantis pendant toute la durée du prêt.',
+      question: 'Les intérêts d\'emprunt sont-ils déductibles fiscalement ?',
+      answer: 'Oui ! Les intérêts d\'emprunt professionnel sont entièrement déductibles du résultat fiscal de votre entreprise, réduisant ainsi votre impôt sur les bénéfices. De plus, les cotisations d\'assurance emprunteur sont également déductibles. La TVA sur les intérêts et frais est récupérable pour les entreprises assujetties.',
+    },
+    {
+      question: 'Puis-je obtenir un prêt si mon entreprise a moins d\'un an ?',
+      answer: 'Oui, nous finançons les créations d\'entreprise avec un business plan solide et un apport personnel de 20-30%. Nous étudions votre expérience professionnelle, la viabilité du projet et vos prévisions. Un prêt d\'honneur (BPI France, Initiative France) peut renforcer votre dossier.',
+    },
+    {
+      question: 'Puis-je rembourser mon prêt professionnel par anticipation ?',
+      answer: 'Oui, tous nos prêts professionnels sont remboursables par anticipation. Les indemnités sont plafonnées par la loi : maximum 6 mois d\'intérêts ou 3% du capital restant dû. Certains contrats prévoient la gratuité du remboursement anticipé après une certaine période.',
+    },
+    {
+      question: 'Quels sont les taux actuels pour les prêts professionnels ?',
+      answer: 'Nos taux TAEG varient selon le projet : Immobilier pro 2,9-5,5% (5-25 ans), Équipement 3,9-7,5% (2-5 ans), Fonds de commerce 4,7% (5-10 ans), Trésorerie 4,0-9,0% (3-36 mois), Véhicules pro 3,2-6,5% (2-6 ans). Taux personnalisés selon votre profil et durée.',
     },
     {
       question: 'Comment fonctionne le processus de demande en ligne ?',
-      answer: '1) Remplissez notre formulaire en ligne (4 minutes). 2) Soumettez vos documents justificatifs. 3) Recevez une réponse en quelques minutes à 24h maximum. 4) Vos fonds sont débloqués sur votre compte Altus. 5) Transférez les fonds vers votre compte bancaire quand vous le souhaitez.',
+      answer: '1) Remplissez notre formulaire en ligne (5 min) et téléchargez vos documents. 2) Analyse de votre dossier par nos experts (24-48h). 3) Recevez votre accord de principe avec conditions. 4) Signature électronique du contrat. 5) Mise en place des garanties. 6) Déblocage des fonds sur votre compte Altus.',
     },
     {
-      question: 'Quelle est la différence entre prêt affecté et non affecté ?',
-      answer: 'Un prêt affecté est lié à un achat spécifique (auto, travaux) et nécessite un justificatif d\'utilisation. Un prêt non affecté (prêt personnel) vous laisse libre d\'utiliser les fonds comme vous le souhaitez sans justificatif.',
+      question: 'Puis-je cumuler plusieurs types de financement ?',
+      answer: 'Oui, vous pouvez combiner plusieurs solutions : prêt bancaire + crédit-bail pour l\'équipement, prêt professionnel + prêt d\'honneur (BPI France) pour renforcer vos fonds propres, ou ligne de crédit + prêt amortissable pour conjuguer flexibilité et financement long terme.',
     },
     {
-      question: 'Y a-t-il des frais de dossier ?',
-      answer: 'Les frais de dossier varient selon le type et le montant du prêt. Pour les prêts particuliers, ils sont généralement de 1% du montant (plafonné à 500€). Pour les prêts professionnels, ils peuvent aller de 1% à 2%. Ces frais sont clairement indiqués dans votre simulation.',
+      question: 'Y a-t-il des frais de dossier et autres frais ?',
+      answer: 'Frais de dossier : 1-2% du montant pour les prêts professionnels (négociables). Frais de garantie : variables selon le type (hypothèque, nantissement). Assurance emprunteur : 0,10% à 0,40% du capital emprunté par an. Tous les frais sont détaillés dans votre offre de prêt.',
+    },
+    {
+      question: 'Que se passe-t-il si je rencontre des difficultés de remboursement ?',
+      answer: 'Contactez-nous dès les premiers signes de difficulté. Nous pouvons étudier : un report d\'échéances temporaire, une modulation des mensualités, un allongement de la durée du prêt, ou une réorganisation de vos crédits. L\'accompagnement préventif est toujours préférable.',
     },
   ];
 
