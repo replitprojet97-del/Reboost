@@ -87,12 +87,12 @@ export default function FeeSection({ fees }: FeeSectionProps) {
   };
 
   return (
-    <Card className="shadow-sm border bg-white dark:bg-slate-800">
+    <Card className="shadow-sm border-card-border bg-card">
       <CardHeader className="flex flex-row items-center justify-between gap-1 space-y-0 pb-3">
         <div className="flex items-center gap-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">{t.dashboard.fees}</CardTitle>
           {unpaidFees.length > 0 && (
-            <Badge variant="destructive" className="h-5 text-xs flex items-center gap-1">
+            <Badge className="h-5 text-xs flex items-center gap-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 border-orange-200 dark:border-orange-800/40">
               <AlertCircle className="h-3 w-3" />
               {unpaidFees.length}
             </Badge>
@@ -112,11 +112,11 @@ export default function FeeSection({ fees }: FeeSectionProps) {
       <CardContent className="space-y-4">
         {unpaidFees.length > 0 && (
           <>
-            <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
+            <div className="bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-800/30 rounded-lg p-4">
               <div className="flex items-start gap-2 mb-3">
-                <AlertCircle className="h-5 w-5 text-destructive mt-0.5" />
+                <AlertCircle className="h-5 w-5 text-orange-600 dark:text-orange-500 mt-0.5" />
                 <div className="flex-1">
-                  <h3 className="font-semibold text-destructive">{t.fee.feesToPay}</h3>
+                  <h3 className="font-semibold text-orange-700 dark:text-orange-500">{t.fee.feesToPay}</h3>
                   <p className="text-sm text-muted-foreground">
                     {unpaidFees.length} {unpaidFees.length > 1 ? t.fee.unpaidFeesCount : t.fee.unpaidFeesSingular} {formatCurrency(totalUnpaidFees)}
                   </p>
@@ -178,8 +178,8 @@ export default function FeeSection({ fees }: FeeSectionProps) {
 
         <div className="space-y-2 pt-4 border-t">
           <div className="flex justify-between items-center">
-            <span className="font-semibold text-destructive">{t.fee.totalUnpaid}</span>
-            <span className="text-2xl font-mono font-bold text-destructive" data-testid="text-unpaid-fees">
+            <span className="font-semibold text-orange-700 dark:text-orange-400">{t.fee.totalUnpaid}</span>
+            <span className="text-2xl font-mono font-bold text-orange-700 dark:text-orange-400" data-testid="text-unpaid-fees">
               {formatCurrency(totalUnpaidFees)}
             </span>
           </div>

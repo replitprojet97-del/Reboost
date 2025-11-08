@@ -44,6 +44,7 @@ import NotificationBanner from '@/components/NotificationBanner';
 import UserProfileHeader from '@/components/UserProfileHeader';
 import NotificationBell from '@/components/NotificationBell';
 import SessionMonitor from '@/components/SessionMonitor';
+import InfoBanner from '@/components/InfoBanner';
 
 function Router() {
   return (
@@ -120,6 +121,7 @@ function App() {
                         <UserProfileHeader />
                       </div>
                     </header>
+                    <InfoBanner />
                     <div className="p-4">
                       <NotificationBanner />
                     </div>

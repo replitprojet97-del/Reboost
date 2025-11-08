@@ -24,20 +24,20 @@ export default function BorrowingCapacity({
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <Card className="dashboard-card border-0">
+    <Card className="bg-card border-card-border shadow-sm">
       <CardHeader className="pb-3">
-        <CardTitle className="text-sm font-medium text-[#64748B]">{t.dashboard.borrowingCapacity}</CardTitle>
+        <CardTitle className="text-sm font-semibold text-primary">{t.dashboard.borrowingCapacity}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="text-center">
-          <p className="text-3xl font-bold text-[#1E293B]" data-testid="text-borrowing-capacity">
+          <p className="text-4xl font-bold text-card-foreground" data-testid="text-borrowing-capacity">
             {formatCurrency(currentCapacity)}
           </p>
-          <p className="text-xs text-[#94A3B8] mt-2">{Math.round(percentage)}% {t.dashboard.available}</p>
+          <p className="text-sm text-muted-foreground mt-2 font-medium">{Math.round(percentage)}% {t.dashboard.available}</p>
         </div>
-        <div className="w-full bg-[#E2E8F0] rounded-full h-3">
+        <div className="w-full bg-muted rounded-full h-3">
           <div 
-            className="bg-[#2563EB] h-3 rounded-full transition-all"
+            className="bg-primary h-3 rounded-full transition-all"
             style={{ width: `${percentage}%` }}
           />
         </div>

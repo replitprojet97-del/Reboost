@@ -327,35 +327,6 @@
     inset: -1px;
   }
 
-  /* Dashboard specific styles */
-  .dashboard-sidebar-gradient {
-    background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
-  }
-
-  .dashboard-card {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .dashboard-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-  }
-
-  .dashboard-card-3d {
-    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
-    transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .dashboard-card-3d:hover {
-    transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
-    box-shadow: 0 12px 32px rgba(37, 99, 235, 0.35);
-  }
 
   @keyframes slideInUp {
     from {
@@ -383,5 +354,18 @@
 
   .animate-fade-in {
     animation: fadeIn 0.3s ease-in;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 60s linear infinite;
   }
 }

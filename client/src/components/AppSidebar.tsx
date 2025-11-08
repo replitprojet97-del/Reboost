@@ -30,22 +30,22 @@ export default function AppSidebar() {
   };
 
   const menuItems = [
-    { title: t.nav.dashboard, url: '/dashboard', icon: Home, color: '#2563EB' },
-    { title: t.nav.loans, url: '/loans', icon: CreditCard, color: '#10B981' },
-    { title: t.nav.transfers, url: '/transfers', icon: ArrowRightLeft, color: '#F59E0B' },
-    { title: t.bankAccounts.title, url: '/accounts', icon: Building2, color: '#8B5CF6' },
-    { title: t.nav.history, url: '/history', icon: History, color: '#EC4899' },
-    { title: t.nav.settings, url: '/settings', icon: Settings, color: '#64748B' },
+    { title: t.nav.dashboard, url: '/dashboard', icon: Home },
+    { title: t.nav.loans, url: '/loans', icon: CreditCard },
+    { title: t.nav.transfers, url: '/transfers', icon: ArrowRightLeft },
+    { title: t.bankAccounts.title, url: '/accounts', icon: Building2 },
+    { title: t.nav.history, url: '/history', icon: History },
+    { title: t.nav.settings, url: '/settings', icon: Settings },
   ];
 
   const adminMenuItems = [
-    { title: t.nav.dashboard, url: '/admin', icon: ShieldCheck, color: '#2563EB' },
-    { title: t.nav.users, url: '/admin/users', icon: Users, color: '#10B981' },
-    { title: t.nav.loans, url: '/admin/loans', icon: CreditCard, color: '#F59E0B' },
-    { title: t.nav.transfers, url: '/admin/transfers', icon: ArrowRightLeft, color: '#8B5CF6' },
-    { title: t.nav.documents, url: '/admin/documents', icon: FileText, color: '#EC4899' },
-    { title: t.nav.settings, url: '/admin/settings', icon: Settings, color: '#64748B' },
-    { title: t.nav.reports, url: '/admin/reports', icon: BarChart, color: '#06B6D4' },
+    { title: t.nav.dashboard, url: '/admin', icon: ShieldCheck },
+    { title: t.nav.users, url: '/admin/users', icon: Users },
+    { title: t.nav.loans, url: '/admin/loans', icon: CreditCard },
+    { title: t.nav.transfers, url: '/admin/transfers', icon: ArrowRightLeft },
+    { title: t.nav.documents, url: '/admin/documents', icon: FileText },
+    { title: t.nav.settings, url: '/admin/settings', icon: Settings },
+    { title: t.nav.reports, url: '/admin/reports', icon: BarChart },
   ];
 
   const currentMenuItems = isAdminPath ? adminMenuItems : menuItems;
@@ -54,12 +54,16 @@ export default function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <div className="px-4 py-4 mb-2 flex items-center justify-center" data-testid="sidebar-logo">
+          <div className="px-4 py-6 mb-4 flex items-center gap-3" data-testid="sidebar-logo">
             <img 
               src={logoUrl} 
               alt="Altus Finance Group Logo" 
-              className="w-32 h-auto object-contain"
+              className="w-12 h-12 object-contain"
             />
+            <div className="flex flex-col">
+              <span className="text-sidebar-foreground text-xl font-bold tracking-tight">ALTUS</span>
+              <span className="text-sidebar-foreground text-sm font-semibold tracking-wide">FINANCE</span>
+            </div>
           </div>
           <SidebarGroupLabel className="text-sm font-semibold px-4 py-2">
             {t.nav.dashboard}
@@ -74,19 +78,10 @@ export default function AppSidebar() {
                       asChild
                       isActive={isActive}
                       onClick={() => setLocation(item.url)}
-                      className={`transition-all duration-300 mx-2 rounded-lg ${
-                        isActive 
-                          ? 'bg-[#2563EB]/10 shadow-[0_0_20px_rgba(37,99,235,0.3)] border border-[#2563EB]/30' 
-                          : 'hover:bg-white/5'
-                      }`}
                     >
                       <a href={item.url} data-testid={`link-${item.url.slice(1)}`} className="flex items-center gap-3">
-                        <item.icon 
-                          className="transition-colors duration-300" 
-                          style={{ color: isActive ? '#2563EB' : item.color }}
-                          size={20}
-                        />
-                        <span className={isActive ? 'text-white font-medium' : 'text-[#94A3B8]'}>{item.title}</span>
+                        <item.icon size={20} />
+                        <span>{item.title}</span>
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -131,7 +126,6 @@ export default function AppSidebar() {
             <SidebarMenuButton
               onClick={handleLogout}
               data-testid="button-logout"
-              className="hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 hover:text-white transition-all duration-200 mx-2 rounded-lg"
             >
               <LogOut />
               <span>{t.nav.logout}</span>
