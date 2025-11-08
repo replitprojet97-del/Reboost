@@ -628,11 +628,11 @@ export default function Settings() {
                   <Shield className="h-5 w-5" />
                 </div>
                 <CardTitle className="text-2xl bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">
-                  Authentification à deux facteurs
+                  {t.settings.twoFactorAuth}
                 </CardTitle>
               </div>
               <CardDescription className="text-base">
-                Ajoutez une couche de sécurité supplémentaire à votre compte
+                {t.settings.twoFactorAuthDesc}
               </CardDescription>
             </CardHeader>
             <CardContent className="relative">
@@ -640,12 +640,12 @@ export default function Settings() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-2 flex-1">
                     <p className="text-lg font-semibold text-foreground">
-                      {user?.twoFactorEnabled ? 'Authentification à deux facteurs activée' : 'Activer 2FA'}
+                      {user?.twoFactorEnabled ? t.settings.twoFactorEnabled : t.settings.enable2FA}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {user?.twoFactorEnabled 
-                        ? 'Votre compte est protégé par l\'authentification à deux facteurs' 
-                        : 'Protégez votre compte avec une vérification en deux étapes via Google Authenticator'}
+                        ? t.settings.twoFactorEnabledDesc
+                        : t.settings.twoFactorDisabledDesc}
                     </p>
                   </div>
                   {user?.twoFactorEnabled ? (
@@ -658,19 +658,19 @@ export default function Settings() {
                           await apiRequest('POST', '/api/2fa/disable');
                           queryClient.invalidateQueries({ queryKey: ['/api/user'] });
                           toast({
-                            title: 'Succès',
-                            description: '2FA désactivée avec succès',
+                            title: t.settings.disable2FASuccess,
+                            description: t.settings.disable2FASuccessDesc,
                           });
                         } catch (error: any) {
                           toast({
-                            title: 'Erreur',
-                            description: error.message || 'Erreur lors de la désactivation 2FA',
+                            title: t.common.error,
+                            description: error.message || t.settings.disable2FAError,
                             variant: 'destructive',
                           });
                         }
                       }}
                     >
-                      Désactiver
+                      {t.settings.disable}
                     </Button>
                   ) : (
                     <Button 
@@ -679,7 +679,7 @@ export default function Settings() {
                       data-testid="button-enable-2fa"
                       onClick={() => window.location.href = '/security/2fa'}
                     >
-                      Configurer
+                      {t.settings.configure}
                     </Button>
                   )}
                 </div>
@@ -689,10 +689,10 @@ export default function Settings() {
                     role="status"
                   >
                     <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-green-500 dark:bg-green-600 text-white shadow-sm">
-                      Activé
+                      {t.settings.enabled}
                     </span>
                     <p className="text-sm font-medium text-green-900 dark:text-green-200 leading-relaxed">
-                      Votre compte est sécurisé avec Google Authenticator. Un code sera demandé à chaque connexion.
+                      {t.settings.twoFactorActiveMessage}
                     </p>
                   </div>
                 )}
@@ -710,11 +710,11 @@ export default function Settings() {
                   <Palette className="h-5 w-5" />
                 </div>
                 <CardTitle className="text-2xl bg-gradient-to-r from-pink-600 to-rose-600 dark:from-pink-400 dark:to-rose-400 bg-clip-text text-transparent">
-                  Thème
+                  {t.settings.theme}
                 </CardTitle>
               </div>
               <CardDescription className="text-base">
-                Choisissez votre thème préféré
+                {t.settings.themeDesc}
               </CardDescription>
             </CardHeader>
             <CardContent className="relative">
@@ -728,7 +728,7 @@ export default function Settings() {
                   }`}
                   data-testid="button-theme-light"
                 >
-                  <span className="font-semibold">Clair</span>
+                  <span className="font-semibold">{t.settings.light}</span>
                   {theme === 'light' && <CheckCircle2 className="h-5 w-5 text-pink-600" />}
                 </button>
                 <button
@@ -740,7 +740,7 @@ export default function Settings() {
                   }`}
                   data-testid="button-theme-dark"
                 >
-                  <span className="font-semibold">Sombre</span>
+                  <span className="font-semibold">{t.settings.dark}</span>
                   {theme === 'dark' && <CheckCircle2 className="h-5 w-5 text-pink-600" />}
                 </button>
               </div>
@@ -755,11 +755,11 @@ export default function Settings() {
                   <Globe className="h-5 w-5" />
                 </div>
                 <CardTitle className="text-2xl bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
-                  Langue
+                  {t.settings.languageLabel}
                 </CardTitle>
               </div>
               <CardDescription className="text-base">
-                Sélectionnez votre langue
+                {t.settings.languageDesc}
               </CardDescription>
             </CardHeader>
             <CardContent className="relative">
