@@ -30,22 +30,22 @@ export default function AppSidebar() {
   };
 
   const menuItems = [
-    { title: t.nav.dashboard, url: '/dashboard', icon: Home },
-    { title: t.nav.loans, url: '/loans', icon: CreditCard },
-    { title: t.nav.transfers, url: '/transfers', icon: ArrowRightLeft },
-    { title: t.bankAccounts.title, url: '/accounts', icon: Building2 },
-    { title: t.nav.history, url: '/history', icon: History },
-    { title: t.nav.settings, url: '/settings', icon: Settings },
+    { title: t.nav.dashboard, url: '/dashboard', icon: Home, color: '#2563EB' },
+    { title: t.nav.loans, url: '/loans', icon: CreditCard, color: '#10B981' },
+    { title: t.nav.transfers, url: '/transfers', icon: ArrowRightLeft, color: '#F59E0B' },
+    { title: t.bankAccounts.title, url: '/accounts', icon: Building2, color: '#8B5CF6' },
+    { title: t.nav.history, url: '/history', icon: History, color: '#EC4899' },
+    { title: t.nav.settings, url: '/settings', icon: Settings, color: '#64748B' },
   ];
 
   const adminMenuItems = [
-    { title: t.nav.dashboard, url: '/admin', icon: ShieldCheck },
-    { title: t.nav.users, url: '/admin/users', icon: Users },
-    { title: t.nav.loans, url: '/admin/loans', icon: CreditCard },
-    { title: t.nav.transfers, url: '/admin/transfers', icon: ArrowRightLeft },
-    { title: t.nav.documents, url: '/admin/documents', icon: FileText },
-    { title: t.nav.settings, url: '/admin/settings', icon: Settings },
-    { title: t.nav.reports, url: '/admin/reports', icon: BarChart },
+    { title: t.nav.dashboard, url: '/admin', icon: ShieldCheck, color: '#2563EB' },
+    { title: t.nav.users, url: '/admin/users', icon: Users, color: '#10B981' },
+    { title: t.nav.loans, url: '/admin/loans', icon: CreditCard, color: '#F59E0B' },
+    { title: t.nav.transfers, url: '/admin/transfers', icon: ArrowRightLeft, color: '#8B5CF6' },
+    { title: t.nav.documents, url: '/admin/documents', icon: FileText, color: '#EC4899' },
+    { title: t.nav.settings, url: '/admin/settings', icon: Settings, color: '#64748B' },
+    { title: t.nav.reports, url: '/admin/reports', icon: BarChart, color: '#06B6D4' },
   ];
 
   const currentMenuItems = isAdminPath ? adminMenuItems : menuItems;
@@ -66,21 +66,32 @@ export default function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {currentMenuItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={location === item.url}
-                    onClick={() => setLocation(item.url)}
-                    className="transition-all duration-200 mx-2"
-                  >
-                    <a href={item.url} data-testid={`link-${item.url.slice(1)}`}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {currentMenuItems.map((item) => {
+                const isActive = location === item.url;
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      onClick={() => setLocation(item.url)}
+                      className={`transition-all duration-300 mx-2 rounded-lg ${
+                        isActive 
+                          ? 'bg-[#2563EB]/10 shadow-[0_0_20px_rgba(37,99,235,0.3)] border border-[#2563EB]/30' 
+                          : 'hover:bg-white/5'
+                      }`}
+                    >
+                      <a href={item.url} data-testid={`link-${item.url.slice(1)}`} className="flex items-center gap-3">
+                        <item.icon 
+                          className="transition-colors duration-300" 
+                          style={{ color: isActive ? '#2563EB' : item.color }}
+                          size={20}
+                        />
+                        <span className={isActive ? 'text-white font-medium' : 'text-[#94A3B8]'}>{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
