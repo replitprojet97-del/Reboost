@@ -6439,7 +6439,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Come vengono calcolati i tassi di interesse?',
-          answer: 'I nostri tassi sono calcolati da un algoritmo che analizza diversi fattori: il tuo punteggio di credito, la durata del prestito, l\'importo preso in prestito, i tuoi redditi e oneri, la tua storia di rimborso e la salute finanziaria (per le aziende). I tassi variano dal 3,5% al 9,0% APR secondo il profilo. I nostri tassi sono tra i più competitivi del mercato grazie alla nostra rete di partner finanziari.',
+          answer: 'I nostri tassi sono calcolati da un algoritmo che analizza diversi fattori: il tuo punteggio di credito, la durata del prestito, l\'importo preso in prestito, i tuoi redditi e oneri, la tua storia di rimborso e la salute finanziaria (per le aziende). I tassi variano dallo 0,5% al 9,0% APR secondo il profilo e il tipo di prestito. I nostri tassi sono tra i più competitivi del mercato grazie alla nostra rete di partner finanziari.',
         },
         {
           question: 'Ci sono costi di pratica o costi nascosti?',
@@ -6534,7 +6534,7 @@ export const translations: Record<Language, TranslationKeys> = {
       fast: 'Risposta express - Minuti a 24h',
       fastDesc: 'La nostra tecnologia AI analizza il tuo dossier in tempo reale. Risposta di approvazione da minuti a 24 ore massimo. Fondi immediatamente sbloccati sul tuo conto sicuro Altus. Poi trasferisci sul tuo conto bancario quando vuoi. 100% digitale, zero burocrazia.',
       competitive: 'Tra i tassi più bassi del mercato',
-      competitiveDesc: 'Grazie alla nostra rete di 50+ partner finanziari e tecnologia di valutazione ottimizzata, negoziamo i migliori tassi per te: dall\'1,5% al 9,0% secondo il profilo. Confronto automatico per garantire la migliore offerta.',
+      competitiveDesc: 'Grazie alla nostra rete di 50+ partner finanziari e tecnologia di valutazione ottimizzata, negoziamo i migliori tassi per te: dallo 0,5% al 9,0% APR secondo il profilo e il tipo di prestito. Confronto automatico per garantire la migliore offerta.',
       flexible: 'Massima flessibilità senza penale',
       flexibleDesc: 'Rimborso anticipato gratuito in qualsiasi momento. Possibile modulazione delle rate secondo la tua situazione. Rinvio di rata in caso di difficoltà. Scelta della data di addebito. Mantieni il controllo totale del tuo credito.',
     },
