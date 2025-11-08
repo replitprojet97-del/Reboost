@@ -99,7 +99,7 @@ export default function PendingTransfers({ transfers }: PendingTransfersProps) {
         )}
         {transfers.length > 2 && (
           <p className="text-xs text-muted-foreground pt-2">
-            +{transfers.length - 2}
+            +{transfers.length - 2} {t.dashboard.moreTransfers}
           </p>
         )}
       </CardContent>
