@@ -2,12 +2,11 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { ArrowRight } from 'lucide-react';
-import { useLanguage, translations } from '@/lib/i18n';
+import { useTranslations } from '@/lib/i18n';
 import { getBusinessLoans } from '@/lib/loan-catalog';
 
 export default function BusinessLoanShowcase() {
-  const { language } = useLanguage();
-  const t = translations[language];
+  const t = useTranslations();
   const businessLoans = getBusinessLoans(t);
 
   return (

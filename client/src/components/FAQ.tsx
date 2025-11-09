@@ -7,11 +7,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { HelpCircle } from 'lucide-react';
-import { useLanguage, translations } from '@/lib/i18n';
+import { useTranslations } from '@/lib/i18n';
 
 export default function FAQ() {
-  const { language } = useLanguage();
-  const t = translations[language];
+  const t = useTranslations();
 
   return (
     <section className="py-24">
