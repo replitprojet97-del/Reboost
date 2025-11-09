@@ -46,49 +46,62 @@ export default function Header() {
           </div>
 
           <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
-            <Link href="/" className="text-xs xl:text-sm font-medium transition-all px-2 xl:px-4 py-2 rounded-md hover:bg-primary hover:text-white whitespace-nowrap">
+            <Link href="/" className="text-xs xl:text-sm font-medium transition-all px-2 xl:px-4 py-2 rounded-md hover:bg-primary hover:text-white whitespace-nowrap" data-testid="link-home">
               {t.nav.home}
             </Link>
             
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-xs xl:text-sm font-medium px-2 xl:px-4 whitespace-nowrap">
-                    {t.nav.products}
+                  <NavigationMenuTrigger className="text-xs xl:text-sm font-medium px-2 xl:px-4 whitespace-nowrap" data-testid="button-loans-menu">
+                    {t.nav.loansMenu.label}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[350px] xl:w-[400px] gap-3 p-4">
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link href="/products" className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none">
-                            <div className="text-sm font-medium leading-none">{t.products.title}</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              {t.products.subtitle}
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
+                    <ul className="grid w-[350px] xl:w-[450px] gap-2 p-4">
+                      {t.nav.loansMenu.items.map((item) => (
+                        <li key={item.href}>
+                          <NavigationMenuLink asChild>
+                            <Link 
+                              href={item.href} 
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none hover-elevate"
+                              data-testid={`link-loan-${item.href.split('/').pop()}`}
+                            >
+                              <div className="text-sm font-medium leading-none">{item.title}</div>
+                              <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
+                                {item.description}
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Link href="/how-it-works" className="text-xs xl:text-sm font-medium transition-all px-2 xl:px-4 py-2 rounded-md hover:bg-primary hover:text-white whitespace-nowrap">
+            <Link href="/how-it-works" className="text-xs xl:text-sm font-medium transition-all px-2 xl:px-4 py-2 rounded-md hover:bg-primary hover:text-white whitespace-nowrap" data-testid="link-how-it-works">
               {t.nav.howItWorks}
             </Link>
-            <Link href="/resources" className="text-xs xl:text-sm font-medium transition-all px-2 xl:px-4 py-2 rounded-md hover:bg-primary hover:text-white whitespace-nowrap">
-              {t.nav.resources}
+            <Link href="/resources" className="text-xs xl:text-sm font-medium transition-all px-2 xl:px-4 py-2 rounded-md hover:bg-primary hover:text-white whitespace-nowrap" data-testid="link-faq">
+              {t.nav.faq}
             </Link>
-            <Link href="/about" className="text-xs xl:text-sm font-medium transition-all px-2 xl:px-4 py-2 rounded-md hover:bg-primary hover:text-white whitespace-nowrap">
+            <Link href="/about" className="text-xs xl:text-sm font-medium transition-all px-2 xl:px-4 py-2 rounded-md hover:bg-primary hover:text-white whitespace-nowrap" data-testid="link-about">
               {t.nav.about}
             </Link>
-            <Link href="/contact" className="text-xs xl:text-sm font-medium transition-all px-2 xl:px-4 py-2 rounded-md hover:bg-primary hover:text-white whitespace-nowrap">
+            <Link href="/contact" className="text-xs xl:text-sm font-medium transition-all px-2 xl:px-4 py-2 rounded-md hover:bg-primary hover:text-white whitespace-nowrap" data-testid="link-contact">
               {t.nav.contact}
             </Link>
           </nav>
 
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2 flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-1 xl:gap-3 flex-shrink-0">
+            <a 
+              href={`tel:${t.nav.phone}`} 
+              className="text-xs xl:text-sm font-medium text-primary hover:text-primary/80 transition-colors whitespace-nowrap hidden xl:block"
+              data-testid="link-phone"
+            >
+              {t.nav.phone}
+            </a>
             <LanguageSwitcher scrolled={true} />
             <Link href="/login">
               <Button 
@@ -122,14 +135,22 @@ export default function Header() {
               >
                 {t.nav.home}
               </Link>
-              <Link 
-                href="/products" 
-                className="text-sm font-medium transition-all px-4 py-2 rounded-md hover:bg-primary hover:text-white"
-                onClick={() => setMobileMenuOpen(false)}
-                data-testid="link-products-mobile"
-              >
-                {t.nav.products}
-              </Link>
+              
+              <div className="px-4 py-2">
+                <div className="text-sm font-semibold text-muted-foreground mb-2">{t.nav.loansMenu.label}</div>
+                {t.nav.loansMenu.items.map((item) => (
+                  <Link 
+                    key={item.href}
+                    href={item.href} 
+                    className="block text-sm transition-all px-3 py-2 rounded-md hover:bg-primary hover:text-white"
+                    onClick={() => setMobileMenuOpen(false)}
+                    data-testid={`link-loan-${item.href.split('/').pop()}-mobile`}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+              
               <Link 
                 href="/how-it-works" 
                 className="text-sm font-medium transition-all px-4 py-2 rounded-md hover:bg-primary hover:text-white"
@@ -142,9 +163,9 @@ export default function Header() {
                 href="/resources" 
                 className="text-sm font-medium transition-all px-4 py-2 rounded-md hover:bg-primary hover:text-white"
                 onClick={() => setMobileMenuOpen(false)}
-                data-testid="link-resources-mobile"
+                data-testid="link-faq-mobile"
               >
-                {t.nav.resources}
+                {t.nav.faq}
               </Link>
               <Link 
                 href="/about" 
@@ -162,13 +183,24 @@ export default function Header() {
               >
                 {t.nav.contact}
               </Link>
-              <div className="flex items-center gap-2 pt-2">
+              
+              <a 
+                href={`tel:${t.nav.phone}`} 
+                className="text-sm font-medium text-primary px-4 py-2"
+                onClick={() => setMobileMenuOpen(false)}
+                data-testid="link-phone-mobile"
+              >
+                {t.nav.phone}
+              </a>
+              
+              <div className="flex items-center gap-2 pt-2 px-4">
                 <LanguageSwitcher scrolled={true} />
               </div>
               <Link 
                 href="/login" 
                 onClick={() => setMobileMenuOpen(false)}
                 data-testid="link-mon-espace-mobile"
+                className="px-4"
               >
                 <Button className="w-full" variant="default">
                   {t.hero.cta2}

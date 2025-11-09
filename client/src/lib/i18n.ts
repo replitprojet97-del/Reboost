@@ -88,10 +88,20 @@ type TranslationKeys = {
   nav: {
     home: string;
     products: string;
+    loansMenu: {
+      label: string;
+      items: Array<{
+        title: string;
+        description: string;
+        href: string;
+      }>;
+    };
     howItWorks: string;
     resources: string;
+    faq: string;
     about: string;
     contact: string;
+    phone: string;
     dashboard: string;
     loans: string;
     transfers: string;
@@ -1685,10 +1695,47 @@ export const translations: Record<Language, TranslationKeys> = {
     nav: {
       home: 'Accueil',
       products: 'Nos Prêts',
+      loansMenu: {
+        label: 'Nos Prêts',
+        items: [
+          {
+            title: 'Crédit Personnel',
+            description: 'Financez vos projets personnels avec des taux avantageux',
+            href: '/products',
+          },
+          {
+            title: 'Rachat de Crédit',
+            description: 'Regroupez vos crédits pour simplifier vos remboursements',
+            href: '/products',
+          },
+          {
+            title: 'Rachat de Leasing',
+            description: 'Optimisez vos coûts en rachetant votre leasing',
+            href: '/products',
+          },
+          {
+            title: 'Rachat Carte de Crédit',
+            description: 'Réduisez vos taux d\'intérêt sur vos cartes de crédit',
+            href: '/products',
+          },
+          {
+            title: 'Crédits Divers',
+            description: 'Solutions de financement adaptées à tous vos besoins',
+            href: '/products',
+          },
+          {
+            title: 'Prêts PME',
+            description: 'Financements professionnels pour développer votre entreprise',
+            href: '/products',
+          },
+        ],
+      },
       howItWorks: 'Comment ça marche',
       resources: 'Ressources',
+      faq: 'FAQ',
       about: 'À propos',
       contact: 'Contact',
+      phone: '+41 26 422 42 00',
       dashboard: 'Tableau de bord',
       loans: 'Prêts',
       transfers: 'Transferts',
@@ -3466,10 +3513,47 @@ export const translations: Record<Language, TranslationKeys> = {
     nav: {
       home: 'Home',
       products: 'Our Loans',
+      loansMenu: {
+        label: 'Our Loans',
+        items: [
+          {
+            title: 'Personal Credit',
+            description: 'Finance your personal projects with competitive rates',
+            href: '/products',
+          },
+          {
+            title: 'Loan Refinancing',
+            description: 'Consolidate your loans to simplify repayments',
+            href: '/products',
+          },
+          {
+            title: 'Lease Refinancing',
+            description: 'Optimize your costs by refinancing your lease',
+            href: '/products',
+          },
+          {
+            title: 'Credit Card Refinancing',
+            description: 'Reduce your credit card interest rates',
+            href: '/products',
+          },
+          {
+            title: 'Various Credits',
+            description: 'Financing solutions tailored to all your needs',
+            href: '/products',
+          },
+          {
+            title: 'SME Loans',
+            description: 'Business financing to grow your company',
+            href: '/products',
+          },
+        ],
+      },
       howItWorks: 'How It Works',
       resources: 'Resources',
+      faq: 'FAQ',
       about: 'About',
       contact: 'Contact',
+      phone: '+41 26 422 42 00',
       dashboard: 'Dashboard',
       loans: 'Loans',
       transfers: 'Transfers',
@@ -5231,10 +5315,47 @@ export const translations: Record<Language, TranslationKeys> = {
     nav: {
       home: 'Inicio',
       products: 'Nuestros Préstamos',
+      loansMenu: {
+        label: 'Nuestros Préstamos',
+        items: [
+          {
+            title: 'Crédito Personal',
+            description: 'Financie sus proyectos personales con tasas competitivas',
+            href: '/products',
+          },
+          {
+            title: 'Refinanciación de Préstamos',
+            description: 'Agrupe sus préstamos para simplificar los reembolsos',
+            href: '/products',
+          },
+          {
+            title: 'Refinanciación de Leasing',
+            description: 'Optimice sus costos refinanciando su leasing',
+            href: '/products',
+          },
+          {
+            title: 'Refinanciación de Tarjeta de Crédito',
+            description: 'Reduzca las tasas de interés de sus tarjetas de crédito',
+            href: '/products',
+          },
+          {
+            title: 'Créditos Diversos',
+            description: 'Soluciones de financiamiento adaptadas a todas sus necesidades',
+            href: '/products',
+          },
+          {
+            title: 'Préstamos PYME',
+            description: 'Financiamiento empresarial para hacer crecer su compañía',
+            href: '/products',
+          },
+        ],
+      },
       howItWorks: 'Cómo Funciona',
       resources: 'Recursos',
+      faq: 'FAQ',
       about: 'Acerca de',
       contact: 'Contacto',
+      phone: '+41 26 422 42 00',
       dashboard: 'Panel',
       loans: 'Préstamos',
       transfers: 'Transferencias',
@@ -6991,10 +7112,47 @@ export const translations: Record<Language, TranslationKeys> = {
     nav: {
       home: 'Início',
       products: 'Nossos Empréstimos',
+      loansMenu: {
+        label: 'Nossos Empréstimos',
+        items: [
+          {
+            title: 'Crédito Pessoal',
+            description: 'Financie seus projetos pessoais com taxas competitivas',
+            href: '/products',
+          },
+          {
+            title: 'Refinanciamento de Empréstimos',
+            description: 'Consolide seus empréstimos para simplificar os reembolsos',
+            href: '/products',
+          },
+          {
+            title: 'Refinanciamento de Leasing',
+            description: 'Otimize seus custos refinanciando seu leasing',
+            href: '/products',
+          },
+          {
+            title: 'Refinanciamento de Cartão de Crédito',
+            description: 'Reduza as taxas de juros dos seus cartões de crédito',
+            href: '/products',
+          },
+          {
+            title: 'Créditos Diversos',
+            description: 'Soluções de financiamento adaptadas a todas as suas necessidades',
+            href: '/products',
+          },
+          {
+            title: 'Empréstimos PME',
+            description: 'Financiamento empresarial para crescer sua empresa',
+            href: '/products',
+          },
+        ],
+      },
       howItWorks: 'Como Funciona',
       resources: 'Recursos',
+      faq: 'FAQ',
       about: 'Sobre',
       contact: 'Contato',
+      phone: '+41 26 422 42 00',
       dashboard: 'Painel',
       loans: 'Empréstimos',
       transfers: 'Transferências',
@@ -8565,10 +8723,47 @@ export const translations: Record<Language, TranslationKeys> = {
     nav: {
       home: 'Inizio',
       products: 'I nostri prestiti',
+      loansMenu: {
+        label: 'I nostri prestiti',
+        items: [
+          {
+            title: 'Credito Personale',
+            description: 'Finanzia i tuoi progetti personali con tassi competitivi',
+            href: '/products',
+          },
+          {
+            title: 'Rifinanziamento Prestiti',
+            description: 'Consolida i tuoi prestiti per semplificare i rimborsi',
+            href: '/products',
+          },
+          {
+            title: 'Rifinanziamento Leasing',
+            description: 'Ottimizza i tuoi costi rifinanziando il tuo leasing',
+            href: '/products',
+          },
+          {
+            title: 'Rifinanziamento Carta di Credito',
+            description: 'Riduci i tassi di interesse delle tue carte di credito',
+            href: '/products',
+          },
+          {
+            title: 'Crediti Vari',
+            description: 'Soluzioni di finanziamento adatte a tutte le tue esigenze',
+            href: '/products',
+          },
+          {
+            title: 'Prestiti PMI',
+            description: 'Finanziamenti aziendali per far crescere la tua impresa',
+            href: '/products',
+          },
+        ],
+      },
       howItWorks: 'Come funziona',
       resources: 'Risorse',
+      faq: 'FAQ',
       about: 'Chi siamo',
       contact: 'Contatti',
+      phone: '+41 26 422 42 00',
       dashboard: 'Pannello di controllo',
       loans: 'Prestiti',
       transfers: 'Trasferimenti',
@@ -10141,10 +10336,47 @@ export const translations: Record<Language, TranslationKeys> = {
     nav: {
       home: 'Startseite',
       products: 'Unsere Kredite',
+      loansMenu: {
+        label: 'Unsere Kredite',
+        items: [
+          {
+            title: 'Privatkredit',
+            description: 'Finanzieren Sie Ihre persönlichen Projekte mit günstigen Zinsen',
+            href: '/products',
+          },
+          {
+            title: 'Kreditumschuldung',
+            description: 'Bündeln Sie Ihre Kredite zur Vereinfachung der Rückzahlungen',
+            href: '/products',
+          },
+          {
+            title: 'Leasing-Umschuldung',
+            description: 'Optimieren Sie Ihre Kosten durch Umschuldung Ihres Leasings',
+            href: '/products',
+          },
+          {
+            title: 'Kreditkarten-Umschuldung',
+            description: 'Reduzieren Sie die Zinsen Ihrer Kreditkarten',
+            href: '/products',
+          },
+          {
+            title: 'Verschiedene Kredite',
+            description: 'Finanzierungslösungen für alle Ihre Bedürfnisse',
+            href: '/products',
+          },
+          {
+            title: 'KMU-Kredite',
+            description: 'Unternehmensfinanzierung für das Wachstum Ihres Unternehmens',
+            href: '/products',
+          },
+        ],
+      },
       howItWorks: 'Wie es funktioniert',
       resources: 'Ressourcen',
+      faq: 'FAQ',
       about: 'Über uns',
       contact: 'Kontakt',
+      phone: '+41 26 422 42 00',
       dashboard: 'Übersicht',
       loans: 'Kredite',
       transfers: 'Überweisungen',
@@ -11717,10 +11949,47 @@ export const translations: Record<Language, TranslationKeys> = {
     nav: {
       home: 'Start',
       products: 'Onze leningen',
+      loansMenu: {
+        label: 'Onze leningen',
+        items: [
+          {
+            title: 'Persoonlijk Krediet',
+            description: 'Financier uw persoonlijke projecten met concurrerende tarieven',
+            href: '/products',
+          },
+          {
+            title: 'Lening Herfinanciering',
+            description: 'Consolideer uw leningen om terugbetalingen te vereenvoudigen',
+            href: '/products',
+          },
+          {
+            title: 'Leasing Herfinanciering',
+            description: 'Optimaliseer uw kosten door uw leasing te herfinancieren',
+            href: '/products',
+          },
+          {
+            title: 'Creditcard Herfinanciering',
+            description: 'Verlaag uw creditcard rentetarieven',
+            href: '/products',
+          },
+          {
+            title: 'Diverse Kredieten',
+            description: 'Financieringsoplossingen aangepast aan al uw behoeften',
+            href: '/products',
+          },
+          {
+            title: 'MKB Leningen',
+            description: 'Bedrijfsfinanciering om uw onderneming te laten groeien',
+            href: '/products',
+          },
+        ],
+      },
       howItWorks: 'Hoe het werkt',
       resources: 'Bronnen',
+      faq: 'FAQ',
       about: 'Over ons',
       contact: 'Contact',
+      phone: '+41 26 422 42 00',
       dashboard: 'Overzicht',
       loans: 'Leningen',
       transfers: 'Overschrijvingen',
