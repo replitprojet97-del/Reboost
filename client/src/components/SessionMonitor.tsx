@@ -15,7 +15,7 @@ export default function SessionMonitor() {
                      location.startsWith('/reset-password');
 
   const publicPages = ['/', '/about', '/how-it-works', '/products', '/contact', '/resources', '/terms', '/privacy'];
-  const isPublicPage = publicPages.includes(location);
+  const isPublicPage = publicPages.includes(location) || location.startsWith('/loans/') || location === '/loan-request';
 
   const { data: user } = useQuery<any>({
     queryKey: ['/api/user'],
