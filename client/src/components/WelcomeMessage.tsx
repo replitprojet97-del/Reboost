@@ -47,25 +47,9 @@ export default function WelcomeMessage() {
   const accountTypeLabel = getAccountTypeLabel(user.accountType);
   const isIndividual = accountType === 'individual';
 
-  const individualOffers = [
-    'Prêt Personnel',
-    'Prêt Immobilier',
-    'Crédit Auto',
-    'Prêt Étudiant',
-    'Prêt Vert',
-    'Prêt Travaux',
-  ];
-
-  const businessOffers = [
-    'Prêt Professionnel',
-    'Crédit de Trésorerie',
-    'Financement Équipement',
-    'Prêt Immobilier Pro',
-    'Ligne de Crédit',
-    'Crédit Véhicule Pro',
-  ];
-
-  const availableOffers = isIndividual ? individualOffers : businessOffers;
+  const availableOffers = isIndividual 
+    ? t.dashboard.welcome.offers.individual 
+    : t.dashboard.welcome.offers.business;
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
@@ -76,11 +60,11 @@ export default function WelcomeMessage() {
               <Sparkles className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
             </div>
             <DialogTitle className="text-lg sm:text-2xl leading-tight">
-              Bienvenue sur Altus Finance Group !
+              {t.dashboard.welcome.dialog.title}
             </DialogTitle>
           </div>
           <DialogDescription className="text-sm sm:text-base">
-            Nous sommes ravis de vous accompagner dans vos projets de financement.
+            {t.dashboard.welcome.dialog.description}
           </DialogDescription>
         </DialogHeader>
 
@@ -88,11 +72,11 @@ export default function WelcomeMessage() {
           <Alert className="border-blue-200 dark:border-blue-800 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30">
             <Info className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400" />
             <AlertDescription className="text-xs sm:text-sm ml-2">
-              <strong>Votre compte : {accountTypeLabel}</strong>
+              <strong>{t.dashboard.welcome.account.badgeLabel} {accountTypeLabel}</strong>
               <p className="mt-1 sm:mt-2">
                 {isIndividual
-                  ? 'Vous avez accès aux offres de prêt pour particuliers. Ces offres sont spécialement conçues pour vos besoins personnels et projets individuels.'
-                  : 'Vous avez accès aux offres de prêt professionnels. Ces offres sont spécialement conçues pour le développement et la croissance de votre entreprise.'}
+                  ? t.dashboard.welcome.account.individual.description
+                  : t.dashboard.welcome.account.business.description}
               </p>
             </AlertDescription>
           </Alert>
@@ -100,7 +84,7 @@ export default function WelcomeMessage() {
           <div className="bg-muted/50 rounded-lg p-3 sm:p-4">
             <h3 className="font-semibold text-base sm:text-lg mb-2 sm:mb-3 flex items-center gap-2">
               <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-600 dark:text-green-400" />
-              Offres disponibles pour vous
+              {t.dashboard.welcome.offers.title}
             </h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
               {availableOffers.map((offer, index) => (
@@ -114,10 +98,10 @@ export default function WelcomeMessage() {
 
           <Alert variant="default" className="border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30">
             <AlertDescription className="text-xs sm:text-sm">
-              <strong>Important :</strong> Seules les offres mentionnées ci-dessus vous seront accessibles dans votre espace.
+              <strong>{t.dashboard.welcome.important.title}</strong> {t.dashboard.welcome.important.message}
               {isIndividual
-                ? ' Si vous souhaitez accéder aux offres professionnelles, vous devrez créer un compte entreprise.'
-                : ' Si vous souhaitez accéder aux offres pour particuliers, vous devrez créer un compte personnel.'}
+                ? t.dashboard.welcome.important.individualSwitch
+                : t.dashboard.welcome.important.businessSwitch}
             </AlertDescription>
           </Alert>
         </div>
@@ -129,7 +113,7 @@ export default function WelcomeMessage() {
             disabled={markAsSeenMutation.isPending}
             data-testid="button-close-welcome"
           >
-            {markAsSeenMutation.isPending ? t.common.loading : 'Compris, commencer'}
+            {markAsSeenMutation.isPending ? t.dashboard.welcome.cta.pending : t.dashboard.welcome.cta.primary}
           </Button>
         </DialogFooter>
       </DialogContent>
