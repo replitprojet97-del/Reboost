@@ -14,11 +14,10 @@ export default function IndividualLoanShowcase() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            {t.individualLoans?.title || 'Prêts pour Particuliers'}
+            {t.individualLoans.title}
           </h2>
           <p className="text-xl text-muted-foreground">
-            {t.individualLoans?.subtitle ||
-              'Des solutions de financement adaptées à tous vos projets de vie'}
+            {t.individualLoans.subtitle}
           </p>
         </div>
 
@@ -40,26 +39,26 @@ export default function IndividualLoanShowcase() {
                 <div className="space-y-2 mb-6 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">
-                      {t.individualLoans?.amount || 'Montant'}:
+                      {t.individualLoans.amount}:
                     </span>
                     <span className="font-semibold">{loan.amount}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">
-                      {t.individualLoans?.rate || 'Taux'}:
+                      {t.individualLoans.rate}:
                     </span>
                     <span className="font-semibold">{loan.rate}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">
-                      {t.individualLoans?.duration || 'Durée'}:
+                      {t.individualLoans.duration}:
                     </span>
                     <span className="font-semibold">{loan.duration}</span>
                   </div>
                 </div>
                 <Button className="w-full gap-2" asChild>
                   <Link href="/loan-request">
-                    {t.hero?.cta1 || 'Demander un prêt'}
+                    {t.hero.cta1}
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
@@ -70,12 +69,11 @@ export default function IndividualLoanShowcase() {
 
         <div className="text-center mt-12">
           <p className="text-sm text-muted-foreground mb-4">
-            {t.individualLoans?.rateDisclaimer ||
-              'Taux indicatifs soumis à conditions. TAEG fixe.'}
+            {t.individualLoans.rateDisclaimer}
           </p>
           <Button variant="outline" size="lg" asChild>
             <Link href="/products">
-              {t.individualLoans?.compareLoans || 'Comparer tous les prêts'}
+              {t.individualLoans.compareLoans}
             </Link>
           </Button>
         </div>

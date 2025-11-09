@@ -7,31 +7,23 @@ export default function FeaturesSection() {
   const features = [
     {
       icon: Shield,
-      title: t.features?.security || 'Sécurisé et Confidentiel',
-      description:
-        t.features?.securityDesc ||
-        'Vos données sont protégées avec les plus hauts standards de sécurité bancaire',
+      title: t.features.security,
+      description: t.features.securityDesc,
     },
     {
       icon: Clock,
-      title: t.features?.fast || 'Réponse Express',
-      description:
-        t.features?.fastDesc ||
-        'Réponse en quelques minutes à 24h. Fonds immédiatement sur votre compte Altus sécurisé.',
+      title: t.features.fast,
+      description: t.features.fastDesc,
     },
     {
       icon: TrendingDown,
-      title: t.features?.competitive || 'Taux Compétitifs',
-      description:
-        t.features?.competitiveDesc ||
-        'Bénéficiez de taux parmi les plus bas du marché grâce à notre réseau',
+      title: t.features.competitive,
+      description: t.features.competitiveDesc,
     },
     {
       icon: Award,
-      title: t.features?.flexible || 'Conditions Flexibles',
-      description:
-        t.features?.flexibleDesc ||
-        'Remboursement anticipé sans frais et modulation possible des mensualités',
+      title: t.features.flexible,
+      description: t.features.flexibleDesc,
     },
   ];
 
@@ -40,11 +32,10 @@ export default function FeaturesSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            {t.features?.title || 'Pourquoi Choisir ALTUS ?'}
+            {t.features.title}
           </h2>
           <p className="text-xl text-muted-foreground">
-            {t.features?.subtitle ||
-              'Une plateforme de prêt moderne qui met vos besoins au centre'}
+            {t.features.subtitle}
           </p>
         </div>
 

@@ -6,19 +6,19 @@ export default function StatsSection() {
   const stats = [
     {
       value: '15 000+',
-      label: t.stats?.clients || 'Clients Satisfaits',
+      label: t.stats.clients,
     },
     {
       value: '€500M+',
-      label: t.stats?.funded || 'Prêts Accordés',
+      label: t.stats.funded,
     },
     {
       value: '98%',
-      label: t.stats?.satisfaction || 'Taux de Satisfaction',
+      label: t.stats.satisfaction,
     },
     {
       value: '15+',
-      label: t.stats?.years || 'Années d\'Expérience',
+      label: t.stats.years,
     },
   ];
 
