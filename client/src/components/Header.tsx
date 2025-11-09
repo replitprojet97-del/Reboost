@@ -34,11 +34,11 @@ export default function Header() {
         ? 'bg-white dark:bg-[#003D6F] shadow-md' 
         : 'bg-white dark:bg-[#003D6F] shadow-sm'
     }`}>
-      <div className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
+      <div className="container mx-auto px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
-          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 min-w-0">
             <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-90 transition-all">
-              <img src={logoUrl} alt="Altus Finance Group" className="h-10 sm:h-12 lg:h-16 w-auto" />
+              <img src={logoUrl} alt="Altus Finance Group" className="h-10 sm:h-12 lg:h-16 w-auto flex-shrink-0" />
               <span className="text-base sm:text-lg lg:text-xl font-bold text-primary whitespace-nowrap hidden sm:block">
                 Altus Finance Group
               </span>
@@ -103,8 +103,9 @@ export default function Header() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-md transition-colors hover:bg-accent"
+            className="lg:hidden p-2 rounded-md transition-colors hover:bg-accent flex-shrink-0"
             data-testid="button-mobile-menu"
+            aria-label="Menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

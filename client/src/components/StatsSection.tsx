@@ -23,12 +23,12 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="py-24 bg-primary text-primary-foreground">
+    <section className="py-16 sm:py-20 md:py-24 bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">
                 {stat.value}
               </div>
               <div className="text-sm md:text-base opacity-90">
