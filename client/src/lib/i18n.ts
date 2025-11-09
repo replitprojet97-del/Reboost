@@ -402,6 +402,53 @@ type TranslationKeys = {
     rateDisclaimer: string;
     compareLoans: string;
   };
+  businessLoans: {
+    title: string;
+    subtitle: string;
+    businessLoan: string;
+    businessLoanDesc: string;
+    businessLoanFeatures: string[];
+    cashFlowCredit: string;
+    cashFlowCreditDesc: string;
+    cashFlowCreditFeatures: string[];
+    equipmentFinancing: string;
+    equipmentFinancingDesc: string;
+    equipmentFinancingFeatures: string[];
+    commercialProperty: string;
+    commercialPropertyDesc: string;
+    commercialPropertyFeatures: string[];
+    lineOfCredit: string;
+    lineOfCreditDesc: string;
+    lineOfCreditFeatures: string[];
+    lineOfCreditDuration: string;
+    vehicleFleet: string;
+    vehicleFleetDesc: string;
+    vehicleFleetFeatures: string[];
+    amount: string;
+    rate: string;
+    duration: string;
+    features: string;
+    learnMore: string;
+    advantagesTitle: string;
+    advantages: string[];
+    eligibilityTitle: string;
+    eligibility: string[];
+    rateDisclaimer: string;
+    simulateLoan: string;
+    contactAdvisor: string;
+  };
+  professionalFAQ: {
+    title: string;
+    subtitle: string;
+    faqs: {
+      question: string;
+      answer: string;
+    }[];
+    notFoundTitle: string;
+    notFoundDesc: string;
+    contactUs: string;
+    helpCenter: string;
+  };
   features: {
     title: string;
     subtitle: string;
@@ -1693,6 +1740,109 @@ export const translations: Record<Language, TranslationKeys> = {
       duration: 'Durée',
       rateDisclaimer: 'Taux indicatifs soumis à conditions d\'éligibilité. TAEG fixe. Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.',
       compareLoans: 'Comparer tous les prêts',
+    },
+    businessLoans: {
+      title: 'Solutions pour Professionnels',
+      subtitle: 'Des financements adaptés aux besoins de votre entreprise, TPE, PME ou auto-entrepreneur',
+      businessLoan: 'Prêt Professionnel',
+      businessLoanDesc: 'Financement pour vos projets d\'entreprise, développement et trésorerie',
+      businessLoanFeatures: ['Réponse sous 48h', 'Taux fixe', 'Remboursement flexible'],
+      cashFlowCredit: 'Crédit de Trésorerie',
+      cashFlowCreditDesc: 'Solution rapide pour gérer vos besoins en fonds de roulement',
+      cashFlowCreditFeatures: ['Déblocage rapide', 'Sans garantie jusqu\'à 50k€', 'Flexible'],
+      equipmentFinancing: 'Financement Équipement',
+      equipmentFinancingDesc: 'Achetez vos équipements professionnels et matériels',
+      equipmentFinancingFeatures: ['Jusqu\'à 100% du montant', 'Option leasing', 'Déduction fiscale'],
+      commercialProperty: 'Prêt Immobilier Pro',
+      commercialPropertyDesc: 'Acquérez vos locaux, bureaux ou entrepôts professionnels',
+      commercialPropertyFeatures: ['Durée longue', 'Apport à partir de 20%', 'Taux compétitif'],
+      lineOfCredit: 'Ligne de Crédit',
+      lineOfCreditDesc: 'Crédit renouvelable pour vos besoins ponctuels',
+      lineOfCreditFeatures: ['Disponible 24/7', 'Remboursement libre', 'Renouvellement auto'],
+      lineOfCreditDuration: 'Renouvelable',
+      vehicleFleet: 'Crédit Véhicule Pro',
+      vehicleFleetDesc: 'Financez votre flotte automobile ou véhicules utilitaires',
+      vehicleFleetFeatures: ['LOA ou crédit classique', 'Option rachat', 'Assurance incluse'],
+      amount: 'Montant',
+      rate: 'TAEG',
+      duration: 'Durée',
+      features: 'Avantages',
+      learnMore: 'En savoir plus',
+      advantagesTitle: 'Avantages ALTUS Pro',
+      advantages: [
+        'Conseiller dédié pour votre entreprise',
+        'Étude personnalisée de votre dossier',
+        'Accompagnement dans vos démarches',
+        'Montage de dossier business plan inclus',
+      ],
+      eligibilityTitle: 'Critères d\'éligibilité',
+      eligibility: [
+        'Entreprise immatriculée en France',
+        'Activité depuis plus de 6 mois',
+        'Pas d\'interdiction bancaire',
+        'Bilans comptables à jour',
+      ],
+      rateDisclaimer: 'Taux indicatifs soumis à l\'étude et l\'acceptation de votre dossier. TAEG fixe.',
+      simulateLoan: 'Simuler mon prêt professionnel',
+      contactAdvisor: 'Contacter un conseiller',
+    },
+    professionalFAQ: {
+      title: 'Questions Fréquentes',
+      subtitle: 'Trouvez rapidement des réponses à vos questions',
+      faqs: [
+        {
+          question: 'Quels sont les documents nécessaires pour une demande de prêt professionnel ?',
+          answer: 'Pour les professionnels : Kbis de moins de 3 mois, pièce d\'identité du dirigeant, bilans comptables des 3 dernières années, liasse fiscale complète, relevés bancaires professionnels (6 mois), business plan (création), prévisionnel financier. Pour les particuliers : pièce d\'identité, justificatif de domicile, derniers bulletins de salaire et avis d\'imposition.',
+        },
+        {
+          question: 'Quel apport personnel est requis pour un prêt professionnel ?',
+          answer: 'L\'apport personnel varie selon le projet : 10-15% pour l\'achat d\'équipement ou de matériel, 20-30% pour une création ou reprise d\'entreprise, 20-25% pour l\'immobilier professionnel. Un apport plus important peut améliorer vos conditions de financement et diminuer votre taux.',
+        },
+        {
+          question: 'Quel est le délai pour obtenir une réponse et les fonds ?',
+          answer: 'Réponse de principe en 24-48h après soumission du dossier complet. L\'accord définitif intervient sous 48h. Le déblocage des fonds s\'effectue sous 7 à 15 jours après signature du contrat et mise en place des garanties. Délai total moyen : 2 à 3 semaines.',
+        },
+        {
+          question: 'Quelles garanties puis-je proposer pour mon prêt professionnel ?',
+          answer: 'Plusieurs options : garanties réelles (hypothèque, nantissement fonds de commerce, gage matériel), garanties personnelles (caution solidaire du dirigeant), organismes de cautionnement (BPI France 40-70%, SIAGI, France Active, SOCAMA), ou assurance emprunteur (obligatoire : décès/PTIA, optionnelle : IPT/IPP/ITT).',
+        },
+        {
+          question: 'Les intérêts d\'emprunt sont-ils déductibles fiscalement ?',
+          answer: 'Oui ! Les intérêts d\'emprunt professionnel sont entièrement déductibles du résultat fiscal de votre entreprise, réduisant ainsi votre impôt sur les bénéfices. De plus, les cotisations d\'assurance emprunteur sont également déductibles. La TVA sur les intérêts et frais est récupérable pour les entreprises assujetties.',
+        },
+        {
+          question: 'Puis-je obtenir un prêt si mon entreprise a moins d\'un an ?',
+          answer: 'Oui, nous finançons les créations d\'entreprise avec un business plan solide et un apport personnel de 20-30%. Nous étudions votre expérience professionnelle, la viabilité du projet et vos prévisions. Un prêt d\'honneur (BPI France, Initiative France) peut renforcer votre dossier.',
+        },
+        {
+          question: 'Puis-je rembourser mon prêt professionnel par anticipation ?',
+          answer: 'Oui, tous nos prêts professionnels sont remboursables par anticipation. Les indemnités sont plafonnées par la loi : maximum 6 mois d\'intérêts ou 3% du capital restant dû. Certains contrats prévoient la gratuité du remboursement anticipé après une certaine période.',
+        },
+        {
+          question: 'Quels sont les taux actuels pour les prêts professionnels ?',
+          answer: 'Nos taux TAEG varient selon le projet : Immobilier pro 2,9-5,5% (5-25 ans), Équipement 3,9-7,5% (2-5 ans), Fonds de commerce 4,7% (5-10 ans), Trésorerie 4,0-9,0% (3-36 mois), Véhicules pro 3,2-6,5% (2-6 ans). Taux personnalisés selon votre profil et durée.',
+        },
+        {
+          question: 'Comment fonctionne le processus de demande en ligne ?',
+          answer: '1) Remplissez notre formulaire en ligne (5 min) et téléchargez vos documents. 2) Analyse de votre dossier par nos experts (24-48h). 3) Recevez votre accord de principe avec conditions. 4) Signature électronique du contrat. 5) Mise en place des garanties. 6) Déblocage des fonds sur votre compte Altus.',
+        },
+        {
+          question: 'Puis-je cumuler plusieurs types de financement ?',
+          answer: 'Oui, vous pouvez combiner plusieurs solutions : prêt bancaire + crédit-bail pour l\'équipement, prêt professionnel + prêt d\'honneur (BPI France) pour renforcer vos fonds propres, ou ligne de crédit + prêt amortissable pour conjuguer flexibilité et financement long terme.',
+        },
+        {
+          question: 'Y a-t-il des frais de dossier et autres frais ?',
+          answer: 'Frais de dossier : 1-2% du montant pour les prêts professionnels (négociables). Frais de garantie : variables selon le type (hypothèque, nantissement). Assurance emprunteur : 0,10% à 0,40% du capital emprunté par an. Tous les frais sont détaillés dans votre offre de prêt.',
+        },
+        {
+          question: 'Que se passe-t-il si je rencontre des difficultés de remboursement ?',
+          answer: 'Contactez-nous dès les premiers signes de difficulté. Nous pouvons étudier : un report d\'échéances temporaire, une modulation des mensualités, un allongement de la durée du prêt, ou une réorganisation de vos crédits. L\'accompagnement préventif est toujours préférable.',
+        },
+      ],
+      notFoundTitle: 'Vous ne trouvez pas la réponse à votre question ?',
+      notFoundDesc: 'Notre équipe d\'experts est disponible du lundi au vendredi de 9h à 19h',
+      contactUs: 'Contactez-nous',
+      helpCenter: 'Centre d\'aide',
     },
     features: {
       title: 'Pourquoi Choisir Altus Finance Group ?',
@@ -3020,6 +3170,109 @@ export const translations: Record<Language, TranslationKeys> = {
       duration: 'Duration',
       rateDisclaimer: 'Indicative rates subject to eligibility conditions. Fixed APR. Credit commits you and must be repaid. Check your repayment capacity before committing.',
       compareLoans: 'Compare all loans',
+    },
+    businessLoans: {
+      title: 'Solutions for Professionals',
+      subtitle: 'Financing tailored to the needs of your business, micro-enterprise, SME or self-employed',
+      businessLoan: 'Business Loan',
+      businessLoanDesc: 'Financing for your business projects, development and cash flow',
+      businessLoanFeatures: ['Response within 48h', 'Fixed rate', 'Flexible repayment'],
+      cashFlowCredit: 'Cash Flow Credit',
+      cashFlowCreditDesc: 'Quick solution to manage your working capital needs',
+      cashFlowCreditFeatures: ['Quick disbursement', 'No collateral up to €50k', 'Flexible'],
+      equipmentFinancing: 'Equipment Financing',
+      equipmentFinancingDesc: 'Purchase your professional equipment and materials',
+      equipmentFinancingFeatures: ['Up to 100% financing', 'Leasing option', 'Tax deductible'],
+      commercialProperty: 'Commercial Real Estate Loan',
+      commercialPropertyDesc: 'Acquire your premises, offices or professional warehouses',
+      commercialPropertyFeatures: ['Long duration', 'Down payment from 20%', 'Competitive rate'],
+      lineOfCredit: 'Line of Credit',
+      lineOfCreditDesc: 'Revolving credit for your occasional needs',
+      lineOfCreditFeatures: ['Available 24/7', 'Free repayment', 'Auto renewal'],
+      lineOfCreditDuration: 'Renewable',
+      vehicleFleet: 'Professional Vehicle Credit',
+      vehicleFleetDesc: 'Finance your vehicle fleet or commercial vehicles',
+      vehicleFleetFeatures: ['Lease or classic credit', 'Buyback option', 'Insurance included'],
+      amount: 'Amount',
+      rate: 'APR',
+      duration: 'Duration',
+      features: 'Advantages',
+      learnMore: 'Learn more',
+      advantagesTitle: 'ALTUS Pro Advantages',
+      advantages: [
+        'Dedicated advisor for your business',
+        'Personalized study of your file',
+        'Support throughout your process',
+        'Business plan package included',
+      ],
+      eligibilityTitle: 'Eligibility Criteria',
+      eligibility: [
+        'Company registered in France',
+        'Active for more than 6 months',
+        'No banking ban',
+        'Up-to-date financial statements',
+      ],
+      rateDisclaimer: 'Indicative rates subject to study and acceptance of your application. Fixed APR.',
+      simulateLoan: 'Simulate my business loan',
+      contactAdvisor: 'Contact an advisor',
+    },
+    professionalFAQ: {
+      title: 'Frequently Asked Questions',
+      subtitle: 'Find answers to your questions quickly',
+      faqs: [
+        {
+          question: 'What documents are required for a business loan application?',
+          answer: 'For professionals: Company registration less than 3 months old, director\'s ID, financial statements for the last 3 years, complete tax documents, business bank statements (6 months), business plan (for startups), financial forecast. For individuals: ID, proof of address, recent pay slips and tax notice.',
+        },
+        {
+          question: 'What personal contribution is required for a business loan?',
+          answer: 'Personal contribution varies by project: 10-15% for equipment or material purchase, 20-30% for business creation or acquisition, 20-25% for commercial real estate. A larger contribution can improve your financing conditions and reduce your rate.',
+        },
+        {
+          question: 'What is the timeframe to get a response and funds?',
+          answer: 'Initial approval within 24-48h after submitting complete application. Final approval within 48h. Fund disbursement occurs 7 to 15 days after contract signature and guarantee setup. Average total time: 2 to 3 weeks.',
+        },
+        {
+          question: 'What guarantees can I offer for my business loan?',
+          answer: 'Several options: real guarantees (mortgage, business goodwill pledge, material lien), personal guarantees (joint and several surety from director), guarantee organizations (BPI France 40-70%, SIAGI, France Active, SOCAMA), or borrower insurance (mandatory: death/PTIA, optional: IPT/IPP/ITT).',
+        },
+        {
+          question: 'Are loan interest payments tax deductible?',
+          answer: 'Yes! Business loan interest is fully deductible from your company\'s taxable income, thus reducing your profit tax. Additionally, borrower insurance premiums are also deductible. VAT on interest and fees is recoverable for liable companies.',
+        },
+        {
+          question: 'Can I get a loan if my company is less than one year old?',
+          answer: 'Yes, we finance business startups with a solid business plan and personal contribution of 20-30%. We evaluate your professional experience, project viability and projections. An honor loan (BPI France, Initiative France) can strengthen your application.',
+        },
+        {
+          question: 'Can I repay my business loan early?',
+          answer: 'Yes, all our business loans allow early repayment. Penalties are capped by law: maximum 6 months interest or 3% of remaining capital. Some contracts provide free early repayment after a certain period.',
+        },
+        {
+          question: 'What are the current rates for business loans?',
+          answer: 'Our APR rates vary by project: Commercial real estate 2.9-5.5% (5-25 years), Equipment 3.9-7.5% (2-5 years), Business goodwill 4.7% (5-10 years), Cash flow 4.0-9.0% (3-36 months), Professional vehicles 3.2-6.5% (2-6 years). Rates personalized based on your profile and duration.',
+        },
+        {
+          question: 'How does the online application process work?',
+          answer: '1) Fill out our online form (5 min) and upload your documents. 2) Analysis of your application by our experts (24-48h). 3) Receive your approval in principle with conditions. 4) Electronic signature of contract. 5) Guarantee setup. 6) Fund disbursement to your Altus account.',
+        },
+        {
+          question: 'Can I combine multiple types of financing?',
+          answer: 'Yes, you can combine several solutions: bank loan + leasing for equipment, business loan + honor loan (BPI France) to strengthen equity, or line of credit + amortizing loan to combine flexibility and long-term financing.',
+        },
+        {
+          question: 'Are there application fees and other charges?',
+          answer: 'Application fees: 1-2% of amount for business loans (negotiable). Guarantee fees: variable depending on type (mortgage, pledge). Borrower insurance: 0.10% to 0.40% of borrowed capital per year. All fees are detailed in your loan offer.',
+        },
+        {
+          question: 'What happens if I have repayment difficulties?',
+          answer: 'Contact us at the first signs of difficulty. We can explore: temporary payment deferral, payment modulation, loan term extension, or credit reorganization. Preventive support is always preferable.',
+        },
+      ],
+      notFoundTitle: 'Can\'t find the answer to your question?',
+      notFoundDesc: 'Our team of experts is available Monday to Friday from 9am to 7pm',
+      contactUs: 'Contact us',
+      helpCenter: 'Help center',
     },
     features: {
       title: 'Why Choose Altus Finance Group?',
@@ -5465,6 +5718,109 @@ export const translations: Record<Language, TranslationKeys> = {
         description: 'Two-factor verification',
       },
     },
+    businessLoans: {
+      title: 'Solutions for Professionals',
+      subtitle: 'Financing tailored to the needs of your business, micro-enterprise, SME or self-employed',
+      businessLoan: 'Business Loan',
+      businessLoanDesc: 'Financing for your business projects, development and cash flow',
+      businessLoanFeatures: ['Response within 48h', 'Fixed rate', 'Flexible repayment'],
+      cashFlowCredit: 'Cash Flow Credit',
+      cashFlowCreditDesc: 'Quick solution to manage your working capital needs',
+      cashFlowCreditFeatures: ['Quick disbursement', 'No collateral up to €50k', 'Flexible'],
+      equipmentFinancing: 'Equipment Financing',
+      equipmentFinancingDesc: 'Purchase your professional equipment and materials',
+      equipmentFinancingFeatures: ['Up to 100% financing', 'Leasing option', 'Tax deductible'],
+      commercialProperty: 'Commercial Real Estate Loan',
+      commercialPropertyDesc: 'Acquire your premises, offices or professional warehouses',
+      commercialPropertyFeatures: ['Long duration', 'Down payment from 20%', 'Competitive rate'],
+      lineOfCredit: 'Line of Credit',
+      lineOfCreditDesc: 'Revolving credit for your occasional needs',
+      lineOfCreditFeatures: ['Available 24/7', 'Free repayment', 'Auto renewal'],
+      lineOfCreditDuration: 'Renewable',
+      vehicleFleet: 'Professional Vehicle Credit',
+      vehicleFleetDesc: 'Finance your vehicle fleet or commercial vehicles',
+      vehicleFleetFeatures: ['Lease or classic credit', 'Buyback option', 'Insurance included'],
+      amount: 'Amount',
+      rate: 'APR',
+      duration: 'Duration',
+      features: 'Advantages',
+      learnMore: 'Learn more',
+      advantagesTitle: 'ALTUS Pro Advantages',
+      advantages: [
+        'Dedicated advisor for your business',
+        'Personalized study of your file',
+        'Support throughout your process',
+        'Business plan package included',
+      ],
+      eligibilityTitle: 'Eligibility Criteria',
+      eligibility: [
+        'Company registered in France',
+        'Active for more than 6 months',
+        'No banking ban',
+        'Up-to-date financial statements',
+      ],
+      rateDisclaimer: 'Indicative rates subject to study and acceptance of your application. Fixed APR.',
+      simulateLoan: 'Simulate my business loan',
+      contactAdvisor: 'Contact an advisor',
+    },
+    professionalFAQ: {
+      title: 'Frequently Asked Questions',
+      subtitle: 'Find answers to your questions quickly',
+      faqs: [
+        {
+          question: 'What documents are required for a business loan application?',
+          answer: 'For professionals: Company registration less than 3 months old, director\'s ID, financial statements for the last 3 years, complete tax documents, business bank statements (6 months), business plan (for startups), financial forecast. For individuals: ID, proof of address, recent pay slips and tax notice.',
+        },
+        {
+          question: 'What personal contribution is required for a business loan?',
+          answer: 'Personal contribution varies by project: 10-15% for equipment or material purchase, 20-30% for business creation or acquisition, 20-25% for commercial real estate. A larger contribution can improve your financing conditions and reduce your rate.',
+        },
+        {
+          question: 'What is the timeframe to get a response and funds?',
+          answer: 'Initial approval within 24-48h after submitting complete application. Final approval within 48h. Fund disbursement occurs 7 to 15 days after contract signature and guarantee setup. Average total time: 2 to 3 weeks.',
+        },
+        {
+          question: 'What guarantees can I offer for my business loan?',
+          answer: 'Several options: real guarantees (mortgage, business goodwill pledge, material lien), personal guarantees (joint and several surety from director), guarantee organizations (BPI France 40-70%, SIAGI, France Active, SOCAMA), or borrower insurance (mandatory: death/PTIA, optional: IPT/IPP/ITT).',
+        },
+        {
+          question: 'Are loan interest payments tax deductible?',
+          answer: 'Yes! Business loan interest is fully deductible from your company\'s taxable income, thus reducing your profit tax. Additionally, borrower insurance premiums are also deductible. VAT on interest and fees is recoverable for liable companies.',
+        },
+        {
+          question: 'Can I get a loan if my company is less than one year old?',
+          answer: 'Yes, we finance business startups with a solid business plan and personal contribution of 20-30%. We evaluate your professional experience, project viability and projections. An honor loan (BPI France, Initiative France) can strengthen your application.',
+        },
+        {
+          question: 'Can I repay my business loan early?',
+          answer: 'Yes, all our business loans allow early repayment. Penalties are capped by law: maximum 6 months interest or 3% of remaining capital. Some contracts provide free early repayment after a certain period.',
+        },
+        {
+          question: 'What are the current rates for business loans?',
+          answer: 'Our APR rates vary by project: Commercial real estate 2.9-5.5% (5-25 years), Equipment 3.9-7.5% (2-5 years), Business goodwill 4.7% (5-10 years), Cash flow 4.0-9.0% (3-36 months), Professional vehicles 3.2-6.5% (2-6 years). Rates personalized based on your profile and duration.',
+        },
+        {
+          question: 'How does the online application process work?',
+          answer: '1) Fill out our online form (5 min) and upload your documents. 2) Analysis of your application by our experts (24-48h). 3) Receive your approval in principle with conditions. 4) Electronic signature of contract. 5) Guarantee setup. 6) Fund disbursement to your Altus account.',
+        },
+        {
+          question: 'Can I combine multiple types of financing?',
+          answer: 'Yes, you can combine several solutions: bank loan + leasing for equipment, business loan + honor loan (BPI France) to strengthen equity, or line of credit + amortizing loan to combine flexibility and long-term financing.',
+        },
+        {
+          question: 'Are there application fees and other charges?',
+          answer: 'Application fees: 1-2% of amount for business loans (negotiable). Guarantee fees: variable depending on type (mortgage, pledge). Borrower insurance: 0.10% to 0.40% of borrowed capital per year. All fees are detailed in your loan offer.',
+        },
+        {
+          question: 'What happens if I have repayment difficulties?',
+          answer: 'Contact us at the first signs of difficulty. We can explore: temporary payment deferral, payment modulation, loan term extension, or credit reorganization. Preventive support is always preferable.',
+        },
+      ],
+      notFoundTitle: 'Can\'t find the answer to your question?',
+      notFoundDesc: 'Our team of experts is available Monday to Friday from 9am to 7pm',
+      contactUs: 'Contact us',
+      helpCenter: 'Help center',
+    },
   },
   pt: {
     hero: {
@@ -6852,6 +7208,109 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '2FA Verification | Altus Finance Group',
         description: 'Two-factor verification',
       },
+    },
+    businessLoans: {
+      title: 'Solutions for Professionals',
+      subtitle: 'Financing tailored to the needs of your business, micro-enterprise, SME or self-employed',
+      businessLoan: 'Business Loan',
+      businessLoanDesc: 'Financing for your business projects, development and cash flow',
+      businessLoanFeatures: ['Response within 48h', 'Fixed rate', 'Flexible repayment'],
+      cashFlowCredit: 'Cash Flow Credit',
+      cashFlowCreditDesc: 'Quick solution to manage your working capital needs',
+      cashFlowCreditFeatures: ['Quick disbursement', 'No collateral up to €50k', 'Flexible'],
+      equipmentFinancing: 'Equipment Financing',
+      equipmentFinancingDesc: 'Purchase your professional equipment and materials',
+      equipmentFinancingFeatures: ['Up to 100% financing', 'Leasing option', 'Tax deductible'],
+      commercialProperty: 'Commercial Real Estate Loan',
+      commercialPropertyDesc: 'Acquire your premises, offices or professional warehouses',
+      commercialPropertyFeatures: ['Long duration', 'Down payment from 20%', 'Competitive rate'],
+      lineOfCredit: 'Line of Credit',
+      lineOfCreditDesc: 'Revolving credit for your occasional needs',
+      lineOfCreditFeatures: ['Available 24/7', 'Free repayment', 'Auto renewal'],
+      lineOfCreditDuration: 'Renewable',
+      vehicleFleet: 'Professional Vehicle Credit',
+      vehicleFleetDesc: 'Finance your vehicle fleet or commercial vehicles',
+      vehicleFleetFeatures: ['Lease or classic credit', 'Buyback option', 'Insurance included'],
+      amount: 'Amount',
+      rate: 'APR',
+      duration: 'Duration',
+      features: 'Advantages',
+      learnMore: 'Learn more',
+      advantagesTitle: 'ALTUS Pro Advantages',
+      advantages: [
+        'Dedicated advisor for your business',
+        'Personalized study of your file',
+        'Support throughout your process',
+        'Business plan package included',
+      ],
+      eligibilityTitle: 'Eligibility Criteria',
+      eligibility: [
+        'Company registered in France',
+        'Active for more than 6 months',
+        'No banking ban',
+        'Up-to-date financial statements',
+      ],
+      rateDisclaimer: 'Indicative rates subject to study and acceptance of your application. Fixed APR.',
+      simulateLoan: 'Simulate my business loan',
+      contactAdvisor: 'Contact an advisor',
+    },
+    professionalFAQ: {
+      title: 'Frequently Asked Questions',
+      subtitle: 'Find answers to your questions quickly',
+      faqs: [
+        {
+          question: 'What documents are required for a business loan application?',
+          answer: 'For professionals: Company registration less than 3 months old, director\'s ID, financial statements for the last 3 years, complete tax documents, business bank statements (6 months), business plan (for startups), financial forecast. For individuals: ID, proof of address, recent pay slips and tax notice.',
+        },
+        {
+          question: 'What personal contribution is required for a business loan?',
+          answer: 'Personal contribution varies by project: 10-15% for equipment or material purchase, 20-30% for business creation or acquisition, 20-25% for commercial real estate. A larger contribution can improve your financing conditions and reduce your rate.',
+        },
+        {
+          question: 'What is the timeframe to get a response and funds?',
+          answer: 'Initial approval within 24-48h after submitting complete application. Final approval within 48h. Fund disbursement occurs 7 to 15 days after contract signature and guarantee setup. Average total time: 2 to 3 weeks.',
+        },
+        {
+          question: 'What guarantees can I offer for my business loan?',
+          answer: 'Several options: real guarantees (mortgage, business goodwill pledge, material lien), personal guarantees (joint and several surety from director), guarantee organizations (BPI France 40-70%, SIAGI, France Active, SOCAMA), or borrower insurance (mandatory: death/PTIA, optional: IPT/IPP/ITT).',
+        },
+        {
+          question: 'Are loan interest payments tax deductible?',
+          answer: 'Yes! Business loan interest is fully deductible from your company\'s taxable income, thus reducing your profit tax. Additionally, borrower insurance premiums are also deductible. VAT on interest and fees is recoverable for liable companies.',
+        },
+        {
+          question: 'Can I get a loan if my company is less than one year old?',
+          answer: 'Yes, we finance business startups with a solid business plan and personal contribution of 20-30%. We evaluate your professional experience, project viability and projections. An honor loan (BPI France, Initiative France) can strengthen your application.',
+        },
+        {
+          question: 'Can I repay my business loan early?',
+          answer: 'Yes, all our business loans allow early repayment. Penalties are capped by law: maximum 6 months interest or 3% of remaining capital. Some contracts provide free early repayment after a certain period.',
+        },
+        {
+          question: 'What are the current rates for business loans?',
+          answer: 'Our APR rates vary by project: Commercial real estate 2.9-5.5% (5-25 years), Equipment 3.9-7.5% (2-5 years), Business goodwill 4.7% (5-10 years), Cash flow 4.0-9.0% (3-36 months), Professional vehicles 3.2-6.5% (2-6 years). Rates personalized based on your profile and duration.',
+        },
+        {
+          question: 'How does the online application process work?',
+          answer: '1) Fill out our online form (5 min) and upload your documents. 2) Analysis of your application by our experts (24-48h). 3) Receive your approval in principle with conditions. 4) Electronic signature of contract. 5) Guarantee setup. 6) Fund disbursement to your Altus account.',
+        },
+        {
+          question: 'Can I combine multiple types of financing?',
+          answer: 'Yes, you can combine several solutions: bank loan + leasing for equipment, business loan + honor loan (BPI France) to strengthen equity, or line of credit + amortizing loan to combine flexibility and long-term financing.',
+        },
+        {
+          question: 'Are there application fees and other charges?',
+          answer: 'Application fees: 1-2% of amount for business loans (negotiable). Guarantee fees: variable depending on type (mortgage, pledge). Borrower insurance: 0.10% to 0.40% of borrowed capital per year. All fees are detailed in your loan offer.',
+        },
+        {
+          question: 'What happens if I have repayment difficulties?',
+          answer: 'Contact us at the first signs of difficulty. We can explore: temporary payment deferral, payment modulation, loan term extension, or credit reorganization. Preventive support is always preferable.',
+        },
+      ],
+      notFoundTitle: 'Can\'t find the answer to your question?',
+      notFoundDesc: 'Our team of experts is available Monday to Friday from 9am to 7pm',
+      contactUs: 'Contact us',
+      helpCenter: 'Help center',
     },
   },
   it: {
@@ -8243,6 +8702,109 @@ export const translations: Record<Language, TranslationKeys> = {
         description: 'Two-factor verification',
       },
     },
+    businessLoans: {
+      title: 'Solutions for Professionals',
+      subtitle: 'Financing tailored to the needs of your business, micro-enterprise, SME or self-employed',
+      businessLoan: 'Business Loan',
+      businessLoanDesc: 'Financing for your business projects, development and cash flow',
+      businessLoanFeatures: ['Response within 48h', 'Fixed rate', 'Flexible repayment'],
+      cashFlowCredit: 'Cash Flow Credit',
+      cashFlowCreditDesc: 'Quick solution to manage your working capital needs',
+      cashFlowCreditFeatures: ['Quick disbursement', 'No collateral up to €50k', 'Flexible'],
+      equipmentFinancing: 'Equipment Financing',
+      equipmentFinancingDesc: 'Purchase your professional equipment and materials',
+      equipmentFinancingFeatures: ['Up to 100% financing', 'Leasing option', 'Tax deductible'],
+      commercialProperty: 'Commercial Real Estate Loan',
+      commercialPropertyDesc: 'Acquire your premises, offices or professional warehouses',
+      commercialPropertyFeatures: ['Long duration', 'Down payment from 20%', 'Competitive rate'],
+      lineOfCredit: 'Line of Credit',
+      lineOfCreditDesc: 'Revolving credit for your occasional needs',
+      lineOfCreditFeatures: ['Available 24/7', 'Free repayment', 'Auto renewal'],
+      lineOfCreditDuration: 'Renewable',
+      vehicleFleet: 'Professional Vehicle Credit',
+      vehicleFleetDesc: 'Finance your vehicle fleet or commercial vehicles',
+      vehicleFleetFeatures: ['Lease or classic credit', 'Buyback option', 'Insurance included'],
+      amount: 'Amount',
+      rate: 'APR',
+      duration: 'Duration',
+      features: 'Advantages',
+      learnMore: 'Learn more',
+      advantagesTitle: 'ALTUS Pro Advantages',
+      advantages: [
+        'Dedicated advisor for your business',
+        'Personalized study of your file',
+        'Support throughout your process',
+        'Business plan package included',
+      ],
+      eligibilityTitle: 'Eligibility Criteria',
+      eligibility: [
+        'Company registered in France',
+        'Active for more than 6 months',
+        'No banking ban',
+        'Up-to-date financial statements',
+      ],
+      rateDisclaimer: 'Indicative rates subject to study and acceptance of your application. Fixed APR.',
+      simulateLoan: 'Simulate my business loan',
+      contactAdvisor: 'Contact an advisor',
+    },
+    professionalFAQ: {
+      title: 'Frequently Asked Questions',
+      subtitle: 'Find answers to your questions quickly',
+      faqs: [
+        {
+          question: 'What documents are required for a business loan application?',
+          answer: 'For professionals: Company registration less than 3 months old, director\'s ID, financial statements for the last 3 years, complete tax documents, business bank statements (6 months), business plan (for startups), financial forecast. For individuals: ID, proof of address, recent pay slips and tax notice.',
+        },
+        {
+          question: 'What personal contribution is required for a business loan?',
+          answer: 'Personal contribution varies by project: 10-15% for equipment or material purchase, 20-30% for business creation or acquisition, 20-25% for commercial real estate. A larger contribution can improve your financing conditions and reduce your rate.',
+        },
+        {
+          question: 'What is the timeframe to get a response and funds?',
+          answer: 'Initial approval within 24-48h after submitting complete application. Final approval within 48h. Fund disbursement occurs 7 to 15 days after contract signature and guarantee setup. Average total time: 2 to 3 weeks.',
+        },
+        {
+          question: 'What guarantees can I offer for my business loan?',
+          answer: 'Several options: real guarantees (mortgage, business goodwill pledge, material lien), personal guarantees (joint and several surety from director), guarantee organizations (BPI France 40-70%, SIAGI, France Active, SOCAMA), or borrower insurance (mandatory: death/PTIA, optional: IPT/IPP/ITT).',
+        },
+        {
+          question: 'Are loan interest payments tax deductible?',
+          answer: 'Yes! Business loan interest is fully deductible from your company\'s taxable income, thus reducing your profit tax. Additionally, borrower insurance premiums are also deductible. VAT on interest and fees is recoverable for liable companies.',
+        },
+        {
+          question: 'Can I get a loan if my company is less than one year old?',
+          answer: 'Yes, we finance business startups with a solid business plan and personal contribution of 20-30%. We evaluate your professional experience, project viability and projections. An honor loan (BPI France, Initiative France) can strengthen your application.',
+        },
+        {
+          question: 'Can I repay my business loan early?',
+          answer: 'Yes, all our business loans allow early repayment. Penalties are capped by law: maximum 6 months interest or 3% of remaining capital. Some contracts provide free early repayment after a certain period.',
+        },
+        {
+          question: 'What are the current rates for business loans?',
+          answer: 'Our APR rates vary by project: Commercial real estate 2.9-5.5% (5-25 years), Equipment 3.9-7.5% (2-5 years), Business goodwill 4.7% (5-10 years), Cash flow 4.0-9.0% (3-36 months), Professional vehicles 3.2-6.5% (2-6 years). Rates personalized based on your profile and duration.',
+        },
+        {
+          question: 'How does the online application process work?',
+          answer: '1) Fill out our online form (5 min) and upload your documents. 2) Analysis of your application by our experts (24-48h). 3) Receive your approval in principle with conditions. 4) Electronic signature of contract. 5) Guarantee setup. 6) Fund disbursement to your Altus account.',
+        },
+        {
+          question: 'Can I combine multiple types of financing?',
+          answer: 'Yes, you can combine several solutions: bank loan + leasing for equipment, business loan + honor loan (BPI France) to strengthen equity, or line of credit + amortizing loan to combine flexibility and long-term financing.',
+        },
+        {
+          question: 'Are there application fees and other charges?',
+          answer: 'Application fees: 1-2% of amount for business loans (negotiable). Guarantee fees: variable depending on type (mortgage, pledge). Borrower insurance: 0.10% to 0.40% of borrowed capital per year. All fees are detailed in your loan offer.',
+        },
+        {
+          question: 'What happens if I have repayment difficulties?',
+          answer: 'Contact us at the first signs of difficulty. We can explore: temporary payment deferral, payment modulation, loan term extension, or credit reorganization. Preventive support is always preferable.',
+        },
+      ],
+      notFoundTitle: 'Can\'t find the answer to your question?',
+      notFoundDesc: 'Our team of experts is available Monday to Friday from 9am to 7pm',
+      contactUs: 'Contact us',
+      helpCenter: 'Help center',
+    },
   } as TranslationKeys,
   de: {
     hero: {
@@ -9603,6 +10165,109 @@ export const translations: Record<Language, TranslationKeys> = {
         description: 'Two-factor verification',
       },
     },
+    businessLoans: {
+      title: 'Solutions for Professionals',
+      subtitle: 'Financing tailored to the needs of your business, micro-enterprise, SME or self-employed',
+      businessLoan: 'Business Loan',
+      businessLoanDesc: 'Financing for your business projects, development and cash flow',
+      businessLoanFeatures: ['Response within 48h', 'Fixed rate', 'Flexible repayment'],
+      cashFlowCredit: 'Cash Flow Credit',
+      cashFlowCreditDesc: 'Quick solution to manage your working capital needs',
+      cashFlowCreditFeatures: ['Quick disbursement', 'No collateral up to €50k', 'Flexible'],
+      equipmentFinancing: 'Equipment Financing',
+      equipmentFinancingDesc: 'Purchase your professional equipment and materials',
+      equipmentFinancingFeatures: ['Up to 100% financing', 'Leasing option', 'Tax deductible'],
+      commercialProperty: 'Commercial Real Estate Loan',
+      commercialPropertyDesc: 'Acquire your premises, offices or professional warehouses',
+      commercialPropertyFeatures: ['Long duration', 'Down payment from 20%', 'Competitive rate'],
+      lineOfCredit: 'Line of Credit',
+      lineOfCreditDesc: 'Revolving credit for your occasional needs',
+      lineOfCreditFeatures: ['Available 24/7', 'Free repayment', 'Auto renewal'],
+      lineOfCreditDuration: 'Renewable',
+      vehicleFleet: 'Professional Vehicle Credit',
+      vehicleFleetDesc: 'Finance your vehicle fleet or commercial vehicles',
+      vehicleFleetFeatures: ['Lease or classic credit', 'Buyback option', 'Insurance included'],
+      amount: 'Amount',
+      rate: 'APR',
+      duration: 'Duration',
+      features: 'Advantages',
+      learnMore: 'Learn more',
+      advantagesTitle: 'ALTUS Pro Advantages',
+      advantages: [
+        'Dedicated advisor for your business',
+        'Personalized study of your file',
+        'Support throughout your process',
+        'Business plan package included',
+      ],
+      eligibilityTitle: 'Eligibility Criteria',
+      eligibility: [
+        'Company registered in France',
+        'Active for more than 6 months',
+        'No banking ban',
+        'Up-to-date financial statements',
+      ],
+      rateDisclaimer: 'Indicative rates subject to study and acceptance of your application. Fixed APR.',
+      simulateLoan: 'Simulate my business loan',
+      contactAdvisor: 'Contact an advisor',
+    },
+    professionalFAQ: {
+      title: 'Frequently Asked Questions',
+      subtitle: 'Find answers to your questions quickly',
+      faqs: [
+        {
+          question: 'What documents are required for a business loan application?',
+          answer: 'For professionals: Company registration less than 3 months old, director\'s ID, financial statements for the last 3 years, complete tax documents, business bank statements (6 months), business plan (for startups), financial forecast. For individuals: ID, proof of address, recent pay slips and tax notice.',
+        },
+        {
+          question: 'What personal contribution is required for a business loan?',
+          answer: 'Personal contribution varies by project: 10-15% for equipment or material purchase, 20-30% for business creation or acquisition, 20-25% for commercial real estate. A larger contribution can improve your financing conditions and reduce your rate.',
+        },
+        {
+          question: 'What is the timeframe to get a response and funds?',
+          answer: 'Initial approval within 24-48h after submitting complete application. Final approval within 48h. Fund disbursement occurs 7 to 15 days after contract signature and guarantee setup. Average total time: 2 to 3 weeks.',
+        },
+        {
+          question: 'What guarantees can I offer for my business loan?',
+          answer: 'Several options: real guarantees (mortgage, business goodwill pledge, material lien), personal guarantees (joint and several surety from director), guarantee organizations (BPI France 40-70%, SIAGI, France Active, SOCAMA), or borrower insurance (mandatory: death/PTIA, optional: IPT/IPP/ITT).',
+        },
+        {
+          question: 'Are loan interest payments tax deductible?',
+          answer: 'Yes! Business loan interest is fully deductible from your company\'s taxable income, thus reducing your profit tax. Additionally, borrower insurance premiums are also deductible. VAT on interest and fees is recoverable for liable companies.',
+        },
+        {
+          question: 'Can I get a loan if my company is less than one year old?',
+          answer: 'Yes, we finance business startups with a solid business plan and personal contribution of 20-30%. We evaluate your professional experience, project viability and projections. An honor loan (BPI France, Initiative France) can strengthen your application.',
+        },
+        {
+          question: 'Can I repay my business loan early?',
+          answer: 'Yes, all our business loans allow early repayment. Penalties are capped by law: maximum 6 months interest or 3% of remaining capital. Some contracts provide free early repayment after a certain period.',
+        },
+        {
+          question: 'What are the current rates for business loans?',
+          answer: 'Our APR rates vary by project: Commercial real estate 2.9-5.5% (5-25 years), Equipment 3.9-7.5% (2-5 years), Business goodwill 4.7% (5-10 years), Cash flow 4.0-9.0% (3-36 months), Professional vehicles 3.2-6.5% (2-6 years). Rates personalized based on your profile and duration.',
+        },
+        {
+          question: 'How does the online application process work?',
+          answer: '1) Fill out our online form (5 min) and upload your documents. 2) Analysis of your application by our experts (24-48h). 3) Receive your approval in principle with conditions. 4) Electronic signature of contract. 5) Guarantee setup. 6) Fund disbursement to your Altus account.',
+        },
+        {
+          question: 'Can I combine multiple types of financing?',
+          answer: 'Yes, you can combine several solutions: bank loan + leasing for equipment, business loan + honor loan (BPI France) to strengthen equity, or line of credit + amortizing loan to combine flexibility and long-term financing.',
+        },
+        {
+          question: 'Are there application fees and other charges?',
+          answer: 'Application fees: 1-2% of amount for business loans (negotiable). Guarantee fees: variable depending on type (mortgage, pledge). Borrower insurance: 0.10% to 0.40% of borrowed capital per year. All fees are detailed in your loan offer.',
+        },
+        {
+          question: 'What happens if I have repayment difficulties?',
+          answer: 'Contact us at the first signs of difficulty. We can explore: temporary payment deferral, payment modulation, loan term extension, or credit reorganization. Preventive support is always preferable.',
+        },
+      ],
+      notFoundTitle: 'Can\'t find the answer to your question?',
+      notFoundDesc: 'Our team of experts is available Monday to Friday from 9am to 7pm',
+      contactUs: 'Contact us',
+      helpCenter: 'Help center',
+    },
   } as TranslationKeys,
   nl: {
     hero: {
@@ -10962,6 +11627,109 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '2FA Verification | Altus Finance Group',
         description: 'Two-factor verification',
       },
+    },
+    businessLoans: {
+      title: 'Solutions for Professionals',
+      subtitle: 'Financing tailored to the needs of your business, micro-enterprise, SME or self-employed',
+      businessLoan: 'Business Loan',
+      businessLoanDesc: 'Financing for your business projects, development and cash flow',
+      businessLoanFeatures: ['Response within 48h', 'Fixed rate', 'Flexible repayment'],
+      cashFlowCredit: 'Cash Flow Credit',
+      cashFlowCreditDesc: 'Quick solution to manage your working capital needs',
+      cashFlowCreditFeatures: ['Quick disbursement', 'No collateral up to €50k', 'Flexible'],
+      equipmentFinancing: 'Equipment Financing',
+      equipmentFinancingDesc: 'Purchase your professional equipment and materials',
+      equipmentFinancingFeatures: ['Up to 100% financing', 'Leasing option', 'Tax deductible'],
+      commercialProperty: 'Commercial Real Estate Loan',
+      commercialPropertyDesc: 'Acquire your premises, offices or professional warehouses',
+      commercialPropertyFeatures: ['Long duration', 'Down payment from 20%', 'Competitive rate'],
+      lineOfCredit: 'Line of Credit',
+      lineOfCreditDesc: 'Revolving credit for your occasional needs',
+      lineOfCreditFeatures: ['Available 24/7', 'Free repayment', 'Auto renewal'],
+      lineOfCreditDuration: 'Renewable',
+      vehicleFleet: 'Professional Vehicle Credit',
+      vehicleFleetDesc: 'Finance your vehicle fleet or commercial vehicles',
+      vehicleFleetFeatures: ['Lease or classic credit', 'Buyback option', 'Insurance included'],
+      amount: 'Amount',
+      rate: 'APR',
+      duration: 'Duration',
+      features: 'Advantages',
+      learnMore: 'Learn more',
+      advantagesTitle: 'ALTUS Pro Advantages',
+      advantages: [
+        'Dedicated advisor for your business',
+        'Personalized study of your file',
+        'Support throughout your process',
+        'Business plan package included',
+      ],
+      eligibilityTitle: 'Eligibility Criteria',
+      eligibility: [
+        'Company registered in France',
+        'Active for more than 6 months',
+        'No banking ban',
+        'Up-to-date financial statements',
+      ],
+      rateDisclaimer: 'Indicative rates subject to study and acceptance of your application. Fixed APR.',
+      simulateLoan: 'Simulate my business loan',
+      contactAdvisor: 'Contact an advisor',
+    },
+    professionalFAQ: {
+      title: 'Frequently Asked Questions',
+      subtitle: 'Find answers to your questions quickly',
+      faqs: [
+        {
+          question: 'What documents are required for a business loan application?',
+          answer: 'For professionals: Company registration less than 3 months old, director\'s ID, financial statements for the last 3 years, complete tax documents, business bank statements (6 months), business plan (for startups), financial forecast. For individuals: ID, proof of address, recent pay slips and tax notice.',
+        },
+        {
+          question: 'What personal contribution is required for a business loan?',
+          answer: 'Personal contribution varies by project: 10-15% for equipment or material purchase, 20-30% for business creation or acquisition, 20-25% for commercial real estate. A larger contribution can improve your financing conditions and reduce your rate.',
+        },
+        {
+          question: 'What is the timeframe to get a response and funds?',
+          answer: 'Initial approval within 24-48h after submitting complete application. Final approval within 48h. Fund disbursement occurs 7 to 15 days after contract signature and guarantee setup. Average total time: 2 to 3 weeks.',
+        },
+        {
+          question: 'What guarantees can I offer for my business loan?',
+          answer: 'Several options: real guarantees (mortgage, business goodwill pledge, material lien), personal guarantees (joint and several surety from director), guarantee organizations (BPI France 40-70%, SIAGI, France Active, SOCAMA), or borrower insurance (mandatory: death/PTIA, optional: IPT/IPP/ITT).',
+        },
+        {
+          question: 'Are loan interest payments tax deductible?',
+          answer: 'Yes! Business loan interest is fully deductible from your company\'s taxable income, thus reducing your profit tax. Additionally, borrower insurance premiums are also deductible. VAT on interest and fees is recoverable for liable companies.',
+        },
+        {
+          question: 'Can I get a loan if my company is less than one year old?',
+          answer: 'Yes, we finance business startups with a solid business plan and personal contribution of 20-30%. We evaluate your professional experience, project viability and projections. An honor loan (BPI France, Initiative France) can strengthen your application.',
+        },
+        {
+          question: 'Can I repay my business loan early?',
+          answer: 'Yes, all our business loans allow early repayment. Penalties are capped by law: maximum 6 months interest or 3% of remaining capital. Some contracts provide free early repayment after a certain period.',
+        },
+        {
+          question: 'What are the current rates for business loans?',
+          answer: 'Our APR rates vary by project: Commercial real estate 2.9-5.5% (5-25 years), Equipment 3.9-7.5% (2-5 years), Business goodwill 4.7% (5-10 years), Cash flow 4.0-9.0% (3-36 months), Professional vehicles 3.2-6.5% (2-6 years). Rates personalized based on your profile and duration.',
+        },
+        {
+          question: 'How does the online application process work?',
+          answer: '1) Fill out our online form (5 min) and upload your documents. 2) Analysis of your application by our experts (24-48h). 3) Receive your approval in principle with conditions. 4) Electronic signature of contract. 5) Guarantee setup. 6) Fund disbursement to your Altus account.',
+        },
+        {
+          question: 'Can I combine multiple types of financing?',
+          answer: 'Yes, you can combine several solutions: bank loan + leasing for equipment, business loan + honor loan (BPI France) to strengthen equity, or line of credit + amortizing loan to combine flexibility and long-term financing.',
+        },
+        {
+          question: 'Are there application fees and other charges?',
+          answer: 'Application fees: 1-2% of amount for business loans (negotiable). Guarantee fees: variable depending on type (mortgage, pledge). Borrower insurance: 0.10% to 0.40% of borrowed capital per year. All fees are detailed in your loan offer.',
+        },
+        {
+          question: 'What happens if I have repayment difficulties?',
+          answer: 'Contact us at the first signs of difficulty. We can explore: temporary payment deferral, payment modulation, loan term extension, or credit reorganization. Preventive support is always preferable.',
+        },
+      ],
+      notFoundTitle: 'Can\'t find the answer to your question?',
+      notFoundDesc: 'Our team of experts is available Monday to Friday from 9am to 7pm',
+      contactUs: 'Contact us',
+      helpCenter: 'Help center',
     },
   } as TranslationKeys,
 };

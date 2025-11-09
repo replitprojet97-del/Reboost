@@ -10,74 +10,78 @@ import {
   Truck,
   ArrowRight,
 } from 'lucide-react';
+import { useLanguage, translations } from '@/lib/i18n';
 
 export default function BusinessLoans() {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const businessLoans = [
     {
       icon: Building2,
-      title: 'Prêt Professionnel',
-      description: 'Financement pour vos projets d\'entreprise, développement et trésorerie',
+      title: t.businessLoans.businessLoan,
+      description: t.businessLoans.businessLoanDesc,
       amount: '10 000€ - 500 000€',
       rate: '3,5% - 8,5%',
       duration: '12 - 84 mois',
       color: 'text-blue-600',
       bgColor: 'bg-blue-50 dark:bg-blue-950/20',
-      features: ['Réponse sous 48h', 'Taux fixe', 'Remboursement flexible'],
+      features: t.businessLoans.businessLoanFeatures,
     },
     {
       icon: TrendingUp,
-      title: 'Crédit de Trésorerie',
-      description: 'Solution rapide pour gérer vos besoins en fonds de roulement',
+      title: t.businessLoans.cashFlowCredit,
+      description: t.businessLoans.cashFlowCreditDesc,
       amount: '5 000€ - 150 000€',
       rate: '4,0% - 9,0%',
       duration: '3 - 36 mois',
       color: 'text-emerald-600',
       bgColor: 'bg-emerald-50 dark:bg-emerald-950/20',
-      features: ['Déblocage rapide', 'Sans garantie jusqu\'à 50k€', 'Flexible'],
+      features: t.businessLoans.cashFlowCreditFeatures,
     },
     {
       icon: Wrench,
-      title: 'Financement Équipement',
-      description: 'Achetez vos équipements professionnels et matériels',
+      title: t.businessLoans.equipmentFinancing,
+      description: t.businessLoans.equipmentFinancingDesc,
       amount: '20 000€ - 300 000€',
       rate: '3,9% - 7,5%',
       duration: '24 - 60 mois',
       color: 'text-orange-600',
       bgColor: 'bg-orange-50 dark:bg-orange-950/20',
-      features: ['Jusqu\'à 100% du montant', 'Option leasing', 'Déduction fiscale'],
+      features: t.businessLoans.equipmentFinancingFeatures,
     },
     {
       icon: Factory,
-      title: 'Prêt Immobilier Pro',
-      description: 'Acquérez vos locaux, bureaux ou entrepôts professionnels',
+      title: t.businessLoans.commercialProperty,
+      description: t.businessLoans.commercialPropertyDesc,
       amount: '50 000€ - 2 000 000€',
       rate: '2,9% - 5,5%',
       duration: '5 - 25 ans',
       color: 'text-purple-600',
       bgColor: 'bg-purple-50 dark:bg-purple-950/20',
-      features: ['Durée longue', 'Apport à partir de 20%', 'Taux compétitif'],
+      features: t.businessLoans.commercialPropertyFeatures,
     },
     {
       icon: CreditCard,
-      title: 'Ligne de Crédit',
-      description: 'Crédit renouvelable pour vos besoins ponctuels',
+      title: t.businessLoans.lineOfCredit,
+      description: t.businessLoans.lineOfCreditDesc,
       amount: '5 000€ - 100 000€',
       rate: '5,0% - 9,5%',
-      duration: 'Renouvelable',
+      duration: t.businessLoans.lineOfCreditDuration,
       color: 'text-cyan-600',
       bgColor: 'bg-cyan-50 dark:bg-cyan-950/20',
-      features: ['Disponible 24/7', 'Remboursement libre', 'Renouvellement auto'],
+      features: t.businessLoans.lineOfCreditFeatures,
     },
     {
       icon: Truck,
-      title: 'Crédit Véhicule Pro',
-      description: 'Financez votre flotte automobile ou véhicules utilitaires',
+      title: t.businessLoans.vehicleFleet,
+      description: t.businessLoans.vehicleFleetDesc,
       amount: '10 000€ - 200 000€',
       rate: '3,2% - 6,5%',
       duration: '24 - 72 mois',
       color: 'text-rose-600',
       bgColor: 'bg-rose-50 dark:bg-rose-950/20',
-      features: ['LOA ou crédit classique', 'Option rachat', 'Assurance incluse'],
+      features: t.businessLoans.vehicleFleetFeatures,
     },
   ];
 
@@ -86,10 +90,10 @@ export default function BusinessLoans() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            Solutions pour Professionnels
+            {t.businessLoans.title}
           </h2>
           <p className="text-xl text-muted-foreground">
-            Des financements adaptés aux besoins de votre entreprise, TPE, PME ou auto-entrepreneur
+            {t.businessLoans.subtitle}
           </p>
         </div>
 
@@ -112,15 +116,15 @@ export default function BusinessLoans() {
                 
                 <div className="space-y-2 mb-4 text-sm pb-4 border-b">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Montant:</span>
+                    <span className="text-muted-foreground">{t.businessLoans.amount}:</span>
                     <span className="font-semibold">{loan.amount}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">TAEG:</span>
+                    <span className="text-muted-foreground">{t.businessLoans.rate}:</span>
                     <span className="font-semibold">{loan.rate}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Durée:</span>
+                    <span className="text-muted-foreground">{t.businessLoans.duration}:</span>
                     <span className="font-semibold">{loan.duration}</span>
                   </div>
                 </div>
@@ -136,7 +140,7 @@ export default function BusinessLoans() {
 
                 <Button className="w-full gap-2" asChild>
                   <Link href="/loan-request">
-                    En savoir plus
+                    {t.businessLoans.learnMore}
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
@@ -149,45 +153,25 @@ export default function BusinessLoans() {
           <Card className="p-8 bg-gradient-to-br from-primary/5 to-transparent">
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-2xl font-bold mb-4">Avantages ALTUS Pro</h3>
+                <h3 className="text-2xl font-bold mb-4">{t.businessLoans.advantagesTitle}</h3>
                 <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-primary rounded-full mt-2"></span>
-                    <span>Conseiller dédié pour votre entreprise</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-primary rounded-full mt-2"></span>
-                    <span>Étude personnalisée de votre dossier</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-primary rounded-full mt-2"></span>
-                    <span>Accompagnement dans vos démarches</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-primary rounded-full mt-2"></span>
-                    <span>Montage de dossier business plan inclus</span>
-                  </li>
+                  {t.businessLoans.advantages.map((advantage, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="w-2 h-2 bg-primary rounded-full mt-2"></span>
+                      <span>{advantage}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div>
-                <h3 className="text-2xl font-bold mb-4">Critères d'éligibilité</h3>
+                <h3 className="text-2xl font-bold mb-4">{t.businessLoans.eligibilityTitle}</h3>
                 <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-muted-foreground rounded-full mt-2"></span>
-                    <span>Entreprise immatriculée en France</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-muted-foreground rounded-full mt-2"></span>
-                    <span>Activité depuis plus de 6 mois</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-muted-foreground rounded-full mt-2"></span>
-                    <span>Pas d'interdiction bancaire</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="w-2 h-2 bg-muted-foreground rounded-full mt-2"></span>
-                    <span>Bilans comptables à jour</span>
-                  </li>
+                  {t.businessLoans.eligibility.map((criterion, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="w-2 h-2 bg-muted-foreground rounded-full mt-2"></span>
+                      <span>{criterion}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -196,17 +180,17 @@ export default function BusinessLoans() {
 
         <div className="text-center mt-12">
           <p className="text-sm text-muted-foreground mb-4">
-            Taux indicatifs soumis à l'étude et l'acceptation de votre dossier. TAEG fixe.
+            {t.businessLoans.rateDisclaimer}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/loan-request">
               <Button size="lg" data-testid="button-simulate-business-loan">
-                Simuler mon prêt professionnel
+                {t.businessLoans.simulateLoan}
               </Button>
             </Link>
             <Link href="/contact">
               <Button size="lg" variant="outline" data-testid="button-contact-advisor">
-                Contacter un conseiller
+                {t.businessLoans.contactAdvisor}
               </Button>
             </Link>
           </div>
