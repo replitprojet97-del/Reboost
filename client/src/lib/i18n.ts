@@ -427,6 +427,8 @@ type TranslationKeys = {
     amount: string;
     rate: string;
     duration: string;
+    months: string;
+    years: string;
     features: string;
     learnMore: string;
     advantagesTitle: string;
@@ -1766,6 +1768,8 @@ export const translations: Record<Language, TranslationKeys> = {
       amount: 'Montant',
       rate: 'TAEG',
       duration: 'Durée',
+      months: 'mois',
+      years: 'ans',
       features: 'Avantages',
       learnMore: 'En savoir plus',
       advantagesTitle: 'Avantages ALTUS Pro',
@@ -3196,6 +3200,8 @@ export const translations: Record<Language, TranslationKeys> = {
       amount: 'Amount',
       rate: 'APR',
       duration: 'Duration',
+      months: 'months',
+      years: 'years',
       features: 'Advantages',
       learnMore: 'Learn more',
       advantagesTitle: 'ALTUS Pro Advantages',
@@ -5743,6 +5749,8 @@ export const translations: Record<Language, TranslationKeys> = {
       amount: 'Amount',
       rate: 'APR',
       duration: 'Duration',
+      months: 'months',
+      years: 'years',
       features: 'Advantages',
       learnMore: 'Learn more',
       advantagesTitle: 'ALTUS Pro Advantages',
@@ -7234,6 +7242,8 @@ export const translations: Record<Language, TranslationKeys> = {
       amount: 'Amount',
       rate: 'APR',
       duration: 'Duration',
+      months: 'months',
+      years: 'years',
       features: 'Advantages',
       learnMore: 'Learn more',
       advantagesTitle: 'ALTUS Pro Advantages',
@@ -8727,6 +8737,8 @@ export const translations: Record<Language, TranslationKeys> = {
       amount: 'Amount',
       rate: 'APR',
       duration: 'Duration',
+      months: 'months',
+      years: 'years',
       features: 'Advantages',
       learnMore: 'Learn more',
       advantagesTitle: 'ALTUS Pro Advantages',
@@ -10190,6 +10202,8 @@ export const translations: Record<Language, TranslationKeys> = {
       amount: 'Amount',
       rate: 'APR',
       duration: 'Duration',
+      months: 'months',
+      years: 'years',
       features: 'Advantages',
       learnMore: 'Learn more',
       advantagesTitle: 'ALTUS Pro Advantages',
@@ -11653,6 +11667,8 @@ export const translations: Record<Language, TranslationKeys> = {
       amount: 'Amount',
       rate: 'APR',
       duration: 'Duration',
+      months: 'months',
+      years: 'years',
       features: 'Advantages',
       learnMore: 'Learn more',
       advantagesTitle: 'ALTUS Pro Advantages',
