@@ -54,40 +54,40 @@ export default function HowItWorks() {
 
   const eligibilityCriteria = {
     personal: [
-      { label: 'Majeur et résident français', required: true },
-      { label: 'Revenus réguliers justifiables', required: true },
-      { label: 'Pas d\'interdiction bancaire', required: true },
-      { label: 'Taux d\'endettement < 35%', required: true },
-      { label: 'Score de crédit acceptable', required: false }
+      { label: 'Adult and French resident', required: true },
+      { label: 'Verifiable regular income', required: true },
+      { label: 'No banking ban', required: true },
+      { label: 'Debt ratio < 35%', required: true },
+      { label: 'Acceptable credit score', required: false }
     ],
     professional: [
-      { label: 'Entreprise immatriculée en France', required: true },
-      { label: 'Activité depuis +6 mois', required: true },
-      { label: 'Bilans comptables à jour', required: true },
-      { label: 'Pas de procédure collective', required: true },
-      { label: 'Apport personnel 10-30%', required: true }
+      { label: 'Company registered in France', required: true },
+      { label: 'Operating for +6 months', required: true },
+      { label: 'Up-to-date financial statements', required: true },
+      { label: 'No collective proceedings', required: true },
+      { label: 'Personal contribution 10-30%', required: true }
     ]
   };
 
   const documents = {
     personal: [
-      'Pièce d\'identité valide (CNI, passeport)',
-      'Justificatif de domicile (-3 mois)',
-      '3 derniers bulletins de salaire',
-      'Dernier avis d\'imposition',
-      'Relevés bancaires (3 mois)',
-      'Justificatif du projet (devis, factures)'
+      'Valid ID (national ID card, passport)',
+      'Proof of address (less than 3 months)',
+      'Last 3 pay slips',
+      'Latest tax assessment',
+      'Bank statements (3 months)',
+      'Project justification (quotes, invoices)'
     ],
     professional: [
-      'Kbis de moins de 3 mois',
-      'Pièce d\'identité du dirigeant',
-      'Statuts de l\'entreprise',
-      'Bilans comptables (3 dernières années)',
-      'Liasse fiscale complète',
-      'Relevés bancaires professionnels (6 mois)',
-      'Business plan (création/reprise)',
-      'Prévisionnel financier sur 3 ans',
-      'Devis ou factures proforma (équipement)'
+      'Kbis less than 3 months old',
+      'Manager\'s ID document',
+      'Company bylaws',
+      'Financial statements (last 3 years)',
+      'Complete tax package',
+      'Professional bank statements (6 months)',
+      'Business plan (startup/takeover)',
+      '3-year financial forecast',
+      'Quotes or proforma invoices (equipment)'
     ]
   };
 
@@ -135,23 +135,23 @@ export default function HowItWorks() {
             </div>
             <div className="mt-8 text-center">
               <p className="text-sm text-muted-foreground">
-                ⏱️ <strong>Délai total moyen :</strong> 2 à 3 semaines du dépôt du dossier au déblocage des fonds
+                ⏱️ <strong>Average total time:</strong> 2 to 3 weeks from application submission to fund disbursement
               </p>
             </div>
           </div>
 
           <div className="max-w-6xl mx-auto mb-20">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">Documents Nécessaires</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4">Required Documents</h2>
               <p className="text-lg text-muted-foreground">
-                Préparez ces documents pour accélérer votre demande
+                Prepare these documents to expedite your application
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <Card className="p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <Users className="w-8 h-8 text-primary" />
-                  <h3 className="text-2xl font-bold">Prêt Particulier</h3>
+                  <h3 className="text-2xl font-bold">Personal Loan</h3>
                 </div>
                 <ul className="space-y-3">
                   {documents.personal.map((doc, idx) => (
@@ -165,7 +165,7 @@ export default function HowItWorks() {
               <Card className="p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <Briefcase className="w-8 h-8 text-primary" />
-                  <h3 className="text-2xl font-bold">Prêt Professionnel</h3>
+                  <h3 className="text-2xl font-bold">Business Loan</h3>
                 </div>
                 <ul className="space-y-3">
                   {documents.professional.map((doc, idx) => (
@@ -179,9 +179,9 @@ export default function HowItWorks() {
             </div>
             <div className="mt-6 p-6 bg-gradient-to-r from-primary/10 to-transparent rounded-lg border border-primary/20">
               <p className="text-sm text-muted-foreground text-center">
-                💡 <strong>Conseil :</strong> Documents incomplets ? Notre équipe vous accompagne pour constituer votre dossier. 
+                💡 <strong>Tip:</strong> Missing documents? Our team will help you complete your file. 
                 <Link href="/contact" className="text-primary font-semibold ml-2 hover:underline">
-                  Contactez-nous →
+                  Contact us →
                 </Link>
               </p>
             </div>
@@ -189,16 +189,16 @@ export default function HowItWorks() {
 
           <div className="max-w-6xl mx-auto mb-20">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">Critères d'Éligibilité</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4">Eligibility Criteria</h2>
               <p className="text-lg text-muted-foreground">
-                Vérifiez si vous remplissez les conditions pour votre prêt
+                Check if you meet the requirements for your loan
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <Card className="p-8 border-2 border-primary/20">
                 <div className="flex items-center gap-3 mb-6">
                   <Users className="w-8 h-8 text-primary" />
-                  <h3 className="text-2xl font-bold">Particuliers</h3>
+                  <h3 className="text-2xl font-bold">Individuals</h3>
                 </div>
                 <ul className="space-y-4">
                   {eligibilityCriteria.personal.map((criteria, idx) => (
@@ -208,7 +208,7 @@ export default function HowItWorks() {
                       </div>
                       <div>
                         <span className="text-sm font-medium">{criteria.label}</span>
-                        {criteria.required && <span className="text-xs text-primary ml-2">(Obligatoire)</span>}
+                        {criteria.required && <span className="text-xs text-primary ml-2">(Required)</span>}
                       </div>
                     </li>
                   ))}
@@ -217,7 +217,7 @@ export default function HowItWorks() {
               <Card className="p-8 border-2 border-primary/20">
                 <div className="flex items-center gap-3 mb-6">
                   <Building className="w-8 h-8 text-primary" />
-                  <h3 className="text-2xl font-bold">Professionnels</h3>
+                  <h3 className="text-2xl font-bold">Professionals</h3>
                 </div>
                 <ul className="space-y-4">
                   {eligibilityCriteria.professional.map((criteria, idx) => (
@@ -227,7 +227,7 @@ export default function HowItWorks() {
                       </div>
                       <div>
                         <span className="text-sm font-medium">{criteria.label}</span>
-                        {criteria.required && <span className="text-xs text-primary ml-2">(Obligatoire)</span>}
+                        {criteria.required && <span className="text-xs text-primary ml-2">(Required)</span>}
                       </div>
                     </li>
                   ))}
@@ -240,48 +240,48 @@ export default function HowItWorks() {
             <Card className="p-8 bg-gradient-to-br from-primary/5 to-transparent">
               <div className="flex items-center gap-3 mb-6">
                 <Shield className="w-10 h-10 text-primary" />
-                <h3 className="text-3xl font-bold">Sécurité & Garanties</h3>
+                <h3 className="text-3xl font-bold">Security & Guarantees</h3>
               </div>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold mb-3 text-lg">Vos données protégées</h4>
+                  <h4 className="font-semibold mb-3 text-lg">Your Protected Data</h4>
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full mt-1.5"></span>
-                      <span>Cryptage SSL 256 bits</span>
+                      <span>256-bit SSL encryption</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full mt-1.5"></span>
-                      <span>Conformité RGPD et ACPR</span>
+                      <span>GDPR and ACPR compliance</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full mt-1.5"></span>
-                      <span>Serveurs sécurisés en France</span>
+                      <span>Secure servers in France</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full mt-1.5"></span>
-                      <span>Authentification à 2 facteurs</span>
+                      <span>Two-factor authentication</span>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-3 text-lg">Organismes de garantie</h4>
+                  <h4 className="font-semibold mb-3 text-lg">Guarantee Organizations</h4>
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full mt-1.5"></span>
-                      <span>BPI France (40-70% du prêt)</span>
+                      <span>BPI France (40-70% of loan)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full mt-1.5"></span>
-                      <span>SIAGI (artisans/commerçants)</span>
+                      <span>SIAGI (craftsmen/merchants)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full mt-1.5"></span>
-                      <span>France Active (économie sociale)</span>
+                      <span>France Active (social economy)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full mt-1.5"></span>
-                      <span>Assurance emprunteur obligatoire</span>
+                      <span>Mandatory borrower insurance</span>
                     </li>
                   </ul>
                 </div>
@@ -292,19 +292,19 @@ export default function HowItWorks() {
           <div className="max-w-4xl mx-auto text-center">
             <Card className="p-12 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent">
               <TrendingUp className="w-16 h-16 text-primary mx-auto mb-6" />
-              <h3 className="text-3xl font-bold mb-4">Prêt à Commencer ?</h3>
+              <h3 className="text-3xl font-bold mb-4">Ready to Get Started?</h3>
               <p className="text-lg text-muted-foreground mb-8">
-                Lancez votre demande en ligne en quelques minutes et obtenez une réponse rapide
+                Submit your online application in minutes and get a quick response
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/loan-request">
                   <Button size="lg" className="min-w-[200px]" data-testid="button-start-request">
-                    Faire une demande
+                    Request a Loan
                   </Button>
                 </Link>
                 <Link href="/contact">
                   <Button size="lg" variant="outline" className="min-w-[200px]" data-testid="button-talk-advisor">
-                    Parler à un conseiller
+                    Talk to an Advisor
                   </Button>
                 </Link>
               </div>
