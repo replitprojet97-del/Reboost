@@ -320,38 +320,38 @@ export default function Settings() {
       </Card>
 
       <Tabs defaultValue="profile" className="space-y-6">
-        <TabsList className="inline-flex h-12 items-center justify-center rounded-md bg-muted p-1 shadow-sm">
+        <TabsList className="inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-md bg-muted p-1 shadow-sm overflow-x-auto">
           <TabsTrigger 
             value="profile" 
-            className="gap-2 rounded-sm data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all" 
+            className="gap-2 rounded-sm data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all flex-shrink-0" 
             data-testid="tab-profile"
           >
             <User className="h-4 w-4" />
-            <span>{t.settings.profile}</span>
+            <span className="hidden sm:inline">{t.settings.profile}</span>
           </TabsTrigger>
           <TabsTrigger 
             value="notifications" 
-            className="gap-2 rounded-sm data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all" 
+            className="gap-2 rounded-sm data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all flex-shrink-0" 
             data-testid="tab-notifications"
           >
             <Bell className="h-4 w-4" />
-            <span>{t.settings.notifications}</span>
+            <span className="hidden sm:inline">{t.settings.notifications}</span>
           </TabsTrigger>
           <TabsTrigger 
             value="security" 
-            className="gap-2 rounded-sm data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all" 
+            className="gap-2 rounded-sm data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all flex-shrink-0" 
             data-testid="tab-security"
           >
             <Shield className="h-4 w-4" />
-            <span>{t.settings.security}</span>
+            <span className="hidden sm:inline">{t.settings.security}</span>
           </TabsTrigger>
           <TabsTrigger 
             value="appearance" 
-            className="gap-2 rounded-sm data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all" 
+            className="gap-2 rounded-sm data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all flex-shrink-0" 
             data-testid="tab-appearance"
           >
             <Palette className="h-4 w-4" />
-            <span>{t.settings.appearance}</span>
+            <span className="hidden sm:inline">{t.settings.appearance}</span>
           </TabsTrigger>
         </TabsList>
 
