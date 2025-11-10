@@ -109,6 +109,79 @@ export async function registerRoutes(app: Express): Promise<Server> {
     legacyHeaders: false,
   });
 
+  // Language detection endpoint
+  app.get("/api/detect-language", generalApiLimiter, async (req, res) => {
+    try {
+      const clientIp = (req.headers['x-forwarded-for'] as string)?.split(',')[0] || 
+                       req.socket.remoteAddress || 
+                       '';
+
+      // Country code to language mapping
+      const countryToLanguage: Record<string, string> = {
+        'PT': 'pt', // Portugal
+        'BR': 'pt', // Brazil
+        'ES': 'es', // Spain
+        'MX': 'es', // Mexico
+        'AR': 'es', // Argentina
+        'CO': 'es', // Colombia
+        'CL': 'es', // Chile
+        'PE': 'es', // Peru
+        'VE': 'es', // Venezuela
+        'EC': 'es', // Ecuador
+        'GT': 'es', // Guatemala
+        'CU': 'es', // Cuba
+        'BO': 'es', // Bolivia
+        'DO': 'es', // Dominican Republic
+        'HN': 'es', // Honduras
+        'PY': 'es', // Paraguay
+        'SV': 'es', // El Salvador
+        'NI': 'es', // Nicaragua
+        'CR': 'es', // Costa Rica
+        'PA': 'es', // Panama
+        'UY': 'es', // Uruguay
+        'FR': 'fr', // France
+        'BE': 'fr', // Belgium (partial)
+        'CH': 'fr', // Switzerland (partial)
+        'CA': 'fr', // Canada (partial)
+        'IT': 'it', // Italy
+        'DE': 'de', // Germany
+        'AT': 'de', // Austria
+        'NL': 'nl', // Netherlands
+        'GB': 'en', // United Kingdom
+        'US': 'en', // United States
+        'AU': 'en', // Australia
+        'IE': 'en', // Ireland
+        'NZ': 'en', // New Zealand
+        'ZA': 'en', // South Africa
+      };
+
+      // For development/localhost, use a default
+      if (!clientIp || clientIp === '::1' || clientIp.startsWith('127.') || clientIp.startsWith('192.168.')) {
+        return res.json({ language: 'fr', country: null, source: 'default' });
+      }
+
+      // Call FreeIPAPI for geolocation (HTTPS supported, no API key required)
+      const response = await fetch(`https://freeipapi.com/api/json/${clientIp}`);
+      const data = await response.json();
+
+      if (data.countryCode) {
+        const language = countryToLanguage[data.countryCode] || 'en';
+        return res.json({ 
+          language, 
+          country: data.countryName,
+          countryCode: data.countryCode,
+          source: 'ip-detection' 
+        });
+      }
+
+      // Fallback to browser language detection
+      res.json({ language: 'fr', country: null, source: 'fallback' });
+    } catch (error) {
+      console.error('Language detection error:', error);
+      res.json({ language: 'fr', country: null, source: 'error' });
+    }
+  });
+
   const loginSchema = z.object({
     email: z.string().email('Email invalide'),
     password: z.string().min(1, 'Mot de passe requis'),
