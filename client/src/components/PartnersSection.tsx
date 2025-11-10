@@ -70,11 +70,11 @@ export default function PartnersSection() {
           <h3 className="text-xl font-semibold text-center mb-8" data-testid="text-partners-network">
             {t.partners.networkTitle}
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
+          <div className="flex justify-center gap-6 flex-wrap">
             {partnerLogos.map((partner, index) => (
               <div
                 key={index}
-                className="flex items-center justify-center p-6 bg-white dark:bg-card rounded-md hover-elevate active-elevate-2 transition-all border border-border"
+                className="flex items-center justify-center p-6 bg-white dark:bg-card rounded-md hover-elevate active-elevate-2 transition-all border border-border w-[200px]"
                 data-testid={`card-partner-${index}`}
               >
                 <img 
