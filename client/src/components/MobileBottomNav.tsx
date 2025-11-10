@@ -14,12 +14,6 @@ export default function MobileBottomNav() {
       testId: 'nav-home',
     },
     {
-      label: t.nav.loansMenu.label,
-      icon: CreditCard,
-      href: '/loans',
-      testId: 'nav-loans',
-    },
-    {
       label: t.nav.transfers,
       icon: ArrowLeftRight,
       href: '/transfers',
