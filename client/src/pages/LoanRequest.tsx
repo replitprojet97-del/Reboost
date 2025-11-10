@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -15,13 +15,38 @@ import { useTranslations } from '@/lib/i18n';
 
 export default function LoanRequest() {
   const t = useTranslations();
-  const { data: user } = useUser();
+  const { data: user, isLoading } = useUser();
   const [, setLocation] = useLocation();
   const [selectedOffer, setSelectedOffer] = useState<LoanOffer | null>(null);
   const [loanDialogOpen, setLoanDialogOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'individual' | 'business'>('individual');
 
-  const accountType = user?.accountType === 'business' ? 'business' : 'individual';
+  useEffect(() => {
+    if (!isLoading && !user) {
+      setLocation('/login');
+    }
+  }, [user, isLoading, setLocation]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="pt-24 pb-16 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin h-12 w-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p className="text-muted-foreground">{t.common?.loading || 'Chargement...'}</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
+
+  const accountType = user.accountType === 'business' ? 'business' : 'individual';
   const individualOffers = getLoanOffersByAccountType('individual');
   const businessOffers = getLoanOffersByAccountType('business');
 
@@ -96,7 +121,7 @@ export default function LoanRequest() {
                 onClick={() => handleRequestLoan(offer)}
                 data-testid={`button-request-${offer.id}`}
               >
-                {user ? t.loanOffers.requestButton : t.loanOffers.loginToRequest}
+                {t.loanOffers.requestButton}
               </Button>
             </CardContent>
           </Card>
