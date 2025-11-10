@@ -21,6 +21,12 @@ Preferred communication style: Simple, everyday language.
   - All namespaces include placeholder support for dynamic content interpolation
   - Type-safe translation keys with TypeScript TranslationKeys interface
   - useTranslations hook for component-level translation access
+  - **IP-Based Automatic Language Detection (November 2025):**
+    - Backend endpoint `/api/detect-language` detects user's country from IP address using FreeIPAPI (HTTPS)
+    - Comprehensive country-to-language mapping covering 30+ countries across all 7 supported languages
+    - Auto-detection occurs on first visit; respects manual language selection thereafter
+    - Secure implementation with rate limiting, proper error handling, and fallbacks
+    - Development mode defaults to French for localhost/internal IPs
 **Theming:** Light/dark mode toggle via Zustand with localStorage persistence and CSS variables.
 **Component Architecture:** Atomic design approach for UI, feature, and page components.
 **Loan Product Catalog (November 2025):** Centralized loan product data in `client/src/lib/loan-catalog.ts` serving as single source of truth:
