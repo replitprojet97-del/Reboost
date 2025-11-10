@@ -45,6 +45,7 @@ import NotificationBanner from '@/components/NotificationBanner';
 import UserProfileHeader from '@/components/UserProfileHeader';
 import NotificationBell from '@/components/NotificationBell';
 import SessionMonitor from '@/components/SessionMonitor';
+import MobileBottomNav from '@/components/MobileBottomNav';
 
 function App() {
   const style = {
@@ -93,7 +94,7 @@ function App() {
                     <div className="px-4 pt-4">
                       <NotificationBanner />
                     </div>
-                    <main className="flex-1 overflow-auto">
+                    <main className="flex-1 overflow-auto pb-20 md:pb-0">
                       <Switch>
                         <Route path="/dashboard" component={Dashboard} />
                         <Route path="/loans" component={IndividualLoans} />
@@ -114,6 +115,7 @@ function App() {
                         <Route component={NotFound} />
                       </Switch>
                     </main>
+                    <MobileBottomNav />
                   </div>
                 </div>
               </SidebarProvider>
