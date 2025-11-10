@@ -1853,6 +1853,7 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     dashboard: {
       welcome: 'Bienvenue',
+      welcomeUser: 'Bienvenue, {name}',
       currentBalance: 'Solde actuel',
       activeLoans: 'Prêts actifs',
       totalBorrowed: 'Total emprunté',
@@ -3736,6 +3737,7 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     dashboard: {
       welcome: 'Welcome',
+      welcomeUser: 'Welcome, {name}',
       currentBalance: 'Current Balance',
       activeLoans: 'Active Loans',
       totalBorrowed: 'Total Borrowed',
@@ -5603,6 +5605,7 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     dashboard: {
       welcome: 'Bienvenido',
+      welcomeUser: 'Bienvenido, {name}',
       currentBalance: 'Saldo Actual',
       activeLoans: 'Préstamos Activos',
       totalBorrowed: 'Total Prestado',
@@ -7482,6 +7485,7 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     dashboard: {
       welcome: 'Bem-vindo',
+      welcomeUser: 'Bem-vindo, {name}',
       currentBalance: 'Saldo Atual',
       activeLoans: 'Empréstimos Ativos',
       totalBorrowed: 'Total Emprestado',

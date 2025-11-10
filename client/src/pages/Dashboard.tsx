@@ -103,20 +103,11 @@ export default function Dashboard() {
       {/* Mobile View */}
       <div className="md:hidden p-4 space-y-4">
         {/* Welcome Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
-              <span className="text-white font-semibold text-lg">
-                {user?.fullName?.charAt(0) || 'U'}
-              </span>
-            </div>
-            <div>
-              <p className="text-xs text-muted-foreground">Welcome</p>
-              <p className="font-semibold text-foreground">
-                {user?.fullName?.split(' ')[0] || 'User'}
-              </p>
-            </div>
-          </div>
+        <div>
+          <p className="text-sm text-muted-foreground">{t.dashboard.welcome}</p>
+          <p className="font-semibold text-lg text-foreground">
+            {user?.fullName?.split(' ')[0] || 'User'}
+          </p>
         </div>
 
         {/* Blue Balance Card */}

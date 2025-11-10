@@ -58,20 +58,9 @@ export default function DashboardMobile() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
       <div className="bg-white dark:bg-slate-900 p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Avatar className="h-12 w-12" data-testid="avatar-user">
-              <AvatarImage src={user?.profilePhoto ?? undefined} />
-              <AvatarFallback>{firstName.charAt(0)}</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-sm text-muted-foreground" data-testid="text-welcome">Welcome</p>
-              <p className="font-semibold text-foreground" data-testid="text-username">{firstName}</p>
-            </div>
-          </div>
-          <Button size="icon" variant="ghost" data-testid="button-notifications">
-            <Bell className="h-5 w-5" />
-          </Button>
+        <div>
+          <p className="text-sm text-muted-foreground" data-testid="text-welcome">{t.dashboard.welcome}</p>
+          <p className="font-semibold text-lg text-foreground" data-testid="text-username">{firstName}</p>
         </div>
       </div>
 
