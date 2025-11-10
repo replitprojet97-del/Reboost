@@ -52,7 +52,7 @@ export default function Hero() {
             </h1>
             
             <p className="text-lg sm:text-xl lg:text-2xl text-white/90 font-light max-w-2xl">
-              {t.hero.subtitle || 'Personal loans from £3,000 to £400,000. Quick decision in 3-5 working days.'}
+              {t.hero.subtitle || 'Personal loans from €3,000 to €400,000. Quick decision in 3-5 working days.'}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
@@ -109,7 +109,7 @@ export default function Hero() {
                   {t.hero.calculator?.loanAmount || 'Loan Amount'}
                 </Label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">£</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">€</span>
                   <Input
                     id="loan-amount"
                     type="number"
@@ -133,8 +133,8 @@ export default function Hero() {
                   data-testid="slider-loan-amount"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>£3,000</span>
-                  <span>£400,000</span>
+                  <span>€3,000</span>
+                  <span>€400,000</span>
                 </div>
               </div>
 
@@ -165,7 +165,7 @@ export default function Hero() {
                   </span>
                   <div className="text-right">
                     <div className="text-3xl font-bold text-primary">
-                      £{calculateMonthlyPayment()}
+                      €{calculateMonthlyPayment()}
                     </div>
                     <div className="text-xs text-muted-foreground">
                       {t.hero.calculator?.perMonth || 'per month'}

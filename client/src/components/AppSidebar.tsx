@@ -15,7 +15,7 @@ import { useTranslations } from '@/lib/i18n';
 import { useLocation } from 'wouter';
 import { useUser, getUserInitials, getAccountTypeLabel, useUserProfilePhotoUrl } from '@/hooks/use-user';
 import { Skeleton } from '@/components/ui/skeleton';
-import logoUrl from '@assets/Logo_1762606366224.png';
+import logoUrl from '@assets/Logo_1762619815448.jpeg';
 
 export default function AppSidebar() {
   const t = useTranslations();
