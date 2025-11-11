@@ -510,6 +510,58 @@ export default function Dashboard() {
             </div>
           </Card>
 
+          {/* Pending Requests */}
+          {dashboardData.loans.filter(loan => loan.status === 'pending').length > 0 && (
+            <Card className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-1">{t.dashboard.pendingRequests}</h3>
+                  <p className="text-sm text-muted-foreground">{t.dashboard.pendingRequestsDescription}</p>
+                </div>
+                <Link href="/loans">
+                  <Button variant="ghost" size="sm" className="gap-1" data-testid="link-view-pending-loans">
+                    {t.dashboard.viewAll}
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="space-y-3">
+                {dashboardData.loans.filter(loan => loan.status === 'pending').slice(0, 3).map((loan) => (
+                  <div 
+                    key={loan.id} 
+                    className="p-4 rounded-lg hover-elevate bg-muted/30"
+                    data-testid={`pending-loan-item-${loan.id}`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center">
+                          <Clock className="w-5 h-5 text-secondary" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-foreground text-sm">
+                            {t.dashboard.pendingLoan}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {loan.interestRate}% APR
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold text-foreground text-sm">
+                          {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(Number(loan.amount))}
+                        </p>
+                        <Badge variant="secondary" className="text-xs mt-1">
+                          {t.transfer.pending}
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+
           {/* Active Loans */}
           <Card className="p-6">
             <div className="flex items-center justify-between mb-6">
