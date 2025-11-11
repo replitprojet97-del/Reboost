@@ -208,6 +208,9 @@ type TranslationKeys = {
     noRecentTransactions: string;
     yourActiveLoans: string;
     activeLoan: string;
+    pendingRequests: string;
+    pendingRequestsDescription: string;
+    pendingLoan: string;
     repaid: string;
     upcomingDueDates: string;
     amount: string;
