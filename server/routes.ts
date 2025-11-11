@@ -25,7 +25,10 @@ import {
   notifyTransferInitiated,
   notifyTransferCompleted, 
   notifyCodeIssued,
-  notifyAdminMessage
+  notifyAdminMessage,
+  notifyAdminsNewKycDocument,
+  notifyAdminsNewLoanRequest,
+  notifyAdminsNewTransfer
 } from "./notification-helper";
 import cloudinary from "./config/cloudinary";
 
@@ -1443,6 +1446,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         fileName: req.file.originalname,
         fileSize: req.file.size,
       });
+
+      const user = await storage.getUser(req.session.userId!);
+      if (user) {
+        await notifyAdminsNewKycDocument(
+          user.id,
+          user.fullName,
+          validatedData.documentType,
+          validatedData.loanType
+        );
+      }
 
       res.status(201).json({ 
         success: true, 
