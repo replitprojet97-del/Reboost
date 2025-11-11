@@ -1678,6 +1678,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       await notifyLoanRequest(req.session.userId!, loan.id, amount.toString(), loanType);
 
+      const user = await storage.getUser(req.session.userId!);
+      if (user) {
+        await notifyAdminsNewLoanRequest(
+          user.id,
+          user.fullName,
+          loan.id,
+          amount.toString(),
+          loanType
+        );
+      }
+
       await storage.createAdminMessage({
         userId: req.session.userId!,
         transferId: null,
