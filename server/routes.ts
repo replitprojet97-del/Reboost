@@ -3496,6 +3496,67 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/robots.txt", (req, res) => {
+    const robots = `User-agent: *
+Allow: /
+Allow: /about
+Allow: /how-it-works
+Allow: /contact
+Allow: /products
+Allow: /resources
+Allow: /terms
+Allow: /privacy
+
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /api/
+Disallow: /auth
+Disallow: /verify
+Disallow: /settings
+Disallow: /transfers
+Disallow: /loans/request
+
+Sitemap: ${process.env.VITE_SITE_URL || 'https://www.altusfinancegroup.com'}/sitemap.xml`;
+    
+    res.type('text/plain');
+    res.send(robots);
+  });
+
+  app.get("/sitemap.xml", (req, res) => {
+    const baseUrl = process.env.VITE_SITE_URL || 'https://www.altusfinancegroup.com';
+    const currentDate = new Date().toISOString().split('T')[0];
+    
+    const urls = [
+      { loc: '/', priority: '1.0', changefreq: 'weekly', lastmod: currentDate },
+      { loc: '/about', priority: '0.8', changefreq: 'monthly', lastmod: currentDate },
+      { loc: '/how-it-works', priority: '0.8', changefreq: 'monthly', lastmod: currentDate },
+      { loc: '/contact', priority: '0.7', changefreq: 'monthly', lastmod: currentDate },
+      { loc: '/products', priority: '0.9', changefreq: 'weekly', lastmod: currentDate },
+      { loc: '/resources', priority: '0.6', changefreq: 'monthly', lastmod: currentDate },
+      { loc: '/terms', priority: '0.3', changefreq: 'yearly', lastmod: currentDate },
+      { loc: '/privacy', priority: '0.3', changefreq: 'yearly', lastmod: currentDate },
+    ];
+
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urls.map(url => `  <url>
+    <loc>${baseUrl}${url.loc}</loc>
+    <lastmod>${url.lastmod}</lastmod>
+    <changefreq>${url.changefreq}</changefreq>
+    <priority>${url.priority}</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="${baseUrl}/fr${url.loc}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en${url.loc}"/>
+    <xhtml:link rel="alternate" hreflang="es" href="${baseUrl}/es${url.loc}"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="${baseUrl}/pt${url.loc}"/>
+    <xhtml:link rel="alternate" hreflang="it" href="${baseUrl}/it${url.loc}"/>
+    <xhtml:link rel="alternate" hreflang="de" href="${baseUrl}/de${url.loc}"/>
+  </url>`).join('\n')}
+</urlset>`;
+
+    res.type('application/xml');
+    res.send(sitemap);
+  });
 
   const httpServer = createServer(app);
 

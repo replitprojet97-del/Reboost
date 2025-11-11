@@ -60,19 +60,39 @@ export const breadcrumbSchema = (items: Array<{name: string, path: string}>) => 
   }))
 });
 
-export const loanProductSchema = {
-  "@type": "LoanOrCredit",
-  "name": "Altus Finance Group Professional Loan",
-  "description": "Flexible professional loan with competitive rates",
-  "provider": {
-    "@type": "FinancialService",
-    "name": seoConfig.siteName
-  },
-  "offers": {
-    "@type": "Offer",
-    "availability": "https://schema.org/InStock",
-    "itemCondition": "https://schema.org/NewCondition"
-  }
+export const loanProductSchema = (locale: string = 'fr') => {
+  const loanNames = {
+    fr: "Prêt Professionnel Altus Finance Group",
+    en: "Altus Finance Group Professional Loan",
+    es: "Préstamo Profesional Altus Finance Group",
+    pt: "Empréstimo Profissional Altus Finance Group",
+    it: "Prestito Professionale Altus Finance Group",
+    de: "Altus Finance Group Geschäftskredit"
+  };
+
+  const loanDescriptions = {
+    fr: "Prêt professionnel flexible avec des taux compétitifs",
+    en: "Flexible professional loan with competitive rates",
+    es: "Préstamo profesional flexible con tasas competitivas",
+    pt: "Empréstimo profissional flexível com taxas competitivas",
+    it: "Prestito professionale flessibile con tassi competitivi",
+    de: "Flexibler Geschäftskredit mit wettbewerbsfähigen Zinssätzen"
+  };
+
+  return {
+    "@type": "LoanOrCredit",
+    "name": loanNames[locale as keyof typeof loanNames] || loanNames.fr,
+    "description": loanDescriptions[locale as keyof typeof loanDescriptions] || loanDescriptions.fr,
+    "provider": {
+      "@type": "FinancialService",
+      "name": seoConfig.siteName
+    },
+    "offers": {
+      "@type": "Offer",
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition"
+    }
+  };
 };
 
 export const faqSchema = (faqs: Array<{question: string, answer: string}>) => ({

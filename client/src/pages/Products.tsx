@@ -1,19 +1,31 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useTranslations } from '@/lib/i18n';
+import SEO from '@/components/SEO';
+import { useTranslations, useLanguage } from '@/lib/i18n';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { getIndividualLoans, getBusinessLoans } from '@/lib/loan-catalog';
+import { loanProductSchema } from '@/lib/seo-data';
+import { getProductsSEOByLocale } from '@/lib/seo-keywords';
 
 export default function Products() {
   const t = useTranslations();
+  const { language } = useLanguage();
+  const seo = getProductsSEOByLocale(language);
   
   const individualProducts = getIndividualLoans(t);
   const businessProducts = getBusinessLoans(t);
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        keywords={seo.keywords}
+        path="/products"
+        structuredData={loanProductSchema(language)}
+      />
       <Header />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,12 +1,23 @@
 import Header from '@/components/Header';
-import { useTranslations } from '@/lib/i18n';
+import SEO from '@/components/SEO';
+import { useTranslations, useLanguage } from '@/lib/i18n';
 import { Card } from '@/components/ui/card';
+import { getPrivacySEOByLocale } from '@/lib/seo-keywords';
 
 export default function Privacy() {
   const t = useTranslations();
+  const { language } = useLanguage();
+  const seo = getPrivacySEOByLocale(language);
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        keywords={seo.keywords}
+        path="/privacy"
+        noindex={false}
+      />
       <Header />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
