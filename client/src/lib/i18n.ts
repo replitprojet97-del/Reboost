@@ -2863,7 +2863,7 @@ export const translations: Record<Language, TranslationKeys> = {
         submit: 'Envoyer la demande',
         validationError: 'Veuillez sélectionner un type de prêt',
         requestSent: 'Demande envoyée',
-        requestSentDescription: 'Votre demande de prêt a été envoyée avec succès. Vous recevrez une réponse sous 48h.',
+        requestSentDescription: 'Votre demande de prêt a été envoyée avec succès. Vous recevrez une réponse très bientôt.',
         error: 'Erreur',
         errorDescription: 'Une erreur est survenue lors de l\'envoi de votre demande.',
         fileTooLarge: 'Fichier trop volumineux',

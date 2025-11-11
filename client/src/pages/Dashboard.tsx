@@ -526,7 +526,7 @@ export default function Dashboard() {
             </div>
 
             <div className="space-y-3">
-              {dashboardData.loans.slice(0, 5).map((loan) => {
+              {dashboardData.loans.filter(loan => loan.status === 'active').slice(0, 5).map((loan) => {
                 const progress = loan.totalRepaid ? (Number(loan.totalRepaid) / Number(loan.amount)) * 100 : 0;
                 
                 return (
@@ -572,7 +572,7 @@ export default function Dashboard() {
                 );
               })}
 
-              {dashboardData.loans.length === 0 && (
+              {dashboardData.loans.filter(loan => loan.status === 'active').length === 0 && (
                 <div className="text-center py-8 text-muted-foreground">
                   <p className="text-sm">{t.dashboard.noActiveLoans}</p>
                   <Button 
