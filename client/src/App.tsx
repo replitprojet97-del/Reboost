@@ -33,6 +33,7 @@ import AdminReports from '@/pages/AdminReports';
 import AdminDocuments from '@/pages/AdminDocuments';
 import IndividualLoans from '@/pages/IndividualLoans';
 import LoanRequest from '@/pages/LoanRequest';
+import LoanRequestDashboard from '@/pages/LoanRequestDashboard';
 import TransferFlow from '@/pages/TransferFlow';
 import Transfers from '@/pages/Transfers';
 import BankAccounts from '@/pages/BankAccounts';
@@ -98,6 +99,7 @@ function App() {
                       <Switch>
                         <Route path="/dashboard" component={DashboardWrapper} />
                         <Route path="/loans" component={IndividualLoans} />
+                        <Route path="/loans/new" component={LoanRequestDashboard} />
                         <Route path="/transfer/new" component={TransferFlow} />
                         <Route path="/transfer/:id" component={TransferFlow} />
                         <Route path="/transfers" component={Transfers} />

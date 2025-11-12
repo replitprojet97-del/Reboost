@@ -427,7 +427,7 @@ export default function DashboardMobile() {
         <motion.div className="grid grid-cols-2 gap-3 pt-2" variants={itemVariants}>
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button variant="outline" className="w-full shadow-sm" asChild data-testid="button-request-loan">
-              <Link href="/loan-request">
+              <Link href="/loans/new">
                 <CreditCard className="w-4 h-4 mr-2" />
                 {t.dashboard.requestLoan}
               </Link>
@@ -450,7 +450,7 @@ export default function DashboardMobile() {
               <CardContent className="p-8 text-center">
                 <p className="text-sm text-muted-foreground mb-4">{t.dashboard.noRecentTransactions}</p>
                 <Button asChild>
-                  <Link href="/loan-request">
+                  <Link href="/loans/new">
                     <CreditCard className="w-4 h-4 mr-2" />
                     {t.dashboard.requestLoan}
                   </Link>
