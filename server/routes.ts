@@ -469,7 +469,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: 'Impossible de créer le compte. Veuillez vérifier vos informations.' });
       }
       
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 12);
       const verificationToken = randomUUID();
       const verificationTokenExpiry = new Date(Date.now() + 48 * 60 * 60 * 1000);
       
@@ -1041,7 +1041,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: 'Lien de réinitialisation expiré. Veuillez en demander un nouveau.' });
       }
       
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 12);
       await storage.resetPassword(user.id, hashedPassword);
       
       await storage.createAuditLog({
@@ -1354,7 +1354,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: 'Mot de passe actuel incorrect' });
       }
 
-      const hashedPassword = await bcrypt.hash(validatedData.newPassword, 10);
+      const hashedPassword = await bcrypt.hash(validatedData.newPassword, 12);
       await storage.updateUser(req.session.userId!, {
         password: hashedPassword,
       });
