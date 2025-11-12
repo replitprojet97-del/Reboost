@@ -6,8 +6,11 @@ import { Card } from '@/components/ui/card';
 import { ArrowRight, Calculator } from 'lucide-react';
 import { Link } from 'wouter';
 import heroImage from '@assets/stock_images/professional_busines_d5cfd136.jpg';
+import { useLanguage, translations } from '@/lib/i18n';
 
 export default function Hero() {
+  const { language } = useLanguage();
+  const t = translations[language];
   const [loanAmount, setLoanAmount] = useState('50000');
   const [loanDuration, setLoanDuration] = useState('48');
 
@@ -41,18 +44,15 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
               </div>
-              <span className="text-sm font-medium">Plus de 15 000 clients satisfaits nous font confiance</span>
+              <span className="text-sm font-medium">{t.hero.trustIndicator}</span>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight">
-              Réalisez vos projets avec{' '}
-              <span className="block mt-2">
-                Altus Finance Group
-              </span>
+              {t.hero.title}
             </h1>
             
             <p className="text-xl sm:text-2xl text-white/90 font-light leading-relaxed">
-              Solutions de financement pour particuliers et professionnels - Taux compétitifs et processus transparent
+              {t.hero.subtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -62,7 +62,7 @@ export default function Hero() {
                   className="w-full sm:w-auto text-base px-8 py-6 bg-orange-500 text-white hover:bg-orange-600 shadow-2xl font-semibold"
                   data-testid="button-request-loan"
                 >
-                  Demander un prêt
+                  {t.hero.cta1}
                   <ArrowRight className="h-5 w-5 ml-2" />
                 </Button>
               </Link>
@@ -73,7 +73,7 @@ export default function Hero() {
                   className="w-full sm:w-auto text-base px-8 py-6 backdrop-blur-sm bg-white/10 text-white border-white/30 hover:bg-white/20 font-semibold"
                   data-testid="button-learn-more"
                 >
-                  En savoir plus
+                  {t.hero.learnMore}
                 </Button>
               </Link>
             </div>
@@ -87,10 +87,10 @@ export default function Hero() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900">
-                    Calculez votre budget
+                    {t.hero.calculator.title}
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Obtenez une estimation instantanée
+                    {t.hero.calculator.subtitle}
                   </p>
                 </div>
               </div>
@@ -98,7 +98,7 @@ export default function Hero() {
               <div className="space-y-5">
                 <div className="space-y-3">
                   <label className="text-sm font-semibold text-gray-900 block">
-                    Montant du prêt
+                    {t.hero.calculator.loanAmount}
                   </label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 font-semibold text-lg">€</span>
@@ -131,20 +131,20 @@ export default function Hero() {
 
                 <div className="space-y-3">
                   <label className="text-sm font-semibold text-gray-900 block">
-                    Durée (mois)
+                    {t.hero.calculator.duration}
                   </label>
                   <Select value={loanDuration} onValueChange={setLoanDuration}>
                     <SelectTrigger className="h-14 text-base border-gray-300" data-testid="select-loan-duration">
                       <SelectValue placeholder="48 months" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="12">12 mois</SelectItem>
-                      <SelectItem value="24">24 mois</SelectItem>
-                      <SelectItem value="36">36 mois</SelectItem>
-                      <SelectItem value="48">48 mois</SelectItem>
-                      <SelectItem value="60">60 mois</SelectItem>
-                      <SelectItem value="72">72 mois</SelectItem>
-                      <SelectItem value="84">84 mois</SelectItem>
+                      <SelectItem value="12">12 {t.common.months}</SelectItem>
+                      <SelectItem value="24">24 {t.common.months}</SelectItem>
+                      <SelectItem value="36">36 {t.common.months}</SelectItem>
+                      <SelectItem value="48">48 {t.common.months}</SelectItem>
+                      <SelectItem value="60">60 {t.common.months}</SelectItem>
+                      <SelectItem value="72">72 {t.common.months}</SelectItem>
+                      <SelectItem value="84">84 {t.common.months}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -152,14 +152,14 @@ export default function Hero() {
                 <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-6 text-white">
                   <div className="flex items-baseline justify-between">
                     <span className="text-sm font-medium text-blue-100">
-                      Paiement mensuel
+                      {t.hero.calculator.monthlyPayment}
                     </span>
                     <div className="text-right">
                       <div className="text-4xl font-bold">
                         €{calculateMonthlyPayment()}
                       </div>
                       <div className="text-xs text-blue-100 mt-1">
-                        par mois
+                        {t.hero.calculator.perMonth}
                       </div>
                     </div>
                   </div>
@@ -171,13 +171,13 @@ export default function Hero() {
                     className="w-full bg-blue-600 text-white hover:bg-blue-700 h-14 text-base font-semibold shadow-lg"
                     data-testid="button-apply-now"
                   >
-                    Faire une demande
+                    {t.hero.calculator.applyNow}
                     <ArrowRight className="h-5 w-5 ml-2" />
                   </Button>
                 </Link>
 
                 <p className="text-xs text-center text-gray-500">
-                  Demande gratuite - Sans engagement - Processus confidentiel
+                  {t.hero.calculator.disclaimer}
                 </p>
               </div>
             </div>

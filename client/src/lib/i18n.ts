@@ -3827,12 +3827,12 @@ export const translations: Record<Language, TranslationKeys> = {
   },
   en: {
     hero: {
-      title: 'Make Your Projects a Reality with Altus Finance Group',
-      subtitle: 'Financing solutions for individuals and businesses - Competitive rates and transparent process',
+      title: 'Realize your projects with Altus Finance Group',
+      subtitle: 'Financing solutions for individuals and professionals - Competitive rates and transparent process',
       cta1: 'Request a Loan',
       cta2: 'My Account',
       learnMore: 'Learn More',
-      trustIndicator: 'Trusted by 15,000+ satisfied clients',
+      trustIndicator: 'More than 15,000 satisfied clients trust us',
       trustBadges: {
         response24h: '24h Response Time',
         swissSecurity: 'Swiss Bank Security',
