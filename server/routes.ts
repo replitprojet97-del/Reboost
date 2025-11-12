@@ -1415,11 +1415,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const uploadStream = cloudinary.uploader.upload_stream(
           {
             folder: 'kyc_documents',
-            resource_type: fileType.ext === 'pdf' ? 'raw' : 'image',
+            resource_type: 'raw',
             public_id: `kyc_${randomUUID()}`,
             use_filename: false,
             unique_filename: true,
-            type: 'authenticated',
+            type: 'upload',
           },
           (error: any, result: any) => {
             if (error) {
@@ -1544,11 +1544,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const signedUrl = cloudinary.utils.private_download_url(
         document.cloudinaryPublicId,
-        document.fileUrl.includes('.pdf') ? 'raw' : 'image',
+        'raw',
         {
           expires_at: Math.floor(Date.now() / 1000) + 3600,
           attachment: true,
-          resource_type: document.fileUrl.includes('.pdf') ? 'raw' : 'image',
+          resource_type: 'raw',
         }
       );
 
@@ -1750,17 +1750,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
             const extension = mimeType.split('/')[1].replace('jpeg', 'jpg');
             const fileName = `${documentType}.${extension}`;
-            const resourceType = mimeType === 'application/pdf' ? 'raw' : 'image';
 
             const uploadResult = await new Promise<{ url: string; publicId: string }>((resolve, reject) => {
               const uploadStream = cloudinary.uploader.upload_stream(
                 {
                   folder: 'kyc_documents',
-                  resource_type: resourceType,
+                  resource_type: 'raw',
                   public_id: `kyc_${randomUUID()}`,
                   use_filename: false,
                   unique_filename: true,
-                  type: 'authenticated',
+                  type: 'upload',
                 },
                 (error: any, result: any) => {
                   if (error) {
@@ -1997,7 +1996,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             folder: 'signed_contracts',
             resource_type: 'raw',
             public_id: `contract_${req.params.id}_${randomUUID()}`,
-            type: 'authenticated',
+            type: 'upload',
           },
           (error: any, result: any) => {
             if (error) {
