@@ -10,7 +10,7 @@ function escapeHtml(unsafe: string): string {
 export type Language = 'fr' | 'en' | 'es' | 'pt' | 'it' | 'de' | 'nl';
 type TemplateType = 'verification' | 'welcome' | 'contract' | 'fundingRelease' | 'otp' | 'resetPassword' | 
   'loanRequestUser' | 'loanRequestAdmin' | 'kycUploadedAdmin' | 'loanApprovedUser' | 
-  'transferInitiatedAdmin' | 'transferCodeUser';
+  'transferInitiatedAdmin' | 'transferCodeUser' | 'transferCompletedUser' | 'transferCompletedAdmin';
 
 interface EmailTemplate {
   subject: string;
@@ -108,9 +108,31 @@ interface TransferCodeUserVariables {
   totalCodes: string;
 }
 
+interface TransferCompletedUserVariables {
+  fullName: string;
+  amount: string;
+  recipient: string;
+  recipientIban: string;
+  transferId: string;
+  supportEmail: string;
+}
+
+interface TransferCompletedAdminVariables {
+  fullName: string;
+  email: string;
+  amount: string;
+  recipient: string;
+  recipientIban: string;
+  transferId: string;
+  userId: string;
+  completedAt: string;
+  totalValidations: string;
+  reviewUrl: string;
+}
+
 type TemplateVariables = VerificationVariables | WelcomeVariables | ContractVariables | FundingReleaseVariables | OtpVariables | ResetPasswordVariables |
   LoanRequestUserVariables | LoanRequestAdminVariables | KycUploadedAdminVariables | LoanApprovedUserVariables | 
-  TransferInitiatedAdminVariables | TransferCodeUserVariables;
+  TransferInitiatedAdminVariables | TransferCodeUserVariables | TransferCompletedUserVariables | TransferCompletedAdminVariables;
 
 const translations = {
   fr: {
@@ -294,6 +316,43 @@ const translations = {
       securityWarning: "⚠️ Pour votre sécurité, ne partagez jamais ce code avec quiconque. Notre équipe ne vous demandera jamais ce code.",
       notYouText: "Si vous n'avez pas initié ce transfert, contactez-nous immédiatement.",
       footer: "Tous droits réservés."
+    },
+    transferCompletedUser: {
+      subject: "Votre transfert est terminé - ALTUS FINANCE GROUP",
+      headerTitle: "✅ Transfert terminé avec succès",
+      greeting: "Bonjour",
+      congratulationsMessage: "Votre transfert a été complété avec succès après validation de tous les codes de sécurité.",
+      summaryTitle: "📋 Récapitulatif du transfert",
+      amountLabel: "Montant transféré:",
+      recipientLabel: "Bénéficiaire:",
+      ibanLabel: "IBAN du bénéficiaire:",
+      referenceLabel: "Référence du transfert:",
+      availabilityTitle: "⏱️ Disponibilité des fonds",
+      availabilityMessage: "Les fonds seront disponibles sur le compte du bénéficiaire dans un délai de 24 à 72 heures ouvrées, selon les délais bancaires.",
+      supportTitle: "💬 Besoin d'aide ?",
+      supportMessage: "Si vous rencontrez le moindre problème ou avez des questions concernant ce transfert, notre équipe est à votre disposition:",
+      supportEmail: "Contactez-nous à:",
+      thanksMessage: "Merci de votre confiance.",
+      footer: "Tous droits réservés."
+    },
+    transferCompletedAdmin: {
+      subject: "Rapport de transfert complété - ALTUS FINANCE GROUP",
+      headerTitle: "📊 Transfert complété - Rapport administrateur",
+      message: "Un transfert a été complété avec succès. Voici le rapport détaillé:",
+      userInfoTitle: "👤 Informations utilisateur",
+      userLabel: "Utilisateur:",
+      emailLabel: "Email:",
+      userIdLabel: "ID utilisateur:",
+      transferInfoTitle: "💸 Détails du transfert",
+      amountLabel: "Montant:",
+      recipientLabel: "Bénéficiaire:",
+      ibanLabel: "IBAN:",
+      transferIdLabel: "ID transfert:",
+      progressTitle: "✅ Progression et validation",
+      validationsLabel: "Codes validés:",
+      completedAtLabel: "Complété le:",
+      actionButton: "Voir les détails complets",
+      footer: "Tous droits réservés."
     }
   },
   en: {
@@ -476,6 +535,43 @@ const translations = {
       expirationText: "This code will expire in 15 minutes.",
       securityWarning: "⚠️ For your security, never share this code with anyone. Our team will never ask you for this code.",
       notYouText: "If you didn't initiate this transfer, contact us immediately.",
+      footer: "All rights reserved."
+    },
+    transferCompletedUser: {
+      subject: "Your transfer is complete - ALTUS FINANCE GROUP",
+      headerTitle: "✅ Transfer completed successfully",
+      greeting: "Hello",
+      congratulationsMessage: "Your transfer has been completed successfully after validation of all security codes.",
+      summaryTitle: "📋 Transfer summary",
+      amountLabel: "Amount transferred:",
+      recipientLabel: "Recipient:",
+      ibanLabel: "Recipient IBAN:",
+      referenceLabel: "Transfer reference:",
+      availabilityTitle: "⏱️ Funds availability",
+      availabilityMessage: "The funds will be available in the recipient's account within 24 to 72 business hours, depending on banking delays.",
+      supportTitle: "💬 Need help?",
+      supportMessage: "If you encounter any issues or have questions about this transfer, our team is at your disposal:",
+      supportEmail: "Contact us at:",
+      thanksMessage: "Thank you for your trust.",
+      footer: "All rights reserved."
+    },
+    transferCompletedAdmin: {
+      subject: "Transfer completion report - ALTUS FINANCE GROUP",
+      headerTitle: "📊 Transfer completed - Admin report",
+      message: "A transfer has been completed successfully. Here is the detailed report:",
+      userInfoTitle: "👤 User information",
+      userLabel: "User:",
+      emailLabel: "Email:",
+      userIdLabel: "User ID:",
+      transferInfoTitle: "💸 Transfer details",
+      amountLabel: "Amount:",
+      recipientLabel: "Recipient:",
+      ibanLabel: "IBAN:",
+      transferIdLabel: "Transfer ID:",
+      progressTitle: "✅ Progress and validation",
+      validationsLabel: "Codes validated:",
+      completedAtLabel: "Completed on:",
+      actionButton: "View full details",
       footer: "All rights reserved."
     }
   },
@@ -2295,6 +2391,121 @@ function getTransferCodeUserTemplate(lang: Language, vars: TransferCodeUserVaria
   };
 }
 
+function getTransferCompletedUserTemplate(lang: Language, vars: TransferCompletedUserVariables): EmailTemplate {
+  const t = (translations as any)[lang]?.transferCompletedUser || translations.fr.transferCompletedUser;
+  const currentYear = new Date().getFullYear();
+  
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
+        .success-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .info-box { background: white; border-left: 4px solid #667eea; padding: 15px; margin: 20px 0; }
+        .footer { text-align: center; margin-top: 20px; color: #6b7280; font-size: 14px; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1 style="margin: 0; font-size: 28px;">${t.headerTitle}</h1>
+        </div>
+        <div class="content">
+          <h2 style="color: #1f2937; margin-top: 0;">${t.greeting} ${escapeHtml(vars.fullName)},</h2>
+          <div class="success-box">
+            <p style="margin: 0; color: #065f46;">${t.congratulationsMessage}</p>
+          </div>
+          <h3>${t.summaryTitle}</h3>
+          <div class="info-box">
+            <p style="margin: 5px 0;"><strong>${t.amountLabel}</strong> ${escapeHtml(vars.amount)} €</p>
+            <p style="margin: 5px 0;"><strong>${t.recipientLabel}</strong> ${escapeHtml(vars.recipient)}</p>
+            <p style="margin: 5px 0;"><strong>${t.ibanLabel}</strong> ${escapeHtml(vars.recipientIban)}</p>
+            <p style="margin: 5px 0;"><strong>${t.referenceLabel}</strong> ${escapeHtml(vars.transferId)}</p>
+          </div>
+          <h3>${t.availabilityTitle}</h3>
+          <p>${t.availabilityMessage}</p>
+          <h3>${t.supportTitle}</h3>
+          <p>${t.supportMessage}</p>
+          <p><strong>${t.supportEmail}</strong> ${escapeHtml(vars.supportEmail)}</p>
+          <p style="margin-top: 30px;">${t.thanksMessage}</p>
+        </div>
+        <div class="footer">
+          <p>&copy; ${currentYear} ALTUS FINANCE GROUP. ${t.footer}</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  const text = `${t.greeting} ${vars.fullName},\n\n${t.congratulationsMessage}\n\n${t.summaryTitle}\n${t.amountLabel} ${vars.amount} €\n${t.recipientLabel} ${vars.recipient}\n${t.ibanLabel} ${vars.recipientIban}\n${t.referenceLabel} ${vars.transferId}\n\n${t.availabilityTitle}\n${t.availabilityMessage}\n\n${t.supportTitle}\n${t.supportMessage}\n${t.supportEmail} ${vars.supportEmail}\n\n${t.thanksMessage}\n\nALTUS FINANCE GROUP`;
+
+  return { subject: t.subject, html, text };
+}
+
+function getTransferCompletedAdminTemplate(lang: Language, vars: TransferCompletedAdminVariables): EmailTemplate {
+  const t = (translations as any)[lang]?.transferCompletedAdmin || translations.fr.transferCompletedAdmin;
+  const currentYear = new Date().getFullYear();
+  
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
+        .info-section { background: white; border-left: 4px solid #667eea; padding: 15px; margin: 20px 0; }
+        .button { display: inline-block; padding: 12px 24px; background: #667eea; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+        .footer { text-align: center; margin-top: 20px; color: #6b7280; font-size: 14px; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1 style="margin: 0; font-size: 28px;">${t.headerTitle}</h1>
+        </div>
+        <div class="content">
+          <p>${t.message}</p>
+          <h3>${t.userInfoTitle}</h3>
+          <div class="info-section">
+            <p style="margin: 5px 0;"><strong>${t.userLabel}</strong> ${escapeHtml(vars.fullName)}</p>
+            <p style="margin: 5px 0;"><strong>${t.emailLabel}</strong> ${escapeHtml(vars.email)}</p>
+            <p style="margin: 5px 0;"><strong>${t.userIdLabel}</strong> ${escapeHtml(vars.userId)}</p>
+          </div>
+          <h3>${t.transferInfoTitle}</h3>
+          <div class="info-section">
+            <p style="margin: 5px 0;"><strong>${t.amountLabel}</strong> ${escapeHtml(vars.amount)} €</p>
+            <p style="margin: 5px 0;"><strong>${t.recipientLabel}</strong> ${escapeHtml(vars.recipient)}</p>
+            <p style="margin: 5px 0;"><strong>${t.ibanLabel}</strong> ${escapeHtml(vars.recipientIban)}</p>
+            <p style="margin: 5px 0;"><strong>${t.transferIdLabel}</strong> ${escapeHtml(vars.transferId)}</p>
+          </div>
+          <h3>${t.progressTitle}</h3>
+          <div class="info-section">
+            <p style="margin: 5px 0;"><strong>${t.validationsLabel}</strong> ${vars.totalValidations}</p>
+            <p style="margin: 5px 0;"><strong>${t.completedAtLabel}</strong> ${escapeHtml(vars.completedAt)}</p>
+          </div>
+          <a href="${vars.reviewUrl}" class="button">${t.actionButton}</a>
+        </div>
+        <div class="footer">
+          <p>&copy; ${currentYear} ALTUS FINANCE GROUP. ${t.footer}</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  const text = `${t.headerTitle}\n\n${t.message}\n\n${t.userInfoTitle}\n${t.userLabel} ${vars.fullName}\n${t.emailLabel} ${vars.email}\n${t.userIdLabel} ${vars.userId}\n\n${t.transferInfoTitle}\n${t.amountLabel} ${vars.amount} €\n${t.recipientLabel} ${vars.recipient}\n${t.ibanLabel} ${vars.recipientIban}\n${t.transferIdLabel} ${vars.transferId}\n\n${t.progressTitle}\n${t.validationsLabel} ${vars.totalValidations}\n${t.completedAtLabel} ${vars.completedAt}\n\n${t.actionButton}: ${vars.reviewUrl}\n\nALTUS FINANCE GROUP`;
+
+  return { subject: t.subject, html, text };
+}
+
 export function getEmailTemplate(
   templateType: TemplateType,
   language: Language,
@@ -2323,6 +2534,10 @@ export function getEmailTemplate(
       return getTransferInitiatedAdminTemplate(language, variables as TransferInitiatedAdminVariables);
     case 'transferCodeUser':
       return getTransferCodeUserTemplate(language, variables as TransferCodeUserVariables);
+    case 'transferCompletedUser':
+      return getTransferCompletedUserTemplate(language, variables as TransferCompletedUserVariables);
+    case 'transferCompletedAdmin':
+      return getTransferCompletedAdminTemplate(language, variables as TransferCompletedAdminVariables);
     default:
       throw new Error(`Unknown template type: ${templateType}`);
   }

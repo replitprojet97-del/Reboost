@@ -2456,18 +2456,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const newCodesValidated = transfer.codesValidated + 1;
-      const progressIncrement = Math.floor(80 / transfer.requiredCodes);
-      const newProgress = Math.min(10 + (newCodesValidated * progressIncrement), 90);
-      
       const isComplete = newCodesValidated >= transfer.requiredCodes;
-      const newStatus = isComplete ? 'in-progress' : 'pending';
+      
+      const newProgress = isComplete ? 100 : Math.min(10 + (newCodesValidated * Math.floor(80 / transfer.requiredCodes)), 90);
+      const newStatus = isComplete ? 'completed' : 'pending';
+      const completedAt = isComplete ? new Date() : undefined;
 
       await storage.updateTransfer(transfer.id, {
         codesValidated: newCodesValidated,
         progressPercent: newProgress,
         status: newStatus,
-        currentStep: newCodesValidated + 1,
+        currentStep: Math.min(newCodesValidated, transfer.requiredCodes),
         approvedAt: isComplete ? new Date() : transfer.approvedAt,
+        completedAt,
       });
 
       await storage.createTransferEvent({
@@ -2480,53 +2481,110 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (isComplete) {
         await storage.createTransferEvent({
           transferId: transfer.id,
-          eventType: 'processing',
-          message: 'Transfert en cours de traitement',
-          metadata: null,
+          eventType: 'completed',
+          message: 'Transfert complété avec succès - Tous les codes ont été validés',
+          metadata: { totalValidations: newCodesValidated, completedAt },
         });
 
-        const settingPausePercentages = await storage.getAdminSetting('validation_pause_percentages');
-        const pausePercentages = (settingPausePercentages?.settingValue as number[]) || [];
-        
-        if (pausePercentages.length > 0) {
-          const nextPausePercent = pausePercentages[0];
-          setTimeout(async () => {
-            await storage.updateTransfer(transfer.id, {
-              progressPercent: nextPausePercent,
-              isPaused: true,
-              pausePercent: nextPausePercent,
-            });
+        const user = await storage.getUser(transfer.userId);
+        const externalAccount = transfer.externalAccountId 
+          ? await storage.getExternalAccount(transfer.externalAccountId)
+          : null;
 
-            await storage.createTransferEvent({
-              transferId: transfer.id,
-              eventType: 'paused',
-              message: `Transfert en pause à ${nextPausePercent}% - Code de déblocage requis`,
-              metadata: { pausePercent: nextPausePercent },
-            });
+        if (user) {
+          const recipientIban = externalAccount?.iban || 'Non spécifié';
+          
+          await storage.createAdminMessage({
+            userId: transfer.userId,
+            transferId: transfer.id,
+            subject: 'Transfert terminé avec succès',
+            content: `
+**Récapitulatif du transfert**
 
+- Montant transféré: ${transfer.amount} €
+- Bénéficiaire: ${transfer.recipient}
+- IBAN: ${recipientIban}
+- Référence: ${transfer.id}
+
+**Disponibilité des fonds**
+Les fonds seront disponibles sur le compte du bénéficiaire dans un délai de 24 à 72 heures ouvrées, selon les délais bancaires.
+
+**Besoin d'aide ?**
+En cas de problème ou de question concernant ce transfert, notre équipe est à votre disposition. Contactez-nous à tout moment.
+
+Merci de votre confiance.`,
+            severity: 'success',
+          });
+
+          await notifyTransferCompleted(transfer.userId, transfer.id, transfer.amount.toString());
+
+          try {
+            const { sendTransferCompletedEmail, sendAdminTransferCompletionReport } = await import('./email');
+            await sendTransferCompletedEmail(
+              user.email,
+              user.fullName,
+              transfer.amount.toString(),
+              transfer.recipient,
+              recipientIban,
+              transfer.id,
+              user.preferredLanguage || 'fr'
+            );
+            console.log(`Transfer completion email sent to ${user.email}`);
+          } catch (error) {
+            console.error('Error sending transfer completion email to user:', error);
+          }
+
+          const allEvents = await storage.getTransferEvents(transfer.id);
+          const adminUsers = await storage.getAllUsers();
+          const admins = adminUsers.filter(u => u.role === 'admin');
+          
+          for (const admin of admins) {
             await storage.createAdminMessage({
-              userId: transfer.userId,
+              userId: admin.id,
               transferId: transfer.id,
-              subject: 'Code de déblocage requis',
-              content: `Votre transfert vers ${transfer.recipient} est en pause à ${nextPausePercent}%. Veuillez contacter le service client pour obtenir le code de déblocage.`,
-              severity: 'warning',
-            });
-          }, 3000);
-        } else {
-          setTimeout(async () => {
-            await storage.updateTransfer(transfer.id, {
-              status: 'completed',
-              progressPercent: 100,
-              completedAt: new Date(),
+              subject: `Rapport de transfert complété - ${transfer.id}`,
+              content: `
+**Rapport de transfert complété**
+
+**Informations utilisateur**
+- Utilisateur: ${user.fullName}
+- Email: ${user.email}
+- ID: ${user.id}
+
+**Détails du transfert**
+- Montant: ${transfer.amount} €
+- Bénéficiaire: ${transfer.recipient}
+- IBAN: ${recipientIban}
+- ID transfert: ${transfer.id}
+
+**Progression et validation**
+- Codes validés: ${newCodesValidated}/${transfer.requiredCodes}
+- Complété le: ${completedAt?.toLocaleString('fr-FR')}
+- Nombre d'événements: ${allEvents.length}
+
+Tous les codes de validation ont été vérifiés avec succès.`,
+              severity: 'info',
             });
 
-            await storage.createTransferEvent({
-              transferId: transfer.id,
-              eventType: 'completed',
-              message: 'Transfert complété avec succès',
-              metadata: null,
-            });
-          }, 5000);
+            try {
+              const { sendAdminTransferCompletionReport } = await import('./email');
+              await sendAdminTransferCompletionReport(
+                transfer.id,
+                user.id,
+                user.fullName,
+                user.email,
+                transfer.amount.toString(),
+                transfer.recipient,
+                recipientIban,
+                completedAt!,
+                newCodesValidated,
+                admin.preferredLanguage || 'fr'
+              );
+              console.log(`Transfer completion report sent to admin ${admin.email}`);
+            } catch (error) {
+              console.error(`Error sending transfer completion report to admin ${admin.email}:`, error);
+            }
+          }
         }
       }
 

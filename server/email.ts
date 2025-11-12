@@ -608,3 +608,91 @@ export async function sendTransferCodeEmail(
     throw error;
   }
 }
+
+export async function sendTransferCompletedEmail(
+  toEmail: string,
+  fullName: string,
+  amount: string,
+  recipient: string,
+  recipientIban: string,
+  transferId: string,
+  language: string = 'fr'
+) {
+  try {
+    const { client, fromEmail } = await getUncachableSendGridClient();
+    const { getEmailTemplate } = await import('./emailTemplates');
+    
+    const template = getEmailTemplate('transferCompletedUser', language as any, {
+      fullName,
+      amount,
+      recipient,
+      recipientIban,
+      transferId,
+      supportEmail: fromEmail,
+    });
+    
+    const msg = {
+      to: toEmail,
+      from: fromEmail,
+      subject: template.subject,
+      html: template.html,
+      text: template.text,
+    };
+
+    await client.send(msg);
+    console.log(`Transfer completed email sent to ${toEmail} in ${language}`);
+    return true;
+  } catch (error) {
+    console.error('Error sending transfer completed email:', error);
+    throw error;
+  }
+}
+
+export async function sendAdminTransferCompletionReport(
+  transferId: string,
+  userId: string,
+  fullName: string,
+  email: string,
+  amount: string,
+  recipient: string,
+  recipientIban: string,
+  completedAt: Date,
+  totalValidations: number,
+  language: string = 'fr'
+) {
+  try {
+    const { client, fromEmail } = await getUncachableSendGridClient();
+    const { getEmailTemplate } = await import('./emailTemplates');
+    
+    const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+    const reviewUrl = `${getBaseUrl()}/admin/transfers/${transferId}`;
+    
+    const template = getEmailTemplate('transferCompletedAdmin', language as any, {
+      fullName,
+      email,
+      amount,
+      recipient,
+      recipientIban,
+      transferId,
+      userId,
+      completedAt: completedAt.toLocaleString('fr-FR'),
+      totalValidations: totalValidations.toString(),
+      reviewUrl,
+    });
+    
+    const msg = {
+      to: adminEmail,
+      from: fromEmail,
+      subject: template.subject,
+      html: template.html,
+      text: template.text,
+    };
+
+    await client.send(msg);
+    console.log(`Transfer completion report sent to admin at ${adminEmail} in ${language}`);
+    return true;
+  } catch (error) {
+    console.error('Error sending admin transfer completion report:', error);
+    throw error;
+  }
+}
