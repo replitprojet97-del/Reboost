@@ -210,7 +210,7 @@ export default function AdminLoans() {
         return 'default';
       case 'approved':
         return 'secondary';
-      case 'signed':
+      case 'pending_review':
         return 'outline';
       case 'rejected':
         return 'destructive';
@@ -221,9 +221,8 @@ export default function AdminLoans() {
 
   const getStatusText = (status: string) => {
     const statusMap: Record<string, string> = {
-      'pending': t.admin.common.status.pending,
+      'pending_review': t.admin.common.status.pending,
       'approved': t.admin.common.status.approved,
-      'signed': t.admin.common.status.signed,
       'active': t.admin.common.status.active,
       'rejected': t.admin.common.status.rejected,
     };
@@ -406,7 +405,7 @@ export default function AdminLoans() {
                       </>
                     )}
 
-                    {loan.status === 'signed' && loan.signedContractUrl && (
+                    {(loan as any).contractStatus === 'awaiting_admin_review' && loan.signedContractUrl && (
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <Button
@@ -641,7 +640,7 @@ export default function AdminLoans() {
                         </>
                       )}
 
-                      {loan.status === 'signed' && loan.signedContractUrl && (
+                      {(loan as any).contractStatus === 'awaiting_admin_review' && loan.signedContractUrl && (
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             <Button

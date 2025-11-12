@@ -125,17 +125,16 @@ export default function LoanDetailsDialog({ open, onOpenChange, loan }: LoanDeta
 
   const getStatusText = (status: string) => {
     const statusMap: Record<string, string> = {
-      'pending': t.common.pending,
+      'pending_review': t.common.pending,
       'approved': t.transfer.approved,
       'active': t.common.active,
-      'signed': t.common.completed,
       'rejected': t.transfer.rejected,
     };
     return statusMap[status] || status;
   };
 
   const getStatusVariant = (status: string): "default" | "secondary" | "destructive" | "outline" => {
-    if (status === 'active' || status === 'signed') return 'default';
+    if (status === 'active') return 'default';
     if (status === 'approved') return 'secondary';
     if (status === 'rejected') return 'destructive';
     return 'outline';
@@ -203,7 +202,7 @@ export default function LoanDetailsDialog({ open, onOpenChange, loan }: LoanDeta
             </div>
           )}
 
-          {loan.status === 'signed' && loan.signedContractUrl && (
+          {(loan as any).contractStatus === 'awaiting_admin_review' && loan.signedContractUrl && (
             <div className="border-2 border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950 rounded-lg p-4">
               <div className="flex items-center gap-3">
                 <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />
@@ -212,14 +211,14 @@ export default function LoanDetailsDialog({ open, onOpenChange, loan }: LoanDeta
                     {t.common.success}
                   </h4>
                   <p className="text-sm text-green-700 dark:text-green-300 mt-1">
-                    {t.transfer.processingComplete}
+                    Votre contrat signé a été reçu et est en cours de vérification.
                   </p>
                 </div>
               </div>
             </div>
           )}
 
-          {loan.contractUrl && loan.status !== 'approved' && loan.status !== 'signed' && (
+          {loan.contractUrl && loan.status !== 'approved' && (loan as any).contractStatus !== 'awaiting_admin_review' && (
             <div className="flex justify-center">
               <Button
                 onClick={handleContractDownload}

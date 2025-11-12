@@ -275,3 +275,13 @@ export async function notifyAdminsNewTransfer(userId: string, userName: string, 
     metadata: { userId, userName, transferId, amount, recipient },
   });
 }
+
+export async function notifyAdminsSignedContractReceived(userId: string, userName: string, loanId: string, amount: string) {
+  return await notifyAllAdmins({
+    type: 'general',
+    title: 'Contrat signé reçu',
+    message: `${userName} a uploadé un contrat signé pour le prêt de ${amount}€. En attente de vérification.`,
+    severity: 'info',
+    metadata: { userId, userName, loanId, amount },
+  });
+}

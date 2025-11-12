@@ -28,7 +28,8 @@ import {
   notifyAdminMessage,
   notifyAdminsNewKycDocument,
   notifyAdminsNewLoanRequest,
-  notifyAdminsNewTransfer
+  notifyAdminsNewTransfer,
+  notifyAdminsSignedContractReceived
 } from "./notification-helper";
 import cloudinary from "./config/cloudinary";
 import { PassThrough } from "stream";
@@ -2076,7 +2077,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const updated = await storage.updateLoan(req.params.id, {
         signedContractUrl,
         signedContractCloudinaryPublicId: signedContractPublicId,
-        status: 'signed',
+        contractStatus: 'awaiting_admin_review',
       });
 
       await notifyLoanContractSigned(loan.userId, loan.id, loan.amount);
@@ -2088,6 +2089,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         content: `Votre contrat signé pour le prêt de ${loan.amount} EUR a été reçu avec succès. Il est maintenant en cours de vérification par notre service. Vous serez notifié dès que les fonds seront débloqués.`,
         severity: 'info',
       });
+
+      const user = await storage.getUser(loan.userId);
+      if (user) {
+        await notifyAdminsSignedContractReceived(
+          user.id,
+          user.fullName,
+          loan.id,
+          loan.amount
+        );
+      }
 
       await storage.createAuditLog({
         actorId: req.session.userId!,
@@ -3076,6 +3087,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const updated = await storage.updateLoan(req.params.id, {
         status: 'approved',
+        contractStatus: contractGenerated ? 'awaiting_user_signature' : 'none',
         approvedAt: new Date(),
         approvedBy: req.session.userId!,
         contractUrl,

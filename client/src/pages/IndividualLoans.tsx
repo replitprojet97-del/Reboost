@@ -32,11 +32,11 @@ export default function IndividualLoans() {
   });
 
   const activeLoans = useMemo(() => {
-    return loans?.filter(loan => loan.status === 'active' || loan.status === 'signed') || [];
+    return loans?.filter(loan => loan.status === 'active') || [];
   }, [loans]);
 
   const pendingLoans = useMemo(() => {
-    return loans?.filter(loan => loan.status === 'pending' || loan.status === 'approved') || [];
+    return loans?.filter(loan => loan.status === 'pending_review' || loan.status === 'approved') || [];
   }, [loans]);
 
   const formatCurrency = (amount: string) => {
