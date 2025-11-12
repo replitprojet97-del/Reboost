@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { CheckCircle, XCircle, Download, Trash2, Eye, FileText, Filter } from "lucide-react";
+import { CheckCircle, XCircle, Download, Trash2, Eye, FileText, Filter, Trash } from "lucide-react";
 import { apiRequest, queryClient, getApiUrl } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
@@ -28,6 +28,7 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { AdminLayout } from "@/components/admin";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface KycDocument {
   id: string;
@@ -57,6 +58,7 @@ export default function AdminDocuments() {
   const [selectedDocument, setSelectedDocument] = useState<KycDocument | null>(null);
   const [rejectNotes, setRejectNotes] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [selectedDocuments, setSelectedDocuments] = useState<Set<string>>(new Set());
 
   const { data: documents, isLoading } = useQuery<KycDocument[]>({
     queryKey: ["/api/admin/kyc/documents"],
@@ -124,6 +126,60 @@ export default function AdminDocuments() {
       });
     },
   });
+
+  const bulkDeleteMutation = useMutation({
+    mutationFn: async (documentIds: string[]) => {
+      return await apiRequest("POST", "/api/admin/kyc/documents/bulk-delete", { documentIds });
+    },
+    onSuccess: (data: any) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/kyc/documents"] });
+      setSelectedDocuments(new Set());
+      toast({
+        title: "Suppression réussie",
+        description: data.message || "Les documents ont été supprimés avec succès",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erreur",
+        description: error?.message || "Impossible de supprimer les documents",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const toggleDocumentSelection = (docId: string) => {
+    const newSelection = new Set(selectedDocuments);
+    if (newSelection.has(docId)) {
+      newSelection.delete(docId);
+    } else {
+      newSelection.add(docId);
+    }
+    setSelectedDocuments(newSelection);
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedDocuments.size === filteredDocuments.length) {
+      setSelectedDocuments(new Set());
+    } else {
+      setSelectedDocuments(new Set(filteredDocuments.map(doc => doc.id)));
+    }
+  };
+
+  const handleBulkDelete = () => {
+    if (selectedDocuments.size === 0) {
+      toast({
+        title: "Aucune sélection",
+        description: "Veuillez sélectionner au moins un document à supprimer",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (confirm(`Êtes-vous sûr de vouloir supprimer ${selectedDocuments.size} document(s) ?`)) {
+      bulkDeleteMutation.mutate(Array.from(selectedDocuments));
+    }
+  };
 
   const handleRejectConfirm = () => {
     if (!selectedDocument || !rejectNotes.trim()) {
@@ -216,12 +272,24 @@ export default function AdminDocuments() {
       <div className="space-y-6">
         <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap justify-between items-center gap-4">
             <div>
               <CardTitle data-testid="text-documents-count">Documents KYC ({filteredDocuments.length})</CardTitle>
               <CardDescription>Liste de tous les documents uploadés par les utilisateurs</CardDescription>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
+              {selectedDocuments.size > 0 && (
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={handleBulkDelete}
+                  disabled={bulkDeleteMutation.isPending}
+                  data-testid="button-bulk-delete"
+                >
+                  <Trash className="h-4 w-4 mr-2" />
+                  Supprimer ({selectedDocuments.size})
+                </Button>
+              )}
               <Filter className="h-4 w-4 text-muted-foreground" />
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="w-[180px]" data-testid="select-status-filter">
@@ -250,6 +318,13 @@ export default function AdminDocuments() {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead className="w-12">
+                      <Checkbox
+                        checked={selectedDocuments.size === filteredDocuments.length && filteredDocuments.length > 0}
+                        onCheckedChange={toggleSelectAll}
+                        data-testid="checkbox-select-all"
+                      />
+                    </TableHead>
                     <TableHead>Utilisateur</TableHead>
                     <TableHead>Type de document</TableHead>
                     <TableHead>Type de prêt</TableHead>
@@ -263,6 +338,13 @@ export default function AdminDocuments() {
                 <TableBody>
                   {filteredDocuments.map((doc) => (
                     <TableRow key={doc.id} data-testid={`row-document-${doc.id}`}>
+                      <TableCell>
+                        <Checkbox
+                          checked={selectedDocuments.has(doc.id)}
+                          onCheckedChange={() => toggleDocumentSelection(doc.id)}
+                          data-testid={`checkbox-select-${doc.id}`}
+                        />
+                      </TableCell>
                       <TableCell>
                         <div>
                           <div className="font-medium text-gray-900 dark:text-white" data-testid={`text-user-name-${doc.id}`}>
