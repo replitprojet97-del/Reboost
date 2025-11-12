@@ -3,6 +3,14 @@ import { pgTable, text, varchar, decimal, integer, timestamp, boolean, json } fr
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+export const LOAN_FUNDS_AVAILABILITY = {
+  PENDING: 'pending',
+  PENDING_DISBURSEMENT: 'pending_disbursement',
+  AVAILABLE: 'available',
+} as const;
+
+export type LoanFundsAvailability = (typeof LOAN_FUNDS_AVAILABILITY)[keyof typeof LOAN_FUNDS_AVAILABILITY];
+
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),

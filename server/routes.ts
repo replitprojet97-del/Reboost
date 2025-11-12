@@ -3218,13 +3218,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const generatedCodes = await storage.generateLoanTransferCodes(req.params.id, loan.userId, 5);
 
-      await storage.createTransaction({
-        userId: loan.userId,
-        type: 'credit',
-        amount: loan.amount,
-        description: `Déblocage des fonds - Prêt ${loan.loanType} approuvé`,
-      });
-
       const user = await storage.getUser(loan.userId);
       const userName = user?.fullName || 'Utilisateur';
 
@@ -3271,23 +3264,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const loan = await storage.getLoan(req.params.id);
       if (!loan) {
-        return res.status(404).json({ error: 'Loan not found' });
+        return res.status(404).json({ error: 'Prêt non trouvé' });
       }
 
       if (loan.status !== 'signed') {
         return res.status(400).json({ 
-          error: 'Cannot disburse funds: Loan must be in signed status. Current status: ' + loan.status 
+          error: 'Impossible de débloquer les fonds: Le prêt doit être en statut signé. Statut actuel: ' + loan.status 
+        });
+      }
+
+      if ((loan as any).contractStatus !== 'approved') {
+        return res.status(400).json({ 
+          error: 'Impossible de débloquer les fonds: Le contrat doit être approuvé. Statut actuel: ' + (loan as any).contractStatus 
+        });
+      }
+
+      if ((loan as any).fundsAvailabilityStatus !== 'pending_disbursement') {
+        return res.status(400).json({ 
+          error: 'Impossible de débloquer les fonds: Les fonds doivent être en attente de déblocage. Statut actuel: ' + (loan as any).fundsAvailabilityStatus 
         });
       }
 
       if (!loan.signedContractUrl) {
         return res.status(400).json({ 
-          error: 'Cannot disburse funds: No signed contract found' 
+          error: 'Impossible de débloquer les fonds: Aucun contrat signé trouvé' 
         });
       }
 
       const updated = await storage.updateLoan(req.params.id, {
         status: 'active',
+        fundsAvailabilityStatus: 'available',
       });
 
       await storage.createTransaction({
