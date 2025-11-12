@@ -1857,7 +1857,7 @@ export class DatabaseStorage implements IStorage {
     const result = await db.update(loans)
       .set({ 
         contractStatus: "approved",
-        fundsAvailabilityStatus: "pending_disbursement"
+        fundsAvailabilityStatus: "available"
       })
       .where(eq(loans.id, loanId))
       .returning();
