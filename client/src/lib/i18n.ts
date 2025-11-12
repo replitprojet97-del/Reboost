@@ -2407,7 +2407,7 @@ export const translations: Record<Language, TranslationKeys> = {
       amount: 'Montant',
       rate: 'Taux TAEG',
       duration: 'Durée',
-      rateDisclaimer: 'Taux indicatifs soumis à conditions d\'éligibilité. TAEG fixe. Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.',
+      rateDisclaimer: 'Taux indicatifs soumis à conditions d\'éligibilité. TAEG fixe. Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager...',
       compareLoans: 'Comparer tous les prêts',
     },
     businessLoans: {
