@@ -209,7 +209,7 @@ export default function DashboardMobile() {
                 <div className="bg-[#E6EEFF] dark:bg-primary/20 w-12 h-12 rounded-xl flex items-center justify-center mb-3">
                   <Wallet className="h-6 w-6 text-[#0046FF] dark:text-primary" />
                 </div>
-                <p className="text-xs text-muted-foreground mb-1">Crédit disponible</p>
+                <p className="text-xs text-foreground/70 font-medium mb-1">Crédit disponible</p>
                 <p className="text-lg font-semibold text-foreground">
                   {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(dashboardData.balance.availableCredit)}
                 </p>
@@ -223,7 +223,7 @@ export default function DashboardMobile() {
                 <div className="bg-green-100 dark:bg-green-900/30 w-12 h-12 rounded-xl flex items-center justify-center mb-3">
                   <CreditCard className="h-6 w-6 text-green-600 dark:text-green-400" />
                 </div>
-                <p className="text-xs text-muted-foreground mb-1">Prêts actifs</p>
+                <p className="text-xs text-foreground/70 font-medium mb-1">Prêts actifs</p>
                 <p className="text-lg font-semibold text-foreground">{dashboardData.balance.activeLoansCount}</p>
                 <p className="text-xs text-muted-foreground mt-1">
                   {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(dashboardData.balance.totalBorrowed)} total
@@ -294,11 +294,11 @@ export default function DashboardMobile() {
         {dashboardData.transfers.length > 0 && (
           <motion.div variants={itemVariants}>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-medium text-muted-foreground" data-testid="text-recent-transfers">
+              <h3 className="text-sm font-semibold text-foreground" data-testid="text-recent-transfers">
                 {t.dashboard.recentActivity}
               </h3>
               <Link href="/history">
-                <Button variant="ghost" size="sm" className="h-auto p-0 text-xs text-primary">
+                <Button variant="ghost" size="sm" className="h-auto p-0 text-xs text-primary font-medium">
                   {t.dashboard.viewAll}
                 </Button>
               </Link>
@@ -355,11 +355,11 @@ export default function DashboardMobile() {
         {dashboardData.loans.length > 0 && (
           <motion.div variants={itemVariants}>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-medium text-muted-foreground" data-testid="text-active-loans">
+              <h3 className="text-sm font-semibold text-foreground" data-testid="text-active-loans">
                 {t.dashboard.yourActiveLoans}
               </h3>
               <Link href="/loans">
-                <Button variant="ghost" size="sm" className="h-auto p-0 text-xs text-primary">
+                <Button variant="ghost" size="sm" className="h-auto p-0 text-xs text-primary font-medium">
                   {t.dashboard.viewAll}
                 </Button>
               </Link>
