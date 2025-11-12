@@ -57,7 +57,7 @@ const getMockCashflowData = (t: ReturnType<typeof useTranslations>) => [
 
 export default function Dashboard() {
   const t = useTranslations();
-  const { data: dashboardData, isLoading: isDashboardLoading } = useDashboard();
+  const { data: dashboardData, isLoading: isDashboardLoading, error: dashboardError } = useDashboard();
   const { data: repaymentsData, isLoading: isRepaymentsLoading } = useUpcomingRepaymentsChart();
   const { data: user } = useUser();
   const [loanModalOpen, setLoanModalOpen] = useState(false);
@@ -82,10 +82,56 @@ export default function Dashboard() {
     return <DashboardSkeleton />;
   }
 
-  if (!dashboardData) {
+  if (!dashboardData || dashboardError) {
+    const isDev = import.meta.env.DEV;
+    const apiUrl = import.meta.env.VITE_API_URL || window.location.origin;
+    
     return (
-      <div className="p-6 md:p-8">
-        <p className="text-destructive">{t.dashboard.dataLoadError}</p>
+      <div className="p-6 md:p-8 max-w-2xl">
+        <div className="bg-destructive/10 border border-destructive/20 rounded-md p-6 space-y-4">
+          <div className="flex items-start gap-3">
+            <div className="text-destructive mt-0.5">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold text-destructive mb-2">{t.dashboard.dataLoadError}</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Impossible de se connecter au serveur. Veuillez vérifier votre connexion et réessayer.
+              </p>
+              
+              {isDev && (
+                <details className="mt-4 text-xs">
+                  <summary className="cursor-pointer font-medium text-muted-foreground hover:text-foreground mb-2">
+                    Informations de diagnostic (développement)
+                  </summary>
+                  <div className="mt-2 p-3 bg-muted rounded-md font-mono space-y-1">
+                    <p><strong>API URL:</strong> {apiUrl}/api/dashboard</p>
+                    <p><strong>Erreur:</strong> {dashboardError ? String(dashboardError) : "Aucune donnée reçue"}</p>
+                    <p><strong>Variables d'environnement:</strong></p>
+                    <ul className="ml-4 space-y-1">
+                      <li>VITE_API_URL: {import.meta.env.VITE_API_URL || "(non défini - utilise same-origin)"}</li>
+                      <li>NODE_ENV: {import.meta.env.MODE}</li>
+                    </ul>
+                    <p className="mt-3 text-amber-600 dark:text-amber-500">
+                      <strong>Solution probable:</strong> Vérifiez que VITE_API_URL est défini sur Netlify 
+                      et pointe vers https://api.altusfinancegroup.com
+                    </p>
+                  </div>
+                </details>
+              )}
+              
+              <button
+                onClick={() => window.location.reload()}
+                className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 text-sm font-medium"
+                data-testid="button-retry-dashboard"
+              >
+                Réessayer
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -37,7 +37,7 @@ function DashboardMobileSkeleton() {
 
 export default function DashboardMobile() {
   const { data: user } = useUser();
-  const { data: dashboardData, isLoading } = useDashboard();
+  const { data: dashboardData, isLoading, error: dashboardError } = useDashboard();
   const t = useTranslations();
   const [hasNotifications] = useState(true);
 
@@ -45,10 +45,48 @@ export default function DashboardMobile() {
     return <DashboardMobileSkeleton />;
   }
 
-  if (!dashboardData) {
+  if (!dashboardData || dashboardError) {
+    const isDev = import.meta.env.DEV;
+    const apiUrl = import.meta.env.VITE_API_URL || window.location.origin;
+    
     return (
       <div className="min-h-screen bg-[#F8F9FB] dark:bg-background p-4">
-        <p className="text-destructive">{t.dashboard.dataLoadError}</p>
+        <div className="bg-destructive/10 border border-destructive/20 rounded-md p-4 space-y-3">
+          <div className="flex items-start gap-3">
+            <div className="text-destructive mt-0.5">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold text-destructive mb-1 text-sm">{t.dashboard.dataLoadError}</h3>
+              <p className="text-xs text-muted-foreground mb-3">
+                Impossible de se connecter au serveur. Veuillez vérifier votre connexion et réessayer.
+              </p>
+              
+              {isDev && (
+                <details className="mt-3 text-xs">
+                  <summary className="cursor-pointer font-medium text-muted-foreground hover:text-foreground mb-2">
+                    Diagnostic
+                  </summary>
+                  <div className="mt-2 p-2 bg-muted rounded-md font-mono text-[10px] space-y-1">
+                    <p><strong>API:</strong> {apiUrl}/api/dashboard</p>
+                    <p><strong>Erreur:</strong> {dashboardError ? String(dashboardError) : "Pas de données"}</p>
+                    <p><strong>VITE_API_URL:</strong> {import.meta.env.VITE_API_URL || "(non défini)"}</p>
+                  </div>
+                </details>
+              )}
+              
+              <button
+                onClick={() => window.location.reload()}
+                className="mt-3 px-3 py-1.5 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 text-xs font-medium w-full"
+                data-testid="button-retry-dashboard-mobile"
+              >
+                Réessayer
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
