@@ -44,7 +44,8 @@ export default function LoanDetailsDialog({ open, onOpenChange, loan }: LoanDeta
 
   const handleContractDownload = async () => {
     try {
-      window.open(`/api/loans/${loan.id}/contract`, '_blank');
+      const contractUrl = getApiUrl(`/api/loans/${loan.id}/contract`);
+      window.open(contractUrl, '_blank');
       toast({
         title: t.loan.downloadContract,
         description: t.loan.downloading,
