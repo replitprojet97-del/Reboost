@@ -95,33 +95,6 @@ export default function AppSidebar() {
           <>
             <SidebarGroup>
               <SidebarGroupLabel className="text-sm font-semibold px-4 py-2">
-                {t.nav.dashboard}
-              </SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {generalMenuItems.map((item) => {
-                    const isActive = location === item.url;
-                    return (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton
-                          asChild
-                          isActive={isActive}
-                          onClick={() => setLocation(item.url)}
-                        >
-                          <a href={item.url} data-testid={`link-${item.url.slice(1)}`} className="flex items-center gap-3">
-                            <item.icon size={20} />
-                            <span>{item.title}</span>
-                          </a>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    );
-                  })}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-
-            <SidebarGroup>
-              <SidebarGroupLabel className="text-sm font-semibold px-4 py-2">
                 {t.nav.loansSection || 'Prêts'}
               </SidebarGroupLabel>
               <SidebarGroupContent>
@@ -136,6 +109,33 @@ export default function AppSidebar() {
                           onClick={() => setLocation(item.url)}
                         >
                           <a href={item.url} data-testid={`link-${item.url.slice(1).replace(/\//g, '-')}`} className="flex items-center gap-3">
+                            <item.icon size={20} />
+                            <span>{item.title}</span>
+                          </a>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    );
+                  })}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+
+            <SidebarGroup>
+              <SidebarGroupLabel className="text-sm font-semibold px-4 py-2">
+                {t.nav.dashboard}
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {generalMenuItems.map((item) => {
+                    const isActive = location === item.url;
+                    return (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={isActive}
+                          onClick={() => setLocation(item.url)}
+                        >
+                          <a href={item.url} data-testid={`link-${item.url.slice(1)}`} className="flex items-center gap-3">
                             <item.icon size={20} />
                             <span>{item.title}</span>
                           </a>
