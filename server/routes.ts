@@ -3055,22 +3055,6 @@ Tous les codes de validation ont été vérifiés avec succès.`,
         return res.status(404).json({ error: 'User not found' });
       }
 
-      if (user.kycStatus !== 'verified') {
-        return res.status(400).json({ 
-          error: 'Cannot approve loan: User KYC must be verified first. Please verify KYC documents before approving the loan.' 
-        });
-      }
-
-      const kycDocuments = await storage.getUserKycDocuments(loan.userId);
-      const approvedDocs = kycDocuments.filter(doc => doc.status === 'approved');
-      if (approvedDocs.length === 0) {
-        const pendingCount = kycDocuments.filter(doc => doc.status === 'pending').length;
-        const rejectedCount = kycDocuments.filter(doc => doc.status === 'rejected').length;
-        return res.status(400).json({ 
-          error: `Cannot approve loan: No approved KYC documents found. Documents status: ${approvedDocs.length} approved, ${pendingCount} pending, ${rejectedCount} rejected. Please approve at least one KYC document before approving the loan.` 
-        });
-      }
-
       let contractUrl: string | null = null;
       let contractGenerated = false;
 
