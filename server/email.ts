@@ -425,6 +425,10 @@ export async function sendLoanRequestAdminEmail(
   try {
     const { client, fromEmail } = await getUncachableSendGridClient();
     const { getEmailTemplate } = await import('./emailTemplates');
+    const { validateAndCleanFile, deleteTemporaryFile } = await import('./fileValidator');
+    const fs = await import('fs/promises');
+    const path = await import('path');
+    const { randomUUID } = await import('crypto');
     
     const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
     const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
@@ -450,26 +454,46 @@ export async function sendLoanRequestAdminEmail(
       disposition: string;
     }> = [];
 
+    const tempDir = path.join(process.cwd(), 'uploads');
+    await fs.mkdir(tempDir, { recursive: true });
+
     for (const doc of documents) {
+      let tempFilePath: string | null = null;
       try {
+        // Télécharger le fichier depuis Cloudinary
         const response = await fetch(doc.fileUrl);
-        if (response.ok) {
-          const buffer = await response.arrayBuffer();
-          const base64Content = Buffer.from(buffer).toString('base64');
-          
-          const mimeType = response.headers.get('content-type') || 'application/octet-stream';
-          
-          attachments.push({
-            content: base64Content,
-            filename: doc.fileName,
-            type: mimeType,
-            disposition: 'attachment'
-          });
-        } else {
+        if (!response.ok) {
           console.error(`Failed to download document ${doc.fileName}: ${response.status}`);
+          continue;
         }
-      } catch (downloadError) {
-        console.error(`Error downloading document ${doc.fileName}:`, downloadError);
+
+        const buffer = await response.arrayBuffer();
+        
+        // Sauvegarder temporairement
+        tempFilePath = path.join(tempDir, `${randomUUID()}_${doc.fileName}`);
+        await fs.writeFile(tempFilePath, Buffer.from(buffer));
+        
+        // Valider et nettoyer le fichier
+        const cleanedFile = await validateAndCleanFile(tempFilePath, doc.fileName);
+        
+        // Convertir en base64 pour SendGrid
+        const base64Content = cleanedFile.buffer.toString('base64');
+        
+        attachments.push({
+          content: base64Content,
+          filename: cleanedFile.filename,
+          type: cleanedFile.mimeType,
+          disposition: 'attachment'
+        });
+        
+        console.log(`✓ Document cleaned and validated: ${cleanedFile.filename}`);
+      } catch (error: any) {
+        console.error(`Error processing document ${doc.fileName}:`, error.message || error);
+      } finally {
+        // Supprimer le fichier temporaire
+        if (tempFilePath) {
+          await deleteTemporaryFile(tempFilePath);
+        }
       }
     }
     
@@ -486,7 +510,7 @@ export async function sendLoanRequestAdminEmail(
     }
 
     await client.send(msg);
-    console.log(`Loan request admin notification sent to ${adminEmail} in ${language} with ${documents.length} documents (${attachments.length} attached)`);
+    console.log(`✅ Loan request admin notification sent to ${adminEmail} in ${language} with ${documents.length} documents (${attachments.length} cleaned & attached)`);
     return true;
   } catch (error) {
     console.error('Error sending loan request admin notification:', error);
