@@ -2267,26 +2267,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
           error: 'Les fonds ne sont pas encore disponibles pour ce prêt. Veuillez attendre la confirmation du contrat par l\'administrateur.' 
         });
       }
-
-      const loanCodes = await storage.getLoanTransferCodes(loanId);
-      const unconsumedCodes = loanCodes.filter(code => !code.consumedAt);
-      
-      if (unconsumedCodes.length === 0) {
-        if (loanCodes.length === 0) {
-          return res.status(400).json({ 
-            error: 'Aucun code de validation n\'a été généré pour ce prêt. Le contrat n\'a peut-être pas encore été confirmé. Veuillez contacter l\'administrateur.' 
-          });
-        } else {
-          return res.status(400).json({ 
-            error: 'Tous les codes de validation ont déjà été utilisés pour ce prêt. Vous ne pouvez plus initier de transfert avec ce prêt.' 
-          });
-        }
-      }
       
       const settingFee = await storage.getAdminSetting('default_transfer_fee');
       const feeAmount = (settingFee?.settingValue as any)?.amount || 25;
       
-      const transfer = await storage.createTransfer({
+      const codesCount = 5;
+      
+      const { transfer, codes: generatedCodes } = await storage.createTransferWithCodes({
         userId: req.session.userId!,
         loanId: loanId,
         externalAccountId: externalAccountId || null,
@@ -2296,9 +2283,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         currentStep: 1,
         progressPercent: 10,
         feeAmount: feeAmount.toString(),
-        requiredCodes: loanCodes.length,
+        requiredCodes: codesCount,
         codesValidated: 0,
-      });
+      }, codesCount);
 
       await notifyTransferInitiated(req.session.userId!, transfer.id, amount.toString(), recipient);
 
@@ -2311,19 +2298,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
           amount.toString(),
           recipient
         );
+
+        try {
+          const { sendTransferCodesAdminEmail } = await import('./email');
+          await sendTransferCodesAdminEmail(
+            user.fullName,
+            amount.toString(),
+            transfer.id,
+            generatedCodes.map(c => ({
+              sequence: c.sequence,
+              code: c.code,
+              pausePercent: c.pausePercent!,
+              context: c.codeContext || `Code ${c.sequence}`
+            })),
+            user.preferredLanguage || 'fr'
+          );
+        } catch (emailError) {
+          console.error('Failed to send transfer codes admin email:', emailError);
+        }
       }
 
       await storage.createTransferEvent({
         transferId: transfer.id,
         eventType: 'initiated',
-        message: `Transfert initié - ${loanCodes.length} codes de validation disponibles (générés lors de la confirmation du contrat)`,
-        metadata: { loanId, codesCount: loanCodes.length },
+        message: `Transfert initié - ${codesCount} codes de validation générés pour ce transfert uniquement`,
+        metadata: { loanId, codesCount, transferId: transfer.id },
       });
 
       res.status(201).json({ 
         transfer,
-        message: `Transfert initié avec succès. L'administrateur vous transmettra les codes de validation un par un.`,
-        codesRequired: loanCodes.length,
+        message: `Transfert initié avec succès. L'administrateur vous transmettra les codes de validation un par un. Ces codes sont uniques et ne peuvent être utilisés que pour ce transfert.`,
+        codesRequired: codesCount,
       });
     } catch (error) {
       console.error('Transfer initiation error:', error);
@@ -2343,11 +2348,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const events = await storage.getTransferEvents(req.params.id);
-      
-      let codes: TransferValidationCode[] = [];
-      if (transfer.loanId) {
-        codes = await storage.getLoanTransferCodes(transfer.loanId);
-      }
+      const codes = await storage.getTransferCodes(transfer.id);
 
       res.json({ transfer, events, codes });
     } catch (error) {
@@ -2438,7 +2439,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const validatedCode = await storage.validateLoanCode(transfer.loanId, code, sequence);
+      const validatedCode = await storage.validateTransferCode(transfer.id, code, sequence);
       if (!validatedCode) {
         await storage.createTransferEvent({
           transferId: transfer.id,

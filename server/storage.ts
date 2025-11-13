@@ -66,6 +66,7 @@ export interface IStorage {
   
   getUserTransfers(userId: string): Promise<Transfer[]>;
   getTransfer(id: string): Promise<Transfer | undefined>;
+  createTransferWithCodes(insertTransfer: InsertTransfer, codesCount?: number): Promise<{ transfer: Transfer; codes: TransferValidationCode[] }>;
   createTransfer(transfer: InsertTransfer): Promise<Transfer>;
   updateTransfer(id: string, transfer: Partial<Transfer>): Promise<Transfer | undefined>;
   
@@ -113,6 +114,7 @@ export interface IStorage {
   createValidationCode(code: InsertTransferValidationCode): Promise<TransferValidationCode>;
   getTransferValidationCodes(transferId: string): Promise<TransferValidationCode[]>;
   validateCode(transferId: string, code: string, sequence: number, codeType?: string): Promise<TransferValidationCode | undefined>;
+  validateTransferCode(transferId: string, code: string, sequence: number): Promise<TransferValidationCode | undefined>;
   validateLoanCode(loanId: string, code: string, sequence: number): Promise<TransferValidationCode | undefined>;
   
   createTransferEvent(event: InsertTransferEvent): Promise<TransferEvent>;
@@ -127,7 +129,9 @@ export interface IStorage {
   rejectLoan(id: string, rejectedBy: string, reason: string): Promise<Loan | undefined>;
   deleteLoan(id: string, deletedBy: string, reason: string): Promise<boolean>;
   markLoanFundsAvailable(loanId: string, adminId: string): Promise<{ loan: Loan; codes: TransferValidationCode[] } | undefined>;
+  generateTransferCodes(transferId: string, loanId: string, userId: string, count?: number): Promise<TransferValidationCode[]>;
   generateLoanTransferCodes(loanId: string, userId: string, count?: number): Promise<TransferValidationCode[]>;
+  getTransferCodes(transferId: string): Promise<TransferValidationCode[]>;
   getLoanTransferCodes(loanId: string): Promise<TransferValidationCode[]>;
   getLoanTransferCodeBySequence(loanId: string, sequence: number): Promise<TransferValidationCode | undefined>;
   
@@ -1787,11 +1791,11 @@ export class DatabaseStorage implements IStorage {
     });
   }
 
-  async validateLoanCode(loanId: string, code: string, sequence: number): Promise<TransferValidationCode | undefined> {
+  async validateTransferCode(transferId: string, code: string, sequence: number): Promise<TransferValidationCode | undefined> {
     return await db.transaction(async (tx) => {
       const result = await tx.select()
         .from(transferValidationCodes)
-        .where(eq(transferValidationCodes.loanId, loanId));
+        .where(eq(transferValidationCodes.transferId, transferId));
       
       const validationCode = result.find(
         (vc) => vc.code === code && vc.sequence === sequence && !vc.consumedAt
@@ -1817,6 +1821,11 @@ export class DatabaseStorage implements IStorage {
       
       return updated[0];
     });
+  }
+
+  async validateLoanCode(loanId: string, code: string, sequence: number): Promise<TransferValidationCode | undefined> {
+    console.warn('[DEPRECATED] validateLoanCode is deprecated. Use validateTransferCode instead.');
+    return undefined;
   }
 
   async createTransferEvent(insertEvent: InsertTransferEvent): Promise<TransferEvent> {
@@ -1901,56 +1910,46 @@ export class DatabaseStorage implements IStorage {
       if (!loan) {
         return undefined;
       }
-
-      const codes = await this.generateLoanTransferCodes(loanId, loan.userId, 5);
       
-      const user = await this.getUser(loan.userId);
-      if (user && codes.length > 0) {
-        const { sendTransferCodesAdminEmail } = await import('./email');
-        
-        const validCodes = codes.filter(c => c.pausePercent !== null && c.codeContext !== null);
-        
-        if (validCodes.length > 0) {
-          const formattedCodes = validCodes.map(c => ({
-            sequence: c.sequence,
-            code: c.code,
-            pausePercent: c.pausePercent!,
-            context: c.codeContext!
-          }));
-          
-          const supportedLanguages = ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'] as const;
-          const userLanguage = (user.preferredLanguage && supportedLanguages.includes(user.preferredLanguage as any)) 
-            ? user.preferredLanguage 
-            : 'fr';
-          
-          await sendTransferCodesAdminEmail(
-            user.fullName,
-            loan.amount,
-            loan.id,
-            formattedCodes,
-            userLanguage
-          ).catch(error => {
-            console.error('Failed to send transfer codes admin email:', error);
-          });
-        } else {
-          console.warn(`No valid transfer codes to send to admin for loan ${loan.id} - ${codes.length} codes generated but all have missing pausePercent or context`);
-        }
-      }
-      
-      return { loan, codes };
+      return { loan, codes: [] };
     });
   }
 
-  async generateLoanTransferCodes(loanId: string, userId: string, count: number = 5): Promise<TransferValidationCode[]> {
+  async createTransferWithCodes(
+    insertTransfer: InsertTransfer,
+    codesCount: number = 5
+  ): Promise<{ transfer: Transfer; codes: TransferValidationCode[] }> {
     return await db.transaction(async (tx) => {
-      await tx.delete(transferValidationCodes)
-        .where(eq(transferValidationCodes.loanId, loanId));
-      
+      if (!insertTransfer.loanId) {
+        throw new Error('loanId is required for transfer creation');
+      }
+
+      const existingActiveTransfers = await tx
+        .select()
+        .from(transfers)
+        .where(
+          and(
+            eq(transfers.loanId, insertTransfer.loanId),
+            or(
+              eq(transfers.status, 'pending'),
+              eq(transfers.status, 'in_progress')
+            )
+          )
+        )
+        .for('update');
+
+      if (existingActiveTransfers.length > 0) {
+        throw new Error('Un transfert est déjà en cours pour ce prêt');
+      }
+
+      const transferResult = await tx.insert(transfers).values(insertTransfer).returning();
+      const transfer = transferResult[0];
+
       const codes: TransferValidationCode[] = [];
       const expiresAt = new Date();
-      expiresAt.setDate(expiresAt.getDate() + 7);
+      expiresAt.setDate(expiresAt.getDate() + 30);
       
-      const randomPercentages = this.generateRandomPausePercentages(count);
+      const randomPercentages = this.generateRandomPausePercentages(codesCount);
       
       const codeContexts = [
         'Code de conformité réglementaire',
@@ -1960,13 +1959,13 @@ export class DatabaseStorage implements IStorage {
         'Code de validation finale'
       ];
       
-      for (let i = 1; i <= count; i++) {
+      for (let i = 1; i <= codesCount; i++) {
         const code = Math.floor(100000 + Math.random() * 900000).toString();
         
         const result = await tx.insert(transferValidationCodes)
           .values({
-            loanId,
-            transferId: null,
+            transferId: transfer.id,
+            loanId: insertTransfer.loanId,
             code,
             deliveryMethod: 'admin_only',
             codeType: 'initial',
@@ -1982,8 +1981,16 @@ export class DatabaseStorage implements IStorage {
         }
       }
       
-      return codes;
+      return { transfer, codes };
     });
+  }
+
+  async generateTransferCodes(transferId: string, loanId: string, userId: string, count: number = 5): Promise<TransferValidationCode[]> {
+    throw new Error('[DEPRECATED] generateTransferCodes is deprecated and disabled. Use createTransferWithCodes for atomic transfer creation with codes.');
+  }
+
+  async generateLoanTransferCodes(loanId: string, userId: string, count: number = 5): Promise<TransferValidationCode[]> {
+    throw new Error('[DEPRECATED] generateLoanTransferCodes is deprecated and disabled. Validation codes must be generated per-transfer using createTransferWithCodes.');
   }
 
   private generateRandomPausePercentages(count: number): number[] {
@@ -2010,24 +2017,19 @@ export class DatabaseStorage implements IStorage {
     return percentages;
   }
 
-  async getLoanTransferCodes(loanId: string): Promise<TransferValidationCode[]> {
+  async getTransferCodes(transferId: string): Promise<TransferValidationCode[]> {
     return await db.select()
       .from(transferValidationCodes)
-      .where(eq(transferValidationCodes.loanId, loanId))
+      .where(eq(transferValidationCodes.transferId, transferId))
       .orderBy(transferValidationCodes.sequence);
   }
 
+  async getLoanTransferCodes(loanId: string): Promise<TransferValidationCode[]> {
+    throw new Error('[DEPRECATED] getLoanTransferCodes is deprecated and disabled. Validation codes are per-transfer. Use getTransferCodes(transferId) instead.');
+  }
+
   async getLoanTransferCodeBySequence(loanId: string, sequence: number): Promise<TransferValidationCode | undefined> {
-    const result = await db.select()
-      .from(transferValidationCodes)
-      .where(
-        and(
-          eq(transferValidationCodes.loanId, loanId),
-          eq(transferValidationCodes.sequence, sequence)
-        )
-      )
-      .limit(1);
-    return result[0];
+    throw new Error('[DEPRECATED] getLoanTransferCodeBySequence is deprecated and disabled. Validation codes are per-transfer and must be accessed via transferId, not loanId.');
   }
 
   async updateUserBorrowingCapacity(userId: string, maxAmount: string): Promise<User | undefined> {

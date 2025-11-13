@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, decimal, integer, timestamp, boolean, json } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, decimal, integer, timestamp, boolean, json, index, unique } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -112,9 +112,9 @@ export const transfers = pgTable("transfers", {
 
 export const transferValidationCodes = pgTable("transfer_validation_codes", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  transferId: varchar("transfer_id"),
+  transferId: varchar("transfer_id").notNull(),
   loanId: varchar("loan_id"),
-  code: text("code").notNull(),
+  code: text("code").notNull().unique(),
   deliveryMethod: text("delivery_method").notNull(),
   codeType: text("code_type").notNull().default("initial"),
   codeContext: text("code_context"),
@@ -124,7 +124,10 @@ export const transferValidationCodes = pgTable("transfer_validation_codes", {
   issuedAt: timestamp("issued_at").notNull().default(sql`now()`),
   expiresAt: timestamp("expires_at").notNull(),
   consumedAt: timestamp("consumed_at"),
-});
+}, (table) => ({
+  transferSequenceUnique: unique("transfer_validation_codes_transfer_sequence_unique").on(table.transferId, table.sequence),
+  transferIdIdx: index("transfer_id_idx").on(table.transferId),
+}));
 
 export const transferEvents = pgTable("transfer_events", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
