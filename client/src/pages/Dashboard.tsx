@@ -20,6 +20,7 @@ import {
 import { Link } from 'wouter';
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { LoanRequestModal } from '@/components/LoanRequestModal';
+import { SignedContractUpload } from '@/components/SignedContractUpload';
 import { useState } from 'react';
 
 function DashboardSkeleton() {
@@ -680,6 +681,10 @@ export default function Dashboard() {
                         />
                       </div>
                     </div>
+
+                    {needsSignature && (
+                      <SignedContractUpload loanId={loan.id} loanAmount={loan.amount} />
+                    )}
                   </div>
                 );
               })}

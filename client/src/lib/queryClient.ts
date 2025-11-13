@@ -147,7 +147,13 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const headers: Record<string, string> = data ? { "Content-Type": "application/json" } : {};
+  const headers: Record<string, string> = {};
+  
+  // Only add Content-Type for JSON data (not for FormData or other native bodies)
+  const isFormData = data instanceof FormData;
+  if (data && !isFormData) {
+    headers["Content-Type"] = "application/json";
+  }
 
   if (method !== 'GET' && method !== 'HEAD') {
     const token = await getCsrfToken();
@@ -159,7 +165,7 @@ export async function apiRequest(
   const res = await fetch(getApiUrl(url), {
     method,
     headers,
-    body: data ? JSON.stringify(data) : undefined,
+    body: data ? (isFormData ? data : JSON.stringify(data)) : undefined,
     credentials: "include",
   });
 
