@@ -47,6 +47,7 @@ import UserProfileHeader from '@/components/UserProfileHeader';
 import NotificationBell from '@/components/NotificationBell';
 import SessionMonitor from '@/components/SessionMonitor';
 import MobileBottomNav from '@/components/MobileBottomNav';
+import ContractNotificationManager from '@/components/ContractNotificationManager';
 
 function App() {
   const style = {
@@ -58,6 +59,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <SessionMonitor />
+          <ContractNotificationManager />
           <PageLoader />
           <Switch>
             <Route path="/" component={Home} />
