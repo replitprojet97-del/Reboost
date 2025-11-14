@@ -525,7 +525,12 @@ export default function Dashboard() {
                         Voir
                       </Button>
                     )}
-                    {contract.id && <SignedContractUpload />}
+                    {contract.id && contract.loanId && (
+                      <SignedContractUpload 
+                        loanId={contract.loanId}
+                        loanAmount={contract.amount || 0}
+                      />
+                    )}
                   </div>
                 </div>
               ))}
