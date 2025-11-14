@@ -1,0 +1,36 @@
+:root {
+  --altus-indigo: #5b21b6;
+  --altus-royal: #3b82f6;
+  --altus-ink: #0f172a;
+  --altus-muted: #6b7280;
+  --altus-bg: #ffffff;
+  --glass-bg: rgba(255,255,255,0.6);
+  --glass-border: rgba(255,255,255,0.6);
+  --soft-shadow: 0 6px 30px rgba(11, 15, 30, 0.06);
+}
+
+body {
+  background: var(--altus-bg);
+  color: var(--altus-ink);
+}
+
+/* Premium Component Animations */
+@keyframes info-fade {
+  0% { opacity: 0; transform: translateY(4px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-4px); }
+}
+
+@keyframes progress-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(160%); }
+}
+
+.animate-info-fade {
+  animation: info-fade 3.5s linear;
+}
+
+.animate-progress-slide {
+  animation: progress-slide 1.8s linear infinite;
+}

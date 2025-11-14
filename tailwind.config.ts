@@ -9,12 +9,20 @@ export default {
         lg: ".5625rem", /* 9px */
         md: ".375rem", /* 6px */
         sm: ".1875rem", /* 3px */
+        'xl-3': '18px',
+      },
+      boxShadow: {
+        'soft-2025': '0 8px 40px rgba(11,15,30,0.06)',
       },
       colors: {
-        // ALTUS Finance Group brand colors
+        // ALTUS Finance Group brand colors - Premium 2025
         altus: {
           blue: "#1A4BFF",
           purple: "#6A5BFF",
+          indigo: "#5b21b6",
+          royal: "#3b82f6",
+          ink: "#0f172a",
+          muted: "#6b7280",
         },
         // Flat / base colors (regular buttons)
         background: "hsl(var(--background) / <alpha-value>)",
