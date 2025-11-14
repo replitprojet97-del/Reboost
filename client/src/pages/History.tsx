@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Search, TrendingUp, TrendingDown, Receipt, ArrowUpRight, ArrowDownLeft, FileText } from 'lucide-react';
 import { useTranslations } from '@/lib/i18n';
+import { DashboardCard, SectionTitle } from '@/components/fintech';
 
 interface Transaction {
   id: string;
@@ -19,14 +19,14 @@ interface Transaction {
 function HistorySkeleton() {
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[...Array(3)].map((_, i) => (
-          <Skeleton key={i} className="h-24" />
+          <Skeleton key={i} className="h-32 rounded-2xl" />
         ))}
       </div>
-      <div className="space-y-3">
+      <div className="space-y-4">
         {[...Array(8)].map((_, i) => (
-          <Skeleton key={i} className="h-20" />
+          <Skeleton key={i} className="h-24 rounded-2xl" />
         ))}
       </div>
     </div>
@@ -115,7 +115,7 @@ export default function History() {
 
   if (isLoading) {
     return (
-      <div className="p-6 md:p-8 max-w-[1200px] mx-auto space-y-6">
+      <div className="p-6 md:p-8 max-w-[1400px] mx-auto space-y-6 animate-fade-in">
         <Skeleton className="h-10 w-48" />
         <HistorySkeleton />
       </div>
@@ -123,163 +123,167 @@ export default function History() {
   }
 
   return (
-    <div className="p-6 md:p-8 max-w-[1200px] mx-auto space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">{t.history.pageTitle}</h1>
-        <p className="text-sm text-muted-foreground mt-1">{t.history.pageDescription}</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <div className="p-6 md:p-8 max-w-[1400px] mx-auto space-y-8 animate-fade-in">
+        {/* Header */}
+        <SectionTitle
+          title={t.history.pageTitle}
+          subtitle={t.history.pageDescription}
+        />
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="p-6">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-              <TrendingUp className="h-5 w-5 text-accent" />
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <DashboardCard className="bg-gradient-to-br from-accent/10 via-background to-background border-accent/20">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center shadow-sm">
+                <TrendingUp className="h-7 w-7 text-accent" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-medium text-muted-foreground">{t.history.totalCredits}</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground">{t.history.totalCredits}</p>
-            </div>
-          </div>
-          <p className="text-2xl font-bold text-accent" data-testid="text-total-credit">
-            +{formatCurrency(totalCredit.toString())}
-          </p>
-        </Card>
-
-        <Card className="p-6">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center">
-              <TrendingDown className="h-5 w-5 text-destructive" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">{t.history.totalDebits}</p>
-            </div>
-          </div>
-          <p className="text-2xl font-bold text-destructive" data-testid="text-total-debit">
-            -{formatCurrency(totalDebit.toString())}
-          </p>
-        </Card>
-
-        <Card className="p-6">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <Receipt className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Solde net</p>
-            </div>
-          </div>
-          <p className={`text-2xl font-bold ${netBalance >= 0 ? 'text-accent' : 'text-destructive'}`} data-testid="text-net-balance">
-            {netBalance >= 0 ? '+' : ''}{formatCurrency(netBalance.toString())}
-          </p>
-        </Card>
-      </div>
-
-      {/* Filters */}
-      <Card className="p-4">
-        <div className="flex flex-col md:flex-row gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder={t.history.searchPlaceholder}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-              data-testid="input-search-history"
-            />
-          </div>
-          <Select value={typeFilter} onValueChange={setTypeFilter}>
-            <SelectTrigger className="w-full md:w-[200px]" data-testid="select-type-filter">
-              <SelectValue placeholder="Type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">{t.history.allTypes}</SelectItem>
-              <SelectItem value="credit">{t.history.typeCredit}</SelectItem>
-              <SelectItem value="debit">{t.history.typeDebit}</SelectItem>
-              <SelectItem value="fee">{t.history.typeFee}</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </Card>
-
-      {/* Transactions List */}
-      {!filteredTransactions || filteredTransactions.length === 0 ? (
-        <Card className="p-12">
-          <div className="flex flex-col items-center justify-center text-center">
-            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-              <Receipt className="h-8 w-8 text-muted-foreground" />
-            </div>
-            <h3 className="text-lg font-semibold mb-2">{t.history.noTransactionsFound}</h3>
-            <p className="text-muted-foreground text-sm">
-              {searchQuery || typeFilter !== 'all'
-                ? t.history.noTransactionsYet
-                : t.history.noTransactionsYet}
+            <p className="text-3xl font-bold text-accent tracking-tight" data-testid="text-total-credit">
+              +{formatCurrency(totalCredit.toString())}
             </p>
+          </DashboardCard>
+
+          <DashboardCard className="bg-gradient-to-br from-destructive/10 via-background to-background border-destructive/20">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-destructive/20 to-destructive/5 flex items-center justify-center shadow-sm">
+                <TrendingDown className="h-7 w-7 text-destructive" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-medium text-muted-foreground">{t.history.totalDebits}</p>
+              </div>
+            </div>
+            <p className="text-3xl font-bold text-destructive tracking-tight" data-testid="text-total-debit">
+              -{formatCurrency(totalDebit.toString())}
+            </p>
+          </DashboardCard>
+
+          <DashboardCard className="bg-gradient-to-br from-primary/10 via-background to-background border-primary/20">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center shadow-sm">
+                <Receipt className="h-7 w-7 text-primary" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-medium text-muted-foreground">Solde net</p>
+              </div>
+            </div>
+            <p className={`text-3xl font-bold tracking-tight ${netBalance >= 0 ? 'text-accent' : 'text-destructive'}`} data-testid="text-net-balance">
+              {netBalance >= 0 ? '+' : ''}{formatCurrency(netBalance.toString())}
+            </p>
+          </DashboardCard>
+        </div>
+
+        {/* Filters */}
+        <DashboardCard>
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+              <Input
+                placeholder={t.history.searchPlaceholder}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 border-border/50 focus:border-primary transition-colors"
+                data-testid="input-search-history"
+              />
+            </div>
+            <Select value={typeFilter} onValueChange={setTypeFilter}>
+              <SelectTrigger className="w-full md:w-[200px] border-border/50" data-testid="select-type-filter">
+                <SelectValue placeholder="Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t.history.allTypes}</SelectItem>
+                <SelectItem value="credit">{t.history.typeCredit}</SelectItem>
+                <SelectItem value="debit">{t.history.typeDebit}</SelectItem>
+                <SelectItem value="fee">{t.history.typeFee}</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
-        </Card>
-      ) : (
-        <Card className="overflow-hidden">
-          <div className="divide-y divide-border">
-            {filteredTransactions.map((transaction) => (
-              <div
-                key={transaction.id}
-                className="p-4 hover-elevate transition-all"
-                data-testid={`transaction-item-${transaction.id}`}
-              >
-                <div className="flex items-center gap-4">
-                  {/* Icon */}
-                  <div className="flex-shrink-0">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                      transaction.type === 'credit' ? 'bg-accent/10' :
-                      transaction.type === 'debit' ? 'bg-destructive/10' :
-                      'bg-muted'
-                    }`}>
-                      {getTypeIcon(transaction.type)}
-                    </div>
-                  </div>
+        </DashboardCard>
 
-                  {/* Transaction Info */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-foreground truncate">{transaction.description}</h3>
-                    <div className="flex items-center gap-3 mt-1">
-                      <Badge variant="outline" className="text-xs">
-                        {getTypeLabel(transaction.type)}
-                      </Badge>
-                      <span className="text-xs text-muted-foreground">
-                        {formatDate(transaction.createdAt)}
-                      </span>
+        {/* Transactions List */}
+        {!filteredTransactions || filteredTransactions.length === 0 ? (
+          <DashboardCard className="bg-muted/20">
+            <div className="flex flex-col items-center justify-center text-center py-16">
+              <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 shadow-sm">
+                <Receipt className="h-10 w-10 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-foreground">{t.history.noTransactionsFound}</h3>
+              <p className="text-muted-foreground text-sm max-w-md">
+                {searchQuery || typeFilter !== 'all'
+                  ? t.history.noTransactionsYet
+                  : t.history.noTransactionsYet}
+              </p>
+            </div>
+          </DashboardCard>
+        ) : (
+          <DashboardCard className="overflow-hidden p-0">
+            <div className="divide-y divide-border/50">
+              {filteredTransactions.map((transaction, index) => (
+                <div
+                  key={transaction.id}
+                  className={`p-5 hover-elevate active-elevate-2 transition-all ${
+                    index === 0 ? 'rounded-t-2xl' : ''
+                  } ${index === filteredTransactions.length - 1 ? 'rounded-b-2xl' : ''}`}
+                  data-testid={`row-transaction-${transaction.id}`}
+                >
+                  <div className="flex items-center gap-5">
+                    {/* Icon */}
+                    <div className="flex-shrink-0">
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm ${
+                        transaction.type === 'credit' ? 'bg-gradient-to-br from-accent/15 to-accent/5' :
+                        transaction.type === 'debit' ? 'bg-gradient-to-br from-destructive/15 to-destructive/5' :
+                        'bg-gradient-to-br from-muted to-muted/50'
+                      }`}>
+                        {getTypeIcon(transaction.type)}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Amount */}
-                  <div className="flex-shrink-0 text-right">
-                    <p className={`text-xl font-semibold font-mono ${
-                      transaction.type === 'credit' ? 'text-accent' :
-                      transaction.type === 'debit' ? 'text-destructive' :
-                      'text-muted-foreground'
-                    }`}>
-                      {transaction.type === 'credit' ? '+' : '-'}
-                      {formatCurrency(transaction.amount)}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      ID: {transaction.id.slice(0, 8)}...
-                    </p>
+                    {/* Transaction Info */}
+                    <div className="flex-1 min-w-0 space-y-2">
+                      <h3 className="font-bold text-lg text-foreground truncate">{transaction.description}</h3>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <Badge variant="outline" className="text-xs font-medium">
+                          {getTypeLabel(transaction.type)}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground font-medium">
+                          {formatDate(transaction.createdAt)}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Amount */}
+                    <div className="flex-shrink-0 text-right">
+                      <p className={`text-2xl font-bold font-mono tracking-tight ${
+                        transaction.type === 'credit' ? 'text-accent' :
+                        transaction.type === 'debit' ? 'text-destructive' :
+                        'text-muted-foreground'
+                      }`}>
+                        {transaction.type === 'credit' ? '+' : '-'}
+                        {formatCurrency(transaction.amount)}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1.5 font-mono">
+                        ID: {transaction.id.slice(0, 8)}...
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </Card>
-      )}
+              ))}
+            </div>
+          </DashboardCard>
+        )}
 
-      {/* Total Transactions Count */}
-      {filteredTransactions && filteredTransactions.length > 0 && (
-        <div className="text-center">
-          <p className="text-sm text-muted-foreground" data-testid="text-total-transactions">
-            {filteredTransactions.length} transaction{filteredTransactions.length > 1 ? 's' : ''} affichée{filteredTransactions.length > 1 ? 's' : ''}
-          </p>
-        </div>
-      )}
+        {/* Total Transactions Count */}
+        {filteredTransactions && filteredTransactions.length > 0 && (
+          <div className="text-center pt-2">
+            <p className="text-sm text-muted-foreground font-medium" data-testid="text-total-transactions">
+              {filteredTransactions.length} transaction{filteredTransactions.length > 1 ? 's' : ''} affichée{filteredTransactions.length > 1 ? 's' : ''}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

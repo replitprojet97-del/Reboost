@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Building2, CreditCard, Trash2, Star } from 'lucide-react';
+import { Plus, Building2, Trash2, Star, CreditCard, ShieldCheck } from 'lucide-react';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { ExternalAccount } from '@shared/schema';
 import { useTranslations } from '@/lib/i18n';
+import { DashboardCard, SectionTitle, GradientButton } from '@/components/fintech';
 
 function BankAccountsSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {[...Array(4)].map((_, i) => (
-        <Skeleton key={i} className="h-48" />
+        <Skeleton key={i} className="h-64 rounded-2xl" />
       ))}
     </div>
   );
@@ -129,7 +129,7 @@ export default function BankAccounts() {
 
   if (isLoading) {
     return (
-      <div className="p-6 md:p-8 max-w-[1200px] mx-auto space-y-6">
+      <div className="p-6 md:p-8 max-w-[1400px] mx-auto space-y-6 animate-fade-in">
         <Skeleton className="h-10 w-48" />
         <BankAccountsSkeleton />
       </div>
@@ -138,167 +138,201 @@ export default function BankAccounts() {
 
   return (
     <>
-      <div className="p-6 md:p-8 max-w-[1200px] mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">{t.bankAccounts.title}</h1>
-            <p className="text-sm text-muted-foreground mt-1">{t.bankAccounts.description}</p>
+      <div className="min-h-screen bg-background">
+        <div className="p-6 md:p-8 max-w-[1400px] mx-auto space-y-8 animate-fade-in">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <SectionTitle
+              title={t.bankAccounts.title}
+              subtitle={t.bankAccounts.description}
+            />
+            <GradientButton
+              variant="primary"
+              icon={Plus}
+              onClick={() => setDialogOpen(true)}
+              data-testid="button-add-account"
+            >
+              {t.bankAccounts.addAccount}
+            </GradientButton>
           </div>
-          <Button
-            onClick={() => setDialogOpen(true)}
-            className="gap-2"
-            data-testid="button-add-account"
-          >
-            <Plus className="w-4 h-4" />
-            {t.bankAccounts.addAccount}
-          </Button>
-        </div>
 
-        {accounts && accounts.length === 0 ? (
-          <Card className="p-12">
-            <div className="flex flex-col items-center justify-center text-center">
-              <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
-                <Building2 className="h-8 w-8 text-muted-foreground" />
+          {accounts && accounts.length === 0 ? (
+            <DashboardCard className="bg-muted/20">
+              <div className="flex flex-col items-center justify-center text-center py-16">
+                <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 shadow-sm">
+                  <Building2 className="h-10 w-10 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-foreground">{t.bankAccounts.noAccountsTitle}</h3>
+                <p className="text-muted-foreground text-sm mb-8 max-w-md">
+                  {t.bankAccounts.noAccountsDescription}
+                </p>
+                <GradientButton
+                  variant="primary"
+                  icon={Plus}
+                  onClick={() => setDialogOpen(true)}
+                  data-testid="button-add-first-account"
+                >
+                  {t.bankAccounts.addFirstAccount}
+                </GradientButton>
               </div>
-              <h3 className="text-lg font-semibold mb-2">{t.bankAccounts.noAccountsTitle}</h3>
-              <p className="text-muted-foreground text-sm mb-6 max-w-md">
-                {t.bankAccounts.noAccountsDescription}
-              </p>
-              <Button onClick={() => setDialogOpen(true)} data-testid="button-add-first-account">
-                <Plus className="mr-2 h-4 w-4" />
-                {t.bankAccounts.addFirstAccount}
-              </Button>
-            </div>
-          </Card>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {accounts?.map((account) => (
-              <Card key={account.id} className="p-6 relative" data-testid={`card-account-${account.id}`}>
-                {account.isDefault && (
-                  <Badge className="absolute top-4 right-4 gap-1" variant="default">
-                    <Star className="w-3 h-3" />
-                    Par défaut
-                  </Badge>
-                )}
-                
-                <div className="space-y-4">
-                  {/* Bank Icon & Name */}
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Building2 className="h-6 w-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg text-foreground">{account.bankName}</h3>
-                      <p className="text-sm text-muted-foreground">{account.accountLabel}</p>
-                    </div>
-                  </div>
-
-                  {/* IBAN */}
-                  <div className="space-y-1">
-                    <p className="text-xs text-muted-foreground">IBAN</p>
-                    <p className="font-mono text-sm text-foreground">
-                      {formatIBAN(account.iban)}
-                    </p>
-                  </div>
-
-                  {/* BIC */}
-                  {account.bic && (
-                    <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground">BIC/SWIFT</p>
-                      <p className="font-mono text-sm text-foreground">{account.bic}</p>
+            </DashboardCard>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-testid="list-bank-accounts">
+              {accounts?.map((account) => (
+                <DashboardCard 
+                  key={account.id}
+                  className={`relative overflow-hidden transition-all duration-200 ${
+                    account.isDefault 
+                      ? 'border-primary/30 bg-gradient-to-br from-primary/5 via-background to-background' 
+                      : 'hover-elevate'
+                  }`}
+                  testId={`card-account-${account.id}`}
+                >
+                  {account.isDefault && (
+                    <div className="absolute top-0 right-0">
+                      <Badge className="rounded-tl-none rounded-br-none rounded-tr-2xl gap-1.5 px-3 py-1.5 bg-gradient-to-r from-primary via-primary to-blue-600 shadow-lg">
+                        <Star className="w-3 h-3 fill-current" />
+                        Par défaut
+                      </Badge>
                     </div>
                   )}
+                  
+                  <div className="space-y-6">
+                    {/* Bank Icon & Name */}
+                    <div className="flex items-start gap-4 pt-2">
+                      <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 flex items-center justify-center shadow-sm">
+                        <Building2 className="h-8 w-8 text-primary" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold text-xl text-foreground mb-1 truncate">{account.bankName}</h3>
+                        <div className="flex items-center gap-2">
+                          <CreditCard className="w-3.5 h-3.5 text-muted-foreground" />
+                          <p className="text-sm text-muted-foreground truncate">{account.accountLabel}</p>
+                        </div>
+                      </div>
+                    </div>
 
-                  {/* Actions */}
-                  <div className="pt-4 border-t flex justify-end">
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => deleteAccountMutation.mutate(account.id)}
-                      disabled={deleteAccountMutation.isPending}
-                      data-testid={`button-delete-account-${account.id}`}
-                      className="gap-2"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                      Supprimer
-                    </Button>
+                    {/* IBAN */}
+                    <div className="space-y-2 p-4 rounded-xl bg-muted/30 border border-border/50">
+                      <div className="flex items-center gap-2">
+                        <ShieldCheck className="w-4 h-4 text-muted-foreground" />
+                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">IBAN</p>
+                      </div>
+                      <p className="font-mono text-sm text-foreground font-medium leading-relaxed">
+                        {formatIBAN(account.iban)}
+                      </p>
+                    </div>
+
+                    {/* BIC */}
+                    {account.bic && (
+                      <div className="space-y-2">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">BIC/SWIFT</p>
+                        <p className="font-mono text-base text-foreground font-semibold">{account.bic}</p>
+                      </div>
+                    )}
+
+                    {/* Actions */}
+                    <div className="pt-4 border-t border-border/50 flex justify-end">
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => deleteAccountMutation.mutate(account.id)}
+                        disabled={deleteAccountMutation.isPending}
+                        data-testid={`button-delete-account-${account.id}`}
+                        className="gap-2"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        {deleteAccountMutation.isPending ? 'Suppression...' : 'Supprimer'}
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        )}
+                </DashboardCard>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Add Account Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="sm:max-w-[550px]">
           <DialogHeader>
-            <DialogTitle>{t.bankAccounts.addAccountTitle}</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-2xl font-bold">{t.bankAccounts.addAccountTitle}</DialogTitle>
+            <DialogDescription className="text-base">
               {t.bankAccounts.addAccountDescription}
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5 pt-2">
             <div className="space-y-2">
-              <Label htmlFor="accountLabel">{t.bankAccounts.accountLabel}</Label>
+              <Label htmlFor="accountLabel" className="text-sm font-semibold">
+                {t.bankAccounts.accountLabel}
+              </Label>
               <Input
                 id="accountLabel"
                 value={formData.accountLabel}
                 onChange={(e) => setFormData({ ...formData, accountLabel: e.target.value })}
                 placeholder={t.bankAccounts.accountLabelPlaceholder}
+                className="border-border/50 focus:border-primary"
                 data-testid="input-account-label"
               />
               {errors.accountLabel && (
-                <p className="text-sm text-destructive">{errors.accountLabel}</p>
+                <p className="text-sm text-destructive font-medium">{errors.accountLabel}</p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="bankName">{t.bankAccounts.bankName}</Label>
+              <Label htmlFor="bankName" className="text-sm font-semibold">
+                {t.bankAccounts.bankName}
+              </Label>
               <Input
                 id="bankName"
                 value={formData.bankName}
                 onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
                 placeholder={t.bankAccounts.bankNamePlaceholder}
+                className="border-border/50 focus:border-primary"
                 data-testid="input-bank-name"
               />
               {errors.bankName && (
-                <p className="text-sm text-destructive">{errors.bankName}</p>
+                <p className="text-sm text-destructive font-medium">{errors.bankName}</p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="iban">{t.bankAccounts.iban}</Label>
+              <Label htmlFor="iban" className="text-sm font-semibold">
+                {t.bankAccounts.iban}
+              </Label>
               <Input
                 id="iban"
                 value={formData.iban}
                 onChange={(e) => setFormData({ ...formData, iban: e.target.value.toUpperCase() })}
                 placeholder="FR76 1234 5678 9012 3456 7890 123"
+                className="font-mono border-border/50 focus:border-primary"
                 data-testid="input-iban"
               />
               {errors.iban && (
-                <p className="text-sm text-destructive">{errors.iban}</p>
+                <p className="text-sm text-destructive font-medium">{errors.iban}</p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="bic">{t.bankAccounts.bic} (Optionnel)</Label>
+              <Label htmlFor="bic" className="text-sm font-semibold">
+                {t.bankAccounts.bic} <span className="text-muted-foreground font-normal">(Optionnel)</span>
+              </Label>
               <Input
                 id="bic"
                 value={formData.bic}
                 onChange={(e) => setFormData({ ...formData, bic: e.target.value.toUpperCase() })}
                 placeholder="BNPAFRPP"
+                className="font-mono border-border/50 focus:border-primary"
                 data-testid="input-bic"
               />
               {errors.bic && (
-                <p className="text-sm text-destructive">{errors.bic}</p>
+                <p className="text-sm text-destructive font-medium">{errors.bic}</p>
               )}
             </div>
 
-            <div className="flex justify-end gap-3 pt-4">
+            <div className="flex justify-end gap-3 pt-6">
               <Button
                 type="button"
                 variant="outline"
@@ -310,13 +344,14 @@ export default function BankAccounts() {
               >
                 {t.common.cancel}
               </Button>
-              <Button
+              <GradientButton
+                variant="primary"
                 type="submit"
-                disabled={createAccountMutation.isPending}
+                isLoading={createAccountMutation.isPending}
                 data-testid="button-submit-add-account"
               >
                 {createAccountMutation.isPending ? t.common.saving : t.common.save}
-              </Button>
+              </GradientButton>
             </div>
           </form>
         </DialogContent>
