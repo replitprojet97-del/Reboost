@@ -104,12 +104,12 @@ export default function MobileSidebar() {
           </div>
 
           <nav className="flex-1 p-4 space-y-1">
-            {navItems.map((item) => {
+            {navItems.map((item, index) => {
               const Icon = item.icon;
               const active = isActive(item.href);
               
               return (
-                <Link key={item.href} href={item.href}>
+                <Link key={index} href={item.href}>
                   <Button
                     variant="ghost"
                     className={`w-full justify-start gap-3 ${

@@ -50,7 +50,7 @@ export default function MobileBottomNav() {
           
           return (
             <Link
-              key={item.href}
+              key={index}
               href={item.href}
               data-testid={item.testId}
             >

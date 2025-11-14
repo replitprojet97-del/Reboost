@@ -58,8 +58,8 @@ export default function Header() {
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[350px] xl:w-[450px] gap-2 p-4">
-                      {t.nav.loansMenu.items.map((item) => (
-                        <li key={item.href}>
+                      {t.nav.loansMenu.items.map((item, index) => (
+                        <li key={index}>
                           <NavigationMenuLink asChild>
                             <Link 
                               href={item.href} 
@@ -138,9 +138,9 @@ export default function Header() {
               
               <div className="px-4 py-2">
                 <div className="text-sm font-semibold text-muted-foreground mb-2">{t.nav.loansMenu.label}</div>
-                {t.nav.loansMenu.items.map((item) => (
+                {t.nav.loansMenu.items.map((item, index) => (
                   <Link 
-                    key={item.href}
+                    key={index}
                     href={item.href} 
                     className="block text-sm transition-all px-3 py-2 rounded-md hover:bg-primary hover:text-white"
                     onClick={() => setMobileMenuOpen(false)}
