@@ -26,51 +26,96 @@ const getContractTemplate = (data: ContractData): string => {
     body {
       font-family: 'Arial', sans-serif;
       line-height: 1.6;
-      color: #333;
+      color: #1a1a1a;
       font-size: 11pt;
     }
     .header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: white;
+      padding: 30px 40px;
+      margin: -2cm -2cm 30px -2cm;
       text-align: center;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 3px solid #2563eb;
+      position: relative;
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 25px;
+      text-align: left;
+    }
+    .logo-section {
+      flex: 1;
     }
     .logo {
-      font-size: 24pt;
+      font-size: 28pt;
       font-weight: bold;
-      color: #2563eb;
-      margin-bottom: 10px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .logo-subtitle {
+      font-size: 11pt;
+      opacity: 0.95;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+    .header-info {
+      text-align: right;
+      font-size: 9pt;
+      opacity: 0.9;
+      line-height: 1.8;
+    }
+    .contract-ref {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 12px 20px;
+      border-radius: 6px;
+      display: inline-block;
+      font-size: 10pt;
+      font-weight: 600;
+      letter-spacing: 1px;
+      backdrop-filter: blur(10px);
     }
     h1 {
-      color: #2563eb;
-      font-size: 18pt;
+      color: #1e3a8a;
+      font-size: 20pt;
       text-align: center;
-      margin: 30px 0;
+      margin: 35px 0;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-bottom: 3px solid #2563eb;
+      padding-bottom: 15px;
     }
     h2 {
-      color: #1e40af;
+      color: #1e3a8a;
       font-size: 14pt;
       margin-top: 25px;
       border-bottom: 2px solid #e5e7eb;
       padding-bottom: 5px;
+      font-weight: 600;
     }
     .info-box {
-      background-color: #f3f4f6;
-      padding: 15px;
+      background-color: #f8fafc;
+      padding: 20px;
       margin: 20px 0;
-      border-left: 4px solid #2563eb;
+      border-left: 5px solid #2563eb;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
     .info-row {
       display: flex;
       justify-content: space-between;
-      margin: 8px 0;
+      margin: 10px 0;
+      padding: 5px 0;
     }
     .label {
-      font-weight: bold;
-      color: #1f2937;
+      font-weight: 600;
+      color: #1e3a8a;
     }
     .value {
-      color: #374151;
+      color: #334155;
+      font-weight: 500;
     }
     table {
       width: 100%;
@@ -78,25 +123,39 @@ const getContractTemplate = (data: ContractData): string => {
       margin: 20px 0;
     }
     th, td {
-      border: 1px solid #d1d5db;
+      border: 1px solid #cbd5e1;
       padding: 12px;
       text-align: left;
     }
     th {
-      background-color: #2563eb;
+      background-color: #1e3a8a;
       color: white;
-      font-weight: bold;
+      font-weight: 600;
     }
     tr:nth-child(even) {
-      background-color: #f9fafb;
+      background-color: #f8fafc;
     }
     .article {
-      margin: 20px 0;
+      margin: 25px 0;
+      padding: 15px 0;
     }
     .article-title {
-      font-weight: bold;
-      color: #1e40af;
-      margin-bottom: 10px;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin-bottom: 12px;
+      font-size: 12pt;
+    }
+    .article p {
+      text-align: justify;
+      margin: 10px 0;
+      line-height: 1.7;
+    }
+    .article ul {
+      margin: 10px 0 10px 20px;
+      line-height: 1.8;
+    }
+    .article li {
+      margin: 8px 0;
     }
     .signature-section {
       margin-top: 50px;
@@ -106,39 +165,102 @@ const getContractTemplate = (data: ContractData): string => {
       margin-top: 40px;
       display: flex;
       justify-content: space-between;
+      gap: 30px;
     }
     .signature-item {
-      width: 45%;
+      flex: 1;
+      border: 2px solid #e5e7eb;
+      padding: 20px;
+      border-radius: 6px;
+      background-color: #fafafa;
+    }
+    .signature-header {
+      font-weight: 700;
+      font-size: 11pt;
+      color: #1e3a8a;
+      margin-bottom: 5px;
+    }
+    .signature-role {
+      font-size: 9pt;
+      color: #64748b;
+      margin-bottom: 15px;
     }
     .signature-line {
-      border-top: 1px solid #000;
-      margin-top: 60px;
-      padding-top: 5px;
+      border-top: 2px solid #334155;
+      margin-top: 80px;
+      padding-top: 8px;
+      text-align: center;
+      font-size: 9pt;
+      color: #64748b;
+      font-style: italic;
+    }
+    .pre-signed {
+      margin-top: 20px;
       text-align: center;
     }
+    .stamp-placeholder {
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      border: 3px dashed #cbd5e1;
+      border-radius: 50%;
+      margin: 10px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9pt;
+      color: #94a3b8;
+      text-align: center;
+      line-height: 1.4;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(30, 58, 138, 0.08) 100%);
+    }
     .footer {
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 2px solid #e5e7eb;
+      margin-top: 40px;
+      padding-top: 25px;
+      border-top: 3px solid #e5e7eb;
       font-size: 9pt;
       text-align: center;
-      color: #6b7280;
+      color: #64748b;
+      line-height: 1.8;
+    }
+    .footer-bold {
+      font-weight: 600;
+      color: #475569;
     }
     .highlight {
       background-color: #fef3c7;
-      padding: 2px 4px;
-      font-weight: bold;
+      padding: 3px 6px;
+      font-weight: 700;
+      border-radius: 3px;
+    }
+    .important-notice {
+      background-color: #fef9e7;
+      border-left: 5px solid #f59e0b;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="logo">ALTUS FINANCE GROUP</div>
-    <div>Solutions de financement professionnelles</div>
-    <div style="font-size: 9pt; color: #6b7280;">19 Rue Sigismond, L-2537 Luxembourg • Tél: +352 40 63 48</div>
+    <div class="header-top">
+      <div class="logo-section">
+        <div class="logo">ALTUS</div>
+        <div class="logo-subtitle">FINANCE GROUP</div>
+      </div>
+      <div class="header-info">
+        <strong>ALTUS FINANCE GROUP S.à r.l.</strong><br>
+        19 Rue Sigismond, L-2537<br>
+        Luxembourg<br>
+        Tél: +352 40 63 48<br>
+        RCS Luxembourg B123456
+      </div>
+    </div>
+    <div class="contract-ref">CONTRAT DE PRÊT N° ${loan.id}</div>
   </div>
 
-  <h1>CONTRAT DE PRÊT N° ${loan.id}</h1>
+  <h1>Contrat de Prêt Professionnel</h1>
 
   <div class="info-box">
     <h2 style="margin-top: 0;">Informations sur l'emprunteur</h2>
@@ -228,11 +350,16 @@ const getContractTemplate = (data: ContractData): string => {
   </div>
 
   <div class="article">
-    <div class="article-title">Article 4 - Déblocage des fonds</div>
+    <div class="article-title">Article 4 – Déblocage des fonds</div>
     <p>
-      Les fonds seront mis à disposition de l'Emprunteur sur le compte bancaire renseigné, 
-      dans un délai allant de quelques minutes à 24 heures maximum suivant la réception du présent contrat dûment signé.
+      Les fonds du prêt seront mis à disposition de l'Emprunteur sur le compte affilié ALTUS FINANCE GROUP ouvert au nom de l'Emprunteur au sein du réseau ALTUS. L'Emprunteur reconnaît et accepte que :
     </p>
+    <ul>
+      <li>le versement initial sera crédité sur ce compte affilié ;</li>
+      <li>il appartient à l'Emprunteur d'initier et d'assurer le virement des fonds depuis son compte affilié ALTUS vers le compte bancaire externe de son choix ;</li>
+      <li>le déblocage effectif des fonds aura lieu dans un délai maximum de 24 heures ouvrées à compter de la réception du présent contrat dûment signé et de la réalisation des conditions suspensives (notamment vérifications KYC/AML et souscription de l'assurance si requise) ;</li>
+      <li>ALTUS FINANCE GROUP ne pourra être tenue responsable d'un délai de transfert externe au-delà des opérations initiées par l'Emprunteur.</li>
+    </ul>
   </div>
 
   <div class="article">
@@ -254,10 +381,9 @@ const getContractTemplate = (data: ContractData): string => {
   </div>
 
   <div class="article">
-    <div class="article-title">Article 7 - Assurance</div>
+    <div class="article-title">Article 7 – Assurance emprunteur</div>
     <p>
-      L'Emprunteur est libre de souscrire ou non une assurance emprunteur. Toutefois, le Prêteur recommande 
-      vivement la souscription d'une assurance décès-invalidité pour garantir le remboursement du prêt en cas d'événements imprévus.
+      La souscription d'une assurance emprunteur couvrant au minimum le risque décès et invalidité est jugée nécessaire pour la sécurité du prêt accordé et le respect des normes en vigueur.
     </p>
   </div>
 
@@ -279,23 +405,45 @@ const getContractTemplate = (data: ContractData): string => {
   </div>
 
   <div class="signature-section">
-    <p style="margin-bottom: 30px;">
-      <strong>Fait en deux exemplaires originaux,</strong><br>
-      À Luxembourg, le ${contractDate}
+    <p style="margin-bottom: 30px; text-align: center;">
+      <strong style="font-size: 11pt;">Fait en deux exemplaires originaux</strong><br>
+      <span style="color: #64748b;">À Luxembourg, le ${contractDate}</span>
     </p>
 
     <div class="signature-box">
       <div class="signature-item">
-        <p><strong>Pour ALTUS FINANCE GROUP</strong></p>
-        <p style="font-size: 10pt; color: #6b7280;">Le Prêteur</p>
-        <div class="signature-line">
-          Signature et cachet
+        <div class="signature-header">Pour ALTUS FINANCE GROUP</div>
+        <div class="signature-role">Le Prêteur</div>
+        <div class="pre-signed">
+          <p style="font-style: italic; font-size: 10pt; color: #2563eb; margin-bottom: 10px;">
+            ✓ Document pré-signé et validé
+          </p>
+          <div style="font-family: 'Brush Script MT', cursive; font-size: 18pt; color: #1e3a8a; margin: 15px 0;">
+            Direction Générale
+          </div>
+          <div class="stamp-placeholder">
+            <div style="font-weight: bold; text-transform: uppercase;">
+              ALTUS<br>FINANCE<br>GROUP<br>
+              <span style="font-size: 7pt;">Luxembourg</span>
+            </div>
+          </div>
+          <p style="font-size: 8pt; color: #94a3b8; margin-top: 10px;">
+            Signature électronique certifiée<br>
+            Date: ${contractDate}
+          </p>
         </div>
       </div>
 
       <div class="signature-item">
-        <p><strong>L'Emprunteur</strong></p>
-        <p style="font-size: 10pt; color: #6b7280;">${user.fullName}</p>
+        <div class="signature-header">L'Emprunteur</div>
+        <div class="signature-role">${user.fullName}</div>
+        <div class="important-notice" style="font-size: 10pt; margin-bottom: 15px;">
+          <strong>Instructions de signature :</strong><br>
+          1. Téléchargez ce document<br>
+          2. Imprimez et signez précédé de "Lu et approuvé"<br>
+          3. Scannez le document signé<br>
+          4. Renvoyez-le via votre espace client
+        </div>
         <div class="signature-line">
           Signature précédée de<br>"Lu et approuvé"
         </div>
@@ -304,10 +452,16 @@ const getContractTemplate = (data: ContractData): string => {
   </div>
 
   <div class="footer">
-    <p>
-      ALTUS FINANCE GROUP - S.à r.l. au capital de 1 000 000 € - RCS Luxembourg B123456<br>
+    <p class="footer-bold">ALTUS FINANCE GROUP - S.à r.l.</p>
+    <p style="margin: 8px 0;">
+      Capital social: 1 000 000 € • RCS Luxembourg B123456<br>
       Siège social: 19 Rue Sigismond, L-2537 Luxembourg<br>
-      www.altusfinancegroup.com - infos@altusfinancegroup.com
+      Tél: +352 40 63 48 • Email: infos@altusfinancegroup.com<br>
+      www.altusfinancegroup.com
+    </p>
+    <p style="margin-top: 15px; font-size: 8pt; font-style: italic;">
+      Ce document est confidentiel et destiné exclusivement à son destinataire.<br>
+      Toute reproduction, diffusion ou utilisation non autorisée est strictement interdite.
     </p>
   </div>
 </body>
