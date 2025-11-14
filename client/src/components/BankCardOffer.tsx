@@ -87,19 +87,19 @@ export default function BankCardOffer() {
             <div>
               <h3 className="text-lg font-semibold mb-4" data-testid="text-fees-title">{t.bankCard.feesTitle}</h3>
               <div className="space-y-3">
-                <div className="flex justify-between items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-900">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white dark:bg-slate-900">
                   <span className="font-medium" data-testid="text-fee-annual">{t.bankCard.fees.annualFee}</span>
                   <span className="text-blue-600 font-semibold">{t.bankCard.fees.annualFeeAmount}</span>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-900">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white dark:bg-slate-900">
                   <span className="font-medium" data-testid="text-fee-transaction">{t.bankCard.fees.transactionFee}</span>
                   <span className="text-green-600 font-semibold">{t.bankCard.fees.transactionFeeAmount}</span>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-900">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white dark:bg-slate-900">
                   <span className="font-medium" data-testid="text-fee-withdrawal">{t.bankCard.fees.withdrawalFee}</span>
                   <span className="text-green-600 font-semibold">{t.bankCard.fees.withdrawalFeeAmount}</span>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-900">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white dark:bg-slate-900">
                   <span className="font-medium" data-testid="text-fee-foreign">{t.bankCard.fees.foreignFee}</span>
                   <span className="text-blue-600 font-semibold">{t.bankCard.fees.foreignFeeAmount}</span>
                 </div>
@@ -111,19 +111,19 @@ export default function BankCardOffer() {
             <div>
               <h3 className="text-lg font-semibold mb-4" data-testid="text-specifications-title">{t.bankCard.specificationsTitle}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="flex justify-between items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-900">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white dark:bg-slate-900">
                   <span className="text-muted-foreground">{t.bankCard.specifications.cardType}</span>
                   <span className="font-semibold">{t.bankCard.specifications.cardTypeValue}</span>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-900">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white dark:bg-slate-900">
                   <span className="text-muted-foreground">{t.bankCard.specifications.creditLimit}</span>
                   <span className="font-semibold">{t.bankCard.specifications.creditLimitValue}</span>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-900">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white dark:bg-slate-900">
                   <span className="text-muted-foreground">{t.bankCard.specifications.validity}</span>
                   <span className="font-semibold">{t.bankCard.specifications.validityValue}</span>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-900">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white dark:bg-slate-900">
                   <span className="text-muted-foreground">{t.bankCard.specifications.delivery}</span>
                   <span className="font-semibold">{t.bankCard.specifications.deliveryValue}</span>
                 </div>

@@ -1,11 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
+import { useLocation } from 'wouter';
+import { useEffect, useState } from 'react';
 import type { User } from '@shared/schema';
 import { queryClient, getApiUrl } from '@/lib/queryClient';
+import { isProtectedRoute } from '@/lib/route-utils';
 
 export function useUser() {
+  const [location] = useLocation();
+  const [queryEnabled, setQueryEnabled] = useState(false);
+
+  useEffect(() => {
+    setQueryEnabled(isProtectedRoute(location));
+  }, [location]);
+
   return useQuery<User>({
     queryKey: ['/api/user'],
+    enabled: queryEnabled,
     staleTime: 5 * 60 * 1000,
+    retry: false,
   });
 }
 

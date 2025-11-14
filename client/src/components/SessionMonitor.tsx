@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
+import { isProtectedRoute } from '@/lib/route-utils';
 
 const SESSION_CHECK_INTERVAL = 60000;
 const INACTIVITY_TIMEOUT = 30 * 60 * 1000;
@@ -9,23 +10,22 @@ export default function SessionMonitor() {
   const [location] = useLocation();
   const lastActivityRef = useRef<number>(Date.now());
   const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [pollingEnabled, setPollingEnabled] = useState(false);
 
-  const isAuthPage = location === '/login' || location === '/signup' || location === '/auth' ||
-                     location.startsWith('/verify') || location.startsWith('/forgot-password') ||
-                     location.startsWith('/reset-password');
+  useEffect(() => {
+    setPollingEnabled(isProtectedRoute(location));
+  }, [location]);
 
-  const publicPages = ['/', '/about', '/how-it-works', '/products', '/contact', '/resources', '/terms', '/privacy'];
-  const isPublicPage = publicPages.includes(location) || location.startsWith('/loans/') || location === '/loan-request';
-
-  const { data: user } = useQuery<any>({
+  useQuery<any>({
     queryKey: ['/api/user'],
-    enabled: !isAuthPage && !isPublicPage,
-    refetchInterval: SESSION_CHECK_INTERVAL,
+    enabled: pollingEnabled,
+    refetchInterval: pollingEnabled ? SESSION_CHECK_INTERVAL : false,
     retry: false,
+    staleTime: 0,
   });
 
   useEffect(() => {
-    if (isAuthPage || isPublicPage) return;
+    if (!isProtectedRoute(location)) return;
 
     const updateActivity = () => {
       lastActivityRef.current = Date.now();
@@ -55,7 +55,7 @@ export default function SessionMonitor() {
         clearInterval(inactivityTimerRef.current);
       }
     };
-  }, [isAuthPage]);
+  }, [location]);
 
   return null;
 }

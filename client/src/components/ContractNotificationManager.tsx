@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useLocation } from 'wouter';
 import { useNotifications } from './NotificationBanner';
 import { useTranslations } from '@/lib/i18n';
 import { getApiUrl } from '@/lib/queryClient';
+import { isProtectedRoute } from '@/lib/route-utils';
 
 interface Loan {
   id: string;
@@ -18,8 +20,13 @@ const REMINDER_DURATION = 2 * 60 * 1000; // 2 minutes
 
 export default function ContractNotificationManager() {
   const t = useTranslations();
+  const [location] = useLocation();
+
   const { data: loans } = useQuery<Loan[]>({
     queryKey: ['/api/loans'],
+    enabled: isProtectedRoute(location),
+    retry: false,
+    staleTime: 0,
   });
   const { addNotification, removeNotification, notifications } = useNotifications();
   const [downloadedContracts, setDownloadedContracts] = useState<Set<string>>(() => {

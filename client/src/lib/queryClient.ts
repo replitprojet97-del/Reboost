@@ -99,9 +99,14 @@ function handleAuthError(res: Response, errorMessage?: string) {
   }
   
   const currentPath = window.location.pathname;
-  const isAuthPage = currentPath === '/login' || currentPath === '/signup' || currentPath === '/auth';
+  const isAuthPage = currentPath === '/login' || currentPath === '/signup' || currentPath === '/auth' ||
+                     currentPath.startsWith('/verify') || currentPath.startsWith('/forgot-password') ||
+                     currentPath.startsWith('/reset-password');
   
-  if (!isAuthPage) {
+  const publicPages = ['/', '/about', '/how-it-works', '/products', '/contact', '/resources', '/terms', '/privacy'];
+  const isPublicPage = publicPages.includes(currentPath) || currentPath.startsWith('/loans/') || currentPath === '/loan-request';
+  
+  if (!isAuthPage && !isPublicPage) {
     const message = errorMessage || getErrorMessage(res.status);
     
     sessionStorage.setItem('auth_redirect_message', message);
