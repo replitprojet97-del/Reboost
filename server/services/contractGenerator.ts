@@ -383,7 +383,10 @@ const getContractTemplate = (data: ContractData): string => {
   <div class="article">
     <div class="article-title">Article 7 – Assurance emprunteur</div>
     <p>
-      La souscription d'une assurance emprunteur couvrant au minimum le risque décès et invalidité est jugée nécessaire pour la sécurité du prêt accordé et le respect des normes en vigueur.
+      La souscription d'une assurance emprunteur couvrant au minimum le risque décès et invalidité est <strong>strictement obligatoire</strong> pour la sécurité du prêt accordé et le respect des normes en vigueur.
+    </p>
+    <p>
+      L'Emprunteur s'engage à fournir la preuve de souscription de cette assurance avant le déblocage des fonds. À défaut, ALTUS FINANCE GROUP se réserve le droit de suspendre le versement du prêt jusqu'à réception des justificatifs requis.
     </p>
   </div>
 

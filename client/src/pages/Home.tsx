@@ -1,4 +1,4 @@
-import Hero from '@/components/Hero';
+import HeroCarousel from '@/components/HeroCarousel';
 import Header from '@/components/Header';
 import IndividualLoanShowcase from '@/components/IndividualLoanShowcase';
 import BusinessLoanShowcase from '@/components/BusinessLoanShowcase';
@@ -28,7 +28,7 @@ export default function Home() {
         structuredData={[organizationSchema, websiteSchema]}
       />
       <Header />
-      <Hero />
+      <HeroCarousel />
       <StatsSection />
       <IndividualLoanShowcase />
       <BusinessLoanShowcase />
