@@ -484,12 +484,12 @@ export default function TransferFlow() {
               {isPausedForCode ? (
                 <>
                   <AlertCircle className="w-6 h-6 text-orange-500" />
-                  Transfert en pause
+                  Vérification de sécurité
                 </>
               ) : (
                 <>
                   <Loader2 className="w-6 h-6 text-primary animate-spin" />
-                  Transfert en cours
+                  Virement en cours de traitement
                 </>
               )}
             </CardTitle>
@@ -500,15 +500,14 @@ export default function TransferFlow() {
           <CardContent className="space-y-6">
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
-                <span>Progression du transfert</span>
+                <span>Traitement du virement</span>
                 <span className="font-semibold" data-testid="text-progress">
                   {Math.round(simulatedProgress)}%
                 </span>
               </div>
               <Progress value={simulatedProgress} className="h-3" />
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span>Codes validés: {validatedCount}/{totalCodes}</span>
-                {nextCode && <span>Prochaine pause: {nextCode.pausePercent}%</span>}
+              <div className="text-xs text-muted-foreground text-center mt-2">
+                <span>Opération en cours de traitement sécurisé</span>
               </div>
             </div>
 
@@ -518,18 +517,18 @@ export default function TransferFlow() {
                   <AlertCircle className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5" />
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-orange-900 dark:text-orange-100">
-                      Transfert en pause à {Math.round(simulatedProgress)}%
+                      Vérification de sécurité requise
                     </p>
                     <p className="text-sm text-orange-700 dark:text-orange-300 mt-1">
-                      Veuillez entrer le code de vérification correspondant pour continuer
+                      Pour des raisons de sécurité, veuillez saisir le code de vérification qui vous a été transmis
                     </p>
                     {nextCode.codeContext && (
-                      <p className="text-xs text-orange-600 dark:text-orange-400 mt-1 italic">
-                        {nextCode.codeContext} - Code {validatedCount + 1} sur {totalCodes}
+                      <p className="text-xs text-orange-600 dark:text-orange-400 mt-2 italic">
+                        {nextCode.codeContext}
                       </p>
                     )}
                     <p className="text-xs text-orange-700 dark:text-orange-300 mt-2">
-                      L'administrateur vous transmettra ce code manuellement
+                      Le code de sécurité vous sera communiqué par votre conseiller
                     </p>
                   </div>
                 </div>
@@ -563,10 +562,10 @@ export default function TransferFlow() {
               <div className="bg-muted p-4 rounded-lg space-y-2">
                 <div className="flex items-center gap-2">
                   <Loader2 className="w-4 h-4 animate-spin text-primary" />
-                  <p className="text-sm font-medium">Transfert en cours...</p>
+                  <p className="text-sm font-medium">Traitement de votre virement...</p>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Le transfert progresse automatiquement. Veuillez patienter.
+                  Votre opération est en cours de traitement sécurisé. Ne fermez pas cette page.
                 </p>
               </div>
             )}
