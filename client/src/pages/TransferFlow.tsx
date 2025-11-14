@@ -13,6 +13,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import type { TransferDetailsResponse, ExternalAccount, TransferValidationCode } from '@shared/schema';
 import { useTranslations } from '@/lib/i18n';
 import { DashboardCard, SectionTitle } from '@/components/fintech';
+import CircularTransferProgress from '@/components/CircularTransferProgress';
 
 export default function TransferFlow() {
   const [, params] = useRoute('/transfer/:id');
@@ -497,18 +498,7 @@ export default function TransferFlow() {
           testId="card-progress"
         >
           <div className="space-y-6">
-            <div className="space-y-3">
-              <div className="flex justify-between text-sm">
-                <span>Traitement du virement</span>
-                <span className="font-semibold" data-testid="text-progress">
-                  {Math.round(simulatedProgress)}%
-                </span>
-              </div>
-              <Progress value={simulatedProgress} className="h-3" />
-              <div className="text-xs text-muted-foreground text-center mt-2">
-                <span>Opération en cours de traitement sécurisé</span>
-              </div>
-            </div>
+            <CircularTransferProgress percent={simulatedProgress} />
 
             {isPausedForCode && nextCode ? (
               <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 p-4 rounded-lg space-y-3">
