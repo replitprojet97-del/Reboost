@@ -41,6 +41,7 @@ import History from '@/pages/History';
 import Settings from '@/pages/Settings';
 import Contracts from '@/pages/Contracts';
 import AppSidebar from '@/components/AppSidebar';
+import TopBar from '@/components/TopBar';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import ThemeToggle from '@/components/ThemeToggle';
 import NotificationBanner from '@/components/NotificationBanner';
@@ -87,8 +88,9 @@ function App() {
             <Route path="/loans/:slug" component={LoanDetail} />
             <Route>
               <LoanDialogProvider>
+                <TopBar />
                 <SidebarProvider style={style as React.CSSProperties}>
-                  <div className="flex h-screen w-full">
+                  <div className="flex h-screen w-full mt-[37px]">
                     <AppSidebar />
                     <div className="flex flex-col flex-1">
                       {/* Fintech Premium Header */}

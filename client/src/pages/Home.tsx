@@ -1,5 +1,6 @@
 import HeroCarousel from '@/components/HeroCarousel';
 import Header from '@/components/Header';
+import TopBar from '@/components/TopBar';
 import { TrustInfoBar } from '@/components/premium/TrustInfoBar';
 import StatsSection from '@/components/premium/StatsSection';
 import StorytellingSection from '@/components/premium/StorytellingSection';
@@ -26,6 +27,9 @@ export default function Home() {
         path="/"
         structuredData={[organizationSchema, websiteSchema]}
       />
+      
+      {/* TopBar with security and system status */}
+      <TopBar />
       
       {/* Trust Information Bar - Fintech 2025 Style */}
       <TrustInfoBar />

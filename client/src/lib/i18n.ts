@@ -107,6 +107,12 @@ if (typeof window !== 'undefined') {
 }
 
 type TranslationKeys = {
+  topbar: {
+    encryption: string;
+    sepaTransfers: string;
+    processing24h: string;
+    systemStatus: string;
+  };
   trustBar: {
     badge1Title: string;
     badge1Desc: string;
@@ -2152,6 +2158,12 @@ const howItWorksEN = {
 
 export const translations: Record<Language, TranslationKeys> = {
   fr: {
+    topbar: {
+      encryption: '🔒 Chiffrement bancaire AES-256',
+      sepaTransfers: '🏦 Transferts SEPA sécurisés',
+      processing24h: '⚡ Traitement des dossiers en -24h',
+      systemStatus: '🟢 Système opérationnel : 100%',
+    },
     trustBar: {
       badge1Title: 'Régulé CSSF',
       badge1Desc: 'Supervision Financière Luxembourg',
@@ -4593,6 +4605,12 @@ export const translations: Record<Language, TranslationKeys> = {
     },
   },
   en: {
+    topbar: {
+      encryption: '🔒 AES-256 banking encryption',
+      sepaTransfers: '🏦 Secure SEPA transfers',
+      processing24h: '⚡ File processing within 24h',
+      systemStatus: '🟢 System operational: 100%',
+    },
     trustBar: {
       badge1Title: 'CSSF Regulated',
       badge1Desc: 'Luxembourg Financial Supervision',
@@ -7016,6 +7034,12 @@ export const translations: Record<Language, TranslationKeys> = {
     },
   },
   es: {
+    topbar: {
+      encryption: '🔒 Cifrado bancario AES-256',
+      sepaTransfers: '🏦 Transferencias SEPA seguras',
+      processing24h: '⚡ Procesamiento de expedientes en -24h',
+      systemStatus: '🟢 Sistema operativo: 100%',
+    },
     trustBar: {
       badge1Title: 'Regulado CSSF',
       badge1Desc: 'Supervisión Financiera Luxemburgo',
@@ -9453,6 +9477,12 @@ export const translations: Record<Language, TranslationKeys> = {
     },
   },
   pt: {
+    topbar: {
+      encryption: '🔒 Criptografia bancária AES-256',
+      sepaTransfers: '🏦 Transferências SEPA seguras',
+      processing24h: '⚡ Processamento de arquivos em -24h',
+      systemStatus: '🟢 Sistema operacional: 100%',
+    },
     trustBar: {
       badge1Title: 'Regulado CSSF',
       badge1Desc: 'Supervisão Financeira Luxemburgo',
@@ -11685,6 +11715,12 @@ export const translations: Record<Language, TranslationKeys> = {
     },
   },
   it: {
+    topbar: {
+      encryption: '🔒 Crittografia bancaria AES-256',
+      sepaTransfers: '🏦 Trasferimenti SEPA sicuri',
+      processing24h: '⚡ Elaborazione pratica entro 24h',
+      systemStatus: '🟢 Sistema operativo: 100%',
+    },
     trustBar: {
       badge1Title: 'Regolato CSSF',
       badge1Desc: 'Supervisione Finanziaria Lussemburgo',
@@ -14003,6 +14039,12 @@ export const translations: Record<Language, TranslationKeys> = {
     },
   },
   de: {
+    topbar: {
+      encryption: '🔒 AES-256 Bankverschlüsselung',
+      sepaTransfers: '🏦 Sichere SEPA-Überweisungen',
+      processing24h: '⚡ Aktenbearbeitung innerhalb 24h',
+      systemStatus: '🟢 System betriebsbereit: 100%',
+    },
     trustBar: {
       badge1Title: 'CSSF Reguliert',
       badge1Desc: 'Luxemburger Finanzaufsicht',
@@ -16321,6 +16363,12 @@ export const translations: Record<Language, TranslationKeys> = {
     },
   },
   nl: {
+    topbar: {
+      encryption: '🔒 AES-256 bankversleuteling',
+      sepaTransfers: '🏦 Beveiligde SEPA-overschrijvingen',
+      processing24h: '⚡ Dossierverwerking binnen 24u',
+      systemStatus: '🟢 Systeem operationeel: 100%',
+    },
     trustBar: {
       badge1Title: 'CSSF Gereguleerd',
       badge1Desc: 'Luxemburgse Financiële Toezicht',

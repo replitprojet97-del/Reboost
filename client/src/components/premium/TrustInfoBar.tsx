@@ -40,7 +40,7 @@ export function TrustInfoBar() {
   const Icon = currentBadge.icon;
 
   return (
-    <div className="fixed top-0 left-0 right-0 w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 overflow-hidden z-[10000]" data-testid="trust-info-bar">
+    <div className="fixed top-[37px] left-0 right-0 w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 overflow-hidden z-[10000]" data-testid="trust-info-bar">
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/0 via-white/10 to-indigo-600/0 animate-shimmer" />
       
