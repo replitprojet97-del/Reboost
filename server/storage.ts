@@ -1956,41 +1956,62 @@ export class DatabaseStorage implements IStorage {
         },
       });
       
-      // Generate transfer validation codes for admin (pre-generated, not yet linked to a transfer)
-      const codes: TransferValidationCode[] = [];
-      const codesCount = 5;
-      const expiresAt = new Date();
-      expiresAt.setDate(expiresAt.getDate() + 30); // 30 days validity
-      
-      const randomPercentages = this.generateRandomPausePercentages(codesCount);
-      
-      const codeContexts = [
-        'Code de conformité réglementaire',
-        'Code d\'autorisation de transfert',
-        'Code de vérification de sécurité',
-        'Code de déblocage des fonds',
-        'Code de validation finale'
-      ];
-      
-      for (let i = 1; i <= codesCount; i++) {
-        const code = Math.floor(100000 + Math.random() * 900000).toString();
+      // Check if pre-generated codes already exist for this loan
+      const existingCodes = await tx
+        .select()
+        .from(transferValidationCodes)
+        .where(
+          and(
+            eq(transferValidationCodes.loanId, loan.id),
+            isNull(transferValidationCodes.transferId)
+          )
+        )
+        .orderBy(transferValidationCodes.sequence);
+
+      let codes: TransferValidationCode[] = [];
+
+      if (existingCodes.length > 0) {
+        // Codes already generated - return existing ones (idempotent)
+        console.log(`Reusing ${existingCodes.length} existing pre-generated codes for loan ${loan.id}`);
+        codes = existingCodes;
+      } else {
+        // Generate transfer validation codes for admin (pre-generated, not yet linked to a transfer)
+        const codesCount = 5;
+        const expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + 30); // 30 days validity
         
-        const result = await tx.insert(transferValidationCodes)
-          .values({
-            transferId: null, // Pre-generated, not yet linked to a transfer
-            loanId: loan.id,
-            code,
-            deliveryMethod: 'admin_only',
-            codeType: 'initial',
-            codeContext: codeContexts[i - 1] || `Code de validation ${i}`,
-            sequence: i,
-            pausePercent: randomPercentages[i - 1],
-            expiresAt,
-          })
-          .returning();
+        const randomPercentages = this.generateRandomPausePercentages(codesCount);
         
-        if (result[0]) {
-          codes.push(result[0]);
+        const codeContexts = [
+          'Code de conformité réglementaire',
+          'Code d\'autorisation de transfert',
+          'Code de vérification de sécurité',
+          'Code de déblocage des fonds',
+          'Code de validation finale'
+        ];
+        
+        console.log(`Generating ${codesCount} new validation codes for loan ${loan.id}`);
+        
+        for (let i = 1; i <= codesCount; i++) {
+          const code = Math.floor(100000 + Math.random() * 900000).toString();
+          
+          const result = await tx.insert(transferValidationCodes)
+            .values({
+              transferId: null, // Pre-generated, not yet linked to a transfer
+              loanId: loan.id,
+              code,
+              deliveryMethod: 'admin_only',
+              codeType: 'initial',
+              codeContext: codeContexts[i - 1] || `Code de validation ${i}`,
+              sequence: i,
+              pausePercent: randomPercentages[i - 1],
+              expiresAt,
+            })
+            .returning();
+          
+          if (result[0]) {
+            codes.push(result[0]);
+          }
         }
       }
       
@@ -2044,10 +2065,16 @@ export class DatabaseStorage implements IStorage {
         .orderBy(transferValidationCodes.sequence);
 
       let codes: TransferValidationCode[] = [];
+      const requiredCodesCount = codesCount;
+      const now = new Date();
 
-      if (preGeneratedCodes.length > 0) {
+      // Validate pre-generated batch: must be complete and non-expired
+      const isValidBatch = preGeneratedCodes.length === requiredCodesCount && 
+                          preGeneratedCodes.every(c => new Date(c.expiresAt) > now);
+
+      if (preGeneratedCodes.length > 0 && isValidBatch) {
         // Reuse pre-generated codes by linking them to this transfer
-        console.log(`Reusing ${preGeneratedCodes.length} pre-generated codes for loan ${insertTransfer.loanId}`);
+        console.log(`Reusing ${preGeneratedCodes.length} valid pre-generated codes for loan ${insertTransfer.loanId}`);
         
         for (const preCode of preGeneratedCodes) {
           const updated = await tx
@@ -2061,6 +2088,19 @@ export class DatabaseStorage implements IStorage {
           }
         }
       } else {
+        if (preGeneratedCodes.length > 0 && !isValidBatch) {
+          console.warn(`Found ${preGeneratedCodes.length} pre-generated codes but batch is invalid (expected ${requiredCodesCount}, expired: ${preGeneratedCodes.some(c => new Date(c.expiresAt) <= now)}). Regenerating...`);
+          
+          // Clean up invalid batch
+          await tx
+            .delete(transferValidationCodes)
+            .where(
+              and(
+                eq(transferValidationCodes.loanId, insertTransfer.loanId),
+                isNull(transferValidationCodes.transferId)
+              )
+            );
+        }
         // Generate new codes (fallback for older loans or edge cases)
         console.log(`Generating ${codesCount} new codes for transfer ${transfer.id}`);
         

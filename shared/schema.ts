@@ -125,7 +125,6 @@ export const transferValidationCodes = pgTable("transfer_validation_codes", {
   expiresAt: timestamp("expires_at").notNull(),
   consumedAt: timestamp("consumed_at"),
 }, (table) => ({
-  // Unique constraint: either (transferId, sequence) for transfer codes or (loanId, sequence) for loan codes
   transferIdIdx: index("transfer_id_idx").on(table.transferId),
   loanIdIdx: index("loan_id_idx").on(table.loanId),
 }));
