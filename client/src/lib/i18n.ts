@@ -569,6 +569,7 @@ type TranslationKeys = {
     title: string;
     subtitle: string;
     faqTitle: string;
+    faqDescription: string;
     faqs: {
       question: string;
       answer: string;
@@ -2691,6 +2692,7 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Ressources',
       subtitle: 'Toutes les informations pour vous accompagner dans votre projet',
       faqTitle: 'Questions Fréquentes',
+      faqDescription: 'Trouvez rapidement les réponses à vos questions',
       faqs: [
         {
           question: 'Quels documents sont nécessaires pour une demande de prêt ?',
@@ -4999,6 +5001,7 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Resources',
       subtitle: 'All the information to support you in your project',
       faqTitle: 'Frequently Asked Questions',
+      faqDescription: 'Find answers to your questions quickly',
       faqs: [
         {
           question: 'What documents are required for a loan application?',
@@ -7375,6 +7378,7 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Recursos',
       subtitle: 'Toda la información para apoyarlo en su proyecto',
       faqTitle: 'Preguntas Frecuentes',
+      faqDescription: 'Encuentre rápidamente las respuestas a sus preguntas',
       faqs: [
         {
           question: '¿Qué documentos se requieren para una solicitud de préstamo?',
@@ -9763,6 +9767,7 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Recursos',
       subtitle: 'Todas as informações para apoiá-lo em seu projeto',
       faqTitle: 'Perguntas Frequentes',
+      faqDescription: 'Encontre rapidamente as respostas para suas perguntas',
       faqs: [
         {
           question: 'Quais documentos são necessários para uma solicitação de empréstimo?',
@@ -12028,6 +12033,7 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Risorse',
       subtitle: 'Tutte le informazioni per accompagnarti nel tuo progetto',
       faqTitle: 'Domande frequenti',
+      faqDescription: 'Trova rapidamente le risposte alle tue domande',
       faqs: [
         {
           question: 'Quali documenti sono necessari per una richiesta di prestito?',
@@ -14297,6 +14303,7 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Ressourcen',
       subtitle: 'Alle Informationen, um Sie bei Ihrem Projekt zu begleiten',
       faqTitle: 'Häufig gestellte Fragen',
+      faqDescription: 'Finden Sie schnell Antworten auf Ihre Fragen',
       faqs: [
         {
           question: 'Welche Dokumente werden für einen Kreditantrag benötigt?',
@@ -16566,6 +16573,7 @@ export const translations: Record<Language, TranslationKeys> = {
       title: 'Bronnen',
       subtitle: 'Alle informatie om u bij uw project te begeleiden',
       faqTitle: 'Veelgestelde vragen',
+      faqDescription: 'Vind snel antwoorden op uw vragen',
       faqs: [
         {
           question: 'Welke documenten zijn nodig voor een leningaanvraag?',

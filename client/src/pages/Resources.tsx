@@ -40,7 +40,7 @@ export default function Resources() {
             <Card className="p-10 md:p-12 bg-white shadow-xl hover:shadow-2xl hover:-translate-y-1 border-none transition-all duration-300">
               <div className="mb-10 pb-8 border-b">
                 <h2 className="text-3xl font-bold text-gray-900">{t.resources.faqTitle}</h2>
-                <p className="text-gray-600 mt-2">Trouvez rapidement les réponses à vos questions</p>
+                <p className="text-gray-600 mt-2">{t.resources.faqDescription}</p>
               </div>
               <Accordion type="single" collapsible className="w-full space-y-4">
                 {t.resources.faqs.map((faq, index) => (
