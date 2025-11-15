@@ -1857,7 +1857,7 @@ export const translations: Record<Language, TranslationKeys> = {
     hero: {
       title: 'Réalisez vos projets avec Altus Finance Group',
       subtitle: 'Solutions de financement pour particuliers et professionnels - Taux compétitifs et processus transparent',
-      cta1: 'Demander un prêt',
+      cta1: 'Demander un financement',
       cta2: 'Mon espace',
       learnMore: 'En savoir plus',
       trustIndicator: 'Plus de 15 000 clients satisfaits nous font confiance',
@@ -1878,8 +1878,16 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       slides: [
         {
-          title: 'Réalisez vos projets avec Altus Finance Group',
-          subtitle: 'Solutions de financement pour particuliers et professionnels - Taux compétitifs et processus transparent',
+          title: 'Altus Finance Group',
+          subtitle: 'Solutions de financement professionnelles et sécurisées pour accompagner votre croissance.',
+        },
+        {
+          title: 'Expertise Financière d\'Excellence',
+          subtitle: 'Des solutions sur mesure adaptées à vos ambitions entrepreneuriales et patrimoniales.',
+        },
+        {
+          title: 'Votre Partenaire de Confiance',
+          subtitle: 'Accompagnement personnalisé et discrétion absolue pour tous vos projets de financement.',
         },
         {
           title: 'Des solutions financières sur mesure',
@@ -3893,7 +3901,7 @@ export const translations: Record<Language, TranslationKeys> = {
     hero: {
       title: 'Realize your projects with Altus Finance Group',
       subtitle: 'Financing solutions for individuals and professionals - Competitive rates and transparent process',
-      cta1: 'Request a Loan',
+      cta1: 'Request funding',
       cta2: 'My Account',
       learnMore: 'Learn More',
       trustIndicator: 'More than 15,000 satisfied clients trust us',
@@ -3914,8 +3922,16 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       slides: [
         {
-          title: 'Make Your Projects a Reality with Altus Finance Group',
-          subtitle: 'Financing solutions for individuals and businesses - Competitive rates and transparent process',
+          title: 'Altus Finance Group',
+          subtitle: 'Professional and secure financing solutions to support your growth.',
+        },
+        {
+          title: 'Excellence in Financial Expertise',
+          subtitle: 'Tailored solutions adapted to your entrepreneurial and wealth management ambitions.',
+        },
+        {
+          title: 'Your Trusted Partner',
+          subtitle: 'Personalized support and absolute discretion for all your financing projects.',
         },
         {
           title: 'Tailored Financial Solutions',
@@ -5913,7 +5929,7 @@ export const translations: Record<Language, TranslationKeys> = {
     hero: {
       title: 'Haga Realidad sus Proyectos con Altus Finance Group',
       subtitle: 'Soluciones de financiamiento para particulares y empresas - Tasas competitivas y proceso transparente',
-      cta1: 'Solicitar Préstamo',
+      cta1: 'Solicitar financiación',
       cta2: 'Mi Cuenta',
       learnMore: 'Saber Más',
       trustIndicator: 'Más de 15,000 clientes satisfechos confían en nosotros',
@@ -5934,8 +5950,16 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       slides: [
         {
-          title: 'Haga Realidad sus Proyectos con Altus Finance Group',
-          subtitle: 'Soluciones de financiamiento para particulares y empresas - Tasas competitivas y proceso transparente',
+          title: 'Altus Finance Group',
+          subtitle: 'Soluciones de financiación profesionales y seguras para acompañar su crecimiento.',
+        },
+        {
+          title: 'Experiencia Financiera de Excelencia',
+          subtitle: 'Soluciones a medida adaptadas a sus ambiciones empresariales y patrimoniales.',
+        },
+        {
+          title: 'Su Socio de Confianza',
+          subtitle: 'Acompañamiento personalizado y discreción absoluta para todos sus proyectos de financiación.',
         },
         {
           title: 'Soluciones Financieras a Medida',
@@ -7945,7 +7969,7 @@ export const translations: Record<Language, TranslationKeys> = {
     hero: {
       title: 'Realize seus Projetos com Altus Finance Group',
       subtitle: 'Soluções de financiamento para particulares e empresas - Taxas competitivas e processo transparente',
-      cta1: 'Solicitar Empréstimo',
+      cta1: 'Solicitar financiamento',
       cta2: 'Minha Conta',
       learnMore: 'Saiba Mais',
       trustIndicator: 'Mais de 15.000 clientes satisfeitos confiam em nós',
@@ -7966,8 +7990,16 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       slides: [
         {
-          title: 'Realize seus Projetos com Altus Finance Group',
-          subtitle: 'Soluções de financiamento para particulares e empresas - Taxas competitivas e processo transparente',
+          title: 'Altus Finance Group',
+          subtitle: 'Soluções de financiamento profissionais e seguras para acompanhar o seu crescimento.',
+        },
+        {
+          title: 'Expertise Financeira de Excelência',
+          subtitle: 'Soluções sob medida adaptadas às suas ambições empresariais e patrimoniais.',
+        },
+        {
+          title: 'Seu Parceiro de Confiança',
+          subtitle: 'Acompanhamento personalizado e discrição absoluta para todos os seus projetos de financiamento.',
         },
         {
           title: 'Soluções Financeiras Personalizadas',
@@ -9787,7 +9819,7 @@ export const translations: Record<Language, TranslationKeys> = {
     hero: {
       title: 'Realizza i tuoi progetti con Altus Finance Group',
       subtitle: 'Soluzioni di finanziamento per privati e aziende - Tassi competitivi e processo trasparente',
-      cta1: 'Richiedi un prestito',
+      cta1: 'Richiedere finanziamenti',
       cta2: 'La mia area',
       learnMore: 'Scopri di più',
       trustIndicator: 'Più di 15.000 clienti soddisfatti si fidano di noi',
@@ -9808,8 +9840,16 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       slides: [
         {
-          title: 'Realizza i tuoi progetti con Altus Finance Group',
-          subtitle: 'Soluzioni di finanziamento per privati e aziende - Tassi competitivi e processo trasparente',
+          title: 'Altus Finance Group',
+          subtitle: 'Soluzioni di finanziamento professionali e sicure per accompagnare la vostra crescita.',
+        },
+        {
+          title: 'Esperienza Finanziaria d\'Eccellenza',
+          subtitle: 'Soluzioni su misura adattate alle vostre ambizioni imprenditoriali e patrimoniali.',
+        },
+        {
+          title: 'Il Vostro Partner di Fiducia',
+          subtitle: 'Assistenza personalizzata e assoluta riservatezza per tutti i vostri progetti di finanziamento.',
         },
         {
           title: 'Soluzioni finanziarie su misura',
@@ -11628,7 +11668,7 @@ export const translations: Record<Language, TranslationKeys> = {
     hero: {
       title: 'Verwirklichen Sie Ihre Projekte mit der Altus Finance Group',
       subtitle: 'Finanzierungslösungen für Privat- und Geschäftskunden - Wettbewerbsfähige Zinsen und transparenter Prozess',
-      cta1: 'Kredit beantragen',
+      cta1: 'Finanzierung beantragen',
       cta2: 'Mein Bereich',
       learnMore: 'Mehr erfahren',
       trustIndicator: 'Mehr als 15.000 zufriedene Kunden vertrauen uns',
@@ -11649,8 +11689,16 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       slides: [
         {
-          title: 'Verwirklichen Sie Ihre Projekte mit der Altus Finance Group',
-          subtitle: 'Finanzierungslösungen für Privat- und Geschäftskunden - Wettbewerbsfähige Zinsen und transparenter Prozess',
+          title: 'Altus Finance Group',
+          subtitle: 'Professionelle und sichere Finanzierungslösungen zur Unterstützung Ihres Wachstums.',
+        },
+        {
+          title: 'Finanzexpertise der Spitzenklasse',
+          subtitle: 'Maßgeschneiderte Lösungen für Ihre unternehmerischen und vermögensbezogenen Ambitionen.',
+        },
+        {
+          title: 'Ihr vertrauenswürdiger Partner',
+          subtitle: 'Persönliche Betreuung und absolute Diskretion für alle Ihre Finanzierungsprojekte.',
         },
         {
           title: 'Maßgeschneiderte Finanzlösungen',
@@ -13469,7 +13517,7 @@ export const translations: Record<Language, TranslationKeys> = {
     hero: {
       title: 'Realiseer uw projecten met Altus Finance Group',
       subtitle: 'Financieringsoplossingen voor particulieren en bedrijven - Concurrerende tarieven en transparant proces',
-      cta1: 'Lening aanvragen',
+      cta1: 'Financiering aanvragen',
       cta2: 'Mijn gebied',
       learnMore: 'Meer weten',
       trustIndicator: 'Meer dan 15.000 tevreden klanten vertrouwen ons',
@@ -13490,8 +13538,16 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       slides: [
         {
-          title: 'Realiseer uw projecten met Altus Finance Group',
-          subtitle: 'Financieringsoplossingen voor particulieren en bedrijven - Concurrerende tarieven en transparant proces',
+          title: 'Altus Finance Group',
+          subtitle: 'Professionele en veilige financieringsoplossingen om uw groei te ondersteunen.',
+        },
+        {
+          title: 'Financiële Expertise van Uitmuntendheid',
+          subtitle: 'Op maat gemaakte oplossingen aangepast aan uw ondernemende en vermogensambities.',
+        },
+        {
+          title: 'Uw Betrouwbare Partner',
+          subtitle: 'Persoonlijke begeleiding en absolute discretie voor al uw financieringsprojecten.',
         },
         {
           title: 'Financiële oplossingen op maat',

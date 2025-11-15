@@ -1,42 +1,30 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
+import { useTranslations } from "@/lib/i18n";
 import hero1 from "@assets/generated_images/Luxury_banking_office_interior_c438e2ad.png";
 import hero2 from "@assets/generated_images/Executive_boardroom_financial_institution_69d8133b.png";
 import hero3 from "@assets/generated_images/Financial_district_skyline_premium_61766895.png";
 
-const slides = [
-  {
-    image: hero1,
-    title: "Altus Finance Group",
-    subtitle: "Solutions de financement professionnelles et sécurisées pour accompagner votre croissance.",
-  },
-  {
-    image: hero2,
-    title: "Expertise Financière d'Excellence",
-    subtitle: "Des solutions sur mesure adaptées à vos ambitions entrepreneuriales et patrimoniales.",
-  },
-  {
-    image: hero3,
-    title: "Votre Partenaire de Confiance",
-    subtitle: "Accompagnement personnalisé et discrétion absolue pour tous vos projets de financement.",
-  },
-];
+const slideImages = [hero1, hero2, hero3];
 
 export default function HeroCarousel() {
   const [index, setIndex] = useState(0);
   const [, setLocation] = useLocation();
+  const t = useTranslations();
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
+      setIndex((prev) => (prev + 1) % Math.min(t.hero.slides.length, slideImages.length));
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [t.hero.slides.length]);
+
+  const currentSlides = t.hero.slides.slice(0, slideImages.length);
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
       {/* Slides */}
-      {slides.map((slide, i) => (
+      {currentSlides.map((_, i) => (
         <div
           key={i}
           className={`absolute inset-0 transition-all ease-out
@@ -47,7 +35,7 @@ export default function HeroCarousel() {
           `}
         >
           <img
-            src={slide.image}
+            src={slideImages[i]}
             alt={`Hero ${i + 1}`}
             className="h-full w-full object-cover"
           />
@@ -63,14 +51,14 @@ export default function HeroCarousel() {
           className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight drop-shadow-[0_4px_10px_rgba(0,0,0,0.4)] animate-fade-in"
           data-testid="text-hero-title"
         >
-          {slides[index].title}
+          {t.hero.slides[index]?.title}
         </h1>
 
         <p 
           className="mt-4 sm:mt-6 text-base sm:text-lg lg:text-2xl text-gray-100 max-w-3xl animate-fade-in delay-300 leading-relaxed"
           data-testid="text-hero-subtitle"
         >
-          {slides[index].subtitle}
+          {t.hero.slides[index]?.subtitle}
         </p>
 
         {/* CTA Buttons */}
@@ -82,7 +70,7 @@ export default function HeroCarousel() {
               transition-all duration-300 transform hover:scale-105"
             data-testid="button-apply-loan"
           >
-            Demander un financement
+            {t.hero.cta1}
           </button>
 
           <button
@@ -91,14 +79,14 @@ export default function HeroCarousel() {
               hover:bg-white/10 hover:border-white/60 transition-all duration-300"
             data-testid="button-learn-more"
           >
-            En savoir plus
+            {t.hero.learnMore}
           </button>
         </div>
       </div>
 
       {/* Slide indicators */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-3 z-10">
-        {slides.map((_, i) => (
+        {currentSlides.map((_, i) => (
           <button
             key={i}
             onClick={() => setIndex(i)}
