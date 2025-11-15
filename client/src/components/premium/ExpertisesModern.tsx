@@ -88,14 +88,13 @@ export default function ExpertisesModern() {
                 </div>
 
                 {/* CTA */}
-                <Link href={expertise.link}>
-                  <a 
-                    className="inline-flex items-center gap-2 text-indigo-600 font-semibold group-hover:gap-3 transition-all duration-300 cursor-pointer"
-                    data-testid={`button-expertise-learn-more-${index}`}
-                  >
-                    En savoir plus
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
+                <Link 
+                  href={expertise.link}
+                  className="inline-flex items-center gap-2 text-indigo-600 font-semibold group-hover:gap-3 transition-all duration-300 cursor-pointer"
+                  data-testid={`button-expertise-learn-more-${index}`}
+                >
+                  En savoir plus
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
 
                 {/* Gradient overlay on hover */}
