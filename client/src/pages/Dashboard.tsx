@@ -99,14 +99,14 @@ export default function Dashboard() {
               <div>
                 <h3 className="font-semibold text-lg text-destructive mb-1">{t.dashboard.dataLoadError}</h3>
                 <p className="text-sm text-muted-foreground">
-                  Impossible de se connecter au serveur. Veuillez vérifier votre connexion et réessayer.
+                  {t.dashboard.serverError}
                 </p>
               </div>
               
               {isDev && (
                 <details className="text-xs bg-muted/50 rounded-xl p-4">
                   <summary className="cursor-pointer font-medium text-foreground mb-2">
-                    Informations de diagnostic (développement)
+                    {t.dashboard.diagnosticInfo}
                   </summary>
                   <div className="mt-2 space-y-1 font-mono">
                     <p><strong>API URL:</strong> {apiUrl}/api/dashboard</p>
@@ -124,7 +124,7 @@ export default function Dashboard() {
                 onClick={() => window.location.reload()}
                 data-testid="button-retry-dashboard"
               >
-                Réessayer
+                {t.dashboard.retry}
               </Button>
             </div>
           </div>
@@ -146,7 +146,7 @@ export default function Dashboard() {
             {getGreeting()}
           </h1>
           <p className="text-muted-foreground">
-            Voici un aperçu de vos finances
+            {t.dashboard.financeOverview}
           </p>
         </div>
 
@@ -309,14 +309,14 @@ export default function Dashboard() {
           {/* Borrowing Capacity - Modern Card */}
           <DashboardCard
             title={t.dashboard.borrowingCapacity}
-            subtitle="Votre limite de crédit"
+            subtitle={t.dashboard.yourCreditLimit}
             icon={Wallet}
             iconColor="text-primary"
           >
             <div className="space-y-6 mt-4">
               <div className="space-y-3">
                 <div className="flex items-baseline justify-between">
-                  <span className="text-sm font-medium text-muted-foreground">Utilisé</span>
+                  <span className="text-sm font-medium text-muted-foreground">{t.dashboard.used}</span>
                   <span className="text-2xl font-bold text-foreground">
                     {creditUtilization.toFixed(0)}%
                   </span>
@@ -331,13 +331,13 @@ export default function Dashboard() {
 
               <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
                 <div>
-                  <p className="text-xs text-muted-foreground mb-1">Maximum</p>
+                  <p className="text-xs text-muted-foreground mb-1">{t.dashboard.maximum}</p>
                   <p className="text-lg font-bold text-foreground" data-testid="text-max-capacity">
                     {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(dashboardData.borrowingCapacity.maxCapacity)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground mb-1">Disponible</p>
+                  <p className="text-xs text-muted-foreground mb-1">{t.dashboard.available}</p>
                   <p className="text-lg font-bold text-accent" data-testid="text-current-capacity">
                     {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(dashboardData.borrowingCapacity.currentCapacity)}
                   </p>
@@ -352,13 +352,13 @@ export default function Dashboard() {
           {/* Active Loans */}
           <DashboardCard
             title={t.dashboard.activeLoans}
-            subtitle={`${dashboardData.loans.length} ${dashboardData.loans.length === 1 ? 'prêt actif' : 'prêts actifs'}`}
+            subtitle={`${dashboardData.loans.length} ${dashboardData.loans.length === 1 ? t.dashboard.activeLoanSingular : t.dashboard.activeLoansPlural}`}
             icon={CreditCard}
             iconColor="text-primary"
             headerAction={
               <Link href="/loans">
                 <Button variant="ghost" size="sm" className="gap-1">
-                  <span className="text-xs">Tout voir</span>
+                  <span className="text-xs">{t.dashboard.viewAll}</span>
                   <ArrowRight className="w-3 h-3" />
                 </Button>
               </Link>
@@ -371,7 +371,7 @@ export default function Dashboard() {
                     <CreditCard className="w-8 h-8 text-muted-foreground" />
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Aucun prêt actif
+                    {t.dashboard.noActiveLoans}
                   </p>
                 </div>
               ) : (
@@ -387,7 +387,7 @@ export default function Dashboard() {
                       <div className="flex items-center justify-between mb-3">
                         <div>
                           <p className="font-semibold text-foreground">
-                            Prêt #{loan.id}
+                            {t.dashboard.loanNumber}{loan.id}
                           </p>
                           <p className="text-xs text-muted-foreground">
                             {loan.interestRate}% APR
@@ -400,7 +400,7 @@ export default function Dashboard() {
                       
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Montant</span>
+                          <span className="text-muted-foreground">{t.dashboard.amount}</span>
                           <span className="font-semibold">
                             {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(Number(loan.amount))}
                           </span>
@@ -408,7 +408,7 @@ export default function Dashboard() {
                         
                         <div className="space-y-1">
                           <div className="flex justify-between text-xs">
-                            <span className="text-muted-foreground">Progression</span>
+                            <span className="text-muted-foreground">{t.dashboard.progression}</span>
                             <span className="font-medium text-accent">{progress.toFixed(0)}%</span>
                           </div>
                           <div className="h-2 bg-muted rounded-full overflow-hidden">
@@ -429,7 +429,7 @@ export default function Dashboard() {
           {/* Upcoming Repayments */}
           <DashboardCard
             title={t.dashboard.upcomingRepayments}
-            subtitle="Prochains 6 mois"
+            subtitle={t.dashboard.nextSixMonths}
             icon={Clock}
             iconColor="text-primary"
           >
@@ -464,7 +464,7 @@ export default function Dashboard() {
                       }}
                       formatter={(value: number) => [
                         new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(value),
-                        'Remboursement'
+                        t.dashboard.repayment
                       ]}
                     />
                     <Bar 
@@ -481,7 +481,7 @@ export default function Dashboard() {
                   <Clock className="w-8 h-8 text-muted-foreground" />
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Aucun remboursement à venir
+                  {t.dashboard.noUpcomingRepayments}
                 </p>
               </div>
             )}
@@ -491,8 +491,8 @@ export default function Dashboard() {
         {/* Contracts Section - Optional */}
         {(dashboardData as any).pendingContracts && (dashboardData as any).pendingContracts.length > 0 && (
           <DashboardCard
-            title="Contrats en attente"
-            subtitle={`${(dashboardData as any).pendingContracts.length} contrat(s) à signer`}
+            title={t.dashboard.pendingContracts}
+            subtitle={`${(dashboardData as any).pendingContracts.length} ${t.dashboard.contractsToSign}`}
             icon={FileSignature}
             iconColor="text-amber-600"
             className="bg-amber-50 dark:bg-amber-950/10 border-amber-200 dark:border-amber-900/30"
@@ -509,7 +509,7 @@ export default function Dashboard() {
                       {contract.loanType}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      Généré le {new Date(contract.generatedAt).toLocaleDateString('fr-FR')}
+                      {t.dashboard.generatedOn} {new Date(contract.generatedAt).toLocaleDateString('fr-FR')}
                     </p>
                   </div>
                   <div className="flex gap-2">
@@ -522,7 +522,7 @@ export default function Dashboard() {
                         data-testid={`button-view-contract-${contract.id}`}
                       >
                         <Eye className="w-4 h-4" />
-                        Voir
+                        {t.dashboard.view}
                       </Button>
                     )}
                     {contract.id && contract.loanId && (
