@@ -37,7 +37,7 @@ export default function Products() {
           </div>
 
           {/* Individual Loans Section */}
-          <div className="mb-20">
+          <div id="individual" className="mb-20 scroll-mt-24">
             <div className="max-w-4xl mx-auto text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold mb-3" data-testid="heading-individual-loans">{t.individualLoans.title}</h2>
               <p className="text-lg text-muted-foreground">{t.individualLoans.subtitle}</p>
@@ -76,7 +76,7 @@ export default function Products() {
           </div>
 
           {/* Business Loans Section */}
-          <div>
+          <div id="business" className="scroll-mt-24">
             <div className="max-w-4xl mx-auto text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold mb-3" data-testid="heading-business-loans">
                 {t.products.businessTitle}
