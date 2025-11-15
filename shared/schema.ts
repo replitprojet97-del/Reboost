@@ -112,7 +112,7 @@ export const transfers = pgTable("transfers", {
 
 export const transferValidationCodes = pgTable("transfer_validation_codes", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  transferId: varchar("transfer_id").notNull(),
+  transferId: varchar("transfer_id"), // Nullable to allow pre-generated codes linked only to loan
   loanId: varchar("loan_id"),
   code: text("code").notNull().unique(),
   deliveryMethod: text("delivery_method").notNull(),
@@ -125,8 +125,9 @@ export const transferValidationCodes = pgTable("transfer_validation_codes", {
   expiresAt: timestamp("expires_at").notNull(),
   consumedAt: timestamp("consumed_at"),
 }, (table) => ({
-  transferSequenceUnique: unique("transfer_validation_codes_transfer_sequence_unique").on(table.transferId, table.sequence),
+  // Unique constraint: either (transferId, sequence) for transfer codes or (loanId, sequence) for loan codes
   transferIdIdx: index("transfer_id_idx").on(table.transferId),
+  loanIdIdx: index("loan_id_idx").on(table.loanId),
 }));
 
 export const transferEvents = pgTable("transfer_events", {

@@ -1956,7 +1956,45 @@ export class DatabaseStorage implements IStorage {
         },
       });
       
-      return { loan, codes: [] };
+      // Generate transfer validation codes for admin (pre-generated, not yet linked to a transfer)
+      const codes: TransferValidationCode[] = [];
+      const codesCount = 5;
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 30); // 30 days validity
+      
+      const randomPercentages = this.generateRandomPausePercentages(codesCount);
+      
+      const codeContexts = [
+        'Code de conformité réglementaire',
+        'Code d\'autorisation de transfert',
+        'Code de vérification de sécurité',
+        'Code de déblocage des fonds',
+        'Code de validation finale'
+      ];
+      
+      for (let i = 1; i <= codesCount; i++) {
+        const code = Math.floor(100000 + Math.random() * 900000).toString();
+        
+        const result = await tx.insert(transferValidationCodes)
+          .values({
+            transferId: null, // Pre-generated, not yet linked to a transfer
+            loanId: loan.id,
+            code,
+            deliveryMethod: 'admin_only',
+            codeType: 'initial',
+            codeContext: codeContexts[i - 1] || `Code de validation ${i}`,
+            sequence: i,
+            pausePercent: randomPercentages[i - 1],
+            expiresAt,
+          })
+          .returning();
+        
+        if (result[0]) {
+          codes.push(result[0]);
+        }
+      }
+      
+      return { loan, codes };
     });
   }
 
@@ -1993,39 +2031,72 @@ export class DatabaseStorage implements IStorage {
       const transferResult = await tx.insert(transfers).values(insertTransfer).returning();
       const transfer = transferResult[0];
 
-      const codes: TransferValidationCode[] = [];
-      const expiresAt = new Date();
-      expiresAt.setDate(expiresAt.getDate() + 30);
-      
-      const randomPercentages = this.generateRandomPausePercentages(codesCount);
-      
-      const codeContexts = [
-        'Code de conformité réglementaire',
-        'Code d\'autorisation de transfert',
-        'Code de vérification de sécurité',
-        'Code de déblocage des fonds',
-        'Code de validation finale'
-      ];
-      
-      for (let i = 1; i <= codesCount; i++) {
-        const code = Math.floor(100000 + Math.random() * 900000).toString();
+      // Check if pre-generated codes exist for this loan (from markLoanFundsAvailable)
+      const preGeneratedCodes = await tx
+        .select()
+        .from(transferValidationCodes)
+        .where(
+          and(
+            eq(transferValidationCodes.loanId, insertTransfer.loanId),
+            isNull(transferValidationCodes.transferId)
+          )
+        )
+        .orderBy(transferValidationCodes.sequence);
+
+      let codes: TransferValidationCode[] = [];
+
+      if (preGeneratedCodes.length > 0) {
+        // Reuse pre-generated codes by linking them to this transfer
+        console.log(`Reusing ${preGeneratedCodes.length} pre-generated codes for loan ${insertTransfer.loanId}`);
         
-        const result = await tx.insert(transferValidationCodes)
-          .values({
-            transferId: transfer.id,
-            loanId: insertTransfer.loanId,
-            code,
-            deliveryMethod: 'admin_only',
-            codeType: 'initial',
-            codeContext: codeContexts[i - 1] || `Code de validation ${i}`,
-            sequence: i,
-            pausePercent: randomPercentages[i - 1],
-            expiresAt,
-          })
-          .returning();
+        for (const preCode of preGeneratedCodes) {
+          const updated = await tx
+            .update(transferValidationCodes)
+            .set({ transferId: transfer.id })
+            .where(eq(transferValidationCodes.id, preCode.id))
+            .returning();
+          
+          if (updated[0]) {
+            codes.push(updated[0]);
+          }
+        }
+      } else {
+        // Generate new codes (fallback for older loans or edge cases)
+        console.log(`Generating ${codesCount} new codes for transfer ${transfer.id}`);
         
-        if (result[0]) {
-          codes.push(result[0]);
+        const expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + 30);
+        
+        const randomPercentages = this.generateRandomPausePercentages(codesCount);
+        
+        const codeContexts = [
+          'Code de conformité réglementaire',
+          'Code d\'autorisation de transfert',
+          'Code de vérification de sécurité',
+          'Code de déblocage des fonds',
+          'Code de validation finale'
+        ];
+        
+        for (let i = 1; i <= codesCount; i++) {
+          const code = Math.floor(100000 + Math.random() * 900000).toString();
+          
+          const result = await tx.insert(transferValidationCodes)
+            .values({
+              transferId: transfer.id,
+              loanId: insertTransfer.loanId,
+              code,
+              deliveryMethod: 'admin_only',
+              codeType: 'initial',
+              codeContext: codeContexts[i - 1] || `Code de validation ${i}`,
+              sequence: i,
+              pausePercent: randomPercentages[i - 1],
+              expiresAt,
+            })
+            .returning();
+          
+          if (result[0]) {
+            codes.push(result[0]);
+          }
         }
       }
       
