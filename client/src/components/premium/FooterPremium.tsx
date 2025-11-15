@@ -1,34 +1,36 @@
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from "lucide-react";
 
 const footerLinks = {
   solutions: [
-    { label: "Financement professionnel", href: "/loans" },
-    { label: "Financement personnel", href: "/loans" },
-    { label: "Consolidation de dettes", href: "/loans" },
-    { label: "Solutions innovantes", href: "/loans" }
+    { label: "Financement professionnel", href: "/products" },
+    { label: "Financement personnel", href: "/products" },
+    { label: "Consolidation de dettes", href: "/products" },
+    { label: "Solutions innovantes", href: "/products" }
   ],
   company: [
     { label: "À propos", href: "/about" },
-    { label: "Notre équipe", href: "/about" },
-    { label: "Carrières", href: "/contact" },
-    { label: "Presse", href: "/contact" }
+    { label: "Comment ça marche", href: "/how-it-works" },
+    { label: "Contactez-nous", href: "/contact" },
+    { label: "Ressources", href: "/resources" }
   ],
   resources: [
     { label: "Centre d'aide", href: "/contact" },
     { label: "Documentation", href: "/how-it-works" },
-    { label: "Blog", href: "/" },
-    { label: "FAQ", href: "/contact" }
+    { label: "Blog", href: "/resources" },
+    { label: "FAQ", href: "/resources" }
   ],
   legal: [
-    { label: "Mentions légales", href: "/" },
-    { label: "Politique de confidentialité", href: "/" },
-    { label: "CGU", href: "/" },
-    { label: "Cookies", href: "/" }
+    { label: "Mentions légales", href: "/terms" },
+    { label: "Politique de confidentialité", href: "/privacy" },
+    { label: "CGU", href: "/terms" },
+    { label: "Cookies", href: "/privacy" }
   ]
 };
 
 export default function FooterPremium() {
+  const [, setLocation] = useLocation();
+  
   return (
     <footer className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -71,11 +73,14 @@ export default function FooterPremium() {
             <ul className="space-y-3">
               {footerLinks.solutions.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href}>
-                    <a className="text-gray-400 hover:text-white transition-colors text-sm" data-testid={`link-footer-solution-${index}`}>
-                      {link.label}
-                    </a>
-                  </Link>
+                  <a 
+                    href={link.href}
+                    onClick={(e) => { e.preventDefault(); setLocation(link.href); }} 
+                    className="text-gray-400 hover:text-white transition-colors text-sm" 
+                    data-testid={`link-footer-solution-${index}`}
+                  >
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -87,11 +92,14 @@ export default function FooterPremium() {
             <ul className="space-y-3">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href}>
-                    <a className="text-gray-400 hover:text-white transition-colors text-sm" data-testid={`link-footer-company-${index}`}>
-                      {link.label}
-                    </a>
-                  </Link>
+                  <a 
+                    href={link.href}
+                    onClick={(e) => { e.preventDefault(); setLocation(link.href); }} 
+                    className="text-gray-400 hover:text-white transition-colors text-sm" 
+                    data-testid={`link-footer-company-${index}`}
+                  >
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -103,11 +111,14 @@ export default function FooterPremium() {
             <ul className="space-y-3">
               {footerLinks.resources.map((link, index) => (
                 <li key={index}>
-                  <Link href={link.href}>
-                    <a className="text-gray-400 hover:text-white transition-colors text-sm" data-testid={`link-footer-resource-${index}`}>
-                      {link.label}
-                    </a>
-                  </Link>
+                  <a 
+                    href={link.href}
+                    onClick={(e) => { e.preventDefault(); setLocation(link.href); }} 
+                    className="text-gray-400 hover:text-white transition-colors text-sm" 
+                    data-testid={`link-footer-resource-${index}`}
+                  >
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -142,11 +153,15 @@ export default function FooterPremium() {
           {/* Legal links */}
           <div className="flex flex-wrap gap-4 text-sm">
             {footerLinks.legal.map((link, index) => (
-              <Link key={index} href={link.href}>
-                <a className="text-gray-400 hover:text-white transition-colors" data-testid={`link-footer-legal-${index}`}>
-                  {link.label}
-                </a>
-              </Link>
+              <a 
+                key={index} 
+                href={link.href}
+                onClick={(e) => { e.preventDefault(); setLocation(link.href); }} 
+                className="text-gray-400 hover:text-white transition-colors" 
+                data-testid={`link-footer-legal-${index}`}
+              >
+                {link.label}
+              </a>
             ))}
           </div>
         </div>

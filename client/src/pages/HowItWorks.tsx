@@ -1,5 +1,5 @@
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import FooterPremium from '@/components/premium/FooterPremium';
 import SEO from '@/components/SEO';
 import { useTranslations } from '@/lib/i18n';
 import { Card } from '@/components/ui/card';
@@ -266,7 +266,7 @@ export default function HowItWorks() {
           </div>
         </div>
       </main>
-      <Footer />
+      <FooterPremium />
     </div>
   );
 }
