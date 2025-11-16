@@ -54,7 +54,7 @@ export default function FinalCTASection() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
-                <Link href="/loan-request">
+                <Link href="/loans/new">
                   <button className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1" data-testid="button-start-dossier">
                     {t.premium.finalCTA.primaryButton}
                     <ArrowRight className="h-5 w-5" />

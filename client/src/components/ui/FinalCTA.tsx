@@ -12,7 +12,7 @@ export default function FinalCTA() {
           <p className="mt-2 text-gray-600">{t.premium.finalCTA.subtitle}</p>
           <div className="mt-6 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4">
             <Link 
-              href="/loan-request" 
+              href="/loans/new" 
               className="px-6 py-3 rounded-lg bg-[#6366f1] text-white font-semibold shadow-md hover-elevate"
               data-testid="button-open-dossier"
             >

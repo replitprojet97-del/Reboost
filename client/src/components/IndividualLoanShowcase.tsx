@@ -57,7 +57,7 @@ export default function IndividualLoanShowcase() {
                   </div>
                 </div>
                 <Button className="w-full gap-2" asChild>
-                  <Link href="/loan-request">
+                  <Link href="/loans/new">
                     {t.hero.cta1}
                     <ArrowRight className="h-4 w-4" />
                   </Link>

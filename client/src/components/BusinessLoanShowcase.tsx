@@ -67,7 +67,7 @@ export default function BusinessLoanShowcase() {
                 )}
 
                 <Button className="w-full gap-2" asChild>
-                  <Link href="/loan-request">
+                  <Link href="/loans/new">
                     {t.businessLoans.learnMore}
                     <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -111,7 +111,7 @@ export default function BusinessLoanShowcase() {
             {t.businessLoans.rateDisclaimer}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/loan-request" className="w-full sm:w-auto">
+            <Link href="/loans/new" className="w-full sm:w-auto">
               <Button size="lg" className="w-full sm:w-auto" data-testid="button-simulate-business-loan">
                 {t.businessLoans.simulateLoan}
               </Button>

@@ -104,7 +104,7 @@ function handleAuthError(res: Response, errorMessage?: string) {
                      currentPath.startsWith('/reset-password');
   
   const publicPages = ['/', '/about', '/how-it-works', '/products', '/contact', '/resources', '/terms', '/privacy'];
-  const isPublicPage = publicPages.includes(currentPath) || currentPath.startsWith('/loans/') || currentPath === '/loan-request';
+  const isPublicPage = publicPages.includes(currentPath) || currentPath.startsWith('/loans/');
   
   if (!isAuthPage && !isPublicPage) {
     const message = errorMessage || getErrorMessage(res.status);

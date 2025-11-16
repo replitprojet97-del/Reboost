@@ -7,7 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Helmet } from 'react-helmet-async';
 import * as LucideIcons from 'lucide-react';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import FooterPremium from '@/components/premium/FooterPremium';
 import { ChevronRight, Check } from 'lucide-react';
 
 export default function LoanDetail() {
@@ -66,7 +66,7 @@ export default function LoanDetail() {
             
             <Button 
               size="lg" 
-              onClick={() => setLocation('/loan-request')}
+              onClick={() => setLocation('/loans/new')}
               data-testid="button-apply-hero"
             >
               {loanContent.hero.cta}
@@ -178,7 +178,7 @@ export default function LoanDetail() {
             <Button 
               size="lg" 
               variant="secondary"
-              onClick={() => setLocation('/loan-request')}
+              onClick={() => setLocation('/loans/new')}
               data-testid="button-apply-cta"
             >
               {loanContent.cta.button}
@@ -188,7 +188,7 @@ export default function LoanDetail() {
         </div>
       </section>
       
-      <Footer />
+      <FooterPremium />
     </div>
   );
 }

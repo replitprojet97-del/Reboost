@@ -346,7 +346,7 @@ export default function HowItWorks() {
               {t.howItWorks.ctaSubtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/loan-request">
+              <Link href="/loans/new">
                 <Button size="lg" className="bg-white text-indigo-600 hover:bg-gray-100 px-8 py-6 text-lg font-semibold min-w-[220px]">
                   {t.howItWorks.ctaRequestButton}
                   <ArrowRight className="w-5 h-5 ml-2" />

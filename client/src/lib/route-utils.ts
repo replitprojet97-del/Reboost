@@ -4,7 +4,7 @@ export function isProtectedRoute(pathname: string): boolean {
                      pathname.startsWith('/reset-password');
 
   const publicPages = ['/', '/about', '/how-it-works', '/products', '/contact', '/resources', '/terms', '/privacy'];
-  const isPublicPage = publicPages.includes(pathname) || pathname.startsWith('/loans/') || pathname === '/loan-request';
+  const isPublicPage = publicPages.includes(pathname) || pathname.startsWith('/loans/');
   
   return !isAuthPage && !isPublicPage;
 }

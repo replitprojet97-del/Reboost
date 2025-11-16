@@ -153,7 +153,7 @@ export default function ProcessTimeline() {
           <p className="text-sm text-muted-foreground mb-4">
             <strong>{t.processTimeline.averageTime}</strong> {t.processTimeline.averageTimeValue}
           </p>
-          <Link href="/loan-request">
+          <Link href="/loans/new">
             <Button size="lg" data-testid="button-start-application">
               {t.processTimeline.startApplication}
             </Button>

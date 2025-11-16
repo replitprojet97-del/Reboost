@@ -142,7 +142,7 @@ export default function Products() {
                       </div>
                     </div>
                     
-                    <Link href="/loan-request">
+                    <Link href="/loans/new">
                       <Button 
                         className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 group/btn" 
                         data-testid={`button-apply-individual-${index}`}
@@ -231,7 +231,7 @@ export default function Products() {
                       </ul>
                     )}
                     
-                    <Link href="/loan-request">
+                    <Link href="/loans/new">
                       <Button 
                         className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 h-12 text-base group/btn" 
                         data-testid={`button-apply-business-${index}`}
@@ -278,7 +278,7 @@ export default function Products() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/loan-request">
+              <Link href="/loans/new">
                 <Button size="lg" className="bg-white text-indigo-600 hover:bg-gray-100 px-8 py-6 text-lg font-semibold min-w-[200px]">
                   {t.products.ctaButton1}
                   <ArrowRight className="w-5 h-5 ml-2" />

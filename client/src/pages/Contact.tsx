@@ -323,7 +323,7 @@ export default function Contact() {
               {t.contact.ctaSubtitle}
             </p>
             <a 
-              href="/loan-request" 
+              href="/loans/new" 
               className="inline-flex items-center justify-center px-8 py-4 bg-white text-indigo-600 font-semibold text-lg rounded-xl hover:bg-gray-100 transition-colors"
             >
               {t.contact.ctaButton}

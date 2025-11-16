@@ -56,7 +56,7 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link href="/loan-request">
+              <Link href="/loans/new">
                 <Button
                   size="lg"
                   className="w-full sm:w-auto text-base px-8 py-6 bg-orange-500 text-white hover:bg-orange-600 shadow-2xl font-semibold"
@@ -165,7 +165,7 @@ export default function Hero() {
                   </div>
                 </div>
 
-                <Link href="/loan-request" className="block">
+                <Link href="/loans/new" className="block">
                   <Button
                     size="lg"
                     className="w-full bg-blue-600 text-white hover:bg-blue-700 h-14 text-base font-semibold shadow-lg"
