@@ -8,6 +8,16 @@ ALTUS is a multi-language professional loan management platform designed for bus
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes (November 16, 2025)
+
+### Code Cleanup & Verification
+- ✅ Removed obsolete backup file `client/src/lib/i18n.ts.backup` (17,453 lines)
+- ✅ Fixed missing `notExists` import in `server/storage.ts`
+- ✅ Verified PDF contract header is professionally structured (ALTUS branding, company details, contract reference)
+- ✅ Verified transfer creation logic correctly filters loans (status='approved', fundsAvailabilityStatus='available', excludes loans with existing transfers)
+- ✅ Verified transfer amount is non-modifiable and pre-filled from approved loan amount
+- ✅ Verified single active loan rule prevents multiple concurrent loan requests
+
 ## System Architecture
 
 ### Frontend Architecture
