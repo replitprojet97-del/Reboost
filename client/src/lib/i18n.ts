@@ -210,6 +210,22 @@ type TranslationKeys = {
     reviewMessage: string;
     signedSuccess: string;
     downloadOriginal: string;
+    uploadTitle: string;
+    uploadDescription: string;
+    chooseFile: string;
+    changeFile: string;
+    send: string;
+    sending: string;
+    uploadSuccess: string;
+    uploadSuccessDescription: string;
+    uploadError: string;
+    uploadErrorDescription: string;
+    fileTooLarge: string;
+    fileTooLargeDescription: string;
+    invalidFileType: string;
+    invalidFileTypeDescription: string;
+    noFileSelected: string;
+    noFileSelectedDescription: string;
   };
   dashboard: {
     welcome: string;
@@ -2314,6 +2330,22 @@ export const translations: Record<Language, TranslationKeys> = {
       reviewMessage: 'Votre contrat signé a été reçu et est en cours de vérification par notre équipe. Vous serez notifié dès que les fonds seront débloqués.',
       signedSuccess: 'Contrat signé et validé avec succès',
       downloadOriginal: 'Télécharger le contrat original',
+      uploadTitle: 'Téléverser votre contrat signé',
+      uploadDescription: 'Veuillez envoyer votre contrat signé (PDF uniquement, max 10 MB)',
+      chooseFile: 'Choisir un fichier',
+      changeFile: 'Changer le fichier',
+      send: 'Envoyer',
+      sending: 'Envoi...',
+      uploadSuccess: 'Contrat envoyé avec succès',
+      uploadSuccessDescription: 'Votre contrat signé a été envoyé et sera vérifié par notre équipe.',
+      uploadError: 'Erreur d\'envoi',
+      uploadErrorDescription: 'Une erreur est survenue lors de l\'envoi du contrat.',
+      fileTooLarge: 'Fichier trop volumineux',
+      fileTooLargeDescription: 'Le fichier ne doit pas dépasser 10 MB.',
+      invalidFileType: 'Type de fichier invalide',
+      invalidFileTypeDescription: 'Seuls les fichiers PDF sont acceptés.',
+      noFileSelected: 'Aucun fichier sélectionné',
+      noFileSelectedDescription: 'Veuillez choisir un fichier avant d\'envoyer.',
     },
     dashboard: {
       welcome: 'Bienvenue',
@@ -4761,6 +4793,22 @@ export const translations: Record<Language, TranslationKeys> = {
       reviewMessage: 'Your signed contract has been received and is being reviewed by our team. You will be notified once the funds are released.',
       signedSuccess: 'Contract signed and validated successfully',
       downloadOriginal: 'Download original contract',
+      uploadTitle: 'Upload your signed contract',
+      uploadDescription: 'Please send your signed contract (PDF only, max 10 MB)',
+      chooseFile: 'Choose file',
+      changeFile: 'Change file',
+      send: 'Send',
+      sending: 'Sending...',
+      uploadSuccess: 'Contract sent successfully',
+      uploadSuccessDescription: 'Your signed contract has been sent and will be reviewed by our team.',
+      uploadError: 'Upload error',
+      uploadErrorDescription: 'An error occurred while uploading the contract.',
+      fileTooLarge: 'File too large',
+      fileTooLargeDescription: 'The file must not exceed 10 MB.',
+      invalidFileType: 'Invalid file type',
+      invalidFileTypeDescription: 'Only PDF files are accepted.',
+      noFileSelected: 'No file selected',
+      noFileSelectedDescription: 'Please choose a file before sending.',
     },
     dashboard: {
       welcome: 'Welcome',
@@ -7190,6 +7238,22 @@ export const translations: Record<Language, TranslationKeys> = {
       reviewMessage: 'Su contrato firmado ha sido recibido y está siendo verificado por nuestro equipo. Se le notificará cuando se liberen los fondos.',
       signedSuccess: 'Contrato firmado y validado con éxito',
       downloadOriginal: 'Descargar contrato original',
+      uploadTitle: 'Cargar su contrato firmado',
+      uploadDescription: 'Por favor envíe su contrato firmado (solo PDF, máx 10 MB)',
+      chooseFile: 'Elegir archivo',
+      changeFile: 'Cambiar archivo',
+      send: 'Enviar',
+      sending: 'Enviando...',
+      uploadSuccess: 'Contrato enviado con éxito',
+      uploadSuccessDescription: 'Su contrato firmado ha sido enviado y será verificado por nuestro equipo.',
+      uploadError: 'Error de envío',
+      uploadErrorDescription: 'Se produjo un error al enviar el contrato.',
+      fileTooLarge: 'Archivo demasiado grande',
+      fileTooLargeDescription: 'El archivo no debe exceder los 10 MB.',
+      invalidFileType: 'Tipo de archivo inválido',
+      invalidFileTypeDescription: 'Solo se aceptan archivos PDF.',
+      noFileSelected: 'Ningún archivo seleccionado',
+      noFileSelectedDescription: 'Por favor elija un archivo antes de enviar.',
     },
     dashboard: {
       welcome: 'Bienvenido',
@@ -9633,6 +9697,22 @@ export const translations: Record<Language, TranslationKeys> = {
       reviewMessage: 'Seu contrato assinado foi recebido e está sendo verificado por nossa equipe. Você será notificado assim que os fundos forem liberados.',
       signedSuccess: 'Contrato assinado e validado com sucesso',
       downloadOriginal: 'Baixar contrato original',
+      uploadTitle: 'Carregar seu contrato assinado',
+      uploadDescription: 'Por favor envie seu contrato assinado (apenas PDF, máx 10 MB)',
+      chooseFile: 'Escolher arquivo',
+      changeFile: 'Alterar arquivo',
+      send: 'Enviar',
+      sending: 'Enviando...',
+      uploadSuccess: 'Contrato enviado com sucesso',
+      uploadSuccessDescription: 'Seu contrato assinado foi enviado e será verificado por nossa equipe.',
+      uploadError: 'Erro de envio',
+      uploadErrorDescription: 'Ocorreu um erro ao enviar o contrato.',
+      fileTooLarge: 'Arquivo muito grande',
+      fileTooLargeDescription: 'O arquivo não deve exceder 10 MB.',
+      invalidFileType: 'Tipo de arquivo inválido',
+      invalidFileTypeDescription: 'Apenas arquivos PDF são aceitos.',
+      noFileSelected: 'Nenhum arquivo selecionado',
+      noFileSelectedDescription: 'Por favor escolha um arquivo antes de enviar.',
     },
     dashboard: {
       welcome: 'Bem-vindo',
@@ -11871,6 +11951,22 @@ export const translations: Record<Language, TranslationKeys> = {
       reviewMessage: 'Il tuo contratto firmato è stato ricevuto ed è in fase di verifica dal nostro team. Sarai avvisato una volta che i fondi saranno sbloccati.',
       signedSuccess: 'Contratto firmato e convalidato con successo',
       downloadOriginal: 'Scarica contratto originale',
+      uploadTitle: 'Carica il tuo contratto firmato',
+      uploadDescription: 'Si prega di inviare il contratto firmato (solo PDF, max 10 MB)',
+      chooseFile: 'Scegli file',
+      changeFile: 'Cambia file',
+      send: 'Invia',
+      sending: 'Invio in corso...',
+      uploadSuccess: 'Contratto inviato con successo',
+      uploadSuccessDescription: 'Il tuo contratto firmato è stato inviato e sarà verificato dal nostro team.',
+      uploadError: 'Errore di invio',
+      uploadErrorDescription: 'Si è verificato un errore durante l\'invio del contratto.',
+      fileTooLarge: 'File troppo grande',
+      fileTooLargeDescription: 'Il file non deve superare i 10 MB.',
+      invalidFileType: 'Tipo di file non valido',
+      invalidFileTypeDescription: 'Sono accettati solo file PDF.',
+      noFileSelected: 'Nessun file selezionato',
+      noFileSelectedDescription: 'Si prega di scegliere un file prima di inviare.',
     },
     dashboard: {
       welcome: 'Benvenuto',
@@ -14195,6 +14291,22 @@ export const translations: Record<Language, TranslationKeys> = {
       reviewMessage: 'Ihr unterschriebener Vertrag wurde empfangen und wird von unserem Team geprüft. Sie werden benachrichtigt, sobald die Mittel freigegeben sind.',
       signedSuccess: 'Vertrag erfolgreich unterschrieben und validiert',
       downloadOriginal: 'Originalvertrag herunterladen',
+      uploadTitle: 'Laden Sie Ihren unterschriebenen Vertrag hoch',
+      uploadDescription: 'Bitte senden Sie Ihren unterschriebenen Vertrag (nur PDF, max 10 MB)',
+      chooseFile: 'Datei auswählen',
+      changeFile: 'Datei ändern',
+      send: 'Senden',
+      sending: 'Wird gesendet...',
+      uploadSuccess: 'Vertrag erfolgreich gesendet',
+      uploadSuccessDescription: 'Ihr unterschriebener Vertrag wurde gesendet und wird von unserem Team geprüft.',
+      uploadError: 'Sendefehler',
+      uploadErrorDescription: 'Beim Senden des Vertrags ist ein Fehler aufgetreten.',
+      fileTooLarge: 'Datei zu groß',
+      fileTooLargeDescription: 'Die Datei darf 10 MB nicht überschreiten.',
+      invalidFileType: 'Ungültiger Dateityp',
+      invalidFileTypeDescription: 'Es werden nur PDF-Dateien akzeptiert.',
+      noFileSelected: 'Keine Datei ausgewählt',
+      noFileSelectedDescription: 'Bitte wählen Sie eine Datei aus, bevor Sie sie senden.',
     },
     dashboard: {
       welcome: 'Willkommen',
@@ -16519,6 +16631,22 @@ export const translations: Record<Language, TranslationKeys> = {
       reviewMessage: 'Uw ondertekende contract is ontvangen en wordt beoordeeld door ons team. U wordt op de hoogte gebracht zodra de fondsen zijn vrijgegeven.',
       signedSuccess: 'Contract succesvol ondertekend en gevalideerd',
       downloadOriginal: 'Origineel contract downloaden',
+      uploadTitle: 'Upload uw ondertekende contract',
+      uploadDescription: 'Stuur alstublieft uw ondertekende contract (alleen PDF, max 10 MB)',
+      chooseFile: 'Kies bestand',
+      changeFile: 'Wijzig bestand',
+      send: 'Versturen',
+      sending: 'Verzenden...',
+      uploadSuccess: 'Contract succesvol verzonden',
+      uploadSuccessDescription: 'Uw ondertekende contract is verzonden en zal door ons team worden beoordeeld.',
+      uploadError: 'Verzendfout',
+      uploadErrorDescription: 'Er is een fout opgetreden bij het verzenden van het contract.',
+      fileTooLarge: 'Bestand te groot',
+      fileTooLargeDescription: 'Het bestand mag niet groter zijn dan 10 MB.',
+      invalidFileType: 'Ongeldig bestandstype',
+      invalidFileTypeDescription: 'Alleen PDF-bestanden worden geaccepteerd.',
+      noFileSelected: 'Geen bestand geselecteerd',
+      noFileSelectedDescription: 'Kies alstublieft een bestand voordat u het verzendt.',
     },
     dashboard: {
       welcome: 'Welkom',

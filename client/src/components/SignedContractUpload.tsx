@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, FileSignature, Check, X } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n';
 
 async function uploadSignedContract(loanId: string, file: File): Promise<any> {
   const formData = new FormData();
@@ -20,6 +21,7 @@ interface SignedContractUploadProps {
 }
 
 export function SignedContractUpload({ loanId, loanAmount }: SignedContractUploadProps) {
+  const t = useTranslation();
   const { toast } = useToast();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -28,8 +30,8 @@ export function SignedContractUpload({ loanId, loanAmount }: SignedContractUploa
     mutationFn: (file: File) => uploadSignedContract(loanId, file),
     onSuccess: () => {
       toast({
-        title: 'Contrat envoyé avec succès',
-        description: 'Votre contrat signé a été envoyé et sera vérifié par notre équipe.',
+        title: t.contracts.uploadSuccess,
+        description: t.contracts.uploadSuccessDescription,
       });
       setSelectedFile(null);
       queryClient.invalidateQueries({ queryKey: ['/api/dashboard'] });
@@ -38,8 +40,8 @@ export function SignedContractUpload({ loanId, loanAmount }: SignedContractUploa
     onError: (error: Error) => {
       toast({
         variant: 'destructive',
-        title: 'Erreur d\'envoi',
-        description: error.message || 'Une erreur est survenue lors de l\'envoi du contrat.',
+        title: t.contracts.uploadError,
+        description: error.message || t.contracts.uploadErrorDescription,
       });
     },
   });
@@ -51,8 +53,8 @@ export function SignedContractUpload({ loanId, loanAmount }: SignedContractUploa
       if (file.size > 10 * 1024 * 1024) {
         toast({
           variant: 'destructive',
-          title: 'Fichier trop volumineux',
-          description: 'Le fichier ne doit pas dépasser 10 MB.',
+          title: t.contracts.fileTooLarge,
+          description: t.contracts.fileTooLargeDescription,
         });
         return;
       }
@@ -60,8 +62,8 @@ export function SignedContractUpload({ loanId, loanAmount }: SignedContractUploa
       if (!file.type.includes('pdf')) {
         toast({
           variant: 'destructive',
-          title: 'Type de fichier invalide',
-          description: 'Seuls les fichiers PDF sont acceptés.',
+          title: t.contracts.invalidFileType,
+          description: t.contracts.invalidFileTypeDescription,
         });
         return;
       }
@@ -74,8 +76,8 @@ export function SignedContractUpload({ loanId, loanAmount }: SignedContractUploa
     if (!selectedFile) {
       toast({
         variant: 'destructive',
-        title: 'Aucun fichier sélectionné',
-        description: 'Veuillez choisir un fichier avant d\'envoyer.',
+        title: t.contracts.noFileSelected,
+        description: t.contracts.noFileSelectedDescription,
       });
       return;
     }
@@ -97,10 +99,10 @@ export function SignedContractUpload({ loanId, loanAmount }: SignedContractUploa
           <div className="flex-1 space-y-3">
             <div>
               <h4 className="font-semibold text-foreground text-sm mb-1">
-                Téléverser votre contrat signé
+                {t.contracts.uploadTitle}
               </h4>
               <p className="text-xs text-muted-foreground">
-                Veuillez envoyer votre contrat signé (PDF uniquement, max 10 MB)
+                {t.contracts.uploadDescription}
               </p>
             </div>
 
@@ -124,7 +126,7 @@ export function SignedContractUpload({ loanId, loanAmount }: SignedContractUploa
                 data-testid={`button-choose-file-${loanId}`}
               >
                 <Upload className="w-4 h-4" />
-                {selectedFile ? 'Changer le fichier' : 'Choisir un fichier'}
+                {selectedFile ? t.contracts.changeFile : t.contracts.chooseFile}
               </Button>
 
               {selectedFile && (
@@ -142,12 +144,12 @@ export function SignedContractUpload({ loanId, loanAmount }: SignedContractUploa
                     {uploadMutation.isPending ? (
                       <>
                         <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                        Envoi...
+                        {t.contracts.sending}
                       </>
                     ) : (
                       <>
                         <Check className="w-4 h-4" />
-                        Envoyer
+                        {t.contracts.send}
                       </>
                     )}
                   </Button>

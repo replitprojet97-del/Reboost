@@ -66,7 +66,7 @@ export default function Contracts() {
 
   const handleDownloadContract = async (loanId: string) => {
     try {
-      const url = getApiUrl(`/api/loans/${loanId}/contract/download`);
+      const url = getApiUrl(`/api/loans/${loanId}/contract`);
       const response = await fetch(url, {
         credentials: 'include',
       });
