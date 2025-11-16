@@ -4,7 +4,13 @@ export function isProtectedRoute(pathname: string): boolean {
                      pathname.startsWith('/reset-password');
 
   const publicPages = ['/', '/about', '/how-it-works', '/products', '/contact', '/resources', '/terms', '/privacy'];
-  const isPublicPage = publicPages.includes(pathname) || pathname.startsWith('/loans/');
+  
+  // Normalize pathname: remove query parameters first, then trailing slashes, default to '/' if empty
+  const normalizedPath = pathname.split('?')[0].replace(/\/+$/, '') || '/';
+  
+  // Allow public loan detail pages (/loans/pret-personnel, etc.) but protect dashboard routes (/loans/new)
+  const isPublicLoanPage = normalizedPath.startsWith('/loans/') && normalizedPath !== '/loans/new';
+  const isPublicPage = publicPages.includes(normalizedPath) || isPublicLoanPage;
   
   return !isAuthPage && !isPublicPage;
 }

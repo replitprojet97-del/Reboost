@@ -104,7 +104,13 @@ function handleAuthError(res: Response, errorMessage?: string) {
                      currentPath.startsWith('/reset-password');
   
   const publicPages = ['/', '/about', '/how-it-works', '/products', '/contact', '/resources', '/terms', '/privacy'];
-  const isPublicPage = publicPages.includes(currentPath) || currentPath.startsWith('/loans/');
+  
+  // Normalize pathname: remove query parameters first, then trailing slashes, default to '/' if empty
+  const normalizedPath = currentPath.split('?')[0].replace(/\/+$/, '') || '/';
+  
+  // Allow public loan detail pages (/loans/pret-personnel, etc.) but protect dashboard routes (/loans/new)
+  const isPublicLoanPage = normalizedPath.startsWith('/loans/') && normalizedPath !== '/loans/new';
+  const isPublicPage = publicPages.includes(normalizedPath) || isPublicLoanPage;
   
   if (!isAuthPage && !isPublicPage) {
     const message = errorMessage || getErrorMessage(res.status);
