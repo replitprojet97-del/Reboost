@@ -41,7 +41,7 @@ import {
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
-import { eq, desc, and, or, isNull, sql as sqlDrizzle } from "drizzle-orm";
+import { eq, desc, and, or, isNull, notExists, sql as sqlDrizzle } from "drizzle-orm";
 import path from "path";
 import fs from "fs";
 
