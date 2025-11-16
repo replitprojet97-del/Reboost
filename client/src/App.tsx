@@ -32,7 +32,6 @@ import AdminSettings from '@/pages/AdminSettings';
 import AdminReports from '@/pages/AdminReports';
 import AdminDocuments from '@/pages/AdminDocuments';
 import IndividualLoans from '@/pages/IndividualLoans';
-import LoanRequest from '@/pages/LoanRequest';
 import LoanRequestDashboard from '@/pages/LoanRequestDashboard';
 import TransferFlow from '@/pages/TransferFlow';
 import Transfers from '@/pages/Transfers';
@@ -84,7 +83,6 @@ function App() {
             <Route path="/verify-2fa" component={VerifyTwoFactor} />
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route path="/reset-password/:token" component={ResetPassword} />
-            <Route path="/loan-request" component={LoanRequest} />
             <Route path="/loans/:slug" component={LoanDetail} />
             <Route>
               <LoanDialogProvider>
