@@ -33,6 +33,7 @@ export default function TransferFlow() {
   const [isPausedForCode, setIsPausedForCode] = useState(false);
   const [currentCodeSequence, setCurrentCodeSequence] = useState(1);
   const [lastValidatedSequence, setLastValidatedSequence] = useState(0);
+  const [nextCode, setNextCode] = useState<TransferValidationCode | null>(null);
   
   const verificationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -203,9 +204,11 @@ export default function TransferFlow() {
       
       const sortedCodes = [...codes].sort((a, b) => a.sequence - b.sequence);
       const validatedCount = transfer.codesValidated || 0;
-      const nextCode = sortedCodes[validatedCount];
       
-      if (!nextCode) {
+      const computedNextCode = sortedCodes[validatedCount] || null;
+      setNextCode(computedNextCode);
+      
+      if (!computedNextCode) {
         if (progressIntervalRef.current) {
           clearInterval(progressIntervalRef.current);
           progressIntervalRef.current = null;
@@ -214,9 +217,8 @@ export default function TransferFlow() {
         return;
       }
       
-      const targetPercent = nextCode.pausePercent || 90;
-      
-      const justValidated = lastValidatedSequence === nextCode.sequence;
+      const targetPercent = computedNextCode.pausePercent || 90;
+      const justValidated = lastValidatedSequence === computedNextCode.sequence;
       
       if (simulatedProgress < targetPercent && !isPausedForCode) {
         if (progressIntervalRef.current) {
@@ -243,14 +245,14 @@ export default function TransferFlow() {
       } else if (simulatedProgress >= targetPercent && !isPausedForCode && !justValidated) {
         setIsPausedForCode(true);
       }
-      
-      return () => {
-        if (progressIntervalRef.current) {
-          clearInterval(progressIntervalRef.current);
-          progressIntervalRef.current = null;
-        }
-      };
     }
+    
+    return () => {
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+        progressIntervalRef.current = null;
+      }
+    };
   }, [step, transferData, simulatedProgress, isPausedForCode, lastValidatedSequence]);
 
   useEffect(() => {
