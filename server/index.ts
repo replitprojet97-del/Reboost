@@ -44,27 +44,30 @@ if (!process.env.SESSION_SECRET) {
   console.warn('WARNING: Using default SESSION_SECRET. Set SESSION_SECRET environment variable for production.');
 }
 
-// Support both domain variations in production
-const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN || 
-  (process.env.NODE_ENV === 'production' ? undefined : undefined);
+// Cookie domain configuration
+// IMPORTANT: Set COOKIE_DOMAIN in production to match your domain
+// Examples:
+//   - '.altusfinancegroup.com' (shares cookies between www and api subdomains)
+//   - '.altusfinancesgroup.com' (with 's')
+//   - undefined (same domain only - safest option)
+// 
+// If you use multiple domains (with/without 's'), leave COOKIE_DOMAIN undefined
+// and ensure frontend + API are on the exact same domain
+const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
-if (!IS_PRODUCTION) {
-  console.log('='.repeat(60));
-  console.log(`[CONFIG] Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`[CONFIG] Cookie Domain: ${COOKIE_DOMAIN || 'none (localhost)'}`);
-  console.log(`[CONFIG] Cookie SameSite: ${IS_PRODUCTION ? 'none' : 'lax'}`);
-  console.log(`[CONFIG] Cookie Secure: ${IS_PRODUCTION}`);
-  console.log(`[CONFIG] CORS Allowed Origins: ${IS_PRODUCTION ? 'production domains' : 'localhost'}`);
-  console.log(`[CONFIG] Frontend URL: ${process.env.FRONTEND_URL || 'NOT SET'}`);
-  console.log(`[CONFIG] Trust Proxy: enabled`);
-  console.log('='.repeat(60));
-}
+console.log('='.repeat(60));
+console.log(`[CONFIG] Environment: ${process.env.NODE_ENV || 'development'}`);
+console.log(`[CONFIG] Cookie Domain: ${COOKIE_DOMAIN || 'undefined (same domain only)'}`);
+console.log(`[CONFIG] Cookie SameSite: lax`);
+console.log(`[CONFIG] Cookie Secure: ${IS_PRODUCTION}`);
+console.log(`[CONFIG] CORS Allowed Origins: ${IS_PRODUCTION ? 'production domains' : 'localhost'}`);
+console.log(`[CONFIG] Frontend URL: ${process.env.FRONTEND_URL || 'NOT SET'}`);
+console.log(`[CONFIG] Trust Proxy: enabled`);
+console.log('='.repeat(60));
 
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? [
-      'https://altusfinancegroup.com',
-      'https://www.altusfinancegroup.com',
       'https://altusfinancesgroup.com',
       'https://www.altusfinancesgroup.com',
       process.env.FRONTEND_URL
@@ -149,7 +152,9 @@ app.use(session({
     secure: IS_PRODUCTION,
     httpOnly: true,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: IS_PRODUCTION ? 'none' : 'lax',
+    // Use 'lax' for same-site requests (most common case)
+    // Only use 'none' if you need true cross-site cookies (different domains)
+    sameSite: IS_PRODUCTION ? 'lax' : 'lax',
     domain: COOKIE_DOMAIN,
     signed: true,
   },

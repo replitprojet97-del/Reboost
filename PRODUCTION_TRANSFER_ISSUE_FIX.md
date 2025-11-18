@@ -1,22 +1,44 @@
-# 🔧 Correctif pour l'erreur de transfert en production
+# 🔧 Correctif pour les problèmes de session en production
 
-## 🔍 Problème Identifié
+## 🔍 Problèmes Identifiés
 
-L'erreur "Échec de l'initiation du transfert" en production est causée par des problèmes de **session/cookies** liés à la configuration de sécurité stricte.
+### 1. Déconnexion automatique après connexion
+**Cause** : Configuration incorrecte des cookies (`sameSite: 'none'` + domaine mal configuré)
 
-## ⚡ Solution Rapide
+### 2. Erreur "Échec de l'initiation du transfert"  
+**Cause** : Session/cookies perdus entre les requêtes
 
-### 1. Vérifier les variables d'environnement en production
+## ⚡ Solution Complète
 
-Assurez-vous que ces variables sont configurées dans votre environnement de production (Replit Deployment) :
+### 1. Variables d'environnement en production
+
+Configurez ces variables dans Replit Deployment → Secrets :
 
 ```bash
 NODE_ENV=production
 SESSION_SECRET=<votre-secret-fort-minimum-32-caracteres>
 DATABASE_URL=<votre-url-postgresql-neon>
+FRONTEND_URL=<votre-url-frontend-https>
 ```
 
-**Important** : Ne définissez PAS `COOKIE_DOMAIN` en production. Le système utilisera automatiquement `undefined` ce qui permet aux cookies de fonctionner avec n'importe quel domaine/sous-domaine.
+### 2. Configuration du domaine des cookies (IMPORTANT!)
+
+**Option A : Frontend et API sur le même domaine** (RECOMMANDÉ)
+```bash
+# Ne PAS définir COOKIE_DOMAIN
+# Le cookie sera limité au domaine exact (plus sécurisé)
+```
+
+**Option B : Frontend et API sur des sous-domaines différents**
+```bash
+# Si vous utilisez altusfinancegroup.com (sans 's')
+COOKIE_DOMAIN=.altusfinancegroup.com
+
+# OU si vous utilisez altusfinancesgroup.com (avec 's')  
+COOKIE_DOMAIN=.altusfinancesgroup.com
+```
+
+**⚠️ ATTENTION** : Ne définissez `COOKIE_DOMAIN` que si vous avez besoin de partager les cookies entre sous-domaines (ex: `www.example.com` et `api.example.com`)
 
 ### 2. Modifications appliquées au code
 
@@ -100,13 +122,13 @@ Si le problème persiste, vérifiez les logs de production pour identifier l'err
 ### Configuration des cookies en production :
 - `secure: true` - Cookies uniquement sur HTTPS ✅
 - `httpOnly: true` - Protection XSS ✅
-- `sameSite: 'none'` - Permet cross-domain (si nécessaire)
-- `domain: undefined` - Fonctionne avec tous les domaines ✅
+- `sameSite: 'lax'` - Sécurisé pour les requêtes same-site ✅ (changé de 'none')
+- `domain: undefined` - Fonctionne uniquement sur le même domaine ✅ (plus sécurisé)
 - `maxAge: 7 jours` - Session longue durée ✅
 
+**Changement Important** : `sameSite` est maintenant `'lax'` au lieu de `'none'` pour une meilleure sécurité et compatibilité.
+
 ### Domaines autorisés (CORS) :
-- `https://altusfinancegroup.com`
-- `https://www.altusfinancegroup.com`
 - `https://altusfinancesgroup.com`
 - `https://www.altusfinancesgroup.com`
 
