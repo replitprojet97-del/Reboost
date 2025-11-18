@@ -65,7 +65,16 @@ export default function TransferFlow() {
   const initiateMutation = useMutation({
     mutationFn: async (data: any) => {
       const csrfRes = await fetch('/api/csrf-token', { credentials: 'include' });
+      
+      if (!csrfRes.ok) {
+        throw new Error('SESSION_EXPIRED');
+      }
+      
       const { csrfToken } = await csrfRes.json();
+      
+      if (!csrfToken) {
+        throw new Error('SESSION_EXPIRED');
+      }
       
       const response = await fetch('/api/transfers/initiate', {
         method: 'POST',
@@ -81,6 +90,10 @@ export default function TransferFlow() {
       
       if (response.status === 409 && result.redirect && result.existingTransferId) {
         return { redirect: true, existingTransferId: result.existingTransferId };
+      }
+      
+      if (response.status === 403 && (result.code === 'SESSION_INVALID' || result.code === 'CSRF_INVALID')) {
+        throw new Error('SESSION_EXPIRED');
       }
       
       if (!response.ok) {
@@ -112,11 +125,24 @@ export default function TransferFlow() {
       
       setStep('verification');
     },
-    onError: () => {
+    onError: (error: Error) => {
+      if (error.message === 'SESSION_EXPIRED') {
+        toast({
+          variant: 'destructive',
+          title: t.transferFlow.toast.error,
+          description: 'Votre session a expiré. Vous allez être redirigé vers la page de connexion.',
+          duration: 5000,
+        });
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+        return;
+      }
+      
       toast({
         variant: 'destructive',
         title: t.transferFlow.toast.error,
-        description: t.transferFlow.toast.errorInitiation,
+        description: error.message || t.transferFlow.toast.errorInitiation,
       });
     },
   });

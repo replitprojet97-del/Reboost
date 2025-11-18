@@ -61,21 +61,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
         sessionId: req.session?.id,
         path: req.path,
         method: req.method,
-        userId: req.session?.userId
+        userId: req.session?.userId,
+        cookieHeader: req.headers.cookie ? 'PRESENT' : 'MISSING',
+        origin: req.headers.origin,
+        host: req.headers.host
       });
-      return res.status(403).json({ error: 'Session invalide - token CSRF manquant' });
+      return res.status(403).json({ 
+        error: 'Session invalide. Veuillez vous reconnecter.',
+        code: 'SESSION_INVALID',
+        details: process.env.NODE_ENV === 'production' ? undefined : {
+          hasSession: !!req.session,
+          hasCookie: !!req.headers.cookie
+        }
+      });
     }
 
     const token = req.headers['x-csrf-token'] || req.body._csrf;
     if (!token || token !== req.session.csrfToken) {
       console.error('[CSRF-ERROR] Token CSRF invalide', {
         tokenProvided: !!token,
+        tokenMatch: token === req.session.csrfToken,
         path: req.path,
         method: req.method,
         userId: req.session?.userId,
-        sessionId: req.session?.id
+        sessionId: req.session?.id,
+        origin: req.headers.origin,
+        host: req.headers.host
       });
-      return res.status(403).json({ error: 'Token CSRF invalide ou manquant' });
+      return res.status(403).json({ 
+        error: 'Session expirée. Veuillez recharger la page et réessayer.',
+        code: 'CSRF_INVALID',
+        details: process.env.NODE_ENV === 'production' ? undefined : {
+          tokenProvided: !!token,
+          hasSession: !!req.session
+        }
+      });
     }
 
     next();
