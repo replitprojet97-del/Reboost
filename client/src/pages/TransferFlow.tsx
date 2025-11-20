@@ -32,11 +32,9 @@ export default function TransferFlow() {
   const [simulatedProgress, setSimulatedProgress] = useState(0);
   const [isPausedForCode, setIsPausedForCode] = useState(true);
   const [currentCodeSequence, setCurrentCodeSequence] = useState(1);
-  const [lastValidatedSequence, setLastValidatedSequence] = useState(0);
   const [nextCode, setNextCode] = useState<TransferCodeMetadata | null>(null);
   
   const verificationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const notificationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const { data: externalAccounts } = useQuery<ExternalAccount[]>({
@@ -164,8 +162,6 @@ export default function TransferFlow() {
         description: `${data.message}${contextInfo}`,
       });
       
-      setLastValidatedSequence(currentCodeSequence);
-      setIsPausedForCode(false);
       setCurrentCodeSequence(prev => prev + 1);
       
       refetchTransfer();
@@ -185,14 +181,10 @@ export default function TransferFlow() {
       const codes = transferData.codes || [];
       const nextSequence = transferData.nextSequence;
       
-      // CORRECTION PROBLÈME 1: Utiliser transfer.progressPercent du backend comme source de vérité
+      // Utiliser transfer.progressPercent du backend comme source de vérité unique
       const backendProgress = transfer.progressPercent || 0;
       
       if (transfer.status === 'completed') {
-        if (progressIntervalRef.current) {
-          clearInterval(progressIntervalRef.current);
-          progressIntervalRef.current = null;
-        }
         setSimulatedProgress(100);
         setStep('complete');
         return;
@@ -205,62 +197,15 @@ export default function TransferFlow() {
       
       setNextCode(computedNextCode);
       
-      // Si la progression simulée est très différente du backend, synchroniser
-      if (Math.abs(simulatedProgress - backendProgress) > 5) {
-        setSimulatedProgress(backendProgress);
-      }
+      // Déterminer si le transfert est en pause pour un code
+      const isPaused = !!computedNextCode && transfer.status === 'in-progress';
+      setIsPausedForCode(isPaused);
       
-      // Si pas de code suivant (transfert terminé ou en attente), utiliser la progression du backend
-      if (!computedNextCode || !nextSequence) {
-        if (progressIntervalRef.current) {
-          clearInterval(progressIntervalRef.current);
-          progressIntervalRef.current = null;
-        }
-        setSimulatedProgress(backendProgress);
-        setIsPausedForCode(true);
-        return;
-      }
-      
-      const targetPercent = computedNextCode.pausePercent || 90;
-      const justValidated = lastValidatedSequence === nextSequence - 1;
-      
-      // SÉCURITÉ CRITIQUE: Ne progresser QUE si un code vient d'être validé
-      // Sinon, le transfert DOIT rester en pause
-      if (justValidated && simulatedProgress < targetPercent && !isPausedForCode) {
-        if (progressIntervalRef.current) {
-          clearInterval(progressIntervalRef.current);
-        }
-        
-        progressIntervalRef.current = setInterval(() => {
-          setSimulatedProgress(prev => {
-            const increment = 0.5;
-            const next = prev + increment;
-            
-            if (next >= targetPercent) {
-              if (progressIntervalRef.current) {
-                clearInterval(progressIntervalRef.current);
-                progressIntervalRef.current = null;
-              }
-              setIsPausedForCode(true);
-              return targetPercent;
-            }
-            
-            return next;
-          });
-        }, 200);
-      } else if (!justValidated) {
-        // FORCER la pause tant qu'aucun code n'a été validé
-        setIsPausedForCode(true);
-      }
+      // Toujours synchroniser avec la progression du backend
+      // Le composant CircularTransferProgress gère l'animation fluide
+      setSimulatedProgress(backendProgress);
     }
-    
-    return () => {
-      if (progressIntervalRef.current) {
-        clearInterval(progressIntervalRef.current);
-        progressIntervalRef.current = null;
-      }
-    };
-  }, [step, transferData, simulatedProgress, isPausedForCode, lastValidatedSequence]);
+  }, [step, transferData]);
 
   useEffect(() => {
     if (transferData?.transfer) {
@@ -711,50 +656,8 @@ export default function TransferFlow() {
             {/* COLONNE DROITE - Progression circulaire */}
             <div className="space-y-6">
               
-              {/* Carte avec progression circulaire */}
-              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-gray-800">
-                <div className="flex flex-col items-center">
-                  {/* Cercle de progression */}
-                  <div className="relative w-56 h-56 mb-6">
-                    <svg className="w-full h-full transform -rotate-90">
-                      <circle
-                        cx="112"
-                        cy="112"
-                        r="100"
-                        stroke="currentColor"
-                        strokeWidth="14"
-                        fill="none"
-                        className="text-gray-200 dark:text-gray-700"
-                      />
-                      <defs>
-                        <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#2563EB" />
-                          <stop offset="100%" stopColor="#0EA5E9" />
-                        </linearGradient>
-                      </defs>
-                      <circle
-                        cx="112"
-                        cy="112"
-                        r="100"
-                        stroke="url(#progressGradient)"
-                        strokeWidth="14"
-                        fill="none"
-                        strokeDasharray={`${2 * Math.PI * 100}`}
-                        strokeDashoffset={`${2 * Math.PI * 100 * (1 - simulatedProgress / 100)}`}
-                        className="transition-all duration-700 ease-out"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-5xl font-bold bg-gradient-to-r from-[#2563EB] to-[#0EA5E9] bg-clip-text text-transparent">
-                        {Math.round(simulatedProgress)}%
-                      </span>
-                      <span className="text-sm text-gray-600 dark:text-gray-400 mt-2">{t.transferFlow.progress.progressLabelShort}</span>
-                      <span className="text-xs text-gray-500 dark:text-gray-500">{t.transferFlow.progress.transferProgressLabel}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Composant de progression circulaire avec animation fluide */}
+              <CircularTransferProgress percent={simulatedProgress} />
 
               {/* Liste des étapes */}
               <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 sm:p-8 border border-gray-100 dark:border-gray-800">

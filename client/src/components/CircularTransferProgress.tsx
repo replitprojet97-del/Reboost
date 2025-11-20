@@ -1,11 +1,31 @@
-import { motion } from "framer-motion";
+import { motion, useSpring, useTransform } from "framer-motion";
+import { useEffect } from "react";
 import { useTranslations } from "@/lib/i18n";
 
 export default function CircularTransferProgress({ percent }: { percent: number }) {
   const t = useTranslations();
   const r = 52;
   const circumference = 2 * Math.PI * r;
-  const progress = (percent / 100) * circumference;
+  
+  const animatedProgress = useSpring(0, {
+    stiffness: 50,
+    damping: 20,
+    restDelta: 0.001
+  });
+  
+  const strokeDashoffset = useTransform(
+    animatedProgress,
+    [0, 100],
+    [circumference, 0]
+  );
+  
+  const displayPercent = useTransform(animatedProgress, (value) => 
+    Math.round(value)
+  );
+
+  useEffect(() => {
+    animatedProgress.set(percent);
+  }, [percent, animatedProgress]);
 
   return (
     <div className="flex flex-col items-center gap-4 p-8 bg-white dark:bg-gray-900 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-800 w-full max-w-md mx-auto">
@@ -33,9 +53,7 @@ export default function CircularTransferProgress({ percent }: { percent: number 
             strokeLinecap="round"
             fill="none"
             strokeDasharray={circumference}
-            initial={{ strokeDashoffset: circumference }}
-            animate={{ strokeDashoffset: circumference - progress }}
-            transition={{ duration: 0.7, ease: "easeInOut" }}
+            style={{ strokeDashoffset }}
           />
 
           {/* Dégradé premium */}
@@ -47,9 +65,11 @@ export default function CircularTransferProgress({ percent }: { percent: number 
           </defs>
         </svg>
 
-        {/* Pourcentage centré */}
+        {/* Pourcentage centré avec animation */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-3xl font-bold text-gray-800 dark:text-gray-100">{Math.round(percent)}%</span>
+          <motion.span className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+            {displayPercent}%
+          </motion.span>
         </div>
       </div>
 
