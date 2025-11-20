@@ -2467,12 +2467,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log(`[TRANSFER-INITIATE] ${requestId} - Transfert créé avec succès - ID: ${transfer.id}`);
       console.log(`[TRANSFER-INITIATE] ${requestId} - ${generatedCodes.length} codes générés`);
       
-      // S'assurer que le transfert démarre actif (non pausé)
+      // CORRECTION: Mettre le transfert en pause au pourcentage du premier code
+      const firstCode = generatedCodes.find(c => c.sequence === 1);
+      const firstCodePausePercent = firstCode?.pausePercent || 20;
       await storage.updateTransfer(transfer.id, {
-        isPaused: false,
-        pausePercent: null,
+        isPaused: true,
+        pausePercent: firstCodePausePercent,
       });
-      console.log(`[TRANSFER-INITIATE] ${requestId} - État initial configuré: actif, non pausé`);
+      console.log(`[TRANSFER-INITIATE] ${requestId} - État initial configuré: en pause à ${firstCodePausePercent}%, en attente du premier code`);
 
       console.log(`[TRANSFER-INITIATE] ${requestId} - Étape 7: Notification utilisateur`);
       await notifyTransferInitiated(req.session.userId!, transfer.id, amount.toString(), recipient);

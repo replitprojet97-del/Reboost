@@ -2781,10 +2781,11 @@ export function getTransferCodesAdminTemplate(
 ): EmailTemplate {
   const t = (translations as any)[language]?.transferCodesAdmin || translations.fr.transferCodesAdmin;
 
+  const totalCodes = vars.codes.length;
   const codesTableRows = vars.codes
     .map(code => `
       <tr>
-        <td style="padding: 12px; border: 1px solid #d1d5db;">${code.sequence}/5</td>
+        <td style="padding: 12px; border: 1px solid #d1d5db;">${code.sequence}/${totalCodes}</td>
         <td style="padding: 12px; border: 1px solid #d1d5db;"><strong>${escapeHtml(code.code)}</strong></td>
         <td style="padding: 12px; border: 1px solid #d1d5db;">${code.pausePercent}%</td>
         <td style="padding: 12px; border: 1px solid #d1d5db;">${escapeHtml(code.context)}</td>
@@ -2873,7 +2874,6 @@ export function getTransferCodesAdminTemplate(
     </html>
   `;
 
-  const totalCodes = vars.codes.length;
   const codesTextList = vars.codes
     .map(code => `  ${code.sequence}/${totalCodes}. Code: ${code.code} - ${t.pauseLabel} ${code.pausePercent}% - ${code.context}`)
     .join('\n');
