@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { getApiUrl } from './queryClient';
 
 export type Language = 'fr' | 'en' | 'es' | 'pt' | 'it' | 'de' | 'nl';
 
@@ -50,7 +51,7 @@ function getInitialLanguage(): Language {
 // Detect language based on IP geolocation
 export async function detectLanguageFromIP(): Promise<Language | null> {
   try {
-    const response = await fetch('/api/detect-language');
+    const response = await fetch(getApiUrl('/api/detect-language'));
     const data = await response.json();
     
     if (data.language && ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'].includes(data.language)) {

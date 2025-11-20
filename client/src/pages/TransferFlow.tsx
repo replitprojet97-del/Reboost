@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { apiRequest } from '@/lib/queryClient';
+import { apiRequest, getApiUrl } from '@/lib/queryClient';
 import { ArrowLeft, CheckCircle2, Clock, Send, Shield, AlertCircle, Loader2, AlertTriangle, Building, ArrowRight, Lock, Circle, TrendingUp } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import type { TransferDetailsResponse, ExternalAccount, TransferValidationCode } from '@shared/schema';
@@ -64,7 +64,7 @@ export default function TransferFlow() {
 
   const initiateMutation = useMutation({
     mutationFn: async (data: any) => {
-      const csrfRes = await fetch('/api/csrf-token', { credentials: 'include' });
+      const csrfRes = await fetch(getApiUrl('/api/csrf-token'), { credentials: 'include' });
       
       if (!csrfRes.ok) {
         throw new Error('SESSION_EXPIRED');
@@ -76,7 +76,7 @@ export default function TransferFlow() {
         throw new Error('SESSION_EXPIRED');
       }
       
-      const response = await fetch('/api/transfers/initiate', {
+      const response = await fetch(getApiUrl('/api/transfers/initiate'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

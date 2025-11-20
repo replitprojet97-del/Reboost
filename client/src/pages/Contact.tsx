@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import FooterPremium from '@/components/premium/FooterPremium';
 import SEO from '@/components/SEO';
 import { useTranslations } from '@/lib/i18n';
+import { getApiUrl } from '@/lib/queryClient';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -35,7 +36,7 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(getApiUrl('/api/contact'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
