@@ -827,6 +827,15 @@ export default function TransferFlow() {
                     <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
                       {t.transferFlow.progress.enterCodeSecurityMessage}
                     </p>
+                    {/* CORRECTION PROBLÈME 1: Afficher le pourcentage requis */}
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-3 my-3 border-l-4 border-orange-500">
+                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                        Code requis à <span className="text-orange-600 dark:text-orange-400 text-lg">{nextCode.pausePercent}%</span>
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        Progression actuelle : {Math.round(simulatedProgress)}% → {nextCode.pausePercent}%
+                      </p>
+                    </div>
                     {nextCode.codeContext && (
                       <p className="text-xs text-orange-700 dark:text-orange-300 italic">
                         {nextCode.codeContext}

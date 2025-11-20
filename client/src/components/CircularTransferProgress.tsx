@@ -12,10 +12,11 @@ export default function CircularTransferProgress({ percent }: { percent: number 
   const [displayedPercent, setDisplayedPercent] = useState(0);
   
   useEffect(() => {
-    // Animation fluide du compteur de pourcentage
+    // CORRECTION PROBLÈME 2: Animation progressive du compteur de pourcentage (8-10 secondes)
     let startPercent = displayedPercent;
     const targetPercent = percent;
-    const duration = Math.abs(targetPercent - startPercent) * 20; // Plus le saut est grand, plus l'animation est longue
+    // Durée : 450ms par pourcent = 9000ms pour 20% (9 secondes)
+    const duration = Math.abs(targetPercent - startPercent) * 450;
     const startTime = Date.now();
     
     const animationInterval = setInterval(() => {
