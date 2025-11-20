@@ -21,7 +21,7 @@ export default function TransferFlow() {
   const { toast } = useToast();
   const t = useTranslations();
   
-  const [step, setStep] = useState<'form' | 'verification' | 'progress' | 'complete'>('form');
+  const [step, setStep] = useState<'form' | 'progress' | 'complete'>('form');
   const [selectedLoanId, setSelectedLoanId] = useState('');
   const [recipient, setRecipient] = useState('');
   const [externalAccountId, setExternalAccountId] = useState('');
@@ -29,8 +29,8 @@ export default function TransferFlow() {
   const [transferId, setTransferId] = useState(params?.id || '');
   const [verificationProgress, setVerificationProgress] = useState(0);
   
-  const [simulatedProgress, setSimulatedProgress] = useState(10);
-  const [isPausedForCode, setIsPausedForCode] = useState(false);
+  const [simulatedProgress, setSimulatedProgress] = useState(0);
+  const [isPausedForCode, setIsPausedForCode] = useState(true);
   const [currentCodeSequence, setCurrentCodeSequence] = useState(1);
   const [lastValidatedSequence, setLastValidatedSequence] = useState(0);
   const [nextCode, setNextCode] = useState<TransferValidationCode | null>(null);
@@ -118,12 +118,14 @@ export default function TransferFlow() {
       }
       
       setTransferId(data.transfer.id);
+      setIsPausedForCode(true);
+      setSimulatedProgress(0);
       toast({
         title: t.transferFlow.toast.initiated,
         description: t.transferFlow.toast.initiatedSuccessDesc,
       });
       
-      setStep('verification');
+      setStep('progress');
     },
     onError: (error: Error) => {
       if (error.message === 'SESSION_EXPIRED') {
@@ -177,43 +179,6 @@ export default function TransferFlow() {
   });
 
   useEffect(() => {
-    if (step === 'verification') {
-      let progress = 0;
-      
-      verificationIntervalRef.current = setInterval(() => {
-        progress += 100 / 45;
-        setVerificationProgress(Math.min(progress, 100));
-        
-        if (progress >= 100) {
-          if (verificationIntervalRef.current) {
-            clearInterval(verificationIntervalRef.current);
-            verificationIntervalRef.current = null;
-          }
-          setStep('progress');
-        }
-      }, 1000);
-      
-      notificationTimeoutRef.current = setTimeout(() => {
-        toast({
-          title: t.transferFlow.toast.approved,
-          description: t.transferFlow.toast.approvedDesc,
-        });
-      }, 20000);
-      
-      return () => {
-        if (verificationIntervalRef.current) {
-          clearInterval(verificationIntervalRef.current);
-          verificationIntervalRef.current = null;
-        }
-        if (notificationTimeoutRef.current) {
-          clearTimeout(notificationTimeoutRef.current);
-          notificationTimeoutRef.current = null;
-        }
-      };
-    }
-  }, [step, toast]);
-
-  useEffect(() => {
     if (step === 'progress' && transferData?.transfer && transferData?.codes) {
       const transfer = transferData.transfer;
       const codes = transferData.codes as TransferValidationCode[];
@@ -246,7 +211,9 @@ export default function TransferFlow() {
       const targetPercent = computedNextCode.pausePercent || 90;
       const justValidated = lastValidatedSequence === computedNextCode.sequence;
       
-      if (simulatedProgress < targetPercent && !isPausedForCode) {
+      // SÉCURITÉ CRITIQUE: Ne progresser QUE si un code vient d'être validé
+      // Sinon, le transfert DOIT rester en pause
+      if (justValidated && simulatedProgress < targetPercent && !isPausedForCode) {
         if (progressIntervalRef.current) {
           clearInterval(progressIntervalRef.current);
         }
@@ -268,7 +235,8 @@ export default function TransferFlow() {
             return next;
           });
         }, 200);
-      } else if (simulatedProgress >= targetPercent && !isPausedForCode && !justValidated) {
+      } else if (!justValidated) {
+        // FORCER la pause tant qu'aucun code n'a été validé
         setIsPausedForCode(true);
       }
     }
@@ -570,82 +538,6 @@ export default function TransferFlow() {
             </DashboardCard>
           </div>
         </div>
-      </div>
-    );
-  }
-
-  if (step === 'verification') {
-    return (
-      <div className="p-6 md:p-8 max-w-3xl mx-auto space-y-6">
-        <SectionTitle
-          title={t.transferFlow.verification.title}
-          subtitle={t.transferFlow.verification.subtitle}
-        />
-        <DashboardCard 
-          icon={Shield}
-          iconColor="text-blue-600 dark:text-blue-400"
-          testId="card-verification"
-        >
-          <div className="space-y-6">
-            <Alert className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800" data-testid="alert-verification">
-              <AlertTriangle className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-              <AlertDescription className="text-blue-900 dark:text-blue-100">
-                <strong className="text-lg flex items-center gap-2">
-                  <AlertCircle className="h-5 w-5" />
-                  {t.transferFlow.verification.doNotClose}
-                </strong>
-                <p className="mt-2">
-                  {t.transferFlow.verification.doNotCloseDesc}
-                </p>
-              </AlertDescription>
-            </Alert>
-
-            <div className="space-y-4">
-              <div className="flex justify-between text-sm font-medium">
-                <span>{t.transferFlow.verification.progressLabel}</span>
-                <span className="text-blue-600 dark:text-blue-400" data-testid="text-verification-progress">
-                  {Math.round(verificationProgress)}%
-                </span>
-              </div>
-              <Progress 
-                value={verificationProgress} 
-                className="h-4 bg-gray-200 dark:bg-gray-700"
-              />
-              <p className="text-sm text-muted-foreground text-center">
-                {t.transferFlow.verification.subtitle}
-              </p>
-            </div>
-
-            <div className="bg-muted p-4 rounded-lg space-y-3">
-              <div className="flex items-start gap-3">
-                <Clock className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                <div className="space-y-1">
-                  <p className="text-sm font-medium">{t.transferFlow.verification.verificationSteps}</p>
-                  <ul className="text-sm text-muted-foreground space-y-1 list-none">
-                    <li className={verificationProgress > 17 ? "text-green-600 dark:text-green-400" : ""}>
-                      ✓ {t.transferFlow.verification.step1}
-                    </li>
-                    <li className={verificationProgress > 33 ? "text-green-600 dark:text-green-400" : ""}>
-                      ✓ {t.transferFlow.verification.step2}
-                    </li>
-                    <li className={verificationProgress > 50 ? "text-green-600 dark:text-green-400" : ""}>
-                      ✓ {t.transferFlow.verification.step3}
-                    </li>
-                    <li className={verificationProgress > 67 ? "text-green-600 dark:text-green-400" : ""}>
-                      ✓ {t.transferFlow.verification.step4}
-                    </li>
-                    <li className={verificationProgress > 84 ? "text-green-600 dark:text-green-400" : ""}>
-                      ✓ {t.transferFlow.verification.step5}
-                    </li>
-                    <li className={verificationProgress >= 100 ? "text-green-600 dark:text-green-400" : ""}>
-                      ✓ {t.transferFlow.verification.step6}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </DashboardCard>
       </div>
     );
   }
