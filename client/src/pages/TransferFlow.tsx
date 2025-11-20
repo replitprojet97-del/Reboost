@@ -613,6 +613,47 @@ export default function TransferFlow() {
     );
   }
 
+  // Composant cercle de progression animé
+  const ProgressCircle = ({ percent }: { percent: number }) => {
+    return (
+      <div className="relative w-32 h-32 flex items-center justify-center">
+        <svg className="w-full h-full rotate-[-90deg]">
+          <circle
+            cx="64"
+            cy="64"
+            r="58"
+            stroke="#e5e7eb"
+            strokeWidth="10"
+            fill="none"
+          />
+          <circle
+            cx="64"
+            cy="64"
+            r="58"
+            stroke="url(#grad)"
+            strokeWidth="10"
+            fill="none"
+            strokeLinecap="round"
+            strokeDasharray={Math.PI * 2 * 58}
+            strokeDashoffset={(1 - percent / 100) * Math.PI * 2 * 58}
+            className="transition-all duration-700 ease-out"
+          />
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#4f46e5" />
+              <stop offset="100%" stopColor="#3b82f6" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div className="absolute text-center">
+          <p className="text-2xl font-semibold text-primary">{percent}%</p>
+          <span className="text-xs text-muted-foreground">Progression</span>
+        </div>
+      </div>
+    );
+  };
+
   if (step === 'progress') {
     const transfer = transferData?.transfer;
     const codes = transferData?.codes || [];
@@ -654,294 +695,205 @@ export default function TransferFlow() {
       },
     ];
 
-    return (
-      <div className="bg-background">
-        <div className="p-4 sm:p-6 md:p-10 max-w-7xl mx-auto space-y-6 sm:space-y-8 animate-fade-in">
-          
-          {/* BANNIÈRE HORIZONTALE AVEC FLUX ANIMÉ */}
-          <div className="w-full bg-gradient-to-r from-blue-50 via-cyan-50 to-blue-50 dark:from-blue-950/30 dark:via-cyan-950/30 dark:to-blue-950/30 rounded-2xl p-6 sm:p-8 border border-blue-100 dark:border-blue-900/50 shadow-sm">
-            <div className="flex items-center justify-center gap-6 sm:gap-12">
-              {/* Banque expéditrice */}
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center border-2 border-blue-200 dark:border-blue-800 shadow-md">
-                  <Building className="w-8 h-8 sm:w-10 sm:h-10 text-[#2563EB]" />
-                </div>
-                <p className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 mt-3">ALTUS</p>
-              </div>
+    // Cartes de rendu
+    const renderTransferMainCard = () => (
+      <div className="bg-white shadow-sm rounded-xl p-6 space-y-6">
+        {/* Montant du transfert */}
+        <div className="text-center pb-6 border-b border-border">
+          <p className="text-sm text-muted-foreground uppercase tracking-wide mb-2">
+            {t.transferFlow.progress.transferAmountLabel}
+          </p>
+          <p className="text-5xl sm:text-6xl font-bold text-foreground">
+            {transfer?.amount || '0'}<span className="text-3xl sm:text-4xl ml-2">€</span>
+          </p>
+        </div>
 
-              {/* Animation du flux */}
-              <div className="flex items-center gap-2 relative">
-                <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse"></div>
-                  <div className="w-2 h-2 rounded-full bg-[#0EA5E9] animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                  <div className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                </div>
-                <ArrowRight className="w-6 h-6 sm:w-8 sm:h-8 text-[#2563EB] animate-pulse" />
-                <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-[#0EA5E9] animate-pulse" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" style={{ animationDelay: '0.3s' }}></div>
-                  <div className="w-2 h-2 rounded-full bg-[#0EA5E9] animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                </div>
-              </div>
+        {/* Expéditeur */}
+        <div className="flex items-start gap-4">
+          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Send className="w-5 h-5 text-primary" />
+          </div>
+          <div className="flex-1">
+            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
+              {t.transferFlow.progress.senderLabel}
+            </p>
+            <p className="text-base font-semibold text-foreground">
+              {t.transferFlow.progress.senderValue}
+            </p>
+          </div>
+        </div>
 
-              {/* Banque destinataire */}
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center border-2 border-cyan-200 dark:border-cyan-800 shadow-md">
-                  <Building className="w-8 h-8 sm:w-10 sm:h-10 text-[#0EA5E9]" />
-                </div>
-                <p className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 mt-3">
-                  {transfer?.recipient?.split(' ')[0] || 'Banque'}
+        {/* Destinataire */}
+        <div className="flex items-start gap-4">
+          <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+            <Building className="w-5 h-5 text-accent" />
+          </div>
+          <div className="flex-1">
+            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
+              {t.transferFlow.progress.recipientLabel}
+            </p>
+            <p className="text-base font-semibold text-foreground break-words">
+              {transfer?.recipient || t.transferFlow.progress.recipientDefault}
+            </p>
+          </div>
+        </div>
+
+        {/* Référence */}
+        <div className="flex items-start gap-4">
+          <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center flex-shrink-0">
+            <Shield className="w-5 h-5 text-primary" />
+          </div>
+          <div className="flex-1">
+            <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">
+              {t.transferFlow.progress.referenceLabel}
+            </p>
+            <p className="text-sm font-mono font-semibold text-foreground break-all">
+              {transfer?.id || 'TRX-2025-00000'}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+
+    const renderStepsCard = () => (
+      <div className="bg-white shadow-sm rounded-xl p-6">
+        <h3 className="text-sm font-semibold text-foreground mb-4">Étapes du transfert</h3>
+        <div className="space-y-3">
+          {progressSteps.map((stepItem, index) => (
+            <div key={index} className="flex items-start gap-3 p-3 rounded-xl hover-elevate">
+              <div className="mt-0.5">
+                {stepItem.completed ? (
+                  <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center">
+                    <CheckCircle2 className="w-4 h-4 text-accent" />
+                  </div>
+                ) : stepItem.inProgress ? (
+                  <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                  </div>
+                ) : (
+                  <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center">
+                    <Circle className="w-3 h-3 text-muted-foreground" />
+                  </div>
+                )}
+              </div>
+              <div className="flex-1">
+                <p className={`text-sm font-medium ${
+                  stepItem.completed 
+                    ? 'text-foreground' 
+                    : stepItem.inProgress 
+                    ? 'text-primary' 
+                    : 'text-muted-foreground'
+                }`}>
+                  {stepItem.label}
                 </p>
               </div>
             </div>
-          </div>
+          ))}
+        </div>
+      </div>
+    );
 
-          {/* LAYOUT DEUX COLONNES */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            
-            {/* COLONNE GAUCHE - Informations du transfert */}
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 sm:p-10 border border-gray-100 dark:border-gray-800 space-y-6">
-              <div className="space-y-6">
-                {/* Montant du transfert */}
-                <div className="text-center pb-6 border-b border-gray-200 dark:border-gray-700">
-                  <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">{t.transferFlow.progress.transferAmountLabel}</p>
-                  <p className="text-5xl sm:text-6xl font-bold text-gray-900 dark:text-gray-100">
-                    {transfer?.amount || '0'}<span className="text-3xl sm:text-4xl ml-2">€</span>
+    const renderProgressCard = () => (
+      <div className="bg-white shadow-sm rounded-xl p-6 flex flex-col items-center">
+        <ProgressCircle percent={Math.round(simulatedProgress)} />
+        <div className="mt-4 text-center">
+          <p className="text-sm text-muted-foreground">Progression du transfert</p>
+        </div>
+      </div>
+    );
+
+    const renderSecurityCard = () => (
+      <div className="bg-muted/30 rounded-xl p-6">
+        <div className="flex items-start gap-3">
+          <Lock className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-sm font-semibold text-foreground mb-1">
+              {t.transferFlow.progress.secureBankingProtocols}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              {t.transferFlow.progress.aesMultiLevelAuth}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+
+    const renderValidationCard = () => {
+      if (!isPausedForCode || !nextCode) return null;
+      
+      return (
+        <div className="bg-orange-50 dark:bg-orange-950/30 rounded-xl p-6 border border-orange-200 dark:border-orange-800">
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <h3 className="text-sm font-bold text-foreground mb-1">
+                  Vérification de sécurité requise
+                </h3>
+                <p className="text-xs text-muted-foreground mb-2">
+                  Pour des raisons de sécurité, veuillez entrer le code de validation à 6 chiffres.
+                </p>
+                {nextCode.codeContext && (
+                  <p className="text-xs text-orange-700 dark:text-orange-300 italic mt-2">
+                    {nextCode.codeContext}
                   </p>
-                </div>
-
-                {/* Expéditeur */}
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
-                    <Send className="w-5 h-5 text-[#2563EB]" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">{t.transferFlow.progress.senderLabel}</p>
-                    <p className="text-base font-semibold text-gray-900 dark:text-gray-100">{t.transferFlow.progress.senderValue}</p>
-                  </div>
-                </div>
-
-                {/* Destinataire */}
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center flex-shrink-0">
-                    <Building className="w-5 h-5 text-[#0EA5E9]" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">{t.transferFlow.progress.recipientLabel}</p>
-                    <p className="text-base font-semibold text-gray-900 dark:text-gray-100 break-words">
-                      {transfer?.recipient || t.transferFlow.progress.recipientDefault}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Référence */}
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
-                    <Shield className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">{t.transferFlow.progress.referenceLabel}</p>
-                    <p className="text-sm font-mono font-semibold text-gray-900 dark:text-gray-100 break-all">
-                      {transfer?.id || 'TRX-2025-00000'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Message de sécurité */}
-              <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-                <p className="text-center text-sm text-gray-600 dark:text-gray-400 mb-4">
-                  {t.transferFlow.progress.secureProcessingMessage}
-                </p>
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 rounded-xl p-4 border border-blue-100 dark:border-blue-900/50">
-                  <div className="flex items-center gap-3">
-                    <Lock className="w-5 h-5 text-[#2563EB] flex-shrink-0" />
-                    <div>
-                      <p className="text-xs font-semibold text-gray-900 dark:text-gray-100">
-                        {t.transferFlow.progress.aesSecurityBadge}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
 
-            {/* COLONNE DROITE - Progression circulaire */}
-            <div className="space-y-6">
-              
-              {/* Carte avec progression circulaire */}
-              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-gray-800">
-                <div className="flex flex-col items-center">
-                  {/* Cercle de progression */}
-                  <div className="relative w-56 h-56 mb-6">
-                    <svg className="w-full h-full transform -rotate-90">
-                      <circle
-                        cx="112"
-                        cy="112"
-                        r="100"
-                        stroke="currentColor"
-                        strokeWidth="14"
-                        fill="none"
-                        className="text-gray-200 dark:text-gray-700"
-                      />
-                      <defs>
-                        <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#2563EB" />
-                          <stop offset="100%" stopColor="#0EA5E9" />
-                        </linearGradient>
-                      </defs>
-                      <circle
-                        cx="112"
-                        cy="112"
-                        r="100"
-                        stroke="url(#progressGradient)"
-                        strokeWidth="14"
-                        fill="none"
-                        strokeDasharray={`${2 * Math.PI * 100}`}
-                        strokeDashoffset={`${2 * Math.PI * 100 * (1 - simulatedProgress / 100)}`}
-                        className="transition-all duration-700 ease-out"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-5xl font-bold bg-gradient-to-r from-[#2563EB] to-[#0EA5E9] bg-clip-text text-transparent">
-                        {Math.round(simulatedProgress)}%
-                      </span>
-                      <span className="text-sm text-gray-600 dark:text-gray-400 mt-2">{t.transferFlow.progress.progressLabelShort}</span>
-                      <span className="text-xs text-gray-500 dark:text-gray-500">{t.transferFlow.progress.transferProgressLabel}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Liste des étapes */}
-              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 sm:p-8 border border-gray-100 dark:border-gray-800">
-                <div className="space-y-4">
-                  {progressSteps.map((stepItem, index) => (
-                    <div 
-                      key={index} 
-                      className="flex items-start gap-3 p-3 rounded-xl transition-all hover-elevate"
-                    >
-                      <div className="mt-0.5">
-                        {stepItem.completed ? (
-                          <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                            <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400" />
-                          </div>
-                        ) : stepItem.inProgress ? (
-                          <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                            <div className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse"></div>
-                          </div>
-                        ) : (
-                          <div className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                            <Circle className="w-3 h-3 text-gray-400 dark:text-gray-600" />
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <p className={`text-sm font-medium ${
-                          stepItem.completed 
-                            ? 'text-gray-900 dark:text-gray-100' 
-                            : stepItem.inProgress 
-                            ? 'text-[#2563EB]' 
-                            : 'text-gray-400 dark:text-gray-600'
-                        }`}>
-                          {stepItem.label}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Section sécurité */}
-              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-                <div className="flex items-start gap-3">
-                  <Lock className="w-5 h-5 text-[#2563EB] mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                      {t.transferFlow.progress.secureBankingProtocols}
-                    </p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">
-                      {t.transferFlow.progress.aesMultiLevelAuth}
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="space-y-3">
+              <Input
+                id="validation-code"
+                type="text"
+                maxLength={6}
+                value={validationCode}
+                onChange={(e) => setValidationCode(e.target.value.replace(/\D/g, ''))}
+                placeholder="••••••"
+                className="font-mono text-xl text-center tracking-widest h-12"
+                data-testid="input-pause-code"
+              />
+              <Button
+                onClick={handleValidateCode}
+                disabled={validateMutation.isPending || !validationCode || validationCode.length !== 6}
+                className="w-full"
+                size="sm"
+                data-testid="button-validate-pause-code"
+              >
+                {validateMutation.isPending ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Validation...
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    Valider et continuer
+                  </>
+                )}
+              </Button>
             </div>
           </div>
+        </div>
+      );
+    };
 
-          {/* Section de validation de code (si nécessaire) */}
-          {isPausedForCode && nextCode && (
-            <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950/30 dark:to-red-950/30 rounded-2xl shadow-lg p-6 sm:p-8 border border-orange-200 dark:border-orange-800">
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center flex-shrink-0">
-                    <AlertCircle className="w-6 h-6 text-orange-600 dark:text-orange-400" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
-                      {t.transferFlow.progress.securityCheckRequired}
-                    </h3>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-                      {t.transferFlow.progress.enterCodeSecurityMessage}
-                    </p>
-                    {/* CORRECTION PROBLÈME 1: Afficher le pourcentage requis */}
-                    <div className="bg-white dark:bg-gray-800 rounded-lg p-3 my-3 border-l-4 border-orange-500">
-                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                        Code requis à <span className="text-orange-600 dark:text-orange-400 text-lg">{nextCode.pausePercent}%</span>
-                      </p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                        Progression actuelle : {Math.round(simulatedProgress)}% → {nextCode.pausePercent}%
-                      </p>
-                    </div>
-                    {nextCode.codeContext && (
-                      <p className="text-xs text-orange-700 dark:text-orange-300 italic">
-                        {nextCode.codeContext}
-                      </p>
-                    )}
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">
-                      {t.transferFlow.progress.codeProvidedByAdvisor}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="max-w-md mx-auto space-y-4">
-                  <Label htmlFor="pause-code" className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                    {t.transferFlow.progress.validationCodeSixDigits}
-                  </Label>
-                  <Input
-                    id="pause-code"
-                    type="text"
-                    maxLength={6}
-                    value={validationCode}
-                    onChange={(e) => setValidationCode(e.target.value.replace(/\D/g, ''))}
-                    placeholder="••••••"
-                    className="font-mono text-3xl text-center tracking-widest h-16 bg-white dark:bg-gray-800"
-                    data-testid="input-pause-code"
-                  />
-                  <Button
-                    onClick={handleValidateCode}
-                  disabled={validateMutation.isPending || !validationCode || validationCode.length !== 6}
-                  className="w-full shadow-lg"
-                  size="lg"
-                  data-testid="button-validate-pause-code"
-                >
-                  {validateMutation.isPending ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      {t.transferFlow.progress.validatingAction}
-                    </>
-                  ) : (
-                    <>
-                      <CheckCircle2 className="w-4 h-4 mr-2" />
-                      {t.transferFlow.progress.validateContinueButton}
-                    </>
-                  )}
-                </Button>
-              </div>
-            </div>
+    return (
+      <div className="w-full flex justify-center px-4 py-6">
+        <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          {/* Colonne de gauche : infos transfert */}
+          <div className="col-span-2 flex flex-col gap-6">
+            {renderTransferMainCard()}
+            {renderStepsCard()}
           </div>
-          )}
+
+          {/* Colonne de droite : progression + sécurité */}
+          <div className="col-span-1 flex flex-col gap-6">
+            {renderProgressCard()}
+            {renderSecurityCard()}
+            {renderValidationCard()}
+          </div>
+
         </div>
       </div>
     );
