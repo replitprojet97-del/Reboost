@@ -55,30 +55,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return next();
     }
 
+    // Enhanced session validation with detailed debugging for cross-domain issues
     if (!req.session || !req.session.csrfToken) {
-      console.error('[CSRF-ERROR] Session invalide ou token manquant', {
+      const debugInfo = {
         hasSession: !!req.session,
         sessionId: req.session?.id,
         path: req.path,
         method: req.method,
         userId: req.session?.userId,
         cookieHeader: req.headers.cookie ? 'PRESENT' : 'MISSING',
+        hasSessionIdCookie: req.headers.cookie?.includes('sessionId') || false,
         origin: req.headers.origin,
-        host: req.headers.host
-      });
+        host: req.headers.host,
+        referer: req.headers.referer,
+      };
+      
+      console.error('[CSRF-ERROR] Session invalide ou token CSRF manquant', debugInfo);
+      
+      // More detailed error message for production debugging
+      let errorMessage = 'Session invalide. Veuillez vous reconnecter.';
+      let diagnosticHint = '';
+      
+      if (!req.headers.cookie || !req.headers.cookie.includes('sessionId')) {
+        diagnosticHint = 'Cookies non reçus par le serveur. Vérifiez la configuration CORS et les cookies cross-domain.';
+      } else if (!req.session) {
+        diagnosticHint = 'Session non trouvée dans le store. Vérifiez la base de données de sessions.';
+      } else if (!req.session.csrfToken) {
+        diagnosticHint = 'Token CSRF manquant dans la session. La session pourrait avoir expiré.';
+      }
+      
+      if (diagnosticHint) {
+        console.error(`[CSRF-ERROR] Diagnostic: ${diagnosticHint}`);
+      }
+      
       return res.status(403).json({ 
-        error: 'Session invalide. Veuillez vous reconnecter.',
+        error: errorMessage,
         code: 'SESSION_INVALID',
-        details: process.env.NODE_ENV === 'production' ? undefined : {
-          hasSession: !!req.session,
-          hasCookie: !!req.headers.cookie
-        }
+        diagnosticHint: process.env.NODE_ENV === 'production' ? diagnosticHint : undefined,
+        details: process.env.NODE_ENV === 'production' ? undefined : debugInfo
       });
     }
 
     const token = req.headers['x-csrf-token'] || req.body._csrf;
     if (!token || token !== req.session.csrfToken) {
-      console.error('[CSRF-ERROR] Token CSRF invalide', {
+      const debugInfo = {
         tokenProvided: !!token,
         tokenMatch: token === req.session.csrfToken,
         path: req.path,
@@ -86,15 +106,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
         userId: req.session?.userId,
         sessionId: req.session?.id,
         origin: req.headers.origin,
-        host: req.headers.host
-      });
+        host: req.headers.host,
+        referer: req.headers.referer,
+      };
+      
+      console.error('[CSRF-ERROR] Token CSRF invalide', debugInfo);
+      
       return res.status(403).json({ 
         error: 'Session expirée. Veuillez recharger la page et réessayer.',
         code: 'CSRF_INVALID',
-        details: process.env.NODE_ENV === 'production' ? undefined : {
-          tokenProvided: !!token,
-          hasSession: !!req.session
-        }
+        diagnosticHint: process.env.NODE_ENV === 'production' ? 
+          'Token CSRF invalide ou expiré. Veuillez rafraîchir la page.' : undefined,
+        details: process.env.NODE_ENV === 'production' ? undefined : debugInfo
       });
     }
 

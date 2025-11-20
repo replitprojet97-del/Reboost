@@ -169,15 +169,28 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-  // Debug logs disabled to reduce console noise
-  // if (process.env.NODE_ENV === 'development') {
-  //   console.log(`[REQUEST DEBUG] ${req.method} ${req.path}`);
-  //   console.log(`[REQUEST DEBUG] Origin: ${req.headers.origin || 'NO ORIGIN'}`);
-  //   console.log(`[REQUEST DEBUG] Cookie Header: ${req.headers.cookie ? 'PRESENT' : 'MISSING'}`);
-  //   console.log(`[REQUEST DEBUG] Session Exists: ${req.session?.id ? 'YES' : 'NO'}`);
-  //   console.log(`[REQUEST DEBUG] Authenticated: ${req.session?.userId ? 'YES' : 'NO'}`);
-  //   console.log(`[REQUEST DEBUG] CSRF Token: ${req.headers['x-csrf-token'] ? 'present' : 'missing'}`);
-  // }
+  // Enhanced debug logs for cross-domain session issues
+  if (process.env.NODE_ENV === 'production' || process.env.DEBUG_SESSIONS === 'true') {
+    const isApiRequest = req.path.startsWith('/api');
+    const hasSession = !!req.session?.id;
+    const isAuthenticated = !!req.session?.userId;
+    
+    if (isApiRequest && (!hasSession || !isAuthenticated)) {
+      console.log('=== [SESSION DEBUG] ===');
+      console.log(`[SESSION] ${req.method} ${req.path}`);
+      console.log(`[SESSION] Origin: ${req.headers.origin || 'NO ORIGIN'}`);
+      console.log(`[SESSION] Referer: ${req.headers.referer || 'NO REFERER'}`);
+      console.log(`[SESSION] Cookie Header: ${req.headers.cookie ? 'PRESENT' : 'MISSING'}`);
+      if (req.headers.cookie) {
+        const hasSessionCookie = req.headers.cookie.includes('sessionId');
+        console.log(`[SESSION] sessionId Cookie: ${hasSessionCookie ? 'PRESENT' : 'MISSING'}`);
+      }
+      console.log(`[SESSION] Session Exists: ${hasSession ? 'YES' : 'NO'}`);
+      console.log(`[SESSION] Authenticated: ${isAuthenticated ? 'YES' : 'NO'}`);
+      console.log(`[SESSION] CSRF Token Header: ${req.headers['x-csrf-token'] ? 'PRESENT' : 'MISSING'}`);
+      console.log('======================');
+    }
+  }
   next();
 });
 
@@ -279,6 +292,91 @@ app.get('/healthz', (req, res) => {
       origin: req.headers.origin || 'no-origin',
       timestamp: new Date().toISOString(),
     });
+  });
+
+  // Comprehensive diagnostic endpoint for cross-domain session debugging
+  app.get("/api/debug/session-diagnostic", (req, res) => {
+    const diagnostic = {
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || 'development',
+      
+      // Request information
+      request: {
+        method: req.method,
+        path: req.path,
+        origin: req.headers.origin || 'NO ORIGIN',
+        referer: req.headers.referer || 'NO REFERER',
+        host: req.headers.host || 'NO HOST',
+        'user-agent': req.headers['user-agent']?.substring(0, 50) + '...' || 'NO USER AGENT',
+      },
+      
+      // Cookie information
+      cookies: {
+        headerPresent: !!req.headers.cookie,
+        cookieCount: req.headers.cookie ? req.headers.cookie.split(';').length : 0,
+        hasSessionIdCookie: req.headers.cookie?.includes('sessionId') || false,
+        rawCookieHeader: process.env.NODE_ENV === 'production' ? 'HIDDEN' : req.headers.cookie || 'NO COOKIES',
+      },
+      
+      // Session information
+      session: {
+        exists: !!req.session,
+        hasId: !!req.session?.id,
+        sessionIdPreview: req.session?.id ? req.session.id.substring(0, 8) + '...' : null,
+        isAuthenticated: !!req.session?.userId,
+        userId: req.session?.userId || null,
+        userRole: req.session?.userRole || null,
+        hasCsrfToken: !!req.session?.csrfToken,
+      },
+      
+      // Server configuration
+      serverConfig: {
+        cookieDomain: COOKIE_DOMAIN || 'NOT SET (same-domain only)',
+        cookieSecure: IS_PRODUCTION,
+        cookieSameSite: SAME_SITE_POLICY,
+        sessionStore: sessionStore ? 'PostgreSQL' : 'Memory (development only)',
+        trustProxy: app.get('trust proxy') || false,
+      },
+      
+      // CORS configuration
+      cors: {
+        allowedOrigins: allowedOrigins,
+        currentOriginAllowed: !req.headers.origin || allowedOrigins.includes(req.headers.origin),
+        frontendUrl: process.env.FRONTEND_URL || 'NOT SET',
+      },
+      
+      // Headers sent by client
+      relevantHeaders: {
+        'x-csrf-token': req.headers['x-csrf-token'] ? 'PRESENT' : 'MISSING',
+        'content-type': req.headers['content-type'] || 'NOT SET',
+        'accept': req.headers['accept']?.substring(0, 50) || 'NOT SET',
+      },
+      
+      // Diagnostic recommendations
+      recommendations: [] as string[],
+    };
+    
+    // Generate recommendations
+    if (!diagnostic.cookies.hasSessionIdCookie) {
+      diagnostic.recommendations.push('Cookie "sessionId" not found. Browser may be blocking cross-domain cookies.');
+    }
+    if (!diagnostic.session.exists || !diagnostic.session.hasId) {
+      diagnostic.recommendations.push('Session not established. Check if cookies are being sent from frontend.');
+    }
+    if (diagnostic.request.origin && !diagnostic.cors.currentOriginAllowed) {
+      diagnostic.recommendations.push(`Origin "${diagnostic.request.origin}" is not in allowed origins list.`);
+    }
+    if (IS_PRODUCTION && !COOKIE_DOMAIN) {
+      diagnostic.recommendations.push('COOKIE_DOMAIN not set in production. Cross-domain cookies will not work.');
+    }
+    if (IS_PRODUCTION && SAME_SITE_POLICY !== 'none') {
+      diagnostic.recommendations.push('SameSite should be "none" in production for cross-domain cookies.');
+    }
+    if (!diagnostic.cookies.headerPresent) {
+      diagnostic.recommendations.push('No cookies sent with request. Check if frontend is using credentials: "include".');
+    }
+    
+    res.json(diagnostic);
   });
 
   // Only setup Vite in development (local dev server)
