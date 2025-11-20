@@ -2873,8 +2873,9 @@ export function getTransferCodesAdminTemplate(
     </html>
   `;
 
+  const totalCodes = vars.codes.length;
   const codesTextList = vars.codes
-    .map(code => `  ${code.sequence}/5. Code: ${code.code} - ${t.pauseLabel} ${code.pausePercent}% - ${code.context}`)
+    .map(code => `  ${code.sequence}/${totalCodes}. Code: ${code.code} - ${t.pauseLabel} ${code.pausePercent}% - ${code.context}`)
     .join('\n');
 
   const text = `

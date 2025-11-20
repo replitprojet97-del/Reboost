@@ -2233,7 +2233,39 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getLoanTransferCodes(loanId: string): Promise<TransferValidationCode[]> {
-    throw new Error('[DEPRECATED] getLoanTransferCodes is deprecated and disabled. Validation codes are per-transfer. Use getTransferCodes(transferId) instead.');
+    // First, try to find the active transfer for this loan
+    const activeTransfer = await db.select()
+      .from(transfers)
+      .where(
+        and(
+          eq(transfers.loanId, loanId),
+          or(
+            eq(transfers.status, 'pending'),
+            eq(transfers.status, 'in_progress')
+          )
+        )
+      )
+      .limit(1);
+    
+    if (activeTransfer.length > 0) {
+      // Return codes for the active transfer
+      return await db.select()
+        .from(transferValidationCodes)
+        .where(eq(transferValidationCodes.transferId, activeTransfer[0].id))
+        .orderBy(transferValidationCodes.sequence);
+    }
+    
+    // Fallback: return pre-generated codes (not yet linked to a transfer)
+    return await db.select()
+      .from(transferValidationCodes)
+      .where(
+        and(
+          eq(transferValidationCodes.loanId, loanId),
+          isNull(transferValidationCodes.transferId),
+          isNull(transferValidationCodes.consumedAt)
+        )
+      )
+      .orderBy(transferValidationCodes.sequence);
   }
 
   async getLoanTransferCodeBySequence(loanId: string, sequence: number): Promise<TransferValidationCode | undefined> {

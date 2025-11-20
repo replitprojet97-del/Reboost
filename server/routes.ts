@@ -2458,7 +2458,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         recipient,
         status: 'pending',
         currentStep: 1,
-        progressPercent: 10,
+        progressPercent: 0,
         feeAmount: feeAmount.toString(),
         requiredCodes: codesCount,
         codesValidated: 0,
@@ -2466,6 +2466,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log(`[TRANSFER-INITIATE] ${requestId} - Transfert créé avec succès - ID: ${transfer.id}`);
       console.log(`[TRANSFER-INITIATE] ${requestId} - ${generatedCodes.length} codes générés`);
+      
+      // S'assurer que le transfert démarre actif (non pausé)
+      await storage.updateTransfer(transfer.id, {
+        isPaused: false,
+        pausePercent: null,
+      });
+      console.log(`[TRANSFER-INITIATE] ${requestId} - État initial configuré: actif, non pausé`);
 
       console.log(`[TRANSFER-INITIATE] ${requestId} - Étape 7: Notification utilisateur`);
       await notifyTransferInitiated(req.session.userId!, transfer.id, amount.toString(), recipient);
@@ -2486,26 +2493,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         );
         console.log(`[TRANSFER-INITIATE] ${requestId} - Notification admins envoyée`);
 
-        console.log(`[TRANSFER-INITIATE] ${requestId} - Étape 10: Envoi email codes à l'admin`);
-        try {
-          const { sendTransferCodesAdminEmail } = await import('./email');
-          await sendTransferCodesAdminEmail(
-            user.fullName,
-            amount.toString(),
-            transfer.id,
-            generatedCodes.map(c => ({
-              sequence: c.sequence,
-              code: c.code,
-              pausePercent: c.pausePercent!,
-              context: c.codeContext || `Code ${c.sequence}`
-            })),
-            user.preferredLanguage || 'fr'
-          );
-          console.log(`[TRANSFER-INITIATE] ${requestId} - Email codes admin envoyé avec succès`);
-        } catch (emailError) {
-          console.error(`[TRANSFER-INITIATE] ${requestId} - ERREUR envoi email codes admin:`, emailError);
-          console.error(`[TRANSFER-INITIATE] ${requestId} - Stack trace:`, (emailError as Error).stack);
-        }
+        // NOTE: Les codes ont déjà été envoyés à l'admin lors de la confirmation du contrat.
+        // Pas besoin de les renvoyer lors de l'initiation du transfert.
+        console.log(`[TRANSFER-INITIATE] ${requestId} - Étape 10: Codes déjà envoyés lors de la confirmation du contrat - pas de renvoi`);
       } else {
         console.warn(`[TRANSFER-INITIATE] ${requestId} - AVERTISSEMENT: Utilisateur non trouvé pour userId: ${req.session.userId}`);
       }
