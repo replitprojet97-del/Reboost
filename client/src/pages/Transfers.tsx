@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/badge';
 
 interface Transfer {
   id: string;
+  referenceNumber: string;
   amount: string;
   recipient: string;
   status: string;
@@ -81,7 +82,7 @@ export default function Transfers() {
 
   const filteredTransfers = transfers?.filter((transfer) => {
     const matchesSearch = transfer.recipient.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          transfer.id.toLowerCase().includes(searchQuery.toLowerCase());
+                          transfer.referenceNumber.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === 'all' || transfer.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
@@ -226,7 +227,7 @@ export default function Transfers() {
                       {getStatusBadge(transfer.status)}
                     </div>
                     <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
-                      <span className="font-mono">ID: {transfer.id.slice(0, 8)}...</span>
+                      <span className="font-mono font-semibold">{transfer.referenceNumber}</span>
                       <span className="hidden sm:inline">•</span>
                       <span className="hidden sm:inline">
                         {formatDistanceToNow(new Date(transfer.createdAt), { addSuffix: true, locale: fr })}

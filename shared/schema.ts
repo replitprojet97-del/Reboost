@@ -89,6 +89,7 @@ export const externalAccounts = pgTable("external_accounts", {
 
 export const transfers = pgTable("transfers", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  referenceNumber: text("reference_number").notNull().unique(),
   userId: varchar("user_id").notNull(),
   loanId: varchar("loan_id"),
   externalAccountId: varchar("external_account_id"),
@@ -248,7 +249,7 @@ export const insertUserSchema = createInsertSchema(users).omit({ id: true, creat
     .regex(/[^A-Za-z0-9]/, 'Le mot de passe doit contenir au moins un caractère spécial'),
 });
 export const insertLoanSchema = createInsertSchema(loans).omit({ id: true, createdAt: true });
-export const insertTransferSchema = createInsertSchema(transfers).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertTransferSchema = createInsertSchema(transfers).omit({ id: true, referenceNumber: true, createdAt: true, updatedAt: true });
 export const insertFeeSchema = createInsertSchema(fees).omit({ id: true, createdAt: true });
 export const insertTransactionSchema = createInsertSchema(transactions).omit({ id: true, createdAt: true });
 export const insertExternalAccountSchema = createInsertSchema(externalAccounts).omit({ id: true, createdAt: true });
