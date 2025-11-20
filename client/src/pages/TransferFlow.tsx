@@ -38,6 +38,7 @@ export default function TransferFlow() {
   const verificationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const notificationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
 
   const { data: externalAccounts } = useQuery<ExternalAccount[]>({
     queryKey: ['/api/external-accounts'],
@@ -52,6 +53,44 @@ export default function TransferFlow() {
     enabled: !!transferId,
     refetchInterval: step === 'progress' ? 3000 : false,
   });
+
+  // CORRECTION PROBLÈME 2: Animation lente et fluide (5-8 secondes)
+  const animateProgress = (from: number, to: number, durationMs: number) => {
+    // Annuler toute animation en cours
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+    if (progressIntervalRef.current) {
+      clearInterval(progressIntervalRef.current);
+      progressIntervalRef.current = null;
+    }
+
+    const startTime = performance.now();
+    const delta = to - from;
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / durationMs, 1);
+      
+      // Ease-out pour une progression naturelle
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const currentValue = from + (delta * easeProgress);
+
+      setSimulatedProgress(currentValue);
+
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+      } else {
+        // Animation terminée - atteint la cible exacte
+        setSimulatedProgress(to);
+        setIsPausedForCode(true);
+        animationFrameRef.current = null;
+      }
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animate);
+  };
 
   useEffect(() => {
     if (availableLoans && availableLoans.length > 0 && !selectedLoanId) {
@@ -118,12 +157,16 @@ export default function TransferFlow() {
       }
       
       setTransferId(data.transfer.id);
-      // CORRECTION CRITIQUE: Ne PAS mettre en pause au démarrage
-      // Le transfert doit progresser automatiquement jusqu'au pausePercent du premier code
-      setIsPausedForCode(false);
-      setSimulatedProgress(data.transfer.progressPercent || 0);
+      
+      // CORRECTION PROBLÈME 1: Animation automatique jusqu'au premier pausePercent
+      const initialProgress = data.transfer.progressPercent || 0;
+      setSimulatedProgress(initialProgress);
       setLastValidatedSequence(0);
       setCurrentCodeSequence(1);
+      
+      // Démarrer en mode NON-PAUSÉ pour permettre l'animation automatique vers le premier code
+      setIsPausedForCode(false);
+      
       toast({
         title: t.transferFlow.toast.initiated,
         description: t.transferFlow.toast.initiatedSuccessDesc,
@@ -227,33 +270,26 @@ export default function TransferFlow() {
       const targetPercent = computedNextCode.pausePercent || 90;
       const justValidated = lastValidatedSequence === nextSequence - 1;
       
-      // SÉCURITÉ CRITIQUE: Ne progresser QUE si un code vient d'être validé
-      // Sinon, le transfert DOIT rester en pause
-      if (justValidated && simulatedProgress < targetPercent && !isPausedForCode) {
+      // CORRECTION PROBLÈME 1: Permettre la progression automatique au démarrage (séquence 1)
+      // CORRECTION PROBLÈME 2: Utiliser animateProgress pour une animation fluide de 8 secondes
+      const isFirstCode = nextSequence === 1 && lastValidatedSequence === 0;
+      const shouldProgress = (justValidated || isFirstCode) && simulatedProgress < targetPercent && !isPausedForCode;
+      
+      if (shouldProgress) {
+        // Lancer l'animation progressive sur 8 secondes
+        animateProgress(simulatedProgress, targetPercent, 8000);
+      } else if (!justValidated && !isFirstCode) {
+        // FORCER la pause tant qu'aucun code n'a été validé (sauf pour le premier)
+        setIsPausedForCode(true);
+        // Annuler toute animation en cours
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+          animationFrameRef.current = null;
+        }
         if (progressIntervalRef.current) {
           clearInterval(progressIntervalRef.current);
+          progressIntervalRef.current = null;
         }
-        
-        progressIntervalRef.current = setInterval(() => {
-          setSimulatedProgress(prev => {
-            const increment = 0.5;
-            const next = prev + increment;
-            
-            if (next >= targetPercent) {
-              if (progressIntervalRef.current) {
-                clearInterval(progressIntervalRef.current);
-                progressIntervalRef.current = null;
-              }
-              setIsPausedForCode(true);
-              return targetPercent;
-            }
-            
-            return next;
-          });
-        }, 200);
-      } else if (!justValidated) {
-        // FORCER la pause tant qu'aucun code n'a été validé
-        setIsPausedForCode(true);
       }
     }
     
@@ -261,6 +297,10 @@ export default function TransferFlow() {
       if (progressIntervalRef.current) {
         clearInterval(progressIntervalRef.current);
         progressIntervalRef.current = null;
+      }
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
       }
     };
   }, [step, transferData, simulatedProgress, isPausedForCode, lastValidatedSequence]);
