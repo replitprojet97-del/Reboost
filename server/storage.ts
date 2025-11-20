@@ -1629,7 +1629,7 @@ export class DatabaseStorage implements IStorage {
     
     // Générer et persister la référence professionnelle
     const { getLoanReferenceNumber } = await import('@shared/schema');
-    const loanReference = getLoanReferenceNumber(loan.id, loan.createdAt);
+    const loanReference = getLoanReferenceNumber(loan);
     
     // Mettre à jour le prêt avec la référence
     const updated = await db
@@ -1656,8 +1656,22 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createTransfer(insertTransfer: InsertTransfer): Promise<Transfer> {
+    // Insérer le transfert d'abord pour obtenir l'ID et createdAt
     const result = await db.insert(transfers).values(insertTransfer).returning();
-    return result[0];
+    const transfer = result[0];
+    
+    // Générer et persister la référence professionnelle
+    const { getTransferReferenceNumber } = await import('@shared/schema');
+    const transferReference = getTransferReferenceNumber(transfer);
+    
+    // Mettre à jour le transfert avec la référence
+    const updated = await db
+      .update(transfers)
+      .set({ transferReference })
+      .where(eq(transfers.id, transfer.id))
+      .returning();
+    
+    return updated[0];
   }
 
   async updateTransfer(id: string, updates: Partial<Transfer>): Promise<Transfer | undefined> {
@@ -2127,7 +2141,20 @@ export class DatabaseStorage implements IStorage {
           }
 
           const transferResult = await tx.insert(transfers).values(insertTransfer).returning();
-          const transfer = transferResult[0];
+          let transfer = transferResult[0];
+
+          // Générer et persister la référence professionnelle
+          const { getTransferReferenceNumber } = await import('@shared/schema');
+          const transferReference = getTransferReferenceNumber(transfer);
+          
+          // Mettre à jour le transfert avec la référence
+          const updatedTransfer = await tx
+            .update(transfers)
+            .set({ transferReference })
+            .where(eq(transfers.id, transfer.id))
+            .returning();
+          
+          transfer = updatedTransfer[0];
 
       // Check if pre-generated codes exist for this loan (from markLoanFundsAvailable)
       const preGeneratedCodes = await tx
