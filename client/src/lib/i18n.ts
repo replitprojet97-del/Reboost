@@ -1094,7 +1094,9 @@ type TranslationKeys = {
       loanAmount: string;
       duration: string;
       durationMonths: string;
+      durationYears: string;
       months: string;
+      years: string;
       interestRate: string;
       estimatedMonthlyPayment: string;
       requiredDocuments: string;
