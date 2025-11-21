@@ -662,38 +662,74 @@ export default function TransferFlow() {
     const totalCodes = transfer?.requiredCodes || codes.length;
     const nextCode = sortedCodes[validatedCount];
 
-    const progressSteps = [
+    const allStepsMetadata = [
       { 
-        label: t.transferFlow.progress.steps.step1, 
-        completed: simulatedProgress > 0,
-        inProgress: simulatedProgress > 0 && simulatedProgress <= 17
+        id: 'step1',
+        sequence: 1,
+        label: t.transferFlow.progress.steps.step1,
+        pauseThreshold: 17,
+        hidden: false
       },
       { 
-        label: t.transferFlow.progress.steps.step2, 
-        completed: simulatedProgress > 17,
-        inProgress: simulatedProgress > 17 && simulatedProgress <= 33
+        id: 'step2',
+        sequence: 2,
+        label: t.transferFlow.progress.steps.step2,
+        pauseThreshold: 33,
+        hidden: false
       },
       { 
-        label: t.transferFlow.progress.steps.step3, 
-        completed: simulatedProgress > 33,
-        inProgress: simulatedProgress > 33 && simulatedProgress <= 50
+        id: 'step3',
+        sequence: 3,
+        label: t.transferFlow.progress.steps.step3,
+        pauseThreshold: 50,
+        hidden: false
       },
       { 
-        label: t.transferFlow.progress.steps.step4, 
-        completed: simulatedProgress > 50,
-        inProgress: simulatedProgress > 50 && simulatedProgress <= 67
+        id: 'step4',
+        sequence: 4,
+        label: t.transferFlow.progress.steps.step4,
+        pauseThreshold: 67,
+        hidden: false
       },
       { 
-        label: t.transferFlow.progress.steps.step5, 
-        completed: simulatedProgress > 67,
-        inProgress: simulatedProgress > 67 && simulatedProgress <= 84
+        id: 'step5',
+        sequence: 5,
+        label: t.transferFlow.progress.steps.step5,
+        pauseThreshold: 84,
+        hidden: false
       },
       { 
-        label: t.transferFlow.progress.steps.step6, 
-        completed: simulatedProgress >= 100,
-        inProgress: simulatedProgress > 84 && simulatedProgress < 100
+        id: 'step6',
+        sequence: 6,
+        label: t.transferFlow.progress.steps.step6,
+        pauseThreshold: 100,
+        hidden: true
       },
     ];
+
+    const computeVisibleSteps = () => {
+      const visibleSteps = allStepsMetadata
+        .filter(step => !step.hidden)
+        .map(step => ({
+          ...step,
+          completed: simulatedProgress > step.pauseThreshold,
+          inProgress: simulatedProgress > (step.sequence === 1 ? 0 : allStepsMetadata[step.sequence - 2].pauseThreshold) 
+                      && simulatedProgress <= step.pauseThreshold
+        }));
+
+      const currentStepIndex = visibleSteps.findIndex(step => step.inProgress || (!step.completed && !step.inProgress));
+      
+      if (currentStepIndex === -1) {
+        return visibleSteps.slice(-3);
+      }
+
+      const startIndex = Math.max(0, currentStepIndex - 1);
+      const endIndex = Math.min(visibleSteps.length, startIndex + 3);
+      
+      return visibleSteps.slice(startIndex, endIndex);
+    };
+
+    const progressSteps = computeVisibleSteps();
 
     // Cartes de rendu
     const renderTransferMainCard = () => (
