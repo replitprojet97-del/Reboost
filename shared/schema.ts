@@ -242,6 +242,20 @@ export const notifications = pgTable("notifications", {
   readAt: timestamp("read_at"),
 });
 
+export const messages = pgTable("messages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  senderId: varchar("sender_id").notNull(),
+  receiverId: varchar("receiver_id").notNull(),
+  content: text("content").notNull(),
+  isRead: boolean("is_read").notNull().default(false),
+  readAt: timestamp("read_at"),
+  createdAt: timestamp("created_at").notNull().default(sql`now()`),
+}, (table) => ({
+  senderIdIdx: index("messages_sender_id_idx").on(table.senderId),
+  receiverIdIdx: index("messages_receiver_id_idx").on(table.receiverId),
+  conversationIdx: index("messages_conversation_idx").on(table.senderId, table.receiverId, table.createdAt),
+}));
+
 export const amortizationSchedule = pgTable("amortization_schedule", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   loanId: varchar("loan_id").notNull(),
@@ -279,6 +293,7 @@ export const insertAdminMessageSchema = createInsertSchema(adminMessages).omit({
 export const insertAuditLogSchema = createInsertSchema(auditLogs).omit({ id: true, createdAt: true });
 export const insertUserOtpSchema = createInsertSchema(userOtps).omit({ id: true, createdAt: true });
 export const insertNotificationSchema = createInsertSchema(notifications).omit({ id: true, createdAt: true });
+export const insertMessageSchema = createInsertSchema(messages).omit({ id: true, createdAt: true });
 export const insertAmortizationScheduleSchema = createInsertSchema(amortizationSchedule).omit({ id: true, createdAt: true });
 
 export type User = typeof users.$inferSelect;
@@ -309,6 +324,8 @@ export type UserOtp = typeof userOtps.$inferSelect;
 export type InsertUserOtp = z.infer<typeof insertUserOtpSchema>;
 export type Notification = typeof notifications.$inferSelect;
 export type InsertNotification = z.infer<typeof insertNotificationSchema>;
+export type Message = typeof messages.$inferSelect;
+export type InsertMessage = z.infer<typeof insertMessageSchema>;
 export type AmortizationSchedule = typeof amortizationSchedule.$inferSelect;
 export type InsertAmortizationSchedule = z.infer<typeof insertAmortizationScheduleSchema>;
 

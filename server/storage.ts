@@ -25,6 +25,8 @@ import {
   type InsertKycDocument,
   type Notification,
   type InsertNotification,
+  type Message,
+  type InsertMessage,
   type AmortizationSchedule,
   type InsertAmortizationSchedule,
   users,
@@ -40,6 +42,7 @@ import {
   externalAccounts,
   kycDocuments,
   notifications,
+  messages,
   amortizationSchedule,
   getLoanReferenceNumber,
   getOrGenerateLoanReference,
@@ -195,6 +198,12 @@ export interface IStorage {
   generateAmortizationSchedule(loanId: string): Promise<AmortizationSchedule[]>;
   getUpcomingPayments(loanId: string, limit?: number): Promise<AmortizationSchedule[]>;
   markPaymentAsPaid(paymentId: string): Promise<AmortizationSchedule | undefined>;
+  
+  getConversation(userA: string, userB: string): Promise<Message[]>;
+  createChatMessage(message: InsertMessage): Promise<Message>;
+  markChatMessageAsRead(messageId: string): Promise<Message | undefined>;
+  getUnreadMessageCount(userId: string): Promise<number>;
+  getUserConversations(userId: string): Promise<Array<{userId: string; fullName: string; unreadCount: number; lastMessage: Message | null}>>;
 }
 
 // export class MemStorage implements IStorage {
@@ -2862,6 +2871,95 @@ export class DatabaseStorage implements IStorage {
       .where(eq(amortizationSchedule.id, paymentId))
       .returning();
     return result[0];
+  }
+
+  async getConversation(userA: string, userB: string): Promise<Message[]> {
+    const result = await db.select()
+      .from(messages)
+      .where(
+        or(
+          and(eq(messages.senderId, userA), eq(messages.receiverId, userB)),
+          and(eq(messages.senderId, userB), eq(messages.receiverId, userA))
+        )
+      )
+      .orderBy(messages.createdAt);
+    return result;
+  }
+
+  async createChatMessage(message: InsertMessage): Promise<Message> {
+    const result = await db.insert(messages)
+      .values(message)
+      .returning();
+    return result[0];
+  }
+
+  async markChatMessageAsRead(messageId: string): Promise<Message | undefined> {
+    const result = await db.update(messages)
+      .set({
+        isRead: true,
+        readAt: new Date()
+      })
+      .where(eq(messages.id, messageId))
+      .returning();
+    return result[0];
+  }
+
+  async getUnreadMessageCount(userId: string): Promise<number> {
+    const result = await db.select({ count: sqlDrizzle<number>`count(*)::int` })
+      .from(messages)
+      .where(
+        and(
+          eq(messages.receiverId, userId),
+          eq(messages.isRead, false)
+        )
+      );
+    return result[0]?.count || 0;
+  }
+
+  async getUserConversations(userId: string): Promise<Array<{userId: string; fullName: string; unreadCount: number; lastMessage: Message | null}>> {
+    // Sous-requête pour obtenir le dernier message par conversation
+    const lastMessages = db
+      .select({
+        partnerId: sqlDrizzle<string>`
+          CASE 
+            WHEN ${messages.senderId} = ${userId} THEN ${messages.receiverId}
+            ELSE ${messages.senderId}
+          END
+        `,
+        lastMessageId: sqlDrizzle<string>`
+          (SELECT id FROM ${messages} AS m 
+           WHERE (m.sender_id = ${userId} AND m.receiver_id = CASE WHEN ${messages.senderId} = ${userId} THEN ${messages.receiverId} ELSE ${messages.senderId} END)
+              OR (m.receiver_id = ${userId} AND m.sender_id = CASE WHEN ${messages.senderId} = ${userId} THEN ${messages.receiverId} ELSE ${messages.senderId} END)
+           ORDER BY m.created_at DESC 
+           LIMIT 1)
+        `,
+        unreadCount: sqlDrizzle<number>`
+          COUNT(*) FILTER (WHERE ${messages.receiverId} = ${userId} AND ${messages.isRead} = false)::int
+        `
+      })
+      .from(messages)
+      .where(
+        or(
+          eq(messages.senderId, userId),
+          eq(messages.receiverId, userId)
+        )
+      )
+      .groupBy(sqlDrizzle`CASE WHEN ${messages.senderId} = ${userId} THEN ${messages.receiverId} ELSE ${messages.senderId} END`)
+      .as('lastMessages');
+
+    const conversations = await db
+      .select({
+        userId: users.id,
+        fullName: users.fullName,
+        unreadCount: lastMessages.unreadCount,
+        lastMessage: messages
+      })
+      .from(lastMessages)
+      .innerJoin(users, eq(users.id, lastMessages.partnerId))
+      .leftJoin(messages, eq(messages.id, lastMessages.lastMessageId))
+      .orderBy(desc(messages.createdAt));
+
+    return conversations;
   }
 }
 

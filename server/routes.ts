@@ -45,6 +45,7 @@ import {
 import { loanRequestAdminNotification } from "./notification-service";
 import cloudinary from "./config/cloudinary";
 import { PassThrough } from "stream";
+import { setupSocketIO } from "./socket";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // SÉCURITÉ: Accès aux fichiers via endpoints protégés uniquement
@@ -3121,6 +3122,72 @@ Tous les codes de validation ont été vérifiés avec succès.`,
     }
   });
 
+  app.get("/api/chat/conversations", requireAuth, async (req, res) => {
+    try {
+      const conversations = await storage.getUserConversations(req.session.userId!);
+      res.json(conversations);
+    } catch (error) {
+      console.error('[CHAT] Error fetching conversations:', error);
+      res.status(500).json({ error: 'Failed to fetch conversations' });
+    }
+  });
+
+  app.get("/api/chat/conversation/:partnerId", requireAuth, async (req, res) => {
+    try {
+      const messages = await storage.getConversation(req.session.userId!, req.params.partnerId);
+      res.json(messages);
+    } catch (error) {
+      console.error('[CHAT] Error fetching conversation:', error);
+      res.status(500).json({ error: 'Failed to fetch conversation' });
+    }
+  });
+
+  app.post("/api/chat/send", requireAuth, requireCSRF, async (req, res) => {
+    try {
+      const { receiverId, content } = req.body;
+      
+      if (!receiverId || !content) {
+        return res.status(400).json({ error: 'receiverId and content are required' });
+      }
+
+      const message = await storage.createChatMessage({
+        senderId: req.session.userId!,
+        receiverId,
+        content,
+        isRead: false,
+        readAt: null
+      });
+
+      res.json(message);
+    } catch (error) {
+      console.error('[CHAT] Error sending message:', error);
+      res.status(500).json({ error: 'Failed to send message' });
+    }
+  });
+
+  app.get("/api/chat/unread-count", requireAuth, async (req, res) => {
+    try {
+      const count = await storage.getUnreadMessageCount(req.session.userId!);
+      res.json({ count });
+    } catch (error) {
+      console.error('[CHAT] Error fetching unread count:', error);
+      res.status(500).json({ error: 'Failed to fetch unread count' });
+    }
+  });
+
+  app.post("/api/chat/mark-read/:messageId", requireAuth, requireCSRF, async (req, res) => {
+    try {
+      const message = await storage.markChatMessageAsRead(req.params.messageId);
+      if (!message) {
+        return res.status(404).json({ error: 'Message not found' });
+      }
+      res.json(message);
+    } catch (error) {
+      console.error('[CHAT] Error marking message as read:', error);
+      res.status(500).json({ error: 'Failed to mark message as read' });
+    }
+  });
+
   app.get("/api/fees", requireAuth, async (req, res) => {
     try {
       const fees = await storage.getUserFees(req.session.userId!);
@@ -4372,6 +4439,8 @@ ${urls.map(url => `  <url>
   });
 
   const httpServer = createServer(app);
+
+  setupSocketIO(httpServer);
 
   return httpServer;
 }
