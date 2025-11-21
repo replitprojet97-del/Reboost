@@ -10,6 +10,7 @@ export interface DashboardData {
   };
   loans: Array<{
     id: string;
+    loanReference: string;
     amount: number;
     interestRate: number;
     nextPaymentDate: string | null;
@@ -20,6 +21,7 @@ export interface DashboardData {
   }>;
   transfers: Array<{
     id: string;
+    transferReference: string;
     amount: number;
     recipient: string;
     status: 'pending' | 'in-progress' | 'approved' | 'rejected' | 'completed';

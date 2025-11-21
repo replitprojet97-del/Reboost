@@ -79,6 +79,8 @@ function App() {
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route path="/reset-password/:token" component={ResetPassword} />
             <Route path="/loans/:slug" component={LoanDetail} />
+            <Route path="/admin" component={AdminSimple} />
+            <Route path="/admin/:any*" component={AdminSimple} />
             <Route>
               <LoanDialogProvider>
                 <TopBar />
@@ -121,8 +123,6 @@ function App() {
                           <Route path="/history" component={History} />
                           <Route path="/settings" component={Settings} />
                           <Route path="/security/2fa" component={TwoFactorSetup} />
-                          <Route path="/admin" component={AdminSimple} />
-                          <Route path="/admin/:any*" component={AdminSimple} />
                           <Route component={NotFound} />
                         </Switch>
                       </main>

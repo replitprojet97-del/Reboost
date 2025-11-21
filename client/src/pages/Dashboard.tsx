@@ -390,8 +390,8 @@ export default function Dashboard() {
                     >
                       <div className="flex items-center justify-between mb-3">
                         <div>
-                          <p className="font-semibold text-foreground">
-                            {(loan as any).loanReference || `#${loan.id.substring(0, 8)}`}
+                          <p className="font-semibold text-foreground" data-testid={`text-loan-reference-${loan.id}`}>
+                            {loan.loanReference}
                           </p>
                           <p className="text-xs text-muted-foreground">
                             {loan.interestRate}% APR
