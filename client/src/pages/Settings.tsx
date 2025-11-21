@@ -73,15 +73,15 @@ export default function Settings() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user'] });
       toast({
-        title: t.messages.profileUpdated,
-        description: t.messages.profileUpdatedDesc,
+        title: t.settingsMessages.profileUpdated,
+        description: t.settingsMessages.profileUpdatedDesc,
       });
     },
     onError: (error: any) => {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: error.message || t.messages.errorUpdatingProfile,
+        description: error.message || t.settingsMessages.errorUpdatingProfile,
       });
     },
   });
@@ -99,15 +99,15 @@ export default function Settings() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user'] });
       toast({
-        title: t.messages.preferencesUpdated,
-        description: t.messages.preferencesUpdatedDesc,
+        title: t.settingsMessages.preferencesUpdated,
+        description: t.settingsMessages.preferencesUpdatedDesc,
       });
     },
     onError: (error: any) => {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: error.message || t.messages.errorUpdatingPreferences,
+        description: error.message || t.settingsMessages.errorUpdatingPreferences,
       });
     },
   });
@@ -124,15 +124,15 @@ export default function Settings() {
         confirmPassword: '',
       });
       toast({
-        title: t.messages.passwordChanged,
-        description: t.messages.passwordChangedDesc,
+        title: t.settingsMessages.passwordChanged,
+        description: t.settingsMessages.passwordChangedDesc,
       });
     },
     onError: (error: any) => {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: error.message || t.messages.errorChangingPassword,
+        description: error.message || t.settingsMessages.errorChangingPassword,
       });
     },
   });
@@ -155,7 +155,7 @@ export default function Settings() {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: t.messages.passwordMismatch,
+        description: t.settingsMessages.passwordMismatch,
       });
       return;
     }
@@ -175,7 +175,7 @@ export default function Settings() {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: t.messages.invalidFileType,
+        description: t.settingsMessages.invalidFileType,
       });
       return;
     }
@@ -184,7 +184,7 @@ export default function Settings() {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: t.messages.fileTooLarge,
+        description: t.settingsMessages.fileTooLarge,
       });
       return;
     }
@@ -208,21 +208,21 @@ export default function Settings() {
       });
 
       if (!response.ok) {
-        throw new Error(t.messages.errorUploadingAvatar);
+        throw new Error(t.settingsMessages.errorUploadingAvatar);
       }
 
       await queryClient.invalidateQueries({ queryKey: ['/api/user'] });
       await queryClient.refetchQueries({ queryKey: ['/api/user'] });
       
       toast({
-        title: t.messages.avatarUpdated,
-        description: t.messages.avatarUpdatedDesc,
+        title: t.settingsMessages.avatarUpdated,
+        description: t.settingsMessages.avatarUpdatedDesc,
       });
     } catch (error) {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: t.messages.errorUploadingAvatar,
+        description: t.settingsMessages.errorUploadingAvatar,
       });
     } finally {
       setIsUploadingAvatar(false);

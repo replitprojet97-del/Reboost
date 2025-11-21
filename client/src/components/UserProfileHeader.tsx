@@ -49,7 +49,7 @@ export default function UserProfileHeader() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || t.messages.errorUploadingAvatar);
+        throw new Error(error.error || t.settingsMessages.errorUploadingAvatar);
       }
 
       return await response.json();
@@ -57,8 +57,8 @@ export default function UserProfileHeader() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user'] });
       toast({
-        title: t.messages.avatarUpdated,
-        description: t.messages.avatarUpdatedDesc,
+        title: t.settingsMessages.avatarUpdated,
+        description: t.settingsMessages.avatarUpdatedDesc,
       });
       setIsUploading(false);
     },
@@ -82,7 +82,7 @@ export default function UserProfileHeader() {
       if (file.size > 5 * 1024 * 1024) {
         toast({
           title: t.common.error,
-          description: t.messages.fileTooLarge,
+          description: t.settingsMessages.fileTooLarge,
           variant: 'destructive',
         });
         return;
@@ -91,7 +91,7 @@ export default function UserProfileHeader() {
       if (!file.type.startsWith('image/')) {
         toast({
           title: t.common.error,
-          description: t.messages.invalidFileType,
+          description: t.settingsMessages.invalidFileType,
           variant: 'destructive',
         });
         return;

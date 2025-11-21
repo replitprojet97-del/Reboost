@@ -486,7 +486,7 @@ type TranslationKeys = {
     disable2FASuccessDesc: string;
     disable2FAError: string;
   };
-  messages: {
+  settingsMessages: {
     profileUpdated: string;
     profileUpdatedDesc: string;
     preferencesUpdated: string;
@@ -2712,7 +2712,7 @@ export const translations: Record<Language, TranslationKeys> = {
       disable2FASuccessDesc: '2FA désactivée avec succès',
       disable2FAError: 'Erreur lors de la désactivation 2FA',
     },
-    messages: {
+    settingsMessages: {
       profileUpdated: 'Profil mis à jour',
       profileUpdatedDesc: 'Vos informations ont été enregistrées avec succès.',
       preferencesUpdated: 'Préférences enregistrées',
