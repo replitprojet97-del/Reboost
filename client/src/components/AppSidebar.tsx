@@ -11,12 +11,11 @@ import {
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Home, CreditCard, ArrowRightLeft, History, Settings, LogOut, ShieldCheck, Users, FileText, BarChart, Building2, Mail, MessageSquare } from 'lucide-react';
+import { Home, CreditCard, ArrowRightLeft, History, Settings, LogOut, ShieldCheck, Users, FileText, BarChart, Building2, Mail, MessageSquare, TrendingUp } from 'lucide-react';
 import { useTranslations } from '@/lib/i18n';
 import { useLocation } from 'wouter';
 import { useUser, getUserInitials, getAccountTypeLabel, useUserProfilePhotoUrl } from '@/hooks/use-user';
 import { Skeleton } from '@/components/ui/skeleton';
-import logoUrl from '@assets/Logo_1762619815448.jpeg';
 import { useQuery } from '@tanstack/react-query';
 
 export default function AppSidebar() {
@@ -92,15 +91,29 @@ export default function AppSidebar() {
   return (
     <Sidebar className="border-r border-sidebar-border bg-sidebar backdrop-blur-xl">
       <SidebarContent className="px-3 py-4">
-        {/* Logo Section - Premium fintech */}
-        <div className="px-3 py-4 mb-6 flex items-center justify-center" data-testid="sidebar-logo">
-          <div className="relative">
-            <div className="absolute inset-0 bg-primary/10 blur-xl rounded-full" />
-            <img 
-              src={logoUrl} 
-              alt="Altus Finances Group Logo" 
-              className="relative w-24 h-24 object-contain"
-            />
+        {/* Logo Section - Professional Branding */}
+        <div className="px-3 py-6 mb-6" data-testid="sidebar-logo">
+          <div className="flex flex-col items-center gap-3">
+            {/* Icon with gradient background */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 blur-lg rounded-2xl" />
+              <div className="relative bg-gradient-to-br from-primary to-primary/80 p-3 rounded-2xl shadow-lg">
+                <TrendingUp className="w-8 h-8 text-primary-foreground" />
+              </div>
+            </div>
+
+            {/* Brand name with elegant typography */}
+            <div className="text-center space-y-1">
+              <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/90 to-primary/80 bg-clip-text text-transparent">
+                ALTUS
+              </h1>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest">
+                Finances Group
+              </p>
+            </div>
+
+            {/* Subtle divider */}
+            <div className="w-16 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
           </div>
         </div>
 
