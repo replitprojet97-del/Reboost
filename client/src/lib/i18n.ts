@@ -246,6 +246,8 @@ type TranslationKeys = {
     allMessages: string;
     tabUnread: string;
     tabAll: string;
+    newSingular: string;
+    newPlural: string;
     severity: {
       info: string;
       success: string;
@@ -2455,6 +2457,8 @@ export const translations: Record<Language, TranslationKeys> = {
       allMessages: 'Tous les messages',
       tabUnread: 'Non lus',
       tabAll: 'Tous',
+      newSingular: 'nouveau',
+      newPlural: 'nouveaux',
       severity: {
         info: 'Information',
         success: 'Succès',
@@ -5011,6 +5015,8 @@ export const translations: Record<Language, TranslationKeys> = {
       allMessages: 'All messages',
       tabUnread: 'Unread',
       tabAll: 'All',
+      newSingular: 'new',
+      newPlural: 'new',
       severity: {
         info: 'Information',
         success: 'Success',
@@ -7549,6 +7555,8 @@ export const translations: Record<Language, TranslationKeys> = {
       allMessages: 'Todos los mensajes',
       tabUnread: 'No leídos',
       tabAll: 'Todos',
+      newSingular: 'nuevo',
+      newPlural: 'nuevos',
       severity: {
         info: 'Información',
         success: 'Éxito',
@@ -10285,6 +10293,8 @@ export const translations: Record<Language, TranslationKeys> = {
       allMessages: 'Todas as mensagens',
       tabUnread: 'Não lidas',
       tabAll: 'Todas',
+      newSingular: 'nova',
+      newPlural: 'novas',
       severity: {
         info: 'Informação',
         success: 'Sucesso',
@@ -12713,6 +12723,8 @@ export const translations: Record<Language, TranslationKeys> = {
       allMessages: 'Tutti i messaggi',
       tabUnread: 'Non letti',
       tabAll: 'Tutti',
+      newSingular: 'nuovo',
+      newPlural: 'nuovi',
       severity: {
         info: 'Informazione',
         success: 'Successo',
@@ -15145,6 +15157,8 @@ export const translations: Record<Language, TranslationKeys> = {
       allMessages: 'Alle Nachrichten',
       tabUnread: 'Ungelesen',
       tabAll: 'Alle',
+      newSingular: 'neu',
+      newPlural: 'neue',
       severity: {
         info: 'Information',
         success: 'Erfolg',
@@ -17577,6 +17591,8 @@ export const translations: Record<Language, TranslationKeys> = {
       allMessages: 'Alle berichten',
       tabUnread: 'Ongelezen',
       tabAll: 'Alle',
+      newSingular: 'nieuw',
+      newPlural: 'nieuwe',
       severity: {
         info: 'Informatie',
         success: 'Succes',

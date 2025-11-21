@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTranslations } from '@/lib/i18n';
+import { useTranslations, useLanguage } from '@/lib/i18n';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { queryClient, apiRequest } from '@/lib/queryClient';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AlertCircle, AlertTriangle, CheckCircle, Info, Mail, MailOpen, X } from 'lucide-react';
 import { format } from 'date-fns';
-import { fr, enUS } from 'date-fns/locale';
+import { getDateLocale } from '@/lib/date-locale';
 
 interface AdminMessage {
   id: string;
@@ -105,9 +105,10 @@ export default function Messages() {
     }
   };
 
+  const { language } = useLanguage();
+  
   const formatDate = (dateString: string) => {
-    const currentLanguage = localStorage.getItem('language') || 'fr';
-    const locale = currentLanguage === 'fr' ? fr : enUS;
+    const locale = getDateLocale(language);
     return format(new Date(dateString), 'PPp', { locale });
   };
 
@@ -135,7 +136,7 @@ export default function Messages() {
           </h1>
           {unreadMessages.length > 0 && (
             <Badge variant="default" data-testid="badge-unread-count">
-              {unreadMessages.length} {unreadMessages.length === 1 ? 'nouveau' : 'nouveaux'}
+              {unreadMessages.length} {unreadMessages.length === 1 ? t.userMessages.newSingular : t.userMessages.newPlural}
             </Badge>
           )}
         </div>
@@ -255,8 +256,8 @@ export default function Messages() {
                             {message.subject}
                           </CardTitle>
                           {!message.isRead && (
-                            <Badge variant="default" className="text-xs">
-                              Nouveau
+                            <Badge variant="default" className="text-xs capitalize">
+                              {t.userMessages.newSingular}
                             </Badge>
                           )}
                         </div>

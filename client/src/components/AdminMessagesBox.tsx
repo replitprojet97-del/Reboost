@@ -6,7 +6,8 @@ import { MessageSquare, X, AlertCircle, CheckCircle, AlertTriangle, Info } from 
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useState } from "react";
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import { useLanguage } from "@/lib/i18n";
+import { getDateLocale } from "@/lib/date-locale";
 
 interface AdminMessage {
   id: string;
@@ -20,6 +21,7 @@ interface AdminMessage {
 
 export default function AdminMessagesBox() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const { language } = useLanguage();
 
   const { data: messagesResponse, isLoading } = useQuery({
     queryKey: ["/api/messages"],
@@ -105,7 +107,7 @@ export default function AdminMessagesBox() {
                     {message.subject}
                   </CardTitle>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {format(new Date(message.deliveredAt), "dd MMMM yyyy à HH:mm", { locale: fr })}
+                    {format(new Date(message.deliveredAt), "PPp", { locale: getDateLocale(language) })}
                   </p>
                 </div>
               </div>
