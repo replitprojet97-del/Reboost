@@ -30,6 +30,52 @@ interface AuthenticatedSocket extends Socket {
   userRole?: string;
 }
 
+// Presence Manager to track online users
+class PresenceManager {
+  private userSockets: Map<string, Set<string>>; // userId -> Set of socketIds
+
+  constructor() {
+    this.userSockets = new Map();
+  }
+
+  addSocket(userId: string, socketId: string): void {
+    if (!this.userSockets.has(userId)) {
+      this.userSockets.set(userId, new Set());
+    }
+    this.userSockets.get(userId)!.add(socketId);
+    console.log(`[PRESENCE] User ${userId} added socket ${socketId}. Total sockets: ${this.userSockets.get(userId)!.size}`);
+  }
+
+  removeSocket(userId: string, socketId: string): void {
+    const sockets = this.userSockets.get(userId);
+    if (sockets) {
+      sockets.delete(socketId);
+      console.log(`[PRESENCE] User ${userId} removed socket ${socketId}. Remaining sockets: ${sockets.size}`);
+      if (sockets.size === 0) {
+        this.userSockets.delete(userId);
+        console.log(`[PRESENCE] User ${userId} has no more active connections`);
+      }
+    }
+  }
+
+  isUserOnline(userId: string): boolean {
+    const sockets = this.userSockets.get(userId);
+    return sockets !== undefined && sockets.size > 0;
+  }
+
+  getAllOnlineUsers(): string[] {
+    return Array.from(this.userSockets.keys());
+  }
+
+  getOnlineStatus(userIds: string[]): Record<string, boolean> {
+    const status: Record<string, boolean> = {};
+    for (const userId of userIds) {
+      status[userId] = this.isUserOnline(userId);
+    }
+    return status;
+  }
+}
+
 // Session middleware for Socket.IO
 export function createSocketIOSessionMiddleware(
   sessionMiddleware: RequestHandler
@@ -83,14 +129,44 @@ export function setupSocketIO(
   // Apply session authentication middleware
   io.use(createSocketIOSessionMiddleware(sessionMiddleware));
 
+  // Initialize presence manager
+  const presenceManager = new PresenceManager();
+
   io.on("connection", (socket: Socket) => {
     const authSocket = socket as AuthenticatedSocket;
     const userId = authSocket.userId!;
     
     console.log(`[SOCKET.IO] Client connecté: ${socket.id} (User: ${userId})`);
 
+    // Track user presence
+    const wasOnline = presenceManager.isUserOnline(userId);
+    presenceManager.addSocket(userId, socket.id);
+    const isNowOnline = presenceManager.isUserOnline(userId);
+
     // Auto-join user's personal room for notifications
     socket.join(`user_${userId}`);
+
+    // Broadcast presence change if user just came online
+    if (!wasOnline && isNowOnline) {
+      io.emit("user_presence", { userId, isOnline: true });
+      console.log(`[PRESENCE] User ${userId} is now online`);
+    }
+
+    // Handle request for presence state
+    socket.on("get_presence_state", (userIds: string[]) => {
+      try {
+        if (!Array.isArray(userIds)) {
+          socket.emit("error", { message: "Invalid user IDs format" });
+          return;
+        }
+        const presenceState = presenceManager.getOnlineStatus(userIds);
+        socket.emit("presence_state", presenceState);
+        console.log(`[PRESENCE] Sent presence state for ${userIds.length} users to ${userId}`);
+      } catch (error) {
+        console.error('[PRESENCE] Error getting presence state:', error);
+        socket.emit("error", { message: "Failed to get presence state" });
+      }
+    });
 
     socket.on("join_room", (roomId: string) => {
       try {
@@ -233,6 +309,16 @@ export function setupSocketIO(
 
     socket.on("disconnect", () => {
       console.log(`[SOCKET.IO] Client disconnected: ${socket.id} (User: ${userId})`);
+      
+      // Update presence
+      presenceManager.removeSocket(userId, socket.id);
+      const isStillOnline = presenceManager.isUserOnline(userId);
+      
+      // Broadcast presence change if user went offline
+      if (!isStillOnline) {
+        io.emit("user_presence", { userId, isOnline: false });
+        console.log(`[PRESENCE] User ${userId} is now offline`);
+      }
     });
   });
 
