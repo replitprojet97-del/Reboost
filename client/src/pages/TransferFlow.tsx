@@ -708,24 +708,29 @@ export default function TransferFlow() {
     ];
 
     const computeVisibleSteps = () => {
-      const visibleSteps = allStepsMetadata
-        .filter(step => !step.hidden)
-        .map(step => ({
-          ...step,
-          completed: simulatedProgress > step.pauseThreshold,
-          inProgress: simulatedProgress > (step.sequence === 1 ? 0 : allStepsMetadata[step.sequence - 2].pauseThreshold) 
-                      && simulatedProgress <= step.pauseThreshold
-        }));
+      // Helper pour calculer le statut de chaque étape
+      const getStepStatus = (step: typeof allStepsMetadata[0]) => ({
+        ...step,
+        completed: simulatedProgress > step.pauseThreshold,
+        inProgress: simulatedProgress > (step.sequence === 1 ? 0 : allStepsMetadata[step.sequence - 2].pauseThreshold) 
+                    && simulatedProgress <= step.pauseThreshold
+      });
 
-      const currentStepIndex = visibleSteps.findIndex(step => step.inProgress || (!step.completed && !step.inProgress));
-      
-      if (currentStepIndex === -1) {
-        return visibleSteps.slice(-3);
+      // Step 1 et Step 2 sont TOUJOURS visibles
+      const step1 = getStepStatus(allStepsMetadata[0]); // Initialisation
+      const step2 = getStepStatus(allStepsMetadata[1]); // Contrôle KYC
+
+      // La 3ème position change selon la progression
+      let thirdStep;
+      if (simulatedProgress <= 33) {
+        thirdStep = getStepStatus(allStepsMetadata[2]); // Step 3: Vérification des fonds
+      } else if (simulatedProgress <= 50) {
+        thirdStep = getStepStatus(allStepsMetadata[3]); // Step 4: Validation bancaire
+      } else {
+        thirdStep = getStepStatus(allStepsMetadata[4]); // Step 5: Finalisation
       }
 
-      const startIndex = Math.max(0, Math.min(currentStepIndex - 1, visibleSteps.length - 3));
-      
-      return visibleSteps.slice(startIndex, startIndex + 3);
+      return [step1, step2, thirdStep];
     };
 
     const progressSteps = computeVisibleSteps();
