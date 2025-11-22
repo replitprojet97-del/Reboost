@@ -16,7 +16,7 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 41069
+localPort = 34363
 externalPort = 3000
 
 [env]
@@ -49,3 +49,8 @@ waitForPort = 5000
 [agent]
 integrations = ["javascript_mem_db:1.0.0", "javascript_database:1.0.0", "sendgrid:1.0.0"]
 expertMode = true
+
+[userenv]
+
+[userenv.development]
+PORT = "5000"
