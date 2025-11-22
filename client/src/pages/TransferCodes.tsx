@@ -9,7 +9,7 @@ import { useTranslations } from '@/lib/i18n';
 
 // Helper function to translate code contexts
 function translateCodeContext(codeContext: string | null | undefined, t: ReturnType<typeof useTranslations>): string {
-  if (!codeContext) return t.transferFlow.progress.validationCodeLabel || 'Code de validation';
+  if (!codeContext) return t.transferFlow.progress.validationCodeLabel;
   
   // Check if it's a translation key
   const key = codeContext as keyof typeof t.transferFlow.progress.codeContexts;

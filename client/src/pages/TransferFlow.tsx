@@ -17,7 +17,7 @@ import CircularTransferProgress from '@/components/CircularTransferProgress';
 
 // Helper function to translate code contexts
 function translateCodeContext(codeContext: string | null | undefined, t: ReturnType<typeof useTranslations>): string {
-  if (!codeContext) return 'Code de validation';
+  if (!codeContext) return t.transferFlow.progress.validationCodeLabel;
   
   // Check if it's a translation key
   const key = codeContext as keyof typeof t.transferFlow.progress.codeContexts;
@@ -207,8 +207,8 @@ export default function TransferFlow() {
       if (error.message === 'SESSION_EXPIRED') {
         toast({
           variant: 'destructive',
-          title: t.transferFlow.toast.error,
-          description: 'Votre session a expiré. Vous allez être redirigé vers la page de connexion.',
+          title: t.auth.sessionExpired,
+          description: t.auth.sessionExpiredMessage,
           duration: 5000,
         });
         setTimeout(() => {
@@ -371,8 +371,8 @@ export default function TransferFlow() {
     if (!selectedLoan) {
       toast({
         variant: 'destructive',
-        title: t.transferFlow.toast.error,
-        description: 'Aucun prêt disponible pour transfert. Veuillez vous assurer que votre prêt est approuvé et que les fonds sont disponibles.',
+        title: t.transferFlow.toast.noActiveLoan,
+        description: t.transferFlow.alerts.noLoansDescription,
       });
       return;
     }
@@ -452,11 +452,11 @@ export default function TransferFlow() {
                 {availableLoans && availableLoans.length > 1 && (
                   <div className="space-y-2">
                     <Label htmlFor="loan" className="text-sm font-medium">
-                      Sélectionner le prêt
+                      {t.transferFlow.form.selectExternalAccount}
                     </Label>
                     <Select value={selectedLoanId} onValueChange={setSelectedLoanId}>
                       <SelectTrigger data-testid="select-loan" className="h-12">
-                        <SelectValue placeholder="Choisir un prêt" />
+                        <SelectValue placeholder={t.transferFlow.chooseLoan} />
                       </SelectTrigger>
                       <SelectContent>
                         {availableLoans.map((loan) => (
