@@ -1,6 +1,5 @@
 import { storage } from './storage';
 import { type InsertNotification, type InsertAdminMessage } from '@shared/schema';
-import { getNotificationTranslation, type Language } from './notification-translations';
 
 export type NotificationType =
   | 'loan_request'
@@ -33,16 +32,6 @@ export interface CreateNotificationParams {
   metadata?: any;
 }
 
-async function getUserLanguage(userId: string): Promise<Language> {
-  try {
-    const user = await storage.getUserById(userId);
-    const lang = user?.language as Language;
-    return lang && ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'].includes(lang) ? lang : 'fr';
-  } catch (error) {
-    console.error('Error getting user language:', error);
-    return 'fr';
-  }
-}
 
 export async function createUserNotification(params: CreateNotificationParams) {
   const notification: InsertNotification = {
@@ -59,251 +48,197 @@ export async function createUserNotification(params: CreateNotificationParams) {
 }
 
 export async function notifyLoanApproved(userId: string, loanId: string, amount: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('loan_approved', language);
-  
   return await createUserNotification({
     userId,
     type: 'loan_approved',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'success',
     metadata: { loanId, amount },
   });
 }
 
 export async function notifyLoanRejected(userId: string, loanId: string, reason: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('loan_rejected', language);
-  
   return await createUserNotification({
     userId,
     type: 'loan_rejected',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'error',
     metadata: { loanId, reason },
   });
 }
 
 export async function notifyLoanFundsAvailable(userId: string, loanId: string, amount: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('loan_funds_available', language);
-  
   return await createUserNotification({
     userId,
     type: 'loan_funds_available',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'success',
     metadata: { loanId, amount },
   });
 }
 
 export async function notifyLoanDisbursed(userId: string, loanId: string, amount: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('loan_disbursed', language);
-  
   return await createUserNotification({
     userId,
     type: 'loan_disbursed',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'success',
     metadata: { loanId, amount },
   });
 }
 
 export async function notifyTransferCompleted(userId: string, transferId: string, amount: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('transfer_completed', language);
-  
   return await createUserNotification({
     userId,
     type: 'transfer_completed',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'success',
     metadata: { transferId, amount },
   });
 }
 
 export async function notifyTransferApproved(userId: string, transferId: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('transfer_approved', language);
-  
   return await createUserNotification({
     userId,
     type: 'transfer_approved',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'success',
     metadata: { transferId },
   });
 }
 
 export async function notifyTransferSuspended(userId: string, transferId: string, reason: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('transfer_suspended', language);
-  
   return await createUserNotification({
     userId,
     type: 'transfer_suspended',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'warning',
     metadata: { transferId, reason },
   });
 }
 
 export async function notifyCodeIssued(userId: string, transferId: string, sequence: number) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('code_issued', language);
-  
   return await createUserNotification({
     userId,
     type: 'code_issued',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'info',
     metadata: { transferId, sequence },
   });
 }
 
 export async function notifyKycApproved(userId: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('kyc_approved', language);
-  
   return await createUserNotification({
     userId,
     type: 'kyc_approved',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'success',
   });
 }
 
 export async function notifyKycRejected(userId: string, reason: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('kyc_rejected', language);
-  
   return await createUserNotification({
     userId,
     type: 'kyc_rejected',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'error',
     metadata: { reason },
   });
 }
 
 export async function notifyFeeAdded(userId: string, feeId: string, amount: string, reason: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('fee_added', language);
-  
   return await createUserNotification({
     userId,
     type: 'fee_added',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'warning',
     metadata: { feeId, amount, reason },
   });
 }
 
 export async function notifyAccountStatusChanged(userId: string, newStatus: string, reason?: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('account_status_changed', language);
-  
   return await createUserNotification({
     userId,
     type: 'account_status_changed',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: newStatus === 'active' ? 'success' : 'warning',
     metadata: { newStatus, reason },
   });
 }
 
 export async function notifyLoanRequest(userId: string, loanId: string, amount: string, loanType: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('loan_request', language);
-  
   return await createUserNotification({
     userId,
     type: 'loan_request',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'success',
     metadata: { loanId, loanType, amount },
   });
 }
 
 export async function notifyLoanUnderReview(userId: string, loanId: string, amount: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('loan_under_review', language);
-  
   return await createUserNotification({
     userId,
     type: 'loan_under_review',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'info',
     metadata: { loanId, amount },
   });
 }
 
 export async function notifyLoanContractGenerated(userId: string, loanId: string, amount: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('loan_contract_generated', language);
-  
   return await createUserNotification({
     userId,
     type: 'loan_contract_generated',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'success',
     metadata: { loanId, amount },
   });
 }
 
 export async function notifyLoanContractSigned(userId: string, loanId: string, amount: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('loan_contract_signed', language);
-  
   return await createUserNotification({
     userId,
     type: 'loan_contract_signed',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'success',
     metadata: { loanId, amount },
   });
 }
 
 export async function notifyAdminMessage(userId: string, subject: string, severity: 'info' | 'success' | 'warning' | 'error' = 'info') {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('admin_message', language, { subject });
-  
   return await createUserNotification({
     userId,
     type: 'admin_message_sent',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity,
     metadata: { subject },
   });
 }
 
 export async function notifyTransferInitiated(userId: string, transferId: string, amount: string, recipientName: string) {
-  const language = await getUserLanguage(userId);
-  const translation = getNotificationTranslation('transfer_initiated', language);
-  
   return await createUserNotification({
     userId,
     type: 'transfer_initiated',
-    title: translation.title,
-    message: translation.message,
+    title: '',
+    message: '',
     severity: 'success',
     metadata: { transferId, amount, recipientName },
   });
