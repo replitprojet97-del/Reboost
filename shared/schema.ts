@@ -192,10 +192,12 @@ export const adminMessages = pgTable("admin_messages", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   userId: varchar("user_id").notNull(),
   transferId: varchar("transfer_id"),
+  type: text("type"),
   subject: text("subject").notNull(),
   content: text("content").notNull(),
   severity: text("severity").notNull().default("info"),
   isRead: boolean("is_read").notNull().default(false),
+  metadata: json("metadata"),
   deliveredAt: timestamp("delivered_at").notNull().default(sql`now()`),
   readAt: timestamp("read_at"),
 });

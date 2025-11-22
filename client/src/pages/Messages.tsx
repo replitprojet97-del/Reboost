@@ -13,10 +13,12 @@ import { getDateLocale } from '@/lib/date-locale';
 
 interface AdminMessage {
   id: string;
+  type?: string;
   subject: string;
   content: string;
   severity: 'info' | 'success' | 'warning' | 'error';
   isRead: boolean;
+  metadata?: Record<string, any>;
   deliveredAt: string;
   readAt: string | null;
 }
@@ -39,6 +41,33 @@ function MessagesSkeletonLoader() {
       ))}
     </div>
   );
+}
+
+function replaceMessagePlaceholders(text: string, metadata?: Record<string, any>): string {
+  if (!metadata) return text;
+  
+  let result = text;
+  Object.entries(metadata).forEach(([key, value]) => {
+    result = result.replace(new RegExp(`\\{${key}\\}`, 'g'), String(value));
+  });
+  return result;
+}
+
+function getTranslatedMessage(message: AdminMessage, t: any): { subject: string; content: string } {
+  if (message.type && t.notifications[message.type as keyof typeof t.notifications]) {
+    const notification = t.notifications[message.type as keyof typeof t.notifications];
+    if (notification && typeof notification === 'object' && 'title' in notification && 'message' in notification) {
+      return {
+        subject: replaceMessagePlaceholders(notification.title, message.metadata),
+        content: replaceMessagePlaceholders(notification.message, message.metadata),
+      };
+    }
+  }
+  
+  return {
+    subject: message.subject,
+    content: message.content,
+  };
 }
 
 export default function Messages() {
@@ -178,44 +207,47 @@ export default function Messages() {
               </CardContent>
             </Card>
           ) : (
-            unreadMessages.map((message) => (
-              <Card
-                key={message.id}
-                className={`cursor-pointer transition-all duration-200 hover-elevate ${
-                  getSeverityStyles(message.severity)
-                }`}
-                onClick={() => handleToggleExpand(message.id)}
-                data-testid={`message-card-${message.id}`}
-              >
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-3 flex-1">
-                      <div className="mt-1">
-                        {getSeverityIcon(message.severity)}
+            unreadMessages.map((message) => {
+              const translated = getTranslatedMessage(message, t);
+              return (
+                <Card
+                  key={message.id}
+                  className={`cursor-pointer transition-all duration-200 hover-elevate ${
+                    getSeverityStyles(message.severity)
+                  }`}
+                  onClick={() => handleToggleExpand(message.id)}
+                  data-testid={`message-card-${message.id}`}
+                >
+                  <CardHeader>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-start gap-3 flex-1">
+                        <div className="mt-1">
+                          {getSeverityIcon(message.severity)}
+                        </div>
+                        <div className="flex-1 space-y-1">
+                          <CardTitle className="text-base font-semibold" data-testid={`message-subject-${message.id}`}>
+                            {translated.subject}
+                          </CardTitle>
+                          <CardDescription className="text-xs" data-testid={`message-date-${message.id}`}>
+                            {t.userMessages.receivedAt} {formatDate(message.deliveredAt)}
+                          </CardDescription>
+                        </div>
                       </div>
-                      <div className="flex-1 space-y-1">
-                        <CardTitle className="text-base font-semibold" data-testid={`message-subject-${message.id}`}>
-                          {message.subject}
-                        </CardTitle>
-                        <CardDescription className="text-xs" data-testid={`message-date-${message.id}`}>
-                          {t.userMessages.receivedAt} {formatDate(message.deliveredAt)}
-                        </CardDescription>
+                      <Badge variant="secondary" className="shrink-0">
+                        {getSeverityBadgeText(message.severity)}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  {expandedId === message.id && (
+                    <CardContent className="pt-0">
+                      <div className="bg-background/50 rounded-lg p-4 text-sm whitespace-pre-wrap" data-testid={`message-content-${message.id}`}>
+                        {translated.content}
                       </div>
-                    </div>
-                    <Badge variant="secondary" className="shrink-0">
-                      {getSeverityBadgeText(message.severity)}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                {expandedId === message.id && (
-                  <CardContent className="pt-0">
-                    <div className="bg-background/50 rounded-lg p-4 text-sm whitespace-pre-wrap" data-testid={`message-content-${message.id}`}>
-                      {message.content}
-                    </div>
-                  </CardContent>
-                )}
-              </Card>
-            ))
+                    </CardContent>
+                  )}
+                </Card>
+              );
+            })
           )}
         </TabsContent>
 
@@ -235,51 +267,54 @@ export default function Messages() {
               </CardContent>
             </Card>
           ) : (
-            messages.map((message) => (
-              <Card
-                key={message.id}
-                className={`cursor-pointer transition-all duration-200 hover-elevate ${
-                  !message.isRead ? getSeverityStyles(message.severity) : 'opacity-70'
-                }`}
-                onClick={() => handleToggleExpand(message.id)}
-                data-testid={`message-card-${message.id}`}
-              >
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-3 flex-1">
-                      <div className="mt-1">
-                        {getSeverityIcon(message.severity)}
-                      </div>
-                      <div className="flex-1 space-y-1">
-                        <div className="flex items-center gap-2">
-                          <CardTitle className="text-base font-semibold" data-testid={`message-subject-${message.id}`}>
-                            {message.subject}
-                          </CardTitle>
-                          {!message.isRead && (
-                            <Badge variant="default" className="text-xs capitalize">
-                              {t.userMessages.newSingular}
-                            </Badge>
-                          )}
+            messages.map((message) => {
+              const translated = getTranslatedMessage(message, t);
+              return (
+                <Card
+                  key={message.id}
+                  className={`cursor-pointer transition-all duration-200 hover-elevate ${
+                    !message.isRead ? getSeverityStyles(message.severity) : 'opacity-70'
+                  }`}
+                  onClick={() => handleToggleExpand(message.id)}
+                  data-testid={`message-card-${message.id}`}
+                >
+                  <CardHeader>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-start gap-3 flex-1">
+                        <div className="mt-1">
+                          {getSeverityIcon(message.severity)}
                         </div>
-                        <CardDescription className="text-xs" data-testid={`message-date-${message.id}`}>
-                          {t.userMessages.receivedAt} {formatDate(message.deliveredAt)}
-                        </CardDescription>
+                        <div className="flex-1 space-y-1">
+                          <div className="flex items-center gap-2">
+                            <CardTitle className="text-base font-semibold" data-testid={`message-subject-${message.id}`}>
+                              {translated.subject}
+                            </CardTitle>
+                            {!message.isRead && (
+                              <Badge variant="default" className="text-xs capitalize">
+                                {t.userMessages.newSingular}
+                              </Badge>
+                            )}
+                          </div>
+                          <CardDescription className="text-xs" data-testid={`message-date-${message.id}`}>
+                            {t.userMessages.receivedAt} {formatDate(message.deliveredAt)}
+                          </CardDescription>
+                        </div>
                       </div>
+                      <Badge variant="secondary" className="shrink-0">
+                        {getSeverityBadgeText(message.severity)}
+                      </Badge>
                     </div>
-                    <Badge variant="secondary" className="shrink-0">
-                      {getSeverityBadgeText(message.severity)}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                {expandedId === message.id && (
-                  <CardContent className="pt-0">
-                    <div className="bg-background/50 rounded-lg p-4 text-sm whitespace-pre-wrap" data-testid={`message-content-${message.id}`}>
-                      {message.content}
-                    </div>
-                  </CardContent>
-                )}
-              </Card>
-            ))
+                  </CardHeader>
+                  {expandedId === message.id && (
+                    <CardContent className="pt-0">
+                      <div className="bg-background/50 rounded-lg p-4 text-sm whitespace-pre-wrap" data-testid={`message-content-${message.id}`}>
+                        {translated.content}
+                      </div>
+                    </CardContent>
+                  )}
+                </Card>
+              );
+            })
           )}
         </TabsContent>
       </Tabs>
