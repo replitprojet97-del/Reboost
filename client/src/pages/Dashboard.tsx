@@ -24,8 +24,6 @@ import { LoanRequestModal } from '@/components/LoanRequestModal';
 import { SignedContractUpload } from '@/components/SignedContractUpload';
 import { useState } from 'react';
 import { DashboardCard, SectionTitle, UserStat } from '@/components/fintech';
-import NotificationsBox from '@/components/NotificationsBox';
-import AdminMessagesBox from '@/components/AdminMessagesBox';
 
 function DashboardSkeleton() {
   return (
@@ -152,8 +150,6 @@ export default function Dashboard() {
           </p>
         </div>
 
-        {/* Admin Messages */}
-        <AdminMessagesBox />
 
         {/* Balance Hero Card - Fintech Premium */}
         <DashboardCard className="bg-gradient-to-br from-primary/10 via-background to-background border-primary/20">
@@ -246,9 +242,6 @@ export default function Dashboard() {
             </Button>
           </Link>
         </div>
-
-        {/* Messages Admin Box */}
-        <NotificationsBox />
 
         {/* Analytics Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
