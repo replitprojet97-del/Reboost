@@ -10,8 +10,10 @@ import { queryClient, apiRequest, clearCsrfToken } from '@/lib/queryClient';
 import { Loader2, Shield, AlertCircle, CheckCircle2 } from 'lucide-react';
 import SEO from '@/components/SEO';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useTranslations } from '@/lib/i18n';
 
 export default function AdminSetup2FA() {
+  const t = useTranslations();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [verificationCode, setVerificationCode] = useState('');
@@ -23,13 +25,13 @@ export default function AdminSetup2FA() {
   useEffect(() => {
     if (!userId) {
       toast({
-        title: 'Erreur',
-        description: 'Session expirée. Veuillez vous reconnecter.',
+        title: t.common.error,
+        description: t.twoFactorAuth.admin.sessionExpired,
         variant: 'destructive',
       });
       setLocation('/auth');
     }
-  }, [userId, setLocation, toast]);
+  }, [userId, setLocation, toast, t]);
 
   // Récupérer le QR code et le secret
   const { data: setupData, isLoading: isLoadingSetup, error: setupError, isError } = useQuery({
@@ -42,7 +44,7 @@ export default function AdminSetup2FA() {
       
       // Si le 2FA est déjà configuré, lancer une erreur spécifique
       if (data.code === 'ALREADY_CONFIGURED') {
-        throw new Error(data.message || '2FA déjà configuré');
+        throw new Error(data.message || t.twoFactorAuth.admin.alreadyConfigured);
       }
       
       return data;
@@ -67,16 +69,16 @@ export default function AdminSetup2FA() {
     onSuccess: (data) => {
       clearCsrfToken();
       toast({
-        title: 'Succès',
-        description: '2FA configuré avec succès. Connexion en cours...',
+        title: t.twoFactorAuth.admin.configSuccessTitle,
+        description: t.twoFactorAuth.admin.configSuccessMessage,
       });
       queryClient.invalidateQueries({ queryKey: ['/api/user'] });
       setLocation('/admin');
     },
     onError: (error: any) => {
       toast({
-        title: 'Erreur',
-        description: error.message || 'Code invalide. Veuillez réessayer.',
+        title: t.twoFactorAuth.admin.invalidCodeTitle,
+        description: error.message || t.twoFactorAuth.admin.invalidCodeMessage,
         variant: 'destructive',
       });
       setVerificationCode('');
@@ -97,8 +99,8 @@ export default function AdminSetup2FA() {
   return (
     <>
       <SEO 
-        title="Configuration 2FA Admin | Altus Finances Group"
-        description="Configuration de l'authentification à deux facteurs pour les administrateurs"
+        title={t.seo.adminSetup2FA.title}
+        description={t.seo.adminSetup2FA.description}
       />
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
         <Card className="w-full max-w-2xl">
@@ -108,9 +110,9 @@ export default function AdminSetup2FA() {
                 <Shield className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <CardTitle>Configuration 2FA Administrateur</CardTitle>
+                <CardTitle>{t.twoFactorAuth.admin.title}</CardTitle>
                 <CardDescription className="mt-1">
-                  Sécurité obligatoire pour tous les administrateurs
+                  {t.twoFactorAuth.admin.subtitle}
                 </CardDescription>
               </div>
             </div>
@@ -119,7 +121,7 @@ export default function AdminSetup2FA() {
             <Alert>
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                L'authentification à deux facteurs (2FA) est <strong>obligatoire</strong> pour tous les comptes administrateurs afin de protéger les données sensibles.
+                {t.twoFactorAuth.admin.alertMessage}
               </AlertDescription>
             </Alert>
 
@@ -132,21 +134,21 @@ export default function AdminSetup2FA() {
                 <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>
-                    <strong>Configuration impossible</strong>
+                    <strong>{t.twoFactorAuth.admin.errorConfigTitle}</strong>
                     <p className="mt-2">
-                      {(setupError as any)?.message || 'Erreur lors de la configuration 2FA. Le 2FA est peut-être déjà configuré pour ce compte.'}
+                      {(setupError as any)?.message || t.twoFactorAuth.admin.errorConfigMessage}
                     </p>
                   </AlertDescription>
                 </Alert>
                 
                 <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
                   <p className="text-sm text-blue-900 dark:text-blue-100 mb-3">
-                    <strong>Solutions possibles :</strong>
+                    <strong>{t.twoFactorAuth.admin.solutionsTitle}</strong>
                   </p>
                   <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-2 list-disc list-inside">
-                    <li>Utilisez votre application d'authentification existante (Google Authenticator, Authy, etc.)</li>
-                    <li>Si vous avez perdu l'accès, connectez-vous avec votre code 2FA actuel et reconfigurez dans les paramètres</li>
-                    <li>En dernier recours, contactez un super-administrateur pour réinitialiser votre 2FA</li>
+                    <li>{t.twoFactorAuth.admin.solution1}</li>
+                    <li>{t.twoFactorAuth.admin.solution2}</li>
+                    <li>{t.twoFactorAuth.admin.solution3}</li>
                   </ul>
                 </div>
                 
@@ -157,7 +159,7 @@ export default function AdminSetup2FA() {
                     className="flex-1"
                     data-testid="button-back-to-login-error"
                   >
-                    Retour à la connexion
+                    {t.twoFactorAuth.login.backToLogin}
                   </Button>
                 </div>
               </div>
@@ -170,9 +172,9 @@ export default function AdminSetup2FA() {
                       1
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-lg">Téléchargez Google Authenticator</h3>
+                      <h3 className="font-semibold text-lg">{t.twoFactorAuth.admin.step1Title}</h3>
                       <p className="text-sm text-muted-foreground mt-1">
-                        Installez l'application Google Authenticator sur votre smartphone :
+                        {t.twoFactorAuth.admin.step1Description}
                       </p>
                       <div className="flex gap-3 mt-2">
                         <a
@@ -181,7 +183,7 @@ export default function AdminSetup2FA() {
                           rel="noopener noreferrer"
                           className="text-sm text-primary hover:underline"
                         >
-                          Android (Play Store)
+                          {t.twoFactorAuth.admin.androidLink}
                         </a>
                         <span className="text-muted-foreground">•</span>
                         <a
@@ -190,7 +192,7 @@ export default function AdminSetup2FA() {
                           rel="noopener noreferrer"
                           className="text-sm text-primary hover:underline"
                         >
-                          iOS (App Store)
+                          {t.twoFactorAuth.admin.iosLink}
                         </a>
                       </div>
                     </div>
@@ -201,7 +203,7 @@ export default function AdminSetup2FA() {
                       2
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-lg mb-3">Scannez le code QR</h3>
+                      <h3 className="font-semibold text-lg mb-3">{t.twoFactorAuth.admin.step2Title}</h3>
                       {setupData?.qrCode ? (
                         <div className="bg-white p-6 rounded-lg inline-block border-2 border-gray-200">
                           <img 
@@ -217,7 +219,7 @@ export default function AdminSetup2FA() {
                       )}
                       
                       <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                        <p className="text-xs text-muted-foreground mb-1">Code de secours (si le QR ne fonctionne pas) :</p>
+                        <p className="text-xs text-muted-foreground mb-1">{t.twoFactorAuth.admin.backupCodeLabel}</p>
                         <code className="text-sm font-mono break-all">{secret || '...'}</code>
                       </div>
                     </div>
@@ -228,10 +230,10 @@ export default function AdminSetup2FA() {
                       3
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-lg mb-3">Entrez le code généré</h3>
+                      <h3 className="font-semibold text-lg mb-3">{t.twoFactorAuth.admin.step3Title}</h3>
                       <form onSubmit={handleVerify} className="space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="code">Code de vérification (6 chiffres)</Label>
+                          <Label htmlFor="code">{t.twoFactorAuth.admin.verificationCodeLabel}</Label>
                           <Input
                             id="code"
                             type="text"
@@ -255,12 +257,12 @@ export default function AdminSetup2FA() {
                           {verifyMutation.isPending ? (
                             <>
                               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              Activation en cours...
+                              {t.twoFactorAuth.admin.activating}
                             </>
                           ) : (
                             <>
                               <CheckCircle2 className="mr-2 h-4 w-4" />
-                              Activer le 2FA et se connecter
+                              {t.twoFactorAuth.admin.activateAndLogin}
                             </>
                           )}
                         </Button>
@@ -279,7 +281,7 @@ export default function AdminSetup2FA() {
                 className="w-full"
                 data-testid="button-back-to-login"
               >
-                Retour à la connexion
+                {t.twoFactorAuth.login.backToLogin}
               </Button>
             </div>
           </CardContent>
