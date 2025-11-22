@@ -162,14 +162,14 @@ export default function Settings() {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: error.message || 'Erreur lors de la configuration 2FA',
+        description: error.message || t.twoFactorAuth.setup.errorConfigMessage,
       });
     },
   });
 
   const verify2FAMutation = useMutation({
     mutationFn: async (code: string) => {
-      const response = await apiRequest('POST', '/api/2fa/verify', { token: code });
+      const response = await apiRequest('POST', '/api/2fa/verify', { token: code, secret: twoFactorData.secret });
       return response.json();
     },
     onSuccess: () => {
@@ -181,15 +181,15 @@ export default function Settings() {
         showSetup: false,
       });
       toast({
-        title: 'Authentification à deux facteurs activée',
-        description: 'Votre compte est maintenant protégé par l\'authentification à deux facteurs',
+        title: t.twoFactorAuth.settings.enabled,
+        description: t.twoFactorAuth.settings.enabledMessage,
       });
     },
     onError: (error: any) => {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: error.message || 'Code de vérification invalide',
+        description: error.message || t.twoFactorAuth.settings.invalidCode,
       });
     },
   });
@@ -202,15 +202,15 @@ export default function Settings() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user'] });
       toast({
-        title: 'Authentification à deux facteurs désactivée',
-        description: 'L\'authentification à deux facteurs a été désactivée pour votre compte',
+        title: t.twoFactorAuth.settings.disabled,
+        description: t.twoFactorAuth.settings.disabledMessage,
       });
     },
     onError: (error: any) => {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: error.message || 'Erreur lors de la désactivation 2FA',
+        description: error.message || t.twoFactorAuth.disable.errorMessage,
       });
     },
   });
@@ -249,7 +249,7 @@ export default function Settings() {
       toast({
         variant: 'destructive',
         title: t.common.error,
-        description: 'Veuillez entrer un code à 6 chiffres',
+        description: t.twoFactorAuth.setup.invalidCodeMessage,
       });
       return;
     }

@@ -674,27 +674,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         });
       }
 
-      // 2FA OBLIGATOIRE pour les admins
-      if (user.role === 'admin') {
-        if (!user.twoFactorEnabled) {
-          // Admin n'a pas encore configuré le 2FA - le forcer à le configurer
-          return res.json({
-            message: 'Configuration du 2FA requise pour les administrateurs',
-            requiresAdmin2FASetup: true,
-            userId: user.id,
-            email: user.email
-          });
-        } else {
-          // Admin a déjà le 2FA - demander le code
-          return res.json({
-            message: 'Veuillez entrer votre code d\'authentification à deux facteurs',
-            requires2FA: true,
-            userId: user.id
-          });
-        }
-      }
-
-      // Pour les utilisateurs normaux, 2FA optionnel
+      // 2FA optionnel pour tous les utilisateurs (admins et utilisateurs normaux)
       if (user.twoFactorEnabled) {
         return res.json({
           message: 'Veuillez entrer votre code d\'authentification à deux facteurs',

@@ -9,8 +9,10 @@ import { useToast } from '@/hooks/use-toast';
 import { queryClient, apiRequest, clearCsrfToken } from '@/lib/queryClient';
 import { Loader2, Shield } from 'lucide-react';
 import SEO from '@/components/SEO';
+import { useTranslations } from '@/lib/i18n';
 
 export default function VerifyTwoFactor() {
+  const t = useTranslations();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [verificationCode, setVerificationCode] = useState('');
@@ -28,16 +30,16 @@ export default function VerifyTwoFactor() {
     onSuccess: (data) => {
       clearCsrfToken();
       toast({
-        title: 'Connexion réussie',
-        description: 'Bienvenue sur votre compte',
+        title: t.twoFactorAuth.login.successTitle,
+        description: t.twoFactorAuth.login.successMessage,
       });
       queryClient.invalidateQueries({ queryKey: ['/api/user'] });
       setLocation('/dashboard');
     },
     onError: (error: any) => {
       toast({
-        title: 'Erreur',
-        description: error.message || 'Code invalide',
+        title: t.twoFactorAuth.login.errorTitle,
+        description: error.message || t.twoFactorAuth.login.errorMessage,
         variant: 'destructive',
       });
       setVerificationCode('');
@@ -59,24 +61,24 @@ export default function VerifyTwoFactor() {
   return (
     <>
       <SEO 
-        title="Vérification 2FA | Altus Finances Group"
-        description="Vérification à deux facteurs"
+        title={t.seo.verifyTwoFactor.title}
+        description={t.seo.verifyTwoFactor.description}
       />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
               <Shield className="h-6 w-6 text-primary" />
-              <CardTitle>Vérification à deux facteurs</CardTitle>
+              <CardTitle>{t.twoFactorAuth.login.title}</CardTitle>
             </div>
             <CardDescription>
-              Entrez le code de votre application Google Authenticator
+              {t.twoFactorAuth.login.description}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleVerify} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="code">Code de vérification</Label>
+                <Label htmlFor="code">{t.twoFactorAuth.login.enterCode}</Label>
                 <Input
                   id="code"
                   type="text"
@@ -100,7 +102,7 @@ export default function VerifyTwoFactor() {
                 {verifyMutation.isPending && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 )}
-                Vérifier
+                {t.twoFactorAuth.login.verify}
               </Button>
 
               <Button
@@ -110,7 +112,7 @@ export default function VerifyTwoFactor() {
                 className="w-full"
                 data-testid="button-back"
               >
-                Retour à la connexion
+                {t.twoFactorAuth.login.backToLogin}
               </Button>
             </form>
           </CardContent>

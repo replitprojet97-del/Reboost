@@ -35,16 +35,16 @@ export default function TwoFactorSetup() {
     },
     onSuccess: () => {
       toast({
-        title: 'Succès',
-        description: 'Authentification à deux facteurs activée avec succès',
+        title: t.twoFactorAuth.setup.successTitle,
+        description: t.twoFactorAuth.setup.successMessage,
       });
       queryClient.invalidateQueries({ queryKey: ['/api/user'] });
       setLocation('/settings');
     },
     onError: (error: any) => {
       toast({
-        title: 'Erreur',
-        description: error.message || 'Code invalide',
+        title: t.twoFactorAuth.setup.errorTitle,
+        description: error.message || t.twoFactorAuth.setup.errorMessage,
         variant: 'destructive',
       });
     },
@@ -76,10 +76,10 @@ export default function TwoFactorSetup() {
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
               <Shield className="h-6 w-6 text-primary" />
-              <CardTitle>Configurer l'authentification à deux facteurs</CardTitle>
+              <CardTitle>{t.twoFactorAuth.setup.title}</CardTitle>
             </div>
             <CardDescription>
-              Renforcez la sécurité de votre compte avec Google Authenticator
+              {t.twoFactorAuth.setup.description}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -88,10 +88,10 @@ export default function TwoFactorSetup() {
                 <Smartphone className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
                 <div className="space-y-1">
                   <p className="font-medium text-sm text-blue-900 dark:text-blue-100">
-                    Étape 1 : Installez Google Authenticator
+                    {t.twoFactorAuth.setup.step1}
                   </p>
                   <p className="text-sm text-blue-700 dark:text-blue-300">
-                    Téléchargez l'application sur votre smartphone (iOS ou Android)
+                    {t.twoFactorAuth.setup.step1Description}
                   </p>
                 </div>
               </div>
@@ -100,10 +100,10 @@ export default function TwoFactorSetup() {
                 <KeyRound className="h-5 w-5 text-purple-600 dark:text-purple-400 mt-0.5" />
                 <div className="space-y-3 flex-1">
                   <p className="font-medium text-sm text-purple-900 dark:text-purple-100">
-                    Étape 2 : Scannez le QR code
+                    {t.twoFactorAuth.setup.step2}
                   </p>
                   <p className="text-sm text-purple-700 dark:text-purple-300 mb-3">
-                    Ouvrez Google Authenticator et scannez ce QR code
+                    {t.twoFactorAuth.setup.step2Description}
                   </p>
                   {setupData?.qrCode && (
                     <div className="flex justify-center p-4 bg-white dark:bg-gray-800 rounded-lg border">
@@ -117,7 +117,7 @@ export default function TwoFactorSetup() {
                   )}
                   <div className="mt-3 p-3 bg-gray-100 dark:bg-gray-800 rounded border">
                     <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">
-                      Ou entrez cette clé manuellement :
+                      {t.twoFactorAuth.setup.cantScanQR}
                     </p>
                     <code className="text-sm font-mono break-all text-gray-900 dark:text-gray-100" data-testid="text-secret">
                       {secret}
@@ -131,13 +131,13 @@ export default function TwoFactorSetup() {
                   <Shield className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5" />
                   <div className="space-y-3 flex-1">
                     <p className="font-medium text-sm text-green-900 dark:text-green-100">
-                      Étape 3 : Vérifiez avec le code
+                      {t.twoFactorAuth.setup.step3}
                     </p>
                     <p className="text-sm text-green-700 dark:text-green-300">
-                      Entrez le code à 6 chiffres affiché dans l'application
+                      {t.twoFactorAuth.setup.step3Description}
                     </p>
                     <div className="space-y-2">
-                      <Label htmlFor="code">Code de vérification</Label>
+                      <Label htmlFor="code">{t.twoFactorAuth.setup.enterCode}</Label>
                       <Input
                         id="code"
                         type="text"
@@ -161,7 +161,7 @@ export default function TwoFactorSetup() {
                     className="flex-1"
                     data-testid="button-cancel"
                   >
-                    Annuler
+                    {t.twoFactorAuth.setup.cancel}
                   </Button>
                   <Button
                     type="submit"
@@ -172,7 +172,7 @@ export default function TwoFactorSetup() {
                     {verifyMutation.isPending && (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     )}
-                    Activer la vérification en deux étapes
+                    {t.twoFactorAuth.setup.verify}
                   </Button>
                 </div>
               </form>
