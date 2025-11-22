@@ -1273,9 +1273,6 @@ type TranslationKeys = {
       successMessage: string;
       errorTitle: string;
       errorMessage: string;
-    errorConfigTitle: string;
-      errorConfigMessage: string;
-      invalidCodeMessage: string;
     };
     disable: {
       title: string;
@@ -1300,44 +1297,6 @@ type TranslationKeys = {
       cancel: string;
       errorTitle: string;
       errorMessage: string;
-    backToLogin: string;
-      successTitle: string;
-      successMessage: string;
-    };
-    admin: {
-      title: string;
-      subtitle: string;
-      alertTitle: string;
-      alertMessage: string;
-      step1Title: string;
-      step1Description: string;
-      androidLink: string;
-      iosLink: string;
-      step2Title: string;
-      step3Title: string;
-      backupCodeLabel: string;
-      verificationCodeLabel: string;
-      activating: string;
-      activateAndLogin: string;
-      errorConfigTitle: string;
-      errorConfigMessage: string;
-      solutionsTitle: string;
-      solution1: string;
-      solution2: string;
-      solution3: string;
-      sessionExpired: string;
-      alreadyConfigured: string;
-      configSuccessTitle: string;
-      configSuccessMessage: string;
-      invalidCodeTitle: string;
-      invalidCodeMessage: string;
-    };
-    settings: {
-      enabled: string;
-      enabledMessage: string;
-      disabled: string;
-      disabledMessage: string;
-      invalidCode: string;
     };
   };
   bankAccounts: {
@@ -3818,44 +3777,6 @@ export const translations: Record<Language, TranslationKeys> = {
         cancel: 'Annuler',
         errorTitle: 'Erreur',
         errorMessage: 'Code invalide. Veuillez réessayer.',
-      backToLogin: 'Retour à la connexion',
-        successTitle: 'Connexion réussie',
-        successMessage: 'Bienvenue sur votre compte',
-      },
-      admin: {
-        title: 'Configuration 2FA Administrateur',
-        subtitle: 'Sécurité obligatoire pour tous les administrateurs',
-        alertTitle: 'Attention',
-        alertMessage: 'L\'authentification à deux facteurs (2FA) est obligatoire pour tous les comptes administrateurs afin de protéger les données sensibles.',
-        step1Title: 'Téléchargez Google Authenticator',
-        step1Description: 'Installez l\'application Google Authenticator sur votre smartphone :',
-        androidLink: 'Android (Play Store)',
-        iosLink: 'iOS (App Store)',
-        step2Title: 'Scannez le code QR',
-        step3Title: 'Entrez le code généré',
-        backupCodeLabel: 'Code de secours (si le QR ne fonctionne pas) :',
-        verificationCodeLabel: 'Code de vérification (6 chiffres)',
-        activating: 'Activation en cours...',
-        activateAndLogin: 'Activer le 2FA et se connecter',
-        errorConfigTitle: 'Configuration impossible',
-        errorConfigMessage: 'Erreur lors de la configuration 2FA. Le 2FA est peut-être déjà configuré pour ce compte.',
-        solutionsTitle: 'Solutions possibles :',
-        solution1: 'Utilisez votre application d\'authentification existante (Google Authenticator, Authy, etc.)',
-        solution2: 'Si vous avez perdu l\'accès, connectez-vous avec votre code 2FA actuel et reconfigurez dans les paramètres',
-        solution3: 'En dernier recours, contactez un super-administrateur pour réinitialiser votre 2FA',
-        sessionExpired: 'Session expirée. Veuillez vous reconnecter.',
-        alreadyConfigured: '2FA déjà configuré',
-        configSuccessTitle: 'Succès',
-        configSuccessMessage: '2FA configuré avec succès. Connexion en cours...',
-        invalidCodeTitle: 'Erreur',
-        invalidCodeMessage: 'Code invalide. Veuillez réessayer.',
-      },
-      settings: {
-        enabled: 'Authentification à deux facteurs activée',
-        enabledMessage: 'Votre compte est maintenant protégé par l\'authentification à deux facteurs',
-        disabled: 'Authentification à deux facteurs désactivée',
-        disabledMessage: 'L\'authentification à deux facteurs a été désactivée pour votre compte',
-        invalidCode: 'Code de vérification invalide',
       },
     },
     bankAccounts: {
@@ -6460,44 +6381,6 @@ export const translations: Record<Language, TranslationKeys> = {
         cancel: 'Cancel',
         errorTitle: 'Error',
         errorMessage: 'Invalid code. Please try again.',
-      backToLogin: 'Back to login',
-        successTitle: 'Login successful',
-        successMessage: 'Welcome to your account',
-      },
-      admin: {
-        title: 'Admin 2FA Setup',
-        subtitle: 'Required security for all administrators',
-        alertTitle: 'Attention',
-        alertMessage: 'Two-factor authentication (2FA) is required for all administrator accounts to protect sensitive data.',
-        step1Title: 'Download Google Authenticator',
-        step1Description: 'Install the Google Authenticator app on your smartphone:',
-        androidLink: 'Android (Play Store)',
-        iosLink: 'iOS (App Store)',
-        step2Title: 'Scan the QR code',
-        step3Title: 'Enter the generated code',
-        backupCodeLabel: 'Backup code (if QR doesn\'t work):',
-        verificationCodeLabel: 'Verification code (6 digits)',
-        activating: 'Activating...',
-        activateAndLogin: 'Activate 2FA and login',
-        errorConfigTitle: 'Configuration failed',
-        errorConfigMessage: 'Error configuring 2FA. 2FA may already be configured for this account.',
-        solutionsTitle: 'Possible solutions:',
-        solution1: 'Use your existing authenticator app (Google Authenticator, Authy, etc.)',
-        solution2: 'If you lost access, login with your current 2FA code and reconfigure in settings',
-        solution3: 'As a last resort, contact a super-administrator to reset your 2FA',
-        sessionExpired: 'Session expired. Please login again.',
-        alreadyConfigured: '2FA already configured',
-        configSuccessTitle: 'Success',
-        configSuccessMessage: '2FA configured successfully. Logging in...',
-        invalidCodeTitle: 'Error',
-        invalidCodeMessage: 'Invalid code. Please try again.',
-      },
-      settings: {
-        enabled: 'Two-factor authentication enabled',
-        enabledMessage: 'Your account is now protected by two-factor authentication',
-        disabled: 'Two-factor authentication disabled',
-        disabledMessage: 'Two-factor authentication has been disabled for your account',
-        invalidCode: 'Invalid verification code',
       },
     },
     bankAccounts: {
