@@ -3824,9 +3824,9 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       admin: {
         title: 'Configuration 2FA Administrateur',
-        subtitle: 'Sécurité obligatoire pour tous les administrateurs',
+        subtitle: 'Sécurité recommandée pour tous les administrateurs',
         alertTitle: 'Attention',
-        alertMessage: 'L\'authentification à deux facteurs (2FA) est obligatoire pour tous les comptes administrateurs afin de protéger les données sensibles.',
+        alertMessage: 'L\'authentification à deux facteurs (2FA) est fortement recommandée pour tous les comptes administrateurs afin de protéger les données sensibles.',
         step1Title: 'Téléchargez Google Authenticator',
         step1Description: 'Installez l\'application Google Authenticator sur votre smartphone :',
         androidLink: 'Android (Play Store)',
@@ -6466,9 +6466,9 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       admin: {
         title: 'Admin 2FA Setup',
-        subtitle: 'Required security for all administrators',
+        subtitle: 'Recommended security for all administrators',
         alertTitle: 'Attention',
-        alertMessage: 'Two-factor authentication (2FA) is required for all administrator accounts to protect sensitive data.',
+        alertMessage: 'Two-factor authentication (2FA) is strongly recommended for all administrator accounts to protect sensitive data.',
         step1Title: 'Download Google Authenticator',
         step1Description: 'Install the Google Authenticator app on your smartphone:',
         androidLink: 'Android (Play Store)',
