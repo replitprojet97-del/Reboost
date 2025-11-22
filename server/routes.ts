@@ -40,7 +40,14 @@ import {
   notifyAdminsNewKycDocument,
   notifyAdminsNewLoanRequest,
   notifyAdminsNewTransfer,
-  notifyAdminsSignedContractReceived
+  notifyAdminsSignedContractReceived,
+  createAdminMessageLoanRequest,
+  createAdminMessageLoanApproved,
+  createAdminMessageLoanRejected,
+  createAdminMessageLoanFundsAvailable,
+  createAdminMessageLoanContractSigned,
+  createAdminMessageTransferCompleted,
+  createAdminMessageCodeIssued
 } from "./notification-helper";
 import { loanRequestAdminNotification } from "./notification-service";
 import cloudinary from "./config/cloudinary";
@@ -2183,13 +2190,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         });
       }
 
-      await storage.createAdminMessage({
-        userId: req.session.userId!,
-        transferId: null,
-        subject: 'Demande de prêt en attente de validation',
-        content: `Votre demande de prêt ${loanType} de ${amount} EUR a été soumise et est en attente de validation par notre service. Nous vous contacterons dès que possible.`,
-        severity: 'info',
-      });
+      await createAdminMessageLoanRequest(req.session.userId!, loanType, amount.toString());
       
       await storage.createAuditLog({
         actorId: req.session.userId!,
@@ -3950,17 +3951,7 @@ Tous les codes de validation ont été vérifiés avec succès.`,
         contractUrl,
       });
 
-      const messageContent = contractGenerated
-        ? `Félicitations! Votre demande de prêt de ${loan.amount} EUR a été approuvée. Votre contrat est maintenant disponible. Veuillez le télécharger, le signer et le retourner pour débloquer les fonds.`
-        : `Félicitations! Votre demande de prêt de ${loan.amount} EUR a été approuvée. Votre contrat sera disponible sous peu. Vous recevrez une notification dès qu'il sera prêt.`;
-
-      await storage.createAdminMessage({
-        userId: loan.userId,
-        transferId: null,
-        subject: 'Demande de prêt approuvée' + (contractGenerated ? ' - Contrat disponible' : ''),
-        content: messageContent,
-        severity: 'success',
-      });
+      await createAdminMessageLoanApproved(loan.userId, loan.amount, contractGenerated);
 
       await notifyLoanApproved(loan.userId, loan.id, loan.amount);
 
@@ -4012,13 +4003,7 @@ Tous les codes de validation ont été vérifiés avec succès.`,
         rejectionReason: validatedData.reason,
       });
 
-      await storage.createAdminMessage({
-        userId: loan.userId,
-        transferId: null,
-        subject: 'Demande de prêt refusée',
-        content: `Nous sommes désolés de vous informer que votre demande de prêt de ${loan.amount} EUR a été refusée. Raison: ${validatedData.reason}`,
-        severity: 'warning',
-      });
+      await createAdminMessageLoanRejected(loan.userId, loan.amount, validatedData.reason);
 
       await notifyLoanRejected(loan.userId, loan.id, validatedData.reason);
 
@@ -4058,13 +4043,7 @@ Tous les codes de validation ont été vérifiés avec succès.`,
       const user = await storage.getUser(loan.userId);
       const userName = user?.fullName || 'Utilisateur';
 
-      await storage.createAdminMessage({
-        userId: loan.userId,
-        transferId: null,
-        subject: 'Fonds disponibles - Contrat validé',
-        content: `Vos fonds sont désormais disponibles. Vous pouvez initier votre transfert.`,
-        severity: 'success',
-      });
+      await createAdminMessageLoanFundsAvailable(loan.userId, loan.amount);
 
       await notifyLoanFundsAvailable(loan.userId, loan.id, loan.amount);
 

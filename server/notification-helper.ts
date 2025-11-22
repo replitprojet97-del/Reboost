@@ -1,5 +1,5 @@
 import { storage } from './storage';
-import { type InsertNotification } from '@shared/schema';
+import { type InsertNotification, type InsertAdminMessage } from '@shared/schema';
 
 export type NotificationType =
   | 'loan_request'
@@ -296,5 +296,107 @@ export async function notifyAdminsSignedContractReceived(userId: string, userNam
     message: `${userName} a uploadé un contrat signé pour le prêt de ${amount}€. En attente de vérification.`,
     severity: 'info',
     metadata: { userId, userName, loanId, amount },
+  });
+}
+
+export async function createAdminMessageLoanRequest(userId: string, loanType: string, amount: string) {
+  return await storage.createAdminMessage({
+    userId,
+    transferId: null,
+    type: 'loan_request',
+    subject: 'Demande de prêt en attente de validation',
+    content: `Votre demande de prêt ${loanType} de ${amount} EUR a été soumise et est en attente de validation par notre service. Nous vous contacterons dès que possible.`,
+    severity: 'info',
+    metadata: { loanType, amount },
+  });
+}
+
+export async function createAdminMessageLoanApproved(userId: string, amount: string, contractGenerated: boolean) {
+  const messageContent = contractGenerated
+    ? `Félicitations! Votre demande de prêt de ${amount} EUR a été approuvée. Votre contrat est maintenant disponible. Veuillez le télécharger, le signer et le retourner pour débloquer les fonds.`
+    : `Félicitations! Votre demande de prêt de ${amount} EUR a été approuvée. Votre contrat sera disponible sous peu. Vous recevrez une notification dès qu'il sera prêt.`;
+
+  return await storage.createAdminMessage({
+    userId,
+    transferId: null,
+    type: contractGenerated ? 'loan_contract_generated' : 'loan_approved',
+    subject: 'Demande de prêt approuvée' + (contractGenerated ? ' - Contrat disponible' : ''),
+    content: messageContent,
+    severity: 'success',
+    metadata: { amount, contractGenerated },
+  });
+}
+
+export async function createAdminMessageLoanRejected(userId: string, amount: string, reason: string) {
+  return await storage.createAdminMessage({
+    userId,
+    transferId: null,
+    type: 'loan_rejected',
+    subject: 'Demande de prêt refusée',
+    content: `Nous sommes désolés de vous informer que votre demande de prêt de ${amount} EUR a été refusée. Raison: ${reason}`,
+    severity: 'warning',
+    metadata: { amount, reason },
+  });
+}
+
+export async function createAdminMessageLoanFundsAvailable(userId: string, amount: string) {
+  return await storage.createAdminMessage({
+    userId,
+    transferId: null,
+    type: 'loan_funds_available',
+    subject: 'Fonds disponibles - Contrat validé',
+    content: `Vos fonds sont désormais disponibles. Vous pouvez initier votre transfert.`,
+    severity: 'success',
+    metadata: { amount },
+  });
+}
+
+export async function createAdminMessageLoanContractSigned(userId: string, amount: string) {
+  return await storage.createAdminMessage({
+    userId,
+    transferId: null,
+    type: 'loan_contract_signed',
+    subject: 'Contrat signé reçu - En attente de validation',
+    content: `Votre contrat signé pour le prêt de ${amount} EUR a été reçu avec succès. Il est maintenant en cours de vérification par notre service. Vous serez notifié dès que les fonds seront débloqués.`,
+    severity: 'info',
+    metadata: { amount },
+  });
+}
+
+export async function createAdminMessageTransferCompleted(userId: string, transferId: string, amount: string, recipient: string, recipientIban: string) {
+  return await storage.createAdminMessage({
+    userId,
+    transferId,
+    type: 'transfer_completed',
+    subject: 'Transfert terminé avec succès',
+    content: `
+**Récapitulatif du transfert**
+
+- Montant transféré: ${amount} €
+- Bénéficiaire: ${recipient}
+- IBAN: ${recipientIban}
+- Référence: ${transferId}
+
+**Disponibilité des fonds**
+Les fonds seront disponibles sur le compte du bénéficiaire dans un délai de 24 à 72 heures ouvrées, selon les délais bancaires.
+
+**Besoin d'aide ?**
+En cas de problème ou de question concernant ce transfert, notre équipe est à votre disposition. Contactez-nous à tout moment.
+
+Merci de votre confiance.`,
+    severity: 'success',
+    metadata: { transferId, amount, recipient, recipientIban },
+  });
+}
+
+export async function createAdminMessageCodeIssued(userId: string, transferId: string, sequence: number, code: string) {
+  return await storage.createAdminMessage({
+    userId,
+    transferId,
+    type: 'code_issued',
+    subject: `Code de validation pour transfert #${sequence}`,
+    content: `Votre code de validation pour l'étape ${sequence} est: ${code}. Ce code a été pré-généré lors de la confirmation de votre contrat.`,
+    severity: 'info',
+    metadata: { transferId, sequence, code },
   });
 }
