@@ -2,12 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Users, ArrowRightLeft, DollarSign, Activity } from "lucide-react";
+import { Users, ArrowRightLeft, DollarSign, Activity, FileCheck, FileSignature, ShieldCheck, MessageSquare, Bell, AlertCircle } from "lucide-react";
 import { useTranslations } from "@/lib/i18n";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { useLocation } from "wouter";
 
 export default function AdminDashboard() {
   const t = useTranslations();
+  const [, setLocation] = useLocation();
   
   const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: ["/api/admin/stats"],
@@ -21,13 +23,164 @@ export default function AdminDashboard() {
     queryKey: ["/api/admin/transfers"],
   });
 
+  const { data: notificationCounts, isLoading: notificationsLoading } = useQuery<{
+    pendingLoans: number;
+    signedContracts: number;
+    transfersRequiringCode: number;
+    unreadMessages: number;
+    total: number;
+  }>({
+    queryKey: ["/api/admin/notifications-count"],
+    refetchInterval: 30000, // Rafraîchir toutes les 30 secondes
+  });
+
   const isLoading = statsLoading || usersLoading || transfersLoading;
 
   const pendingUsers = Array.isArray(users) ? users.filter((u: any) => u.status === 'pending').length : 0;
   const totalVolume = Array.isArray(transfers) ? transfers.reduce((sum: number, t: any) => sum + parseFloat(t.amount), 0) : 0;
 
+  const hasNotifications = (notificationCounts?.total || 0) > 0;
+
   return (
     <AdminLayout title={t.admin.dashboard.title}>
+      {/* Actions Urgentes - Cartes d'Alertes */}
+      {!notificationsLoading && hasNotifications && (
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <Bell className="w-5 h-5 text-amber-600" />
+            <h2 className="text-xl font-bold text-gray-900">Actions Requises</h2>
+            <Badge variant="destructive" className="ml-2">
+              {notificationCounts?.total}
+            </Badge>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            {/* Demandes de prêts en attente */}
+            {(notificationCounts?.pendingLoans || 0) > 0 && (
+              <Card 
+                className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-300 hover-elevate active-elevate-2 cursor-pointer transition-all"
+                onClick={() => setLocation('/admin/loans')}
+                data-testid="card-alert-pending-loans"
+              >
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <FileCheck className="w-8 h-8 text-blue-600" />
+                    <Badge variant="default" className="bg-blue-600">
+                      {notificationCounts?.pendingLoans}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardTitle className="text-lg font-semibold text-blue-900 mb-1">
+                    Demandes de prêts
+                  </CardTitle>
+                  <p className="text-sm text-blue-700">
+                    {notificationCounts?.pendingLoans} {notificationCounts?.pendingLoans === 1 ? 'demande nécessite' : 'demandes nécessitent'} votre examen
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Contrats signés */}
+            {(notificationCounts?.signedContracts || 0) > 0 && (
+              <Card 
+                className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-300 hover-elevate active-elevate-2 cursor-pointer transition-all"
+                onClick={() => setLocation('/admin/loans')}
+                data-testid="card-alert-signed-contracts"
+              >
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <FileSignature className="w-8 h-8 text-emerald-600" />
+                    <Badge variant="default" className="bg-emerald-600">
+                      {notificationCounts?.signedContracts}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardTitle className="text-lg font-semibold text-emerald-900 mb-1">
+                    Contrats signés
+                  </CardTitle>
+                  <p className="text-sm text-emerald-700">
+                    {notificationCounts?.signedContracts} {notificationCounts?.signedContracts === 1 ? 'contrat en attente' : 'contrats en attente'} de déblocage
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Codes de transfert requis */}
+            {(notificationCounts?.transfersRequiringCode || 0) > 0 && (
+              <Card 
+                className="bg-gradient-to-br from-amber-50 to-amber-100 border-amber-300 hover-elevate active-elevate-2 cursor-pointer transition-all"
+                onClick={() => setLocation('/admin/loans')}
+                data-testid="card-alert-transfer-codes"
+              >
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <ShieldCheck className="w-8 h-8 text-amber-600" />
+                    <Badge variant="default" className="bg-amber-600">
+                      {notificationCounts?.transfersRequiringCode}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardTitle className="text-lg font-semibold text-amber-900 mb-1">
+                    Codes de validation
+                  </CardTitle>
+                  <p className="text-sm text-amber-700">
+                    {notificationCounts?.transfersRequiringCode} {notificationCounts?.transfersRequiringCode === 1 ? 'transfert nécessite' : 'transferts nécessitent'} un code
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Messages non lus */}
+            {(notificationCounts?.unreadMessages || 0) > 0 && (
+              <Card 
+                className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-300 hover-elevate active-elevate-2 cursor-pointer transition-all"
+                onClick={() => setLocation('/admin/chat')}
+                data-testid="card-alert-unread-messages"
+              >
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <MessageSquare className="w-8 h-8 text-purple-600" />
+                    <Badge variant="default" className="bg-purple-600">
+                      {notificationCounts?.unreadMessages}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardTitle className="text-lg font-semibold text-purple-900 mb-1">
+                    Messages non lus
+                  </CardTitle>
+                  <p className="text-sm text-purple-700">
+                    {notificationCounts?.unreadMessages} {notificationCounts?.unreadMessages === 1 ? 'message nécessite' : 'messages nécessitent'} votre attention
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </div>
+      )}
+
+      {notificationsLoading && (
+        <div className="mb-8">
+          <Skeleton className="h-8 w-64 mb-4" />
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map((i) => (
+              <Card key={i} className="bg-gray-50">
+                <CardHeader className="pb-3">
+                  <Skeleton className="h-8 w-8" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-6 w-32 mb-2" />
+                  <Skeleton className="h-4 w-full" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         {isLoading ? (

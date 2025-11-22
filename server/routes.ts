@@ -3664,6 +3664,51 @@ Tous les codes de validation ont été vérifiés avec succès.`,
     }
   });
 
+  // Endpoint optimisé pour récupérer uniquement les compteurs de notifications admin
+  app.get("/api/admin/notifications-count", requireAdmin, async (req, res) => {
+    try {
+      const allLoans = await storage.getAllLoans();
+      const allTransfers = await storage.getAllTransfers();
+      
+      // Demandes de prêts en attente
+      const pendingLoans = allLoans.filter(loan => 
+        loan.status === 'pending_review' && !loan.deletedAt
+      ).length;
+
+      // Contrats signés en attente de déblocage des fonds
+      const signedContracts = allLoans.filter(loan => 
+        loan.contractStatus === 'signed' && 
+        loan.fundsAvailabilityStatus === 'available' &&
+        !loan.deletedAt
+      ).length;
+
+      // Transferts nécessitant un code de validation (en pause)
+      const transfersRequiringCode = allTransfers.filter(transfer => 
+        transfer.isPaused === true &&
+        transfer.status === 'in-progress' &&
+        !transfer.completedAt
+      ).length;
+
+      // Messages non lus dans le chat support (messages envoyés par utilisateurs à l'admin)
+      const allMessages = await storage.getAllMessages();
+      const unreadMessages = allMessages.filter(msg => 
+        msg.receiverId === 'admin' && 
+        msg.isRead === false
+      ).length;
+
+      res.json({
+        pendingLoans,
+        signedContracts,
+        transfersRequiringCode,
+        unreadMessages,
+        total: pendingLoans + signedContracts + transfersRequiringCode + unreadMessages
+      });
+    } catch (error) {
+      console.error('Error fetching admin notifications count:', error);
+      res.status(500).json({ error: 'Failed to fetch notifications count' });
+    }
+  });
+
   app.get("/api/admin/audit-logs", requireAdmin, async (req, res) => {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 100;
