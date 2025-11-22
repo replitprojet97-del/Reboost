@@ -1,4 +1,4 @@
-import { UserCircle, LogOut, User as UserIcon } from 'lucide-react';
+import { UserCircle, LogOut } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -57,10 +57,6 @@ export default function AdminProfileMenu() {
     logoutMutation.mutate();
   };
 
-  const handleProfile = () => {
-    setLocation('/settings');
-  };
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -105,11 +101,6 @@ export default function AdminProfileMenu() {
             <DropdownMenuSeparator />
           </>
         )}
-        <DropdownMenuItem onClick={handleProfile} data-testid="button-admin-profile">
-          <UserIcon className="mr-2 h-4 w-4" />
-          Mon profil
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
         <DropdownMenuItem 
           onClick={handleLogout} 
           className="text-red-600" 
