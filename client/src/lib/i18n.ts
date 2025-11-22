@@ -9040,6 +9040,7 @@ export const translations: Record<Language, TranslationKeys> = {
         cancel: 'Cancelar',
         errorTitle: 'Error',
         errorMessage: 'Código inválido. Por favor intente de nuevo.',
+      backToLogin: 'Volver al inicio de sesión',
       },
       admin: {
         title: 'Configuración 2FA Administrador',
@@ -11686,6 +11687,7 @@ export const translations: Record<Language, TranslationKeys> = {
         cancel: 'Cancelar',
         errorTitle: 'Código Inválido',
         errorMessage: 'O código que você digitou é inválido. Tente novamente.',
+      backToLogin: 'Voltar ao login',
       },
       admin: {
         title: 'Configuração 2FA Administrador',
@@ -14143,6 +14145,7 @@ export const translations: Record<Language, TranslationKeys> = {
         cancel: 'Annulla',
         errorTitle: 'Codice non valido',
         errorMessage: 'Il codice inserito non è valido o è scaduto. Riprova.',
+      backToLogin: 'Torna al login',
       },
       admin: {
         title: 'Configurazione 2FA Amministratore',
@@ -16685,6 +16688,7 @@ export const translations: Record<Language, TranslationKeys> = {
         verifying: 'Wird verifiziert...',
         cancel: 'Abbrechen',
         errorTitle: 'Ungültiger Code',
+      backToLogin: 'Zurück zur Anmeldung',
         errorMessage: 'Der eingegebene Code ist ungültig oder abgelaufen. Versuchen Sie es erneut.',
       },
       admin: {
@@ -19197,6 +19201,7 @@ export const translations: Record<Language, TranslationKeys> = {
         verify: 'Verifiëren',
         verifying: 'Verifiëren...',
         cancel: 'Annuleren',
+      backToLogin: 'Terug naar inloggen',
         errorTitle: 'Ongeldige code',
         errorMessage: 'De ingevoerde code is ongeldig of verlopen. Probeer opnieuw.',
       },
