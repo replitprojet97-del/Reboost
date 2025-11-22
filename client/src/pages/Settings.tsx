@@ -413,6 +413,18 @@ export default function Settings() {
                 )}
               </div>
             </div>
+
+            {/* Logo officiel */}
+            <div className="flex items-center justify-center lg:justify-end">
+              <div className="relative group">
+                <img 
+                  src="/logo.png" 
+                  alt="Altus Finances Group" 
+                  className="h-16 w-auto opacity-90 dark:opacity-80 transition-all duration-300 group-hover:opacity-100"
+                />
+                <div className="absolute -inset-2 bg-gradient-to-r from-primary/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300" />
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-col gap-4">
@@ -725,8 +737,8 @@ export default function Settings() {
           </DashboardCard>
 
           <DashboardCard
-            title="Authentification à deux facteurs (2FA)"
-            subtitle="Ajoutez une couche de sécurité supplémentaire à votre compte"
+            title={t.settings.twoFactorAuth}
+            subtitle={t.settings.twoFactorAuthDesc}
             icon={ShieldCheck}
           >
             <div className="space-y-6">
@@ -737,11 +749,9 @@ export default function Settings() {
                       <ShieldCheck className="h-6 w-6 text-primary" />
                     </div>
                     <div className="flex-1 space-y-2">
-                      <p className="text-sm font-medium">Sécurité renforcée</p>
+                      <p className="text-sm font-medium">{t.twoFactorAuth.setup.securityEnhanced}</p>
                       <p className="text-sm text-muted-foreground">
-                        L'authentification à deux facteurs protège votre compte en ajoutant une étape supplémentaire 
-                        lors de la connexion. Vous devrez entrer un code temporaire généré par une application 
-                        d'authentification en plus de votre mot de passe.
+                        {t.twoFactorAuth.setup.description}
                       </p>
                     </div>
                   </div>
@@ -754,12 +764,12 @@ export default function Settings() {
                       {setup2FAMutation.isPending ? (
                         <>
                           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                          Génération...
+                          {t.twoFactorAuth.setup.generating}
                         </>
                       ) : (
                         <>
                           <KeyRound className="h-4 w-4 mr-2" />
-                          Activer 2FA
+                          {t.settings.enable2FA}
                         </>
                       )}
                     </GradientButton>
@@ -772,10 +782,9 @@ export default function Settings() {
                   <div className="flex items-start gap-4 p-5 rounded-xl bg-primary/5 border border-primary/30">
                     <AlertTriangle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                     <div className="text-sm">
-                      <p className="font-medium text-primary mb-1">Instructions importantes</p>
+                      <p className="font-medium text-primary mb-1">{t.twoFactorAuth.setup.importantInstructions}</p>
                       <p className="text-muted-foreground">
-                        Installez une application d'authentification comme Google Authenticator ou Authy, 
-                        puis scannez le QR code ci-dessous pour lier votre compte.
+                        {t.twoFactorAuth.setup.instructionMessage}
                       </p>
                     </div>
                   </div>
@@ -783,7 +792,7 @@ export default function Settings() {
                   <div className="flex flex-col items-center gap-6 p-8 bg-muted/30 rounded-xl border border-border">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <QrCode className="h-4 w-4" />
-                      <span>Scannez ce code avec votre application</span>
+                      <span>{t.twoFactorAuth.setup.scanCode}</span>
                     </div>
                     {twoFactorData.qrCode && (
                       <div className="p-4 bg-white rounded-lg shadow-lg">
@@ -797,7 +806,7 @@ export default function Settings() {
                     )}
                     <div className="w-full max-w-md space-y-2">
                       <p className="text-xs text-center text-muted-foreground">
-                        Ou entrez manuellement ce code secret :
+                        {t.twoFactorAuth.setup.manualEntry}
                       </p>
                       <div className="flex items-center justify-center gap-2 p-3 bg-background rounded-lg border border-border font-mono text-sm">
                         <code className="text-primary">{twoFactorData.secret}</code>
@@ -809,15 +818,15 @@ export default function Settings() {
                     <Separator />
                     <div className="space-y-2">
                       <Label htmlFor="verificationCode" className="text-sm font-medium">
-                        Code de vérification
+                        {t.twoFactorAuth.setup.verificationCode}
                       </Label>
                       <p className="text-xs text-muted-foreground">
-                        Entrez le code à 6 chiffres affiché dans votre application
+                        {t.twoFactorAuth.setup.enterCode}
                       </p>
                       <Input
                         id="verificationCode"
                         type="text"
-                        placeholder="000000"
+                        placeholder={t.twoFactorAuth.setup.codePlaceholder}
                         maxLength={6}
                         value={twoFactorData.verificationCode}
                         onChange={(e) => setTwoFactorData({ ...twoFactorData, verificationCode: e.target.value.replace(/\D/g, '') })}
@@ -834,7 +843,7 @@ export default function Settings() {
                       disabled={verify2FAMutation.isPending}
                       data-testid="button-cancel-2fa-setup"
                     >
-                      Annuler
+                      {t.twoFactorAuth.setup.cancel}
                     </Button>
                     <GradientButton
                       onClick={handleVerify2FA}
@@ -844,12 +853,12 @@ export default function Settings() {
                       {verify2FAMutation.isPending ? (
                         <>
                           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                          Vérification...
+                          {t.twoFactorAuth.setup.verifying}
                         </>
                       ) : (
                         <>
                           <CheckCircle2 className="h-4 w-4 mr-2" />
-                          Vérifier et activer
+                          {t.twoFactorAuth.setup.verify}
                         </>
                       )}
                     </GradientButton>
@@ -865,12 +874,11 @@ export default function Settings() {
                     </div>
                     <div className="flex-1 space-y-2">
                       <div className="flex items-center gap-2">
-                        <p className="text-sm font-medium text-accent">2FA activé</p>
+                        <p className="text-sm font-medium text-accent">{t.twoFactorAuth.settings.activeTitle}</p>
                         <CheckCircle2 className="h-4 w-4 text-accent" />
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        Votre compte est protégé par l'authentification à deux facteurs. 
-                        Un code de vérification sera demandé à chaque connexion.
+                        {t.twoFactorAuth.settings.activeMessage}
                       </p>
                     </div>
                   </div>
@@ -884,10 +892,10 @@ export default function Settings() {
                       {disable2FAMutation.isPending ? (
                         <>
                           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                          Désactivation...
+                          {t.twoFactorAuth.disable.disabling}
                         </>
                       ) : (
-                        'Désactiver 2FA'
+                        t.twoFactorAuth.disable.disable
                       )}
                     </Button>
                   </div>
