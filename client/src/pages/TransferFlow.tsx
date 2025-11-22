@@ -11,9 +11,23 @@ import { apiRequest, getApiUrl } from '@/lib/queryClient';
 import { ArrowLeft, CheckCircle2, Clock, Send, Shield, AlertCircle, Loader2, AlertTriangle, Building, ArrowRight, Lock, Circle, TrendingUp } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import type { TransferDetailsResponse, ExternalAccount, TransferCodeMetadata } from '@shared/schema';
-import { useTranslations } from '@/lib/i18n';
+import { useTranslations, useLanguage } from '@/lib/i18n';
 import { DashboardCard, SectionTitle } from '@/components/fintech';
 import CircularTransferProgress from '@/components/CircularTransferProgress';
+
+// Helper function to get locale code from language
+function getLocaleCode(language: string): string {
+  const localeMap: Record<string, string> = {
+    'fr': 'fr-FR',
+    'en': 'en-US',
+    'es': 'es-ES',
+    'pt': 'pt-PT',
+    'it': 'it-IT',
+    'de': 'de-DE',
+    'nl': 'nl-NL',
+  };
+  return localeMap[language] || 'fr-FR';
+}
 
 // Helper function to translate code contexts
 function translateCodeContext(codeContext: string | null | undefined, t: ReturnType<typeof useTranslations>): string {
@@ -34,6 +48,8 @@ export default function TransferFlow() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const t = useTranslations();
+  const { language } = useLanguage();
+  const locale = getLocaleCode(language);
   
   const [step, setStep] = useState<'form' | 'progress' | 'complete'>('form');
   const [selectedLoanId, setSelectedLoanId] = useState('');
@@ -452,7 +468,7 @@ export default function TransferFlow() {
                 {availableLoans && availableLoans.length > 1 && (
                   <div className="space-y-2">
                     <Label htmlFor="loan" className="text-sm font-medium">
-                      {t.transferFlow.form.selectExternalAccount}
+                      {t.nav.loans}
                     </Label>
                     <Select value={selectedLoanId} onValueChange={setSelectedLoanId}>
                       <SelectTrigger data-testid="select-loan" className="h-12">
@@ -463,10 +479,10 @@ export default function TransferFlow() {
                           <SelectItem key={loan.id} value={loan.id}>
                             <div className="flex flex-col items-start">
                               <span className="font-medium">
-                                {parseFloat(loan.amount).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+                                {parseFloat(loan.amount).toLocaleString(locale, { style: 'currency', currency: 'EUR' })}
                               </span>
                               <span className="text-xs text-muted-foreground">
-                                {loan.loanType} - Approuvé le {new Date(loan.approvedAt).toLocaleDateString('fr-FR')}
+                                {loan.loanType} - {t.contracts.approvedOn} {new Date(loan.approvedAt).toLocaleDateString(locale)}
                               </span>
                             </div>
                           </SelectItem>
