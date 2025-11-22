@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,13 +6,13 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Building2, Trash2, Star, CreditCard, ShieldCheck, Search, X } from 'lucide-react';
+import { Plus, Building2, Trash2, Star, CreditCard, ShieldCheck } from 'lucide-react';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { ExternalAccount } from '@shared/schema';
 import { useTranslations } from '@/lib/i18n';
 import { DashboardCard, SectionTitle, GradientButton } from '@/components/fintech';
-import { searchBanks, validateIban, formatIban, type Bank } from '@/data/banks';
+import { formatIban } from '@/data/banks';
 
 function BankAccountsSkeleton() {
   return (
@@ -28,12 +28,6 @@ export default function BankAccounts() {
   const t = useTranslations();
   const { toast } = useToast();
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<Bank[]>([]);
-  const [selectedBank, setSelectedBank] = useState<Bank | null>(null);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const searchTimeoutRef = useRef<NodeJS.Timeout>();
-  const suggestionsRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
     bankName: '',
@@ -91,67 +85,7 @@ export default function BankAccounts() {
     },
   });
 
-  useEffect(() => {
-    if (searchQuery.trim().length > 0) {
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
-      }
-      
-      searchTimeoutRef.current = setTimeout(() => {
-        const results = searchBanks(searchQuery);
-        setSearchResults(results);
-        setShowSuggestions(results.length > 0);
-      }, 150);
-    } else {
-      setSearchResults([]);
-      setShowSuggestions(false);
-    }
-
-    return () => {
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
-      }
-    };
-  }, [searchQuery]);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
-        setShowSuggestions(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleSelectBank = (bank: Bank) => {
-    setSelectedBank(bank);
-    setFormData({
-      ...formData,
-      bankName: bank.name,
-      bankCountry: bank.country,
-      bic: bank.bic,
-    });
-    setSearchQuery('');
-    setShowSuggestions(false);
-    setErrors({});
-  };
-
-  const handleRemoveBank = () => {
-    setSelectedBank(null);
-    setFormData({
-      ...formData,
-      bankName: '',
-      bankCountry: '',
-      bic: '',
-    });
-    setErrors({});
-  };
-
-  const validateForm = (dataToValidate = formData, bankSelection = selectedBank) => {
+  const validateForm = (dataToValidate = formData) => {
     const newErrors: Record<string, string> = {};
 
     if (!dataToValidate.bankName.trim()) {
@@ -162,20 +96,9 @@ export default function BankAccounts() {
       newErrors.iban = t.bankAccounts.ibanRequired;
     } else {
       const cleanIban = dataToValidate.iban.replace(/\s/g, '').toUpperCase();
-      const countryCode = cleanIban.substring(0, 2);
       
-      if (bankSelection && bankSelection.ibanLength > 0) {
-        if (!validateIban(cleanIban, bankSelection)) {
-          newErrors.iban = t.bankAccounts.invalidIbanLength(bankSelection.countryName, bankSelection.ibanLength, cleanIban.length);
-        }
-      } else {
-        if (!/^[A-Z]{2}[0-9]{2}[A-Z0-9]+$/.test(cleanIban)) {
-          newErrors.iban = t.bankAccounts.invalidIban;
-        }
-        
-        if (dataToValidate.bankCountry && countryCode !== dataToValidate.bankCountry) {
-          newErrors.iban = t.bankAccounts.invalidIbanCountryCode(countryCode, dataToValidate.bankCountry);
-        }
+      if (!/^[A-Z]{2}[0-9]{2}[A-Z0-9]+$/.test(cleanIban)) {
+        newErrors.iban = t.bankAccounts.invalidIban;
       }
     }
 
@@ -197,10 +120,8 @@ export default function BankAccounts() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const finalBankName = selectedBank ? formData.bankName : (formData.bankName || searchQuery.trim());
     const finalFormData = {
       ...formData,
-      bankName: finalBankName,
       iban: formData.iban.replace(/\s/g, '').toUpperCase(),
       bic: formData.bic.replace(/\s/g, '').toUpperCase(),
     };
@@ -214,8 +135,6 @@ export default function BankAccounts() {
   const resetForm = () => {
     setFormData({ bankName: '', bankCountry: '', iban: '', bic: '', accountLabel: '' });
     setErrors({});
-    setSelectedBank(null);
-    setSearchQuery('');
   };
 
   const formatIBANDisplay = (iban: string) => {
@@ -224,18 +143,7 @@ export default function BankAccounts() {
 
   const handleIbanChange = (value: string) => {
     const formatted = formatIban(value);
-    const cleanIban = formatted.replace(/\s/g, '').toUpperCase();
-    const countryCode = cleanIban.substring(0, 2);
-    
-    if (!selectedBank && cleanIban.length >= 2 && /^[A-Z]{2}/.test(cleanIban)) {
-      setFormData({ 
-        ...formData, 
-        iban: formatted,
-        bankCountry: countryCode
-      });
-    } else {
-      setFormData({ ...formData, iban: formatted });
-    }
+    setFormData({ ...formData, iban: formatted });
   };
 
   if (isLoading) {
@@ -392,99 +300,17 @@ export default function BankAccounts() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="bankSearch" className="text-sm font-semibold">
+              <Label htmlFor="bankName" className="text-sm font-semibold">
                 {t.bankAccounts.bankName}
               </Label>
-              
-              {selectedBank ? (
-                <div className="relative">
-                  <DashboardCard className="p-4 bg-muted/30">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <Building2 className="w-5 h-5 text-primary" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-foreground truncate">{selectedBank.name}</p>
-                          <p className="text-sm text-muted-foreground">
-                            {selectedBank.countryName} ({selectedBank.country})
-                          </p>
-                        </div>
-                      </div>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        onClick={handleRemoveBank}
-                        data-testid="button-remove-bank"
-                      >
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </DashboardCard>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  <div className="relative" ref={suggestionsRef}>
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <Input
-                        id="bankSearch"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder={t.bankAccounts.searchBankPlaceholder}
-                        className="pl-10 border-border/50 focus:border-primary"
-                        data-testid="input-bank-search"
-                        onFocus={() => {
-                          if (searchResults.length > 0) {
-                            setShowSuggestions(true);
-                          }
-                        }}
-                      />
-                    </div>
-
-                    {showSuggestions && searchResults.length > 0 && (
-                      <div className="absolute z-50 w-full mt-1 bg-card border border-border rounded-lg shadow-lg max-h-64 overflow-y-auto">
-                        {searchResults.map((bank) => (
-                          <button
-                            key={bank.id}
-                            type="button"
-                            onClick={() => handleSelectBank(bank)}
-                            className="w-full text-left p-3 hover-elevate transition-colors flex items-center gap-3 border-b border-border/30 last:border-0"
-                            data-testid={`button-select-bank-${bank.id}`}
-                          >
-                            <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
-                              <Building2 className="w-4 h-4 text-primary" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="font-semibold text-sm text-foreground truncate">{bank.name}</p>
-                              <p className="text-xs text-muted-foreground">
-                                {bank.countryName} ({bank.country}) • {bank.bic}
-                              </p>
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <div className="flex-1 border-t border-border"></div>
-                    <span>{t.bankAccounts.orManualEntry}</span>
-                    <div className="flex-1 border-t border-border"></div>
-                  </div>
-
-                  <Input
-                    id="bankName"
-                    value={formData.bankName}
-                    onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
-                    placeholder={t.bankAccounts.bankNamePlaceholder}
-                    className="border-border/50 focus:border-primary"
-                    data-testid="input-bank-name-manual"
-                  />
-                </div>
-              )}
-
+              <Input
+                id="bankName"
+                value={formData.bankName}
+                onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
+                placeholder={t.bankAccounts.bankNamePlaceholder}
+                className="border-border/50 focus:border-primary"
+                data-testid="input-bank-name"
+              />
               {errors.bankName && (
                 <p className="text-sm text-destructive font-medium">{errors.bankName}</p>
               )}
@@ -493,7 +319,7 @@ export default function BankAccounts() {
             <div className="space-y-2">
               <Label htmlFor="bic" className="text-sm font-semibold">
                 {t.bankAccounts.bic}
-                {!selectedBank && <span className="text-muted-foreground font-normal ml-1">{t.bankAccounts.optional}</span>}
+                <span className="text-muted-foreground font-normal ml-1">{t.bankAccounts.optional}</span>
               </Label>
               <Input
                 id="bic"
@@ -501,7 +327,6 @@ export default function BankAccounts() {
                 onChange={(e) => setFormData({ ...formData, bic: e.target.value.toUpperCase() })}
                 placeholder="BNPAFRPP"
                 className="font-mono border-border/50 focus:border-primary"
-                readOnly={!!selectedBank}
                 data-testid="input-bic"
               />
               {errors.bic && (
@@ -517,19 +342,12 @@ export default function BankAccounts() {
                 id="iban"
                 value={formData.iban}
                 onChange={(e) => handleIbanChange(e.target.value)}
-                placeholder={selectedBank && selectedBank.ibanLength > 0 
-                  ? `${t.bankAccounts.formatExpected} ${selectedBank.country}: ${selectedBank.ibanLength} ${t.bankAccounts.characters}` 
-                  : "FR76 1234 5678 9012 3456 7890 123"}
+                placeholder="FR76 1234 5678 9012 3456 7890 123"
                 className="font-mono border-border/50 focus:border-primary"
                 data-testid="input-iban"
               />
               {errors.iban && (
                 <p className="text-sm text-destructive font-medium">{errors.iban}</p>
-              )}
-              {selectedBank && selectedBank.ibanLength > 0 && (
-                <p className="text-xs text-muted-foreground">
-                  {t.bankAccounts.formatExpected} : {selectedBank.ibanLength} {t.bankAccounts.charactersFor} {selectedBank.countryName}
-                </p>
               )}
             </div>
 
