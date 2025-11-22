@@ -15,6 +15,20 @@ import { useTranslations } from '@/lib/i18n';
 import { DashboardCard, SectionTitle } from '@/components/fintech';
 import CircularTransferProgress from '@/components/CircularTransferProgress';
 
+// Helper function to translate code contexts
+function translateCodeContext(codeContext: string | null | undefined, t: ReturnType<typeof useTranslations>): string {
+  if (!codeContext) return 'Code de validation';
+  
+  // Check if it's a translation key
+  const key = codeContext as keyof typeof t.transferFlow.progress.codeContexts;
+  if (t.transferFlow.progress.codeContexts[key]) {
+    return t.transferFlow.progress.codeContexts[key];
+  }
+  
+  // Fallback to the raw value if not a known key
+  return codeContext;
+}
+
 export default function TransferFlow() {
   const [, params] = useRoute('/transfer/:id');
   const [, setLocation] = useLocation();
@@ -218,7 +232,7 @@ export default function TransferFlow() {
     },
     onSuccess: (data: any) => {
       setValidationCode('');
-      const contextInfo = data.codeContext ? ` - ${data.codeContext}` : '';
+      const contextInfo = data.codeContext ? ` - ${translateCodeContext(data.codeContext, t)}` : '';
       
       toast({
         title: t.transferFlow.toast.codeValidated,
@@ -648,7 +662,7 @@ export default function TransferFlow() {
 
         <div className="absolute text-center">
           <p className="text-2xl font-semibold text-primary">{percent}%</p>
-          <span className="text-xs text-muted-foreground">Progression</span>
+          <span className="text-xs text-muted-foreground">{t.transferFlow.progress.progressLabelShort}</span>
         </div>
       </div>
     );
@@ -837,7 +851,7 @@ export default function TransferFlow() {
       <div className="bg-white shadow-sm rounded-xl p-6 flex flex-col items-center">
         <ProgressCircle percent={Math.round(simulatedProgress)} />
         <div className="mt-4 text-center">
-          <p className="text-sm text-muted-foreground">Progression du transfert</p>
+          <p className="text-sm text-muted-foreground">{t.transferFlow.progress.progressLabelShort} {t.transferFlow.progress.transferProgressLabel}</p>
         </div>
       </div>
     );
@@ -868,14 +882,14 @@ export default function TransferFlow() {
               <AlertCircle className="w-5 h-5 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0" />
               <div className="flex-1">
                 <h3 className="text-sm font-bold text-foreground mb-1">
-                  Vérification de sécurité requise
+                  {t.transferFlow.progress.securityCheckRequired}
                 </h3>
                 <p className="text-xs text-muted-foreground mb-2">
-                  Pour des raisons de sécurité, veuillez entrer le code de validation à 6 chiffres.
+                  {t.transferFlow.progress.enterCodeSecurityMessage}
                 </p>
                 {nextCode.codeContext && (
                   <p className="text-xs text-orange-700 dark:text-orange-300 italic mt-2">
-                    {nextCode.codeContext}
+                    {translateCodeContext(nextCode.codeContext, t)}
                   </p>
                 )}
               </div>
@@ -902,12 +916,12 @@ export default function TransferFlow() {
                 {validateMutation.isPending ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Validation...
+                    {t.transferFlow.progress.validating}
                   </>
                 ) : (
                   <>
                     <CheckCircle2 className="w-4 h-4 mr-2" />
-                    Valider et continuer
+                    {t.transferFlow.progress.validateAndContinue}
                   </>
                 )}
               </Button>

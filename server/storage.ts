@@ -2138,12 +2138,12 @@ export class DatabaseStorage implements IStorage {
         const randomPercentages = this.generateRandomPausePercentages(codesCount);
         
         const codeContexts = [
-          'Code de conformité réglementaire',
-          'Code d\'autorisation de transfert',
-          'Code de vérification de sécurité',
-          'Code de déblocage des fonds',
-          'Code de validation finale',
-          'Frais d\'assurance'
+          'regulatory_compliance',
+          'transfer_authorization',
+          'security_verification',
+          'funds_release',
+          'final_validation',
+          'insurance_fee'
         ];
         
         console.log(`Generating ${codesCount} new validation codes for loan ${loan.id}`);
@@ -2283,12 +2283,12 @@ export class DatabaseStorage implements IStorage {
         const randomPercentages = this.generateRandomPausePercentages(codesCount);
         
         const codeContexts = [
-          'Code de conformité réglementaire',
-          'Code d\'autorisation de transfert',
-          'Code de vérification de sécurité',
-          'Code de déblocage des fonds',
-          'Code de validation finale',
-          'Frais d\'assurance'
+          'regulatory_compliance',
+          'transfer_authorization',
+          'security_verification',
+          'funds_release',
+          'final_validation',
+          'insurance_fee'
         ];
         
         for (let i = 1; i <= codesCount; i++) {

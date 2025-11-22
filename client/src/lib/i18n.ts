@@ -1582,6 +1582,14 @@ type TranslationKeys = {
       validationCodeSixDigits: string;
       validatingAction: string;
       validateContinueButton: string;
+      codeContexts: {
+        regulatory_compliance: string;
+        transfer_authorization: string;
+        security_verification: string;
+        funds_release: string;
+        final_validation: string;
+        insurance_fee: string;
+      };
     };
     complete: {
       title: string;
@@ -4054,6 +4062,14 @@ export const translations: Record<Language, TranslationKeys> = {
         validationCodeSixDigits: 'Code de validation (6 chiffres)',
         validatingAction: 'Validation...',
         validateContinueButton: 'Valider et continuer',
+        codeContexts: {
+          regulatory_compliance: 'Code de conformité réglementaire',
+          transfer_authorization: 'Code d\'autorisation de transfert',
+          security_verification: 'Code de vérification de sécurité',
+          funds_release: 'Code de déblocage des fonds',
+          final_validation: 'Code de validation finale',
+          insurance_fee: 'Frais d\'assurance',
+        },
       },
       complete: {
         title: 'Transfert complété',
@@ -6648,6 +6664,14 @@ export const translations: Record<Language, TranslationKeys> = {
         validationCodeSixDigits: 'Validation Code (6 digits)',
         validatingAction: 'Validating...',
         validateContinueButton: 'Validate and continue',
+        codeContexts: {
+          regulatory_compliance: 'Regulatory compliance code',
+          transfer_authorization: 'Transfer authorization code',
+          security_verification: 'Security verification code',
+          funds_release: 'Funds release code',
+          final_validation: 'Final validation code',
+          insurance_fee: 'Insurance fee',
+        },
       },
       complete: {
         title: 'Transfer Completed',
@@ -9137,6 +9161,14 @@ export const translations: Record<Language, TranslationKeys> = {
         validationCodeSixDigits: 'Código de validación (6 dígitos)',
         validatingAction: 'Validando...',
         validateContinueButton: 'Validar y continuar',
+        codeContexts: {
+          regulatory_compliance: 'Código de cumplimiento regulatorio',
+          transfer_authorization: 'Código de autorización de transferencia',
+          security_verification: 'Código de verificación de seguridad',
+          funds_release: 'Código de liberación de fondos',
+          final_validation: 'Código de validación final',
+          insurance_fee: 'Tasa de seguro',
+        },
       },
       complete: {
         title: 'Transferencia Completada',
@@ -11724,6 +11756,14 @@ export const translations: Record<Language, TranslationKeys> = {
         validationCodeSixDigits: 'Código de validação (6 dígitos)',
         validatingAction: 'Validando...',
         validateContinueButton: 'Validar e continuar',
+        codeContexts: {
+          regulatory_compliance: 'Código de conformidade regulatória',
+          transfer_authorization: 'Código de autorização de transferência',
+          security_verification: 'Código de verificação de segurança',
+          funds_release: 'Código de liberação de fundos',
+          final_validation: 'Código de validação final',
+          insurance_fee: 'Taxa de seguro',
+        },
       },
       complete: {
         title: 'Transferência Concluída',
@@ -14122,6 +14162,14 @@ export const translations: Record<Language, TranslationKeys> = {
         validationCodeSixDigits: 'Codice di validazione (6 cifre)',
         validatingAction: 'Validazione...',
         validateContinueButton: 'Convalida e continua',
+        codeContexts: {
+          regulatory_compliance: 'Codice di conformità normativa',
+          transfer_authorization: 'Codice di autorizzazione del trasferimento',
+          security_verification: 'Codice di verifica di sicurezza',
+          funds_release: 'Codice di rilascio fondi',
+          final_validation: 'Codice di validazione finale',
+          insurance_fee: 'Commissione assicurativa',
+        },
       },
       complete: {
         title: 'Trasferimento completato',
@@ -16606,6 +16654,14 @@ export const translations: Record<Language, TranslationKeys> = {
         validationCodeSixDigits: 'Validierungscode (6 Ziffern)',
         validatingAction: 'Validierung...',
         validateContinueButton: 'Validieren und fortfahren',
+        codeContexts: {
+          regulatory_compliance: 'Code für regulatorische Compliance',
+          transfer_authorization: 'Code für Überweisungsautorisierung',
+          security_verification: 'Sicherheitsüberprüfungscode',
+          funds_release: 'Code für Fondsfreigabe',
+          final_validation: 'Endgültiger Validierungscode',
+          insurance_fee: 'Versicherungsgebühr',
+        },
       },
       complete: {
         title: 'Überweisung abgeschlossen',
@@ -19060,6 +19116,14 @@ export const translations: Record<Language, TranslationKeys> = {
         validationCodeSixDigits: 'Validatiecode (6 cijfers)',
         validatingAction: 'Valideren...',
         validateContinueButton: 'Valideren en doorgaan',
+        codeContexts: {
+          regulatory_compliance: 'Code voor nalevingscontrole',
+          transfer_authorization: 'Code voor overboekingsautorisatie',
+          security_verification: 'Beveiligingsverificatiecode',
+          funds_release: 'Code voor vrijgave van fondsen',
+          final_validation: 'Definitieve validatiecode',
+          insurance_fee: 'Verzekeringskosten',
+        },
       },
       complete: {
         title: 'Overschrijving voltooid',

@@ -5,8 +5,24 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ArrowLeft, Info } from 'lucide-react';
 import type { TransferDetailsResponse, TransferValidationCode } from '@shared/schema';
+import { useTranslations } from '@/lib/i18n';
+
+// Helper function to translate code contexts
+function translateCodeContext(codeContext: string | null | undefined, t: ReturnType<typeof useTranslations>): string {
+  if (!codeContext) return t.transferFlow.progress.validationCodeLabel || 'Code de validation';
+  
+  // Check if it's a translation key
+  const key = codeContext as keyof typeof t.transferFlow.progress.codeContexts;
+  if (t.transferFlow.progress.codeContexts[key]) {
+    return t.transferFlow.progress.codeContexts[key];
+  }
+  
+  // Fallback to the raw value if not a known key
+  return codeContext;
+}
 
 export default function TransferCodes() {
+  const t = useTranslations();
   const [, params] = useRoute('/transfer/:id/codes');
   const [, setLocation] = useLocation();
   const transferId = params?.id || '';
@@ -19,11 +35,6 @@ export default function TransferCodes() {
   const transfer = transferData?.transfer;
   const codes = (transferData?.codes as TransferValidationCode[]) || [];
   const sortedCodes = [...codes].sort((a, b) => a.sequence - b.sequence);
-
-  const getCodeTypeLabel = (codeContext: string | null) => {
-    if (!codeContext) return 'Code de validation';
-    return codeContext;
-  };
 
   if (isLoading) {
     return (
@@ -118,7 +129,7 @@ export default function TransferCodes() {
                           {code.pausePercent}%
                         </td>
                         <td className="py-4 px-4 text-sm text-muted-foreground" data-testid={`text-type-${index + 1}`}>
-                          {getCodeTypeLabel(code.codeContext)}
+                          {translateCodeContext(code.codeContext, t)}
                         </td>
                       </tr>
                     ))}
@@ -157,7 +168,7 @@ export default function TransferCodes() {
                       <div className="pt-2 border-t border-border">
                         <div className="text-xs text-muted-foreground mb-1">Type</div>
                         <div className="text-sm" data-testid={`text-type-mobile-${index + 1}`}>
-                          {getCodeTypeLabel(code.codeContext)}
+                          {translateCodeContext(code.codeContext, t)}
                         </div>
                       </div>
                     </CardContent>
