@@ -1606,6 +1606,7 @@ type TranslationKeys = {
         step5: string;
         step6: string;
       };
+      stepsTitle: string;
       bankLabel: string;
       transferAmountLabel: string;
       senderLabel: string;
@@ -4140,6 +4141,7 @@ export const translations: Record<Language, TranslationKeys> = {
           step5: 'Finalisation & Release',
           step6: 'Frais d\'assurance',
         },
+        stepsTitle: 'Étapes du transfert',
         bankLabel: 'Banque',
         transferAmountLabel: 'Montant du transfert',
         senderLabel: 'Expéditeur',
@@ -6796,6 +6798,7 @@ export const translations: Record<Language, TranslationKeys> = {
           step5: 'Finalization & Release',
           step6: 'Insurance fees',
         },
+        stepsTitle: 'Transfer Steps',
         bankLabel: 'Bank',
         transferAmountLabel: 'Transfer Amount',
         senderLabel: 'Sender',
@@ -9346,6 +9349,7 @@ export const translations: Record<Language, TranslationKeys> = {
           step6: 'Tarifas de seguridad',
         },
         bankLabel: 'Banco',
+        stepsTitle: 'Pasos de la transferencia',
         transferAmountLabel: 'Monto de transferencia',
         senderLabel: 'Emisor',
         senderValue: 'Cuenta ALTUS Finance',
@@ -11992,6 +11996,7 @@ export const translations: Record<Language, TranslationKeys> = {
           step5: 'Finalização & Liberação',
           step6: 'Taxas de seguro',
         },
+        stepsTitle: 'Etapas da transferência',
         bankLabel: 'Banco',
         transferAmountLabel: 'Valor da transferência',
         senderLabel: 'Remetente',
@@ -14450,6 +14455,7 @@ export const translations: Record<Language, TranslationKeys> = {
           step5: 'Finalizzazione & Rilascio',
           step6: 'Spese assicurative',
         },
+        stepsTitle: 'Fasi del trasferimento',
         bankLabel: 'Banca',
         transferAmountLabel: 'Importo del trasferimento',
         senderLabel: 'Mittente',
@@ -16994,6 +17000,7 @@ export const translations: Record<Language, TranslationKeys> = {
           step5: 'Abschluss & Freigabe',
           step6: 'Versicherungsgebühren',
         },
+        stepsTitle: 'Überweisungsschritte',
         bankLabel: 'Bank',
         transferAmountLabel: 'Überweisungsbetrag',
         senderLabel: 'Absender',
@@ -19509,6 +19516,7 @@ export const translations: Record<Language, TranslationKeys> = {
           step6: 'Verzekeringskosten',
         },
         bankLabel: 'Bank',
+        stepsTitle: 'Overboekingsstappen',
         transferAmountLabel: 'Overboekingsbedrag',
         senderLabel: 'Afzender',
         senderValue: 'ALTUS Finance rekening',

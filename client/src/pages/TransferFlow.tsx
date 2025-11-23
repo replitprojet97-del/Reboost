@@ -851,7 +851,7 @@ export default function TransferFlow() {
 
     const renderStepsCard = () => (
       <div className="bg-white shadow-sm rounded-xl p-6">
-        <h3 className="text-sm font-semibold text-foreground mb-4">Étapes du transfert</h3>
+        <h3 className="text-sm font-semibold text-foreground mb-4">{t.transferFlow.progress.stepsTitle}</h3>
         <div className="space-y-3">
           {progressSteps.map((stepItem, index) => (
             <div key={index} className="flex items-start gap-3 p-3 rounded-xl hover-elevate">
