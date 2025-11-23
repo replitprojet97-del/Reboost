@@ -70,18 +70,13 @@ console.log(`[CONFIG] Frontend URL: ${process.env.FRONTEND_URL || 'NOT SET'}`);
 console.log(`[CONFIG] Trust Proxy: enabled`);
 console.log('='.repeat(60));
 
-// Parse allowed Vercel domains from environment variable (comma-separated)
-const vercelDomains = process.env.VERCEL_DOMAINS 
-  ? process.env.VERCEL_DOMAINS.split(',').map(d => d.trim())
-  : [];
-
+// PRODUCTION: Only allow the official production domains
+// Do NOT add any Vercel preview domains or other domains
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? [
       'https://altusfinancesgroup.com',
       'https://www.altusfinancesgroup.com',
-      process.env.FRONTEND_URL,
-      ...vercelDomains
-    ].filter(Boolean)
+    ]
   : ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000'];
 
 app.use(cors({
