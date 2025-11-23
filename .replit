@@ -16,6 +16,10 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
+localPort = 43901
+externalPort = 3001
+
+[[ports]]
 localPort = 44141
 externalPort = 3002
 
@@ -66,5 +70,8 @@ expertMode = true
 
 [userenv.development]
 PORT = "5000"
+VITE_COMETCHAT_APP_ID = "1671924081918af0d"
+VITE_COMETCHAT_REGION = "eu"
+VITE_COMETCHAT_AUTH_KEY = "771004c6e53154ea4d6f2b295ff307d10f4f5a69"
 
 [userenv.shared]

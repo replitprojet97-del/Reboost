@@ -6,13 +6,14 @@ export const useCometChatLogin = () => {
     try {
       const { data } = await axios.get("/api/cometchat/auth-token");
 
-      const { uid, authToken } = data;
+      const { uid } = data;
 
-      await CometChatUIKit.login(authToken);
+      await CometChatUIKit.login(uid);
 
       console.log("✔️ CometChat login success for", uid);
     } catch (err) {
       console.error("❌ CometChat login error", err);
+      throw err;
     }
   };
 

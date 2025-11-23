@@ -17,7 +17,7 @@ export const initCometChat = async () => {
     .subscribePresenceForAllUsers()
     .build();
 
-  return CometChatUIKit.init(UIKitSettings)
+  return CometChatUIKit.init(UIKitSettings)!
     .then(() => console.log("✔️ CometChat initialized"))
     .catch((error) => console.error("❌ CometChat init failed:", error));
 };
