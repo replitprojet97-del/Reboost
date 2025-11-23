@@ -10,10 +10,15 @@ import {
 import { CometChatUIKit, UIKitSettingsBuilder } from "@cometchat/chat-uikit-react";
 import { CometChat } from "@cometchat/chat-sdk-javascript";
 import { getApiUrl } from "@/lib/queryClient";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { MessageCircle, X } from "lucide-react";
 
 let isInitialized = false;
 
 type ChatView = "conversations" | "users";
+
+const LISTENER_ID = "ALTUS_MESSAGE_LISTENER";
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -21,6 +26,9 @@ export default function ChatWidget() {
   const [error, setError] = useState<string | null>(null);
   const [activeView, setActiveView] = useState<ChatView>("conversations");
   const [selectedUser, setSelectedUser] = useState<CometChat.User | null>(null);
+  const [messageRefreshKey, setMessageRefreshKey] = useState(0);
+  const [adminUser, setAdminUser] = useState<CometChat.User | null>(null);
+  const [isLoadingAdmin, setIsLoadingAdmin] = useState(false);
   const { data: user } = useUser();
 
   const initializeCometChat = useCallback(async () => {
@@ -67,6 +75,34 @@ export default function ChatWidget() {
     }
   }, [open, isCometChatReady, user, initializeCometChat]);
 
+  // Real-time message listener
+  useEffect(() => {
+    if (!isCometChatReady) return;
+
+    const messageListener = new CometChat.MessageListener({
+      onTextMessageReceived: (message: CometChat.TextMessage) => {
+        console.log("📩 New message received in real-time:", message);
+        setMessageRefreshKey(prev => prev + 1);
+      },
+      onMediaMessageReceived: (message: CometChat.MediaMessage) => {
+        console.log("📩 New media message received in real-time:", message);
+        setMessageRefreshKey(prev => prev + 1);
+      },
+      onCustomMessageReceived: (message: CometChat.CustomMessage) => {
+        console.log("📩 New custom message received in real-time:", message);
+        setMessageRefreshKey(prev => prev + 1);
+      },
+    });
+
+    CometChat.addMessageListener(LISTENER_ID, messageListener);
+    console.log("✅ Real-time message listener registered");
+
+    return () => {
+      CometChat.removeMessageListener(LISTENER_ID);
+      console.log("❌ Real-time message listener removed");
+    };
+  }, [isCometChatReady]);
+
   if (!user) {
     return null;
   }
@@ -82,112 +118,130 @@ export default function ChatWidget() {
     setSelectedUser(null);
   };
 
+  const handleContactSupport = async () => {
+    if (adminUser) {
+      setSelectedUser(adminUser);
+      return;
+    }
+
+    setIsLoadingAdmin(true);
+    try {
+      const res = await fetch(getApiUrl("/api/cometchat/admin-uid"), {
+        credentials: "include",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to fetch admin");
+      }
+      const { adminUid } = await res.json();
+      
+      // Fetch the admin user from CometChat
+      const admin = await CometChat.getUser(adminUid);
+      setAdminUser(admin);
+      setSelectedUser(admin);
+    } catch (err) {
+      console.error("Error loading admin user:", err);
+      setError("Impossible de contacter le support. Veuillez réessayer.");
+    } finally {
+      setIsLoadingAdmin(false);
+    }
+  };
+
   return (
     <>
-      <button
+      <Button
         data-testid="button-chat-widget"
         onClick={() => setOpen(!open)}
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          background: "#6c5ce7",
-          borderRadius: "50%",
-          width: "60px",
-          height: "60px",
-          color: "#fff",
-          fontSize: "26px",
-          border: "none",
-          cursor: "pointer",
-          zIndex: 9999,
-        }}
+        size="icon"
+        variant="default"
+        className="fixed bottom-5 right-5 h-14 w-14 rounded-full bg-primary shadow-lg z-[9999] hover-elevate"
       >
-        💬
-      </button>
+        {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
+      </Button>
 
       {open && (
-        <div
-          style={{
-            position: "fixed",
-            bottom: "90px",
-            right: "20px",
-            width: "400px",
-            height: "600px",
-            background: "#fff",
-            borderRadius: "12px",
-            overflow: "hidden",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-            zIndex: 9999,
-          }}
-        >
+        <Card className="fixed bottom-24 right-5 w-[400px] h-[600px] z-[9999] shadow-2xl flex flex-col overflow-hidden">
           {error ? (
-            <div style={{ padding: "20px", textAlign: "center" }}>
-              <p style={{ color: "#e74c3c" }}>{error}</p>
+            <div className="flex items-center justify-center h-full p-5">
+              <p className="text-destructive text-center">{error}</p>
             </div>
           ) : !isCometChatReady ? (
-            <div style={{ padding: "20px", textAlign: "center" }}>
-              <p>Chargement du chat...</p>
+            <div className="flex items-center justify-center h-full p-5">
+              <p className="text-muted-foreground">Chargement du chat...</p>
             </div>
           ) : (
             <>
               {isAdmin && (
-                <div style={{ 
-                  display: "flex", 
-                  borderBottom: "1px solid #e0e0e0",
-                  background: "#f5f5f5"
-                }}>
-                  <button
+                <div className="flex border-b bg-muted/30">
+                  <Button
                     onClick={() => setActiveView("conversations")}
-                    style={{
-                      flex: 1,
-                      padding: "12px",
-                      border: "none",
-                      background: activeView === "conversations" ? "#fff" : "transparent",
-                      borderBottom: activeView === "conversations" ? "2px solid #6c5ce7" : "none",
-                      color: activeView === "conversations" ? "#6c5ce7" : "#666",
-                      fontWeight: activeView === "conversations" ? "600" : "400",
-                      cursor: "pointer",
-                    }}
+                    variant="ghost"
+                    className={`flex-1 rounded-none border-b-2 ${
+                      activeView === "conversations" 
+                        ? "border-primary text-primary font-semibold" 
+                        : "border-transparent text-muted-foreground"
+                    }`}
                     data-testid="button-chat-conversations"
                   >
                     Conversations
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => setActiveView("users")}
-                    style={{
-                      flex: 1,
-                      padding: "12px",
-                      border: "none",
-                      background: activeView === "users" ? "#fff" : "transparent",
-                      borderBottom: activeView === "users" ? "2px solid #6c5ce7" : "none",
-                      color: activeView === "users" ? "#6c5ce7" : "#666",
-                      fontWeight: activeView === "users" ? "600" : "400",
-                      cursor: "pointer",
-                    }}
+                    variant="ghost"
+                    className={`flex-1 rounded-none border-b-2 ${
+                      activeView === "users" 
+                        ? "border-primary text-primary font-semibold" 
+                        : "border-transparent text-muted-foreground"
+                    }`}
                     data-testid="button-chat-users"
                   >
                     Utilisateurs
-                  </button>
+                  </Button>
                 </div>
               )}
-              <div style={{ height: isAdmin ? "calc(100% - 49px)" : "100%", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-                {isAdmin && activeView === "users" && !selectedUser ? (
-                  <CometChatUsers onItemClick={handleUserClick} />
+              <div className={`flex flex-col overflow-hidden ${isAdmin ? "h-[calc(100%-49px)]" : "h-full"}`}>
+                {!isAdmin && !selectedUser ? (
+                  <>
+                    <div className="flex items-center justify-between p-3 border-b">
+                      <h3 className="font-semibold">Conversations</h3>
+                      <Button
+                        size="sm"
+                        variant="default"
+                        onClick={handleContactSupport}
+                        disabled={isLoadingAdmin}
+                        data-testid="button-contact-support"
+                      >
+                        {isLoadingAdmin ? "Chargement..." : "Nouveau message"}
+                      </Button>
+                    </div>
+                    <div className="flex-1 overflow-hidden">
+                      <CometChatConversations key={messageRefreshKey} />
+                    </div>
+                  </>
+                ) : !isAdmin && selectedUser ? (
+                  <>
+                    <CometChatMessageHeader user={selectedUser} onBack={handleBackToUsers} />
+                    <div className="flex-1 overflow-hidden">
+                      <CometChatMessageList user={selectedUser} key={messageRefreshKey} />
+                    </div>
+                    <CometChatMessageComposer user={selectedUser} />
+                  </>
+                ) : isAdmin && activeView === "users" && !selectedUser ? (
+                  <CometChatUsers onItemClick={handleUserClick} key={messageRefreshKey} />
                 ) : isAdmin && activeView === "users" && selectedUser ? (
                   <>
                     <CometChatMessageHeader user={selectedUser} onBack={handleBackToUsers} />
-                    <div style={{ flex: 1, overflow: "hidden" }}>
-                      <CometChatMessageList user={selectedUser} />
+                    <div className="flex-1 overflow-hidden">
+                      <CometChatMessageList user={selectedUser} key={messageRefreshKey} />
                     </div>
                     <CometChatMessageComposer user={selectedUser} />
                   </>
                 ) : (
-                  <CometChatConversations />
+                  <CometChatConversations key={messageRefreshKey} />
                 )}
               </div>
             </>
           )}
-        </div>
+        </Card>
       )}
     </>
   );

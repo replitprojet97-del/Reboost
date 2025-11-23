@@ -4611,6 +4611,22 @@ ${urls.map(url => `  <url>
     }
   });
 
+  app.get("/api/cometchat/admin-uid", requireAuth, async (req, res) => {
+    try {
+      const adminUsers = await storage.getAllUsers();
+      const adminUser = adminUsers.find(u => u.role === 'admin');
+      
+      if (!adminUser) {
+        return res.status(404).json({ error: "Admin not found" });
+      }
+      
+      res.json({ adminUid: `user_${adminUser.id}` });
+    } catch (error) {
+      console.error("[CometChat] Error fetching admin UID:", error);
+      res.status(500).json({ error: "Failed to fetch admin UID" });
+    }
+  });
+
   app.get("/api/cometchat/auth-token", requireAuth, cometChatTokenLimiter, async (req, res) => {
     try {
       const userId = req.session.userId;
