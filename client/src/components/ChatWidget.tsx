@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useUser } from "@/hooks/use-user";
 import { CometChatConversations } from "@cometchat/chat-uikit-react";
 import { CometChatUIKit, UIKitSettingsBuilder } from "@cometchat/chat-uikit-react";
-import axios from "axios";
+import { getApiUrl } from "@/lib/queryClient";
 
 let isInitialized = false;
 
@@ -14,7 +14,13 @@ export default function ChatWidget() {
 
   const initializeCometChat = useCallback(async () => {
     try {
-      const { data } = await axios.get("/api/cometchat/auth-token");
+      const res = await fetch(getApiUrl("/api/cometchat/auth-token"), {
+        credentials: "include",
+      });
+      if (!res.ok) {
+        throw new Error(`Failed to fetch auth token: ${res.status}`);
+      }
+      const data = await res.json();
       const { uid, authToken, appId, region } = data;
 
       if (!authToken || !appId || !region) {
