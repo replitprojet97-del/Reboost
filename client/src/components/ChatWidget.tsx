@@ -103,6 +103,7 @@ export default function ChatWidget() {
     };
   }, [isCometChatReady]);
 
+  // Ne pas afficher le widget sur les pages publiques
   if (!user) {
     return null;
   }
@@ -148,18 +149,20 @@ export default function ChatWidget() {
 
   return (
     <>
+      {/* Bouton flottant élégant */}
       <Button
         data-testid="button-chat-widget"
         onClick={() => setOpen(!open)}
         size="icon"
         variant="default"
-        className="fixed bottom-5 right-5 h-14 w-14 rounded-full bg-primary shadow-lg z-[9999] hover-elevate"
+        className="fixed bottom-6 right-6 h-16 w-16 rounded-full bg-primary shadow-2xl z-[9999] hover:scale-110 transition-transform duration-200"
       >
         {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </Button>
 
+      {/* Widget de chat élégant */}
       {open && (
-        <Card className="fixed bottom-24 right-5 w-[400px] h-[600px] z-[9999] shadow-2xl flex flex-col overflow-hidden">
+        <Card className="fixed bottom-28 right-6 w-[420px] h-[650px] z-[9999] shadow-2xl flex flex-col overflow-hidden border-2">
           {error ? (
             <div className="flex items-center justify-center h-full p-5">
               <p className="text-destructive text-center">{error}</p>
@@ -170,30 +173,33 @@ export default function ChatWidget() {
             </div>
           ) : (
             <>
+              {/* Onglets élégants pour l'admin */}
               {isAdmin && (
-                <div className="flex border-b bg-muted/30">
+                <div className="flex border-b bg-gradient-to-r from-primary/5 to-primary/10">
                   <Button
                     onClick={() => setActiveView("conversations")}
                     variant="ghost"
-                    className={`flex-1 rounded-none border-b-2 ${
+                    className={`flex-1 rounded-none border-b-2 transition-all duration-200 ${
                       activeView === "conversations" 
-                        ? "border-primary text-primary font-semibold" 
-                        : "border-transparent text-muted-foreground"
+                        ? "border-primary bg-primary/10 text-primary font-bold" 
+                        : "border-transparent text-muted-foreground hover:bg-primary/5"
                     }`}
                     data-testid="button-chat-conversations"
                   >
+                    <MessageCircle className="h-4 w-4 mr-2" />
                     Conversations
                   </Button>
                   <Button
                     onClick={() => setActiveView("users")}
                     variant="ghost"
-                    className={`flex-1 rounded-none border-b-2 ${
+                    className={`flex-1 rounded-none border-b-2 transition-all duration-200 ${
                       activeView === "users" 
-                        ? "border-primary text-primary font-semibold" 
-                        : "border-transparent text-muted-foreground"
+                        ? "border-primary bg-primary/10 text-primary font-bold" 
+                        : "border-transparent text-muted-foreground hover:bg-primary/5"
                     }`}
                     data-testid="button-chat-users"
                   >
+                    <MessageCircle className="h-4 w-4 mr-2" />
                     Utilisateurs
                   </Button>
                 </div>
@@ -201,17 +207,25 @@ export default function ChatWidget() {
               <div className={`flex flex-col overflow-hidden ${isAdmin ? "h-[calc(100%-49px)]" : "h-full"}`}>
                 {!isAdmin && !selectedUser ? (
                   <>
-                    <div className="flex items-center justify-between p-3 border-b">
-                      <h3 className="font-semibold">Conversations</h3>
-                      <Button
-                        size="sm"
-                        variant="default"
-                        onClick={handleContactSupport}
-                        disabled={isLoadingAdmin}
-                        data-testid="button-contact-support"
-                      >
-                        {isLoadingAdmin ? "Chargement..." : "Nouveau message"}
-                      </Button>
+                    {/* En-tête élégant pour les utilisateurs */}
+                    <div className="flex flex-col p-4 border-b bg-gradient-to-r from-primary/5 to-primary/10">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="font-bold text-lg">Mes Conversations</h3>
+                        <Button
+                          size="sm"
+                          variant="default"
+                          onClick={handleContactSupport}
+                          disabled={isLoadingAdmin}
+                          data-testid="button-contact-support"
+                          className="shadow-md"
+                        >
+                          <MessageCircle className="h-4 w-4 mr-2" />
+                          {isLoadingAdmin ? "Chargement..." : "Contacter le Support"}
+                        </Button>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Besoin d'aide ? Démarrez une conversation avec notre équipe.
+                      </p>
                     </div>
                     <div className="flex-1 overflow-hidden">
                       <CometChatConversations key={messageRefreshKey} />
