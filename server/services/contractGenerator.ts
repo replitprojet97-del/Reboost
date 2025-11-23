@@ -95,7 +95,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     loanConditions: 'Conditions du prêt',
     article1Title: 'Article 1 - Objet du contrat',
     article1Content: (userName, amount, rate, duration) => 
-      `Le présent contrat a pour objet l'octroi par ALTUS FINANCE GROUP (ci-après "le Prêteur") à ${userName} (ci-après "l'Emprunteur") d'un prêt d'un montant de <strong>${amount} €</strong> au taux d'intérêt annuel de <strong>${rate}%</strong> pour une durée de <strong>${duration} mois</strong>.`,
+      `Le présent contrat a pour objet l'octroi par ALTUS FINANCES GROUP (ci-après "le Prêteur") à ${userName} (ci-après "l'Emprunteur") d'un prêt d'un montant de <strong>${amount} €</strong> au taux d'intérêt annuel de <strong>${rate}%</strong> pour une durée de <strong>${duration} mois</strong>.`,
     article2Title: 'Article 2 - Modalités de remboursement',
     article2Content: (duration, rate, monthly) =>
       `L'Emprunteur s'engage à rembourser le prêt selon un échéancier mensuel sur ${duration} mois. Chaque mensualité comprendra une part du capital emprunté ainsi que les intérêts calculés au taux annuel de ${rate}%. Le montant estimé de la mensualité est de <strong>${monthly} €</strong>.`,
@@ -103,7 +103,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `Le taux d'intérêt appliqué est fixe et s'élève à ${rate}% par an. Le coût total du crédit, incluant les intérêts, est estimé à <strong>${totalInterest} €</strong>. Le montant total à rembourser s'élève donc à <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Article 4 – Déblocage des fonds',
-    article4Content: `Les fonds du prêt seront mis à disposition de l'Emprunteur sur le compte affilié ALTUS FINANCE GROUP ouvert au nom de l'Emprunteur au sein du réseau ALTUS. L'Emprunteur reconnaît et accepte que le versement initial sera crédité sur ce compte affilié, qu'il lui appartient d'initier le virement vers son compte bancaire externe, et que le déblocage effectif des fonds aura lieu dans un délai maximum de 24 heures ouvrées à compter de la réception du présent contrat dûment signé.`,
+    article4Content: `Les fonds du prêt seront mis à disposition de l'Emprunteur sur le compte affilié ALTUS FINANCES GROUP ouvert au nom de l'Emprunteur au sein du réseau ALTUS. L'Emprunteur reconnaît et accepte que le versement initial sera crédité sur ce compte affilié, qu'il lui appartient d'initier le virement vers son compte bancaire externe, et que le déblocage effectif des fonds aura lieu dans un délai maximum de 24 heures ouvrées à compter de la réception du présent contrat dûment signé.`,
     article5Title: 'Article 5 - Remboursement anticipé',
     article5Content: "L'Emprunteur a la possibilité de procéder à un remboursement anticipé, total ou partiel, du capital restant dû sans pénalités. Toute demande de remboursement anticipé doit être formulée par écrit au moins 30 jours avant la date souhaitée.",
     article6Title: 'Article 6 - Défaut de paiement',
@@ -117,7 +117,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Signatures',
     madeInDuplicates: 'Fait en deux exemplaires originaux',
     inLuxembourg: 'À Luxembourg, le',
-    forAltus: 'Pour ALTUS FINANCE GROUP',
+    forAltus: 'Pour ALTUS FINANCES GROUP',
     lender: 'Le Prêteur',
     borrower: "L'Emprunteur",
     preSigned: '✓ Document pré-signé et validé',
@@ -171,7 +171,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     loanConditions: 'Loan Terms',
     article1Title: 'Article 1 - Purpose of Contract',
     article1Content: (userName, amount, rate, duration) =>
-      `This contract is for the granting by ALTUS FINANCE GROUP (hereinafter "the Lender") to ${userName} (hereinafter "the Borrower") of a loan in the amount of <strong>€${amount}</strong> at an annual interest rate of <strong>${rate}%</strong> for a duration of <strong>${duration} months</strong>.`,
+      `This contract is for the granting by ALTUS FINANCES GROUP (hereinafter "the Lender") to ${userName} (hereinafter "the Borrower") of a loan in the amount of <strong>€${amount}</strong> at an annual interest rate of <strong>${rate}%</strong> for a duration of <strong>${duration} months</strong>.`,
     article2Title: 'Article 2 - Repayment Terms',
     article2Content: (duration, rate, monthly) =>
       `The Borrower commits to repay the loan on a monthly schedule over ${duration} months. Each monthly payment will include a portion of the borrowed capital and interest calculated at the annual rate of ${rate}%. The estimated monthly payment is <strong>€${monthly}</strong>.`,
@@ -179,7 +179,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `The applied interest rate is fixed at ${rate}% per year. The total cost of credit, including interest, is estimated at <strong>€${totalInterest}</strong>. The total amount to be repaid is therefore <strong>€${totalRepayment}</strong>.`,
     article4Title: 'Article 4 – Fund Disbursement',
-    article4Content: 'The loan funds will be made available to the Borrower in the ALTUS FINANCE GROUP affiliated account opened in the Borrower\'s name within the ALTUS network. The Borrower acknowledges and accepts that the initial payment will be credited to this affiliated account, that it is their responsibility to initiate the transfer to their external bank account, and that the effective disbursement of funds will occur within a maximum of 24 business hours from receipt of this duly signed contract.',
+    article4Content: 'The loan funds will be made available to the Borrower in the ALTUS FINANCES GROUP affiliated account opened in the Borrower\'s name within the ALTUS network. The Borrower acknowledges and accepts that the initial payment will be credited to this affiliated account, that it is their responsibility to initiate the transfer to their external bank account, and that the effective disbursement of funds will occur within a maximum of 24 business hours from receipt of this duly signed contract.',
     article5Title: 'Article 5 - Early Repayment',
     article5Content: 'The Borrower has the option to make early repayment, total or partial, of the remaining capital without penalties. Any request for early repayment must be submitted in writing at least 30 days before the desired date.',
     article6Title: 'Article 6 - Default of Payment',
@@ -193,7 +193,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Signatures',
     madeInDuplicates: 'Made in two original copies',
     inLuxembourg: 'In Luxembourg, on',
-    forAltus: 'For ALTUS FINANCE GROUP',
+    forAltus: 'For ALTUS FINANCES GROUP',
     lender: 'The Lender',
     borrower: 'The Borrower',
     preSigned: '✓ Pre-signed and validated document',
@@ -247,7 +247,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     loanConditions: 'Darlehensbedingungen',
     article1Title: 'Artikel 1 - Vertragszweck',
     article1Content: (userName, amount, rate, duration) =>
-      `Dieser Vertrag regelt die Gewährung eines Darlehens durch ALTUS FINANCE GROUP (nachfolgend "Darlehensgeber") an ${userName} (nachfolgend "Darlehensnehmer") in Höhe von <strong>${amount} €</strong> zu einem jährlichen Zinssatz von <strong>${rate}%</strong> für eine Laufzeit von <strong>${duration} Monaten</strong>.`,
+      `Dieser Vertrag regelt die Gewährung eines Darlehens durch ALTUS FINANCES GROUP (nachfolgend "Darlehensgeber") an ${userName} (nachfolgend "Darlehensnehmer") in Höhe von <strong>${amount} €</strong> zu einem jährlichen Zinssatz von <strong>${rate}%</strong> für eine Laufzeit von <strong>${duration} Monaten</strong>.`,
     article2Title: 'Artikel 2 - Rückzahlungsmodalitäten',
     article2Content: (duration, rate, monthly) =>
       `Der Darlehensnehmer verpflichtet sich, das Darlehen gemäß einem monatlichen Tilgungsplan über ${duration} Monate zurückzuzahlen. Jede monatliche Rate umfasst einen Teil des geliehenen Kapitals sowie Zinsen, die zum jährlichen Satz von ${rate}% berechnet werden. Die geschätzte monatliche Rate beträgt <strong>${monthly} €</strong>.`,
@@ -255,7 +255,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `Der angewandte Zinssatz ist fest und beträgt ${rate}% pro Jahr. Die Gesamtkreditkosten einschließlich Zinsen werden auf <strong>${totalInterest} €</strong> geschätzt. Der gesamte zurückzuzahlende Betrag beläuft sich somit auf <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Artikel 4 – Auszahlung der Mittel',
-    article4Content: 'Die Darlehensmittel werden dem Darlehensnehmer auf dem ALTUS FINANCE GROUP-Partnerkonto zur Verfügung gestellt, das im Namen des Darlehensnehmers im ALTUS-Netzwerk eröffnet wurde. Der Darlehensnehmer erkennt an und akzeptiert, dass die anfängliche Zahlung auf diesem Partnerkonto gutgeschrieben wird, dass es in seiner Verantwortung liegt, die Überweisung auf sein externes Bankkonto zu veranlassen, und dass die effektive Auszahlung der Mittel innerhalb von maximal 24 Werktagen nach Erhalt dieses ordnungsgemäß unterzeichneten Vertrags erfolgt.',
+    article4Content: 'Die Darlehensmittel werden dem Darlehensnehmer auf dem ALTUS FINANCES GROUP-Partnerkonto zur Verfügung gestellt, das im Namen des Darlehensnehmers im ALTUS-Netzwerk eröffnet wurde. Der Darlehensnehmer erkennt an und akzeptiert, dass die anfängliche Zahlung auf diesem Partnerkonto gutgeschrieben wird, dass es in seiner Verantwortung liegt, die Überweisung auf sein externes Bankkonto zu veranlassen, und dass die effektive Auszahlung der Mittel innerhalb von maximal 24 Werktagen nach Erhalt dieses ordnungsgemäß unterzeichneten Vertrags erfolgt.',
     article5Title: 'Artikel 5 - Vorzeitige Rückzahlung',
     article5Content: 'Der Darlehensnehmer hat die Möglichkeit, das verbleibende Kapital ganz oder teilweise vorzeitig und ohne Strafen zurückzuzahlen. Jeder Antrag auf vorzeitige Rückzahlung muss mindestens 30 Tage vor dem gewünschten Datum schriftlich gestellt werden.',
     article6Title: 'Artikel 6 - Zahlungsverzug',
@@ -269,7 +269,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Unterschriften',
     madeInDuplicates: 'In zwei Originalexemplaren erstellt',
     inLuxembourg: 'In Luxemburg, am',
-    forAltus: 'Für ALTUS FINANCE GROUP',
+    forAltus: 'Für ALTUS FINANCES GROUP',
     lender: 'Der Darlehensgeber',
     borrower: 'Der Darlehensnehmer',
     preSigned: '✓ Vorab unterzeichnetes und validiertes Dokument',
@@ -323,7 +323,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     loanConditions: 'Condições do Empréstimo',
     article1Title: 'Artigo 1 - Objeto do Contrato',
     article1Content: (userName, amount, rate, duration) =>
-      `Este contrato tem como objeto a concessão pela ALTUS FINANCE GROUP (doravante "o Mutuante") a ${userName} (doravante "o Mutuário") de um empréstimo no valor de <strong>${amount} €</strong> à taxa de juros anual de <strong>${rate}%</strong> por uma duração de <strong>${duration} meses</strong>.`,
+      `Este contrato tem como objeto a concessão pela ALTUS FINANCES GROUP (doravante "o Mutuante") a ${userName} (doravante "o Mutuário") de um empréstimo no valor de <strong>${amount} €</strong> à taxa de juros anual de <strong>${rate}%</strong> por uma duração de <strong>${duration} meses</strong>.`,
     article2Title: 'Artigo 2 - Modalidades de Reembolso',
     article2Content: (duration, rate, monthly) =>
       `O Mutuário compromete-se a reembolsar o empréstimo segundo um cronograma mensal ao longo de ${duration} meses. Cada mensalidade incluirá uma parte do capital emprestado, bem como os juros calculados à taxa anual de ${rate}%. O valor estimado da mensalidade é de <strong>${monthly} €</strong>.`,
@@ -331,7 +331,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `A taxa de juros aplicada é fixa e corresponde a ${rate}% ao ano. O custo total do crédito, incluindo juros, é estimado em <strong>${totalInterest} €</strong>. O montante total a reembolsar ascende portanto a <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Artigo 4 – Desembolso dos Fundos',
-    article4Content: 'Os fundos do empréstimo serão disponibilizados ao Mutuário na conta afiliada ALTUS FINANCE GROUP aberta em nome do Mutuário dentro da rede ALTUS. O Mutuário reconhece e aceita que o pagamento inicial será creditado nesta conta afiliada, que é sua responsabilidade iniciar a transferência para sua conta bancária externa, e que o desembolso efetivo dos fundos ocorrerá dentro de um máximo de 24 horas úteis a partir do recebimento deste contrato devidamente assinado.',
+    article4Content: 'Os fundos do empréstimo serão disponibilizados ao Mutuário na conta afiliada ALTUS FINANCES GROUP aberta em nome do Mutuário dentro da rede ALTUS. O Mutuário reconhece e aceita que o pagamento inicial será creditado nesta conta afiliada, que é sua responsabilidade iniciar a transferência para sua conta bancária externa, e que o desembolso efetivo dos fundos ocorrerá dentro de um máximo de 24 horas úteis a partir do recebimento deste contrato devidamente assinado.',
     article5Title: 'Artigo 5 - Reembolso Antecipado',
     article5Content: 'O Mutuário tem a opção de proceder ao reembolso antecipado, total ou parcial, do capital remanescente sem penalidades. Qualquer pedido de reembolso antecipado deve ser formulado por escrito pelo menos 30 dias antes da data desejada.',
     article6Title: 'Artigo 6 - Inadimplência',
@@ -345,7 +345,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Assinaturas',
     madeInDuplicates: 'Feito em dois originais',
     inLuxembourg: 'No Luxemburgo, em',
-    forAltus: 'Por ALTUS FINANCE GROUP',
+    forAltus: 'Por ALTUS FINANCES GROUP',
     lender: 'O Mutuante',
     borrower: 'O Mutuário',
     preSigned: '✓ Documento pré-assinado e validado',
@@ -399,7 +399,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     loanConditions: 'Condiciones del Préstamo',
     article1Title: 'Artículo 1 - Objeto del Contrato',
     article1Content: (userName, amount, rate, duration) =>
-      `Este contrato tiene por objeto el otorgamiento por ALTUS FINANCE GROUP (en adelante "el Prestamista") a ${userName} (en adelante "el Prestatario") de un préstamo por un monto de <strong>${amount} €</strong> a una tasa de interés anual de <strong>${rate}%</strong> por una duración de <strong>${duration} meses</strong>.`,
+      `Este contrato tiene por objeto el otorgamiento por ALTUS FINANCES GROUP (en adelante "el Prestamista") a ${userName} (en adelante "el Prestatario") de un préstamo por un monto de <strong>${amount} €</strong> a una tasa de interés anual de <strong>${rate}%</strong> por una duración de <strong>${duration} meses</strong>.`,
     article2Title: 'Artículo 2 - Modalidades de Reembolso',
     article2Content: (duration, rate, monthly) =>
       `El Prestatario se compromete a reembolsar el préstamo según un calendario mensual durante ${duration} meses. Cada mensualidad incluirá una parte del capital prestado así como los intereses calculados a la tasa anual de ${rate}%. El monto estimado de la mensualidad es de <strong>${monthly} €</strong>.`,
@@ -407,7 +407,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `La tasa de interés aplicada es fija y asciende a ${rate}% por año. El costo total del crédito, incluyendo intereses, se estima en <strong>${totalInterest} €</strong>. El monto total a reembolsar asciende por lo tanto a <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Artículo 4 – Desembolso de los Fondos',
-    article4Content: 'Los fondos del préstamo se pondrán a disposición del Prestatario en la cuenta afiliada ALTUS FINANCE GROUP abierta a nombre del Prestatario dentro de la red ALTUS. El Prestatario reconoce y acepta que el pago inicial se acreditará en esta cuenta afiliada, que es su responsabilidad iniciar la transferencia a su cuenta bancaria externa, y que el desembolso efectivo de los fondos se realizará dentro de un máximo de 24 horas hábiles desde la recepción de este contrato debidamente firmado.',
+    article4Content: 'Los fondos del préstamo se pondrán a disposición del Prestatario en la cuenta afiliada ALTUS FINANCES GROUP abierta a nombre del Prestatario dentro de la red ALTUS. El Prestatario reconoce y acepta que el pago inicial se acreditará en esta cuenta afiliada, que es su responsabilidad iniciar la transferencia a su cuenta bancaria externa, y que el desembolso efectivo de los fondos se realizará dentro de un máximo de 24 horas hábiles desde la recepción de este contrato debidamente firmado.',
     article5Title: 'Artículo 5 - Reembolso Anticipado',
     article5Content: 'El Prestatario tiene la opción de proceder al reembolso anticipado, total o parcial, del capital restante sin penalidades. Cualquier solicitud de reembolso anticipado debe formularse por escrito al menos 30 días antes de la fecha deseada.',
     article6Title: 'Artículo 6 - Incumplimiento de Pago',
@@ -421,7 +421,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Firmas',
     madeInDuplicates: 'Hecho en dos originales',
     inLuxembourg: 'En Luxemburgo, el',
-    forAltus: 'Por ALTUS FINANCE GROUP',
+    forAltus: 'Por ALTUS FINANCES GROUP',
     lender: 'El Prestamista',
     borrower: 'El Prestatario',
     preSigned: '✓ Documento pre-firmado y validado',
@@ -475,7 +475,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     loanConditions: 'Condizioni del Prestito',
     article1Title: 'Articolo 1 - Oggetto del Contratto',
     article1Content: (userName, amount, rate, duration) =>
-      `Il presente contratto ha per oggetto la concessione da parte di ALTUS FINANCE GROUP (di seguito "il Prestatore") a ${userName} (di seguito "il Mutuatario") di un prestito dell'importo di <strong>${amount} €</strong> al tasso di interesse annuo di <strong>${rate}%</strong> per una durata di <strong>${duration} mesi</strong>.`,
+      `Il presente contratto ha per oggetto la concessione da parte di ALTUS FINANCES GROUP (di seguito "il Prestatore") a ${userName} (di seguito "il Mutuatario") di un prestito dell'importo di <strong>${amount} €</strong> al tasso di interesse annuo di <strong>${rate}%</strong> per una durata di <strong>${duration} mesi</strong>.`,
     article2Title: 'Articolo 2 - Modalità di Rimborso',
     article2Content: (duration, rate, monthly) =>
       `Il Mutuatario si impegna a rimborsare il prestito secondo un piano mensile di ${duration} mesi. Ogni rata mensile comprenderà una parte del capitale preso in prestito e gli interessi calcolati al tasso annuo del ${rate}%. L'importo stimato della rata mensile è di <strong>${monthly} €</strong>.`,
@@ -483,7 +483,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `Il tasso di interesse applicato è fisso e ammonta al ${rate}% annuo. Il costo totale del credito, compresi gli interessi, è stimato in <strong>${totalInterest} €</strong>. L'importo totale da rimborsare ammonta quindi a <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Articolo 4 – Erogazione dei Fondi',
-    article4Content: 'I fondi del prestito saranno messi a disposizione del Mutuatario sul conto affiliato ALTUS FINANCE GROUP aperto a nome del Mutuatario all\'interno della rete ALTUS. Il Mutuatario riconosce e accetta che il pagamento iniziale sarà accreditato su questo conto affiliato, che è sua responsabilità avviare il trasferimento verso il suo conto bancario esterno, e che l\'erogazione effettiva dei fondi avverrà entro un massimo di 24 ore lavorative dalla ricezione del presente contratto debitamente firmato.',
+    article4Content: 'I fondi del prestito saranno messi a disposizione del Mutuatario sul conto affiliato ALTUS FINANCES GROUP aperto a nome del Mutuatario all\'interno della rete ALTUS. Il Mutuatario riconosce e accetta che il pagamento iniziale sarà accreditato su questo conto affiliato, che è sua responsabilità avviare il trasferimento verso il suo conto bancario esterno, e che l\'erogazione effettiva dei fondi avverrà entro un massimo di 24 ore lavorative dalla ricezione del presente contratto debitamente firmato.',
     article5Title: 'Articolo 5 - Rimborso Anticipato',
     article5Content: 'Il Mutuatario ha la possibilità di procedere al rimborso anticipato, totale o parziale, del capitale residuo senza penalità. Qualsiasi richiesta di rimborso anticipato deve essere formulata per iscritto almeno 30 giorni prima della data desiderata.',
     article6Title: 'Articolo 6 - Inadempienza di Pagamento',
@@ -497,7 +497,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Firme',
     madeInDuplicates: 'Fatto in due originali',
     inLuxembourg: 'A Lussemburgo, il',
-    forAltus: 'Per ALTUS FINANCE GROUP',
+    forAltus: 'Per ALTUS FINANCES GROUP',
     lender: 'Il Prestatore',
     borrower: 'Il Mutuatario',
     preSigned: '✓ Documento pre-firmato e convalidato',
@@ -551,7 +551,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     loanConditions: 'Leningsvoorwaarden',
     article1Title: 'Artikel 1 - Doel van het Contract',
     article1Content: (userName, amount, rate, duration) =>
-      `Dit contract heeft tot doel de toekenning door ALTUS FINANCE GROUP (hierna "de Kredietgever") aan ${userName} (hierna "de Lener") van een lening van <strong>${amount} €</strong> tegen een jaarlijks rentepercentage van <strong>${rate}%</strong> voor een looptijd van <strong>${duration} maanden</strong>.`,
+      `Dit contract heeft tot doel de toekenning door ALTUS FINANCES GROUP (hierna "de Kredietgever") aan ${userName} (hierna "de Lener") van een lening van <strong>${amount} €</strong> tegen een jaarlijks rentepercentage van <strong>${rate}%</strong> voor een looptijd van <strong>${duration} maanden</strong>.`,
     article2Title: 'Artikel 2 - Terugbetalingsvoorwaarden',
     article2Content: (duration, rate, monthly) =>
       `De Lener verbindt zich ertoe de lening terug te betalen volgens een maandelijks schema gedurende ${duration} maanden. Elke maandelijkse betaling omvat een deel van het geleende kapitaal en rente berekend tegen het jaarlijkse tarief van ${rate}%. Het geschatte maandelijkse bedrag bedraagt <strong>${monthly} €</strong>.`,
@@ -559,7 +559,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `Het toegepaste rentepercentage is vast en bedraagt ${rate}% per jaar. De totale kosten van het krediet, inclusief rente, worden geschat op <strong>${totalInterest} €</strong>. Het totaal terug te betalen bedrag bedraagt dus <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Artikel 4 – Uitbetaling van de Fondsen',
-    article4Content: 'De leningsfondsen worden ter beschikking gesteld van de Lener op de ALTUS FINANCE GROUP-gelieerde rekening geopend op naam van de Lener binnen het ALTUS-netwerk. De Lener erkent en accepteert dat de initiële betaling wordt gecrediteerd op deze gelieerde rekening, dat het zijn verantwoordelijkheid is om de overboeking naar zijn externe bankrekening te starten, en dat de effectieve uitbetaling van de fondsen zal plaatsvinden binnen maximaal 24 werkuren na ontvangst van dit naar behoren ondertekende contract.',
+    article4Content: 'De leningsfondsen worden ter beschikking gesteld van de Lener op de ALTUS FINANCES GROUP-gelieerde rekening geopend op naam van de Lener binnen het ALTUS-netwerk. De Lener erkent en accepteert dat de initiële betaling wordt gecrediteerd op deze gelieerde rekening, dat het zijn verantwoordelijkheid is om de overboeking naar zijn externe bankrekening te starten, en dat de effectieve uitbetaling van de fondsen zal plaatsvinden binnen maximaal 24 werkuren na ontvangst van dit naar behoren ondertekende contract.',
     article5Title: 'Artikel 5 - Vervroegde Terugbetaling',
     article5Content: 'De Lener heeft de mogelijkheid om vervroegd, geheel of gedeeltelijk, het resterende kapitaal terug te betalen zonder boetes. Elk verzoek tot vervroegde terugbetaling moet minstens 30 dagen voor de gewenste datum schriftelijk worden ingediend.',
     article6Title: 'Artikel 6 - Wanbetaling',
@@ -573,7 +573,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Handtekeningen',
     madeInDuplicates: 'Opgesteld in twee originelen',
     inLuxembourg: 'In Luxemburg, op',
-    forAltus: 'Voor ALTUS FINANCE GROUP',
+    forAltus: 'Voor ALTUS FINANCES GROUP',
     lender: 'De Kredietgever',
     borrower: 'De Lener',
     preSigned: '✓ Vooraf ondertekend en gevalideerd document',
@@ -895,15 +895,15 @@ const getContractTemplate = (data: ContractData): string => {
     <div class="header-top">
       <div class="logo-section">
         <div class="logo">ALTUS</div>
-        <div class="logo-subtitle">Finance Group</div>
+        <div class="logo-subtitle">Finances Group</div>
       </div>
       <div class="header-info">
-        <strong>ALTUS FINANCE GROUP S.à r.l.</strong>
+        <strong>ALTUS FINANCES GROUP S.à r.l.</strong>
         <span class="contact-line">19 Rue Sigismond, L-2537 Luxembourg</span>
         <span class="contact-line">RCS Luxembourg B123456</span>
         <span class="contact-line">Tél: +352 40 63 48</span>
-        <span class="contact-line">Email: contact@altusfinance.lu</span>
-        <span class="contact-line">www.altusfinance.lu</span>
+        <span class="contact-line">Email: contact@altusfinancesgroup.com</span>
+        <span class="contact-line">www.altusfinancesgroup.com</span>
       </div>
     </div>
     <div style="text-align: center;">
@@ -1064,7 +1064,7 @@ const getContractTemplate = (data: ContractData): string => {
   </div>
 
   <div class="footer">
-    <p class="footer-bold">ALTUS FINANCE GROUP - S.à r.l.</p>
+    <p class="footer-bold">ALTUS FINANCES GROUP - S.à r.l.</p>
     <p style="margin: 8px 0;">
       ${t.shareCapital}: 1 000 000 € • RCS Luxembourg B123456<br>
       ${t.headquarters}: 19 Rue Sigismond, L-2537 Luxembourg<br>

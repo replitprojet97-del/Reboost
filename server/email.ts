@@ -140,8 +140,8 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
     const safeName = escapeHtml(fullName);
     
     const subject = language === 'en' 
-      ? 'Reset your password - ALTUS FINANCE GROUP'
-      : 'Réinitialisez votre mot de passe - ALTUS FINANCE GROUP';
+      ? 'Reset your password - ALTUS FINANCES GROUP'
+      : 'Réinitialisez votre mot de passe - ALTUS FINANCES GROUP';
     
     const html = `
 <!DOCTYPE html>
@@ -167,8 +167,8 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
               </p>
               <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 20px 0;">
                 ${language === 'en' 
-                  ? 'We received a request to reset your password for your ALTUS FINANCE GROUP account.'
-                  : 'Nous avons reçu une demande de réinitialisation du mot de passe pour votre compte ALTUS FINANCE GROUP.'}
+                  ? 'We received a request to reset your password for your ALTUS FINANCES GROUP account.'
+                  : 'Nous avons reçu une demande de réinitialisation du mot de passe pour votre compte ALTUS FINANCES GROUP.'}
               </p>
               <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 30px 0;">
                 ${language === 'en'
@@ -205,7 +205,7 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
           <tr>
             <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="color: #6b7280; font-size: 14px; margin: 0;">
-                ALTUS FINANCE GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
+                ALTUS FINANCES GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
                 © ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
               </p>
             </td>
@@ -221,8 +221,8 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
     const text = `${language === 'en' ? 'Hello' : 'Bonjour'} ${fullName},
 
 ${language === 'en' 
-  ? 'We received a request to reset your password for your ALTUS FINANCE GROUP account.'
-  : 'Nous avons reçu une demande de réinitialisation du mot de passe pour votre compte ALTUS FINANCE GROUP.'}
+  ? 'We received a request to reset your password for your ALTUS FINANCES GROUP account.'
+  : 'Nous avons reçu une demande de réinitialisation du mot de passe pour votre compte ALTUS FINANCES GROUP.'}
 
 ${language === 'en'
   ? 'To reset your password, visit this link:'
@@ -234,7 +234,7 @@ ${language === 'en'
   ? 'This link will expire in 1 hour. If you didn\'t request a password reset, please ignore this email.'
   : 'Ce lien expirera dans 1 heure. Si vous n\'avez pas demandé de réinitialisation de mot de passe, veuillez ignorer cet email.'}
 
-ALTUS FINANCE GROUP
+ALTUS FINANCES GROUP
 © ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
     `;
     
@@ -317,7 +317,7 @@ export async function sendContactFormEmail(name: string, email: string, phone: s
           <tr>
             <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="color: #6b7280; font-size: 12px; margin: 0;">
-                ALTUS FINANCE GROUP<br>
+                ALTUS FINANCES GROUP<br>
                 © ${new Date().getFullYear()} Tous droits réservés.
               </p>
             </td>
@@ -342,7 +342,7 @@ ${message}
 
 ---
 Ce message a été envoyé depuis le formulaire de contact du site Altus Finances Group.
-ALTUS FINANCE GROUP
+ALTUS FINANCES GROUP
 © ${new Date().getFullYear()} Tous droits réservés.
     `;
     
@@ -900,8 +900,8 @@ export async function sendSignedContractToAdmins(
               <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
                 <p style="color: #6b7280; font-size: 13px; margin: 0;">
                   ${language === 'en' 
-                    ? 'This email was automatically sent by ALTUS FINANCE GROUP platform.' 
-                    : 'Cet email a été envoyé automatiquement par la plateforme ALTUS FINANCE GROUP.'}
+                    ? 'This email was automatically sent by ALTUS FINANCES GROUP platform.' 
+                    : 'Cet email a été envoyé automatiquement par la plateforme ALTUS FINANCES GROUP.'}
                 </p>
               </div>
             </td>
@@ -909,7 +909,7 @@ export async function sendSignedContractToAdmins(
           <tr>
             <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="color: #6b7280; font-size: 12px; margin: 0;">
-                ALTUS FINANCE GROUP<br>
+                ALTUS FINANCES GROUP<br>
                 © ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
               </p>
             </td>
@@ -940,9 +940,9 @@ ${reviewUrl}
 
 ---
 ${language === 'en' 
-  ? 'This email was automatically sent by ALTUS FINANCE GROUP platform.' 
-  : 'Cet email a été envoyé automatiquement par la plateforme ALTUS FINANCE GROUP.'}
-ALTUS FINANCE GROUP
+  ? 'This email was automatically sent by ALTUS FINANCES GROUP platform.' 
+  : 'Cet email a été envoyé automatiquement par la plateforme ALTUS FINANCES GROUP.'}
+ALTUS FINANCES GROUP
 © ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
     `;
     
