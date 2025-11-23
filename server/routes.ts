@@ -4596,6 +4596,39 @@ ${urls.map(url => `  <url>
     res.send(sitemap);
   });
 
+  app.get("/api/cometchat/auth-token", requireAuth, async (req, res) => {
+    try {
+      const userId = req.session.userId;
+      if (!userId) {
+        return res.status(401).json({ error: 'User not authenticated' });
+      }
+
+      const user = await storage.getUserById(userId);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const uid = `user_${userId}`;
+      const authToken = jwt.sign(
+        { 
+          uid,
+          email: user.email,
+          name: user.fullName 
+        },
+        process.env.JWT_SECRET || 'your-secret-key',
+        { expiresIn: '24h' }
+      );
+
+      res.json({ 
+        uid,
+        authToken 
+      });
+    } catch (error) {
+      console.error('CometChat auth token error:', error);
+      res.status(500).json({ error: 'Failed to generate auth token' });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

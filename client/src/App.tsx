@@ -47,6 +47,7 @@ import UserSessionTracker from '@/components/UserSessionTracker';
 import { LoanDialogProvider } from '@/contexts/LoanDialogContext';
 import { ScrollingInfoBanner } from '@/components/fintech';
 import DiagnosticPage from '@/pages/DiagnosticPage';
+import ChatWidget from '@/components/ChatWidget';
 
 function App() {
   const style = {
@@ -137,6 +138,7 @@ function App() {
           <Toaster />
         </TooltipProvider>
       </QueryClientProvider>
+      <ChatWidget />
     </HelmetProvider>
   );
 }
