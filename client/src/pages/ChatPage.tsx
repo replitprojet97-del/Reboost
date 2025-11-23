@@ -1,131 +1,143 @@
-import { useEffect, useState } from 'react';
-import { useUser } from '@/hooks/use-user'; 
-import { apiRequest } from '@/lib/queryClient';
-import { useChat } from '@/hooks/useChat'; 
-import { format } from 'date-fns';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useUser } from '@/hooks/use-user';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChatBox } from '@/components/ChatBox';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import { MessageSquare, Users } from 'lucide-react';
+import { useTranslations } from '@/lib/i18n';
 
-const ADMIN_ID = '07356baf-1460-48bd-af7d-ae2ae32247b7'; // ID admin fourni
+interface Conversation {
+  userId: string;
+  fullName: string;
+  unreadCount: number;
+  lastMessage: {
+    content: string;
+    createdAt: string;
+  } | null;
+}
 
 export default function ChatPage() {
-  const { user, isLoading: userLoading } = useUser();
-  const [room, setRoom] = useState<string | null>(null);
-  const [selectedPartnerId, setSelectedPartnerId] = useState<string | undefined>(ADMIN_ID);
-  const [text, setText] = useState('');
-  const partnerId = selectedPartnerId;
+  const t = useTranslations();
+  const { data: user } = useUser();
+  const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!user || !partnerId) return;
-
-    let didCancel = false;
-    (async () => {
-      try {
-        const payload = { partnerId };
-        const res = await apiRequest('POST', '/api/chat/conversation/init', payload);
-        if (!didCancel && res && res.room) {
-          setRoom(res.room);
-        } else if (!didCancel && res && res.initialized && res.room) {
-          setRoom(res.room);
-        }
-      } catch (err) {
-        console.error('[ChatPage] failed to init conversation', err);
-      }
-    })();
-
-    return () => { didCancel = true; };
-  }, [user, partnerId]);
-
-  const chat = useChat({
-    room: room || '',
-    userId: user?.id || '',
-    partnerId: partnerId,
+  const { data: conversations, isLoading } = useQuery<Conversation[]>({
+    queryKey: ['/api/chat/conversations'],
   });
 
-  const messages = chat.messages || [];
+  if (!user) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-muted-foreground">Chargement...</p>
+      </div>
+    );
+  }
 
-  const handleSend = async () => {
-    if (!text.trim() || !partnerId) return;
-    chat.sendMessage(text.trim(), partnerId);
-    setText('');
-  };
-
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
-  };
-
-  if (userLoading) return <div className="p-6">Chargement...</div>;
-  if (!user) return <div className="p-6">Connectez-vous pour utiliser le chat.</div>;
+  const selectedConversation = conversations?.find(c => c.userId === selectedPartnerId);
 
   return (
-    <div className="p-6 md:p-8 max-w-6xl mx-auto">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Chat Support</h1>
-        <div className="text-sm text-muted-foreground">
-          {partnerId === ADMIN_ID ? 'Admin' : partnerId} • {chat.isPartnerOnline ? 'En ligne' : 'Hors ligne'}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-4 gap-6">
-        <aside className="col-span-1">
-          <div className="rounded-lg border p-4">
-            <h3 className="font-semibold mb-3">Conversation</h3>
-            <button
-              className={`w-full text-left p-2 rounded ${partnerId === ADMIN_ID ? 'bg-violet-50' : ''}`}
-              onClick={() => setSelectedPartnerId(ADMIN_ID)}
-            >
-              Administrateur
-              <div className="text-xs text-muted-foreground">admin@altusfinancesgroup.com</div>
-            </button>
-          </div>
-        </aside>
-
-        <main className="col-span-3">
-          <div className="rounded-lg border h-[60vh] flex flex-col">
-            <div className="px-6 py-4 border-b">
-              <strong>{partnerId === ADMIN_ID ? 'Administrateur' : 'Conversation'}</strong>
-            </div>
-
-            <div className="flex-1 overflow-auto p-6 space-y-4">
-              {messages.length === 0 && (
-                <div className="text-muted-foreground text-center mt-12">Aucune conversation</div>
-              )}
-              {messages.map((m: any) => {
-                const isMe = m.senderId === user.id;
-                return (
-                  <div key={m.id || `${m.senderId}-${m.createdAt}`} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[70%] p-3 rounded-lg ${isMe ? 'bg-violet-600 text-white' : 'bg-gray-100 text-gray-900'}`}>
-                      <div className="text-sm whitespace-pre-wrap">{m.content}</div>
-                      <div className="text-xs text-muted-foreground mt-1 text-right">{ format(new Date(m.createdAt), 'PP p') }</div>
+    <div className="h-full flex flex-col md:flex-row gap-4 p-6">
+      {/* Liste des conversations */}
+      <Card className="md:w-80 flex-shrink-0">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Users className="w-5 h-5" />
+            {t.chat?.conversations || 'Conversations'}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          <div className="divide-y max-h-[calc(100vh-250px)] overflow-y-auto">
+            {isLoading ? (
+              <>
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="p-4 space-y-2">
+                    <div className="flex items-center gap-3">
+                      <Skeleton className="w-10 h-10 rounded-full" />
+                      <div className="flex-1">
+                        <Skeleton className="h-4 w-32 mb-2" />
+                        <Skeleton className="h-3 w-24" />
+                      </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-
-            <div className="p-4 border-t">
-              <div className="flex gap-3">
-                <input
-                  aria-label="Écrire un message"
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  onKeyDown={onKeyDown}
-                  className="flex-1 rounded-lg border px-4 py-2"
-                  placeholder={chat.isPartnerOnline ? 'Écrire un message...' : 'L\'utilisateur est hors ligne - vous pouvez tout de même envoyer un message.'}
-                />
-                <button
-                  onClick={handleSend}
-                  className="rounded-lg bg-violet-600 text-white px-4 py-2 disabled:opacity-40"
-                  disabled={!text.trim()}
+                ))}
+              </>
+            ) : conversations && conversations.length > 0 ? (
+              conversations.map((conv) => (
+                <Button
+                  key={conv.userId}
+                  variant="ghost"
+                  onClick={() => setSelectedPartnerId(conv.userId)}
+                  className={`w-full p-4 h-auto justify-start ${
+                    selectedPartnerId === conv.userId
+                      ? 'bg-primary/10'
+                      : ''
+                  }`}
+                  data-testid={`button-conversation-${conv.userId}`}
                 >
-                  Envoyer
-                </button>
+                  <div className="flex items-start gap-3 w-full">
+                    <Avatar>
+                      <AvatarFallback className="bg-primary/20 text-primary">
+                        {conv.fullName?.charAt(0).toUpperCase() || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <p className="font-semibold text-sm truncate" data-testid={`text-conversation-name-${conv.userId}`}>
+                          {conv.fullName}
+                        </p>
+                        {conv.unreadCount > 0 && (
+                          <Badge variant="default" className="text-xs">
+                            {conv.unreadCount}
+                          </Badge>
+                        )}
+                      </div>
+                      {conv.lastMessage && (
+                        <p className="text-xs text-muted-foreground truncate">
+                          {conv.lastMessage.content}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </Button>
+              ))
+            ) : (
+              <div className="p-8 text-center">
+                <MessageSquare className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
+                <p className="text-sm text-muted-foreground">
+                  {t.chat?.noConversations || 'Aucune conversation'}
+                </p>
               </div>
-            </div>
+            )}
           </div>
-        </main>
-      </div>
+        </CardContent>
+      </Card>
+
+      {/* Zone de chat */}
+      <Card className="flex-1 flex flex-col min-h-[600px]">
+        {selectedPartnerId && selectedConversation ? (
+          <ChatBox
+            userId={user.id}
+            partnerId={selectedPartnerId}
+            partnerName={selectedConversation.fullName}
+          />
+        ) : (
+          <CardContent className="flex-1 flex items-center justify-center">
+            <div className="text-center">
+              <MessageSquare className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+              <h3 className="text-lg font-semibold mb-2">
+                {t.chat?.selectConversation || 'Sélectionnez une conversation'}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {t.chat?.selectConversationDesc || 'Choisissez une conversation pour commencer à discuter'}
+              </p>
+            </div>
+          </CardContent>
+        )}
+      </Card>
     </div>
   );
 }
