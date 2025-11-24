@@ -45,19 +45,14 @@ if (!process.env.SESSION_SECRET) {
 }
 
 // Cookie domain configuration
-// IMPORTANT: Set COOKIE_DOMAIN in production to match your domain
-// Examples:
-//   - '.altusfinancesgroup.com' (shares cookies between www and api subdomains)
-//   - '.altusfinancesgroup.com' (with 's')
-//   - undefined (same domain only - safest option)
-// 
-// If you use multiple domains (with/without 's'), leave COOKIE_DOMAIN undefined
-// and ensure frontend + API are on the exact same domain
-const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
-// For cross-domain cookies (frontend and API on different subdomains)
-// we MUST use sameSite: 'none' in production
+// In production: use '.altusfinancesgroup.com' to share cookies between frontend and api subdomains
+// In development: undefined (same domain only)
+const COOKIE_DOMAIN = IS_PRODUCTION ? '.altusfinancesgroup.com' : undefined;
+
+// In production: use 'none' for cross-domain cookies (frontend on altusfinancesgroup.com, api on api.altusfinancesgroup.com)
+// In development: use 'lax' (frontend and backend on same localhost)
 const SAME_SITE_POLICY = IS_PRODUCTION ? 'none' : 'lax';
 
 console.log('='.repeat(60));
@@ -159,9 +154,6 @@ const sessionMiddleware = session({
     secure: IS_PRODUCTION,
     httpOnly: true,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    // CRITICAL: Use 'none' in production for cross-domain cookies
-    // Frontend (altusfinancesgroup.com) and API (api.altusfinancesgroup.com) are different origins
-    // 'none' requires secure: true (HTTPS only)
     sameSite: SAME_SITE_POLICY,
     domain: COOKIE_DOMAIN,
     signed: true,
@@ -369,14 +361,11 @@ app.get('/healthz', (req, res) => {
     if (diagnostic.request.origin && !diagnostic.cors.currentOriginAllowed) {
       diagnostic.recommendations.push(`Origin "${diagnostic.request.origin}" is not in allowed origins list.`);
     }
-    if (IS_PRODUCTION && !COOKIE_DOMAIN) {
-      diagnostic.recommendations.push('COOKIE_DOMAIN not set in production. Cross-domain cookies will not work.');
-    }
-    if (IS_PRODUCTION && SAME_SITE_POLICY !== 'none') {
-      diagnostic.recommendations.push('SameSite should be "none" in production for cross-domain cookies.');
-    }
     if (!diagnostic.cookies.headerPresent) {
       diagnostic.recommendations.push('No cookies sent with request. Check if frontend is using credentials: "include".');
+    }
+    if (!diagnostic.session.exists && diagnostic.cookies.hasSessionIdCookie) {
+      diagnostic.recommendations.push('Session cookie present but session not found. Session may have expired or backend restarted.');
     }
     
     res.json(diagnostic);
@@ -398,9 +387,9 @@ app.get('/healthz', (req, res) => {
     if (process.env.NODE_ENV === 'production') {
       console.log(`[CONFIG] FRONTEND_URL: ${process.env.FRONTEND_URL || 'NOT SET'}`);
       console.log(`[CONFIG] Allowed Origins: ${JSON.stringify(allowedOrigins)}`);
-      console.log(`[CONFIG] Session Cookie Domain: ${COOKIE_DOMAIN}`);
+      console.log(`[CONFIG] Session Cookie Domain: ${COOKIE_DOMAIN || 'none (same-domain only)'}`);
       console.log(`[CONFIG] Session Cookie Secure: ${IS_PRODUCTION}`);
-      console.log(`[CONFIG] Session Cookie SameSite: ${IS_PRODUCTION ? 'none' : 'lax'}`);
+      console.log(`[CONFIG] Session Cookie SameSite: ${SAME_SITE_POLICY}`);
     }
     
     const startOTPCleanup = async () => {

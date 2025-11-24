@@ -1,11 +1,15 @@
 import { io, Socket } from "socket.io-client";
 
-// En production, utiliser l'URL du backend Render pour les WebSockets
-// En développement local, utiliser window.location.origin (frontend et backend sur même port)
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 
-  (typeof window !== 'undefined' && window.location.hostname === 'localhost'
-    ? window.location.origin
-    : 'https://api.altusfinancesgroup.com');
+// In production: use the API subdomain URL
+// In development: use window origin (localhost, same port via Vite)
+const isDevelopment = typeof window !== 'undefined' && 
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+const SOCKET_URL = typeof window !== 'undefined'
+  ? (isDevelopment 
+      ? window.location.origin
+      : (import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_URL || 'https://api.altusfinancesgroup.com'))
+  : '/';
 
 export interface ChatEvents {
   join_conversation: (conversationId: string) => void;

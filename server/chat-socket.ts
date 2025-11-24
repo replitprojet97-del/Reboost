@@ -61,9 +61,11 @@ export function initializeChatSocket(httpServer: HTTPServer, storage: IStorage, 
       return { authorized: false };
     }
 
+    // Admins have access to all conversations
+    // Regular users only have access to their own conversations
     const isAuthorized =
       conversation.userId === userId ||
-      (userRole === 'admin' && conversation.assignedAdminId === userId);
+      userRole === 'admin';
 
     return { authorized: isAuthorized, conversation };
   };
