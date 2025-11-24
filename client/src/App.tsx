@@ -47,6 +47,9 @@ import UserSessionTracker from '@/components/UserSessionTracker';
 import { LoanDialogProvider } from '@/contexts/LoanDialogContext';
 import { ScrollingInfoBanner } from '@/components/fintech';
 import DiagnosticPage from '@/pages/DiagnosticPage';
+import AdminChat from '@/pages/AdminChat';
+import { ChatWidget } from '@/components/chat';
+import { useUser } from '@/hooks/use-user';
 
 function App() {
   const style = {
@@ -81,6 +84,7 @@ function App() {
             <Route path="/forgot-password" component={ForgotPassword} />
             <Route path="/reset-password/:token" component={ResetPassword} />
             <Route path="/loans/:slug" component={LoanDetail} />
+            <Route path="/admin/chat" component={AdminChat} />
             <Route path="/admin" component={AdminSimple} />
             <Route path="/admin/:any*" component={AdminSimple} />
             <Route>
@@ -128,6 +132,7 @@ function App() {
                           <Route component={NotFound} />
                         </Switch>
                       </main>
+                      <ChatWidgetWrapper />
                     </div>
                   </div>
                 </SidebarProvider>
@@ -138,6 +143,22 @@ function App() {
         </TooltipProvider>
       </QueryClientProvider>
     </HelmetProvider>
+  );
+}
+
+function ChatWidgetWrapper() {
+  const { data: user } = useUser();
+
+  if (!user) {
+    return null;
+  }
+
+  return (
+    <ChatWidget
+      userId={user.id}
+      userName={user.username}
+      userAvatar={user.profilePhoto || undefined}
+    />
   );
 }
 

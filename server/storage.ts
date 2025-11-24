@@ -58,7 +58,7 @@ import {
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
-import { eq, desc, and, or, isNull, notExists, inArray, sql as sqlDrizzle } from "drizzle-orm";
+import { eq, desc, and, or, isNull, notExists, inArray, sql, sql as sqlDrizzle } from "drizzle-orm";
 import path from "path";
 import fs from "fs";
 
@@ -211,6 +211,7 @@ export interface IStorage {
   // Chat System
   getUserConversations(userId: string): Promise<ChatConversation[]>;
   getAdminConversations(adminId?: string, status?: string): Promise<ChatConversation[]>;
+  getAdminConversationsForUnread(adminId: string): Promise<ChatConversation[]>;
   getConversation(id: string): Promise<ChatConversation | undefined>;
   createConversation(conversation: InsertChatConversation): Promise<ChatConversation>;
   updateConversation(id: string, updates: Partial<ChatConversation>): Promise<ChatConversation | undefined>;
@@ -2986,6 +2987,51 @@ export class DatabaseStorage implements IStorage {
     return await db.select()
       .from(chatConversations)
       .where(and(...conditions))
+      .orderBy(desc(chatConversations.lastMessageAt));
+  }
+
+  async getAdminConversationsForUnread(adminId: string): Promise<ChatConversation[]> {
+    // Get all conversations where admin is currently assigned 
+    // OR has unread messages (unread ownership persists across reassignments)
+    // This prevents loss of unread visibility when conversations are reassigned
+    const assignedConversations = await db.select()
+      .from(chatConversations)
+      .where(eq(chatConversations.assignedAdminId, adminId))
+      .orderBy(desc(chatConversations.lastMessageAt));
+    
+    // Get conversation IDs where admin has unread messages
+    const conversationsWithUnreads = await db.selectDistinct({
+      id: chatConversations.id
+    })
+      .from(chatConversations)
+      .innerJoin(
+        chatMessages,
+        eq(chatMessages.conversationId, chatConversations.id)
+      )
+      .where(
+        and(
+          eq(chatMessages.isRead, false),
+          // Messages not sent by this admin (they are unread FOR the admin)
+          sql`${chatMessages.senderId} != ${adminId}`
+        )
+      );
+    
+    // Union: assigned conversations + conversations with unreads for this admin
+    const unreadConvIds = conversationsWithUnreads.map(c => c.id);
+    
+    if (unreadConvIds.length === 0) {
+      return assignedConversations;
+    }
+    
+    // Get all conversations that are either assigned OR have unreads
+    return await db.select()
+      .from(chatConversations)
+      .where(
+        or(
+          eq(chatConversations.assignedAdminId, adminId),
+          inArray(chatConversations.id, unreadConvIds)
+        )
+      )
       .orderBy(desc(chatConversations.lastMessageAt));
   }
 

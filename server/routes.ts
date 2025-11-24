@@ -4774,7 +4774,28 @@ ${urls.map(url => `  <url>
         return res.status(400).json({ error: 'ID admin requis' });
       }
 
+      // Get previous assignment for socket notifications
+      const conversation = await storage.getConversation(conversationId);
+      const previousAdminId = conversation?.assignedAdminId;
+
       const updated = await storage.assignConversationToAdmin(conversationId, adminId);
+      
+      // Emit socket events to both previous and new admin for immediate unread sync
+      if (io) {
+        // Notify new admin
+        io.emit("conversation_assigned", {
+          conversationId,
+          newAdminId: adminId,
+          previousAdminId
+        });
+        
+        // Trigger unread revalidation for both admins
+        if (previousAdminId) {
+          io.emit("unread_sync_required", { userId: previousAdminId });
+        }
+        io.emit("unread_sync_required", { userId: adminId });
+      }
+      
       res.json(updated);
     } catch (error: any) {
       console.error('[CHAT] Erreur assignation conversation:', error);
@@ -4871,6 +4892,44 @@ ${urls.map(url => `  <url>
     } catch (error: any) {
       console.error('[CHAT] Erreur marquage messages lus:', error);
       res.status(500).json({ error: 'Erreur lors du marquage des messages comme lus' });
+    }
+  });
+
+  // Get all unread message counts for user
+  app.get("/api/chat/unread/:userId", requireAuth, async (req, res) => {
+    try {
+      const targetUserId = req.params.userId;
+      const currentUserId = req.session.userId!;
+      const user = await storage.getUser(currentUserId);
+
+      // Only allow users to see their own unread counts, or admins to see any
+      if (user?.role !== 'admin' && targetUserId !== currentUserId) {
+        return res.status(403).json({ error: 'Accès non autorisé' });
+      }
+
+      // If admin is querying their own unread counts, use dedicated unread method
+      // that includes all assigned conversations regardless of status
+      let conversations;
+      if (user?.role === 'admin' && targetUserId === currentUserId) {
+        // Admin viewing their own unread: all assigned conversations (open+closed+resolved)
+        conversations = await storage.getAdminConversationsForUnread(targetUserId);
+      } else {
+        // User viewing their own conversations OR admin viewing user's conversations
+        conversations = await storage.getUserConversations(targetUserId);
+      }
+      
+      const unreadCounts = await Promise.all(
+        conversations.map(async (conv) => ({
+          conversationId: conv.id,
+          count: await storage.getUnreadMessageCount(conv.id, targetUserId)
+        }))
+      );
+
+      // Return all counts including zeros for stable badge state
+      res.json(unreadCounts);
+    } catch (error: any) {
+      console.error('[CHAT] Erreur comptage messages non lus utilisateur:', error);
+      res.status(500).json({ error: 'Erreur lors du comptage des messages non lus' });
     }
   });
 

@@ -2,44 +2,104 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "./queryClient";
 import type { ChatConversation, ChatMessage, InsertChatConversation, InsertChatMessage, ChatPresence, InsertChatPresence } from "@shared/schema";
 
+/**
+ * Chat Query Keys Structure (for cache management)
+ * 
+ * Structured keys decouple cache identity from HTTP routes.
+ * This allows precise invalidation and works with session-based auth routes.
+ * 
+ * Key Patterns:
+ * - ['chat', 'conversations', 'user', userId] → User's conversations
+ * - ['chat', 'conversations', 'detail', conversationId] → Single conversation
+ * - ['chat', 'messages', conversationId] → Conversation messages
+ * - ['chat', 'unread', 'user', userId] → User's total unread
+ * - ['chat', 'unread', 'conversation', conversationId] → Conversation unread
+ * - ['chat', 'presence', 'user', userId] → User presence
+ * - ['chat', 'presence', 'online'] → Online users
+ */
+
 export const useConversations = (userId: string) => {
   return useQuery<ChatConversation[]>({
-    queryKey: ["/api/chat/conversations", userId],
+    queryKey: ['chat', 'conversations', 'user', userId],
+    queryFn: async () => {
+      const res = await fetch("/api/chat/conversations", {
+        credentials: "include"
+      });
+      if (!res.ok) throw new Error("Failed to fetch conversations");
+      return res.json();
+    },
     enabled: !!userId,
   });
 };
 
 export const useConversation = (conversationId: string) => {
   return useQuery<ChatConversation>({
-    queryKey: ["/api/chat/conversations", conversationId],
+    queryKey: ['chat', 'conversations', 'detail', conversationId],
+    queryFn: async () => {
+      const res = await fetch(`/api/chat/conversations/${conversationId}`, {
+        credentials: "include"
+      });
+      if (!res.ok) throw new Error("Failed to fetch conversation");
+      return res.json();
+    },
     enabled: !!conversationId,
   });
 };
 
 export const useMessages = (conversationId: string) => {
   return useQuery<ChatMessage[]>({
-    queryKey: ["/api/chat/messages", conversationId],
+    queryKey: ['chat', 'messages', conversationId],
+    queryFn: async () => {
+      const res = await fetch(`/api/chat/conversations/${conversationId}/messages`, {
+        credentials: "include"
+      });
+      if (!res.ok) throw new Error("Failed to fetch messages");
+      return res.json();
+    },
     enabled: !!conversationId,
   });
 };
 
 export const useUnreadCount = (conversationId: string) => {
-  return useQuery<{ count: number }>({
-    queryKey: ["/api/chat/unread", conversationId],
+  return useQuery<{ unreadCount: number }>({
+    queryKey: ['chat', 'unread', 'conversation', conversationId],
+    queryFn: async () => {
+      const res = await fetch(`/api/chat/conversations/${conversationId}/unread`, {
+        credentials: "include"
+      });
+      if (!res.ok) throw new Error("Failed to fetch unread count");
+      const data = await res.json();
+      // Backend returns { count } but UI expects { unreadCount }
+      return { unreadCount: data.unreadCount || data.count || 0 };
+    },
     enabled: !!conversationId,
   });
 };
 
 export const usePresence = (userId: string) => {
   return useQuery<ChatPresence>({
-    queryKey: ["/api/chat/presence", userId],
+    queryKey: ['chat', 'presence', 'user', userId],
+    queryFn: async () => {
+      const res = await fetch(`/api/chat/presence/${userId}`, {
+        credentials: "include"
+      });
+      if (!res.ok) throw new Error("Failed to fetch presence");
+      return res.json();
+    },
     enabled: !!userId,
   });
 };
 
 export const useOnlineUsers = () => {
   return useQuery<ChatPresence[]>({
-    queryKey: ["/api/chat/presence/online"],
+    queryKey: ['chat', 'presence', 'online'],
+    queryFn: async () => {
+      const res = await fetch("/api/chat/presence/online", {
+        credentials: "include"
+      });
+      if (!res.ok) throw new Error("Failed to fetch online users");
+      return res.json();
+    },
   });
 };
 
@@ -53,7 +113,7 @@ export const useCreateConversation = () => {
     },
     onSuccess: (newConversation) => {
       queryClient.invalidateQueries({ 
-        queryKey: ["/api/chat/conversations", newConversation.userId] 
+        queryKey: ['chat', 'conversations', 'user', newConversation.userId] 
       });
     },
   });
@@ -69,12 +129,11 @@ export const useSendMessage = () => {
     },
     onMutate: async (newMessage) => {
       await queryClient.cancelQueries({ 
-        queryKey: ["/api/chat/messages", newMessage.conversationId] 
+        queryKey: ['chat', 'messages', newMessage.conversationId] 
       });
 
       const previousMessages = queryClient.getQueryData<ChatMessage[]>([
-        "/api/chat/messages",
-        newMessage.conversationId,
+        'chat', 'messages', newMessage.conversationId
       ]);
 
       const optimisticMessage: ChatMessage = {
@@ -92,7 +151,7 @@ export const useSendMessage = () => {
       };
 
       queryClient.setQueryData<ChatMessage[]>(
-        ["/api/chat/messages", newMessage.conversationId],
+        ['chat', 'messages', newMessage.conversationId],
         (old) => (old ? [...old, optimisticMessage] : [optimisticMessage])
       );
 
@@ -101,17 +160,23 @@ export const useSendMessage = () => {
     onError: (_err, newMessage, context) => {
       if (context?.previousMessages) {
         queryClient.setQueryData(
-          ["/api/chat/messages", newMessage.conversationId],
+          ['chat', 'messages', newMessage.conversationId],
           context.previousMessages
         );
       }
     },
     onSuccess: (data, variables) => {
+      // Invalider les messages de la conversation
       queryClient.invalidateQueries({ 
-        queryKey: ["/api/chat/messages", data.conversationId] 
+        queryKey: ['chat', 'messages', data.conversationId]
       });
-      queryClient.invalidateQueries({ 
-        queryKey: ["/api/chat/conversations"] 
+      // Invalider la liste de conversations pour tous les participants
+      queryClient.invalidateQueries({
+        queryKey: ['chat', 'conversations', 'user']
+      });
+      // Invalider les unread counts
+      queryClient.invalidateQueries({
+        queryKey: ['chat', 'unread']
       });
     },
   });
@@ -127,10 +192,13 @@ export const useMarkAsRead = () => {
     },
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ 
-        queryKey: ["/api/chat/messages", variables.conversationId] 
+        queryKey: ['chat', 'messages', variables.conversationId] 
       });
       queryClient.invalidateQueries({ 
-        queryKey: ["/api/chat/unread", variables.conversationId] 
+        queryKey: ['chat', 'unread', 'conversation', variables.conversationId] 
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['chat', 'unread', 'user']
       });
     },
   });
@@ -146,10 +214,10 @@ export const useUpdatePresence = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ 
-        queryKey: ["/api/chat/presence", data.userId] 
+        queryKey: ['chat', 'presence', 'user', data.userId] 
       });
       queryClient.invalidateQueries({ 
-        queryKey: ["/api/chat/presence/online"] 
+        queryKey: ['chat', 'presence', 'online'] 
       });
     },
   });
@@ -170,11 +238,13 @@ export const useAssignConversation = () => {
       return await res.json() as ChatConversation;
     },
     onSuccess: (data) => {
+      // Invalider toutes les listes de conversations (users et admins)
       queryClient.invalidateQueries({ 
-        queryKey: ["/api/chat/conversations", data.userId] 
+        queryKey: ['chat', 'conversations'] 
       });
+      // Invalider aussi la conversation spécifique
       queryClient.invalidateQueries({ 
-        queryKey: ["/api/chat/conversations", data.id] 
+        queryKey: ['chat', 'conversations', 'detail', data.id] 
       });
     },
   });
