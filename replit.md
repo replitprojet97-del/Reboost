@@ -8,60 +8,20 @@ ALTUS is a multi-language professional loan management platform designed for bus
 
 Preferred communication style: Simple, everyday language.
 
-## Recent Changes (November 23, 2025)
+## Recent Changes (November 24, 2025)
 
-### CometChat Real-Time Chat Integration
-- ✅ **IMPLEMENTED:** Complete CometChat infrastructure for real-time chat functionality
-  - Installed packages: `@cometchat-pro/chat`, `@cometchat/chat-uikit-react` (v6.x)
-  - Created `client/src/cometchat.ts` for CometChat UI Kit initialization
-  - Created `client/src/hooks/useCometChat.ts` for user authentication hook
-  - Created `client/src/components/ChatWidget.tsx` for floating chat button widget
-  - Modified `client/src/main.tsx` to initialize CometChat at app startup
-  - Modified `client/src/App.tsx` to integrate ChatWidget globally
-  - Added backend endpoint `/api/cometchat/auth-token` for secure user authentication
-  - Files modified: `client/src/cometchat.ts`, `client/src/hooks/useCometChat.ts`, `client/src/components/ChatWidget.tsx`, `client/src/main.tsx`, `client/src/App.tsx`, `server/routes.ts`
-- ✅ **CONFIGURED:** Environment variables for CometChat integration
-  - `VITE_COMETCHAT_APP_ID`, `VITE_COMETCHAT_REGION`, `VITE_COMETCHAT_AUTH_KEY`
-- 📝 **DOCUMENTED:** Complete setup guide in `COMETCHAT_SETUP.md`
-- 🔐 **SECURITY:** Backend authentication endpoint protected by `requireAuth` middleware
-- ✅ **FIXED:** User selection and conversation initiation (November 23, 2025)
-  - Problem: Admin couldn't click on users in the Users tab to start a conversation
-  - Solution: Implemented manual message view using individual CometChat components
-  - Added `onItemClick` handler to `CometChatUsers` component
-  - Created complete message interface with `CometChatMessageHeader`, `CometChatMessageList`, and `CometChatMessageComposer`
-  - Users tab now properly handles: user selection → message view → back to user list
-  - File modified: `client/src/components/ChatWidget.tsx`
-- ✅ **FIXED:** Real-time messaging implementation (November 23, 2025)
-  - Problem: Messages required page refresh to appear (no real-time updates)
-  - Solution: Implemented CometChat message listeners with automatic UI refresh
-  - Added `CometChat.addMessageListener` with listener ID for real-time message reception
-  - Implemented `messageRefreshKey` state that increments on new messages
-  - Key passed to all CometChat components to force UI refresh when messages arrive
-  - Listener properly cleaned up on component unmount to prevent memory leaks
-  - File modified: `client/src/components/ChatWidget.tsx`
-- ✅ **FIXED:** Professional UI redesign with Altus design system (November 23, 2025)
-  - Problem: Chat widget had no design elegance, used inline styles
-  - Solution: Complete redesign using shadcn/ui components and Tailwind CSS
-  - Replaced all inline styles with Tailwind utility classes
-  - Integrated shadcn `Card`, `Button` components with Altus color palette
-  - Replaced emoji with Lucide React icons (`MessageCircle`, `X`)
-  - Full dark mode support via configured Tailwind theme tokens
-  - Responsive design with proper spacing and visual hierarchy
-  - File modified: `client/src/components/ChatWidget.tsx`
-- ✅ **FIXED:** Regular users can now initiate conversations with admin (November 23, 2025)
-  - Problem: Only admin could start conversations, regular users were blocked
-  - Solution: Added "Nouveau message" button and admin contact functionality
-  - Created backend endpoint `/api/cometchat/admin-uid` (protected by requireAuth)
-  - Frontend `handleContactSupport` function fetches admin UID and opens conversation
-  - Regular users see "Nouveau message" button that automatically loads admin chat
-  - Full message interface (header, list, composer) shown when admin is selected
-  - Files modified: `client/src/components/ChatWidget.tsx`, `server/routes.ts`
-- 🎯 **STATUS:** Full chat implementation complete with real-time messaging, professional design, and bidirectional communication
-- 📋 **NEXT STEPS:** 
-  - Verify admin CometChat user is provisioned in production
-  - Add retry mechanism for contact-support errors
-  - Monitor runtime logs to confirm listener stability
-  - Consider adding unread message badges/notifications
+### UI/UX Improvements - Layout & Scrolling Fixes
+- ✅ **FIXED:** Double scrollbar issue resolved
+  - Removed `mt-[37px]` and `overflow-hidden` from main authenticated layout container
+  - TopBar height mismatch corrected - uses natural layout flow with `min-h-screen`
+  - Single scroll context maintained with sticky header properly aligned
+  - File modified: `client/src/App.tsx`
+- ✅ **REMOVED:** CometChat integration completely removed from codebase
+  - Widget was not visible despite portal implementation
+  - Removed all CometChat packages, files, routes, and configuration
+  - Cleaned up: ChatWidget component, backend routes, main.tsx initialization
+  - Packages uninstalled: `@cometchat-pro/chat`, `@cometchat/chat-uikit-react`
+  - Files deleted: `client/src/components/ChatWidget.tsx`, `client/src/cometchat.ts`, `client/src/hooks/useCometChat.ts`, `COMETCHAT_SETUP.md`
 
 ## Recent Changes (November 20, 2025)
 
@@ -178,5 +138,4 @@ Preferred communication style: Simple, everyday language.
 **Authentication:** SendGrid for transactional email verification.
 **Two-Factor Authentication:** Speakeasy and qrcode libraries for TOTP generation and verification.
 **Cloud Storage:** Cloudinary for profile photo storage only. KYC documents and signed contracts use local file system storage.
-**Real-Time Chat:** CometChat integration with UI Kit v6.x for real-time messaging capabilities. Includes floating chat widget, secure backend authentication, and infrastructure ready for full chat UI implementation.
 **File Validation:** Sharp for image sanitization, PDF-lib for PDF sanitization, file-type for magic byte verification.
