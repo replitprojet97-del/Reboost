@@ -25,6 +25,51 @@ import { SignedContractUpload } from '@/components/SignedContractUpload';
 import { useState } from 'react';
 import { DashboardCard, SectionTitle, UserStat } from '@/components/fintech';
 
+const contractsNotificationTranslations: Record<string, { title: string; messageSingular: string; messagePlural: string; buttonLabel: string }> = {
+  fr: {
+    title: 'Contrats en attente de signature',
+    messageSingular: 'Vous avez 1 contrat à signer. Complétez-le pour activer votre prêt.',
+    messagePlural: 'Vous avez {count} contrats à signer. Complétez-les pour activer vos prêts.',
+    buttonLabel: 'Voir',
+  },
+  en: {
+    title: 'Contracts Awaiting Signature',
+    messageSingular: 'You have 1 contract to sign. Complete it to activate your loan.',
+    messagePlural: 'You have {count} contracts to sign. Complete them to activate your loans.',
+    buttonLabel: 'View',
+  },
+  de: {
+    title: 'Unterzeichnungspflichtige Verträge',
+    messageSingular: 'Sie haben 1 Vertrag zu unterzeichnen. Vollständig es, um Ihr Darlehen zu aktivieren.',
+    messagePlural: 'Sie haben {count} Verträge zu unterzeichnen. Vollständig sie, um Ihre Darlehen zu aktivieren.',
+    buttonLabel: 'Ansehen',
+  },
+  pt: {
+    title: 'Contratos Pendentes de Assinatura',
+    messageSingular: 'Você tem 1 contrato para assinar. Conclua-o para ativar seu empréstimo.',
+    messagePlural: 'Você tem {count} contratos para assinar. Conclua-os para ativar seus empréstimos.',
+    buttonLabel: 'Ver',
+  },
+  es: {
+    title: 'Contratos pendientes de firma',
+    messageSingular: 'Tiene 1 contrato para firmar. Complételo para activar su préstamo.',
+    messagePlural: 'Tiene {count} contratos para firmar. Complételos para activar sus préstamos.',
+    buttonLabel: 'Ver',
+  },
+  it: {
+    title: 'Contratti in attesa di firma',
+    messageSingular: 'Hai 1 contratto da firmare. Completalo per attivare il tuo prestito.',
+    messagePlural: 'Hai {count} contratti da firmare. Completali per attivare i tuoi prestiti.',
+    buttonLabel: 'Visualizza',
+  },
+  nl: {
+    title: 'Contracten wachten op ondertekening',
+    messageSingular: 'U hebt 1 contract te ondertekenen. Voltooi het om uw lening te activeren.',
+    messagePlural: 'U hebt {count} contracten te ondertekenen. Voltooi ze om uw leningen te activeren.',
+    buttonLabel: 'Bekijken',
+  },
+};
+
 function DashboardSkeleton() {
   return (
     <div className="p-6 md:p-8 space-y-8 max-w-[1600px] mx-auto">
@@ -63,6 +108,17 @@ export default function Dashboard() {
   const [loanModalOpen, setLoanModalOpen] = useState(false);
   
   const mockCashflowData = getMockCashflowData(t);
+
+  // Get contracts awaiting user signature
+  const contractsToSign = dashboardData?.loans?.filter(
+    (loan: any) => loan.status === 'approved' && 
+    loan.contractStatus === 'awaiting_user_signature' &&
+    loan.contractUrl
+  ) || [];
+
+  // Get current language for translations
+  const currentLang = (user?.preferredLanguage || 'en').toLowerCase() as keyof typeof contractsNotificationTranslations;
+  const contractNotif = contractsNotificationTranslations[currentLang] || contractsNotificationTranslations.en;
   
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -140,6 +196,38 @@ export default function Dashboard() {
   return (
     <div className="bg-background">
       <div className="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8 max-w-[1600px] mx-auto animate-fade-in">
+        {/* Contracts Notification Banner */}
+        {contractsToSign.length > 0 && (
+          <div className="bg-gradient-to-r from-blue-50 to-blue-50/50 dark:from-blue-950/20 dark:to-blue-950/10 border border-blue-200 dark:border-blue-900/30 rounded-xl p-4 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4" data-testid="banner-pending-contracts">
+            <div className="flex items-start gap-4">
+              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex-shrink-0 mt-0.5">
+                <FileSignature className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-foreground text-sm sm:text-base mb-1" data-testid="text-contracts-title">
+                  {contractNotif.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground" data-testid="text-contracts-message">
+                  {contractsToSign.length === 1 
+                    ? contractNotif.messageSingular
+                    : contractNotif.messagePlural.replace('{count}', String(contractsToSign.length))
+                  }
+                </p>
+              </div>
+            </div>
+            <Link href="/contracts">
+              <Button 
+                size="sm" 
+                className="whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white gap-2"
+                data-testid="button-view-pending-contracts"
+              >
+                <Eye className="w-4 h-4" />
+                <span>{contractNotif.buttonLabel}</span>
+              </Button>
+            </Link>
+          </div>
+        )}
+
         {/* Hero Section - Greeting */}
         <div className="space-y-1">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
