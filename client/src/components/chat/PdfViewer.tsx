@@ -20,6 +20,7 @@ export function PdfViewer({ storagePath, fileName }: PdfViewerProps) {
           src={storagePath}
           title={fileName}
           className="w-full h-full"
+          style={{ border: 'none' }}
           data-testid="pdf-preview-iframe"
         />
       </div>
