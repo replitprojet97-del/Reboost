@@ -655,40 +655,43 @@ const getContractTemplate = (data: ContractData): string => {
     .header {
       background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
       color: #1a1a1a;
-      padding: 40px 50px 35px;
-      margin: -2cm -2cm 40px -2cm;
+      padding: 25px 0 25px 0;
+      margin: 0 0 35px 0;
       position: relative;
       border-bottom: 4px solid #2563eb;
+      page-break-inside: avoid;
     }
     .header-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 30px;
-      gap: 40px;
+      margin-bottom: 25px;
+      gap: 30px;
+      padding: 0 25px;
     }
     .logo-section {
       flex: 0 0 auto;
       border-right: 2px solid #e5e7eb;
-      padding-right: 35px;
+      padding-right: 30px;
     }
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
     }
     .logo-icon {
-      width: 70px;
-      height: 70px;
+      width: 55px;
+      height: 55px;
       background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
-      border-radius: 12px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      box-shadow: 0 3px 10px rgba(37, 99, 235, 0.2);
+      flex-shrink: 0;
     }
     .logo-icon-text {
-      font-size: 32pt;
+      font-size: 28pt;
       font-weight: 900;
       color: #ffffff;
       letter-spacing: -1px;
@@ -700,37 +703,37 @@ const getContractTemplate = (data: ContractData): string => {
       justify-content: center;
     }
     .logo {
-      font-size: 26pt;
+      font-size: 20pt;
       font-weight: 800;
       letter-spacing: 1px;
-      line-height: 1.1;
+      line-height: 1;
       color: #1e3a8a;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
     .logo-subtitle {
-      font-size: 10pt;
+      font-size: 9pt;
       font-weight: 500;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: #64748b;
     }
     .header-info {
       flex: 1;
       text-align: right;
-      line-height: 1.8;
+      line-height: 1.6;
     }
     .company-name {
-      font-size: 11pt;
+      font-size: 10pt;
       font-weight: 700;
       color: #1e3a8a;
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
     }
     .header-info .contact-line {
       display: block;
-      font-size: 8.5pt;
+      font-size: 8pt;
       color: #475569;
-      margin: 3px 0;
+      margin: 2px 0;
     }
     .contact-line strong {
       color: #1e3a8a;
@@ -738,17 +741,20 @@ const getContractTemplate = (data: ContractData): string => {
     }
     .contract-ref {
       background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-      padding: 16px 30px;
-      border-radius: 10px;
+      padding: 12px 25px;
+      border-radius: 8px;
       text-align: center;
-      font-size: 10.5pt;
+      font-size: 10pt;
       font-weight: 700;
-      letter-spacing: 1px;
-      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.15);
+      letter-spacing: 0.8px;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
       border: 2px solid #2563eb;
       color: #1e3a8a;
       margin: 0 auto;
       display: inline-block;
+      max-width: 90%;
+      word-break: break-word;
+      padding: 25px;
     }
     h1 {
       color: #1e3a8a;
