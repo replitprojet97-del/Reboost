@@ -4,7 +4,7 @@ import { fr } from "date-fns/locale";
 import { Check, CheckCheck, FileText, Download } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, getFileUrl } from "@/lib/utils";
 import type { ChatMessage } from "@shared/schema";
 import { PdfViewer } from "./PdfViewer";
 
@@ -98,10 +98,10 @@ export function Message({ message, isOwn, senderName, senderAvatar }: MessagePro
           {message.fileUrl && message.fileName && isImageFile(message.fileName) && (
             <div className="mt-2">
               <img
-                src={message.fileUrl}
+                src={getFileUrl(message.fileUrl)}
                 alt={message.fileName}
                 className="max-w-xs rounded-md max-h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                onClick={() => window.open(message.fileUrl!, '_blank')}
+                onClick={() => window.open(getFileUrl(message.fileUrl)!, '_blank')}
                 data-testid={`img-attachment-${message.id}`}
               />
             </div>
@@ -111,7 +111,7 @@ export function Message({ message, isOwn, senderName, senderAvatar }: MessagePro
             <div className="mt-2 space-y-2">
               {showPdfPreview && message.fileUrl ? (
                 <PdfViewer
-                  storagePath={message.fileUrl}
+                  storagePath={getFileUrl(message.fileUrl) || message.fileUrl}
                   fileName={message.fileName || 'Document.pdf'}
                   onClose={() => setShowPdfPreview(false)}
                 />
@@ -138,7 +138,7 @@ export function Message({ message, isOwn, senderName, senderAvatar }: MessagePro
                       className="flex-1 text-xs h-8"
                       data-testid={`btn-download-pdf-${message.id}`}
                     >
-                      <a href={message.fileUrl} download>
+                      <a href={getFileUrl(message.fileUrl)} download>
                         Télécharger
                       </a>
                     </Button>
@@ -151,7 +151,7 @@ export function Message({ message, isOwn, senderName, senderAvatar }: MessagePro
           {message.fileUrl && message.fileName && !isImageFile(message.fileName) && !isPdfFile(message.fileName, message.fileUrl) && (
             <div className="mt-2 border border-current border-opacity-20 rounded-md p-3">
               <a
-                href={message.fileUrl}
+                href={getFileUrl(message.fileUrl)}
                 download
                 className={cn(
                   "flex items-center gap-2 p-2 rounded-md",
