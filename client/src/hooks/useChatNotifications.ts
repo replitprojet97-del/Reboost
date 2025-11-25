@@ -37,7 +37,10 @@ export function useChatNotifications(userId: string): UseChatNotificationsReturn
       return res.json();
     },
     enabled: !!userId,
-    staleTime: 30000, // 30 secondes
+    // CRITICAL: staleTime: Infinity prevents automatic refetches that overwrite socket-based updates
+    // Socket events (chat:unread-count) are the source of truth for real-time updates
+    // This avoids race conditions where server refetch overwrites the badge before socket event arrives
+    staleTime: Infinity,
   });
 
   // Hydrater l'état local avec les données serveur
