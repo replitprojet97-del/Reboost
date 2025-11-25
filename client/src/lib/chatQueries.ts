@@ -192,10 +192,11 @@ export const useSendMessage = () => {
       queryClient.invalidateQueries({
         queryKey: ['chat', 'conversations', 'user']
       });
-      // Invalider les unread counts
-      queryClient.invalidateQueries({
-        queryKey: ['chat', 'unread']
-      });
+      // CRITICAL: Do NOT invalidate unread counts here!
+      // The server will emit chat:unread-count socket event for real-time updates
+      // Invalidating here causes cache to be thrown away, then API refetch recalculates from DB
+      // Instead, trust socket event 'chat:unread-count' as single source of truth
+      // Socket event arrives immediately with server-calculated count
     },
   });
 };
