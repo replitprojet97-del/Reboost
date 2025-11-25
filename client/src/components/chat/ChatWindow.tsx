@@ -10,6 +10,7 @@ import { useMessages, useMarkAsRead } from "@/lib/chatQueries";
 import { useChatMessages } from "@/hooks/useChatMessages";
 import { useSocket } from "@/hooks/useSocket";
 import { useLanguage, translations } from "@/lib/i18n";
+import { getApiUrl } from "@/lib/queryClient";
 import { cn } from "@/lib/utils";
 
 interface ChatWindowProps {
@@ -74,7 +75,7 @@ export function ChatWindow({
     if (file) {
       try {
         // Récupérer le token CSRF
-        const csrfResponse = await fetch('/api/csrf-token', {
+        const csrfResponse = await fetch(getApiUrl('/api/csrf-token'), {
           credentials: 'include',
         });
         const { csrfToken } = await csrfResponse.json();
@@ -82,7 +83,7 @@ export function ChatWindow({
         const formData = new FormData();
         formData.append('file', file);
         
-        const response = await fetch('/api/chat/upload', {
+        const response = await fetch(getApiUrl('/api/chat/upload'), {
           method: 'POST',
           body: formData,
           credentials: 'include',
