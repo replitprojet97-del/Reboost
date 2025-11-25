@@ -65,22 +65,30 @@ export default function ExpertisesModern() {
                   ))}
                 </div>
 
-                {/* CTA */}
-                <button 
-                  onClick={() => setLocation('/expertise')}
-                  className="inline-flex items-center gap-2 text-indigo-600 font-semibold group-hover:gap-3 transition-all duration-300 cursor-pointer bg-transparent border-0 p-0"
-                  data-testid={`button-expertise-learn-more-${index}`}
-                >
-                  {expertise.learnMore}
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-
                 {/* Gradient overlay on hover */}
                 <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${expertiseColors[index]} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
               </div>
             </motion.div>);
           })}
         </div>
+
+        {/* Single CTA Button Below Cards - CENTERED */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-16 text-center"
+        >
+          <button
+            onClick={() => setLocation('/products')}
+            data-testid="button-learn-more-all-expertises"
+            className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold text-lg rounded-lg hover:shadow-2xl active:scale-95 transition-all duration-300 hover-elevate active-elevate-2"
+          >
+            En savoir plus sur nos prêts
+            <ArrowRight className="h-5 w-5" />
+          </button>
+        </motion.div>
       </div>
     </section>
   );
