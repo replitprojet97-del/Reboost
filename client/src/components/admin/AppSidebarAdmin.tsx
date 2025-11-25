@@ -8,6 +8,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
 import { useQuery } from "@tanstack/react-query";
@@ -15,6 +16,7 @@ import { useTranslations } from "@/lib/i18n";
 
 export function AppSidebarAdmin() {
   const [location] = useLocation();
+  const { setOpen } = useSidebar();
   const t = useTranslations();
 
   // Récupérer les compteurs de notifications en temps réel
@@ -64,7 +66,7 @@ export function AppSidebarAdmin() {
                 return (
                   <SidebarMenuItem key={item.link}>
                     <SidebarMenuButton asChild data-testid={`link-admin-${item.label.toLowerCase()}`}>
-                      <Link href={item.link}>
+                      <Link href={item.link} onClick={() => setOpen(false)}>
                         <div
                           className={`flex items-center justify-between gap-3 p-3 rounded-xl transition-all w-full ${
                             isActive

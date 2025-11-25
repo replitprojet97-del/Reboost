@@ -8,6 +8,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -21,6 +22,7 @@ import { useQuery } from '@tanstack/react-query';
 export default function AppSidebar() {
   const t = useTranslations();
   const [location, setLocation] = useLocation();
+  const { setOpen } = useSidebar();
   const { data: user, isLoading: isUserLoading } = useUser();
   const profilePhotoUrl = useUserProfilePhotoUrl();
 
@@ -29,6 +31,12 @@ export default function AppSidebar() {
 
   const handleLogout = () => {
     setLocation('/');
+    setOpen(false);
+  };
+
+  const handleNavigate = (url: string) => {
+    setLocation(url);
+    setOpen(false);
   };
 
   const { data: loans } = useQuery<any[]>({
@@ -111,7 +119,7 @@ export default function AppSidebar() {
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton
                         isActive={isActive}
-                        onClick={() => setLocation(item.url)}
+                        onClick={() => handleNavigate(item.url)}
                         data-testid={`button-${item.url.slice(1).replace(/\//g, '-')}`}
                         className={`group relative overflow-hidden rounded-xl transition-all duration-200 ${
                           isActive 
@@ -146,7 +154,7 @@ export default function AppSidebar() {
                       <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton
                           isActive={isActive}
-                          onClick={() => setLocation(item.url)}
+                          onClick={() => handleNavigate(item.url)}
                           data-testid={`button-${item.url.slice(1).replace(/\//g, '-')}`}
                           className={`group relative overflow-hidden rounded-xl transition-all duration-200 ${
                             isActive 
@@ -184,7 +192,7 @@ export default function AppSidebar() {
                       <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton
                           isActive={isActive}
-                          onClick={() => setLocation(item.url)}
+                          onClick={() => handleNavigate(item.url)}
                           data-testid={`button-${item.url.slice(1)}`}
                           className={`group relative overflow-hidden rounded-xl transition-all duration-200 ${
                             isActive 
