@@ -268,3 +268,24 @@ export const useAssignConversation = () => {
     },
   });
 };
+
+export const useCloseConversation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (conversationId: string) => {
+      const res = await apiRequest("PATCH", `/api/chat/conversations/${conversationId}`, { status: "closed" });
+      return await res.json() as ChatConversation;
+    },
+    onSuccess: (data) => {
+      // Invalider toutes les listes de conversations (users et admins)
+      queryClient.invalidateQueries({ 
+        queryKey: ['chat', 'conversations'] 
+      });
+      // Invalider aussi la conversation spécifique
+      queryClient.invalidateQueries({ 
+        queryKey: ['chat', 'conversations', 'detail', data.id] 
+      });
+    },
+  });
+};

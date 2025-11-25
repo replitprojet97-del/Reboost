@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Filter, Clock, CheckCircle2, XCircle, MessageCircle, ArrowLeft } from "lucide-react";
+import { Search, Filter, Clock, CheckCircle2, XCircle, MessageCircle, ArrowLeft, X } from "lucide-react";
 import { useLocation } from "wouter";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -14,8 +14,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ChatWindow } from "@/components/chat/ChatWindow";
-import { useAdminConversations, useAssignConversation } from "@/lib/chatQueries";
+import { useAdminConversations, useAssignConversation, useCloseConversation } from "@/lib/chatQueries";
 import { useUser } from "@/hooks/use-user";
+import { useToast } from "@/hooks/use-toast";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
 import { cn } from "@/lib/utils";
@@ -24,12 +25,14 @@ import type { ChatConversation } from "@shared/schema";
 export default function AdminChat() {
   const { data: user } = useUser();
   const [, setLocation] = useLocation();
+  const { toast } = useToast();
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<"all" | "open" | "closed">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data: allConversations = [] } = useAdminConversations();
   const assignConversationMutation = useAssignConversation();
+  const closeConversationMutation = useCloseConversation();
 
   const filteredConversations = allConversations.filter((conv) => {
     if (statusFilter !== "all" && conv.status !== statusFilter) return false;
@@ -55,6 +58,24 @@ export default function AdminChat() {
       });
     } catch (error) {
       console.error("Failed to assign conversation:", error);
+    }
+  };
+
+  const handleCloseConversation = async (conversationId: string) => {
+    try {
+      await closeConversationMutation.mutateAsync(conversationId);
+      setSelectedConversationId(null);
+      toast({
+        title: "Conversation fermée",
+        description: "La conversation a été archivée. L'utilisateur peut la rouvrir en écrivant.",
+      });
+    } catch (error) {
+      console.error("Failed to close conversation:", error);
+      toast({
+        title: "Erreur",
+        description: "Impossible de fermer la conversation.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -167,7 +188,7 @@ export default function AdminChat() {
 
       <div className="flex-1 flex flex-col">
         {/* Back Button Header */}
-        <div className="border-b bg-background/50 backdrop-blur-sm p-4 flex items-center">
+        <div className="border-b bg-background/50 backdrop-blur-sm p-4 flex items-center justify-between gap-2">
           <Button
             variant="ghost"
             size="icon"
@@ -178,6 +199,20 @@ export default function AdminChat() {
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
+
+          {selectedConversation && selectedConversation.status === "open" && (
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={() => handleCloseConversation(selectedConversation.id)}
+              disabled={closeConversationMutation.isPending}
+              data-testid="button-close-conversation"
+              className="gap-2"
+            >
+              <X className="h-4 w-4" />
+              {closeConversationMutation.isPending ? "Fermeture..." : "Fermer chat"}
+            </Button>
+          )}
         </div>
 
         {selectedConversation ? (
