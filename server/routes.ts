@@ -4877,6 +4877,18 @@ ${urls.map(url => `  <url>
       }
 
       const message = await storage.createChatMessage(validation.data);
+      
+      // Émettre l'événement socket pour notifier les autres utilisateurs
+      // Le message est non lu pour le destinataire (celui qui reçoit)
+      io.emit('chat:new-message', {
+        ...message,
+        isRead: false, // Nouveau message = non lu par défaut
+      });
+      
+      // Émettre un événement d'invalidation des comptes non lus pour le destinataire
+      const recipientId = user?.role === 'admin' ? conversation.userId : (conversation.assignedAdminId || 'admin');
+      io.emit('unread_sync_required', { userId: recipientId });
+      
       res.status(201).json(message);
     } catch (error: any) {
       console.error('[CHAT] Erreur envoi message:', error);
