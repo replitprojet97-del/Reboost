@@ -87,37 +87,77 @@ export function Message({ message, isOwn, senderName, senderAvatar }: MessagePro
           </span>
         )}
 
-        <div
-          className={cn(
-            "rounded-md px-4 py-3 space-y-3",
-            isOwn
-              ? "text-primary-foreground"
-              : ""
-          )}
-        >
-          {message.fileUrl && message.fileName && isImageFile(message.fileName) && (
-            <div className="mb-2">
-              <img
-                src={getFileUrl(message.fileUrl)}
-                alt={message.fileName}
-                className="max-w-xs rounded-md max-h-72 object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                onClick={() => window.open(getFileUrl(message.fileUrl)!, '_blank')}
-                data-testid={`img-attachment-${message.id}`}
-              />
-            </div>
-          )}
+        {/* File with timestamp directly below */}
+        {message.fileUrl && message.fileName && isImageFile(message.fileName) && (
+          <div>
+            <img
+              src={getFileUrl(message.fileUrl)}
+              alt={message.fileName}
+              className="max-w-xs rounded-md max-h-72 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+              onClick={() => window.open(getFileUrl(message.fileUrl)!, '_blank')}
+              data-testid={`img-attachment-${message.id}`}
+            />
+            <div
+              className={cn(
+                "flex items-center gap-2 px-3 relative z-10 mt-1",
+                isOwn ? "flex-row-reverse justify-end" : "flex-row justify-start"
+              )}
+            >
+              <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
+                {formatDistanceToNow(new Date(message.createdAt), {
+                  addSuffix: true,
+                  locale: fr,
+                })}
+              </span>
 
-          {message.fileUrl && isPdfFile(message.fileName, message.fileUrl) && (
-            <div className="mb-2">
-              <PdfViewer
-                storagePath={getFileUrl(message.fileUrl) || ''}
-                fileName={message.fileName || 'Document.pdf'}
-              />
+              {isOwn && (
+                <div data-testid="icon-read-status">
+                  {message.isRead ? (
+                    <CheckCheck className="h-3 w-3 text-primary" />
+                  ) : (
+                    <Check className="h-3 w-3 text-muted-foreground" />
+                  )}
+                </div>
+              )}
             </div>
-          )}
+          </div>
+        )}
 
-          {message.fileUrl && message.fileName && !isImageFile(message.fileName) && !isPdfFile(message.fileName, message.fileUrl) && (
-            <div className="mb-2 rounded-md p-3">
+        {message.fileUrl && isPdfFile(message.fileName, message.fileUrl) && (
+          <div>
+            <PdfViewer
+              storagePath={getFileUrl(message.fileUrl) || ''}
+              fileName={message.fileName || 'Document.pdf'}
+            />
+            <div
+              className={cn(
+                "flex items-center gap-2 px-3 relative z-10 mt-1",
+                isOwn ? "flex-row-reverse justify-end" : "flex-row justify-start"
+              )}
+            >
+              <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
+                {formatDistanceToNow(new Date(message.createdAt), {
+                  addSuffix: true,
+                  locale: fr,
+                })}
+              </span>
+
+              {isOwn && (
+                <div data-testid="icon-read-status">
+                  {message.isRead ? (
+                    <CheckCheck className="h-3 w-3 text-primary" />
+                  ) : (
+                    <Check className="h-3 w-3 text-muted-foreground" />
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {message.fileUrl && message.fileName && !isImageFile(message.fileName) && !isPdfFile(message.fileName, message.fileUrl) && (
+          <div>
+            <div className="rounded-md p-3">
               <a
                 href={getFileUrl(message.fileUrl)}
                 download
@@ -134,38 +174,61 @@ export function Message({ message, isOwn, senderName, senderAvatar }: MessagePro
                 <Download className="h-4 w-4 flex-shrink-0" />
               </a>
             </div>
-          )}
+            <div
+              className={cn(
+                "flex items-center gap-2 px-3 relative z-10",
+                isOwn ? "flex-row-reverse justify-end" : "flex-row justify-start"
+              )}
+            >
+              <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
+                {formatDistanceToNow(new Date(message.createdAt), {
+                  addSuffix: true,
+                  locale: fr,
+                })}
+              </span>
 
-          {message.content && (
+              {isOwn && (
+                <div data-testid="icon-read-status">
+                  {message.isRead ? (
+                    <CheckCheck className="h-3 w-3 text-primary" />
+                  ) : (
+                    <Check className="h-3 w-3 text-muted-foreground" />
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Text only messages */}
+        {message.content && (
+          <div
+            className={cn(
+              "flex items-center gap-2 px-3 relative z-10 flex-col",
+              isOwn ? "items-end" : "items-start"
+            )}
+          >
             <p className="text-sm whitespace-pre-wrap break-words" data-testid="text-message-content">
               {message.content}
             </p>
-          )}
-        </div>
+            <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
+              {formatDistanceToNow(new Date(message.createdAt), {
+                addSuffix: true,
+                locale: fr,
+              })}
+            </span>
 
-        <div
-          className={cn(
-            "flex items-center gap-2 px-3 relative z-10",
-            isOwn ? "flex-row-reverse" : "flex-row"
-          )}
-        >
-          <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
-            {formatDistanceToNow(new Date(message.createdAt), {
-              addSuffix: true,
-              locale: fr,
-            })}
-          </span>
-
-          {isOwn && (
-            <div data-testid="icon-read-status">
-              {message.isRead ? (
-                <CheckCheck className="h-3 w-3 text-primary" />
-              ) : (
-                <Check className="h-3 w-3 text-muted-foreground" />
-              )}
-            </div>
-          )}
-        </div>
+            {isOwn && (
+              <div data-testid="icon-read-status">
+                {message.isRead ? (
+                  <CheckCheck className="h-3 w-3 text-primary" />
+                ) : (
+                  <Check className="h-3 w-3 text-muted-foreground" />
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
