@@ -16,15 +16,17 @@ interface LoanOffersCatalogProps {
 export default function LoanOffersCatalog({ onRequestLoan }: LoanOffersCatalogProps) {
   const t = useTranslations();
   const { language } = useLanguage();
-  const [, setLocation] = useLocation();
   const [activeTab, setActiveTab] = useState<'individual' | 'business'>('individual');
 
   const individualOffers = getTranslatedLoanOffers(getLoanOffersByAccountType('individual'), language);
   const businessOffers = getTranslatedLoanOffers(getLoanOffersByAccountType('business'), language);
 
   const handleOfferClick = (offer: LoanOffer) => {
+    console.log('🎯 CLICK DETECTED - offer ID:', offer.id);
     onRequestLoan(offer);
-    setLocation(`/loan-offers/${offer.id}`);
+    console.log('📍 Navigating to /loan-offers/' + offer.id);
+    // Use direct navigation to ensure it works
+    window.location.href = `/loan-offers/${offer.id}`;
   };
 
   const renderOffers = (offers: LoanOffer[], type: 'individual' | 'business') => (
@@ -33,70 +35,79 @@ export default function LoanOffersCatalog({ onRequestLoan }: LoanOffersCatalogPr
         const IconComponent = offer.icon;
         
         return (
-          <Card 
+          <div
             key={offer.id}
-            className="hover-elevate transition-all duration-300 border-2 hover:border-primary/50 cursor-pointer"
+            className="hover-elevate transition-all duration-300 cursor-pointer"
             onClick={() => handleOfferClick(offer)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                handleOfferClick(offer);
+              }
+            }}
             data-testid={`card-loan-offer-${offer.id}`}
           >
-            <CardHeader>
-              <div className="flex items-start justify-between mb-4">
-                <div className={`p-3 rounded-lg ${offer.bgColor}`}>
-                  <IconComponent className={`h-6 w-6 ${offer.color}`} />
-                </div>
-                <Badge variant="secondary" className="text-xs">
-                  {type === 'individual' ? t.loanOffers.individual : t.loanOffers.business}
-                </Badge>
-              </div>
-              <CardTitle className="text-xl">{offer.title}</CardTitle>
-              <CardDescription className="line-clamp-2">
-                {offer.description}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t.loanOffers.amountLabel}</span>
-                  <span className="font-semibold">{offer.amount}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t.loanOffers.rateLabel}</span>
-                  <span className="font-semibold">{offer.rate}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">{t.loanOffers.durationLabel}</span>
-                  <span className="font-semibold">{offer.duration}</span>
-                </div>
-              </div>
-
-              {offer.features && offer.features.length > 0 && (
-                <div className="space-y-2">
-                  <div className="text-xs font-semibold text-muted-foreground uppercase">
-                    {t.loanOffers.advantagesLabel}
+            <Card className="h-full border-2 hover:border-primary/50">
+              <CardHeader>
+                <div className="flex items-start justify-between mb-4">
+                  <div className={`p-3 rounded-lg ${offer.bgColor}`}>
+                    <IconComponent className={`h-6 w-6 ${offer.color}`} />
                   </div>
-                  <ul className="space-y-1">
-                    {offer.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <Badge variant="secondary" className="text-xs">
+                    {type === 'individual' ? t.loanOffers.individual : t.loanOffers.business}
+                  </Badge>
                 </div>
-              )}
+                <CardTitle className="text-xl">{offer.title}</CardTitle>
+                <CardDescription className="line-clamp-2">
+                  {offer.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">{t.loanOffers.amountLabel}</span>
+                    <span className="font-semibold">{offer.amount}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">{t.loanOffers.rateLabel}</span>
+                    <span className="font-semibold">{offer.rate}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">{t.loanOffers.durationLabel}</span>
+                    <span className="font-semibold">{offer.duration}</span>
+                  </div>
+                </div>
 
-              <Button 
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleOfferClick(offer);
-                }}
-                data-testid={`button-request-${offer.id}`}
-              >
-                {t.loanOffers.requestButton}
-              </Button>
-            </CardContent>
-          </Card>
+                {offer.features && offer.features.length > 0 && (
+                  <div className="space-y-2">
+                    <div className="text-xs font-semibold text-muted-foreground uppercase">
+                      {t.loanOffers.advantagesLabel}
+                    </div>
+                    <ul className="space-y-1">
+                      {offer.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm">
+                          <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <Button
+                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleOfferClick(offer);
+                  }}
+                  data-testid={`button-request-${offer.id}`}
+                >
+                  {t.loanOffers.requestButton}
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         );
       })}
     </div>
