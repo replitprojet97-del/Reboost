@@ -110,9 +110,8 @@ export function Message({ message, isOwn, senderName, senderAvatar }: MessagePro
           {message.fileUrl && isPdfFile(message.fileName, message.fileUrl) && (
             <div className="mt-2">
               <PdfViewer
-                storagePath={getFileUrl(message.fileUrl) || message.fileUrl}
+                storagePath={getFileUrl(message.fileUrl) || ''}
                 fileName={message.fileName || 'Document.pdf'}
-                onClose={() => {}}
               />
             </div>
           )}
