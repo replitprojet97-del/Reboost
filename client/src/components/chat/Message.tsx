@@ -117,7 +117,7 @@ export function Message({ message, isOwn, senderName, senderAvatar }: MessagePro
           )}
 
           {message.fileUrl && message.fileName && !isImageFile(message.fileName) && !isPdfFile(message.fileName, message.fileUrl) && (
-            <div className="mb-2 border border-current border-opacity-20 rounded-md p-3">
+            <div className="mb-2 rounded-md p-3">
               <a
                 href={getFileUrl(message.fileUrl)}
                 download

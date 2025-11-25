@@ -10,7 +10,7 @@ export function PdfViewer({ storagePath, fileName }: PdfViewerProps) {
   return (
     <div className="relative group">
       <div 
-        className="w-full rounded-md overflow-y-auto bg-slate-100 dark:bg-slate-900 border flex items-center justify-center"
+        className="w-full rounded-md overflow-y-auto bg-slate-100 dark:bg-slate-900 flex items-center justify-center"
         style={{
           maxHeight: '400px',
           aspectRatio: '0.707', // A4 ratio (210/297)
