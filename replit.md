@@ -2,6 +2,29 @@
 
 ## Recent Changes (November 25, 2025)
 
+### CRITICAL FIXES - Session & Toast Management ✅
+
+#### 1. Page Refresh 404 Issue FIXED ✅
+- **Problem:** Refreshing authenticated pages (e.g., `/dashboard`) caused 404 error on Vercel
+- **Root Cause:** Missing `vercel.json` configuration for SPA routing
+- **Solution:** Created `vercel.json` with rewrite rules
+  - All requests now rewrite to `index.html` (SPA pattern)
+  - React + wouter router handles client-side routing
+  - Cache headers: No-cache for `index.html`, 30-day cache for `/assets`
+- **Files Created:** `vercel.json`
+- **Status:** ✅ Users can now refresh any page without 404 errors
+
+#### 2. Toast Auto-Dismiss System FIXED ✅
+- **Problem:** All toasts stayed visible indefinitely until manually closed
+- **Root Cause:** Toast system had no auto-dismiss logic, only manual dismissal
+- **Solution:** Implemented intelligent auto-dismiss in `use-toast.ts`
+  - Success toasts: disappear after **3 seconds** ✅
+  - Error toasts (destructive): remain for **5 seconds** ⚠️ (more time to read)
+  - Manual close still works anytime
+  - Timeout properly cleaned up on manual dismiss
+- **Files Modified:** `client/src/hooks/use-toast.ts`
+- **Status:** ✅ All toasts now auto-dismiss with appropriate timing
+
 ### Navigation Fix - Critical wouter Issue Resolved ✅
 - ✅ **NAVIGATION RESTORED:** All wouter-based navigation working again
   - Problem: Previous `window.history.pushState` approach was breaking wouter router

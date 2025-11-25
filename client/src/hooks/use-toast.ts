@@ -8,6 +8,7 @@ import { playNotificationSound } from "@/lib/notification-sound"
 
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
+const TOAST_AUTO_DISMISS_DEFAULT = 3000 // 3 secondes pour les toasts standards
 
 type ToasterToast = ToastProps & {
   id: string
@@ -140,8 +141,19 @@ function dispatch(action: Action) {
 
 type Toast = Omit<ToasterToast, "id">
 
-function toast({ duration = 30000, ...props }: Toast & { duration?: number }) {
+function toast({ duration, variant, ...props }: Toast & { duration?: number; variant?: string }) {
   const id = genId()
+
+  // Déterminer la durée appropriée selon le type de toast
+  let finalDuration = duration ?? TOAST_AUTO_DISMISS_DEFAULT
+  if (duration === undefined) {
+    // Les erreurs restent plus longtemps pour être lues
+    if (variant === 'destructive') {
+      finalDuration = 5000 // 5 secondes pour les erreurs
+    } else {
+      finalDuration = TOAST_AUTO_DISMISS_DEFAULT // 3 secondes pour les succès
+    }
+  }
 
   const update = (props: ToasterToast) =>
     dispatch({
@@ -155,7 +167,8 @@ function toast({ duration = 30000, ...props }: Toast & { duration?: number }) {
     toast: {
       ...props,
       id,
-      duration,
+      duration: finalDuration,
+      variant,
       open: true,
       onOpenChange: (open) => {
         if (!open) dismiss()
@@ -163,11 +176,23 @@ function toast({ duration = 30000, ...props }: Toast & { duration?: number }) {
     },
   })
 
+  // Auto-dismiss après la durée spécifiée
+  const dismissTimeout = setTimeout(() => {
+    dismiss()
+  }, finalDuration)
+
+  // Nettoyer le timeout si l'utilisateur ferme manuellement avant la durée
+  const oldDismiss = dismiss
+  const wrappedDismiss = () => {
+    clearTimeout(dismissTimeout)
+    oldDismiss()
+  }
+
   playNotificationSound()
 
   return {
     id: id,
-    dismiss,
+    dismiss: wrappedDismiss,
     update,
   }
 }
