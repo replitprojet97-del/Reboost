@@ -4771,7 +4771,15 @@ ${urls.map(url => `  <url>
         return res.status(404).json({ error: 'File not found' });
       }
       
-      res.download(filepath);
+      // For PDFs, serve inline so embed can display them
+      if (filename.toLowerCase().endsWith('.pdf')) {
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'inline');
+        res.sendFile(filepath);
+      } else {
+        // For other files, download
+        res.download(filepath);
+      }
     } catch (error: any) {
       console.error('[CHAT] File download error:', error);
       res.status(500).json({ error: 'File download failed' });
