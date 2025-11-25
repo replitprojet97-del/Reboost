@@ -96,21 +96,13 @@ export function useChatNotifications(userId: string): UseChatNotificationsReturn
         [data.conversationId]: data.count,
       }));
       
-      // Update admin conversation queries in cache (without refetch)
-      // This ensures the unread badge persists for admins until they open the chat
-      queryClient.setQueriesData(
-        { queryKey: ['chat', 'conversations', 'admin'], exact: false },
-        (oldData: any) => {
-          if (Array.isArray(oldData)) {
-            return oldData.map((conv: any) =>
-              conv.id === data.conversationId
-                ? { ...conv, unreadCount: data.count }
-                : conv
-            );
-          }
-          return oldData;
-        }
-      );
+      // For admins: invalidate conversations query to refetch with updated unreadCount
+      // setQueriesData doesn't work if conversations aren't already cached
+      // Invalidating ensures badge appears even if admin hasn't opened chat yet
+      queryClient.invalidateQueries({
+        queryKey: ['chat', 'conversations', 'admin'],
+        exact: false,
+      });
     };
 
     const handleUnreadSync = async (data: { userId: string }) => {

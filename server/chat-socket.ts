@@ -191,6 +191,7 @@ export function initializeChatSocket(httpServer: HTTPServer, storage: IStorage, 
         
         socket.emit('chat:messages-read', { conversationId: data.conversationId });
         
+        // Notifier l'autre personne de la lecture
         const otherUserId = userRole === 'admin' ? conversation.userId : conversation.assignedAdminId;
         if (otherUserId) {
           io.to(`user:${otherUserId}`).emit('chat:read-receipt', {
@@ -198,6 +199,16 @@ export function initializeChatSocket(httpServer: HTTPServer, storage: IStorage, 
             readBy: userId,
           });
         }
+
+        // CRITICAL: Also send unreadCount to self to update badge to 0
+        // This ensures the badge disappears for the person who marked as read
+        const unreadCount = await storage.getUnreadMessageCount(data.conversationId, userId);
+        io.to(`user:${userId}`).emit('chat:unread-count', {
+          conversationId: data.conversationId,
+          count: unreadCount,
+        });
+        
+        console.log(`[CHAT WS] Messages marqués comme lus pour ${userId} dans conversation ${data.conversationId}`);
       } catch (error) {
         console.error('[CHAT WS] Erreur mark read:', error);
       }
