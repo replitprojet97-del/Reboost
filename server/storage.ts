@@ -226,6 +226,7 @@ export interface IStorage {
   getUserPresence(userId: string): Promise<ChatPresence | undefined>;
   updateUserPresence(userId: string, status: string): Promise<ChatPresence>;
   getOnlineUsers(): Promise<ChatPresence[]>;
+  deleteConversation(conversationId: string): Promise<boolean>;
 }
 
 // export class MemStorage implements IStorage {
@@ -3141,6 +3142,24 @@ export class DatabaseStorage implements IStorage {
     return await db.select()
       .from(chatPresence)
       .where(eq(chatPresence.status, 'online'));
+  }
+
+  async deleteConversation(conversationId: string): Promise<boolean> {
+    try {
+      // Delete all messages in the conversation first
+      await db.delete(chatMessages)
+        .where(eq(chatMessages.conversationId, conversationId));
+      
+      // Delete the conversation
+      const result = await db.delete(chatConversations)
+        .where(eq(chatConversations.id, conversationId))
+        .returning();
+      
+      return result.length > 0;
+    } catch (error) {
+      console.error('[STORAGE] Error deleting conversation:', error);
+      throw error;
+    }
   }
 }
 

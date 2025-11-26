@@ -303,3 +303,20 @@ export const useCloseConversation = () => {
     },
   });
 };
+
+export const useDeleteConversation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (conversationId: string) => {
+      const res = await apiRequest("DELETE", `/api/chat/conversations/${conversationId}`);
+      return await res.json();
+    },
+    onSuccess: () => {
+      // Invalider toutes les listes de conversations
+      queryClient.invalidateQueries({ 
+        queryKey: ['chat', 'conversations'] 
+      });
+    },
+  });
+};
