@@ -242,7 +242,7 @@ export default function History() {
                   data-testid="button-export-csv"
                 >
                   <Download className="w-4 h-4" />
-                  <span className="hidden sm:inline">Exporter CSV</span>
+                  <span className="hidden sm:inline">{t.history.exportCSV}</span>
                   <span className="sm:hidden">CSV</span>
                 </Button>
               )}

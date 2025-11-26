@@ -249,7 +249,7 @@ export default function Dashboard() {
                 className="text-xs whitespace-nowrap"
                 data-testid="badge-kyc-status"
               >
-                KYC: {user.kycStatus === 'approved' ? '✓ Approuvé' : user.kycStatus === 'pending' ? '⏳ En attente' : '✗ Rejeté'}
+                KYC: {user.kycStatus === 'approved' ? '✓ ' + t.dashboard.kycStatusApproved : user.kycStatus === 'pending' ? '⏳ ' + t.dashboard.kycStatusPending : '✗ ' + t.dashboard.kycStatusRejected}
               </Badge>
             </div>
           )}
@@ -361,10 +361,10 @@ export default function Dashboard() {
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold text-foreground text-sm sm:text-base mb-1" data-testid="text-payment-alert">
-                  Paiement prévu très bientôt
+                  {t.dashboard.upcomingPaymentAlert}
                 </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground">
-                  Vous avez un paiement prévu dans les 7 prochains jours
+                  {t.dashboard.upcomingPaymentAlertDesc}
                 </p>
               </div>
             </div>
@@ -488,14 +488,14 @@ export default function Dashboard() {
 
         {/* Monthly Summary Section */}
         <DashboardCard
-          title="Résumé du mois"
-          subtitle="Statistiques financières du mois en cours"
+          title={t.dashboard.monthSummary}
+          subtitle={t.dashboard.monthSummaryDesc}
           icon={TrendingUp}
           iconColor="text-primary"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
             <div className="p-4 rounded-lg bg-muted/50">
-              <p className="text-xs text-muted-foreground mb-1">Intérêts payés</p>
+              <p className="text-xs text-muted-foreground mb-1">{t.dashboard.monthlyInterest}</p>
               <p className="text-2xl font-bold text-foreground" data-testid="text-monthly-interest">
                 {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(
                   Number(dashboardData.fees
@@ -506,7 +506,7 @@ export default function Dashboard() {
               </p>
             </div>
             <div className="p-4 rounded-lg bg-muted/50">
-              <p className="text-xs text-muted-foreground mb-1">Frais appliqués</p>
+              <p className="text-xs text-muted-foreground mb-1">{t.dashboard.monthlyFees}</p>
               <p className="text-2xl font-bold text-destructive" data-testid="text-monthly-fees">
                 {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(
                   Number(dashboardData.fees
@@ -516,13 +516,13 @@ export default function Dashboard() {
               </p>
             </div>
             <div className="p-4 rounded-lg bg-muted/50">
-              <p className="text-xs text-muted-foreground mb-1">Crédits utilisés</p>
+              <p className="text-xs text-muted-foreground mb-1">{t.dashboard.monthlyCredit}</p>
               <p className="text-2xl font-bold text-accent" data-testid="text-monthly-credit">
                 {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(creditUtilization * dashboardData.borrowingCapacity.maxCapacity / 100)}
               </p>
             </div>
             <div className="p-4 rounded-lg bg-muted/50">
-              <p className="text-xs text-muted-foreground mb-1">Remboursement</p>
+              <p className="text-xs text-muted-foreground mb-1">{t.dashboard.monthlyRepayment}</p>
               <p className="text-2xl font-bold text-primary" data-testid="text-monthly-repayment">
                 {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(
                   Number(dashboardData.loans.reduce((sum, loan) => sum + parseFloat(loan.totalRepaid), 0))
