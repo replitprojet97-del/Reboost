@@ -237,7 +237,7 @@ export function Message({ message, isOwn, senderName, senderAvatar, nextMessage 
             <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
               {formatDistanceToNow(new Date(message.createdAt), {
                 addSuffix: true,
-                locale: fr,
+                locale: enUS,
               })}
             </span>
 

@@ -219,6 +219,20 @@ export const useMarkAsRead = () => {
       queryClient.invalidateQueries({
         queryKey: ['chat', 'unread', 'user']
       });
+      // CRITICAL: Invalidate admin conversations to update unreadCount badge
+      queryClient.invalidateQueries({
+        queryKey: ['chat', 'conversations', 'admin'],
+        exact: false,
+      });
+      // Also invalidate user conversations
+      queryClient.invalidateQueries({
+        queryKey: ['chat', 'conversations', 'user'],
+        exact: false,
+      });
+      // Invalidate detail view
+      queryClient.invalidateQueries({
+        queryKey: ['chat', 'conversations', 'detail', variables.conversationId],
+      });
     },
   });
 };
