@@ -104,6 +104,24 @@ export function MessageList({
     }
   }, [messages]);
 
+  // Auto-scroll when virtualizer updates (for new messages with images/pdfs)
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const isScrolledToBottom =
+      container.scrollHeight - container.scrollTop - container.clientHeight < 100;
+
+    if (isScrolledToBottom) {
+      // Ensure scroll happens after virtualizer has rendered items
+      const scrollTimer = setTimeout(() => {
+        scrollToBottom(false);
+      }, 50);
+
+      return () => clearTimeout(scrollTimer);
+    }
+  }, [virtualizer.getTotalSize()]);
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
