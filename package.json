@@ -39,6 +39,8 @@
     "@radix-ui/react-toast": "^1.2.7",
     "@radix-ui/react-tooltip": "^1.2.0",
     "@sendgrid/mail": "^8.1.6",
+    "@sentry/node": "^10.27.0",
+    "@sentry/tracing": "^7.120.4",
     "@sparticuz/chromium": "^141.0.0",
     "@supabase/supabase-js": "^2.84.0",
     "@tailwindcss/typography": "^0.5.15",

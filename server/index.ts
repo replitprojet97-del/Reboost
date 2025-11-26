@@ -6,6 +6,7 @@ import { registerRoutes } from "./routes";
 import ConnectPgSimple from "connect-pg-simple";
 import pkg from "pg";
 const { Pool } = pkg;
+import Sentry from "@sentry/node";
 
 function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
@@ -15,6 +16,19 @@ function log(message: string, source = "express") {
     hour12: true,
   });
   console.log(`${formattedTime} [${source}] ${message}`);
+}
+
+// Initialize Sentry for production logging
+if (process.env.NODE_ENV === 'production' && process.env.SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    environment: process.env.NODE_ENV,
+    release: process.env.SENTRY_RELEASE || '1.0.0',
+    tracesSampleRate: 1.0,
+  });
+  console.log('[SENTRY] ✅ Sentry initialized for centralized logging');
+} else if (process.env.NODE_ENV === 'production') {
+  console.warn('[SENTRY] ⚠️ SENTRY_DSN not set in production. Centralized logging disabled.');
 }
 
 const app = express();
@@ -93,6 +107,11 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'X-CSRF-Token', 'Authorization'],
   exposedHeaders: ['Set-Cookie'],
 }));
+
+// Sentry request handler must come early in middleware chain
+if (process.env.NODE_ENV === 'production' && process.env.SENTRY_DSN) {
+  app.use(Sentry.Handlers.requestHandler());
+}
 
 app.use(helmet({
   contentSecurityPolicy: {
