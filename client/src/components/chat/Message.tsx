@@ -85,7 +85,7 @@ export function Message({ message, isOwn, senderName, senderAvatar, nextMessage 
   return (
     <div
       className={cn(
-        "flex gap-4 mb-4",
+        "flex gap-4 mb-4 w-full",
         isOwn ? "flex-row-reverse justify-end" : "flex-row justify-start"
       )}
       data-testid={`message-${message.id}`}
@@ -100,7 +100,7 @@ export function Message({ message, isOwn, senderName, senderAvatar, nextMessage 
       <div
         className={cn(
           "flex flex-col gap-2 relative",
-          isOwn ? "items-end max-w-xs" : "items-start max-w-sm"
+          isOwn ? "items-end max-w-xs ms-auto" : "items-start max-w-sm"
         )}
       >
         {!isOwn && senderName && (
