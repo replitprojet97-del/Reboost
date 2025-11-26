@@ -6,7 +6,7 @@ import { registerRoutes } from "./routes";
 import ConnectPgSimple from "connect-pg-simple";
 import pkg from "pg";
 const { Pool } = pkg;
-import Sentry from "@sentry/node";
+import * as Sentry from "@sentry/node";
 
 function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
@@ -109,9 +109,9 @@ app.use(cors({
 }));
 
 // Sentry request handler must come early in middleware chain
-if (process.env.NODE_ENV === 'production' && process.env.SENTRY_DSN) {
-  app.use(Sentry.Handlers.requestHandler());
-}
+// if (process.env.NODE_ENV === 'production' && process.env.SENTRY_DSN) {
+//   app.use(Sentry.Handlers.requestHandler());
+// }
 
 app.use(helmet({
   contentSecurityPolicy: {
@@ -295,101 +295,6 @@ app.get('/healthz', (req, res) => {
     res.status(200).json(checks);
   });
 
-  app.get("/api/session-check", (req, res) => {
-    const hasSession = !!req.session?.id;
-    const isAuthenticated = !!req.session?.userId;
-    
-    res.json({
-      hasSession,
-      isAuthenticated,
-      sessionId: hasSession ? req.session!.id.substring(0, 8) + '...' : null,
-      cookiesPresent: !!req.headers.cookie,
-      origin: req.headers.origin || 'no-origin',
-      timestamp: new Date().toISOString(),
-    });
-  });
-
-  // Comprehensive diagnostic endpoint for cross-domain session debugging
-  app.get("/api/debug/session-diagnostic", (req, res) => {
-    const diagnostic = {
-      timestamp: new Date().toISOString(),
-      environment: process.env.NODE_ENV || 'development',
-      
-      // Request information
-      request: {
-        method: req.method,
-        path: req.path,
-        origin: req.headers.origin || 'NO ORIGIN',
-        referer: req.headers.referer || 'NO REFERER',
-        host: req.headers.host || 'NO HOST',
-        'user-agent': req.headers['user-agent']?.substring(0, 50) + '...' || 'NO USER AGENT',
-      },
-      
-      // Cookie information
-      cookies: {
-        headerPresent: !!req.headers.cookie,
-        cookieCount: req.headers.cookie ? req.headers.cookie.split(';').length : 0,
-        hasSessionIdCookie: req.headers.cookie?.includes('sessionId') || false,
-        rawCookieHeader: process.env.NODE_ENV === 'production' ? 'HIDDEN' : req.headers.cookie || 'NO COOKIES',
-      },
-      
-      // Session information
-      session: {
-        exists: !!req.session,
-        hasId: !!req.session?.id,
-        sessionIdPreview: req.session?.id ? req.session.id.substring(0, 8) + '...' : null,
-        isAuthenticated: !!req.session?.userId,
-        userId: req.session?.userId || null,
-        userRole: req.session?.userRole || null,
-        hasCsrfToken: !!req.session?.csrfToken,
-      },
-      
-      // Server configuration
-      serverConfig: {
-        cookieDomain: COOKIE_DOMAIN || 'NOT SET (same-domain only)',
-        cookieSecure: IS_PRODUCTION,
-        cookieSameSite: SAME_SITE_POLICY,
-        sessionStore: sessionStore ? 'PostgreSQL' : 'Memory (development only)',
-        trustProxy: app.get('trust proxy') || false,
-      },
-      
-      // CORS configuration
-      cors: {
-        allowedOrigins: allowedOrigins,
-        currentOriginAllowed: !req.headers.origin || allowedOrigins.includes(req.headers.origin),
-        frontendUrl: process.env.FRONTEND_URL || 'NOT SET',
-      },
-      
-      // Headers sent by client
-      relevantHeaders: {
-        'x-csrf-token': req.headers['x-csrf-token'] ? 'PRESENT' : 'MISSING',
-        'content-type': req.headers['content-type'] || 'NOT SET',
-        'accept': req.headers['accept']?.substring(0, 50) || 'NOT SET',
-      },
-      
-      // Diagnostic recommendations
-      recommendations: [] as string[],
-    };
-    
-    // Generate recommendations
-    if (!diagnostic.cookies.hasSessionIdCookie) {
-      diagnostic.recommendations.push('Cookie "sessionId" not found. Browser may be blocking cross-domain cookies.');
-    }
-    if (!diagnostic.session.exists || !diagnostic.session.hasId) {
-      diagnostic.recommendations.push('Session not established. Check if cookies are being sent from frontend.');
-    }
-    if (diagnostic.request.origin && !diagnostic.cors.currentOriginAllowed) {
-      diagnostic.recommendations.push(`Origin "${diagnostic.request.origin}" is not in allowed origins list.`);
-    }
-    if (!diagnostic.cookies.headerPresent) {
-      diagnostic.recommendations.push('No cookies sent with request. Check if frontend is using credentials: "include".');
-    }
-    if (!diagnostic.session.exists && diagnostic.cookies.hasSessionIdCookie) {
-      diagnostic.recommendations.push('Session cookie present but session not found. Session may have expired or backend restarted.');
-    }
-    
-    res.json(diagnostic);
-  });
 
   // Only setup Vite in development (local dev server)
   // In production, backend serves API only. Frontend is deployed separately on Vercel.
