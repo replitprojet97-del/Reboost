@@ -3149,6 +3149,19 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         if (user) {
           const recipientIban = externalAccount?.iban || 'Non spécifié';
           
+          // Update user balance and available credit after transfer completion
+          // Reset account balance to 0 and reduce available credit
+          const currentMaxLoanAmount = parseFloat(user.maxLoanAmount || "0");
+          const transferAmount = parseFloat(transfer.amount.toString());
+          const newMaxLoanAmount = Math.max(0, currentMaxLoanAmount - transferAmount);
+          
+          await storage.updateUser(transfer.userId, {
+            accountBalance: 0,
+            maxLoanAmount: newMaxLoanAmount.toString(),
+          });
+
+          console.log(`[TRANSFER COMPLETION] User ${transfer.userId}: Balance reset to 0, Available credit reduced from ${currentMaxLoanAmount}€ to ${newMaxLoanAmount}€`);
+          
           await createAdminMessageTransferCompleted(
             transfer.userId,
             transfer.id,
