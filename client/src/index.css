@@ -64,6 +64,14 @@
   --accent: 220 10% 96%;             /* Neutre léger pour hover/active states */
 
   --accent-foreground: 0 0% 100%;
+}
+
+/* Classe personnalisée pour les hover/focus states - Violet subtil translucide */
+.bg-accent-subtle {
+  background-color: rgba(124, 58, 237, 0.08) !important;
+}
+
+:root {
 
   --gold: 43 96% 56%;
 
