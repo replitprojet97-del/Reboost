@@ -75,6 +75,8 @@ export const useMessages = (conversationId: string) => {
       return res.json();
     },
     enabled: !!conversationId,
+    refetchInterval: 2000,
+    refetchIntervalInBackground: true,
   });
 };
 
