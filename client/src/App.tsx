@@ -4,11 +4,9 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import PageLoader from '@/components/PageLoader';
 import NotFound from '@/pages/not-found';
 import Home from '@/pages/Home';
-import DashboardWrapper from '@/pages/DashboardWrapper';
 import About from '@/pages/About';
 import HowItWorks from '@/pages/HowItWorks';
 import Products from '@/pages/Products';
@@ -20,45 +18,20 @@ import LoanDetail from '@/pages/LoanDetail';
 import Auth from '@/pages/Auth';
 import Verify from '@/pages/Verify';
 import VerifyOtp from '@/pages/VerifyOtp';
-import TwoFactorSetup from '@/pages/TwoFactorSetup';
 import VerifyTwoFactor from '@/pages/VerifyTwoFactor';
 import AdminSetup2FA from '@/pages/AdminSetup2FA';
 import ForgotPassword from '@/pages/ForgotPassword';
 import ResetPassword from '@/pages/ResetPassword';
 import AdminSimple from '@/pages/AdminSimple';
-import IndividualLoans from '@/pages/IndividualLoans';
-import LoanRequestDashboard from '@/pages/LoanRequestDashboard';
-import LoanOfferDetail from '@/pages/LoanOfferDetail';
-import TransferFlow from '@/pages/TransferFlow';
-import Transfers from '@/pages/Transfers';
-import BankAccounts from '@/pages/BankAccounts';
-import History from '@/pages/History';
-import Settings from '@/pages/Settings';
-import Contracts from '@/pages/Contracts';
-import AppSidebar from '@/components/AppSidebar';
-import TopBar from '@/components/TopBar';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
-import ThemeToggle from '@/components/ThemeToggle';
-import NotificationBanner from '@/components/NotificationBanner';
-import UserProfileHeader from '@/components/UserProfileHeader';
-import NotificationBell from '@/components/NotificationBell';
 import SessionMonitor from '@/components/SessionMonitor';
 import ContractNotificationManager from '@/components/ContractNotificationManager';
 import UserSessionTracker from '@/components/UserSessionTracker';
-import { LoanDialogProvider } from '@/contexts/LoanDialogContext';
-import { ScrollingInfoBanner } from '@/components/fintech';
 import DiagnosticPage from '@/pages/DiagnosticPage';
 import AdminChat from '@/pages/AdminChat';
 import Expertise from '@/pages/Expertise';
-import { ChatWidget } from '@/components/chat';
-import { useUser } from '@/hooks/use-user';
-import { DataSocketProvider } from '@/components/DataSocketProvider';
+import ProtectedLayout from '@/components/ProtectedLayout';
 
 function App() {
-  const style = {
-    '--sidebar-width': '16rem',
-  };
-
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
@@ -91,82 +64,12 @@ function App() {
             <Route path="/admin/chat" component={AdminChat} />
             <Route path="/admin" component={AdminSimple} />
             <Route path="/admin/:any*" component={AdminSimple} />
-            <Route>
-              <DataSocketProvider>
-                <LoanDialogProvider>
-                  <TopBar />
-                  <SidebarProvider style={style as React.CSSProperties}>
-                    <div className="flex min-h-screen w-full">
-                      <AppSidebar />
-                      <div className="flex flex-col flex-1">
-                        {/* Fintech Premium Header */}
-                        <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl shadow-sm">
-                        <div className="flex items-center justify-between px-6 py-4">
-                          <SidebarTrigger data-testid="button-sidebar-toggle" className="hover:bg-muted rounded-xl transition-colors" />
-                          <div className="flex items-center gap-3">
-                            <LanguageSwitcher />
-                            <ThemeToggle />
-                            <NotificationBell />
-                            <UserProfileHeader />
-                          </div>
-                        </div>
-                        {/* Scrolling Info Banner */}
-                        <div className="px-6 pb-4">
-                          <ScrollingInfoBanner />
-                        </div>
-                      </header>
-                      
-                      {/* Legacy Notification Banner (if needed) */}
-                      <div className="hidden">
-                        <NotificationBanner />
-                      </div>
-                      
-                      <main className="flex-1 overflow-auto bg-background pt-[40px]">
-                        <Switch>
-                          <Route path="/dashboard" component={DashboardWrapper} />
-                          <Route path="/loans" component={IndividualLoans} />
-                          <Route path="/loans/new" component={LoanRequestDashboard} />
-                          <Route path="/loan-request" component={LoanRequestDashboard} />
-                          <Route path="/loan-offers/:offerId" component={LoanOfferDetail} />
-                          <Route path="/contracts" component={Contracts} />
-                          <Route path="/transfer/new" component={TransferFlow} />
-                          <Route path="/transfer/:id" component={TransferFlow} />
-                          <Route path="/transfers" component={Transfers} />
-                          <Route path="/accounts" component={BankAccounts} />
-                          <Route path="/history" component={History} />
-                          <Route path="/settings" component={Settings} />
-                          <Route path="/security/2fa" component={TwoFactorSetup} />
-                          <Route component={NotFound} />
-                        </Switch>
-                      </main>
-                      <ChatWidgetWrapper />
-                    </div>
-                  </div>
-                  </SidebarProvider>
-                </LoanDialogProvider>
-              </DataSocketProvider>
-            </Route>
+            <Route component={ProtectedLayout} />
           </Switch>
           <Toaster />
         </TooltipProvider>
       </QueryClientProvider>
     </HelmetProvider>
-  );
-}
-
-function ChatWidgetWrapper() {
-  const { data: user } = useUser();
-
-  if (!user) {
-    return null;
-  }
-
-  return (
-    <ChatWidget
-      userId={user.id}
-      userName={user.username}
-      userAvatar={user.profilePhoto || undefined}
-    />
   );
 }
 
