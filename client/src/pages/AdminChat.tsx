@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Search, Filter, Clock, CheckCircle2, XCircle, MessageCircle, ArrowLeft, X, Trash2 } from "lucide-react";
 import { useLocation } from "wouter";
+import { useTranslations } from "@/lib/i18n";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,6 +33,7 @@ import { cn } from "@/lib/utils";
 import type { ChatConversation } from "@shared/schema";
 
 export default function AdminChat() {
+  const t = useTranslations();
   const { data: user } = useUser();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
