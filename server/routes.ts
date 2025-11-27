@@ -17,6 +17,7 @@ import {
   insertChatMessageSchema,
   type ChatConversation,
   type ChatMessage,
+  chatMessages,
 } from "@shared/schema";
 import { eq, and, sql as sqlDrizzle } from "drizzle-orm";
 import bcrypt from "bcrypt";
@@ -3927,11 +3928,11 @@ Tous les codes de validation ont été vérifiés avec succès.`,
       // Messages non lus dans le chat support (messages envoyés par utilisateurs à l'admin)
       const unreadMessagesResult = await db
         .select({ count: sqlDrizzle<number>`count(*)` })
-        .from(messages)
+        .from(chatMessages)
         .where(
           and(
-            eq(messages.receiverId, 'admin'),
-            eq(messages.isRead, false)
+            eq(chatMessages.senderType, 'user'),
+            eq(chatMessages.isRead, false)
           )
         );
       const unreadMessages = Number(unreadMessagesResult[0]?.count || 0);
