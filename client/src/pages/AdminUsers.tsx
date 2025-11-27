@@ -24,6 +24,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useTranslations } from "@/hooks/use-translations";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Ban, Trash2, CheckCircle, Trash, Shield } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -33,8 +35,20 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { AdminLayout } from "@/components/admin";
 import { Checkbox } from "@/components/ui/checkbox";
 
+const SUSPENSION_REASONS = [
+  { value: 'violation_of_terms', label: 'Violation of terms of service' },
+  { value: 'suspicious_activity', label: 'Suspicious activity detected' },
+  { value: 'non_payment', label: 'Non-payment or overdraft' },
+  { value: 'kyc_verification_failed', label: 'KYC verification failed' },
+  { value: 'regulatory_compliance', label: 'Regulatory compliance issue' },
+  { value: 'security_breach', label: 'Account security breach' },
+  { value: 'user_requested', label: 'Requested by user' },
+  { value: 'administrative_decision', label: 'Administrative decision' },
+];
+
 export default function AdminUsers() {
   const { toast } = useToast();
+  const t = useTranslations();
   const [suspendDialogOpen, setSuspendDialogOpen] = useState(false);
   const [bulkDeleteDialogOpen, setBulkDeleteDialogOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<string>("");
@@ -266,13 +280,18 @@ export default function AdminUsers() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="suspendReason">Raison</Label>
-              <Textarea
-                id="suspendReason"
-                placeholder="Indiquez la raison de la suspension..."
-                value={suspendReason}
-                onChange={(e) => setSuspendReason(e.target.value)}
-                data-testid="textarea-suspend-reason"
-              />
+              <Select value={suspendReason} onValueChange={setSuspendReason}>
+                <SelectTrigger id="suspendReason" data-testid="select-suspend-reason">
+                  <SelectValue placeholder="Sélectionnez une raison..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {SUSPENSION_REASONS.map((reason) => (
+                    <SelectItem key={reason.value} value={reason.value}>
+                      {reason.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <DialogFooter>

@@ -164,7 +164,19 @@ export default function Auth() {
           let details = [];
           
           if (error.reason) {
-            details.push(`Motif: ${error.reason}`);
+            // Traduire la raison EN ANGLAIS en utilisant t.admin.suspensionReasons
+            const suspensionReasons: Record<string, string> = {
+              'violation_of_terms': t.admin?.suspensionReasons?.violationOfTerms || 'Violation des conditions d\'utilisation',
+              'suspicious_activity': t.admin?.suspensionReasons?.suspiciousActivity || 'Activité suspecte détectée',
+              'non_payment': t.admin?.suspensionReasons?.nonPayment || 'Non-paiement ou découvert',
+              'kyc_verification_failed': t.admin?.suspensionReasons?.kycVerificationFailed || 'Vérification KYC échouée',
+              'regulatory_compliance': t.admin?.suspensionReasons?.regulatoryCompliance || 'Problème de conformité réglementaire',
+              'security_breach': t.admin?.suspensionReasons?.securityBreach || 'Faille de sécurité du compte',
+              'user_requested': t.admin?.suspensionReasons?.userRequested || 'Demandé par l\'utilisateur',
+              'administrative_decision': t.admin?.suspensionReasons?.administrativeDecision || 'Décision administrative',
+            };
+            const translatedReason = suspensionReasons[error.reason] || error.reason;
+            details.push(`Motif: ${translatedReason}`);
           }
           
           if (error.suspendedUntil) {
