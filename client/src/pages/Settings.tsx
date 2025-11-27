@@ -353,7 +353,7 @@ export default function Settings() {
     <div className="p-6 md:p-8 space-y-8 animate-in fade-in-50 slide-in-from-bottom-4 duration-500">
       <SectionTitle
         title={t.settings.title}
-        subtitle="Manage your personal information, preferences and security"
+        subtitle={t.settings.subtitle}
       />
 
       <GlassPanel intensity="medium" className="p-6 md:p-8">

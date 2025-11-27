@@ -196,20 +196,6 @@ export default function IndividualLoans() {
                               </div>
                             </div>
 
-                            <div className="space-y-2 pt-2">
-                              <div className="flex justify-between text-sm">
-                                <span className="text-muted-foreground">Progression</span>
-                                <span className="font-semibold text-accent">{progress.toFixed(1)}%</span>
-                              </div>
-                              <div className="relative">
-                                <Progress value={progress} className="h-3" />
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-progress-glow pointer-events-none" />
-                              </div>
-                              <div className="flex justify-between text-xs text-muted-foreground pt-1">
-                                <span>Remboursé: {formatCurrency(loan.totalRepaid)}</span>
-                                <span>Restant: {formatCurrency(remainingAmount.toString())}</span>
-                              </div>
-                            </div>
                             </div>
                           </DashboardCard>
                         </div>
