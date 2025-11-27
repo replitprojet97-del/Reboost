@@ -59,11 +59,11 @@ export default function Transfers() {
 
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline' }> = {
-      pending: { label: t.transfer.pending, variant: 'secondary' },
-      'in-progress': { label: t.transfer.inProgress, variant: 'default' },
-      completed: { label: t.transfer.completed, variant: 'outline' },
-      suspended: { label: t.transfer.suspended, variant: 'destructive' },
-      rejected: { label: 'Rejeté', variant: 'destructive' },
+      pending: { label: t.transfer.pending || 'Transfert en attente', variant: 'secondary' },
+      'in-progress': { label: t.transfer.inProgress || 'Transfert en cours', variant: 'default' },
+      completed: { label: t.transfer.completed || 'Transfert terminé', variant: 'outline' },
+      suspended: { label: t.transfer.suspended || 'Suspendu', variant: 'destructive' },
+      rejected: { label: t.transfer.rejected || 'Rejeté', variant: 'destructive' },
     };
 
     const config = statusMap[status] || { label: status, variant: 'outline' };

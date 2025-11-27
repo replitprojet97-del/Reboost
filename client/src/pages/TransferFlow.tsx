@@ -96,11 +96,13 @@ export default function TransferFlow() {
   const [transferId, setTransferId] = useState(params?.id || '');
   const [verificationProgress, setVerificationProgress] = useState(0);
   const [isCheckingActiveTransfer, setIsCheckingActiveTransfer] = useState(!params?.id);
+  const [isLoadingExistingTransfer, setIsLoadingExistingTransfer] = useState(!!params?.id);
   
   // Sync transferId with params.id whenever it changes
   useEffect(() => {
     if (params?.id && params.id !== transferId) {
       setTransferId(params.id);
+      setIsLoadingExistingTransfer(true);
     }
   }, [params?.id]);
   
@@ -149,11 +151,31 @@ export default function TransferFlow() {
     queryKey: ['/api/loans/available-for-transfer'],
   });
 
-  const { data: transferData, refetch: refetchTransfer } = useQuery<TransferDetailsResponse>({
+  const { data: transferData, refetch: refetchTransfer, isLoading: isLoadingTransferData } = useQuery<TransferDetailsResponse>({
     queryKey: [`/api/transfers/${transferId}`],
     enabled: !!transferId,
     refetchInterval: step === 'progress' ? 3000 : false,
   });
+
+  // Déterminer le step basé sur le status du transfert existant
+  useEffect(() => {
+    if (!params?.id) return;
+    
+    if (isLoadingTransferData) return;
+    
+    if (transferData?.transfer) {
+      const status = transferData.transfer.status;
+      
+      if (status === 'completed') {
+        setStep('complete');
+      } else if (status === 'in-progress' || status === 'pending') {
+        setStep('progress');
+        setCurrentCodeSequence((transferData.transfer.codesValidated || 0) + 1);
+      }
+      
+      setIsLoadingExistingTransfer(false);
+    }
+  }, [params?.id, transferData, isLoadingTransferData]);
 
   // LIGNE 57-93 - FONCTION D'ANIMATION AJOUTÉE (modifiée)
   // Ajout : animationRunningRef pour éviter réentrance; on vérifie nextSequence à la fin.
@@ -495,8 +517,8 @@ export default function TransferFlow() {
     });
   };
 
-  // Afficher un écran de chargement pendant la vérification du transfert actif
-  if (isCheckingActiveTransfer || (isLoadingActiveTransfer && !params?.id)) {
+  // Afficher un écran de chargement pendant la vérification du transfert actif ou du transfert existant
+  if (isCheckingActiveTransfer || (isLoadingActiveTransfer && !params?.id) || isLoadingExistingTransfer) {
     return (
       <div className="bg-background min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
