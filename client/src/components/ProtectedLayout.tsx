@@ -11,6 +11,7 @@ import History from '@/pages/History';
 import Settings from '@/pages/Settings';
 import Contracts from '@/pages/Contracts';
 import TwoFactorSetup from '@/pages/TwoFactorSetup';
+import SuspendedUser from '@/pages/SuspendedUser';
 import NotFound from '@/pages/not-found';
 import AppSidebar from '@/components/AppSidebar';
 import TopBar from '@/components/TopBar';
@@ -52,6 +53,11 @@ export default function ProtectedLayout() {
   const style = {
     '--sidebar-width': '16rem',
   };
+
+  // Show suspension page if user is suspended
+  if (user?.status === 'suspended') {
+    return <SuspendedUser />;
+  }
 
   return (
     <>

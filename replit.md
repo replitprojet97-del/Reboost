@@ -4,6 +4,27 @@
 
 ALTUS is a multi-language professional loan management platform designed for business clients. It provides a comprehensive dashboard for managing loans, transfers, fees, and financial transactions. The platform aims to foster trust, clarity, and data-driven decision-making with features like multi-language support (French, English, Spanish, Portuguese, Italian, German, Dutch), an interactive amortization calculator, real-time transfer tracking, external bank account management, KYC document upload, and financial analytics. Its primary purpose is to equip business professionals and enterprises with robust tools for loan financing and financial management, offering a robust and secure environment for financial operations.
 
+## Recent Changes (November 27, 2025)
+
+- **KYC Status Labels:** All KYC status labels now display in English only:
+  - "Verified" (au lieu de "Validé")
+  - "Pending" (au lieu de "En attente")
+  - "Rejected" (au lieu de "Rejeté")
+  - "Not submitted" (au lieu de "Non soumis")
+  - Applied to Dashboard and AdminUsers pages for both Individual and Professional user types
+  
+- **Dashboard Button Text:** Changed "Détails" button to "Details" in the upcoming payments section
+
+- **Suspended User Experience:** Implemented dedicated SuspendedUser page (`client/src/pages/SuspendedUser.tsx`) that displays:
+  - Clear "Account Suspended" message
+  - Suspension reason (if provided)
+  - Suspension end date (in French locale format: fr-FR)
+  - Sign out button for logout
+  - Replaces dashboard display for suspended users, preventing confusing flash of content
+  - Integrated in ProtectedLayout.tsx with early return check: `if (user?.status === 'suspended') return <SuspendedUser />`
+
+- **Date Formatting:** Maintained French locale (fr-FR) for all date displays throughout the platform
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language. High standards for security, SEO, and code quality - all implementations must be production-ready.
