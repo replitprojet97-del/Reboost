@@ -18,7 +18,7 @@ import { useLocation } from 'wouter';
 import { useUser, getUserInitials, getAccountTypeLabel, useUserProfilePhotoUrl } from '@/hooks/use-user';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 export default function AppSidebar() {
   const t = useTranslations();
@@ -35,19 +35,19 @@ export default function AppSidebar() {
   // Breakpoint 768px ensures menu closes on all phones but not tablets
   const isMobileDevice = () => window.matchMedia('(max-width: 768px)').matches;
 
-  const closeMenuOnMobileOnly = () => {
+  const closeMenuOnMobileOnly = useCallback(() => {
     // Only close menu on mobile devices (max-width: 768px)
     if (isMobileDevice()) {
       // Close immediately on mobile
       setOpen(false);
     }
-  };
+  }, [setOpen]);
 
   // Auto-close menu when location changes on mobile
   // This ensures menu closes even if click handler doesn't fire
   useEffect(() => {
     closeMenuOnMobileOnly();
-  }, [location, setOpen]);
+  }, [location, closeMenuOnMobileOnly]);
 
   const handleLogout = () => {
     setLocation('/');
