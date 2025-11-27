@@ -33,10 +33,8 @@ export default function AppSidebar() {
     // Only close menu on mobile devices (max-width: 768px)
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     if (isMobile) {
-      // Add smooth animation delay before closing
-      setTimeout(() => {
-        setOpen(false);
-      }, 150);
+      // Close immediately on mobile
+      setOpen(false);
     }
   };
 
