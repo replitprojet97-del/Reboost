@@ -4408,6 +4408,36 @@ Tous les codes de validation ont été vérifiés avec succès.`,
     }
   });
 
+  app.post("/api/admin/users/:id/approve-kyc", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
+    try {
+      const updated = await db.update(users)
+        .set({
+          kycStatus: 'verified',
+          kycApprovedAt: new Date(),
+        })
+        .where(eq(users.id, req.params.id))
+        .returning();
+
+      if (updated.length === 0) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      await storage.createAdminMessage({
+        userId: req.params.id,
+        transferId: null,
+        subject: 'KYC validé avec succès',
+        content: `Votre vérification KYC a été validée avec succès par un administrateur. Vous pouvez maintenant accéder à toutes les fonctionnalités de la plateforme.`,
+        severity: 'success',
+      });
+
+      emitUserUpdate(req.params.id);
+      res.json(updated[0]);
+    } catch (error: any) {
+      console.error('KYC approval error:', error);
+      res.status(500).json({ error: 'Failed to approve KYC' });
+    }
+  });
+
   app.post("/api/admin/users/:id/block", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
     try {
       const validatedData = adminBlockUserSchema.parse(req.body);

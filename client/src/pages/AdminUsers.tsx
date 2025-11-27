@@ -25,7 +25,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Ban, Trash2, CheckCircle, Trash } from "lucide-react";
+import { Ban, Trash2, CheckCircle, Trash, Shield } from "lucide-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
@@ -128,6 +128,26 @@ export default function AdminUsers() {
       toast({
         title: "Erreur",
         description: error?.message || "Impossible de supprimer les utilisateurs",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const approveKycMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return await apiRequest("POST", `/api/admin/users/${id}/approve-kyc`, {});
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/users"] });
+      toast({
+        title: "KYC validé",
+        description: "Le KYC de l'utilisateur a été validé avec succès",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erreur",
+        description: error?.message || "Impossible de valider le KYC",
         variant: "destructive",
       });
     },
@@ -366,7 +386,19 @@ export default function AdminUsers() {
                       {user.role === "admin" ? (
                         <span className="text-sm text-muted-foreground">Compte admin</span>
                       ) : (
-                        <div className="flex justify-end gap-2">
+                        <div className="flex justify-end gap-2 flex-wrap">
+                          {user.kycStatus === 'pending' && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => approveKycMutation.mutate(user.id)}
+                              disabled={approveKycMutation.isPending}
+                              data-testid={`button-approve-kyc-${user.id}`}
+                            >
+                              <Shield className="h-4 w-4 mr-1" />
+                              Valider KYC
+                            </Button>
+                          )}
                           {user.status === 'active' ? (
                             <Button
                               variant="outline"
