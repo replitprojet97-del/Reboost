@@ -249,7 +249,7 @@ export default function Dashboard() {
                 className="text-xs whitespace-nowrap"
                 data-testid="badge-kyc-status"
               >
-                KYC: {user.kycStatus === 'verified' ? '✓ Validé' : user.kycStatus === 'pending' ? '⏳ En attente' : user.kycStatus === 'rejected' ? '✗ Rejeté' : '? Non soumis'}
+                KYC: {user.kycStatus === 'verified' ? '✓ Verified' : user.kycStatus === 'pending' ? '⏳ Pending' : user.kycStatus === 'rejected' ? '✗ Rejected' : '? Not submitted'}
               </Badge>
             </div>
           )}
