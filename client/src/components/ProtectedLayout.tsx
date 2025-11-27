@@ -59,7 +59,7 @@ export default function ProtectedLayout() {
       <LoanDialogProvider>
         <TopBar />
         <SidebarProvider style={style as React.CSSProperties}>
-          <div className="flex min-h-screen w-full">
+          <div className="flex min-h-screen w-full pt-10">
             <AppSidebar />
             <div className="flex flex-col flex-1">
               {/* Fintech Premium Header */}
@@ -84,7 +84,7 @@ export default function ProtectedLayout() {
                 <NotificationBanner />
               </div>
               
-              <main className="flex-1 overflow-auto bg-background pt-[40px]">
+              <main className="flex-1 overflow-auto bg-background">
                 <Switch>
                   <Route path="/dashboard" component={DashboardWrapper} />
                   <Route path="/loans" component={IndividualLoans} />

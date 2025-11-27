@@ -11,9 +11,9 @@ export default function TopBar() {
   ];
 
   return (
-    <div className="fixed top-0 left-0 right-0 w-full bg-primary text-primary-foreground overflow-hidden z-[10001]" data-testid="top-bar">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-center md:justify-between py-2 text-xs md:text-sm">
+    <div className="fixed top-0 left-0 right-0 w-full bg-primary text-primary-foreground overflow-hidden z-[10001] h-10" data-testid="top-bar">
+      <div className="container mx-auto px-4 h-full">
+        <div className="flex items-center justify-center md:justify-between py-1.5 text-xs md:text-sm h-full">
           <div className="hidden md:flex items-center justify-center gap-6 w-full">
             {items.map((item, index) => (
               <div
