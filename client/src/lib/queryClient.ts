@@ -51,11 +51,8 @@ function getErrorMessage(status: number): string {
 }
 
 // In production: use the API subdomain URL
-// In development: use empty string for same-port requests (Vite dev server)
-const API_BASE_URL = import.meta.env.VITE_API_URL || 
-  (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
-    ? '' 
-    : 'https://api.altusfinancesgroup.com');
+// In development: always use empty string to use same-port requests via Vite proxy
+const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 export function getApiUrl(path: string): string {
   if (!path.startsWith('/')) {
