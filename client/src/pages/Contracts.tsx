@@ -10,6 +10,15 @@ import { FileText, Download, Upload, CheckCircle2, Clock, AlertCircle } from 'lu
 import { SignedContractUpload } from '@/components/SignedContractUpload';
 import { getApiUrl } from '@/lib/queryClient';
 import { SectionTitle, GlassPanel, DashboardCard, CONTRACT_STATUS_CONFIG } from '@/components/fintech';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 interface Loan {
   id: string;
@@ -29,6 +38,8 @@ interface Loan {
 export default function Contracts() {
   const t = useTranslations();
   const [uploadingLoanId, setUploadingLoanId] = useState<string | null>(null);
+  const [showDownloadConfirm, setShowDownloadConfirm] = useState(false);
+  const [loanIdToDownload, setLoanIdToDownload] = useState<string | null>(null);
 
   const { data: loans, isLoading } = useQuery<Loan[]>({
     queryKey: ['/api/loans'],
@@ -65,9 +76,16 @@ export default function Contracts() {
     });
   };
 
-  const handleDownloadContract = async (loanId: string) => {
+  const handleDownloadContract = (loanId: string) => {
+    setLoanIdToDownload(loanId);
+    setShowDownloadConfirm(true);
+  };
+
+  const performDownload = async () => {
+    if (!loanIdToDownload) return;
+    
     try {
-      const url = getApiUrl(`/api/loans/${loanId}/contract`);
+      const url = getApiUrl(`/api/loans/${loanIdToDownload}/contract`);
       const response = await fetch(url, {
         credentials: 'include',
       });
@@ -80,13 +98,18 @@ export default function Contracts() {
       const downloadUrl = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = downloadUrl;
-      link.download = `contrat_pret_${loanId}.pdf`;
+      link.download = `contrat_pret_${loanIdToDownload}.pdf`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(downloadUrl);
+      
+      setShowDownloadConfirm(false);
+      setLoanIdToDownload(null);
     } catch (error) {
       console.error('Error downloading contract:', error);
+      setShowDownloadConfirm(false);
+      setLoanIdToDownload(null);
     }
   };
 
@@ -390,6 +413,30 @@ export default function Contracts() {
           )}
         </TabsContent>
       </Tabs>
+
+      <AlertDialog open={showDownloadConfirm} onOpenChange={setShowDownloadConfirm}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              {t.contracts?.confirmDownload || 'Télécharger le contrat?'}
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              {t.contracts?.confirmDownloadDescription || 'Êtes-vous sûr de vouloir télécharger ce contrat?'}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="flex justify-end gap-3">
+            <AlertDialogCancel data-testid="button-cancel-download">
+              {t.common?.cancel || 'Non'}
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={performDownload}
+              data-testid="button-confirm-download"
+            >
+              {t.common?.confirm || 'Oui'}
+            </AlertDialogAction>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
