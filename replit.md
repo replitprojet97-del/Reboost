@@ -66,7 +66,7 @@ Preferred communication style: Simple, everyday language. High standards for sec
 **UI Component Libraries:** Radix UI, shadcn/ui, Recharts, Lucide React.
 **Styling & Design:** Tailwind CSS, `class-variance-authority`, `tailwind-merge`, `clsx`.
 **Form Management:** React Hook Form, Zod, `@hookform/resolvers`.
-**Authentication:** SendGrid for transactional email verification.
+**Email Service:** Brevo (formerly Sendinblue) for transactional emails (verification, password reset, notifications, OTP).
 **Two-Factor Authentication:** Speakeasy and qrcode libraries for TOTP generation and verification.
 **Cloud Storage:** Cloudinary for profile photo storage only. Supabase Storage for chat file uploads with presigned URLs.
 **File Validation:** Sharp for image sanitization, PDF-lib for PDF sanitization, file-type for magic byte verification.
