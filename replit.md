@@ -4,6 +4,13 @@
 
 ALTUS is a multi-language professional loan management platform designed for business clients. It provides a comprehensive dashboard for managing loans, transfers, fees, and financial transactions. The platform aims to foster trust, clarity, and data-driven decision-making with features like multi-language support (French, English, Spanish, Portuguese, Italian, German, Dutch), an interactive amortization calculator, real-time transfer tracking, external bank account management, KYC document upload, and financial analytics. Its primary purpose is to equip business professionals and enterprises with robust tools for loan financing and financial management, offering a robust and secure environment for financial operations.
 
+## Recent Changes (November 28, 2025)
+
+- **Transfer Progress Animation Bug Fix:** Fixed critical issue where transfer progress would get stuck at 0% when users returned to an in-progress transfer after validating a code. The fix adds a tracking mechanism (`lastAnimatedToTargetSequenceRef`) that:
+  - Prevents infinite animation loops during query polling
+  - Correctly continues animation from backend progress to target percentage when returning to a transfer
+  - Handles all edge cases: new transfers, post-validation animations, and returning to existing transfers
+
 ## Recent Changes (November 27, 2025)
 
 - **KYC Status Labels:** All KYC status labels now display in English only:
