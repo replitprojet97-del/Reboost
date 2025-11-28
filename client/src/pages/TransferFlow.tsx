@@ -536,7 +536,8 @@ export default function TransferFlow() {
   };
 
   // Afficher un écran de chargement pendant la vérification du transfert actif ou du transfert existant
-  if (isCheckingActiveTransfer || (isLoadingActiveTransfer && !params?.id) || isLoadingExistingTransfer) {
+  // IMPORTANT: Pour les transferts existants (UUID valid), ne JAMAIS montrer le formulaire. Afficher loading ou progress uniquement.
+  if (isCheckingActiveTransfer || (isLoadingActiveTransfer && !params?.id) || isLoadingExistingTransfer || (isRealTransferId(transferId) && step === 'form')) {
     return (
       <div className="bg-background min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
