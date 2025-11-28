@@ -388,6 +388,10 @@ export default function TransferFlow() {
       setLastValidatedSequence(0);
       setCurrentCodeSequence(1);
       
+      // CRITIQUE: Initialiser les refs pour permettre l'animation du nouveau transfert
+      prevCodesValidatedRef.current = null; // null = nouveau transfert, déclenche isNewTransfer
+      initialHydrationDoneRef.current = false; // Pas encore hydraté
+      
       // Démarrer en mode NON-PAUSÉ pour permettre l'animation automatique vers le premier code
       setIsPausedForCode(false);
       
@@ -525,9 +529,12 @@ export default function TransferFlow() {
         // Réinitialiser la ref après avoir lancé l'animation
         justValidatedRef.current = false;
       } else {
-        // CAS RETOUR SUR TRANSFERT EXISTANT: Synchroniser TOUJOURS immédiatement sans animation
-        // Forcer la synchronisation avec le backend (sans condition restrictive)
-        setSimulatedProgress(backendProgress);
+        // CAS RETOUR SUR TRANSFERT EXISTANT: Synchroniser UNIQUEMENT si on revient sur un transfert existant
+        // Pour les nouveaux transferts (pas encore hydratés), on laisse la progression à 0% pour l'animation
+        if (initialHydrationDoneRef.current) {
+          // RETOUR SUR TRANSFERT EXISTANT: Synchroniser toujours
+          setSimulatedProgress(backendProgress);
+        }
         
         // IMMÉDIATEMENT afficher le champ de code si on a atteint le pourcentage cible
         if (backendProgress >= targetPercent - 1) {
