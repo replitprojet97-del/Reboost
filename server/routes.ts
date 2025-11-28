@@ -2972,6 +2972,16 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         status: 'in-progress',
       });
       console.log(`[TRANSFER-INITIATE] ${requestId} - État initial: transfert démarré à 0%, progressera jusqu'à ${firstCodePausePercent}% (premier code)`);
+      
+      // Enqueuer le progress job pour animer la progression du transfert
+      console.log(`[TRANSFER-INITIATE] ${requestId} - Enqueueing progress job: 0% -> ${firstCodePausePercent}%`);
+      enqueueProgressJob({
+        transferId: transfer.id,
+        userId: req.session.userId!,
+        startPercent: 0,
+        targetPercent: firstCodePausePercent,
+      });
+      console.log(`[TRANSFER-INITIATE] ${requestId} - Progress job enqueued successfully`);
 
       console.log(`[TRANSFER-INITIATE] ${requestId} - Étape 8: Notification utilisateur`);
       await notifyTransferInitiated(req.session.userId!, transfer.id, amount.toString(), recipient);
