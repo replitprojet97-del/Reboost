@@ -438,6 +438,10 @@ export default function TransferFlow() {
     onSuccess: (data: any) => {
       setValidationCode('');
       
+      // CORRECTION: Faire disparaitre le champ de code immédiatement après validation
+      // Il réapparaitra au prochain code si nécessaire après le refetch du serveur
+      setIsPausedForCode(false);
+      
       // Construire le message de succès traduit
       const baseMessage = data.isComplete 
         ? t.transferFlow.progress.statusCompleted 
