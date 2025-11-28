@@ -525,11 +525,9 @@ export default function TransferFlow() {
         // Réinitialiser la ref après avoir lancé l'animation
         justValidatedRef.current = false;
       } else {
-        // CAS RETOUR SUR TRANSFERT EXISTANT: Synchroniser immédiatement sans animation
-        // Mettre à jour la progression si elle diffère
-        if (Math.abs(simulatedProgress - backendProgress) > 0.5) {
-          setSimulatedProgress(backendProgress);
-        }
+        // CAS RETOUR SUR TRANSFERT EXISTANT: Synchroniser TOUJOURS immédiatement sans animation
+        // Forcer la synchronisation avec le backend (sans condition restrictive)
+        setSimulatedProgress(backendProgress);
         
         // IMMÉDIATEMENT afficher le champ de code si on a atteint le pourcentage cible
         if (backendProgress >= targetPercent - 1) {
@@ -662,9 +660,6 @@ export default function TransferFlow() {
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight">
               {t.transferFlow.form.title}
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground">
-              {t.transferFlow.form.subtitle}
-            </p>
           </div>
 
           {!isLoadingLoans && (!availableLoans || availableLoans.length === 0) && (
@@ -1211,7 +1206,6 @@ export default function TransferFlow() {
       <div className="p-6 md:p-8 max-w-3xl mx-auto space-y-6">
         <SectionTitle
           title={t.transferFlow.complete.title}
-          subtitle={t.transferFlow.complete.subtitle}
         />
         <DashboardCard 
           icon={CheckCircle2}
