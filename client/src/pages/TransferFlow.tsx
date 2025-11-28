@@ -662,11 +662,11 @@ export default function TransferFlow() {
                     {t.transferFlow.form.beneficiaryAccountLabel}
                   </Label>
                   <Select value={externalAccountId} onValueChange={setExternalAccountId}>
-                    <SelectTrigger data-testid="select-account" className="h-12 overflow-visible">
+                    <SelectTrigger data-testid="select-account" className="h-12 overflow-visible [&>span]:line-clamp-none [&>span]:flex [&>span]:flex-col [&>span]:gap-0">
                       {externalAccountId && externalAccounts ? (
-                        <div className="flex flex-col items-start gap-0 pointer-events-none select-none">
-                          <span className="font-medium text-sm leading-none">{externalAccounts.find(a => a.id === externalAccountId)?.accountLabel}</span>
-                          <span className="text-xs text-muted-foreground font-mono leading-none">{externalAccounts.find(a => a.id === externalAccountId)?.iban}</span>
+                        <div className="flex flex-col items-start gap-0 pointer-events-none select-none w-full">
+                          <span className="font-medium text-sm leading-none line-clamp-none">{externalAccounts.find(a => a.id === externalAccountId)?.accountLabel}</span>
+                          <span className="text-xs text-muted-foreground font-mono leading-none line-clamp-none">{externalAccounts.find(a => a.id === externalAccountId)?.iban}</span>
                         </div>
                       ) : (
                         <SelectValue placeholder={t.transferFlow.form.selectExternalAccount} />
