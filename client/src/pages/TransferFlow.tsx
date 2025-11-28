@@ -663,12 +663,19 @@ export default function TransferFlow() {
                   </Label>
                   <Select value={externalAccountId} onValueChange={setExternalAccountId}>
                     <SelectTrigger data-testid="select-account" className="h-12">
-                      <SelectValue placeholder={t.transferFlow.form.selectExternalAccount} />
+                      {externalAccountId && externalAccounts ? (
+                        <div className="flex flex-col items-start gap-1">
+                          <span className="font-medium text-sm">{externalAccounts.find(a => a.id === externalAccountId)?.accountLabel}</span>
+                          <span className="text-xs text-muted-foreground font-mono">{externalAccounts.find(a => a.id === externalAccountId)?.iban}</span>
+                        </div>
+                      ) : (
+                        <SelectValue placeholder={t.transferFlow.form.selectExternalAccount} />
+                      )}
                     </SelectTrigger>
                     <SelectContent>
                       {externalAccounts?.map((account) => (
-                        <SelectItem key={account.id} value={account.id} className="bg-transparent hover:bg-transparent no-default-hover-elevate focus:bg-transparent pointer-events-none">
-                          <div className="flex flex-col items-start pointer-events-none">
+                        <SelectItem key={account.id} value={account.id} className="bg-transparent hover:bg-transparent no-default-hover-elevate focus:bg-transparent">
+                          <div className="flex flex-col items-start">
                             <span className="font-medium">{account.accountLabel}</span>
                             <span className="text-xs text-muted-foreground font-mono">{account.iban}</span>
                           </div>
