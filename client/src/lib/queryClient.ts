@@ -113,7 +113,7 @@ function handleAuthError(res: Response, errorMessage?: string) {
                      currentPath.startsWith('/verify') || currentPath.startsWith('/forgot-password') ||
                      currentPath.startsWith('/reset-password');
   
-  const publicPages = ['/', '/about', '/how-it-works', '/products', '/contact', '/resources', '/terms', '/privacy'];
+  const publicPages = ['/', '/about', '/how-it-works', '/products', '/contact', '/resources', '/terms', '/privacy', '/transfer-demo', '/diagnostic', '/expertise'];
   
   // Normalize pathname: remove query parameters first, then trailing slashes, default to '/' if empty
   const normalizedPath = currentPath.split('?')[0].replace(/\/+$/, '') || '/';
