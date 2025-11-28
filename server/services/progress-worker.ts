@@ -49,6 +49,7 @@ export function enqueueProgressJob(job: ProgressJob): void {
         }
         
         const transfer = result.rows[0];
+        console.log(`[PROGRESS WORKER] Transfer ${job.transferId} - Current DB progress: ${transfer.progress_percent}%, Local currentPercent: ${currentPercent}%, Target: ${job.targetPercent}%`);
         
         if (transfer.status === 'completed' || transfer.status === 'cancelled') {
           console.log(`[PROGRESS WORKER] Transfer ${job.transferId} is ${transfer.status}, stopping job`);
@@ -57,14 +58,15 @@ export function enqueueProgressJob(job: ProgressJob): void {
           return;
         }
         
-        if (transfer.progress_percent >= job.targetPercent) {
-          console.log(`[PROGRESS WORKER] Transfer ${job.transferId} reached target ${job.targetPercent}%, stopping job`);
+        if (currentPercent >= job.targetPercent) {
+          console.log(`[PROGRESS WORKER] Transfer ${job.transferId} reached target ${job.targetPercent}%, stopping job (currentPercent: ${currentPercent})`);
           clearInterval(timer);
           activeJobs.delete(jobKey);
           return;
         }
         
         const newPercent = Math.min(currentPercent + incrementStep, job.targetPercent);
+        console.log(`[PROGRESS WORKER] Transfer ${job.transferId} - Incrementing: ${currentPercent}% -> ${newPercent}%`);
         
         const updateResult = await client.query(
           `UPDATE transfers SET progress_percent = $2, updated_at = now() 
