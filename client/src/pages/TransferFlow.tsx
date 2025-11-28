@@ -179,6 +179,10 @@ export default function TransferFlow() {
     
     if (isLoadingTransferData) return;
     
+    // IMPORTANT: TOUJOURS sortir du loading, même s'il n'y a pas de data
+    // (évite de rester stuck dans le loading si la query échoue)
+    setIsLoadingExistingTransfer(false);
+    
     if (transferData?.transfer) {
       const status = transferData.transfer.status;
       
@@ -190,8 +194,6 @@ export default function TransferFlow() {
         // Sync progress from server
         setSimulatedProgress(transferData.transfer.progressPercent || 0);
       }
-      
-      setIsLoadingExistingTransfer(false);
     }
   }, [transferId, transferData, isLoadingTransferData]);
 
