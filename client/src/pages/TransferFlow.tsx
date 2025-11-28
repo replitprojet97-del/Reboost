@@ -122,10 +122,12 @@ export default function TransferFlow() {
     }
   }, [params?.id]);
   
-  const [simulatedProgress, setSimulatedProgress] = useState(0);
-  const [isPausedForCode, setIsPausedForCode] = useState(false);
-  const [currentCodeSequence, setCurrentCodeSequence] = useState(1);
-  const [lastValidatedSequence, setLastValidatedSequence] = useState(0);
+  // CORRECTION BUG: Utiliser null pour détecter l'hydratation initiale
+  // Les valeurs null indiquent que l'état n'a pas encore été hydraté depuis le backend
+  const [simulatedProgress, setSimulatedProgress] = useState<number | null>(null);
+  const [isPausedForCode, setIsPausedForCode] = useState<boolean | null>(null);
+  const [currentCodeSequence, setCurrentCodeSequence] = useState<number | null>(null);
+  const [lastValidatedSequence, setLastValidatedSequence] = useState<number | null>(null);
   const [nextCode, setNextCode] = useState<TransferCodeMetadata | null>(null);
   
   const verificationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -184,86 +186,86 @@ export default function TransferFlow() {
     refetchInterval: step === 'progress' ? 3000 : false,
   });
 
-  // Déterminer le step basé sur le status du transfert existant
-  // CORRECTION BUG: Hydratation complète de l'état lors du retour sur un transfert existant
+  // HYDRATATION PRINCIPALE: reconstituer l'état du composant depuis le backend au chargement / changement d'ID
+  // Cette hydratation est la SOURCE DE VÉRITÉ - elle doit s'exécuter UNE SEULE FOIS par transferId
   useEffect(() => {
     if (!isRealTransferId(transferId)) return;
     
     if (isLoadingTransferData) return;
     
     // IMPORTANT: TOUJOURS sortir du loading, même s'il n'y a pas de data
-    // (évite de rester stuck dans le loading si la query échoue)
     setIsLoadingExistingTransfer(false);
     
-    if (transferData?.transfer) {
-      const transfer = transferData.transfer;
-      const codes = transferData.codes || [];
-      const nextSequence = transferData.nextSequence;
-      const status = transfer.status;
-      
-      // Vérifier si c'est la première hydratation pour ce transfert
-      const isInitialHydration = lastHydratedTransferIdRef.current !== transferId;
-      
-      // Handle all possible statuses - completed goes to complete screen, everything else to progress
-      if (status === 'completed') {
-        setStep('complete');
-        setSimulatedProgress(100);
-        initialHydrationDoneRef.current = true;
-        lastHydratedTransferIdRef.current = transferId;
-      } else {
-        // For pending, in-progress, suspended, rejected, or any other status:
-        // Show the progress page at the correct step
-        setStep('progress');
-        
-        // CORRECTION CRITIQUE: Hydrater TOUS les états depuis le backend lors du retour
-        if (isInitialHydration) {
-          const codesValidated = transfer.codesValidated || 0;
-          const backendProgress = transfer.progressPercent || 0;
-          
-          // Synchroniser la progression avec le backend
-          setSimulatedProgress(backendProgress);
-          
-          // Synchroniser lastValidatedSequence pour éviter la ré-animation
-          setLastValidatedSequence(codesValidated);
-          
-          // Synchroniser currentCodeSequence
-          setCurrentCodeSequence(codesValidated + 1);
-          
-          // Trouver et définir le prochain code
-          const computedNextCode = nextSequence 
-            ? codes.find(c => c.sequence === nextSequence) || null
-            : null;
-          setNextCode(computedNextCode);
-          
-          // Déterminer si on doit afficher le champ de code
-          // On est en pause si on a atteint le pourcentage d'arrêt du code précédent
-          // ou si le transfert attend un nouveau code
-          if (computedNextCode) {
-            const targetPercent = computedNextCode.pausePercent || 90;
-            // Si la progression actuelle est >= au pourcentage cible, on attend un code
-            if (backendProgress >= targetPercent - 1) {
-              setIsPausedForCode(true);
-            } else {
-              setIsPausedForCode(false);
-            }
-          } else {
-            // Pas de code suivant - pas en pause
-            setIsPausedForCode(false);
-          }
-          
-          // Marquer l'hydratation comme faite pour ce transfert
-          initialHydrationDoneRef.current = true;
-          lastHydratedTransferIdRef.current = transferId;
-          
-          // ⚠️ TRÈS IMPORTANT: Mettre à jour prevCodesValidatedRef pour éviter une fausse détection de "nouveau transfert"
-          // Si on ne fait pas cela, le useEffect d'animation penserait que c'est un nouveau transfert et relancerait l'animation
-          prevCodesValidatedRef.current = codesValidated;
-        }
-      }
-    } else {
+    if (!transferData?.transfer) {
       // Transfer doesn't exist - redirect back to Transfers page
       setLocation('/transfers');
+      return;
     }
+    
+    const server = transferData.transfer;
+    const codes = transferData.codes || [];
+    const nextSeqFromServer = transferData.nextSequence ?? (server.codesValidated + 1);
+    
+    // CORRECTION CRITIQUE: Si on a déjà hydraté ce même transferId, NE PAS réhydrater/écraser à chaque poll
+    // Cela évite d'écraser les animations en cours ou les états locaux après une validation
+    if (lastHydratedTransferIdRef.current === server.id && initialHydrationDoneRef.current) {
+      // Ne rien faire - laisser l'autre useEffect gérer les mises à jour de progression
+      return;
+    }
+    
+    // Marquer l'hydratation faite pour cet ID AVANT de mettre à jour les états
+    lastHydratedTransferIdRef.current = server.id;
+    initialHydrationDoneRef.current = true;
+    
+    // Handle completed status separately
+    if (server.status === 'completed') {
+      setStep('complete');
+      setSimulatedProgress(100);
+      setLastValidatedSequence(server.codesValidated ?? 0);
+      setCurrentCodeSequence(null);
+      setIsPausedForCode(false);
+      setNextCode(null);
+      return;
+    }
+    
+    // For all other statuses: show progress page
+    setStep('progress');
+    
+    // HYDRATER LES VALEURS CLÉS DEPUIS LE BACKEND (SOURCE OF TRUTH)
+    const codesValidated = server.codesValidated ?? 0;
+    
+    // Si le transfert est en pause sur un pausePercent, utiliser pausePercent comme progression
+    const backendProgress = (server.isPaused && server.pausePercent != null) 
+      ? server.pausePercent 
+      : (server.progressPercent ?? 0);
+    
+    setSimulatedProgress(backendProgress);
+    setLastValidatedSequence(codesValidated);
+    setCurrentCodeSequence(nextSeqFromServer);
+    
+    // Déterminer le prochain code metadata si existant (non consommé)
+    const nextCodeMeta = codes.find(c => c.sequence === nextSeqFromServer) ?? null;
+    setNextCode(nextCodeMeta);
+    
+    // Déterminer si on doit afficher le champ de code
+    // On est en pause si:
+    // 1. Le backend dit explicitement isPaused = true
+    // 2. OU si la progression actuelle >= pausePercent du code en attente
+    if (server.isPaused) {
+      setIsPausedForCode(true);
+    } else if (nextCodeMeta && nextCodeMeta.pausePercent) {
+      const targetPercent = nextCodeMeta.pausePercent;
+      // Si la progression actuelle est >= au pourcentage cible - 1, on attend un code
+      setIsPausedForCode(backendProgress >= targetPercent - 1);
+    } else {
+      setIsPausedForCode(false);
+    }
+    
+    // ⚠️ TRÈS IMPORTANT: Mettre à jour les refs pour éviter les fausses détections
+    prevCodesValidatedRef.current = codesValidated;
+    justValidatedRef.current = false;
+    lastAnimatedToTargetSequenceRef.current = codesValidated > 0 ? nextSeqFromServer : null;
+    
   }, [transferId, transferData, isLoadingTransferData, setLocation]);
 
   // LIGNE 57-93 - FONCTION D'ANIMATION AJOUTÉE (modifiée)
