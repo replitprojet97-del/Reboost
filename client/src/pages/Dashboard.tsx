@@ -252,9 +252,9 @@ export default function Dashboard() {
                   className="text-xs whitespace-nowrap uppercase tracking-wide font-semibold"
                   data-testid="badge-tier-status"
                 >
-                  {stats.tier === 'gold' && '👑 Gold'}
-                  {stats.tier === 'silver' && '🥈 Silver'}
-                  {stats.tier === 'bronze' && '🥉 Bronze'}
+                  {stats.tier === 'gold' && t.dashboard.tierGold}
+                  {stats.tier === 'silver' && t.dashboard.tierSilver}
+                  {stats.tier === 'bronze' && t.dashboard.tierBronze}
                 </Badge>
               )}
               <Badge 
@@ -276,18 +276,18 @@ export default function Dashboard() {
               {/* Tier Info */}
               <div className="space-y-3">
                 <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
-                  Trust Tier
+                  {t.dashboard.tierLabel}
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="text-3xl font-bold">
-                    {stats.tier === 'gold' && '👑'}
-                    {stats.tier === 'silver' && '🥈'}
-                    {stats.tier === 'bronze' && '🥉'}
+                    {stats.tier === 'gold' && '⭐'}
+                    {stats.tier === 'silver' && '✦'}
+                    {stats.tier === 'bronze' && '●'}
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg capitalize">{stats.tier}</h3>
                     <p className="text-xs text-muted-foreground">
-                      {stats.completedLoans} completed loan{stats.completedLoans !== 1 ? 's' : ''}
+                      {stats.completedLoans} {stats.completedLoans !== 1 ? t.dashboard.completedLoansPlural : t.dashboard.completedLoansSingular}
                     </p>
                   </div>
                 </div>
@@ -296,13 +296,13 @@ export default function Dashboard() {
               {/* Active Loans Counter */}
               <div className="space-y-3">
                 <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
-                  Active Loans
+                  {t.dashboard.activeLoansLabel}
                 </div>
                 <div>
                   <div className="flex items-baseline justify-between mb-2">
                     <span className="text-2xl font-bold">{stats.activeLoans}/{stats.maxActiveLoans}</span>
                     <span className="text-xs text-muted-foreground">
-                      {stats.maxActiveLoans - stats.activeLoans} available
+                      {stats.maxActiveLoans - stats.activeLoans} {t.dashboard.availableLoans}
                     </span>
                   </div>
                   <div className="h-2 bg-muted rounded-full overflow-hidden">

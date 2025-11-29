@@ -126,7 +126,7 @@ export default function LoanOffersCatalog({ onRequestLoan }: LoanOffersCatalogPr
             <Alert variant="destructive" className="max-w-2xl mx-auto">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                Vous avez atteint le nombre maximum de prêts actifs pour votre tier <strong>{stats.tier}</strong> ({stats.activeLoans}/{stats.maxActiveLoans}). Veuillez compléter un prêt pour en demander un nouveau.
+                {t.loanOffers.maxLoansMessage?.replace('{tier}', stats.tier).replace('{current}', String(stats.activeLoans)).replace('{max}', String(stats.maxActiveLoans))}
               </AlertDescription>
             </Alert>
           )}
@@ -134,7 +134,7 @@ export default function LoanOffersCatalog({ onRequestLoan }: LoanOffersCatalogPr
             <Alert className="max-w-2xl mx-auto">
               <Info className="h-4 w-4" />
               <AlertDescription>
-                Complétez {2 - stats.completedLoans} prêt(s) supplémentaire(s) pour débloquer le tier <strong>Silver</strong> et augmenter votre limite à 2 prêts actifs.
+                {t.loanOffers.progressToSilver?.replace('{remaining}', String(2 - stats.completedLoans))}
               </AlertDescription>
             </Alert>
           )}
@@ -142,7 +142,7 @@ export default function LoanOffersCatalog({ onRequestLoan }: LoanOffersCatalogPr
             <Alert className="max-w-2xl mx-auto">
               <Info className="h-4 w-4" />
               <AlertDescription>
-                Complétez {5 - stats.completedLoans} prêt(s) supplémentaire(s) pour débloquer le tier <strong>Gold</strong> et augmenter votre limite à 3 prêts actifs.
+                {t.loanOffers.progressToGold?.replace('{remaining}', String(5 - stats.completedLoans))}
               </AlertDescription>
             </Alert>
           )}
