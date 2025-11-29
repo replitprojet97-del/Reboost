@@ -6,13 +6,14 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Building2, Trash2, Star, CreditCard, ShieldCheck } from 'lucide-react';
+import { Plus, Building2, Trash2, Star, CreditCard, ShieldCheck, Globe } from 'lucide-react';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { ExternalAccount } from '@shared/schema';
 import { useTranslations } from '@/lib/i18n';
 import { DashboardCard, SectionTitle, GradientButton } from '@/components/fintech';
 import { formatIban } from '@/data/banks';
+import { getRecommendedTransferNetwork, TRANSFER_TYPES, type TransferNetwork } from '@/data/transfer-types';
 
 function BankAccountsSkeleton() {
   return (
@@ -141,6 +142,34 @@ export default function BankAccounts() {
     return iban.replace(/(.{4})/g, '$1 ').trim();
   };
 
+  const getNetworkFromIban = (iban: string): TransferNetwork => {
+    // Extract country code from IBAN (first 2 characters)
+    const countryCode = iban.substring(0, 2).toUpperCase();
+    // Default source is Luxembourg
+    const sourceCountry = 'LU';
+    const network = getRecommendedTransferNetwork(sourceCountry, countryCode, 1000);
+    return network;
+  };
+
+  const getNetworkBadgeColor = (network: TransferNetwork): string => {
+    switch (network) {
+      case 'SEPA':
+        return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300';
+      case 'SWIFT':
+        return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';
+      case 'ACH':
+        return 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300';
+      case 'WIRE':
+        return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
+      case 'FASTER_PAYMENTS':
+        return 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300';
+      case 'INTERAC':
+        return 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300';
+      default:
+        return 'bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-300';
+    }
+  };
+
   const handleIbanChange = (value: string) => {
     const formatted = formatIban(value);
     setFormData({ ...formData, iban: formatted });
@@ -234,14 +263,24 @@ export default function BankAccounts() {
                       </div>
                     </div>
 
-                    <div className="space-y-2 p-4 rounded-xl bg-muted/30 border border-border/50">
-                      <div className="flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4 text-muted-foreground" />
-                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">IBAN</p>
+                    <div className="space-y-3">
+                      <div className="space-y-2 p-4 rounded-xl bg-muted/30 border border-border/50">
+                        <div className="flex items-center gap-2">
+                          <ShieldCheck className="w-4 h-4 text-muted-foreground" />
+                          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">IBAN</p>
+                        </div>
+                        <p className="font-mono text-sm text-foreground font-medium leading-relaxed">
+                          {formatIBANDisplay(account.iban)}
+                        </p>
                       </div>
-                      <p className="font-mono text-sm text-foreground font-medium leading-relaxed">
-                        {formatIBANDisplay(account.iban)}
-                      </p>
+
+                      <div className="flex items-center gap-2">
+                        <Globe className="w-4 h-4 text-muted-foreground" />
+                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.transferFlow.form.transferType}</p>
+                        <Badge className={`text-xs px-2.5 py-1 ${getNetworkBadgeColor(getNetworkFromIban(account.iban))}`}>
+                          {TRANSFER_TYPES[getNetworkFromIban(account.iban)].name}
+                        </Badge>
+                      </div>
                     </div>
 
                     {account.bic && (
