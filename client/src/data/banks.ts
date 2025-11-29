@@ -417,6 +417,150 @@ export const BANKS: Bank[] = [
   // Chypre
   { id: "cy-boc", name: "Bank of Cyprus", country: "CY", countryName: "Chypre", bic: "BCYPCY2N", ibanFormat: "CY\\d{26}", ibanLength: 28 },
   { id: "cy-hellenic", name: "Hellenic Bank", country: "CY", countryName: "Chypre", bic: "HEBACY2N", ibanFormat: "CY\\d{26}", ibanLength: 28 },
+
+  // PORTO RICO (Territoire US - utilise le systeme bancaire americain)
+  { id: "pr-bppr", name: "Banco Popular de Puerto Rico", country: "PR", countryName: "Porto Rico", bic: "BPPRPRSP", ibanFormat: "", ibanLength: 0 },
+  { id: "pr-firstbank", name: "FirstBank Puerto Rico", country: "PR", countryName: "Porto Rico", bic: "FBTPPRSP", ibanFormat: "", ibanLength: 0 },
+  { id: "pr-oriental", name: "Oriental Bank", country: "PR", countryName: "Porto Rico", bic: "ORIPPRSP", ibanFormat: "", ibanLength: 0 },
+  { id: "pr-santander", name: "Banco Santander Puerto Rico", country: "PR", countryName: "Porto Rico", bic: "BSCHPRSP", ibanFormat: "", ibanLength: 0 },
+  { id: "pr-scotiabank", name: "Scotiabank Puerto Rico", country: "PR", countryName: "Porto Rico", bic: "NABORPRP", ibanFormat: "", ibanLength: 0 },
+
+  // ILES VIERGES AMERICAINES (Territoire US)
+  { id: "vi-firstbank", name: "FirstBank Virgin Islands", country: "VI", countryName: "Iles Vierges americaines", bic: "FBTPVIV1", ibanFormat: "", ibanLength: 0 },
+  { id: "vi-bpvi", name: "Banco Popular de Virgin Islands", country: "VI", countryName: "Iles Vierges americaines", bic: "BPOPVIV1", ibanFormat: "", ibanLength: 0 },
+
+  // GUAM (Territoire US)
+  { id: "gu-bankofguam", name: "Bank of Guam", country: "GU", countryName: "Guam", bic: "BOGUGUM1", ibanFormat: "", ibanLength: 0 },
+  { id: "gu-firsthawaiian", name: "First Hawaiian Bank Guam", country: "GU", countryName: "Guam", bic: "FHBKGUM1", ibanFormat: "", ibanLength: 0 },
+
+  // TAIWAN
+  { id: "tw-cathay", name: "Cathay United Bank", country: "TW", countryName: "Taiwan", bic: "CATHTWTX", ibanFormat: "", ibanLength: 0 },
+  { id: "tw-megabank", name: "Mega International Commercial Bank", country: "TW", countryName: "Taiwan", bic: "ICBKTWTP", ibanFormat: "", ibanLength: 0 },
+  { id: "tw-ctbc", name: "CTBC Bank", country: "TW", countryName: "Taiwan", bic: "CTCBTWTP", ibanFormat: "", ibanLength: 0 },
+  { id: "tw-esun", name: "E.SUN Commercial Bank", country: "TW", countryName: "Taiwan", bic: "ESUNTWTP", ibanFormat: "", ibanLength: 0 },
+  { id: "tw-fubon", name: "Taipei Fubon Commercial Bank", country: "TW", countryName: "Taiwan", bic: "TPBKTWTP", ibanFormat: "", ibanLength: 0 },
+
+  // EGYPTE
+  { id: "eg-nbe", name: "National Bank of Egypt", country: "EG", countryName: "Egypte", bic: "NBEGEGCX", ibanFormat: "EG\\d{27}", ibanLength: 29 },
+  { id: "eg-cib", name: "Commercial International Bank", country: "EG", countryName: "Egypte", bic: "CIBEEGCX", ibanFormat: "EG\\d{27}", ibanLength: 29 },
+  { id: "eg-qnb", name: "QNB Alahli", country: "EG", countryName: "Egypte", bic: "QNBAEGCX", ibanFormat: "EG\\d{27}", ibanLength: 29 },
+  { id: "eg-alex", name: "Bank of Alexandria", country: "EG", countryName: "Egypte", bic: "ALEXEGCX", ibanFormat: "EG\\d{27}", ibanLength: 29 },
+
+  // AFRIQUE DU SUD
+  { id: "za-standard", name: "Standard Bank", country: "ZA", countryName: "Afrique du Sud", bic: "SBZAZAJJ", ibanFormat: "", ibanLength: 0 },
+  { id: "za-absa", name: "Absa Bank", country: "ZA", countryName: "Afrique du Sud", bic: "ABSAZAJJ", ibanFormat: "", ibanLength: 0 },
+  { id: "za-fnb", name: "First National Bank", country: "ZA", countryName: "Afrique du Sud", bic: "FIRNZAJJ", ibanFormat: "", ibanLength: 0 },
+  { id: "za-nedbank", name: "Nedbank", country: "ZA", countryName: "Afrique du Sud", bic: "NEDSZAJJ", ibanFormat: "", ibanLength: 0 },
+  { id: "za-capitec", name: "Capitec Bank", country: "ZA", countryName: "Afrique du Sud", bic: "CABORAJJ", ibanFormat: "", ibanLength: 0 },
+
+  // NIGERIA
+  { id: "ng-zenith", name: "Zenith Bank", country: "NG", countryName: "Nigeria", bic: "ZEABORLA", ibanFormat: "", ibanLength: 0 },
+  { id: "ng-gtb", name: "Guaranty Trust Bank", country: "NG", countryName: "Nigeria", bic: "GTBINGLA", ibanFormat: "", ibanLength: 0 },
+  { id: "ng-firstbank", name: "First Bank of Nigeria", country: "NG", countryName: "Nigeria", bic: "FABORNGLA", ibanFormat: "", ibanLength: 0 },
+  { id: "ng-uba", name: "United Bank for Africa", country: "NG", countryName: "Nigeria", bic: "UNABORLA", ibanFormat: "", ibanLength: 0 },
+  { id: "ng-access", name: "Access Bank", country: "NG", countryName: "Nigeria", bic: "AABORNGLA", ibanFormat: "", ibanLength: 0 },
+
+  // KENYA
+  { id: "ke-equity", name: "Equity Bank Kenya", country: "KE", countryName: "Kenya", bic: "EABORKEN", ibanFormat: "", ibanLength: 0 },
+  { id: "ke-kcb", name: "Kenya Commercial Bank", country: "KE", countryName: "Kenya", bic: "KCBLKENX", ibanFormat: "", ibanLength: 0 },
+  { id: "ke-coop", name: "Co-operative Bank of Kenya", country: "KE", countryName: "Kenya", bic: "COOPKENA", ibanFormat: "", ibanLength: 0 },
+  { id: "ke-standard", name: "Standard Chartered Kenya", country: "KE", countryName: "Kenya", bic: "SCBLKENX", ibanFormat: "", ibanLength: 0 },
+
+  // GHANA
+  { id: "gh-gcb", name: "GCB Bank", country: "GH", countryName: "Ghana", bic: "GHCBGHAC", ibanFormat: "", ibanLength: 0 },
+  { id: "gh-ecobank", name: "Ecobank Ghana", country: "GH", countryName: "Ghana", bic: "ECORGH", ibanFormat: "", ibanLength: 0 },
+  { id: "gh-absa", name: "Absa Bank Ghana", country: "GH", countryName: "Ghana", bic: "BABORGH", ibanFormat: "", ibanLength: 0 },
+
+  // MAROC
+  { id: "ma-attijariwafa", name: "Attijariwafa Bank", country: "MA", countryName: "Maroc", bic: "BCMAMAMC", ibanFormat: "MA\\d{26}", ibanLength: 28 },
+  { id: "ma-bp", name: "Banque Populaire Maroc", country: "MA", countryName: "Maroc", bic: "BCPOMAMC", ibanFormat: "MA\\d{26}", ibanLength: 28 },
+  { id: "ma-bmce", name: "Bank of Africa Morocco", country: "MA", countryName: "Maroc", bic: "BMABORMC", ibanFormat: "MA\\d{26}", ibanLength: 28 },
+  { id: "ma-sgma", name: "Societe Generale Maroc", country: "MA", countryName: "Maroc", bic: "SGMBMAMC", ibanFormat: "MA\\d{26}", ibanLength: 28 },
+
+  // TUNISIE
+  { id: "tn-biat", name: "BIAT", country: "TN", countryName: "Tunisie", bic: "BIATTNTT", ibanFormat: "TN\\d{22}", ibanLength: 24 },
+  { id: "tn-stb", name: "Societe Tunisienne de Banque", country: "TN", countryName: "Tunisie", bic: "STBKTNTT", ibanFormat: "TN\\d{22}", ibanLength: 24 },
+  { id: "tn-amen", name: "Amen Bank", country: "TN", countryName: "Tunisie", bic: "AMNKTNTT", ibanFormat: "TN\\d{22}", ibanLength: 24 },
+
+  // UKRAINE
+  { id: "ua-privatbank", name: "PrivatBank", country: "UA", countryName: "Ukraine", bic: "PABORUA", ibanFormat: "UA\\d{27}", ibanLength: 29 },
+  { id: "ua-oschadbank", name: "Oschadbank", country: "UA", countryName: "Ukraine", bic: "OSCRABOUA", ibanFormat: "UA\\d{27}", ibanLength: 29 },
+  { id: "ua-raiffeisen", name: "Raiffeisen Bank Aval", country: "UA", countryName: "Ukraine", bic: "AVALUAUK", ibanFormat: "UA\\d{27}", ibanLength: 29 },
+
+  // GEORGIE
+  { id: "ge-tbcbank", name: "TBC Bank", country: "GE", countryName: "Georgie", bic: "TBCBORGE", ibanFormat: "GE\\d{20}", ibanLength: 22 },
+  { id: "ge-bog", name: "Bank of Georgia", country: "GE", countryName: "Georgie", bic: "BAGAGE22", ibanFormat: "GE\\d{20}", ibanLength: 22 },
+
+  // KAZAKHSTAN
+  { id: "kz-halyk", name: "Halyk Bank", country: "KZ", countryName: "Kazakhstan", bic: "HSBKKZKX", ibanFormat: "KZ\\d{18}", ibanLength: 20 },
+  { id: "kz-kaspi", name: "Kaspi Bank", country: "KZ", countryName: "Kazakhstan", bic: "CABORZKZ", ibanFormat: "KZ\\d{18}", ibanLength: 20 },
+  { id: "kz-sberbank", name: "Sberbank Kazakhstan", country: "KZ", countryName: "Kazakhstan", bic: "SABORKZ", ibanFormat: "KZ\\d{18}", ibanLength: 20 },
+
+  // AZERBAIDJAN
+  { id: "az-pasha", name: "PASHA Bank", country: "AZ", countryName: "Azerbaidjan", bic: "PASHAZ22", ibanFormat: "AZ\\d{26}", ibanLength: 28 },
+  { id: "az-kapitalbank", name: "Kapital Bank", country: "AZ", countryName: "Azerbaidjan", bic: "AIIBAZ2X", ibanFormat: "AZ\\d{26}", ibanLength: 28 },
+
+  // SERBIE
+  { id: "rs-intesa", name: "Banca Intesa Serbia", country: "RS", countryName: "Serbie", bic: "DBDBRSBG", ibanFormat: "RS\\d{20}", ibanLength: 22 },
+  { id: "rs-unicredit", name: "UniCredit Bank Serbia", country: "RS", countryName: "Serbie", bic: "BACXRSBG", ibanFormat: "RS\\d{20}", ibanLength: 22 },
+
+  // BOSNIE-HERZEGOVINE
+  { id: "ba-unicredit", name: "UniCredit Bank BiH", country: "BA", countryName: "Bosnie-Herzegovine", bic: "BLBABORBA", ibanFormat: "BA\\d{18}", ibanLength: 20 },
+  { id: "ba-raiffeisen", name: "Raiffeisen Bank BiH", country: "BA", countryName: "Bosnie-Herzegovine", bic: "RABORZBABA", ibanFormat: "BA\\d{18}", ibanLength: 20 },
+
+  // MONTENEGRO
+  { id: "me-ckb", name: "Crnogorska komercijalna banka", country: "ME", countryName: "Montenegro", bic: "CKBCMEP1", ibanFormat: "ME\\d{20}", ibanLength: 22 },
+  { id: "me-erste", name: "Erste Bank Montenegro", country: "ME", countryName: "Montenegro", bic: "ESBCMEPO", ibanFormat: "ME\\d{20}", ibanLength: 22 },
+
+  // MACEDOINE DU NORD
+  { id: "mk-komercijalna", name: "Komercijalna Banka", country: "MK", countryName: "Macedoine du Nord", bic: "KOBSMK2X", ibanFormat: "MK\\d{17}", ibanLength: 19 },
+  { id: "mk-stopanska", name: "Stopanska Banka", country: "MK", countryName: "Macedoine du Nord", bic: "STOBMK2X", ibanFormat: "MK\\d{17}", ibanLength: 19 },
+
+  // ALBANIE
+  { id: "al-raiffeisen", name: "Raiffeisen Bank Albania", country: "AL", countryName: "Albanie", bic: "SGBAALTR", ibanFormat: "AL\\d{26}", ibanLength: 28 },
+  { id: "al-bkt", name: "Banka Kombetare Tregtare", country: "AL", countryName: "Albanie", bic: "NCBAALTR", ibanFormat: "AL\\d{26}", ibanLength: 28 },
+
+  // PANAMA
+  { id: "pa-banistmo", name: "Banistmo", country: "PA", countryName: "Panama", bic: "ABNAPAPA", ibanFormat: "", ibanLength: 0 },
+  { id: "pa-general", name: "Banco General", country: "PA", countryName: "Panama", bic: "BAGEPAPA", ibanFormat: "", ibanLength: 0 },
+  { id: "pa-bladex", name: "Bladex", country: "PA", countryName: "Panama", bic: "LABOPAPA", ibanFormat: "", ibanLength: 0 },
+
+  // REPUBLIQUE DOMINICAINE
+  { id: "do-banreservas", name: "Banreservas", country: "DO", countryName: "Republique Dominicaine", bic: "BRESDOSD", ibanFormat: "", ibanLength: 0 },
+  { id: "do-popular", name: "Banco Popular Dominicano", country: "DO", countryName: "Republique Dominicaine", bic: "BPDODOSD", ibanFormat: "", ibanLength: 0 },
+  { id: "do-bhd", name: "Banco BHD Leon", country: "DO", countryName: "Republique Dominicaine", bic: "BHDLDOSD", ibanFormat: "", ibanLength: 0 },
+
+  // JAMAIQUE
+  { id: "jm-ncb", name: "National Commercial Bank Jamaica", country: "JM", countryName: "Jamaique", bic: "JNCBJMKX", ibanFormat: "", ibanLength: 0 },
+  { id: "jm-scotiabank", name: "Scotiabank Jamaica", country: "JM", countryName: "Jamaique", bic: "NABORJMK", ibanFormat: "", ibanLength: 0 },
+
+  // BAHAMAS
+  { id: "bs-commonweatlh", name: "Commonwealth Bank", country: "BS", countryName: "Bahamas", bic: "COMBBS22", ibanFormat: "", ibanLength: 0 },
+  { id: "bs-firstcaribbean", name: "FirstCaribbean Bank", country: "BS", countryName: "Bahamas", bic: "FABORBS", ibanFormat: "", ibanLength: 0 },
+
+  // TRINITE-ET-TOBAGO
+  { id: "tt-firstcitizens", name: "First Citizens Bank", country: "TT", countryName: "Trinite-et-Tobago", bic: "FTCUTT21", ibanFormat: "", ibanLength: 0 },
+  { id: "tt-republic", name: "Republic Bank", country: "TT", countryName: "Trinite-et-Tobago", bic: "RABORTT", ibanFormat: "", ibanLength: 0 },
+
+  // ILE MAURICE
+  { id: "mu-mcb", name: "Mauritius Commercial Bank", country: "MU", countryName: "Ile Maurice", bic: "MCBLMUMU", ibanFormat: "MU\\d{28}", ibanLength: 30 },
+  { id: "mu-sbm", name: "SBM Bank", country: "MU", countryName: "Ile Maurice", bic: "STCHMUMU", ibanFormat: "MU\\d{28}", ibanLength: 30 },
+
+  // NOUVELLE-CALEDONIE (Territoire FR)
+  { id: "nc-bnc", name: "Banque de Nouvelle-Caledonie", country: "NC", countryName: "Nouvelle-Caledonie", bic: "SGBNNCNO", ibanFormat: "FR\\d{25}", ibanLength: 27 },
+  { id: "nc-bci", name: "BCI Nouvelle-Caledonie", country: "NC", countryName: "Nouvelle-Caledonie", bic: "BCITNC1N", ibanFormat: "FR\\d{25}", ibanLength: 27 },
+
+  // POLYNESIE FRANCAISE (Territoire FR)
+  { id: "pf-socredo", name: "Banque Socredo", country: "PF", countryName: "Polynesie francaise", bic: "SGBTPFPF", ibanFormat: "FR\\d{25}", ibanLength: 27 },
+  { id: "pf-otcpf", name: "OPT Polynesie", country: "PF", countryName: "Polynesie francaise", bic: "CEPPFR21", ibanFormat: "FR\\d{25}", ibanLength: 27 },
+
+  // MARTINIQUE / GUADELOUPE / REUNION (Departements FR)
+  { id: "gp-bdaf", name: "BDAF Guadeloupe", country: "GP", countryName: "Guadeloupe", bic: "BDAFFRPP", ibanFormat: "FR\\d{25}", ibanLength: 27 },
+  { id: "mq-bdaf", name: "BDAF Martinique", country: "MQ", countryName: "Martinique", bic: "BDAFFRPP", ibanFormat: "FR\\d{25}", ibanLength: 27 },
+  { id: "re-bred", name: "BRED La Reunion", country: "RE", countryName: "La Reunion", bic: "BREDFRPP", ibanFormat: "FR\\d{25}", ibanLength: 27 },
+
+  // GUYANE FRANCAISE (Departement FR)
+  { id: "gf-bred", name: "BRED Guyane", country: "GF", countryName: "Guyane francaise", bic: "BREDFRPP", ibanFormat: "FR\\d{25}", ibanLength: 27 },
 ];
 
 // Fonction de recherche intelligente

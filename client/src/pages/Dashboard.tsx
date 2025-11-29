@@ -31,7 +31,7 @@ import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
 import { LoanRequestModal } from '@/components/LoanRequestModal';
 import { SignedContractUpload } from '@/components/SignedContractUpload';
 import { useState } from 'react';
-import { DashboardCard, SectionTitle, UserStat } from '@/components/fintech';
+import { DashboardCard, SectionTitle, UserStat, PremiumIcon } from '@/components/fintech';
 
 function getContractsNotificationText(language: string) {
   const translations: Record<string, { title: string; messageSingular: string; messagePlural: string; buttonLabel: string }> = {
@@ -212,9 +212,7 @@ export default function Dashboard() {
         {contractsToSign.length > 0 && (
           <div className="bg-gradient-to-r from-blue-50 to-blue-50/50 dark:from-blue-950/20 dark:to-blue-950/10 border border-blue-200 dark:border-blue-900/30 rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 w-full" data-testid="banner-pending-contracts">
             <div className="flex items-start gap-4">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex-shrink-0 mt-0.5">
-                <FileSignature className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              </div>
+              <PremiumIcon icon={FileSignature} variant="info" size="sm" />
               <div className="flex-1">
                 <h3 className="font-semibold text-foreground text-sm sm:text-base mb-1" data-testid="text-contracts-title">
                   {contractNotif.title}
@@ -431,9 +429,7 @@ export default function Dashboard() {
         }) && (
           <div className="bg-gradient-to-r from-orange-50 to-orange-50/50 dark:from-orange-950/20 dark:to-orange-950/10 border border-orange-200 dark:border-orange-900/30 rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 w-full" data-testid="banner-upcoming-payment">
             <div className="flex items-start gap-4">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/50 flex-shrink-0 mt-0.5">
-                <Clock className="w-5 h-5 text-orange-600 dark:text-orange-400" />
-              </div>
+              <PremiumIcon icon={Clock} variant="warning" size="sm" />
               <div className="flex-1">
                 <h3 className="font-semibold text-foreground text-sm sm:text-base mb-1" data-testid="text-payment-alert">
                   {t.dashboard.upcomingPaymentAlert}
