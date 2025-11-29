@@ -1268,8 +1268,8 @@ export default function TransferFlow() {
                 </p>
                 <div className="flex items-center gap-2">
                   <p className="text-base font-semibold text-foreground">
-                    {transfer.transferNetwork === 'SEPA' ? 'SEPA Credit Transfer' : 
-                     transfer.transferNetwork === 'SWIFT' ? 'Virement International SWIFT' :
+                    {transfer.transferNetwork === 'SEPA' ? (t.transferFlow.form.sepaTransferName || 'SEPA Credit Transfer') : 
+                     transfer.transferNetwork === 'SWIFT' ? (t.transferFlow.form.swiftTransferName || 'Virement International SWIFT') :
                      transfer.transferNetwork}
                   </p>
                   {transfer.transferNetwork === 'SEPA' && (
