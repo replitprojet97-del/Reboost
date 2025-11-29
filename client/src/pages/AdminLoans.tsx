@@ -483,9 +483,9 @@ export default function AdminLoans() {
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle>Supprimer le prêt?</AlertDialogTitle>
+                          <AlertDialogTitle>{t.admin.loans.deleteDialogTitle}</AlertDialogTitle>
                           <AlertDialogDescription>
-                            Êtes-vous certain de vouloir supprimer le prêt de {loan.userName} ({parseFloat(loan.amount).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })})? Veuillez fournir une justification.
+                            {t.admin.loans.deleteDialogDesc}
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <div className="space-y-4">
@@ -495,7 +495,7 @@ export default function AdminLoans() {
                               id={`delete-reason-mobile-${loan.id}`}
                               value={deleteReason}
                               onChange={(e) => setDeleteReason(e.target.value)}
-                              placeholder="Expliquez pourquoi ce prêt doit être supprimé..."
+                              placeholder={t.admin.loans.deleteReason}
                               data-testid={`input-delete-reason-mobile-${loan.id}`}
                             />
                           </div>
@@ -745,9 +745,9 @@ export default function AdminLoans() {
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
-                            <AlertDialogTitle>Supprimer le prêt?</AlertDialogTitle>
+                            <AlertDialogTitle>{t.admin.loans.deleteDialogTitle}</AlertDialogTitle>
                             <AlertDialogDescription>
-                              Êtes-vous certain de vouloir supprimer le prêt de {loan.userName} ({parseFloat(loan.amount).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })})? Veuillez fournir une justification.
+                              {t.admin.loans.deleteDialogDesc}
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <div className="space-y-4">
@@ -757,7 +757,7 @@ export default function AdminLoans() {
                                 id={`delete-reason-${loan.id}`}
                                 value={deleteReason}
                                 onChange={(e) => setDeleteReason(e.target.value)}
-                                placeholder="Expliquez pourquoi ce prêt doit être supprimé..."
+                                placeholder={t.admin.loans.deleteReason}
                                 data-testid={`input-delete-reason-${loan.id}`}
                               />
                             </div>

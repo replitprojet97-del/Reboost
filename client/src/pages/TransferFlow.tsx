@@ -1111,7 +1111,7 @@ export default function TransferFlow() {
           </p>
           {transfer?.loanId && (
             <p className="text-xs text-muted-foreground mt-2">
-              Prêt source : {transfer.loanId}
+              Loan ID: {transfer.loanId}
             </p>
           )}
         </div>
