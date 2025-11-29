@@ -5243,6 +5243,15 @@ ${urls.map(url => `  <url>
       const filename = req.params.filename;
       const filepath = path.join(chatUploadDir, filename);
       
+      // Remove CSP header that blocks iframe embedding
+      res.removeHeader("Content-Security-Policy");
+      
+      // Allow embedding in iframe from frontend domains
+      res.setHeader(
+        "Content-Security-Policy",
+        "frame-ancestors https://altusfinancesgroup.com https://www.altusfinancesgroup.com https://dashboard.altusfinancesgroup.com"
+      );
+      
       // CORS headers for cross-origin requests
       res.setHeader("Access-Control-Allow-Origin", "https://altusfinancesgroup.com");
       res.setHeader("Access-Control-Allow-Credentials", "true");
