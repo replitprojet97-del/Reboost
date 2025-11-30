@@ -2788,6 +2788,7 @@ export const translations: Record<Language, TranslationKeys> = {
       cancel: 'Annuler',
       save: 'Enregistrer',
       close: 'Fermer',
+      confirm: 'Oui',
       noData: 'Aucune donnée disponible',
       months: 'mois',
       years: 'ans',
@@ -3544,6 +3545,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderProcessDesc: 'Commandez votre carte en quelques clics. Après validation de votre demande, vous recevrez votre carte sous 5-7 jours ouvrés.',
       termsConditions: 'Voir les conditions générales',
       close: 'Fermer',
+      confirm: 'Oui',
     },
     notifications: {
       loan_request: { title: 'Demande de prêt soumise', message: 'Votre demande de prêt {loanType} de {amount} € a été soumise avec succès. Nous examinerons votre dossier dans les plus brefs délais.' },
@@ -3786,6 +3788,7 @@ export const translations: Record<Language, TranslationKeys> = {
         status: 'Statut',
         noTransactions: 'Aucune transaction trouvée',
         close: 'Fermer',
+      confirm: 'Oui',
       },
     },
     verify: {
@@ -5520,6 +5523,7 @@ export const translations: Record<Language, TranslationKeys> = {
       cancel: 'Cancel',
       save: 'Save',
       close: 'Close',
+      confirm: 'Yes',
       noData: 'No data available',
       months: 'months',
       years: 'years',
@@ -6266,6 +6270,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderProcessDesc: 'Order your card in a few clicks. After validation of your request, you will receive your card within 5-7 business days.',
       termsConditions: 'View terms and conditions',
       close: 'Close',
+      confirm: 'Yes',
     },
     notifications: {
       loan_request: { title: 'Loan Request Submitted', message: 'Your {loanType} loan request for £{amount} has been successfully submitted. We will review your application shortly.' },
@@ -6514,6 +6519,7 @@ export const translations: Record<Language, TranslationKeys> = {
         status: 'Status',
         noTransactions: 'No transactions found',
         close: 'Close',
+      confirm: 'Yes',
       },
     },
     verify: {
@@ -8239,6 +8245,7 @@ export const translations: Record<Language, TranslationKeys> = {
       cancel: 'Cancelar',
       save: 'Guardar',
       close: 'Cerrar',
+      confirm: 'Sí',
       noData: 'No hay datos disponibles',
       months: 'meses',
       years: 'años',
@@ -8889,6 +8896,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderProcessDesc: 'Ordene su tarjeta en unos pocos clics. Después de la validación de su solicitud, recibirá su tarjeta en 5-7 días hábiles.',
       termsConditions: 'Ver términos y condiciones',
       close: 'Cerrar',
+      confirm: 'Sí',
     },
     notifications: {
       loan_request: { title: 'Solicitud de Préstamo Enviada', message: 'Su solicitud de préstamo {loanType} por {amount} € ha sido enviada con éxito. Revisaremos su solicitud próximamente.' },
@@ -9137,6 +9145,7 @@ export const translations: Record<Language, TranslationKeys> = {
         status: 'Estado',
         noTransactions: 'No se encontraron transacciones',
         close: 'Cerrar',
+      confirm: 'Sí',
       },
     },
     verify: {
@@ -10935,6 +10944,7 @@ export const translations: Record<Language, TranslationKeys> = {
       cancel: 'Cancelar',
       save: 'Salvar',
       close: 'Fechar',
+      confirm: 'Sim',
       noData: 'Sem dados disponíveis',
       months: 'meses',
       years: 'anos',
@@ -11603,6 +11613,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderProcessDesc: 'Preencha o formulário de pedido, forneça seus documentos, aguarde a aprovação (24-48h) e receba seu cartão em casa.',
       termsConditions: 'Termos e Condições do Cartão Premium Altus',
       close: 'Fechar',
+      confirm: 'Sim',
     },
     notifications: {
       loan_request: { title: 'Solicitação de Empréstimo Enviada', message: 'Sua solicitação de empréstimo {loanType} de {amount} € foi enviada com sucesso. Analisaremos seu pedido em breve.' },
@@ -11845,6 +11856,7 @@ export const translations: Record<Language, TranslationKeys> = {
         status: 'Status',
         noTransactions: 'Nenhuma transação encontrada',
         close: 'Fechar',
+      confirm: 'Sim',
       },
     },
     verify: {
@@ -13454,6 +13466,7 @@ export const translations: Record<Language, TranslationKeys> = {
       cancel: 'Annulla',
       save: 'Salva',
       close: 'Chiudi',
+      confirm: 'Sì',
       noData: 'Nessun dato disponibile',
       months: 'mesi',
       years: 'anni',
@@ -14125,6 +14138,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderProcessDesc: 'Compila il modulo di richiesta, fornisci i tuoi documenti, attendi l\'approvazione (24-48h) e ricevi la tua carta a casa.',
       termsConditions: 'Termini e condizioni della carta Premium Altus',
       close: 'Chiudi',
+      confirm: 'Sì',
     },
     notifications: {
       loan_request: { title: 'Richiesta di Prestito Inviata', message: 'La tua richiesta di prestito {loanType} di {amount} € è stata inviata con successo. Esamineremo la tua richiesta a breve.' },
@@ -14373,6 +14387,7 @@ export const translations: Record<Language, TranslationKeys> = {
         status: 'Stato',
         noTransactions: 'Nessuna transazione trovata',
         close: 'Chiudi',
+      confirm: 'Sì',
       },
     },
     verify: {
@@ -16083,6 +16098,7 @@ export const translations: Record<Language, TranslationKeys> = {
       cancel: 'Abbrechen',
       save: 'Speichern',
       close: 'Schließen',
+      confirm: 'Ja',
       noData: 'Keine Daten verfügbar',
       months: 'Monate',
       years: 'Jahre',
@@ -16754,6 +16770,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderProcessDesc: 'Füllen Sie das Bestellformular aus, stellen Sie Ihre Dokumente bereit, warten Sie auf die Genehmigung (24-48h) und erhalten Sie Ihre Karte zu Hause.',
       termsConditions: 'Allgemeine Geschäftsbedingungen der Altus Premium-Karte',
       close: 'Schließen',
+      confirm: 'Ja',
     },
     notifications: {
       loan_request: { title: 'Kreditantrag Eingereicht', message: 'Ihr {loanType} Kreditantrag über {amount} € wurde erfolgreich eingereicht. Wir werden Ihren Antrag in Kürze prüfen.' },
@@ -17002,6 +17019,7 @@ export const translations: Record<Language, TranslationKeys> = {
         status: 'Status',
         noTransactions: 'Keine Transaktionen gefunden',
         close: 'Schließen',
+      confirm: 'Ja',
       },
     },
     verify: {
@@ -18712,6 +18730,7 @@ export const translations: Record<Language, TranslationKeys> = {
       cancel: 'Annuleren',
       save: 'Opslaan',
       close: 'Sluiten',
+      confirm: 'Ja',
       noData: 'Geen gegevens beschikbaar',
       months: 'maanden',
       years: 'jaren',
@@ -19383,6 +19402,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderProcessDesc: 'Vul het bestelformulier in, verstrek uw documenten, wacht op goedkeuring (24-48u) en ontvang uw kaart thuis.',
       termsConditions: 'Algemene voorwaarden van de Altus Premium kaart',
       close: 'Sluiten',
+      confirm: 'Ja',
     },
     notifications: {
       loan_request: { title: 'Leningaanvraag Ingediend', message: 'Uw {loanType} leningaanvraag voor {amount} € is succesvol ingediend. We zullen uw aanvraag binnenkort beoordelen.' },
@@ -19601,6 +19621,7 @@ export const translations: Record<Language, TranslationKeys> = {
         status: 'Status',
         noTransactions: 'Geen transacties gevonden',
         close: 'Sluiten',
+      confirm: 'Ja',
       },
     },
     verify: {
