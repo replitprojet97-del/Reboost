@@ -15,14 +15,29 @@ declare module 'socket.io' {
 }
 
 export function initializeChatSocket(httpServer: HTTPServer, storage: IStorage, sessionMiddleware: any) {
+  // Get allowed origins based on environment
+  const getAllowedOrigins = () => {
+    if (process.env.NODE_ENV === 'production') {
+      return [
+        'https://altusfinancesgroup.com',
+        'https://www.altusfinancesgroup.com',
+      ];
+    }
+    // In development, allow localhost and Replit domains
+    return [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:5000',
+      /\.replit\.dev$/,
+      /\.replit\.app$/,
+      /\.riker\.replit\.dev$/,
+    ];
+  };
+
   const io = new SocketIOServer(httpServer, {
     cors: {
-      origin: process.env.NODE_ENV === 'production'
-        ? [
-            'https://altusfinancesgroup.com',
-            'https://www.altusfinancesgroup.com',
-          ]
-        : ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000'],
+      origin: getAllowedOrigins(),
       credentials: true,
       methods: ['GET', 'POST'],
     },
