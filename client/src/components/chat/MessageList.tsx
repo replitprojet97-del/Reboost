@@ -66,7 +66,7 @@ export function MessageList({
     getScrollElement: () => containerRef.current,
     estimateSize: (index) => {
       const item = flattenedItems[index];
-      if (item.type === "date") return 80;
+      if (item.type === "date") return 100; // Increased from 80
       // Estimate larger size to account for images/PDFs
       // Images can be up to 384px (max-h-96) + padding/margins
       const message = item.message;
@@ -75,26 +75,26 @@ export function MessageList({
         const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
         const isPdf = fileName.endsWith('.pdf');
         if (imageExtensions.some(ext => fileName.endsWith(ext))) {
-          return 500; // Image (up to 384px) + text + spacing + margins
+          return 550; // Image (up to 384px) + text + spacing + margins (increased from 500)
         }
         if (isPdf) {
-          return 500; // PDF preview (up to 384px) + spacing + margins
+          return 550; // PDF preview (up to 384px) + spacing + margins (increased from 500)
         }
       }
-      // Text-only message: accurate estimate to prevent excessive spacing
-      // Reduced from ultra-conservative to compact messages naturally
+      // Text-only message: CONSERVATIVE estimate to prevent overlap
+      // Better to have extra space than overlapping text
       const contentLength = message?.content?.length || 0;
       // Use 35 chars/line to account for narrow user chat modal
       const estimatedLines = Math.max(1, Math.ceil(contentLength / 35));
-      // Base height: bubble padding (20px) + timestamp + spacing (20px) = ~40px
-      const baseHeight = 50;
+      // Base height: message wrapper mb-3 (12px) + bubble padding py-2.5 (10px + 10px) + timestamp (16px) + spacing (20px) = 68px
+      const baseHeight = 85; // Increased from 50 for safety
       // Line height: text 14px + line spacing + breathing room = 22px
-      const lineHeight = 22;
+      const lineHeight = 24; // Increased from 22 for safety
       const textEstimate = baseHeight + (estimatedLines * lineHeight);
-      // Safe bounds: min 70px for single line, max 700px for 500 char messages
-      return Math.min(700, Math.max(70, textEstimate));
+      // Safe bounds: min 85px for single line, max 750px for 500 char messages
+      return Math.min(750, Math.max(85, textEstimate));
     },
-    overscan: 50, // Aggressive overscan to prevent virtualizer overlap issues
+    overscan: 100, // Doubled from 50 to ensure no gaps
   });
 
   const scrollToBottom = (smooth = true) => {
