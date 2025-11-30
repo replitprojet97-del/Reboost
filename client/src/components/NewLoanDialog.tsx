@@ -72,10 +72,10 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
 
   useEffect(() => {
     if (loanType && user?.accountType) {
-      const selectedType = LOAN_TYPES[loanType as keyof typeof LOAN_TYPES];
+      const selectedType = LOAN_TYPES[loanType as keyof typeof LOAN_TYPES] as any;
       
-      if (selectedType) {
-        const avgRate = ((selectedType.minRate + selectedType.maxRate) / 2).toFixed(1);
+      if (selectedType && typeof selectedType === 'object' && 'minRate' in selectedType && 'maxRate' in selectedType) {
+        const avgRate = ((selectedType.minRate as number + selectedType.maxRate as number) / 2).toFixed(1);
         setFormData(prev => ({ ...prev, interestRate: avgRate }));
       }
     }

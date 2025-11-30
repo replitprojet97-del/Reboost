@@ -303,16 +303,16 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto overflow-x-hidden" data-testid="dialog-loan-request">
+      <DialogContent className="w-[calc(100vw-2rem)] max-w-3xl max-h-[90vh] overflow-y-auto overflow-x-hidden p-4 sm:p-6" data-testid="dialog-loan-request">
         <DialogHeader>
-          <DialogTitle>{t.title}</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-lg sm:text-xl">{t.title}</DialogTitle>
+          <DialogDescription className="text-sm">
             {t.description}
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
             <FormField
               control={form.control}
               name="loanType"
@@ -354,10 +354,10 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                   name="amount"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t.loanAmount}</FormLabel>
+                      <FormLabel className="text-sm">{t.loanAmount}</FormLabel>
                       <FormControl>
-                        <div className="space-y-4 w-full">
-                          <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
+                        <div className="space-y-3 w-full">
+                          <div className="flex items-center gap-2">
                             <Input
                               type="number"
                               {...field}
@@ -365,20 +365,21 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                               min={limits.minAmount}
                               max={limits.maxAmount}
                               step={1000}
-                              className="min-w-0 flex-1"
+                              className="flex-1 min-w-0"
                               data-testid="input-loan-amount"
                             />
-                            <span className="text-sm text-muted-foreground whitespace-nowrap flex-shrink-0">€</span>
                           </div>
-                          <Slider
-                            value={[field.value]}
-                            onValueChange={(values: number[]) => field.onChange(values[0])}
-                            min={limits.minAmount}
-                            max={limits.maxAmount}
-                            step={1000}
-                            className="w-full"
-                          />
-                          <div className="flex justify-between text-xs text-muted-foreground">
+                          <div className="px-1">
+                            <Slider
+                              value={[field.value]}
+                              onValueChange={(values: number[]) => field.onChange(values[0])}
+                              min={limits.minAmount}
+                              max={limits.maxAmount}
+                              step={1000}
+                              className="w-full"
+                            />
+                          </div>
+                          <div className="flex justify-between text-xs text-muted-foreground px-1">
                             <span>{limits.minAmount.toLocaleString()}€</span>
                             <span>{limits.maxAmount.toLocaleString()}€</span>
                           </div>
@@ -394,38 +395,39 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                   name="duration"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{useYears ? t.durationYears || 'Durée (années)' : t.durationMonths}</FormLabel>
+                      <FormLabel className="text-sm">{useYears ? t.durationYears || 'Durée (années)' : t.durationMonths}</FormLabel>
                       <FormControl>
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-4">
+                        <div className="space-y-3 w-full">
+                          <div className="flex items-center gap-2">
                             <Input
                               type="number"
                               value={displayDuration}
                               onChange={(e) => {
                                 const value = parseInt(e.target.value) || 0;
-                                // Convertir en mois pour le stockage
                                 field.onChange(useYears ? value * 12 : value);
                               }}
                               min={displayMinDuration}
                               max={displayMaxDuration}
+                              className="flex-1 min-w-0"
                               data-testid="input-loan-duration"
                             />
-                            <span className="text-sm text-muted-foreground whitespace-nowrap">
+                            <span className="text-sm text-muted-foreground whitespace-nowrap flex-shrink-0">
                               {useYears ? (t.years || 'ans') : t.months}
                             </span>
                           </div>
-                          <Slider
-                            value={[displayDuration]}
-                            onValueChange={(values: number[]) => {
-                              // Convertir en mois pour le stockage
-                              field.onChange(useYears ? values[0] * 12 : values[0]);
-                            }}
-                            min={displayMinDuration}
-                            max={displayMaxDuration}
-                            step={1}
-                            className="w-full"
-                          />
-                          <div className="flex justify-between text-xs text-muted-foreground">
+                          <div className="px-1">
+                            <Slider
+                              value={[displayDuration]}
+                              onValueChange={(values: number[]) => {
+                                field.onChange(useYears ? values[0] * 12 : values[0]);
+                              }}
+                              min={displayMinDuration}
+                              max={displayMaxDuration}
+                              step={1}
+                              className="w-full"
+                            />
+                          </div>
+                          <div className="flex justify-between text-xs text-muted-foreground px-1">
                             <span>{displayMinDuration} {useYears ? (t.years || 'ans') : t.months}</span>
                             <span>{displayMaxDuration} {useYears ? (t.years || 'ans') : t.months}</span>
                           </div>
@@ -436,45 +438,45 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                   )}
                 />
 
-                <div className="bg-muted/50 p-4 rounded-md space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{t.interestRate}</span>
-                    <span className="font-semibold">{interestRate.toFixed(2)}%</span>
+                <div className="bg-muted/50 p-3 sm:p-4 rounded-md space-y-2">
+                  <div className="flex justify-between items-center gap-2">
+                    <span className="text-xs sm:text-sm text-muted-foreground">{t.interestRate}</span>
+                    <span className="font-semibold text-sm sm:text-base">{interestRate.toFixed(2)}%</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">{t.estimatedMonthlyPayment}</span>
-                    <span className="font-semibold text-lg">{monthlyPayment.toFixed(2)}€</span>
+                  <div className="flex justify-between items-center gap-2">
+                    <span className="text-xs sm:text-sm text-muted-foreground">{t.estimatedMonthlyPayment}</span>
+                    <span className="font-semibold text-base sm:text-lg">{monthlyPayment.toFixed(2)}€</span>
                   </div>
                 </div>
               </>
             )}
 
             {selectedLoanType && (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <h3 className="font-semibold mb-3">{t.requiredDocuments}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <h3 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base">{t.requiredDocuments}</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
                     {t.requiredDocumentsDescription}
                   </p>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {requiredDocuments.map((doc) => (
-                    <div key={doc.id} className="flex items-start gap-3 p-3 border rounded-md">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-sm font-medium">{documentLabels[doc.id]}</span>
-                          {doc.required && <Badge variant="destructive" className="h-5 text-xs">{t.required}</Badge>}
-                          {!doc.required && <Badge variant="secondary" className="h-5 text-xs">{t.optional}</Badge>}
+                    <div key={doc.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-md">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1 sm:gap-2 mb-1 flex-wrap">
+                          <span className="text-xs sm:text-sm font-medium truncate">{documentLabels[doc.id]}</span>
+                          {doc.required && <Badge variant="destructive" className="h-4 sm:h-5 text-xs flex-shrink-0">{t.required}</Badge>}
+                          {!doc.required && <Badge variant="secondary" className="h-4 sm:h-5 text-xs flex-shrink-0">{t.optional}</Badge>}
                         </div>
                         {uploadedDocuments[doc.id] && (
-                          <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2">
-                            <CheckCircle2 className="w-4 h-4 text-green-600" />
-                            <span>{uploadedDocuments[doc.id].name}</span>
+                          <div className="flex items-center gap-1 sm:gap-2 text-xs text-muted-foreground mt-1 sm:mt-2 min-w-0">
+                            <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
+                            <span className="truncate">{uploadedDocuments[doc.id].name}</span>
                           </div>
                         )}
                       </div>
-                      <div className="flex gap-2">
+                      <div className="flex gap-1 sm:gap-2 flex-shrink-0">
                         {uploadedDocuments[doc.id] ? (
                           <Button
                             type="button"
@@ -482,8 +484,9 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                             size="icon"
                             onClick={() => removeDocument(doc.id)}
                             data-testid={`button-remove-${doc.id}`}
+                            className="h-8 w-8 sm:h-9 sm:w-9"
                           >
-                            <X className="w-4 h-4" />
+                            <X className="w-3 h-3 sm:w-4 sm:h-4" />
                           </Button>
                         ) : (
                           <label>
@@ -493,10 +496,12 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                               size="sm"
                               asChild
                               data-testid={`button-upload-${doc.id}`}
+                              className="text-xs sm:text-sm h-8 sm:h-9"
                             >
                               <span className="cursor-pointer">
-                                <Upload className="w-4 h-4 mr-2" />
-                                {t.attach}
+                                <Upload className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                                <span className="hidden sm:inline">{t.attach}</span>
+                                <span className="sm:hidden">+</span>
                               </span>
                             </Button>
                             <input
@@ -517,12 +522,13 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
               </div>
             )}
 
-            <div className="flex justify-end gap-3 pt-4">
+            <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3 pt-3 sm:pt-4">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => onOpenChange(false)}
                 data-testid="button-cancel-loan-request"
+                className="w-full sm:w-auto"
               >
                 {t.cancel}
               </Button>
@@ -530,8 +536,9 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                 type="submit"
                 disabled={createLoanMutation.isPending || !selectedLoanType}
                 data-testid="button-submit-loan-request"
+                className="w-full sm:w-auto"
               >
-                {createLoanMutation.isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+                {createLoanMutation.isPending && <Loader2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 animate-spin" />}
                 {t.submit}
               </Button>
             </div>
