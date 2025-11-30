@@ -303,7 +303,7 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto" data-testid="dialog-loan-request">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto overflow-x-hidden" data-testid="dialog-loan-request">
         <DialogHeader>
           <DialogTitle>{t.title}</DialogTitle>
           <DialogDescription>
@@ -356,8 +356,8 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                     <FormItem>
                       <FormLabel>{t.loanAmount}</FormLabel>
                       <FormControl>
-                        <div className="space-y-4">
-                          <div className="flex items-center gap-4">
+                        <div className="space-y-4 w-full">
+                          <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
                             <Input
                               type="number"
                               {...field}
@@ -365,9 +365,10 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                               min={limits.minAmount}
                               max={limits.maxAmount}
                               step={1000}
+                              className="min-w-0 flex-1"
                               data-testid="input-loan-amount"
                             />
-                            <span className="text-sm text-muted-foreground whitespace-nowrap">€</span>
+                            <span className="text-sm text-muted-foreground whitespace-nowrap flex-shrink-0">€</span>
                           </div>
                           <Slider
                             value={[field.value]}

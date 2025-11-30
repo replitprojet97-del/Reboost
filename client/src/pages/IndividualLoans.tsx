@@ -93,35 +93,35 @@ export default function IndividualLoans() {
         />
 
         <Tabs defaultValue="loans" className="w-full" data-testid="tabs-loans">
-          <GlassPanel className="p-1">
-            <TabsList className="grid w-full grid-cols-2 max-w-md bg-transparent gap-1">
+          <GlassPanel className="p-1 overflow-x-auto">
+            <TabsList className="grid w-full grid-cols-2 min-w-fit bg-transparent gap-1">
               <TabsTrigger 
                 value="loans" 
                 data-testid="tab-my-loans"
                 className="gap-2 data-[state=active]:bg-primary/90 data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 data-[state=active]:-translate-y-0.5 rounded-md"
               >
-                <Wallet className="h-4 w-4" />
-                <span className="text-xs sm:text-sm">{t.loan.tabMyLoans}</span>
+                <Wallet className="h-4 w-4 flex-shrink-0" />
+                <span className="text-xs sm:text-sm whitespace-nowrap">{t.loan.tabMyLoans}</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="calculator" 
                 data-testid="tab-calculator"
                 className="gap-2 data-[state=active]:bg-primary/90 data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300 data-[state=active]:-translate-y-0.5 rounded-md"
               >
-                <Calculator className="h-4 w-4" />
-                <span className="text-xs sm:text-sm">{t.loan.tabCalculator}</span>
+                <Calculator className="h-4 w-4 flex-shrink-0" />
+                <span className="text-xs sm:text-sm whitespace-nowrap">{t.loan.tabCalculator}</span>
               </TabsTrigger>
             </TabsList>
           </GlassPanel>
 
           <TabsContent value="loans" className="mt-6 space-y-6">
             <Tabs defaultValue="active" className="w-full" data-testid="tabs-loan-status">
-              <GlassPanel className="p-1">
-                <TabsList className="grid w-full grid-cols-2 max-w-md bg-transparent gap-1">
+              <GlassPanel className="p-1 overflow-x-auto">
+                <TabsList className="grid w-full grid-cols-2 min-w-fit bg-transparent gap-1">
                   <TabsTrigger 
                     value="active" 
                     data-testid="tab-active-loans"
-                    className="gap-2 data-[state=active]:bg-accent/90 data-[state=active]:text-accent-foreground data-[state=active]:shadow-lg transition-all duration-300 data-[state=active]:-translate-y-0.5 rounded-md"
+                    className="gap-2 data-[state=active]:bg-accent/90 data-[state=active]:text-accent-foreground data-[state=active]:shadow-lg transition-all duration-300 data-[state=active]:-translate-y-0.5 rounded-md whitespace-nowrap"
                   >
                     <CheckCircle2 className="h-4 w-4" />
                     <span className="text-xs sm:text-sm">{t.dashboard.activeLoans}</span>
@@ -132,10 +132,10 @@ export default function IndividualLoans() {
                   <TabsTrigger 
                     value="pending" 
                     data-testid="tab-pending-loans"
-                    className="gap-2 data-[state=active]:bg-secondary/90 data-[state=active]:shadow-lg transition-all duration-300 data-[state=active]:-translate-y-0.5 rounded-md"
+                    className="gap-2 data-[state=active]:bg-secondary/90 data-[state=active]:shadow-lg transition-all duration-300 data-[state=active]:-translate-y-0.5 rounded-md whitespace-nowrap"
                   >
-                    <Clock className="h-4 w-4" />
-                    <span className="text-xs sm:text-sm">{t.common.pending}</span>
+                    <Clock className="h-4 w-4 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm whitespace-nowrap">{t.common.pending}</span>
                     <Badge variant="secondary" className="ml-2 bg-background">
                       {pendingLoans.length}
                     </Badge>
