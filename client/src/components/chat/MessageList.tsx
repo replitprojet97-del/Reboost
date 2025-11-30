@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { format, isToday, isYesterday, isSameDay } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { ArrowDown } from "lucide-react";
@@ -25,7 +25,9 @@ export function MessageList({
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  // Cache measured heights to avoid re-estimation
+  const prevMessagesLengthRef = useRef<number>(0);
+  const prevLastMessageIdRef = useRef<string | null>(null);
+  const isInitialLoadRef = useRef<boolean>(true);
   const measuredHeights = useRef<Map<string, number>>(new Map());
 
   const groupedMessages = messages.reduce((groups, message) => {
@@ -97,43 +99,65 @@ export function MessageList({
     overscan: 100, // Doubled from 50 to ensure no gaps
   });
 
-  const scrollToBottom = (smooth = true) => {
+  const scrollToBottom = useCallback((smooth = true) => {
+    const container = containerRef.current;
+    if (container) {
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: smooth ? "smooth" : "auto"
+      });
+    }
     messagesEndRef.current?.scrollIntoView({ behavior: smooth ? "smooth" : "auto" });
-  };
+  }, []);
 
-  useEffect(() => {
-    scrollToBottom(false);
+  const isNearBottom = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return true;
+    return container.scrollHeight - container.scrollTop - container.clientHeight < 150;
   }, []);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const isScrolledToBottom =
-      container.scrollHeight - container.scrollTop - container.clientHeight < 100;
-
-    if (isScrolledToBottom) {
-      scrollToBottom();
+    if (isInitialLoadRef.current && messages.length > 0) {
+      setTimeout(() => {
+        scrollToBottom(false);
+        isInitialLoadRef.current = false;
+      }, 100);
     }
-  }, [messages]);
+  }, [messages.length, scrollToBottom]);
 
-  // Auto-scroll when virtualizer updates (for new messages with images/pdfs)
+  useEffect(() => {
+    if (messages.length === 0) return;
+    
+    const lastMessage = messages[messages.length - 1];
+    const isNewMessage = lastMessage && lastMessage.id !== prevLastMessageIdRef.current;
+    const messageCountIncreased = messages.length > prevMessagesLengthRef.current;
+    
+    if (isNewMessage && messageCountIncreased && !isInitialLoadRef.current) {
+      const isOwnMessage = lastMessage.senderId === currentUserId;
+      
+      if (isOwnMessage) {
+        setTimeout(() => scrollToBottom(true), 50);
+      } else if (isNearBottom()) {
+        setTimeout(() => scrollToBottom(true), 50);
+      }
+    }
+    
+    prevMessagesLengthRef.current = messages.length;
+    prevLastMessageIdRef.current = lastMessage?.id || null;
+  }, [messages, currentUserId, scrollToBottom, isNearBottom]);
+
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || isInitialLoadRef.current) return;
 
-    const isScrolledToBottom =
-      container.scrollHeight - container.scrollTop - container.clientHeight < 100;
-
-    if (isScrolledToBottom) {
-      // Ensure scroll happens after virtualizer has rendered items
+    if (isNearBottom()) {
       const scrollTimer = setTimeout(() => {
         scrollToBottom(false);
-      }, 50);
+      }, 100);
 
       return () => clearTimeout(scrollTimer);
     }
-  }, [virtualizer.getTotalSize()]);
+  }, [virtualizer.getTotalSize(), scrollToBottom, isNearBottom]);
 
   useEffect(() => {
     const container = containerRef.current;
