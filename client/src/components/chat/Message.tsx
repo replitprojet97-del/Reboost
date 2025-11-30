@@ -85,13 +85,13 @@ export function Message({ message, isOwn, senderName, senderAvatar, nextMessage 
   return (
     <div
       className={cn(
-        "flex gap-4 mb-4 w-full",
-        isOwn ? "flex-row-reverse justify-end" : "flex-row justify-start"
+        "flex gap-3 mb-3 w-full",
+        isOwn ? "flex-row-reverse" : "flex-row"
       )}
       data-testid={`message-${message.id}`}
     >
       {!isOwn && (
-        <Avatar className="h-9 w-9 flex-shrink-0 mt-1">
+        <Avatar className="h-8 w-8 flex-shrink-0 mt-1">
           <AvatarImage src={senderAvatar} alt={senderName} />
           <AvatarFallback>{getInitials(senderName)}</AvatarFallback>
         </Avatar>
@@ -99,8 +99,8 @@ export function Message({ message, isOwn, senderName, senderAvatar, nextMessage 
 
       <div
         className={cn(
-          "flex flex-col gap-2 relative min-w-0",
-          isOwn ? "items-end max-w-xs ms-auto" : "items-start max-w-sm"
+          "flex flex-col gap-1 relative min-w-0",
+          isOwn ? "items-end max-w-[75%]" : "items-start max-w-[75%]"
         )}
       >
         {!isOwn && senderName && (
@@ -111,18 +111,27 @@ export function Message({ message, isOwn, senderName, senderAvatar, nextMessage 
 
         {/* File with timestamp directly below */}
         {message.fileUrl && message.fileName && isImageFile(message.fileName) && (
-          <div className={getSpacing()}>
-            <img
-              src={getFileUrl(message.fileUrl)}
-              alt={message.fileName}
-              className="max-w-xs rounded-md max-h-72 object-cover cursor-pointer hover:opacity-90 transition-opacity"
-              onClick={() => window.open(getFileUrl(message.fileUrl)!, '_blank')}
-              data-testid={`img-attachment-${message.id}`}
-            />
+          <div className={cn("flex flex-col gap-1", getSpacing())}>
             <div
               className={cn(
-                "flex items-center gap-2 px-3 relative z-10 mt-1",
-                isOwn ? "flex-row-reverse justify-end" : "flex-row justify-start"
+                "p-1 rounded-2xl overflow-hidden",
+                isOwn
+                  ? "bg-primary/10 rounded-br-md"
+                  : "bg-muted rounded-bl-md"
+              )}
+            >
+              <img
+                src={getFileUrl(message.fileUrl)}
+                alt={message.fileName}
+                className="max-w-xs rounded-xl max-h-72 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={() => window.open(getFileUrl(message.fileUrl)!, '_blank')}
+                data-testid={`img-attachment-${message.id}`}
+              />
+            </div>
+            <div
+              className={cn(
+                "flex items-center gap-1.5 px-1",
+                isOwn ? "flex-row-reverse" : "flex-row"
               )}
             >
               <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
@@ -146,15 +155,24 @@ export function Message({ message, isOwn, senderName, senderAvatar, nextMessage 
         )}
 
         {message.fileUrl && isPdfFile(message.fileName, message.fileUrl) && (
-          <div className={getSpacing()}>
-            <PdfViewer
-              storagePath={getFileUrl(message.fileUrl) || ''}
-              fileName={message.fileName || 'Document.pdf'}
-            />
+          <div className={cn("flex flex-col gap-1", getSpacing())}>
             <div
               className={cn(
-                "flex items-center gap-2 px-3 relative z-10 mt-1",
-                isOwn ? "flex-row-reverse justify-end" : "flex-row justify-start"
+                "p-2 rounded-2xl overflow-hidden",
+                isOwn
+                  ? "bg-primary/10 rounded-br-md"
+                  : "bg-muted rounded-bl-md"
+              )}
+            >
+              <PdfViewer
+                storagePath={getFileUrl(message.fileUrl) || ''}
+                fileName={message.fileName || 'Document.pdf'}
+              />
+            </div>
+            <div
+              className={cn(
+                "flex items-center gap-1.5 px-1",
+                isOwn ? "flex-row-reverse" : "flex-row"
               )}
             >
               <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
@@ -178,15 +196,19 @@ export function Message({ message, isOwn, senderName, senderAvatar, nextMessage 
         )}
 
         {message.fileUrl && message.fileName && !isImageFile(message.fileName) && !isPdfFile(message.fileName, message.fileUrl) && (
-          <div className={getSpacing()}>
-            <div className="rounded-md p-3">
+          <div className={cn("flex flex-col gap-1", getSpacing())}>
+            <div
+              className={cn(
+                "px-3 py-2 rounded-2xl",
+                isOwn
+                  ? "bg-primary text-primary-foreground rounded-br-md"
+                  : "bg-muted text-foreground rounded-bl-md"
+              )}
+            >
               <a
                 href={getFileUrl(message.fileUrl)}
                 download
-                className={cn(
-                  "flex items-center gap-2 p-2 rounded-md",
-                  isOwn ? "hover:bg-primary-foreground/10" : "hover:bg-background/50"
-                )}
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
                 data-testid={`link-file-${message.id}`}
               >
                 {getFileIcon(message.fileName)}
@@ -198,8 +220,8 @@ export function Message({ message, isOwn, senderName, senderAvatar, nextMessage 
             </div>
             <div
               className={cn(
-                "flex items-center gap-2 px-3 relative z-10",
-                isOwn ? "flex-row-reverse justify-end" : "flex-row justify-start"
+                "flex items-center gap-1.5 px-1",
+                isOwn ? "flex-row-reverse" : "flex-row"
               )}
             >
               <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
@@ -226,34 +248,48 @@ export function Message({ message, isOwn, senderName, senderAvatar, nextMessage 
         {message.content && (
           <div
             className={cn(
-              "flex flex-col gap-1 px-3 relative z-10 w-full",
+              "flex flex-col gap-1 relative z-10",
               getSpacing(),
               isOwn ? "items-end" : "items-start"
             )}
           >
-            <p 
-              className="text-sm whitespace-pre-wrap break-words max-w-full"
-              style={{ overflowWrap: 'break-word', wordBreak: 'break-word' }}
-              data-testid="text-message-content"
+            <div
+              className={cn(
+                "px-4 py-2.5 rounded-2xl max-w-full",
+                isOwn
+                  ? "bg-primary text-primary-foreground rounded-br-md"
+                  : "bg-muted text-foreground rounded-bl-md"
+              )}
             >
-              {message.content}
-            </p>
-            <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
-              {formatDistanceToNow(new Date(message.createdAt), {
-                addSuffix: true,
-                locale: enUS,
-              })}
-            </span>
+              <p 
+                className="text-sm whitespace-pre-wrap break-words"
+                style={{ overflowWrap: 'break-word', wordBreak: 'break-word' }}
+                data-testid="text-message-content"
+              >
+                {message.content}
+              </p>
+            </div>
+            <div className={cn(
+              "flex items-center gap-1.5 px-1",
+              isOwn ? "flex-row-reverse" : "flex-row"
+            )}>
+              <span className="text-xs text-muted-foreground" data-testid="text-timestamp">
+                {formatDistanceToNow(new Date(message.createdAt), {
+                  addSuffix: true,
+                  locale: enUS,
+                })}
+              </span>
 
-            {isOwn && (
-              <div data-testid="icon-read-status">
-                {message.isRead ? (
-                  <CheckCheck className="h-3 w-3 text-primary" />
-                ) : (
-                  <Check className="h-3 w-3 text-muted-foreground" />
-                )}
-              </div>
-            )}
+              {isOwn && (
+                <div data-testid="icon-read-status">
+                  {message.isRead ? (
+                    <CheckCheck className="h-3 w-3 text-primary" />
+                  ) : (
+                    <Check className="h-3 w-3 text-muted-foreground" />
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
