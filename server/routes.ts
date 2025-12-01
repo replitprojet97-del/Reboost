@@ -1515,12 +1515,18 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         lastUpdated = getTimeAgo(data.user.updatedAt);
       }
 
+      // Calculate the total amount from active loans (not yet fully repaid)
+      // This is what determines the available credit, not the current balance
+      const activeLoans = data.loans.filter(l => l.status === 'active');
+      const totalActiveLoansAmount = activeLoans.reduce((sum, loan) => sum + parseFloat(loan.amount), 0);
+      const maxCapacity = data.user.accountType === 'business' || data.user.accountType === 'professional' ? 2000000 : 500000;
+
       const response = {
         balance: {
           currentBalance: data.balance,
-          activeLoansCount: data.loans.filter(l => l.status === 'active').length,
-          totalBorrowed: data.loans.reduce((sum, loan) => sum + parseFloat(loan.amount), 0),
-          availableCredit: (data.user.accountType === 'business' || data.user.accountType === 'professional' ? 2000000 : 500000) - data.balance,
+          activeLoansCount: activeLoans.length,
+          totalBorrowed: totalActiveLoansAmount,
+          availableCredit: maxCapacity - totalActiveLoansAmount,
           lastUpdated: lastUpdated,
         },
         loans: data.loans.map(loan => ({
@@ -1559,8 +1565,8 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
             : 'account',
         })),
         borrowingCapacity: {
-          maxCapacity: data.user.accountType === 'business' || data.user.accountType === 'professional' ? 2000000 : 500000,
-          currentCapacity: (data.user.accountType === 'business' || data.user.accountType === 'professional' ? 2000000 : 500000) - data.balance,
+          maxCapacity: maxCapacity,
+          currentCapacity: maxCapacity - totalActiveLoansAmount,
         },
       };
 
