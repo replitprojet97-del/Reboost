@@ -5789,6 +5789,18 @@ ${urls.map(url => `  <url>
         return res.status(400).json({ error: 'Le tableau d\'amortissement n\'est disponible que pour les prêts actifs' });
       }
 
+      // Get or generate loan reference
+      const loanReference = getOrGenerateLoanReference(loan);
+      
+      // Validate loan data
+      const duration = loan.duration || 12;
+      const interestRate = Number(loan.interestRate) || 0;
+      const amount = Number(loan.amount) || 0;
+
+      if (amount <= 0) {
+        return res.status(400).json({ error: 'Montant du prêt invalide' });
+      }
+
       const pdfDoc = await PDFDocument.create();
       const page = pdfDoc.addPage([595, 842]);
       const { height } = page.getSize();
@@ -5800,85 +5812,156 @@ ${urls.map(url => `  <url>
         x: 50,
         y: yPosition,
         size: 24,
-        color: rgb(0, 0, 0),
+        color: rgb(0.2, 0.3, 0.6),
       });
       
       yPosition -= 30;
-      page.drawText(`Prêt: ${loan.loanReference}`, {
+      page.drawText(`Prêt: ${loanReference}`, {
         x: 50,
         y: yPosition,
         size: 12,
         color: rgb(0.3, 0.3, 0.3),
       });
       
-      yPosition -= 15;
-      page.drawText(`Montant: ${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(Number(loan.amount))}`, {
+      yPosition -= 18;
+      page.drawText(`Montant: ${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(amount)}`, {
         x: 50,
         y: yPosition,
         size: 11,
         color: rgb(0.3, 0.3, 0.3),
       });
       
-      yPosition -= 15;
-      page.drawText(`Taux: ${loan.interestRate}% | Durée: ${loan.duration} mois`, {
+      yPosition -= 18;
+      page.drawText(`Taux: ${interestRate}% | Durée: ${duration} mois`, {
         x: 50,
         y: yPosition,
         size: 11,
         color: rgb(0.3, 0.3, 0.3),
-      });
-      
-      yPosition -= 30;
-      
-      // Calculate amortization schedule
-      const monthlyRate = Number(loan.interestRate) / 100 / 12;
-      const numberOfPayments = loan.duration;
-      const principal = Number(loan.amount);
-      const monthlyPayment = (principal * monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
-      
-      let remainingBalance = principal;
-      
-      // Table headers
-      page.drawText('Mois', { x: 50, y: yPosition, size: 10, color: rgb(1, 1, 1) });
-      page.drawText('Paiement', { x: 150, y: yPosition, size: 10, color: rgb(1, 1, 1) });
-      page.drawText('Intérêt', { x: 250, y: yPosition, size: 10, color: rgb(1, 1, 1) });
-      page.drawText('Principal', { x: 350, y: yPosition, size: 10, color: rgb(1, 1, 1) });
-      page.drawText('Solde', { x: 450, y: yPosition, size: 10, color: rgb(1, 1, 1) });
-      
-      // Draw header background
-      page.drawRectangle({
-        x: 40,
-        y: yPosition - 15,
-        width: 515,
-        height: 20,
-        color: rgb(0.2, 0.2, 0.2),
       });
       
       yPosition -= 35;
       
-      // Draw max 20 months per page
-      for (let i = 1; i <= Math.min(numberOfPayments, 20); i++) {
+      // Calculate amortization schedule
+      const monthlyRate = interestRate / 100 / 12;
+      const numberOfPayments = duration;
+      const principal = amount;
+      
+      // Handle case where interest rate is 0
+      let monthlyPayment: number;
+      if (monthlyRate === 0) {
+        monthlyPayment = principal / numberOfPayments;
+      } else {
+        monthlyPayment = (principal * monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+      }
+      
+      let remainingBalance = principal;
+      
+      // Draw header background FIRST (before the text)
+      page.drawRectangle({
+        x: 40,
+        y: yPosition - 5,
+        width: 515,
+        height: 22,
+        color: rgb(0.2, 0.3, 0.6),
+      });
+      
+      // Table headers (drawn AFTER the background so they appear on top)
+      page.drawText('Mois', { x: 55, y: yPosition, size: 10, color: rgb(1, 1, 1) });
+      page.drawText('Paiement', { x: 140, y: yPosition, size: 10, color: rgb(1, 1, 1) });
+      page.drawText('Intérêts', { x: 240, y: yPosition, size: 10, color: rgb(1, 1, 1) });
+      page.drawText('Principal', { x: 340, y: yPosition, size: 10, color: rgb(1, 1, 1) });
+      page.drawText('Solde', { x: 450, y: yPosition, size: 10, color: rgb(1, 1, 1) });
+      
+      yPosition -= 30;
+      
+      // Calculate how many rows fit on a page
+      const rowHeight = 18;
+      const bottomMargin = 50;
+      let currentPage = page;
+      
+      // Draw all months
+      for (let i = 1; i <= numberOfPayments; i++) {
+        // Check if we need a new page
+        if (yPosition < bottomMargin) {
+          currentPage = pdfDoc.addPage([595, 842]);
+          yPosition = 842 - 50;
+          
+          // Redraw header on new page
+          currentPage.drawRectangle({
+            x: 40,
+            y: yPosition - 5,
+            width: 515,
+            height: 22,
+            color: rgb(0.2, 0.3, 0.6),
+          });
+          
+          currentPage.drawText('Mois', { x: 55, y: yPosition, size: 10, color: rgb(1, 1, 1) });
+          currentPage.drawText('Paiement', { x: 140, y: yPosition, size: 10, color: rgb(1, 1, 1) });
+          currentPage.drawText('Intérêts', { x: 240, y: yPosition, size: 10, color: rgb(1, 1, 1) });
+          currentPage.drawText('Principal', { x: 340, y: yPosition, size: 10, color: rgb(1, 1, 1) });
+          currentPage.drawText('Solde', { x: 450, y: yPosition, size: 10, color: rgb(1, 1, 1) });
+          
+          yPosition -= 30;
+        }
+        
         const interestPayment = remainingBalance * monthlyRate;
         const principalPayment = monthlyPayment - interestPayment;
-        remainingBalance -= principalPayment;
+        remainingBalance = Math.max(0, remainingBalance - principalPayment);
+        
+        // Alternate row background
+        if (i % 2 === 0) {
+          currentPage.drawRectangle({
+            x: 40,
+            y: yPosition - 5,
+            width: 515,
+            height: rowHeight,
+            color: rgb(0.95, 0.95, 0.97),
+          });
+        }
         
         const rowText = `${i}`;
         const paymentText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(monthlyPayment);
         const interestText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(interestPayment);
         const principalText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(principalPayment);
-        const balanceText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(Math.max(0, remainingBalance));
+        const balanceText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(remainingBalance);
         
-        page.drawText(rowText, { x: 50, y: yPosition, size: 9 });
-        page.drawText(paymentText, { x: 150, y: yPosition, size: 9 });
-        page.drawText(interestText, { x: 250, y: yPosition, size: 9 });
-        page.drawText(principalText, { x: 350, y: yPosition, size: 9 });
-        page.drawText(balanceText, { x: 450, y: yPosition, size: 9 });
+        currentPage.drawText(rowText, { x: 55, y: yPosition, size: 9, color: rgb(0.2, 0.2, 0.2) });
+        currentPage.drawText(paymentText, { x: 130, y: yPosition, size: 9, color: rgb(0.2, 0.2, 0.2) });
+        currentPage.drawText(interestText, { x: 230, y: yPosition, size: 9, color: rgb(0.2, 0.2, 0.2) });
+        currentPage.drawText(principalText, { x: 330, y: yPosition, size: 9, color: rgb(0.2, 0.2, 0.2) });
+        currentPage.drawText(balanceText, { x: 440, y: yPosition, size: 9, color: rgb(0.2, 0.2, 0.2) });
         
-        yPosition -= 15;
+        yPosition -= rowHeight;
       }
+      
+      // Add summary at the bottom
+      yPosition -= 20;
+      if (yPosition < bottomMargin + 60) {
+        currentPage = pdfDoc.addPage([595, 842]);
+        yPosition = 842 - 50;
+      }
+      
+      const totalInterest = (monthlyPayment * numberOfPayments) - principal;
+      const totalPayment = monthlyPayment * numberOfPayments;
+      
+      currentPage.drawRectangle({
+        x: 40,
+        y: yPosition - 45,
+        width: 515,
+        height: 60,
+        color: rgb(0.95, 0.97, 1),
+        borderColor: rgb(0.2, 0.3, 0.6),
+        borderWidth: 1,
+      });
+      
+      currentPage.drawText('RÉSUMÉ', { x: 55, y: yPosition - 5, size: 12, color: rgb(0.2, 0.3, 0.6) });
+      currentPage.drawText(`Total des intérêts: ${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(totalInterest)}`, { x: 55, y: yPosition - 22, size: 10, color: rgb(0.3, 0.3, 0.3) });
+      currentPage.drawText(`Coût total du crédit: ${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(totalPayment)}`, { x: 55, y: yPosition - 38, size: 10, color: rgb(0.3, 0.3, 0.3) });
+      currentPage.drawText(`Mensualité: ${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(monthlyPayment)}`, { x: 300, y: yPosition - 22, size: 10, color: rgb(0.3, 0.3, 0.3) });
       
       const pdfBytes = await pdfDoc.save();
       res.contentType('application/pdf');
-      res.setHeader('Content-Disposition', `attachment; filename="amortization_${loan.loanReference}.pdf"`);
+      res.setHeader('Content-Disposition', `attachment; filename="tableau-amortissement-${loanReference}.pdf"`);
       res.send(Buffer.from(pdfBytes));
     } catch (error: any) {
       console.error('Amortization PDF generation error:', error);
