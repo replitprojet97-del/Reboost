@@ -47,7 +47,7 @@ function getErrorMessage(status: number): string {
       500: 'Serverfout. Probeer het opnieuw.',
     },
   };
-  return messages[lang]?.[status] || messages['en']?.[status] || 'Une erreur s\'est produite';
+  return messages[lang]?.[status] || messages['en']?.[status] || 'An error occurred';
 }
 
 // API URL configuration

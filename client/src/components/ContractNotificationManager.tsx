@@ -79,11 +79,11 @@ export default function ContractNotificationManager() {
 
       addNotification({
         id: notificationId,
-        message: `ACTION REQUISE : Votre contrat de prêt de ${formattedAmount} est prêt ! Téléchargez-le, signez-le et retournez-le pour débloquer vos fonds.`,
+        message: t.notifications.contractAction.replace('{amount}', formattedAmount),
         variant: 'warning',
         dismissible: false,
         link: {
-          text: 'Voir le contrat',
+          text: t.notifications.viewContract,
           onClick: async () => {
             try {
               const response = await fetch(getApiUrl(`/api/contracts/${loan.id}/link`), {
@@ -92,8 +92,8 @@ export default function ContractNotificationManager() {
 
               if (!response.ok) {
                 const error = await response.json();
-                console.error('Erreur génération lien:', error);
-                alert('Erreur lors de la génération du lien de téléchargement. Veuillez réessayer.');
+                console.error('Download link generation error:', error);
+                alert(t.common.error);
                 return;
               }
 
@@ -104,8 +104,8 @@ export default function ContractNotificationManager() {
               setDownloadedContracts(prev => new Set(prev).add(loan.id));
               removeNotification(notificationId);
             } catch (error) {
-              console.error('Erreur téléchargement contrat:', error);
-              alert('Erreur lors du téléchargement du contrat. Veuillez réessayer.');
+              console.error('Contract download error:', error);
+              alert(t.common.error + ': ' + t.notifications.downloadError);
             }
           },
         },
@@ -151,11 +151,11 @@ export default function ContractNotificationManager() {
 
         addNotification({
           id: notificationId,
-          message: `RAPPEL : N'oubliez pas de retourner votre contrat de prêt signé de ${formattedAmount} pour débloquer vos fonds.`,
+          message: t.notifications.contractReminder.replace('{amount}', formattedAmount),
           variant: 'warning',
           dismissible: true,
           link: {
-            text: 'Voir mes contrats',
+            text: t.notifications.viewMyContracts,
             onClick: () => {
               window.location.href = '/contracts';
             },

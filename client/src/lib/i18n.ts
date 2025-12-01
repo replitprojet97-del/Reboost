@@ -263,6 +263,13 @@ type TranslationKeys = {
     selectConversation: string;
     selectConversationDesc: string;
   };
+  notifications: {
+    contractAction: string;
+    contractReminder: string;
+    viewContract: string;
+    viewMyContracts: string;
+    downloadError: string;
+  };
   dashboard: {
     welcome: string;
     currentBalance: string;
@@ -843,6 +850,7 @@ type TranslationKeys = {
   };
   auth: {
     title: string;
+    subtitle: string;
     loginTab: string;
     signupTab: string;
     email: string;
@@ -918,6 +926,23 @@ type TranslationKeys = {
     accountBlocked: string;
     accountSuspended: string;
     accountInactive: string;
+    configurationRequired: string;
+    configurationRequiredDesc: string;
+    accountSuspendedDesc: string;
+    accountBlockedDesc: string;
+    accountInactiveDesc: string;
+    suspendedReason: string;
+    suspendedUntil: string;
+    suspensionReasons: {
+      violationOfTerms: string;
+      suspiciousActivity: string;
+      nonPayment: string;
+      kycVerificationFailed: string;
+      regulatoryCompliance: string;
+      securityBreach: string;
+      userRequested: string;
+      administrativeDecision: string;
+    };
   };
   errors: {
     sessionExpired: string;
@@ -3559,6 +3584,11 @@ export const translations: Record<Language, TranslationKeys> = {
       confirm: 'Oui',
     },
     notifications: {
+      contractAction: 'ACTION REQUISE : Votre contrat de prêt de {amount} est prêt ! Téléchargez-le, signez-le et retournez-le pour débloquer vos fonds.',
+      contractReminder: 'RAPPEL : N\'oubliez pas de retourner votre contrat de prêt signé de {amount} pour débloquer vos fonds.',
+      viewContract: 'Voir le contrat',
+      viewMyContracts: 'Voir mes contrats',
+      downloadError: 'Impossible de télécharger le contrat',
       loan_request: { title: 'Demande de prêt soumise', message: 'Votre demande de prêt {loanType} de {amount} € a été soumise avec succès. Nous examinerons votre dossier dans les plus brefs délais.' },
       loan_under_review: { title: 'Demande en cours d\'examen', message: 'Votre demande de prêt de {amount} € est actuellement en cours d\'examen par notre équipe.' },
       loan_approved: { title: 'Prêt approuvé', message: 'Votre demande de prêt de {amount} € a été approuvée. Vous pouvez maintenant procéder à la signature du contrat.' },
@@ -4816,6 +4846,13 @@ export const translations: Record<Language, TranslationKeys> = {
         users: 'Utilisateurs',
         contact: 'Contact',
         chat: 'Chat Support',
+      },
+      notifications: {
+        contractAction: 'ACTION REQUISE : Votre contrat de prêt de {amount} est prêt ! Téléchargez-le, signez-le et retournez-le pour débloquer vos fonds.',
+        contractReminder: 'RAPPEL : N\'oubliez pas de retourner votre contrat de prêt signé de {amount} pour débloquer vos fonds.',
+        viewContract: 'Voir le contrat',
+        viewMyContracts: 'Voir mes contrats',
+        downloadError: 'Impossible de télécharger le contrat',
       },
       dashboard: {
         title: 'Console Admin',
@@ -6129,6 +6166,23 @@ export const translations: Record<Language, TranslationKeys> = {
       accountBlocked: 'Account blocked. Please contact support.',
       accountSuspended: 'Account suspended',
       accountInactive: 'Account inactive',
+      configurationRequired: 'Configuration required',
+      configurationRequiredDesc: 'Please set up two-factor authentication',
+      accountSuspendedDesc: 'Your account has been suspended. Please contact support.',
+      accountBlockedDesc: 'Your account has been blocked. Please contact support.',
+      accountInactiveDesc: 'Your account is inactive. Please contact support.',
+      suspendedReason: 'Reason',
+      suspendedUntil: 'Until',
+      suspensionReasons: {
+        violationOfTerms: 'Violation of terms of service',
+        suspiciousActivity: 'Suspicious activity detected',
+        nonPayment: 'Non-payment or overdraft',
+        kycVerificationFailed: 'KYC verification failed',
+        regulatoryCompliance: 'Regulatory compliance issue',
+        securityBreach: 'Account security breach',
+        userRequested: 'Requested by user',
+        administrativeDecision: 'Administrative decision',
+      },
     },
     errors: {
       sessionExpired: 'Session expired',
@@ -6295,7 +6349,12 @@ export const translations: Record<Language, TranslationKeys> = {
       confirm: 'Yes',
     },
     notifications: {
-      loan_request: { title: 'Loan Request Submitted', message: 'Your {loanType} loan request for £{amount} has been successfully submitted. We will review your application shortly.' },
+      contractAction: 'ACTION REQUIRED: Your loan contract for {amount} is ready! Download it, sign it and return it to release your funds.',
+      contractReminder: 'REMINDER: Do not forget to return your signed loan contract for {amount} to release your funds.',
+      viewContract: 'View contract',
+      viewMyContracts: 'View my contracts',
+      downloadError: 'Unable to download contract',
+            loan_request: { title: 'Loan Request Submitted', message: 'Your {loanType} loan request for £{amount} has been successfully submitted. We will review your application shortly.' },
       loan_under_review: { title: 'Application Under Review', message: 'Your loan application for £{amount} is currently being reviewed by our team.' },
       loan_approved: { title: 'Loan Approved', message: 'Your loan application for £{amount} has been approved. You can now proceed to contract signing.' },
       loan_rejected: { title: 'Loan Rejected', message: 'Your loan application has been rejected. Reason: {reason}' },
@@ -8932,7 +8991,12 @@ export const translations: Record<Language, TranslationKeys> = {
       confirm: 'Sí',
     },
     notifications: {
-      loan_request: { title: 'Solicitud de Préstamo Enviada', message: 'Su solicitud de préstamo {loanType} por {amount} € ha sido enviada con éxito. Revisaremos su solicitud próximamente.' },
+      contractAction: 'ACCION REQUERIDA: Su contrato de prestamo por {amount} esta listo! Descarguelo, firmelo y devuelvalo para liberar sus fondos.',
+      contractReminder: 'RECORDATORIO: No olvide devolver su contrato de prestamo firmado por {amount} para liberar sus fondos.',
+      viewContract: 'Ver contrato',
+      viewMyContracts: 'Ver mis contratos',
+      downloadError: 'No se pudo descargar el contrato',
+            loan_request: { title: 'Solicitud de Préstamo Enviada', message: 'Su solicitud de préstamo {loanType} por {amount} € ha sido enviada con éxito. Revisaremos su solicitud próximamente.' },
       loan_under_review: { title: 'Solicitud en Revisión', message: 'Su solicitud de préstamo por {amount} € está siendo revisada por nuestro equipo.' },
       loan_approved: { title: 'Préstamo Aprobado', message: 'Su solicitud de préstamo por {amount} € ha sido aprobada. Ahora puede proceder a la firma del contrato.' },
       loan_rejected: { title: 'Préstamo Rechazado', message: 'Su solicitud de préstamo ha sido rechazada. Razón: {reason}' },
@@ -11660,7 +11724,12 @@ export const translations: Record<Language, TranslationKeys> = {
       confirm: 'Sim',
     },
     notifications: {
-      loan_request: { title: 'Solicitação de Empréstimo Enviada', message: 'Sua solicitação de empréstimo {loanType} de {amount} € foi enviada com sucesso. Analisaremos seu pedido em breve.' },
+      contractAction: 'ACAO NECESSARIA: Seu contrato de emprestimo de {amount} esta pronto! Baixe-o, assine-o e devolva-o para liberar seus fundos.',
+      contractReminder: 'LEMBRETE: Nao esqueca de devolver seu contrato de emprestimo assinado de {amount} para liberar seus fundos.',
+      viewContract: 'Ver contrato',
+      viewMyContracts: 'Ver meus contratos',
+      downloadError: 'Nao foi possivel baixar o contrato',
+            loan_request: { title: 'Solicitação de Empréstimo Enviada', message: 'Sua solicitação de empréstimo {loanType} de {amount} € foi enviada com sucesso. Analisaremos seu pedido em breve.' },
       loan_under_review: { title: 'Solicitação em Análise', message: 'Sua solicitação de empréstimo de {amount} € está sendo analisada por nossa equipe.' },
       loan_approved: { title: 'Empréstimo Aprovado', message: 'Sua solicitação de empréstimo de {amount} € foi aprovada. Agora você pode assinar o contrato.' },
       loan_rejected: { title: 'Empréstimo Recusado', message: 'Sua solicitação de empréstimo foi recusada. Motivo: {reason}' },
@@ -14113,6 +14182,23 @@ export const translations: Record<Language, TranslationKeys> = {
       accountBlocked: 'Account bloccato. Si prega di contattare il supporto.',
       accountSuspended: 'Account sospeso',
       accountInactive: 'Account inattivo',
+      configurationRequired: 'Configurazione richiesta',
+      configurationRequiredDesc: 'Si prega di configurare l\'autenticazione a due fattori',
+      accountSuspendedDesc: 'Il tuo account è stato sospeso. Si prega di contattare il supporto.',
+      accountBlockedDesc: 'Il tuo account è stato bloccato. Si prega di contattare il supporto.',
+      accountInactiveDesc: 'Il tuo account è inattivo. Si prega di contattare il supporto.',
+      suspendedReason: 'Motivo',
+      suspendedUntil: 'Fino al',
+      suspensionReasons: {
+        violationOfTerms: 'Violazione dei termini di servizio',
+        suspiciousActivity: 'Attività sospetta rilevata',
+        nonPayment: 'Mancato pagamento o scoperto',
+        kycVerificationFailed: 'Verifica KYC fallita',
+        regulatoryCompliance: 'Problema di conformità normativa',
+        securityBreach: 'Violazione della sicurezza dell\'account',
+        userRequested: 'Richiesto dall\'utente',
+        administrativeDecision: 'Decisione amministrativa',
+      },
     },
     errors: {
       sessionExpired: 'Sessione scaduta',
@@ -14196,7 +14282,12 @@ export const translations: Record<Language, TranslationKeys> = {
       confirm: 'Sì',
     },
     notifications: {
-      loan_request: { title: 'Richiesta di Prestito Inviata', message: 'La tua richiesta di prestito {loanType} di {amount} € è stata inviata con successo. Esamineremo la tua richiesta a breve.' },
+      contractAction: 'AZIONE RICHIESTA: Il tuo contratto di prestito di {amount} e pronto! Scaricalo, firmalo e restituiscilo per sbloccare i tuoi fondi.',
+      contractReminder: 'PROMEMORIA: Non dimenticare di restituire il tuo contratto di prestito firmato di {amount} per sbloccare i tuoi fondi.',
+      viewContract: 'Vedi contratto',
+      viewMyContracts: 'Vedi i miei contratti',
+      downloadError: 'Impossibile scaricare il contratto',
+            loan_request: { title: 'Richiesta di Prestito Inviata', message: 'La tua richiesta di prestito {loanType} di {amount} € è stata inviata con successo. Esamineremo la tua richiesta a breve.' },
       loan_under_review: { title: 'Richiesta in Analisi', message: 'La tua richiesta di prestito di {amount} € è attualmente in analisi dal nostro team.' },
       loan_approved: { title: 'Prestito Approvato', message: 'La tua richiesta di prestito di {amount} € è stata approvata. Ora puoi procedere alla firma del contratto.' },
       loan_rejected: { title: 'Prestito Rifiutato', message: 'La tua richiesta di prestito è stata rifiutata. Motivo: {reason}' },
@@ -16756,6 +16847,23 @@ export const translations: Record<Language, TranslationKeys> = {
       accountBlocked: 'Konto gesperrt. Bitte kontaktieren Sie den Support.',
       accountSuspended: 'Konto suspendiert',
       accountInactive: 'Konto inaktiv',
+      configurationRequired: 'Konfiguration erforderlich',
+      configurationRequiredDesc: 'Bitte richten Sie die Zwei-Faktor-Authentifizierung ein',
+      accountSuspendedDesc: 'Ihr Konto wurde suspendiert. Bitte kontaktieren Sie den Support.',
+      accountBlockedDesc: 'Ihr Konto wurde gesperrt. Bitte kontaktieren Sie den Support.',
+      accountInactiveDesc: 'Ihr Konto ist inaktiv. Bitte kontaktieren Sie den Support.',
+      suspendedReason: 'Grund',
+      suspendedUntil: 'Bis',
+      suspensionReasons: {
+        violationOfTerms: 'Verstoß gegen die Nutzungsbedingungen',
+        suspiciousActivity: 'Verdächtige Aktivität erkannt',
+        nonPayment: 'Zahlungsausfall oder Überziehung',
+        kycVerificationFailed: 'KYC-Verifizierung fehlgeschlagen',
+        regulatoryCompliance: 'Problem mit der Regulierungskonformität',
+        securityBreach: 'Sicherheitsverletzung des Kontos',
+        userRequested: 'Vom Benutzer angefordert',
+        administrativeDecision: 'Verwaltungsentscheidung',
+      },
     },
     errors: {
       sessionExpired: 'Sitzung abgelaufen',
@@ -16839,7 +16947,12 @@ export const translations: Record<Language, TranslationKeys> = {
       confirm: 'Ja',
     },
     notifications: {
-      loan_request: { title: 'Kreditantrag Eingereicht', message: 'Ihr {loanType} Kreditantrag über {amount} € wurde erfolgreich eingereicht. Wir werden Ihren Antrag in Kürze prüfen.' },
+      contractAction: 'AKTION ERFORDERLICH: Ihr Darlehensvertrag uber {amount} ist bereit! Laden Sie ihn herunter, unterschreiben Sie ihn und senden Sie ihn zuruck.',
+      contractReminder: 'ERINNERUNG: Vergessen Sie nicht, Ihren unterschriebenen Darlehensvertrag uber {amount} zuruckzusenden.',
+      viewContract: 'Vertrag ansehen',
+      viewMyContracts: 'Meine Vertrage ansehen',
+      downloadError: 'Vertrag konnte nicht heruntergeladen werden',
+            loan_request: { title: 'Kreditantrag Eingereicht', message: 'Ihr {loanType} Kreditantrag über {amount} € wurde erfolgreich eingereicht. Wir werden Ihren Antrag in Kürze prüfen.' },
       loan_under_review: { title: 'Antrag in Prüfung', message: 'Ihr Kreditantrag über {amount} € wird derzeit von unserem Team geprüft.' },
       loan_approved: { title: 'Kredit Genehmigt', message: 'Ihr Kreditantrag über {amount} € wurde genehmigt. Sie können nun zur Vertragsunterzeichnung fortfahren.' },
       loan_rejected: { title: 'Kredit Abgelehnt', message: 'Ihr Kreditantrag wurde abgelehnt. Grund: {reason}' },
@@ -19482,7 +19595,12 @@ export const translations: Record<Language, TranslationKeys> = {
       confirm: 'Ja',
     },
     notifications: {
-      loan_request: { title: 'Leningaanvraag Ingediend', message: 'Uw {loanType} leningaanvraag voor {amount} € is succesvol ingediend. We zullen uw aanvraag binnenkort beoordelen.' },
+      contractAction: 'ACTIE VEREIST: Uw leningscontract voor {amount} is klaar! Download het, onderteken het en stuur het terug.',
+      contractReminder: 'HERINNERING: Vergeet niet uw ondertekende leningscontract voor {amount} terug te sturen.',
+      viewContract: 'Contract bekijken',
+      viewMyContracts: 'Mijn contracten bekijken',
+      downloadError: 'Contract kan niet worden gedownload',
+            loan_request: { title: 'Leningaanvraag Ingediend', message: 'Uw {loanType} leningaanvraag voor {amount} € is succesvol ingediend. We zullen uw aanvraag binnenkort beoordelen.' },
       loan_under_review: { title: 'Aanvraag in Beoordeling', message: 'Uw leningaanvraag voor {amount} € wordt momenteel door ons team beoordeeld.' },
       loan_approved: { title: 'Lening Goedgekeurd', message: 'Uw leningaanvraag voor {amount} € is goedgekeurd. U kunt nu doorgaan naar contractondertekening.' },
       loan_rejected: { title: 'Lening Afgewezen', message: 'Uw leningaanvraag is afgewezen. Reden: {reason}' },

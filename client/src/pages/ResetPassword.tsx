@@ -44,8 +44,8 @@ export default function ResetPassword() {
     },
     onSuccess: () => {
       toast({
-        title: 'Succès',
-        description: 'Mot de passe réinitialisé avec succès. Vous pouvez maintenant vous connecter.',
+        title: t.resetPassword.success,
+        description: t.resetPassword.successMessage,
       });
       setTimeout(() => {
         setLocation('/auth');
@@ -53,8 +53,8 @@ export default function ResetPassword() {
     },
     onError: (error: any) => {
       toast({
-        title: 'Erreur',
-        description: error.message || 'Erreur lors de la réinitialisation du mot de passe',
+        title: t.resetPassword.error,
+        description: error.message || t.resetPassword.invalidToken,
         variant: 'destructive',
       });
     },
@@ -65,8 +65,8 @@ export default function ResetPassword() {
     
     if (password !== confirmPassword) {
       toast({
-        title: 'Erreur',
-        description: 'Les mots de passe ne correspondent pas',
+        title: t.resetPassword.error,
+        description: t.resetPassword.passwordMismatch,
         variant: 'destructive',
       });
       return;
@@ -75,8 +75,8 @@ export default function ResetPassword() {
     const allRequirementsMet = passwordRequirements.every(req => req.test(password));
     if (!allRequirementsMet) {
       toast({
-        title: 'Erreur',
-        description: 'Le mot de passe ne remplit pas tous les critères',
+        title: t.resetPassword.error,
+        description: t.resetPassword.requirements,
         variant: 'destructive',
       });
       return;
@@ -96,16 +96,16 @@ export default function ResetPassword() {
           <CardHeader>
             <div className="flex items-center gap-2 mb-2">
               <Lock className="h-6 w-6 text-primary" />
-              <CardTitle>Réinitialiser le mot de passe</CardTitle>
+              <CardTitle>{t.resetPassword.title}</CardTitle>
             </div>
             <CardDescription>
-              Entrez votre nouveau mot de passe
+              {t.resetPassword.description}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="password">Nouveau mot de passe</Label>
+                <Label htmlFor="password">{t.resetPassword.newPassword}</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -135,7 +135,7 @@ export default function ResetPassword() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirmer le mot de passe</Label>
+                <Label htmlFor="confirmPassword">{t.resetPassword.confirmPassword}</Label>
                 <div className="relative">
                   <Input
                     id="confirmPassword"
@@ -165,15 +165,15 @@ export default function ResetPassword() {
 
               {password && (
                 <div className="space-y-2 bg-muted/50 p-4 rounded-lg border">
-                  <p className="text-sm font-medium">Critères requis :</p>
+                  <p className="text-sm font-medium">{t.resetPassword.requirements}</p>
                   <div className="space-y-1">
                     {passwordRequirements.map((req, index) => {
                       const labels = {
-                        minLength: 'Au moins 12 caractères',
-                        uppercase: 'Une majuscule',
-                        lowercase: 'Une minuscule',
-                        number: 'Un chiffre',
-                        specialChar: 'Un caractère spécial',
+                        minLength: t.resetPassword.minLength,
+                        uppercase: t.resetPassword.uppercase,
+                        lowercase: t.resetPassword.lowercase,
+                        number: t.resetPassword.number,
+                        specialChar: t.resetPassword.specialChar,
                       };
                       return (
                         <div key={index} className="flex items-center gap-2 text-sm">
@@ -195,7 +195,7 @@ export default function ResetPassword() {
               {confirmPassword && password !== confirmPassword && (
                 <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400">
                   <X className="h-4 w-4" />
-                  <span>Les mots de passe ne correspondent pas</span>
+                  <span>{t.resetPassword.passwordMismatch}</span>
                 </div>
               )}
 
@@ -214,7 +214,7 @@ export default function ResetPassword() {
                 {resetPasswordMutation.isPending && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 )}
-                Réinitialiser le mot de passe
+                {t.resetPassword.resetPassword}
               </Button>
             </form>
           </CardContent>

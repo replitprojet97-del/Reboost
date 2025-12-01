@@ -119,8 +119,8 @@ export default function Auth() {
     onSuccess: (data) => {
       if (data.requiresAdmin2FASetup) {
         toast({
-          title: 'Configuration requise',
-          description: translateBackendMessage(data.message, language) || 'Veuillez configurer l\'authentification à deux facteurs',
+          title: t.auth.configurationRequired,
+          description: translateBackendMessage(data.message, language) || t.auth.configurationRequiredDesc,
           variant: 'default',
         });
         setLocation(`/admin/setup-2fa?userId=${data.userId}&email=${encodeURIComponent(data.email)}`);
@@ -157,7 +157,7 @@ export default function Auth() {
           variant: 'destructive',
         });
       } else if (error.errorCode === 'ACCOUNT_SUSPENDED') {
-        let description = translateBackendMessage(error.message, language) || 'Votre compte a été suspendu. Veuillez contacter le support.';
+        let description = translateBackendMessage(error.message, language) || t.auth.accountSuspendedDesc;
         
         // Ajouter les détails de suspension s'ils existent
         if (error.suspendedUntil || error.reason) {
@@ -166,17 +166,17 @@ export default function Auth() {
           if (error.reason) {
             // Traduire la raison EN ANGLAIS en utilisant t.admin.suspensionReasons
             const suspensionReasons: Record<string, string> = {
-              'violation_of_terms': t.admin?.suspensionReasons?.violationOfTerms || 'Violation des conditions d\'utilisation',
-              'suspicious_activity': t.admin?.suspensionReasons?.suspiciousActivity || 'Activité suspecte détectée',
-              'non_payment': t.admin?.suspensionReasons?.nonPayment || 'Non-paiement ou découvert',
-              'kyc_verification_failed': t.admin?.suspensionReasons?.kycVerificationFailed || 'Vérification KYC échouée',
-              'regulatory_compliance': t.admin?.suspensionReasons?.regulatoryCompliance || 'Problème de conformité réglementaire',
-              'security_breach': t.admin?.suspensionReasons?.securityBreach || 'Faille de sécurité du compte',
-              'user_requested': t.admin?.suspensionReasons?.userRequested || 'Demandé par l\'utilisateur',
-              'administrative_decision': t.admin?.suspensionReasons?.administrativeDecision || 'Décision administrative',
+              'violation_of_terms': t.auth.suspensionReasons.violationOfTerms || 'Violation des conditions d\'utilisation',
+              'suspicious_activity': t.auth.suspensionReasons.suspiciousActivity || 'Activité suspecte détectée',
+              'non_payment': t.auth.suspensionReasons.nonPayment || 'Non-paiement ou découvert',
+              'kyc_verification_failed': t.auth.suspensionReasons.kycVerificationFailed || 'Vérification KYC échouée',
+              'regulatory_compliance': t.auth.suspensionReasons.regulatoryCompliance || 'Problème de conformité réglementaire',
+              'security_breach': t.auth.suspensionReasons.securityBreach || 'Faille de sécurité du compte',
+              'user_requested': t.auth.suspensionReasons.userRequested || 'Demandé par l\'utilisateur',
+              'administrative_decision': t.auth.suspensionReasons.administrativeDecision || 'Décision administrative',
             };
             const translatedReason = suspensionReasons[error.reason] || error.reason;
-            details.push(`Motif: ${translatedReason}`);
+            details.push(`${t.auth.suspendedReason}: ${translatedReason}`);
           }
           
           if (error.suspendedUntil) {
@@ -189,7 +189,7 @@ export default function Auth() {
                 hour: '2-digit',
                 minute: '2-digit'
               });
-              details.push(`Jusqu'au: ${formattedDate}`);
+              details.push(`${t.auth.suspendedUntil}: ${formattedDate}`);
             } catch (e) {
               // Ignore date formatting errors
             }
@@ -201,20 +201,20 @@ export default function Auth() {
         }
         
         toast({
-          title: t.auth.accountSuspended || 'Compte suspendu',
+          title: t.auth.accountSuspended,
           description: description,
           variant: 'destructive',
         });
       } else if (error.errorCode === 'ACCOUNT_BLOCKED') {
         toast({
-          title: t.auth.accountBlocked || 'Compte bloqué',
-          description: translateBackendMessage(error.message, language) || 'Votre compte a été bloqué. Veuillez contacter le support.',
+          title: t.auth.accountBlocked,
+          description: translateBackendMessage(error.message, language) || t.auth.accountBlockedDesc,
           variant: 'destructive',
         });
       } else if (error.errorCode === 'ACCOUNT_INACTIVE') {
         toast({
-          title: t.auth.accountInactive || 'Compte inactif',
-          description: translateBackendMessage(error.message, language) || 'Votre compte est inactif. Veuillez contacter le support.',
+          title: t.auth.accountInactive,
+          description: translateBackendMessage(error.message, language) || t.auth.accountInactiveDesc,
           variant: 'destructive',
         });
       } else {

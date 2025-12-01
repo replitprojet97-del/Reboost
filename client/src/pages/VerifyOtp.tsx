@@ -25,7 +25,7 @@ export default function VerifyOtp() {
       toast({
         variant: "destructive",
         title: t.common.error,
-        description: t.auth.sessionExpired || "Session expirée. Veuillez vous reconnecter.",
+        description: t.auth.sessionExpiredMessage,
       });
       navigate("/auth");
     }
