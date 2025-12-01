@@ -415,38 +415,29 @@ export type TransferDetailsResponse = {
 };
 
 /**
- * Génère un numéro de référence unique pour un transfert de manière déterministe
+ * Génère un numéro de référence unique pour un transfert (format court pour mobile)
  * basé sur l'ID et la date de création.
  * 
- * Format: TRF-YYMMDD-XXXX
- * Ex: TRF-241120-A3F9
+ * Format: TR + 6 caractères alphanumériques
+ * Ex: TR-A3F9B2
  * 
  * Cette fonction génère les références à la volée SANS utiliser de colonne de
  * base de données, ce qui est compatible avec toutes les bases de données de
  * production sans nécessiter de migration.
  * 
  * @param transfer - Le transfert pour lequel générer le numéro de référence
- * @returns Un numéro de référence unique au format TRF-YYMMDD-XXXX
+ * @returns Un numéro de référence unique au format TR-XXXXXX (6 caractères)
  */
 export function getTransferReferenceNumber(transfer: Transfer): string {
-  const createdAt = new Date(transfer.createdAt);
-  
-  // Format date YYMMDD
-  const year = createdAt.getFullYear().toString().slice(-2);
-  const month = (createdAt.getMonth() + 1).toString().padStart(2, '0');
-  const day = createdAt.getDate().toString().padStart(2, '0');
-  const datePrefix = `${year}${month}${day}`;
-  
-  // Extraire les 8 premiers caractères de l'UUID et les convertir en format court
-  // Exemple: "a3f9b2c1-..." → "A3F9B2C1" → "A3F9"
+  // Extraire les 6 premiers caractères alphanumériques de l'UUID
+  // Exemple: "a3f9b2c1-4741..." → "A3F9B2"
   const idHash = transfer.id
     .replace(/-/g, '') // Retirer les tirets
-    .substring(0, 8)   // Prendre les 8 premiers caractères
-    .toUpperCase()     // En majuscules
-    .substring(0, 4);  // Garder seulement 4 caractères
+    .substring(0, 6)   // Prendre les 6 premiers caractères
+    .toUpperCase();    // En majuscules
   
-  // Format final: TRF-YYMMDD-XXXX
-  return `TRF-${datePrefix}-${idHash}`;
+  // Format final: TR-XXXXXX (compact pour mobile)
+  return `TR-${idHash}`;
 }
 
 /**

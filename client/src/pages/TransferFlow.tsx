@@ -12,6 +12,7 @@ import { ArrowLeft, CheckCircle2, Clock, Send, Shield, AlertCircle, Loader2, Ale
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import SuccessAnimation from '@/components/SuccessAnimation';
 import type { TransferDetailsResponse, ExternalAccount, TransferCodeMetadata } from '@shared/schema';
+import { getTransferReferenceNumber } from '@shared/schema';
 import { useTranslations, useLanguage } from '@/lib/i18n';
 import { DashboardCard, SectionTitle } from '@/components/fintech';
 import CircularTransferProgress from '@/components/CircularTransferProgress';
@@ -1291,7 +1292,7 @@ export default function TransferFlow() {
               {t.transferFlow.progress.referenceLabel}
             </p>
             <p className="text-sm font-mono font-semibold text-foreground break-all">
-              {transfer?.id || 'TRX-2025-00000'}
+              {transfer ? getTransferReferenceNumber(transfer) : 'TR-000000'}
             </p>
           </div>
         </div>
@@ -1490,22 +1491,24 @@ export default function TransferFlow() {
       ? parseFloat(transfer.amount).toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
       : '0.00';
     const formattedDate = transfer?.completedAt 
-      ? new Date(transfer.completedAt).toLocaleDateString(locale, { 
-          weekday: 'long', 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })
-      : new Date().toLocaleDateString(locale, { 
-          weekday: 'long', 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        });
+      ? (() => {
+          const date = new Date(transfer.completedAt);
+          const day = date.getDate().toString().padStart(2, '0');
+          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+          const year = date.getFullYear().toString().slice(-2);
+          const hours = date.getHours().toString().padStart(2, '0');
+          const minutes = date.getMinutes().toString().padStart(2, '0');
+          return `${day}/${month}/${year} - ${hours}:${minutes}`;
+        })()
+      : (() => {
+          const date = new Date();
+          const day = date.getDate().toString().padStart(2, '0');
+          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+          const year = date.getFullYear().toString().slice(-2);
+          const hours = date.getHours().toString().padStart(2, '0');
+          const minutes = date.getMinutes().toString().padStart(2, '0');
+          return `${day}/${month}/${year} - ${hours}:${minutes}`;
+        })();
 
     return (
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-white dark:from-green-950/20 dark:to-background flex items-center justify-center p-4">
