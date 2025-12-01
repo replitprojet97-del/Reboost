@@ -66,7 +66,8 @@ export default function AdminLoans() {
   };
 
   const canConfirmContract = (loan: any): boolean => {
-    return isContractAwaitingAdminReview(loan) && loan.fundsAvailabilityStatus !== 'available';
+    // Contract must be signed by user (signedContractUrl must exist) and funds not yet available
+    return (isContractAwaitingAdminReview(loan) || loan.signedContractUrl) && loan.fundsAvailabilityStatus !== 'available' && !!loan.signedContractUrl;
   };
 
   const isContractAlreadyConfirmed = (loan: any): boolean => {
