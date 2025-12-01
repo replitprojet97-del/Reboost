@@ -687,7 +687,11 @@ export default function Dashboard() {
                                   const url = window.URL.createObjectURL(blob);
                                   const a = document.createElement('a');
                                   a.href = url;
-                                  a.download = `tableau-amortissement-${loan.loanReference || loan.id}.pdf`;
+                                  // Get filename from Content-Disposition header (translated by server)
+                                  const contentDisposition = response.headers.get('content-disposition') || '';
+                                  const filenameMatch = contentDisposition.match(/filename="([^"]+)"/);
+                                  const filename = filenameMatch ? filenameMatch[1] : `tableau-amortissement-${loan.loanReference || loan.id}.pdf`;
+                                  a.download = filename;
                                   document.body.appendChild(a);
                                   a.click();
                                   document.body.removeChild(a);
