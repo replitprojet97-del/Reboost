@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -47,7 +47,10 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
     enabled: open,
   });
 
-  const LOAN_TYPES = user?.accountType === 'business' ? getBusinessLoanTypes(t) : getIndividualLoanTypes(t);
+  const LOAN_TYPES = useMemo(() => 
+    user?.accountType === 'business' ? getBusinessLoanTypes(t) : getIndividualLoanTypes(t),
+    [user?.accountType]
+  );
   const defaultLoanType = user?.accountType === 'business' ? 'business' : 'personal';
   
   const [loanType, setLoanType] = useState<keyof ReturnType<typeof getIndividualLoanTypes> | keyof ReturnType<typeof getBusinessLoanTypes>>(defaultLoanType as any);

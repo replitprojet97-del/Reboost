@@ -65,7 +65,7 @@ import cloudinary from "./config/cloudinary";
 import { PassThrough } from "stream";
 import { generateUploadUrl, generateDownloadUrl, uploadFile } from "./services/supabase-storage";
 import DOMPurify from "isomorphic-dompurify";
-import { PDFDocument, PDFPage, rgb } from "pdf-lib";
+import { PDFDocument, PDFPage, rgb, StandardFonts } from "pdf-lib";
 import { 
   emitLoanUpdate, 
   emitTransferUpdate, 
@@ -5802,6 +5802,11 @@ ${urls.map(url => `  <url>
       }
 
       const pdfDoc = await PDFDocument.create();
+      
+      // Embed fonts for reliable rendering across all PDF viewers
+      const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+      const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
+      
       const page = pdfDoc.addPage([595, 842]);
       const { height } = page.getSize();
       
@@ -5812,6 +5817,7 @@ ${urls.map(url => `  <url>
         x: 50,
         y: yPosition,
         size: 24,
+        font: helveticaBold,
         color: rgb(0.2, 0.3, 0.6),
       });
       
