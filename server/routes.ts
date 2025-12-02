@@ -1528,7 +1528,10 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       const activeLoansOnly = data.loans.filter(l => l.status === 'active');
       const activeLoansCount = activeLoansOnly.length;
       
-      const maxCapacity = data.user.accountType === 'business' || data.user.accountType === 'professional' ? 2000000 : 500000;
+      // Get tier-based max capacity using the storage method
+      // Business/Professional: always 2,000,000€
+      // Individual: Bronze=500K, Silver=750K, Gold=1M
+      const maxCapacity = storage.getMaxBorrowingCapacity(data.user.verificationTier, data.user.accountType);
 
       const response = {
         balance: {
@@ -2180,12 +2183,10 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       const userLoans = await storage.getUserLoans(req.session.userId!);
       const userTransfers = await storage.getUserTransfers(req.session.userId!);
       
-      // Définir le plafond selon le type de compte
-      const DEFAULT_MAX_INDIVIDUAL = 500000; // 500.000€ pour les particuliers
-      const DEFAULT_MAX_BUSINESS = 2000000;  // 2.000.000€ pour les entreprises
-      
-      // TOUJOURS utiliser le plafond basé sur le type de compte (jamais la valeur stockée qui peut être incorrecte)
-      const maxLoanAmount = user.accountType === 'business' || user.accountType === 'professional' ? DEFAULT_MAX_BUSINESS : DEFAULT_MAX_INDIVIDUAL;
+      // Utiliser le plafond basé sur le tier ET le type de compte
+      // Business/Professional: toujours 2,000,000€ peu importe le tier
+      // Particuliers: Bronze=500K, Silver=750K, Gold=1M
+      const maxLoanAmount = storage.getMaxBorrowingCapacity(stats.tier, user.accountType);
       
       // Calculer le cumul des demandes existantes (tous les statuts non-terminaux)
       // Les statuts terminaux sont : rejected, cancelled, completed, closed, repaid, defaulted, written_off

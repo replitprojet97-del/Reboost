@@ -240,8 +240,9 @@ export interface IStorage {
   
   // Tier system methods
   getMaxActiveLoans(tier: string): number;
+  getMaxBorrowingCapacity(tier: string, accountType: string): number;
   getActiveLoansCount(userId: string): Promise<number>;
-  getUserStats(userId: string): Promise<{ tier: string; completedLoans: number; activeLoans: number; maxActiveLoans: number; defaultedLoans: number }>;
+  getUserStats(userId: string): Promise<{ tier: string; completedLoans: number; activeLoans: number; maxActiveLoans: number; defaultedLoans: number; maxBorrowingCapacity: number }>;
   checkAndUpgradeTier(userId: string): Promise<{ upgraded: boolean; oldTier: string; newTier: string }>;
   
   // Chat System
@@ -3562,6 +3563,27 @@ export class DatabaseStorage implements IStorage {
     }
   }
 
+  // Tier system: determine max borrowing capacity based on tier and account type
+  // Business/Professional accounts always have 2,000,000€ regardless of tier
+  // Individual accounts have tier-based limits: Bronze=500K, Silver=750K, Gold=1M
+  getMaxBorrowingCapacity(tier: string, accountType: string): number {
+    const DEFAULT_MAX_BUSINESS = 2000000; // 2,000,000€ for business/professional
+    
+    // Business and professional accounts always get the higher limit
+    if (accountType === 'business' || accountType === 'professional') {
+      return DEFAULT_MAX_BUSINESS;
+    }
+    
+    // Individual accounts have tier-based limits
+    switch (tier) {
+      case 'gold': return 1000000;   // 1,000,000€
+      case 'silver': return 750000;  // 750,000€
+      case 'bronze':
+      default:
+        return 500000;               // 500,000€
+    }
+  }
+
   // Count active loans for a user
   async getActiveLoansCount(userId: string): Promise<number> {
     const activeLoans = await db
@@ -3578,7 +3600,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Get user tier stats
-  async getUserStats(userId: string): Promise<{ tier: string; completedLoans: number; activeLoans: number; maxActiveLoans: number; defaultedLoans: number }> {
+  async getUserStats(userId: string): Promise<{ tier: string; completedLoans: number; activeLoans: number; maxActiveLoans: number; defaultedLoans: number; maxBorrowingCapacity: number }> {
     const user = await this.getUser(userId);
     if (!user) {
       throw new Error('User not found');
@@ -3586,6 +3608,7 @@ export class DatabaseStorage implements IStorage {
 
     const activeCount = await this.getActiveLoansCount(userId);
     const maxActive = this.getMaxActiveLoans(user.verificationTier);
+    const maxCapacity = this.getMaxBorrowingCapacity(user.verificationTier, user.accountType);
 
     return {
       tier: user.verificationTier,
@@ -3593,6 +3616,7 @@ export class DatabaseStorage implements IStorage {
       activeLoans: activeCount,
       maxActiveLoans: maxActive,
       defaultedLoans: user.defaultedLoansCount,
+      maxBorrowingCapacity: maxCapacity,
     };
   }
 
