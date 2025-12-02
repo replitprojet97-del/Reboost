@@ -8,6 +8,13 @@ ALTUS is a multi-language professional loan management platform for business cli
 
 Preferred communication style: Simple, everyday language. High standards for security, SEO, and code quality - all implementations must be production-ready.
 
+## Recent Changes (December 2, 2025)
+
+- **Loan Visibility Fix:** Fixed bug where loans disappeared after admin approval. Loans now remain visible in "pending" tab until funds are released and available for transfer. Only then do they move to "active" status.
+- **Loan Filtering Logic:** Updated IndividualLoans.tsx, ActiveLoans.tsx, and AppSidebar.tsx to use consistent filtering:
+  - Active loans: Only shows loans with status 'active' (funds released)
+  - Pending loans: Shows all loans except terminal statuses (active, rejected, cancelled, completed, closed, repaid, defaulted, written_off)
+
 ## Recent Changes (December 1, 2025)
 
 - **Transfer Menu Redesign:** Removed "Transfert en attente" status - now displays only "Transfert en cours" (in-progress, funds available) and "Transfert Terminé" (completed, 100% transfer).
