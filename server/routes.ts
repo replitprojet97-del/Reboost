@@ -2187,12 +2187,14 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       // TOUJOURS utiliser le plafond basé sur le type de compte (jamais la valeur stockée qui peut être incorrecte)
       const maxLoanAmount = user.accountType === 'business' || user.accountType === 'professional' ? DEFAULT_MAX_BUSINESS : DEFAULT_MAX_INDIVIDUAL;
       
-      // Calculer le cumul des demandes existantes (pending et approved uniquement, non supprimées)
-      const activeStatuses = ['pending', 'pending_review', 'approved', 'documents_pending', 'contract_pending', 'contract_signed', 'funds_pending'];
+      // Calculer le cumul des demandes existantes (tous les statuts non-terminaux)
+      // Les statuts terminaux sont : rejected, cancelled, completed, closed, repaid, defaulted, written_off
+      // Tous les autres statuts comptent dans le cumul (y compris 'active')
+      const terminalStatuses = ['rejected', 'cancelled', 'completed', 'closed', 'repaid', 'defaulted', 'written_off'];
       const cumulativeLoanAmount = userLoans
         .filter(loan => 
           loan.deletedAt === null && 
-          activeStatuses.includes(loan.status)
+          !terminalStatuses.includes(loan.status)
         )
         .reduce((total, loan) => total + parseFloat(loan.amount), 0);
       
