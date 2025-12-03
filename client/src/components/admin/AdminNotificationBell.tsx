@@ -73,7 +73,7 @@ export default function AdminNotificationBell() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80">
+      <DropdownMenuContent align="end" className="w-[min(320px,calc(100vw-2rem))]">
         <div className="flex items-center justify-between px-4 py-3 border-b">
           <h3 className="font-semibold text-sm">Notifications</h3>
           {totalCount > 0 && (

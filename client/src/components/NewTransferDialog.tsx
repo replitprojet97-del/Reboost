@@ -126,12 +126,12 @@ export default function NewTransferDialog({ open, onOpenChange }: NewTransferDia
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="w-[calc(100vw-2rem)] max-w-[500px] max-h-[90vh] overflow-y-auto overflow-x-hidden p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="text-2xl">{t.dashboard.transferFunds}</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl">{t.dashboard.transferFunds}</DialogTitle>
         </DialogHeader>
         
-        <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 mt-2 sm:mt-4">
           {isLoadingLoans ? (
             <div className="flex items-center justify-center py-8">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -208,19 +208,20 @@ export default function NewTransferDialog({ open, onOpenChange }: NewTransferDia
                 />
               </div>
 
-              <div className="bg-muted p-4 rounded-md text-sm">
+              <div className="bg-muted p-3 sm:p-4 rounded-md text-xs sm:text-sm">
                 <p className="text-muted-foreground">
                   {t.dialogs.transfer.feesDescription}
                 </p>
               </div>
 
-              <div className="flex justify-end gap-3">
+              <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3">
                 <Button 
                   type="button" 
                   variant="outline" 
                   onClick={() => onOpenChange(false)}
                   disabled={createTransferMutation.isPending}
                   data-testid="button-cancel"
+                  className="w-full sm:w-auto"
                 >
                   {t.dialogs.transfer.cancel}
                 </Button>
@@ -228,6 +229,7 @@ export default function NewTransferDialog({ open, onOpenChange }: NewTransferDia
                   type="submit" 
                   disabled={createTransferMutation.isPending || !formData.loanId}
                   data-testid="button-submit-transfer"
+                  className="w-full sm:w-auto"
                 >
                   {createTransferMutation.isPending ? (
                     <>

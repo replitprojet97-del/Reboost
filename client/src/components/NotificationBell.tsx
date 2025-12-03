@@ -181,7 +181,7 @@ export default function NotificationBell() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80" data-testid="menu-notifications">
+      <DropdownMenuContent align="end" className="w-[min(320px,calc(100vw-2rem))]" data-testid="menu-notifications">
         <div className="flex items-center justify-between px-4 py-2">
           <h3 className="font-semibold">{t.dashboard.notifications}</h3>
           {unreadCount > 0 && (

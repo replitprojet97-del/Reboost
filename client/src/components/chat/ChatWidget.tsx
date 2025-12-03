@@ -57,8 +57,13 @@ export function ChatWidget({
   };
 
   const positionClasses = {
-    "bottom-right": "bottom-6 right-6",
-    "bottom-left": "bottom-6 left-6",
+    "bottom-right": "bottom-4 right-4 sm:bottom-6 sm:right-6",
+    "bottom-left": "bottom-4 left-4 sm:bottom-6 sm:left-6",
+  };
+
+  const chatPositionClasses = {
+    "bottom-right": "right-0 sm:right-0",
+    "bottom-left": "left-0 sm:left-0",
   };
 
   return (
@@ -74,7 +79,14 @@ export function ChatWidget({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.2 }}
-              className="absolute bottom-20 right-0 w-[400px] h-[600px] max-h-[80vh] shadow-2xl rounded-lg overflow-hidden"
+              className={cn(
+                "fixed sm:absolute bottom-0 sm:bottom-20 inset-x-0 sm:inset-x-auto",
+                chatPositionClasses[position],
+                "w-full sm:w-[min(400px,calc(100vw-2rem))]",
+                "h-[85vh] sm:h-[min(600px,80vh)]",
+                "shadow-2xl rounded-t-lg sm:rounded-lg overflow-hidden",
+                "z-[60]"
+              )}
               data-testid="chat-widget-popup"
             >
               <ChatWindow
@@ -94,20 +106,20 @@ export function ChatWidget({
           size="icon"
           onClick={handleToggle}
           className={cn(
-            "h-14 w-14 rounded-full shadow-lg transition-all",
+            "h-12 w-12 sm:h-14 sm:w-14 rounded-full shadow-lg transition-all",
             isOpen && "rotate-0"
           )}
           data-testid="button-toggle-chat"
         >
           {isOpen ? (
-            <X className="h-6 w-6" />
+            <X className="h-5 w-5 sm:h-6 sm:w-6" />
           ) : (
             <>
-              <MessageCircle className="h-6 w-6" />
+              <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />
               {totalUnreadCount > 0 && !isOpen && (
                 <Badge
                   variant="destructive"
-                  className="absolute -top-1 -right-1 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs"
+                  className="absolute -top-1 -right-1 h-5 w-5 sm:h-6 sm:w-6 rounded-full p-0 flex items-center justify-center text-xs"
                   data-testid="badge-unread-count"
                 >
                   {totalUnreadCount > 99 ? "99+" : totalUnreadCount}

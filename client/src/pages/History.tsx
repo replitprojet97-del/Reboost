@@ -157,8 +157,8 @@ export default function History() {
   }
 
   return (
-    <div className="bg-background">
-      <div className="p-6 md:p-8 max-w-[1400px] mx-auto space-y-8 animate-fade-in">
+    <div className="bg-background overflow-x-hidden">
+      <div className="p-4 sm:p-6 md:p-8 max-w-[1400px] mx-auto space-y-6 md:space-y-8 animate-fade-in w-full">
         {/* Header */}
         <SectionTitle
           title={t.history.pageTitle}
@@ -166,45 +166,45 @@ export default function History() {
         />
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
           <DashboardCard className="bg-gradient-to-br from-accent/10 via-background to-background border-accent/20">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center shadow-sm">
-                <TrendingUp className="h-7 w-7 text-accent" />
+            <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+              <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center shadow-sm flex-shrink-0">
+                <TrendingUp className="h-5 w-5 sm:h-7 sm:w-7 text-accent" />
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-muted-foreground">{t.history.totalCredits}</p>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs sm:text-sm font-medium text-muted-foreground">{t.history.totalCredits}</p>
               </div>
             </div>
-            <p className="text-3xl font-bold text-accent tracking-tight" data-testid="text-total-credit">
+            <p className="text-xl sm:text-2xl md:text-3xl font-bold text-accent tracking-tight break-all" data-testid="text-total-credit">
               +{formatCurrency(totalCredit.toString())}
             </p>
           </DashboardCard>
 
           <DashboardCard className="bg-gradient-to-br from-destructive/10 via-background to-background border-destructive/20">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-destructive/20 to-destructive/5 flex items-center justify-center shadow-sm">
-                <TrendingDown className="h-7 w-7 text-destructive" />
+            <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+              <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-destructive/20 to-destructive/5 flex items-center justify-center shadow-sm flex-shrink-0">
+                <TrendingDown className="h-5 w-5 sm:h-7 sm:w-7 text-destructive" />
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-muted-foreground">{t.history.totalDebits}</p>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs sm:text-sm font-medium text-muted-foreground">{t.history.totalDebits}</p>
               </div>
             </div>
-            <p className="text-3xl font-bold text-destructive tracking-tight" data-testid="text-total-debit">
+            <p className="text-xl sm:text-2xl md:text-3xl font-bold text-destructive tracking-tight break-all" data-testid="text-total-debit">
               -{formatCurrency(totalDebit.toString())}
             </p>
           </DashboardCard>
 
-          <DashboardCard className="bg-gradient-to-br from-primary/10 via-background to-background border-primary/20">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center shadow-sm">
-                <Receipt className="h-7 w-7 text-primary" />
+          <DashboardCard className="bg-gradient-to-br from-primary/10 via-background to-background border-primary/20 sm:col-span-2 md:col-span-1">
+            <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+              <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center shadow-sm flex-shrink-0">
+                <Receipt className="h-5 w-5 sm:h-7 sm:w-7 text-primary" />
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-muted-foreground">Solde net</p>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs sm:text-sm font-medium text-muted-foreground">Solde net</p>
               </div>
             </div>
-            <p className={`text-3xl font-bold tracking-tight ${netBalance >= 0 ? 'text-accent' : 'text-destructive'}`} data-testid="text-net-balance">
+            <p className={`text-xl sm:text-2xl md:text-3xl font-bold tracking-tight break-all ${netBalance >= 0 ? 'text-accent' : 'text-destructive'}`} data-testid="text-net-balance">
               {netBalance >= 0 ? '+' : ''}{formatCurrency(netBalance.toString())}
             </p>
           </DashboardCard>
@@ -291,34 +291,37 @@ export default function History() {
                       index === filteredTransactions.length - 1 ? 'rounded-b-2xl' : ''
                     }`}
                   >
-                    <div className="flex items-center gap-5">
-                      {/* Icon */}
-                      <div className="flex-shrink-0">
-                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm ${
-                          transaction.type === 'credit' ? 'bg-gradient-to-br from-accent/15 to-accent/5' :
-                          transaction.type === 'debit' ? 'bg-gradient-to-br from-destructive/15 to-destructive/5' :
-                          'bg-gradient-to-br from-muted to-muted/50'
-                        }`}>
-                          {getTypeIcon(transaction.type)}
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+                      {/* Icon + Info on mobile */}
+                      <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
+                        {/* Icon */}
+                        <div className="flex-shrink-0">
+                          <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-sm ${
+                            transaction.type === 'credit' ? 'bg-gradient-to-br from-accent/15 to-accent/5' :
+                            transaction.type === 'debit' ? 'bg-gradient-to-br from-destructive/15 to-destructive/5' :
+                            'bg-gradient-to-br from-muted to-muted/50'
+                          }`}>
+                            {getTypeIcon(transaction.type)}
+                          </div>
                         </div>
-                      </div>
 
-                      {/* Transaction Info */}
-                      <div className="flex-1 min-w-0 space-y-2">
-                        <h3 className="font-bold text-lg text-foreground truncate">{transaction.description}</h3>
-                        <div className="flex items-center gap-3 flex-wrap">
-                          <Badge variant="outline" className="text-xs font-medium">
-                            {getTypeLabel(transaction.type)}
-                          </Badge>
-                          <span className="text-xs text-muted-foreground font-medium">
-                            {formatDate(transaction.createdAt)}
-                          </span>
+                        {/* Transaction Info */}
+                        <div className="flex-1 min-w-0 space-y-1 sm:space-y-2">
+                          <h3 className="font-bold text-sm sm:text-lg text-foreground truncate">{transaction.description}</h3>
+                          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                            <Badge variant="outline" className="text-xs font-medium">
+                              {getTypeLabel(transaction.type)}
+                            </Badge>
+                            <span className="text-xs text-muted-foreground font-medium">
+                              {formatDate(transaction.createdAt)}
+                            </span>
+                          </div>
                         </div>
                       </div>
 
                       {/* Amount */}
-                      <div className="flex-shrink-0 text-right">
-                        <p className={`text-2xl font-bold font-mono tracking-tight ${
+                      <div className="flex-shrink-0 flex items-center justify-between sm:block sm:text-right pl-12 sm:pl-0">
+                        <p className={`text-lg sm:text-2xl font-bold font-mono tracking-tight ${
                           transaction.type === 'credit' ? 'text-accent' :
                           transaction.type === 'debit' ? 'text-destructive' :
                           'text-muted-foreground'
@@ -326,7 +329,7 @@ export default function History() {
                           {transaction.type === 'credit' ? '+' : '-'}
                           {formatCurrency(transaction.amount)}
                         </p>
-                        <p className="text-xs text-muted-foreground mt-1.5 font-mono">
+                        <p className="text-xs text-muted-foreground sm:mt-1.5 font-mono">
                           ID: {transaction.id.slice(0, 8)}...
                         </p>
                       </div>

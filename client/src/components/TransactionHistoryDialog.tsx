@@ -60,11 +60,11 @@ export default function TransactionHistoryDialog({ open, onOpenChange }: Transac
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[700px] max-h-[80vh]">
+      <DialogContent className="w-[calc(100vw-2rem)] max-w-[700px] max-h-[90vh] overflow-y-auto overflow-x-hidden p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="text-2xl">{t.dashboard.transactionHistory}</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl">{t.dashboard.transactionHistory}</DialogTitle>
         </DialogHeader>
-        <ScrollArea className="h-[500px] pr-4">
+        <ScrollArea className="h-[min(500px,60vh)] pr-2 sm:pr-4">
           {isLoading ? (
             <div className="space-y-4">
               {[...Array(5)].map((_, i) => (
@@ -76,17 +76,19 @@ export default function TransactionHistoryDialog({ open, onOpenChange }: Transac
               {transactions.map((transaction) => (
                 <div
                   key={transaction.id}
-                  className="border-2 border-transparent bg-gradient-to-r from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 rounded-xl p-4 flex items-center justify-between hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-lg transition-all duration-200"
+                  className="border-2 border-transparent bg-gradient-to-r from-white to-gray-50 dark:from-slate-800 dark:to-slate-900 rounded-xl p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 sm:justify-between hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-lg transition-all duration-200"
                 >
-                  <div className="flex items-center gap-4">
-                    {getTransactionIcon(transaction.type)}
-                    <div>
-                      <p className="font-semibold text-gray-900 dark:text-white">{transaction.description}</p>
-                      <p className="text-sm text-muted-foreground">{formatDate(transaction.createdAt)}</p>
+                  <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                    <div className="flex-shrink-0">
+                      {getTransactionIcon(transaction.type)}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base truncate">{transaction.description}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">{formatDate(transaction.createdAt)}</p>
                     </div>
                   </div>
                   <p
-                    className={`text-lg font-mono font-bold ${
+                    className={`text-base sm:text-lg font-mono font-bold flex-shrink-0 self-end sm:self-auto ${
                       parseFloat(transaction.amount) >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
                     }`}
                   >

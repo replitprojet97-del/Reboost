@@ -312,15 +312,15 @@ export default function BankAccounts() {
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-[600px]">
+        <DialogContent className="w-[calc(100vw-2rem)] max-w-[600px] max-h-[90vh] overflow-y-auto overflow-x-hidden p-4 sm:p-6">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold">{t.bankAccounts.addAccountTitle}</DialogTitle>
-            <DialogDescription className="text-base">
+            <DialogTitle className="text-xl sm:text-2xl font-bold">{t.bankAccounts.addAccountTitle}</DialogTitle>
+            <DialogDescription className="text-sm sm:text-base">
               {t.bankAccounts.addAccountDescription}
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-5 pt-2">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 pt-2">
             <div className="space-y-2">
               <Label htmlFor="accountLabel" className="text-sm font-semibold">
                 {t.bankAccounts.accountLabel}
@@ -390,7 +390,7 @@ export default function BankAccounts() {
               )}
             </div>
 
-            <div className="flex justify-end gap-3 pt-6">
+            <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3 pt-4 sm:pt-6">
               <Button
                 type="button"
                 variant="outline"
@@ -399,6 +399,7 @@ export default function BankAccounts() {
                   resetForm();
                 }}
                 data-testid="button-cancel-add-account"
+                className="w-full sm:w-auto"
               >
                 {t.common.cancel}
               </Button>
@@ -407,6 +408,7 @@ export default function BankAccounts() {
                 type="submit"
                 isLoading={createAccountMutation.isPending}
                 data-testid="button-submit-add-account"
+                className="w-full sm:w-auto"
               >
                 {createAccountMutation.isPending ? t.common.saving : t.common.save}
               </GradientButton>
