@@ -2902,7 +2902,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
     },
     howItWorks: {
-      title: 'Comment ça marche',
+      title: 'Les étapes de votre dossier',
       subtitle: 'Un processus 100% digital ultra-rapide en 4 étapes simples',
       digitalProcess: 'Processus 100% Numérique',
       step1Title: 'Inscription - 3 minutes',
@@ -4915,68 +4915,68 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     premium: {
       stats: {
-        title: 'La confiance de milliers d\'entreprises',
-        subtitle: 'Des chiffres qui témoignent de notre expertise et de notre engagement',
+        title: 'Des résultats qui parlent d\'eux-mêmes',
+        subtitle: 'Notre performance reflète notre capacité à répondre aux attentes de nos clients',
       },
       storytelling: {
-        badge: 'Notre Mission',
-        title: 'Financer l\'excellence, propulser la croissance',
-        paragraph1: 'Depuis notre création, nous accompagnons les entreprises et les particuliers dans leurs projets les plus ambitieux. Notre expertise en financement professionnel et notre approche personnalisée font de nous le partenaire de confiance pour vos investissements stratégiques.',
-        paragraph2: 'Chaque dossier est unique. C\'est pourquoi nous mettons à votre disposition des conseillers dédiés, des processus digitaux sécurisés et des solutions de financement sur mesure qui s\'adaptent à vos besoins réels.',
-        ctaButton: 'Découvrir notre histoire',
+        badge: 'Notre Engagement',
+        title: 'Accompagner vos réussites, soutenir vos initiatives',
+        paragraph1: 'Notre vocation est d\'offrir des solutions de financement accessibles et adaptées. Que vous soyez entrepreneur ou particulier, nous mettons notre savoir-faire à votre service pour transformer vos projets en réalité.',
+        paragraph2: 'Nous analysons chaque situation individuellement pour proposer des offres personnalisées. Notre équipe s\'engage à vous accompagner avec réactivité et transparence tout au long de votre parcours.',
+        ctaButton: 'En savoir plus sur nous',
       },
       expertises: {
-        title: 'Nos domaines d\'expertise',
-        subtitle: 'Des solutions financières complètes pour chaque besoin, chaque projet, chaque ambition',
+        title: 'Nos secteurs d\'intervention',
+        subtitle: 'Une gamme complète de produits financiers pour répondre à toutes vos attentes',
         items: [
           {
-            title: 'Financement professionnel',
-            description: 'Solutions sur mesure pour TPE, PME et grands comptes. Développement, expansion, acquisition.',
+            title: 'Crédits entreprise',
+            description: 'Des financements pensés pour les structures de toutes tailles : création, développement et croissance externe.',
             features: ['Prêts équipement', 'Crédit-bail', 'Affacturage'],
             learnMore: 'En savoir plus',
           },
           {
-            title: 'Financement personnel',
-            description: 'Projets privés accompagnés avec expertise. Immobilier, véhicule, travaux, études.',
+            title: 'Prêts aux particuliers',
+            description: 'Réalisez vos projets de vie grâce à des offres adaptées : acquisition immobilière, mobilité, aménagement.',
             features: ['Prêts immobiliers', 'Crédits auto', 'Prêts travaux'],
             learnMore: 'En savoir plus',
           },
           {
-            title: 'Consolidation de dettes',
-            description: 'Rééquilibrage financier et optimisation de trésorerie pour particuliers et entreprises.',
+            title: 'Regroupement de crédits',
+            description: 'Allégez vos charges mensuelles en unifiant vos emprunts. Retrouvez une gestion budgétaire sereine.',
             features: ['Rachat de crédit', 'Restructuration', 'Optimisation'],
             learnMore: 'En savoir plus',
           },
           {
-            title: 'Solutions innovantes',
-            description: 'Financements alternatifs et produits exclusifs adaptés aux nouveaux enjeux économiques.',
+            title: 'Offres alternatives',
+            description: 'Des produits financiers modernes qui s\'adaptent aux évolutions du marché et aux besoins émergents.',
             features: ['Fintech', 'Green finance', 'Sur mesure'],
             learnMore: 'En savoir plus',
           },
         ],
       },
       timeline: {
-        title: 'Comment ça marche',
-        subtitle: 'Un processus simple, transparent et 100% digital',
+        title: 'Les étapes de votre dossier',
+        subtitle: 'Une procédure fluide et entièrement dématérialisée',
         steps: [
           {
-            title: 'Soumission',
-            description: 'Remplissez votre dossier en ligne en quelques minutes. Interface intuitive et sécurisée.',
+            title: 'Dépôt du dossier',
+            description: 'Complétez le formulaire de demande depuis notre plateforme. Une interface claire qui vous guide pas à pas.',
             duration: '5 min',
           },
           {
-            title: 'Analyse',
-            description: 'Notre équipe étudie votre demande. Vérification KYC/AML et évaluation personnalisée.',
+            title: 'Examen du dossier',
+            description: 'Nos analystes vérifient les éléments transmis et évaluent votre capacité de remboursement.',
             duration: '24h',
           },
           {
-            title: 'Signature',
-            description: 'Signature électronique sécurisée de votre contrat. Conforme et traçable.',
+            title: 'Validation du contrat',
+            description: 'Apposez votre signature numérique sur les documents contractuels de manière sécurisée.',
             duration: 'Immédiat',
           },
           {
-            title: 'Déblocage',
-            description: 'Fonds disponibles sur votre compte. Accompagnement post-financement inclus.',
+            title: 'Mise à disposition',
+            description: 'Les fonds sont transférés sur votre compte. Notre équipe reste à votre disposition après le déblocage.',
             duration: '24-48h',
           },
         ],
@@ -5029,7 +5029,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       security: {
         badge: 'Protection Renforcée',
-        title: 'Votre sécurité, notre priorité absolue',
+        title: 'La protection de vos données au cœur de nos pratiques',
         subtitle: 'Nous appliquons les standards de sécurité les plus stricts de l\'industrie financière pour protéger vos données et vos transactions.',
         features: [
           {
@@ -5050,21 +5050,21 @@ export const translations: Record<Language, TranslationKeys> = {
           },
         ],
         certifications: {
-          iso27001: 'ISO 27001 Certifié',
-          gdpr: 'RGPD Conforme',
-          pciDss: 'PCI DSS Level 1',
+          iso27001: 'Certification ISO 27001',
+          gdpr: 'Conformité RGPD',
+          pciDss: 'Norme PCI DSS',
         },
       },
       finalCTA: {
-        badge: 'Conseillers disponibles 24/7',
-        title: 'Prêt à concrétiser vos projets ?',
-        subtitle: 'Notre équipe de conseillers dédiés vous accompagne de A à Z. Démarrez votre dossier en quelques clics ou échangez avec un expert.',
+        badge: 'Équipe à votre écoute',
+        title: 'Prêt à franchir le pas ?',
+        subtitle: 'Nos conseillers sont disponibles pour étudier votre situation et vous proposer la meilleure solution. Déposez votre demande ou contactez-nous.',
         primaryButton: 'Soumettre ma demande',
         secondaryButton: 'Échanger avec un expert',
         trustBadges: {
-          noCommitment: 'Sans engagement',
-          response24h: 'Réponse sous 24h',
-          secure100: '100% sécurisé',
+          noCommitment: 'Aucune obligation',
+          response24h: 'Retour rapide',
+          secure100: 'Totalement sécurisé',
         },
       },
     },
@@ -7637,7 +7637,7 @@ export const translations: Record<Language, TranslationKeys> = {
             duration: '24h',
           },
           {
-            title: 'Signature',
+            title: 'Validation du contrat',
             description: 'Secure electronic signature of your contract. Compliant and traceable.',
             duration: 'Immediate',
           },
@@ -7719,7 +7719,7 @@ export const translations: Record<Language, TranslationKeys> = {
         certifications: {
           iso27001: 'ISO 27001 Certified',
           gdpr: 'GDPR Compliant',
-          pciDss: 'PCI DSS Level 1',
+          pciDss: 'Norme PCI DSS',
         },
       },
       finalCTA: {
@@ -12804,7 +12804,7 @@ export const translations: Record<Language, TranslationKeys> = {
         ],
         certifications: {
           iso27001: 'ISO 27001 Certificado',
-          gdpr: 'RGPD Conforme',
+          gdpr: 'Conformité RGPD',
           pciDss: 'PCI DSS Nível 1',
         },
       },
@@ -15412,7 +15412,7 @@ export const translations: Record<Language, TranslationKeys> = {
         certifications: {
           iso27001: 'ISO 27001 Certificato',
           gdpr: 'GDPR Conforme',
-          pciDss: 'PCI DSS Level 1',
+          pciDss: 'Norme PCI DSS',
         },
       },
       finalCTA: {
@@ -17750,7 +17750,7 @@ export const translations: Record<Language, TranslationKeys> = {
             duration: '5 Min.',
           },
           {
-            title: 'Analyse',
+            title: 'Examen du dossier',
             description: 'Unser Team prüft Ihren Antrag. KYC/AML-Überprüfung und personalisierte Bewertung.',
             duration: '24h',
           },
@@ -17837,7 +17837,7 @@ export const translations: Record<Language, TranslationKeys> = {
         certifications: {
           iso27001: 'ISO 27001-zertifiziert',
           gdpr: 'DSGVO-konform',
-          pciDss: 'PCI DSS Level 1',
+          pciDss: 'Norme PCI DSS',
         },
       },
       finalCTA: {
@@ -20279,7 +20279,7 @@ export const translations: Record<Language, TranslationKeys> = {
             duration: '5 min',
           },
           {
-            title: 'Analyse',
+            title: 'Examen du dossier',
             description: 'Ons team bestudeert uw aanvraag. KYC/AML-verificatie en gepersonaliseerde evaluatie.',
             duration: '24u',
           },
@@ -20366,7 +20366,7 @@ export const translations: Record<Language, TranslationKeys> = {
         certifications: {
           iso27001: 'ISO 27001-gecertificeerd',
           gdpr: 'AVG-conform',
-          pciDss: 'PCI DSS Level 1',
+          pciDss: 'Norme PCI DSS',
         },
       },
       finalCTA: {

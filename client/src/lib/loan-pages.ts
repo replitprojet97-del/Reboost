@@ -45,63 +45,63 @@ export const loanPages: Record<Language, Record<LoanSlug, LoanContent>> = {
     'personal-credit': {
       slug: 'personal-credit',
       hero: {
-        title: 'Crédit Personnel',
-        subtitle: 'Financez vos projets personnels avec des taux avantageux et une réponse rapide',
-        cta: 'Demander un crédit',
+        title: 'Prêt à la consommation',
+        subtitle: 'Obtenez le financement adapté à vos besoins avec des conditions attractives',
+        cta: 'Faire ma demande',
         features: [
-          'Taux à partir de 4.9%',
-          'Remboursement flexible',
-          'Réponse rapide',
-          'Fonds immédiatement disponibles'
+          'TAEG dès 4.9%',
+          'Durée adaptable',
+          'Traitement express',
+          'Déblocage instantané'
         ]
       },
       benefits: {
-        title: 'Pourquoi choisir notre crédit personnel ?',
+        title: 'Les atouts de notre offre de prêt',
         items: [
           {
             icon: 'Percent',
-            title: 'Taux compétitifs',
-            description: 'Profitez de taux d\'intérêt parmi les plus bas du marché suisse'
+            title: 'Tarification avantageuse',
+            description: 'Bénéficiez de conditions tarifaires parmi les meilleures disponibles'
           },
           {
             icon: 'Clock',
-            title: 'Réponse ultra-rapide',
-            description: 'Obtenez une réponse en quelques minutes à 24 heures maximum'
+            title: 'Décision accélérée',
+            description: 'Recevez notre avis sur votre dossier dans les meilleurs délais'
           },
           {
             icon: 'Shield',
-            title: 'Sécurité garantie',
-            description: 'Vos données sont protégées selon les normes suisses les plus strictes'
+            title: 'Confidentialité assurée',
+            description: 'Vos informations sont traitées avec les plus hauts standards de protection'
           },
           {
             icon: 'Calendar',
-            title: 'Remboursement flexible',
-            description: 'Choisissez la durée qui correspond le mieux à votre situation'
+            title: 'Durée adaptable',
+            description: 'Adaptez votre plan de remboursement selon vos capacités'
           }
         ]
       },
       process: {
-        title: 'Un processus 100% digital ultra-rapide',
+        title: 'Une démarche entièrement en ligne',
         steps: [
           {
             number: 1,
-            title: 'Demande en ligne',
-            description: 'Remplissez notre formulaire en ligne en quelques minutes'
+            title: 'Formulaire numérique',
+            description: 'Complétez votre demande directement depuis notre plateforme'
           },
           {
             number: 2,
-            title: 'Réponse rapide',
-            description: 'Nous analysons votre dossier et vous répondons en quelques minutes à 24h'
+            title: 'Traitement express',
+            description: 'Notre équipe étudie votre situation et vous communique sa décision'
           },
           {
             number: 3,
-            title: 'Signature électronique',
-            description: 'Si votre demande est acceptée, signez votre contrat en ligne de manière sécurisée'
+            title: 'Validation numérique',
+            description: 'En cas d\'accord, finalisez votre engagement via notre interface sécurisée'
           },
           {
             number: 4,
-            title: 'Fonds immédiatement disponibles',
-            description: 'Dès la signature du contrat, l\'argent est versé immédiatement sur votre compte'
+            title: 'Déblocage instantané',
+            description: 'Une fois le contrat signé, le montant est crédité rapidement sur votre compte'
           }
         ]
       },
@@ -109,89 +109,89 @@ export const loanPages: Record<Language, Record<LoanSlug, LoanContent>> = {
         title: 'Questions fréquentes',
         items: [
           {
-            question: 'Quels sont les critères d\'éligibilité ?',
-            answer: 'Pour être éligible, vous devez être majeur, résider en Suisse, avoir un revenu régulier et ne pas être en poursuite.'
+            question: 'Qui peut bénéficier de ce prêt ?',
+            answer: 'Ce financement est accessible aux personnes majeures, résidant dans le pays, disposant de revenus stables et sans incidents de paiement majeurs.'
           },
           {
-            question: 'Combien puis-je emprunter ?',
-            answer: 'Le montant que vous pouvez emprunter dépend de votre capacité de remboursement et sera déterminé après analyse de votre dossier.'
+            question: 'Quel montant puis-je obtenir ?',
+            answer: 'La somme accordée sera calculée en fonction de votre situation financière et de votre capacité à honorer les échéances.'
           },
           {
-            question: 'Quelle est la durée de remboursement ?',
-            answer: 'La durée de remboursement varie de 12 à 120 mois selon le montant emprunté.'
+            question: 'Sur quelle période puis-je rembourser ?',
+            answer: 'Les délais de remboursement s\'échelonnent de 12 à 120 mensualités en fonction du capital emprunté.'
           },
           {
-            question: 'Y a-t-il des frais de dossier ?',
-            answer: 'Nos frais de dossier sont transparents et compétitifs. Ils vous seront communiqués dans votre offre personnalisée.'
+            question: 'Des frais supplémentaires sont-ils appliqués ?',
+            answer: 'Tous les coûts liés à votre dossier vous seront détaillés clairement dans la proposition que nous vous adresserons.'
           }
         ]
       },
       cta: {
-        title: 'Prêt à concrétiser votre projet ?',
-        description: 'Faites votre demande en ligne, recevez une réponse rapide, et si acceptée, vos fonds sont immédiatement disponibles après signature',
-        button: 'Demander mon crédit'
+        title: 'Lancez votre projet maintenant',
+        description: 'Soumettez votre dossier en quelques clics, obtenez une réponse rapide et accédez à vos fonds dès validation',
+        button: 'Soumettre ma demande'
       }
     },
     'loan-refinancing': {
       slug: 'loan-refinancing',
       hero: {
-        title: 'Rachat de Crédit',
-        subtitle: 'Regroupez vos crédits et réduisez vos mensualités jusqu\'à 40%',
-        cta: 'Simuler mon rachat',
+        title: 'Regroupement de prêts',
+        subtitle: 'Unifiez vos emprunts et allégez vos charges mensuelles de manière significative',
+        cta: 'Calculer mes économies',
         features: [
-          'Réduction des mensualités',
-          'Taux unique avantageux',
-          'Un seul interlocuteur',
-          'Solution sur mesure'
+          'Mensualités allégées',
+          'Un seul taux négocié',
+          'Suivi centralisé',
+          'Offre personnalisée'
         ]
       },
       benefits: {
-        title: 'Les avantages du rachat de crédit',
+        title: 'Pourquoi opter pour le regroupement ?',
         items: [
           {
             icon: 'TrendingDown',
-            title: 'Réduisez vos mensualités',
-            description: 'Diminuez vos charges mensuelles jusqu\'à 40% en regroupant vos crédits'
+            title: 'Allégez vos échéances',
+            description: 'Réduisez le poids de vos remboursements en consolidant l\'ensemble de vos emprunts'
           },
           {
             icon: 'FileCheck',
-            title: 'Simplifiez votre gestion',
-            description: 'Un seul crédit, une seule mensualité, un seul interlocuteur'
+            title: 'Clarifiez votre budget',
+            description: 'Gérez un unique prélèvement avec un contact dédié pour toutes vos questions'
           },
           {
             icon: 'Calculator',
-            title: 'Optimisez votre budget',
-            description: 'Retrouvez de la trésorerie pour vos projets'
+            title: 'Libérez de la trésorerie',
+            description: 'Récupérez des ressources financières pour concrétiser vos nouveaux projets'
           },
           {
             icon: 'Target',
-            title: 'Solution personnalisée',
-            description: 'Une offre adaptée à votre situation financière'
+            title: 'Proposition adaptée',
+            description: 'Chaque dossier est étudié individuellement pour répondre à vos besoins spécifiques'
           }
         ]
       },
       process: {
-        title: 'Le processus de rachat',
+        title: 'Comment se déroule l\'opération ?',
         steps: [
           {
             number: 1,
-            title: 'Analysez votre situation',
-            description: 'Listez tous vos crédits en cours et calculez vos mensualités totales'
+            title: 'Faites le point',
+            description: 'Recensez vos emprunts actuels et évaluez le montant total de vos remboursements'
           },
           {
             number: 2,
-            title: 'Recevez une simulation',
-            description: 'Nous étudions votre dossier et vous proposons la meilleure solution'
+            title: 'Obtenez une étude',
+            description: 'Nos analystes examinent votre situation et vous présentent la formule la plus avantageuse'
           },
           {
             number: 3,
-            title: 'Validez votre offre',
-            description: 'Acceptez les nouvelles conditions de votre crédit regroupé'
+            title: 'Acceptez la proposition',
+            description: 'Donnez votre accord sur les termes du nouveau financement unifié'
           },
           {
             number: 4,
-            title: 'Remboursement automatique',
-            description: 'Nous remboursons vos anciens crédits et vous ne payez qu\'une seule mensualité'
+            title: 'Apurement des anciens prêts',
+            description: 'Vos précédents emprunts sont soldés et vous ne conservez qu\'un unique prélèvement'
           }
         ]
       },
@@ -199,89 +199,89 @@ export const loanPages: Record<Language, Record<LoanSlug, LoanContent>> = {
         title: 'Questions fréquentes',
         items: [
           {
-            question: 'Quels crédits puis-je regrouper ?',
-            answer: 'Vous pouvez regrouper tous types de crédits : prêts personnels, crédits auto, cartes de crédit, découverts bancaires, etc.'
+            question: 'Quels types d\'emprunts sont concernés ?',
+            answer: 'Tous vos financements peuvent être intégrés : crédits consommation, financement véhicule, facilités de caisse, dettes diverses.'
           },
           {
-            question: 'Est-ce que je peux emprunter plus ?',
-            answer: 'Oui, vous pouvez ajouter une trésorerie supplémentaire à votre rachat de crédit.'
+            question: 'Puis-je obtenir un montant supplémentaire ?',
+            answer: 'Effectivement, il est possible d\'inclure un complément de financement dans l\'opération.'
           },
           {
-            question: 'Combien de temps dure l\'opération ?',
-            answer: 'Le processus complet prend généralement entre 2 et 4 semaines.'
+            question: 'Quels sont les délais de traitement ?',
+            answer: 'Comptez habituellement entre 2 et 4 semaines pour finaliser l\'ensemble de la procédure.'
           },
           {
-            question: 'Y a-t-il des pénalités de remboursement anticipé ?',
-            answer: 'Cela dépend de vos contrats actuels. Nous analysons cet aspect dans notre étude.'
+            question: 'Des indemnités de remboursement anticipé s\'appliquent-elles ?',
+            answer: 'Cela varie selon les conditions de vos contrats en cours. Notre analyse intègre ce paramètre.'
           }
         ]
       },
       cta: {
-        title: 'Simplifiez vos remboursements',
-        description: 'Découvrez combien vous pourriez économiser chaque mois',
-        button: 'Faire une simulation'
+        title: 'Optimisez vos finances',
+        description: 'Évaluez le montant que vous pourriez économiser mensuellement',
+        button: 'Lancer l\'estimation'
       }
     },
     'lease-refinancing': {
       slug: 'lease-refinancing',
       hero: {
-        title: 'Rachat de Leasing',
-        subtitle: 'Devenez propriétaire de votre véhicule et économisez sur vos mensualités',
-        cta: 'Racheter mon leasing',
+        title: 'Reprise de contrat de location',
+        subtitle: 'Acquérez définitivement votre véhicule et maîtrisez vos dépenses mensuelles',
+        cta: 'Évaluer mon dossier',
         features: [
-          'Devenez propriétaire',
-          'Mensualités réduites',
-          'Taux avantageux',
-          'Processus simplifié'
+          'Acquisition définitive',
+          'Charges optimisées',
+          'Conditions préférentielles',
+          'Démarche allégée'
         ]
       },
       benefits: {
-        title: 'Pourquoi racheter votre leasing ?',
+        title: 'Les bénéfices de cette opération',
         items: [
           {
             icon: 'Car',
-            title: 'Propriété immédiate',
-            description: 'Devenez propriétaire de votre véhicule et profitez-en pleinement'
+            title: 'Vous devenez le propriétaire',
+            description: 'Le véhicule vous appartient définitivement et vous l\'utilisez sans restriction'
           },
           {
             icon: 'Banknote',
-            title: 'Économies substantielles',
-            description: 'Réduisez vos mensualités et le coût total de votre financement'
+            title: 'Gains financiers réels',
+            description: 'Diminuez vos prélèvements et le montant global de votre financement'
           },
           {
             icon: 'Key',
-            title: 'Plus de flexibilité',
-            description: 'Plus de restrictions kilométriques ou de contraintes d\'utilisation'
+            title: 'Liberté d\'usage',
+            description: 'Fini les limitations de kilométrage et les obligations contractuelles'
           },
           {
             icon: 'Award',
-            title: 'Valeur préservée',
-            description: 'Conservez la valeur de revente de votre véhicule'
+            title: 'Patrimoine conservé',
+            description: 'Maintenez la valeur marchande de votre bien pour une éventuelle revente'
           }
         ]
       },
       process: {
-        title: 'Les étapes du rachat',
+        title: 'Le déroulement de l\'opération',
         steps: [
           {
             number: 1,
-            title: 'Estimation du leasing',
-            description: 'Nous évaluons le montant restant dû sur votre contrat de leasing'
+            title: 'Évaluation du solde',
+            description: 'Nous calculons la somme encore due sur votre engagement de location'
           },
           {
             number: 2,
-            title: 'Proposition de crédit',
-            description: 'Nous vous proposons un crédit pour racheter votre leasing'
+            title: 'Offre de financement',
+            description: 'Nous vous soumettons une solution de financement pour solder le contrat'
           },
           {
             number: 3,
-            title: 'Validation',
-            description: 'Vous acceptez les conditions et signez votre nouveau contrat'
+            title: 'Accord mutuel',
+            description: 'Vous confirmez votre acceptation et formalisez le nouvel engagement'
           },
           {
             number: 4,
-            title: 'Transfert de propriété',
-            description: 'Nous rachetons le leasing et vous devenez propriétaire du véhicule'
+            title: 'Changement de titulaire',
+            description: 'Le contrat de location est soldé et le véhicule est enregistré à votre nom'
           }
         ]
       },
@@ -289,89 +289,89 @@ export const loanPages: Record<Language, Record<LoanSlug, LoanContent>> = {
         title: 'Questions fréquentes',
         items: [
           {
-            question: 'Quand puis-je racheter mon leasing ?',
-            answer: 'Vous pouvez racheter votre leasing à tout moment, même avant la fin du contrat.'
+            question: 'À quel moment puis-je effectuer cette opération ?',
+            answer: 'Cette démarche est possible à n\'importe quelle période, y compris avant l\'échéance prévue.'
           },
           {
-            question: 'Le rachat affecte-t-il ma cote de crédit ?',
-            answer: 'Non, au contraire, cela peut améliorer votre profil de crédit car vous devenez propriétaire.'
+            question: 'Mon historique de crédit sera-t-il impacté ?',
+            answer: 'Au contraire, devenir propriétaire d\'un bien peut renforcer positivement votre profil financier.'
           },
           {
-            question: 'Puis-je racheter un leasing professionnel ?',
-            answer: 'Oui, nous proposons des solutions pour les leasings professionnels et privés.'
+            question: 'Les contrats professionnels sont-ils éligibles ?',
+            answer: 'Absolument, nos solutions couvrent aussi bien les engagements professionnels que personnels.'
           },
           {
-            question: 'Que se passe-t-il avec l\'assurance ?',
-            answer: 'Vous devrez adapter votre assurance pour correspondre à votre nouveau statut de propriétaire.'
+            question: 'Quelles sont les implications pour mon assurance ?',
+            answer: 'Une mise à jour de votre couverture sera nécessaire pour refléter votre nouveau statut de propriétaire.'
           }
         ]
       },
       cta: {
-        title: 'Devenez propriétaire de votre véhicule',
-        description: 'Calculez le montant nécessaire pour racheter votre leasing',
-        button: 'Faire une estimation'
+        title: 'Faites l\'acquisition de votre véhicule',
+        description: 'Estimez la somme requise pour solder votre contrat de location',
+        button: 'Obtenir une évaluation'
       }
     },
     'credit-card-refinancing': {
       slug: 'credit-card-refinancing',
       hero: {
-        title: 'Rachat Carte de Crédit',
-        subtitle: 'Réduisez drastiquement vos taux d\'intérêt et remboursez plus rapidement',
-        cta: 'Regrouper mes dettes',
+        title: 'Consolidation de dettes de cartes',
+        subtitle: 'Abaissez significativement vos frais financiers et accélérez votre désendettement',
+        cta: 'Unifier mes soldes',
         features: [
-          'Taux réduits jusqu\'à 70%',
-          'Remboursement accéléré',
-          'Une seule mensualité',
-          'Fin des frais cachés'
+          'Économies jusqu\'à 70%',
+          'Sortie de dette plus rapide',
+          'Prélèvement unique',
+          'Transparence totale'
         ]
       },
       benefits: {
-        title: 'Les avantages du rachat de carte de crédit',
+        title: 'Pourquoi consolider vos cartes ?',
         items: [
           {
             icon: 'Percent',
-            title: 'Taux ultra-compétitifs',
-            description: 'Passez de taux de 12-15% à des taux à partir de 4.9%'
+            title: 'Frais considérablement réduits',
+            description: 'Remplacez des taux élevés par des conditions bien plus avantageuses'
           },
           {
             icon: 'LineChart',
-            title: 'Remboursement rapide',
-            description: 'Sortez de l\'endettement grâce à un plan de remboursement structuré'
+            title: 'Désendettement accéléré',
+            description: 'Suivez un échéancier clair pour vous libérer de vos dettes plus vite'
           },
           {
             icon: 'CheckCircle',
-            title: 'Simplification',
-            description: 'Regroupez toutes vos cartes de crédit en un seul crédit'
+            title: 'Gestion facilitée',
+            description: 'Fusionnez l\'ensemble de vos soldes en un financement unique'
           },
           {
             icon: 'ShieldCheck',
-            title: 'Transparence totale',
-            description: 'Aucun frais caché, vous savez exactement ce que vous payez'
+            title: 'Clarté absolue',
+            description: 'Tous les coûts sont détaillés, sans surprise ni frais dissimulés'
           }
         ]
       },
       process: {
-        title: 'Comment procéder ?',
+        title: 'Quelle est la marche à suivre ?',
         steps: [
           {
             number: 1,
-            title: 'Évaluez vos dettes',
-            description: 'Listez toutes vos cartes de crédit et leurs soldes actuels'
+            title: 'Recensez vos soldes',
+            description: 'Identifiez chacune de vos cartes et le montant dû sur chacune'
           },
           {
             number: 2,
-            title: 'Recevez une offre',
-            description: 'Nous calculons le montant total et vous proposons un taux avantageux'
+            title: 'Consultez notre proposition',
+            description: 'Nous additionnons vos encours et vous présentons des conditions optimisées'
           },
           {
             number: 3,
-            title: 'Consolidez vos dettes',
-            description: 'Nous remboursons toutes vos cartes de crédit'
+            title: 'Procédez au regroupement',
+            description: 'Nous soldons l\'intégralité de vos encours cartes'
           },
           {
             number: 4,
-            title: 'Payez une seule mensualité',
-            description: 'Remboursez votre nouveau crédit avec des intérêts réduits'
+            title: 'Gérez un seul paiement',
+            description: 'Honorez votre nouveau financement avec des frais bien moindres'
           }
         ]
       },
@@ -379,27 +379,27 @@ export const loanPages: Record<Language, Record<LoanSlug, LoanContent>> = {
         title: 'Questions fréquentes',
         items: [
           {
-            question: 'Combien puis-je économiser ?',
-            answer: 'En moyenne, nos clients économisent entre 60% et 70% sur leurs intérêts en passant d\'un taux de carte de crédit à notre taux de crédit personnel.'
+            question: 'Quel niveau d\'économie puis-je atteindre ?',
+            answer: 'La plupart de nos clients réduisent leurs frais d\'intérêts de 60 à 70% en passant à notre formule de crédit.'
           },
           {
-            question: 'Que se passe-t-il avec mes cartes ?',
-            answer: 'Après le rachat, vos cartes sont soldées. Vous pouvez choisir de les fermer ou de les conserver sans solde.'
+            question: 'Quel est le devenir de mes cartes ?',
+            answer: 'Une fois l\'opération effectuée, vos cartes sont apurées. Vous décidez de les clôturer ou de les garder à solde nul.'
           },
           {
-            question: 'Puis-je inclure plusieurs cartes ?',
-            answer: 'Oui, vous pouvez regrouper autant de cartes de crédit que nécessaire.'
+            question: 'Plusieurs cartes peuvent-elles être intégrées ?',
+            answer: 'Certainement, vous pouvez consolider toutes vos cartes sans limite de nombre.'
           },
           {
-            question: 'Y a-t-il un montant minimum ?',
-            answer: 'Le montant minimum est généralement de 5\'000 CHF pour un rachat de cartes de crédit.'
+            question: 'Existe-t-il un seuil minimal ?',
+            answer: 'En règle générale, l\'opération est accessible à partir d\'un encours total de 5\'000 CHF.'
           }
         ]
       },
       cta: {
-        title: 'Libérez-vous des taux élevés',
-        description: 'Calculez vos économies potentielles en regroupant vos cartes de crédit',
-        button: 'Calculer mes économies'
+        title: 'Sortez du cycle des taux excessifs',
+        description: 'Évaluez le montant que vous pourriez économiser en unifiant vos encours',
+        button: 'Estimer mes gains'
       }
     }
   },
@@ -637,7 +637,7 @@ export const loanPages: Record<Language, Record<LoanSlug, LoanContent>> = {
           },
           {
             number: 3,
-            title: 'Validation',
+            title: 'Accord mutuel',
             description: 'You accept the terms and sign your new contract'
           },
           {
@@ -702,7 +702,7 @@ export const loanPages: Record<Language, Record<LoanSlug, LoanContent>> = {
           },
           {
             icon: 'CheckCircle',
-            title: 'Simplification',
+            title: 'Gestion facilitée',
             description: 'Consolidate all your credit cards into one single loan'
           },
           {
