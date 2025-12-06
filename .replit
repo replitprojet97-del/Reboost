@@ -53,15 +53,3 @@ ADMIN_PASSWORD = "Admin123!@#"
 COMETCHAT_APP_ID = "1671924081918af0d"
 COMETCHAT_REGION = "eu"
 VITE_TRANSFER_PROGRESS_SPEED = "0.5"
-
-[[ports]]
-localPort = 5000
-externalPort = 80
-
-[[ports]]
-localPort = 35947
-externalPort = 80
-
-[[ports]]
-localPort = 41883
-externalPort = 3000

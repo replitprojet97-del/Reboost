@@ -185,7 +185,7 @@ const sessionStore = process.env.DATABASE_URL
   ? new PgSession({
       pool: new Pool({
         connectionString: process.env.DATABASE_URL,
-        ssl: process.env.NODE_ENV === 'production' ? true : false,
+        ssl: { rejectUnauthorized: false },
       }),
       tableName: 'user_sessions',
       createTableIfMissing: true,
