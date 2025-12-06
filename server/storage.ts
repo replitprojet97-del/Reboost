@@ -57,7 +57,7 @@ import {
   getOrGenerateLoanReference,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
-import { db, withRetry } from "./db";
+import { db, withRetry, initializeDatabase } from "./db";
 import { eq, desc, and, or, isNull, notExists, inArray, sql, sql as sqlDrizzle } from "drizzle-orm";
 import path from "path";
 import fs from "fs";
@@ -1251,9 +1251,22 @@ export interface IStorage {
 // }
 
 export class DatabaseStorage implements IStorage {
+  private initialized = false;
+  
   constructor() {
-    this.seedData();
-    this.initializeAdmin();
+    this.initialize();
+  }
+  
+  private async initialize() {
+    try {
+      await initializeDatabase();
+      await this.seedData();
+      await this.initializeAdmin();
+      this.initialized = true;
+      console.log('[Storage] Database storage initialized successfully');
+    } catch (error) {
+      console.error('[Storage] Failed to initialize database storage:', error);
+    }
   }
 
   private async initializeAdmin() {

@@ -14,10 +14,13 @@ const isProduction = process.env.NODE_ENV === 'production';
 export const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
-  max: 10,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 10000,
+  max: 5,
+  min: 1,
+  idleTimeoutMillis: 60000,
+  connectionTimeoutMillis: 30000,
   allowExitOnIdle: false,
+  keepAlive: true,
+  keepAliveInitialDelayMillis: 10000,
 });
 
 pool.on('error', (err) => {
@@ -32,10 +35,23 @@ pool.on('connect', () => {
 
 export const db = drizzle(pool, { schema });
 
+export async function testConnection(): Promise<boolean> {
+  try {
+    const client = await pool.connect();
+    await client.query('SELECT 1');
+    client.release();
+    console.log('[DB] Connection test successful');
+    return true;
+  } catch (error) {
+    console.error('[DB] Connection test failed:', error);
+    return false;
+  }
+}
+
 export async function withRetry<T>(
   operation: () => Promise<T>,
   retries = 3,
-  delay = 1000
+  delay = 2000
 ): Promise<T> {
   let lastError: Error | undefined;
   
@@ -47,10 +63,31 @@ export async function withRetry<T>(
       console.error(`[DB] Operation failed (attempt ${attempt}/${retries}):`, lastError.message);
       
       if (attempt < retries) {
-        await new Promise(resolve => setTimeout(resolve, delay * attempt));
+        const waitTime = delay * attempt;
+        console.log(`[DB] Retrying in ${waitTime}ms...`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
       }
     }
   }
   
   throw lastError;
+}
+
+export async function initializeDatabase(): Promise<void> {
+  console.log('[DB] Initializing database connection...');
+  
+  for (let attempt = 1; attempt <= 5; attempt++) {
+    const success = await testConnection();
+    if (success) {
+      return;
+    }
+    
+    if (attempt < 5) {
+      const waitTime = 3000 * attempt;
+      console.log(`[DB] Connection attempt ${attempt} failed, retrying in ${waitTime}ms...`);
+      await new Promise(resolve => setTimeout(resolve, waitTime));
+    }
+  }
+  
+  console.error('[DB] Failed to establish database connection after 5 attempts');
 }
