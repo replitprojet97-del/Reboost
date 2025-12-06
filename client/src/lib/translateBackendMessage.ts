@@ -90,6 +90,60 @@ const messageMapping: Record<string, { key: string; path: string[] }> = {
     key: 'accountInactive',
     path: ['auth']
   },
+  
+  // File upload errors
+  'Type de fichier non autorisé. Formats acceptés: JPEG, JPG, PDF': {
+    key: 'invalidFileTypeJpegPdf',
+    path: ['fileErrors']
+  },
+  'Type de fichier non autorisé. Formats acceptés: PDF, JPEG, PNG, WEBP': {
+    key: 'invalidFileTypePdfImages',
+    path: ['fileErrors']
+  },
+  'Type de fichier non autorisé. Seuls les formats JPEG, PNG, WebP et PDF sont acceptés.': {
+    key: 'invalidFileTypePdfImages',
+    path: ['fileErrors']
+  },
+  'Type de fichier non autorisé. Seules les images JPEG, PNG et WebP sont acceptées.': {
+    key: 'invalidFileTypeImages',
+    path: ['fileErrors']
+  },
+  'Type de fichier non autorisé. Seuls les fichiers PDF, JPEG et PNG sont acceptés.': {
+    key: 'invalidFileTypePdfImages',
+    path: ['fileErrors']
+  },
+  'Type de fichier non reconnu': {
+    key: 'unrecognizedFileType',
+    path: ['fileErrors']
+  },
+  'Type MIME non autorisé.': {
+    key: 'invalidMimeType',
+    path: ['fileErrors']
+  },
+  'Le fichier dépasse la taille maximale autorisée (10MB)': {
+    key: 'fileTooLarge10MB',
+    path: ['fileErrors']
+  },
+  'Erreur lors de la validation du fichier': {
+    key: 'fileValidationError',
+    path: ['fileErrors']
+  },
+  'Erreur lors du nettoyage de l\'image': {
+    key: 'imageCleaningError',
+    path: ['fileErrors']
+  },
+  'Erreur lors du nettoyage du PDF': {
+    key: 'pdfCleaningError',
+    path: ['fileErrors']
+  },
+  'Type de fichier non supporté': {
+    key: 'unsupportedFileType',
+    path: ['fileErrors']
+  },
+  'Fichier invalide': {
+    key: 'invalidFile',
+    path: ['fileErrors']
+  },
 };
 
 /**

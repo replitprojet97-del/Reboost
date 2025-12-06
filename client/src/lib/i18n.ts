@@ -512,6 +512,19 @@ type TranslationKeys = {
     invalidFileType: string;
     fileTooLarge: string;
   };
+  fileErrors: {
+    invalidFileTypeJpegPdf: string;
+    invalidFileTypePdfImages: string;
+    invalidFileTypeImages: string;
+    unrecognizedFileType: string;
+    invalidMimeType: string;
+    fileTooLarge10MB: string;
+    fileValidationError: string;
+    imageCleaningError: string;
+    pdfCleaningError: string;
+    unsupportedFileType: string;
+    invalidFile: string;
+  };
   about: {
     title: string;
     subtitle: string;
@@ -2853,6 +2866,19 @@ export const translations: Record<Language, TranslationKeys> = {
       errorUploadingAvatar: 'Erreur lors du téléchargement de la photo',
       invalidFileType: 'Type de fichier non autorisé. Seules les images JPEG, PNG et WebP sont acceptées.',
       fileTooLarge: 'Le fichier est trop volumineux (max 5MB).',
+    },
+    fileErrors: {
+      invalidFileTypeJpegPdf: 'Type de fichier non autorisé. Formats acceptés: JPEG, JPG, PDF',
+      invalidFileTypePdfImages: 'Type de fichier non autorisé. Formats acceptés: PDF, JPEG, PNG, WebP',
+      invalidFileTypeImages: 'Type de fichier non autorisé. Seules les images JPEG, PNG et WebP sont acceptées.',
+      unrecognizedFileType: 'Type de fichier non reconnu',
+      invalidMimeType: 'Type MIME non autorisé',
+      fileTooLarge10MB: 'Le fichier dépasse la taille maximale autorisée (10MB)',
+      fileValidationError: 'Erreur lors de la validation du fichier',
+      imageCleaningError: 'Erreur lors du traitement de l\'image',
+      pdfCleaningError: 'Erreur lors du traitement du PDF',
+      unsupportedFileType: 'Type de fichier non supporté',
+      invalidFile: 'Fichier invalide',
     },
     about: {
       title: 'À propos d\'Solventis Group',
@@ -6121,6 +6147,19 @@ export const translations: Record<Language, TranslationKeys> = {
       invalidFileType: 'Unauthorized file type. Only JPEG, PNG and WebP images are accepted.',
       fileTooLarge: 'File is too large (max 5MB).',
     },
+    fileErrors: {
+      invalidFileTypeJpegPdf: 'Unauthorized file type. Accepted formats: JPEG, JPG, PDF',
+      invalidFileTypePdfImages: 'Unauthorized file type. Accepted formats: PDF, JPEG, PNG, WebP',
+      invalidFileTypeImages: 'Unauthorized file type. Only JPEG, PNG and WebP images are accepted.',
+      unrecognizedFileType: 'Unrecognized file type',
+      invalidMimeType: 'Unauthorized MIME type',
+      fileTooLarge10MB: 'The file exceeds the maximum allowed size (10MB)',
+      fileValidationError: 'Error validating the file',
+      imageCleaningError: 'Error processing the image',
+      pdfCleaningError: 'Error processing the PDF',
+      unsupportedFileType: 'Unsupported file type',
+      invalidFile: 'Invalid file',
+    },
     bankCard: {
       title: 'Professional Bank Card',
       subtitle: 'Enjoy a bank card dedicated to your professional transactions',
@@ -8686,6 +8725,19 @@ export const translations: Record<Language, TranslationKeys> = {
       errorUploadingAvatar: 'Error al cargar la foto',
       invalidFileType: 'Tipo de archivo no autorizado. Solo se aceptan imágenes JPEG, PNG y WebP.',
       fileTooLarge: 'El archivo es demasiado grande (máx 5MB).',
+    },
+    fileErrors: {
+      invalidFileTypeJpegPdf: 'Tipo de archivo no autorizado. Formatos aceptados: JPEG, JPG, PDF',
+      invalidFileTypePdfImages: 'Tipo de archivo no autorizado. Formatos aceptados: PDF, JPEG, PNG, WebP',
+      invalidFileTypeImages: 'Tipo de archivo no autorizado. Solo se aceptan imágenes JPEG, PNG y WebP.',
+      unrecognizedFileType: 'Tipo de archivo no reconocido',
+      invalidMimeType: 'Tipo MIME no autorizado',
+      fileTooLarge10MB: 'El archivo supera el tamaño máximo permitido (10MB)',
+      fileValidationError: 'Error al validar el archivo',
+      imageCleaningError: 'Error al procesar la imagen',
+      pdfCleaningError: 'Error al procesar el PDF',
+      unsupportedFileType: 'Tipo de archivo no soportado',
+      invalidFile: 'Archivo inválido',
     },
     bankCard: {
       title: 'Tarjeta Bancaria Profesional',
@@ -11349,6 +11401,19 @@ export const translations: Record<Language, TranslationKeys> = {
       invalidFileType: 'Tipo de arquivo não permitido. Apenas imagens JPEG, PNG e WebP são aceitas.',
       fileTooLarge: 'O arquivo é muito grande (máx. 5MB).',
     },
+    fileErrors: {
+      invalidFileTypeJpegPdf: 'Tipo de arquivo não autorizado. Formatos aceitos: JPEG, JPG, PDF',
+      invalidFileTypePdfImages: 'Tipo de arquivo não autorizado. Formatos aceitos: PDF, JPEG, PNG, WebP',
+      invalidFileTypeImages: 'Tipo de arquivo não autorizado. Apenas imagens JPEG, PNG e WebP são aceitas.',
+      unrecognizedFileType: 'Tipo de arquivo não reconhecido',
+      invalidMimeType: 'Tipo MIME não autorizado',
+      fileTooLarge10MB: 'O arquivo excede o tamanho máximo permitido (10MB)',
+      fileValidationError: 'Erro ao validar o arquivo',
+      imageCleaningError: 'Erro ao processar a imagem',
+      pdfCleaningError: 'Erro ao processar o PDF',
+      unsupportedFileType: 'Tipo de arquivo não suportado',
+      invalidFile: 'Arquivo inválido',
+    },
     bankCard: {
       title: 'Cartão Bancário Premium Solventis',
       subtitle: 'Peça seu cartão exclusivo e aproveite vantagens excepcionais',
@@ -13312,6 +13377,19 @@ export const translations: Record<Language, TranslationKeys> = {
       errorUploadingAvatar: 'Errore durante il caricamento della foto',
       invalidFileType: 'Tipo di file non autorizzato. Sono accettate solo immagini JPEG, PNG e WebP.',
       fileTooLarge: 'Il file è troppo grande (max 5MB).',
+    },
+    fileErrors: {
+      invalidFileTypeJpegPdf: 'Tipo di file non autorizzato. Formati accettati: JPEG, JPG, PDF',
+      invalidFileTypePdfImages: 'Tipo di file non autorizzato. Formati accettati: PDF, JPEG, PNG, WebP',
+      invalidFileTypeImages: 'Tipo di file non autorizzato. Solo immagini JPEG, PNG e WebP sono accettate.',
+      unrecognizedFileType: 'Tipo di file non riconosciuto',
+      invalidMimeType: 'Tipo MIME non autorizzato',
+      fileTooLarge10MB: 'Il file supera la dimensione massima consentita (10MB)',
+      fileValidationError: 'Errore durante la validazione del file',
+      imageCleaningError: 'Errore durante l\'elaborazione dell\'immagine',
+      pdfCleaningError: 'Errore durante l\'elaborazione del PDF',
+      unsupportedFileType: 'Tipo di file non supportato',
+      invalidFile: 'File non valido',
     },
     userMessages: {
       title: 'Messaggi',
@@ -15872,6 +15950,19 @@ export const translations: Record<Language, TranslationKeys> = {
       invalidFileType: 'Nicht erlaubter Dateityp. Nur JPEG-, PNG- und WebP-Bilder sind erlaubt.',
       fileTooLarge: 'Die Datei ist zu groß (max 5MB).',
     },
+    fileErrors: {
+      invalidFileTypeJpegPdf: 'Dateityp nicht erlaubt. Erlaubte Formate: JPEG, JPG, PDF',
+      invalidFileTypePdfImages: 'Dateityp nicht erlaubt. Erlaubte Formate: PDF, JPEG, PNG, WebP',
+      invalidFileTypeImages: 'Dateityp nicht erlaubt. Nur JPEG, PNG und WebP Bilder sind erlaubt.',
+      unrecognizedFileType: 'Dateityp nicht erkannt',
+      invalidMimeType: 'MIME-Typ nicht erlaubt',
+      fileTooLarge10MB: 'Die Datei überschreitet die maximale Größe (10MB)',
+      fileValidationError: 'Fehler bei der Dateivalidierung',
+      imageCleaningError: 'Fehler bei der Bildverarbeitung',
+      pdfCleaningError: 'Fehler bei der PDF-Verarbeitung',
+      unsupportedFileType: 'Dateityp nicht unterstützt',
+      invalidFile: 'Ungültige Datei',
+    },
     userMessages: {
       title: 'Nachrichten',
       description: 'Empfangen und einsehen Sie Nachrichten von unserem Team.',
@@ -18430,6 +18521,19 @@ export const translations: Record<Language, TranslationKeys> = {
       errorUploadingAvatar: 'Fout bij het uploaden van foto',
       invalidFileType: 'Niet toegestaan bestandstype. Alleen JPEG-, PNG- en WebP-afbeeldingen zijn toegestaan.',
       fileTooLarge: 'Het bestand is te groot (max 5MB).',
+    },
+    fileErrors: {
+      invalidFileTypeJpegPdf: 'Bestandstype niet toegestaan. Toegestane formaten: JPEG, JPG, PDF',
+      invalidFileTypePdfImages: 'Bestandstype niet toegestaan. Toegestane formaten: PDF, JPEG, PNG, WebP',
+      invalidFileTypeImages: 'Bestandstype niet toegestaan. Alleen JPEG, PNG en WebP afbeeldingen zijn toegestaan.',
+      unrecognizedFileType: 'Bestandstype niet herkend',
+      invalidMimeType: 'MIME-type niet toegestaan',
+      fileTooLarge10MB: 'Het bestand overschrijdt de maximale grootte (10MB)',
+      fileValidationError: 'Fout bij het valideren van het bestand',
+      imageCleaningError: 'Fout bij het verwerken van de afbeelding',
+      pdfCleaningError: 'Fout bij het verwerken van de PDF',
+      unsupportedFileType: 'Bestandstype niet ondersteund',
+      invalidFile: 'Ongeldig bestand',
     },
     userMessages: {
       title: 'Berichten',

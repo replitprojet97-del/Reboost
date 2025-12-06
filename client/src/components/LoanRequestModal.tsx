@@ -17,6 +17,7 @@ import { getRequiredDocuments, calculateInterestRate, getLoanOfferLimits } from 
 import { Loader2, Upload, X, FileText, CheckCircle2 } from 'lucide-react';
 import type { User } from '@shared/schema';
 import { useTranslations, useLanguage } from '@/lib/i18n';
+import { translateBackendMessage } from '@/lib/translateBackendMessage';
 import { getTranslatedLoanOffers } from '@/lib/loan-offer-i18n';
 
 interface LoanRequestModalProps {
@@ -240,7 +241,7 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
     onError: (error: any) => {
       toast({
         title: t.error,
-        description: error.message || t.errorDescription,
+        description: translateBackendMessage(error.message, language) || t.errorDescription,
         variant: 'destructive',
       });
     },
