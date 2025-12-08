@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { useTranslations } from "@/lib/i18n";
-import hero1 from "@assets/generated_images/financial_district_skyline_twilight.png";
-import hero2 from "@assets/generated_images/executive_finance_meeting_room.png";
-import hero3 from "@assets/generated_images/abstract_fintech_data_visualization.png";
 
-const slideImages = [hero1, hero2, hero3];
+const slideImages = ["/hero-1.png", "/hero-2.png", "/hero-3.png"];
 
 export default function HeroCarousel() {
   const [index, setIndex] = useState(0);
