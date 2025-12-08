@@ -97,21 +97,11 @@ export default function AppSidebar() {
         {/* Logo Section - Official Altus Finances Branding */}
         <div className="px-2 py-4 mb-6" data-testid="sidebar-logo">
           <div className="flex flex-col items-center gap-3">
-            {/* Altus Finances Official Logo SVG - Professional Design */}
-            <svg viewBox="0 0 300 320" className="w-28 h-auto drop-shadow-md hover:drop-shadow-lg transition-all duration-300" xmlns="http://www.w3.org/2000/svg">
-              {/* Gold Triangle A */}
-              <polygon points="150,50 240,190 200,190" fill="#D4A85A" />
-              <polygon points="150,50 100,190 140,190" fill="#C49A48" />
-              
-              {/* Navy Blue Wave Arc */}
-              <path d="M 120 160 Q 150 140 180 160" stroke="#003366" strokeWidth="24" fill="none" strokeLinecap="round" />
-              
-              {/* Altus Finances Text */}
-              <text x="150" y="250" fontSize="52" fontWeight="bold" textAnchor="middle" fill="#003366" fontFamily="Arial, sans-serif">Altus Finances</text>
-              
-              {/* Finance Group Subtitle */}
-              <text x="150" y="285" fontSize="20" textAnchor="middle" fill="#666666" fontFamily="Arial, sans-serif" fontWeight="500" letterSpacing="2">FINANCE GROUP</text>
-            </svg>
+            <img 
+              src="/logo-altus-new.png" 
+              alt="Altus Finance Group" 
+              className="w-28 h-auto drop-shadow-md hover:drop-shadow-lg transition-all duration-300"
+            />
             
             {/* Subtle divider */}
             <div className="w-16 h-px bg-gradient-to-r from-transparent via-border to-transparent" />

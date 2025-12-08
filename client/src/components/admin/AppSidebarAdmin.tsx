@@ -61,8 +61,12 @@ export function AppSidebarAdmin() {
   return (
     <Sidebar className="border-r border-gray-200 bg-[#F8F9FF]">
       <SidebarContent>
-        <div className="p-6 font-bold text-xl tracking-tight text-indigo-600" data-testid="text-admin-logo">
-          ALTUS FINANCES ADMIN
+        <div className="p-6" data-testid="text-admin-logo">
+          <img 
+            src="/logo-altus-new.png" 
+            alt="Altus Finance Group Admin" 
+            className="h-16 w-auto mx-auto"
+          />
         </div>
 
         <SidebarGroup>

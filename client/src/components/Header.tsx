@@ -100,7 +100,7 @@ export default function Header() {
             }`}>
               <div className="relative flex-shrink-0">
                 <img 
-                  src="/logo-cropped.png" 
+                  src="/logo-altus-new.png" 
                   alt="Altus Finances Group" 
                   className={`transition-all duration-300 object-contain ${
                     scrolled ? 'h-10' : 'h-12'
