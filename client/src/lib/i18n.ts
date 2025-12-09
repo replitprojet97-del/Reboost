@@ -218,6 +218,9 @@ type TranslationKeys = {
     reviewMessage: string;
     signedSuccess: string;
     downloadOriginal: string;
+    downloadSigned: string;
+    confirmDownload: string;
+    confirmDownloadDescription: string;
     uploadTitle: string;
     uploadDescription: string;
     chooseFile: string;
@@ -1682,6 +1685,12 @@ type TranslationKeys = {
       amountLabel: string;
       recipientLabel: string;
       feesLabel: string;
+      statusLabel: string;
+      dateLabel: string;
+      securityNote: string;
+      securityDescription: string;
+      viewTransfers: string;
+      confirmationEmail: string;
     };
     toast: {
       transferInProgress: string;
@@ -2563,6 +2572,9 @@ export const translations: Record<Language, TranslationKeys> = {
       noCompletedContractsDescription: 'Vos contrats signés apparaîtront ici.',
       reviewMessage: 'Votre contrat signé a été reçu et est en cours de vérification par notre équipe. Vous serez notifié dès que les fonds seront débloqués.',
       signedSuccess: 'Contrat signé et validé avec succès',
+      downloadSigned: 'Télécharger le contrat signé',
+      confirmDownload: 'Télécharger le contrat?',
+      confirmDownloadDescription: 'Êtes-vous sûr de vouloir télécharger ce contrat?',
       downloadOriginal: 'Télécharger le contrat original',
       uploadTitle: 'Téléverser votre contrat signé',
       uploadDescription: 'Veuillez envoyer votre contrat signé (PDF uniquement, max 10 MB)',
@@ -4252,6 +4264,12 @@ export const translations: Record<Language, TranslationKeys> = {
         amountLabel: 'Montant',
         recipientLabel: 'Bénéficiaire',
         feesLabel: 'Frais',
+        statusLabel: 'Statut',
+        dateLabel: 'Date',
+        securityNote: 'Transaction sécurisée',
+        securityDescription: 'Cette transaction a été traitée via nos protocoles de sécurité bancaire AES-256 avec authentification multi-niveaux.',
+        viewTransfers: 'Voir mes transferts',
+        confirmationEmail: 'Un email de confirmation vous a été envoyé.',
       },
       toast: {
         transferInProgress: 'Transfert en cours',
@@ -5269,6 +5287,9 @@ export const translations: Record<Language, TranslationKeys> = {
       noCompletedContractsDescription: 'Your signed contracts will appear here.',
       reviewMessage: 'Your signed contract has been received and is being reviewed by our team. You will be notified once the funds are released.',
       signedSuccess: 'Contract signed and validated successfully',
+      downloadSigned: 'Download signed contract',
+      confirmDownload: 'Download contract?',
+      confirmDownloadDescription: 'Are you sure you want to download this contract?',
       downloadOriginal: 'Download original contract',
       uploadTitle: 'Upload your signed contract',
       uploadDescription: 'Please send your signed contract (PDF only, max 10 MB)',
@@ -6944,6 +6965,12 @@ export const translations: Record<Language, TranslationKeys> = {
         amountLabel: 'Amount',
         recipientLabel: 'Recipient',
         feesLabel: 'Fees',
+        statusLabel: 'Status',
+        dateLabel: 'Date',
+        securityNote: 'Secure transaction',
+        securityDescription: 'This transaction was processed via our AES-256 banking security protocols with multi-level authentication.',
+        viewTransfers: 'View my transfers',
+        confirmationEmail: 'A confirmation email has been sent to you.',
       },
       toast: {
         transferInProgress: 'Transfer in progress',
@@ -7956,6 +7983,9 @@ export const translations: Record<Language, TranslationKeys> = {
       noCompletedContractsDescription: 'Sus contratos firmados aparecerán aquí.',
       reviewMessage: 'Su contrato firmado ha sido recibido y está siendo verificado por nuestro equipo. Será notificado cuando se liberen los fondos.',
       signedSuccess: 'Contrato firmado y validado con éxito',
+      downloadSigned: 'Descargar el contrato firmado',
+      confirmDownload: '¿Descargar el contrato?',
+      confirmDownloadDescription: '¿Está seguro de que desea descargar este contrato?',
       downloadOriginal: 'Descargar el contrato original',
       uploadTitle: 'Cargar su contrato firmado',
       uploadDescription: 'Por favor envíe su contrato firmado (PDF únicamente, máx. 10 MB)',
@@ -9529,6 +9559,12 @@ export const translations: Record<Language, TranslationKeys> = {
         amountLabel: 'Monto',
         recipientLabel: 'Beneficiario',
         feesLabel: 'Tarifas',
+        statusLabel: 'Estado',
+        dateLabel: 'Fecha',
+        securityNote: 'Transacción segura',
+        securityDescription: 'Esta transacción fue procesada a través de nuestros protocolos de seguridad bancaria AES-256 con autenticación multinivel.',
+        viewTransfers: 'Ver mis transferencias',
+        confirmationEmail: 'Se le ha enviado un correo de confirmación.',
       },
       toast: {
         transferInProgress: 'Transferencia en curso',
@@ -10639,6 +10675,9 @@ export const translations: Record<Language, TranslationKeys> = {
       noCompletedContractsDescription: 'Seus contratos assinados aparecerão aqui.',
       reviewMessage: 'Seu contrato assinado foi recebido e está sendo verificado por nossa equipe. Você será notificado assim que os fundos forem liberados.',
       signedSuccess: 'Contrato assinado e validado com sucesso',
+      downloadSigned: 'Baixar o contrato assinado',
+      confirmDownload: 'Baixar o contrato?',
+      confirmDownloadDescription: 'Tem certeza de que deseja baixar este contrato?',
       downloadOriginal: 'Baixar contrato original',
       uploadTitle: 'Carregar seu contrato assinado',
       uploadDescription: 'Por favor envie seu contrato assinado (apenas PDF, máx 10 MB)',
@@ -12212,6 +12251,12 @@ export const translations: Record<Language, TranslationKeys> = {
         amountLabel: 'Valor',
         recipientLabel: 'Beneficiário',
         feesLabel: 'Taxas',
+        statusLabel: 'Estado',
+        dateLabel: 'Data',
+        securityNote: 'Transação segura',
+        securityDescription: 'Esta transação foi processada através dos nossos protocolos de segurança bancária AES-256 com autenticação multinível.',
+        viewTransfers: 'Ver minhas transferências',
+        confirmationEmail: 'Um email de confirmação foi enviado para você.',
       },
       toast: {
         transferInProgress: 'Transferência em andamento',
@@ -13133,6 +13178,9 @@ export const translations: Record<Language, TranslationKeys> = {
       noCompletedContractsDescription: 'I tuoi contratti firmati appariranno qui.',
       reviewMessage: 'Il tuo contratto firmato è stato ricevuto ed è in fase di verifica dal nostro team. Sarai avvisato una volta che i fondi saranno sbloccati.',
       signedSuccess: 'Contratto firmato e convalidato con successo',
+      downloadSigned: 'Scarica il contratto firmato',
+      confirmDownload: 'Scaricare il contratto?',
+      confirmDownloadDescription: 'Sei sicuro di voler scaricare questo contratto?',
       downloadOriginal: 'Scarica contratto originale',
       uploadTitle: 'Carica il tuo contratto firmato',
       uploadDescription: 'Si prega di inviare il contratto firmato (solo PDF, max 10 MB)',
@@ -14706,6 +14754,12 @@ export const translations: Record<Language, TranslationKeys> = {
         amountLabel: 'Importo',
         recipientLabel: 'Beneficiario',
         feesLabel: 'Commissioni',
+        statusLabel: 'Stato',
+        dateLabel: 'Data',
+        securityNote: 'Transazione sicura',
+        securityDescription: 'Questa transazione è stata elaborata tramite i nostri protocolli di sicurezza bancaria AES-256 con autenticazione multilivello.',
+        viewTransfers: 'Vedi i miei trasferimenti',
+        confirmationEmail: 'Ti è stata inviata una email di conferma.',
       },
       toast: {
         transferInProgress: 'Trasferimento in corso',
@@ -15713,6 +15767,9 @@ export const translations: Record<Language, TranslationKeys> = {
       noCompletedContractsDescription: 'Ihre unterschriebenen Verträge werden hier angezeigt.',
       reviewMessage: 'Ihr unterschriebener Vertrag wurde empfangen und wird von unserem Team geprüft. Sie werden benachrichtigt, sobald die Mittel freigegeben sind.',
       signedSuccess: 'Vertrag erfolgreich unterschrieben und validiert',
+      downloadSigned: 'Unterzeichneten Vertrag herunterladen',
+      confirmDownload: 'Vertrag herunterladen?',
+      confirmDownloadDescription: 'Sind Sie sicher, dass Sie diesen Vertrag herunterladen möchten?',
       downloadOriginal: 'Originalvertrag herunterladen',
       uploadTitle: 'Laden Sie Ihren unterschriebenen Vertrag hoch',
       uploadDescription: 'Bitte senden Sie Ihren unterschriebenen Vertrag (nur PDF, max 10 MB)',
@@ -17286,6 +17343,12 @@ export const translations: Record<Language, TranslationKeys> = {
         amountLabel: 'Betrag',
         recipientLabel: 'Empfänger',
         feesLabel: 'Gebühren',
+        statusLabel: 'Status',
+        dateLabel: 'Datum',
+        securityNote: 'Sichere Transaktion',
+        securityDescription: 'Diese Transaktion wurde über unsere AES-256-Banksicherheitsprotokolle mit mehrstufiger Authentifizierung verarbeitet.',
+        viewTransfers: 'Meine Überweisungen anzeigen',
+        confirmationEmail: 'Eine Bestätigungs-E-Mail wurde an Sie gesendet.',
       },
       toast: {
         transferInProgress: 'Überweisung läuft',
@@ -18293,6 +18356,9 @@ export const translations: Record<Language, TranslationKeys> = {
       noCompletedContractsDescription: 'Uw ondertekende contracten verschijnen hier.',
       reviewMessage: 'Uw ondertekende contract is ontvangen en wordt beoordeeld door ons team. U wordt op de hoogte gebracht zodra de fondsen zijn vrijgegeven.',
       signedSuccess: 'Contract succesvol ondertekend en gevalideerd',
+      downloadSigned: 'Ondertekend contract downloaden',
+      confirmDownload: 'Contract downloaden?',
+      confirmDownloadDescription: 'Weet u zeker dat u dit contract wilt downloaden?',
       downloadOriginal: 'Origineel contract downloaden',
       uploadTitle: 'Upload uw ondertekende contract',
       uploadDescription: 'Stuur alstublieft uw ondertekende contract (alleen PDF, max 10 MB)',
@@ -19836,6 +19902,12 @@ export const translations: Record<Language, TranslationKeys> = {
         amountLabel: 'Bedrag',
         recipientLabel: 'Begunstigde',
         feesLabel: 'Kosten',
+        statusLabel: 'Status',
+        dateLabel: 'Datum',
+        securityNote: 'Beveiligde transactie',
+        securityDescription: 'Deze transactie werd verwerkt via onze AES-256 bankbeveiligingsprotocollen met meervoudige authenticatie.',
+        viewTransfers: 'Mijn overboekingen bekijken',
+        confirmationEmail: 'Er is een bevestigingsmail naar u verzonden.',
       },
       toast: {
         transferInProgress: 'Overdracht bezig',

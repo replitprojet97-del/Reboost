@@ -928,7 +928,7 @@ const getContractTemplate = (data: ContractData): string => {
       <div class="logo-section">
         <div class="logo-container">
           <div class="logo-icon">
-            <div class="logo-icon-text">S</div>
+            <div class="logo-icon-text">A</div>
           </div>
           <div class="logo-text-group">
             <div class="logo">ALTUS FINANCES</div>
