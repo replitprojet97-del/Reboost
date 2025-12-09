@@ -40,7 +40,10 @@ export function TrustInfoBar() {
   const Icon = currentBadge.icon;
 
   return (
-    <div className="fixed top-[40px] left-0 right-0 w-full bg-[#1e3a5f] overflow-hidden z-[10000]" data-testid="trust-info-bar">
+    <div className="fixed top-[40px] left-0 right-0 w-full overflow-hidden z-[10000] trust-info-bar-gradient" data-testid="trust-info-bar">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 trust-gradient-animated" />
+      
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           {/* Left side: Rotating badge info */}
@@ -106,6 +109,34 @@ export function TrustInfoBar() {
         </div>
       </div>
 
+      <style>{`
+        .trust-info-bar-gradient {
+          background: hsl(221, 83%, 53%);
+        }
+        .trust-gradient-animated {
+          background: linear-gradient(
+            90deg,
+            hsl(221, 83%, 53%) 0%,
+            hsl(221, 83%, 53%) 20%,
+            hsl(260, 80%, 55%) 50%,
+            hsl(221, 83%, 53%) 80%,
+            hsl(221, 83%, 53%) 100%
+          );
+          background-size: 200% 100%;
+          animation: gradientShift 4s ease-in-out infinite;
+        }
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+      `}</style>
     </div>
   );
 }
