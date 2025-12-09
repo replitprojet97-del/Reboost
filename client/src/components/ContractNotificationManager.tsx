@@ -77,13 +77,20 @@ export default function ContractNotificationManager() {
         currency: 'EUR',
       }).format(amount);
 
+      const contractActionText = (t.notifications as any)?.contractAction 
+        || `Contrat de prêt de {amount} en attente de signature`;
+      const viewContractText = (t.notifications as any)?.viewContract 
+        || 'Voir le contrat';
+      const downloadErrorText = (t.notifications as any)?.downloadError 
+        || 'Erreur de téléchargement';
+      
       addNotification({
         id: notificationId,
-        message: t.notifications.contractAction.replace('{amount}', formattedAmount),
+        message: contractActionText.replace('{amount}', formattedAmount),
         variant: 'warning',
         dismissible: false,
         link: {
-          text: t.notifications.viewContract,
+          text: viewContractText,
           onClick: async () => {
             try {
               const response = await fetch(getApiUrl(`/api/contracts/${loan.id}/link`), {
@@ -93,19 +100,25 @@ export default function ContractNotificationManager() {
               if (!response.ok) {
                 const error = await response.json();
                 console.error('Download link generation error:', error);
-                alert(t.common.error);
+                alert(t.common?.error || 'Erreur');
                 return;
               }
 
               const { signedUrl } = await response.json();
               
-              window.open(signedUrl, '_blank');
+              if (signedUrl) {
+                window.open(signedUrl, '_blank');
+              } else {
+                console.error('No signed URL returned');
+                alert(t.common?.error || 'URL du contrat non disponible');
+                return;
+              }
               
               setDownloadedContracts(prev => new Set(prev).add(loan.id));
               removeNotification(notificationId);
             } catch (error) {
               console.error('Contract download error:', error);
-              alert(t.common.error + ': ' + t.notifications.downloadError);
+              alert((t.common?.error || 'Erreur') + ': ' + downloadErrorText);
             }
           },
         },
@@ -149,13 +162,18 @@ export default function ContractNotificationManager() {
           currency: 'EUR',
         }).format(amount);
 
+        const contractReminderText = (t.notifications as any)?.contractReminder 
+          || `N'oubliez pas de renvoyer votre contrat signé pour le prêt de {amount}`;
+        const viewMyContractsText = (t.notifications as any)?.viewMyContracts 
+          || 'Voir mes contrats';
+        
         addNotification({
           id: notificationId,
-          message: t.notifications.contractReminder.replace('{amount}', formattedAmount),
+          message: contractReminderText.replace('{amount}', formattedAmount),
           variant: 'warning',
           dismissible: true,
           link: {
-            text: t.notifications.viewMyContracts,
+            text: viewMyContractsText,
             onClick: () => {
               window.location.href = '/contracts';
             },
