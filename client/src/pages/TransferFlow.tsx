@@ -1570,7 +1570,7 @@ export default function TransferFlow() {
                   </div>
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                    {t.transfer.completed || 'Terminé'}
+                    {t.transfer.completed}
                   </span>
                 </div>
 
@@ -1592,10 +1592,10 @@ export default function TransferFlow() {
                   <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="text-sm font-medium text-blue-900 dark:text-blue-100 mb-1">
-                      {t.transferFlow.complete.securityNote || 'Transaction sécurisée'}
+                      {t.transferFlow.complete.securityNote}
                     </p>
                     <p className="text-xs text-blue-700 dark:text-blue-300">
-                      {t.transferFlow.complete.securityDescription || 'Cette transaction a été traitée via nos protocoles de sécurité bancaire AES-256 avec authentification multi-niveaux.'}
+                      {t.transferFlow.complete.securityDescription}
                     </p>
                   </div>
                 </div>
@@ -1620,14 +1620,14 @@ export default function TransferFlow() {
                   data-testid="button-view-transfers"
                 >
                   <FileText className="w-4 h-4 mr-2" />
-                  {t.transferFlow.complete.viewTransfers || 'Voir mes transferts'}
+                  {t.transferFlow.complete.viewTransfers}
                 </Button>
               </div>
             </div>
           </div>
 
           <p className="text-center text-xs text-muted-foreground mt-6">
-            {t.transferFlow.complete.confirmationEmail || 'Un email de confirmation vous a été envoyé.'}
+            {t.transferFlow.complete.confirmationEmail}
           </p>
         </div>
       </div>
