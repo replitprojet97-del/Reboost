@@ -1758,6 +1758,7 @@ type TranslationKeys = {
       lineOfCredit: { title: string; description: string; features: string[] };
       vehicleFleetLoan: { title: string; description: string; features: string[] };
     };
+    maxLoansMessage: string;
   };
   cardTermsContent: {
     title: string;
@@ -4387,6 +4388,7 @@ export const translations: Record<Language, TranslationKeys> = {
         vehicleFleetLoan: {
           title: 'Crédit Véhicule Pro',
           description: 'Financez votre flotte automobile ou véhicules utilitaires',
+      maxLoansMessage: 'Vous avez atteint le nombre maximum de prêts actifs pour votre compte {tier} ({current}/{max}). Complétez un prêt pour en demander un nouveau.',
           features: ['LOA ou crédit classique', 'Option rachat', 'Assurance incluse'],
         },
       },
@@ -7089,6 +7091,7 @@ export const translations: Record<Language, TranslationKeys> = {
         vehicleFleetLoan: {
           title: 'Commercial Vehicle Loan',
           description: 'Finance your vehicle fleet or commercial vehicles',
+      maxLoansMessage: 'You have reached the maximum number of active loans for your {tier} account ({current}/{max}). Complete a loan to request a new one.',
           features: ['Lease or traditional credit', 'Buyback option', 'Insurance included'],
         },
       },
@@ -9684,6 +9687,7 @@ export const translations: Record<Language, TranslationKeys> = {
         vehicleFleetLoan: {
           title: 'Crédito para Flota de Vehículos',
           description: 'Financie su flota automotriz o vehículos utilitarios',
+      maxLoansMessage: 'Ha alcanzado el número máximo de préstamos activos para su cuenta {tier} ({current}/{max}). Complete un préstamo para solicitar uno nuevo.',
           features: ['Arrendamiento o crédito tradicional', 'Opción de recompra', 'Seguro incluido'],
         },
       },
@@ -12377,6 +12381,7 @@ export const translations: Record<Language, TranslationKeys> = {
         vehicleFleetLoan: {
           title: 'Crédito para Frota de Veículos',
           description: 'Financie sua frota automotiva ou veículos utilitários',
+      maxLoansMessage: 'Você atingiu o número máximo de empréstimos ativos para sua conta {tier} ({current}/{max}). Complete um empréstimo para solicitar um novo.',
           features: ['Leasing ou crédito tradicional', 'Opção de recompra', 'Seguro incluído'],
         },
       },
@@ -14881,6 +14886,7 @@ export const translations: Record<Language, TranslationKeys> = {
         vehicleFleetLoan: {
           title: 'Credito Flotta Veicoli',
           description: 'Finanzia la tua flotta automobilistica o veicoli commerciali',
+      maxLoansMessage: 'Hai raggiunto il numero massimo di prestiti attivi per il tuo account {tier} ({current}/{max}). Completa un prestito per richiederne uno nuovo.',
           features: ['Leasing o credito tradizionale', 'Opzione di riacquisto', 'Assicurazione inclusa'],
         },
       },
@@ -17471,6 +17477,7 @@ export const translations: Record<Language, TranslationKeys> = {
         vehicleFleetLoan: {
           title: 'Firmenfahrzeugkredit',
           description: 'Finanzieren Sie Ihre Fahrzeugflotte oder Nutzfahrzeuge',
+      maxLoansMessage: 'Sie haben die maximale Anzahl aktiver Darlehen für Ihr {tier}-Konto erreicht ({current}/{max}). Schließen Sie ein Darlehen ab, um ein neues zu beantragen.',
           features: ['Leasing oder traditioneller Kredit', 'Rückkaufoption', 'Versicherung inklusive'],
         },
       },
@@ -20031,6 +20038,7 @@ export const translations: Record<Language, TranslationKeys> = {
         vehicleFleetLoan: {
           title: 'Wagenparkkrediet',
           description: 'Financier uw wagenpark of bedrijfsvoertuigen',
+      maxLoansMessage: 'U heeft het maximale aantal actieve leningen voor uw {tier} account bereikt ({current}/{max}). Voltooi een lening om een nieuwe aan te vragen.',
           features: ['Leasing of traditioneel krediet', 'Terugkoopoptie', 'Verzekering inbegrepen'],
         },
       },
