@@ -1759,6 +1759,7 @@ type TranslationKeys = {
       vehicleFleetLoan: { title: string; description: string; features: string[] };
     };
     maxLoansMessage: string;
+    cumulativeLimitMessage: string;
   };
   cardTermsContent: {
     title: string;
@@ -4389,6 +4390,7 @@ export const translations: Record<Language, TranslationKeys> = {
           title: 'Crédit Véhicule Pro',
           description: 'Financez votre flotte automobile ou véhicules utilitaires',
       maxLoansMessage: 'Vous avez atteint le nombre maximum de prêts actifs pour votre compte {tier} ({current}/{max}). Complétez un prêt pour en demander un nouveau.',
+      cumulativeLimitMessage: 'Le montant demandé dépasse votre plafond de financement autorisé. Montant cumulé actuel: {current}€. Plafond maximum: {max}€. Capacité restante: {remaining}€.',
           features: ['LOA ou crédit classique', 'Option rachat', 'Assurance incluse'],
         },
       },
@@ -7092,6 +7094,7 @@ export const translations: Record<Language, TranslationKeys> = {
           title: 'Commercial Vehicle Loan',
           description: 'Finance your vehicle fleet or commercial vehicles',
       maxLoansMessage: 'You have reached the maximum number of active loans for your {tier} account ({current}/{max}). Complete a loan to request a new one.',
+      cumulativeLimitMessage: 'The requested amount exceeds your authorized financing limit. Current cumulative amount: {current}€. Maximum limit: {max}€. Remaining capacity: {remaining}€.',
           features: ['Lease or traditional credit', 'Buyback option', 'Insurance included'],
         },
       },
@@ -9688,6 +9691,7 @@ export const translations: Record<Language, TranslationKeys> = {
           title: 'Crédito para Flota de Vehículos',
           description: 'Financie su flota automotriz o vehículos utilitarios',
       maxLoansMessage: 'Ha alcanzado el número máximo de préstamos activos para su cuenta {tier} ({current}/{max}). Complete un préstamo para solicitar uno nuevo.',
+      cumulativeLimitMessage: 'El monto solicitado supera su límite de financiamiento autorizado. Monto acumulado actual: {current}€. Límite máximo: {max}€. Capacidad restante: {remaining}€.',
           features: ['Arrendamiento o crédito tradicional', 'Opción de recompra', 'Seguro incluido'],
         },
       },
@@ -12382,6 +12386,7 @@ export const translations: Record<Language, TranslationKeys> = {
           title: 'Crédito para Frota de Veículos',
           description: 'Financie sua frota automotiva ou veículos utilitários',
       maxLoansMessage: 'Você atingiu o número máximo de empréstimos ativos para sua conta {tier} ({current}/{max}). Complete um empréstimo para solicitar um novo.',
+      cumulativeLimitMessage: 'O valor solicitado excede seu limite de financiamento autorizado. Valor acumulado atual: {current}€. Limite máximo: {max}€. Capacidade restante: {remaining}€.',
           features: ['Leasing ou crédito tradicional', 'Opção de recompra', 'Seguro incluído'],
         },
       },
@@ -14887,6 +14892,7 @@ export const translations: Record<Language, TranslationKeys> = {
           title: 'Credito Flotta Veicoli',
           description: 'Finanzia la tua flotta automobilistica o veicoli commerciali',
       maxLoansMessage: 'Hai raggiunto il numero massimo di prestiti attivi per il tuo account {tier} ({current}/{max}). Completa un prestito per richiederne uno nuovo.',
+      cumulativeLimitMessage: "L'importo richiesto supera il tuo limite di finanziamento autorizzato. Importo cumulato attuale: {current}€. Limite massimo: {max}€. Capacità rimanente: {remaining}€.",
           features: ['Leasing o credito tradizionale', 'Opzione di riacquisto', 'Assicurazione inclusa'],
         },
       },
@@ -17478,6 +17484,7 @@ export const translations: Record<Language, TranslationKeys> = {
           title: 'Firmenfahrzeugkredit',
           description: 'Finanzieren Sie Ihre Fahrzeugflotte oder Nutzfahrzeuge',
       maxLoansMessage: 'Sie haben die maximale Anzahl aktiver Darlehen für Ihr {tier}-Konto erreicht ({current}/{max}). Schließen Sie ein Darlehen ab, um ein neues zu beantragen.',
+      cumulativeLimitMessage: 'Der angeforderte Betrag übersteigt Ihr genehmigtes Finanzierungslimit. Aktueller kumulierter Betrag: {current}€. Maximales Limit: {max}€. Verbleibende Kapazität: {remaining}€.',
           features: ['Leasing oder traditioneller Kredit', 'Rückkaufoption', 'Versicherung inklusive'],
         },
       },
@@ -20039,6 +20046,7 @@ export const translations: Record<Language, TranslationKeys> = {
           title: 'Wagenparkkrediet',
           description: 'Financier uw wagenpark of bedrijfsvoertuigen',
       maxLoansMessage: 'U heeft het maximale aantal actieve leningen voor uw {tier} account bereikt ({current}/{max}). Voltooi een lening om een nieuwe aan te vragen.',
+      cumulativeLimitMessage: 'Het gevraagde bedrag overschrijdt uw geautoriseerde financieringslimiet. Huidig cumulatief bedrag: {current}€. Maximale limiet: {max}€. Resterende capaciteit: {remaining}€.',
           features: ['Leasing of traditioneel krediet', 'Terugkoopoptie', 'Verzekering inbegrepen'],
         },
       },

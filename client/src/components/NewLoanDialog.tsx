@@ -140,6 +140,13 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
           ?.replace('{tier}', tier || 'bronze')
           .replace('{current}', String(currentActive || 0))
           .replace('{max}', String(maxAllowed || 1)) || errorMessage;
+      } else if (error instanceof ApiError && error.code === 'CUMULATIVE_LIMIT_EXCEEDED' && error.details) {
+        const { currentCumulative, maxAllowed, remainingCapacity } = error.details;
+        const formatNumber = (n: number) => n.toLocaleString();
+        errorMessage = t.loanOffers?.cumulativeLimitMessage
+          ?.replace('{current}', formatNumber(currentCumulative || 0))
+          .replace('{max}', formatNumber(maxAllowed || 0))
+          .replace('{remaining}', formatNumber(remainingCapacity || 0)) || errorMessage;
       }
       
       toast({
@@ -149,6 +156,7 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
       });
     },
   });
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
