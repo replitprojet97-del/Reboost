@@ -134,40 +134,46 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
       resetForm();
     },
     onError: (error: any) => {
-      let errorMessage = error?.message || t.dialogs.newLoan.error.loanErrorDesc;
+      let errorMessage = t.dialogs.newLoan.error.loanErrorDesc;
       
-      if (error instanceof ApiError && error.code === 'MAX_ACTIVE_LOANS_REACHED' && error.details) {
-        const { tier, currentActive, maxAllowed } = error.details;
-        errorMessage = t.loanOffers?.maxLoansMessage
-          ?.replace('{tier}', tier || 'bronze')
-          .replace('{current}', String(currentActive || 0))
-          .replace('{max}', String(maxAllowed || 1)) || errorMessage;
-      } else if (error instanceof ApiError && error.code === 'CUMULATIVE_LIMIT_EXCEEDED' && error.details) {
-        const { currentCumulative, maxAllowed, remainingCapacity } = error.details;
-        const formatNumber = (n: number) => n.toLocaleString();
-        errorMessage = t.loanOffers?.cumulativeLimitMessage
-          ?.replace('{current}', formatNumber(currentCumulative || 0))
-          .replace('{max}', formatNumber(maxAllowed || 0))
-          .replace('{remaining}', formatNumber(remainingCapacity || 0)) || errorMessage;
-      } else if (error?.message === 'loan.tierMaxLoansReached' || error?.message === 'loan.limitExceeded') {
-        // Handle new i18n messageKey format from backend
-        if (error.message === 'loan.tierMaxLoansReached' && error.details) {
+      const isMaxLoansError = (error instanceof ApiError && error.code === 'MAX_ACTIVE_LOANS_REACHED') || 
+                               error?.message === 'loan.tierMaxLoansReached';
+      const isLimitExceededError = (error instanceof ApiError && error.code === 'CUMULATIVE_LIMIT_EXCEEDED') || 
+                                    error?.message === 'loan.limitExceeded';
+      
+      if (isMaxLoansError) {
+        if (error.details) {
           const { tier, currentActive, maxAllowed } = error.details;
-          errorMessage = t.loanOffers?.maxLoansMessage
+          const detailedMessage = t.loanOffers?.maxLoansMessage
             ?.replace('{tier}', tier || 'bronze')
             .replace('{current}', String(currentActive || 0))
-            .replace('{max}', String(maxAllowed || 1)) || errorMessage;
-        } else if (error.message === 'loan.limitExceeded' && error.details) {
+            .replace('{max}', String(maxAllowed || 1));
+          if (detailedMessage) {
+            errorMessage = detailedMessage;
+          } else {
+            errorMessage = t.loanOffers?.maxLoansMessageFallback || errorMessage;
+          }
+        } else {
+          errorMessage = t.loanOffers?.maxLoansMessageFallback || errorMessage;
+        }
+      } else if (isLimitExceededError) {
+        if (error.details) {
           const { currentCumulative, maxAllowed, remainingCapacity } = error.details;
           const formatNumber = (n: number) => n.toLocaleString();
-          errorMessage = t.loanOffers?.cumulativeLimitMessage
+          const detailedMessage = t.loanOffers?.cumulativeLimitMessage
             ?.replace('{current}', formatNumber(currentCumulative || 0))
             .replace('{max}', formatNumber(maxAllowed || 0))
-            .replace('{remaining}', formatNumber(remainingCapacity || 0)) || errorMessage;
+            .replace('{remaining}', formatNumber(remainingCapacity || 0));
+          if (detailedMessage) {
+            errorMessage = detailedMessage;
+          } else {
+            errorMessage = t.loanOffers?.limitExceededFallback || errorMessage;
+          }
+        } else {
+          errorMessage = t.loanOffers?.limitExceededFallback || errorMessage;
         }
-      } else {
-        // Fallback: translate any French backend message to the user's language
-        errorMessage = translateBackendMessage(errorMessage, language);
+      } else if (error?.message && !error.message.startsWith('loan.')) {
+        errorMessage = translateBackendMessage(error.message, language);
       }
       
       toast({
