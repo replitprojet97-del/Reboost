@@ -149,6 +149,22 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
           ?.replace('{current}', formatNumber(currentCumulative || 0))
           .replace('{max}', formatNumber(maxAllowed || 0))
           .replace('{remaining}', formatNumber(remainingCapacity || 0)) || errorMessage;
+      } else if (error?.message === 'loan.tierMaxLoansReached' || error?.message === 'loan.limitExceeded') {
+        // Handle new i18n messageKey format from backend
+        if (error.message === 'loan.tierMaxLoansReached' && error.details) {
+          const { tier, currentActive, maxAllowed } = error.details;
+          errorMessage = t.loanOffers?.maxLoansMessage
+            ?.replace('{tier}', tier || 'bronze')
+            .replace('{current}', String(currentActive || 0))
+            .replace('{max}', String(maxAllowed || 1)) || errorMessage;
+        } else if (error.message === 'loan.limitExceeded' && error.details) {
+          const { currentCumulative, maxAllowed, remainingCapacity } = error.details;
+          const formatNumber = (n: number) => n.toLocaleString();
+          errorMessage = t.loanOffers?.cumulativeLimitMessage
+            ?.replace('{current}', formatNumber(currentCumulative || 0))
+            .replace('{max}', formatNumber(maxAllowed || 0))
+            .replace('{remaining}', formatNumber(remainingCapacity || 0)) || errorMessage;
+        }
       } else {
         // Fallback: translate any French backend message to the user's language
         errorMessage = translateBackendMessage(errorMessage, language);

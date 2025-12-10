@@ -156,14 +156,14 @@ async function throwIfResNotOk(res: Response) {
       
       const errorMessage = errorData?.error || '';
       handleAuthError(res, errorMessage);
-      throw new ApiError(errorMessage || getErrorMessage(res.status), errorData?.code, errorData?.details);
+      throw new ApiError(errorMessage || getErrorMessage(res.status), errorData?.code, errorData?.details || errorData?.data);
     }
     
     let errorData;
     try {
       errorData = await res.json();
-      if (errorData?.error) {
-        throw new ApiError(errorData.error, errorData?.code, errorData?.details);
+      if (errorData?.error || errorData?.messageKey) {
+        throw new ApiError(errorData.error || errorData.messageKey, errorData?.code, errorData?.details || errorData?.data);
       }
     } catch (e) {
       if (e instanceof ApiError) {
