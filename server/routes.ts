@@ -2170,9 +2170,9 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       const stats = await storage.getUserStats(req.session.userId!);
       if (stats.activeLoans >= stats.maxActiveLoans) {
         return res.status(400).json({ 
-          error: `Vous avez atteint le nombre maximum de prêts actifs pour votre tier ${stats.tier} (${stats.activeLoans}/${stats.maxActiveLoans}). Complétez un prêt pour en demander un nouveau.`,
+          messageKey: 'loan.tierMaxLoansReached',
           code: 'MAX_ACTIVE_LOANS_REACHED',
-          details: {
+          data: {
             currentActive: stats.activeLoans,
             maxAllowed: stats.maxActiveLoans,
             tier: stats.tier
@@ -2204,9 +2204,9 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       if (projectedTotal > maxLoanAmount) {
         const remainingCapacity = Math.max(0, maxLoanAmount - cumulativeLoanAmount);
         return res.status(400).json({ 
-          error: `Le montant demandé dépasse votre plafond de financement autorisé. Montant cumulé actuel: ${cumulativeLoanAmount.toLocaleString('fr-FR')}€. Plafond maximum: ${maxLoanAmount.toLocaleString('fr-FR')}€. Capacité restante: ${remainingCapacity.toLocaleString('fr-FR')}€.`,
+          messageKey: 'loan.limitExceeded',
           code: 'CUMULATIVE_LIMIT_EXCEEDED',
-          details: {
+          data: {
             currentCumulative: cumulativeLoanAmount,
             requestedAmount: amount,
             projectedTotal: projectedTotal,
