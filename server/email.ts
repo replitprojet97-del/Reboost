@@ -175,7 +175,7 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
     
     const resetUrl = `${getBaseUrl()}/reset-password/${token}`;
     const safeName = escapeHtml(fullName);
-    const logoUrl = `${getBaseUrl()}/logo.png`;
+    const logoUrl = 'https://altusfinancesgroup.com/logo.png';
     const currentYear = new Date().getFullYear();
     
     const subject = language === 'en' 
@@ -338,7 +338,7 @@ export async function sendContactFormEmail(name: string, email: string, phone: s
     const safeEmail = escapeHtml(email);
     const safePhone = escapeHtml(phone);
     const safeMessage = escapeHtml(message);
-    const logoUrl = `${getBaseUrl()}/logo.png`;
+    const logoUrl = 'https://altusfinancesgroup.com/logo.png';
     const currentYear = new Date().getFullYear();
     
     const subject = `Nouveau message de contact - ${safeName}`;

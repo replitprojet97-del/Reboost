@@ -55,37 +55,5 @@ COMETCHAT_REGION = "eu"
 VITE_TRANSFER_PROGRESS_SPEED = "0.5"
 
 [[ports]]
-localPort = 5000
+localPort = 46385
 externalPort = 80
-
-[[ports]]
-localPort = 38179
-externalPort = 6000
-
-[[ports]]
-localPort = 38507
-externalPort = 3000
-
-[[ports]]
-localPort = 42381
-externalPort = 5000
-
-[[ports]]
-localPort = 43253
-externalPort = 3001
-
-[[ports]]
-localPort = 43445
-externalPort = 3002
-
-[[ports]]
-localPort = 45821
-externalPort = 3003
-
-[[ports]]
-localPort = 45995
-externalPort = 4200
-
-[[ports]]
-localPort = 46673
-externalPort = 5173
