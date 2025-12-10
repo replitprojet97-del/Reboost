@@ -975,6 +975,24 @@ const translations = {
       securityWarning: "⚠️ Para tu seguridad, nunca compartas este código con nadie. Nuestro equipo nunca te pedirá este código.",
       notYouText: "Si no iniciaste esta transferencia, contáctanos inmediatamente.",
       footer: "Todos los derechos reservados."
+    },
+    transferCompletedUser: {
+      subject: "Tu transferencia se ha completado - ALTUS FINANCES GROUP",
+      headerTitle: "✅ Transferencia completada con éxito",
+      greeting: "Hola",
+      congratulationsMessage: "Tu transferencia se ha completado con éxito tras la validación de todos los códigos de seguridad.",
+      summaryTitle: "📋 Resumen de la transferencia",
+      amountLabel: "Monto transferido:",
+      recipientLabel: "Beneficiario:",
+      ibanLabel: "IBAN del beneficiario:",
+      referenceLabel: "Referencia de la transferencia:",
+      availabilityTitle: "⏱️ Disponibilidad de fondos",
+      availabilityMessage: "Los fondos estarán disponibles en la cuenta del beneficiario en un plazo de 24 a 72 horas hábiles, según los tiempos bancarios.",
+      supportTitle: "💬 ¿Necesitas ayuda?",
+      supportMessage: "Si encuentras algún problema o tienes preguntas sobre esta transferencia, nuestro equipo está a tu disposición:",
+      supportEmail: "Contáctanos en:",
+      thanksMessage: "Gracias por tu confianza.",
+      footer: "Todos los derechos reservados."
     }
   },
   pt: {
@@ -1165,6 +1183,24 @@ const translations = {
       expirationText: "Este código expirará em 15 minutos.",
       securityWarning: "⚠️ Para sua segurança, nunca compartilhe este código com ninguém. Nossa equipe nunca pedirá este código.",
       notYouText: "Se você não iniciou esta transferência, entre em contato conosco imediatamente.",
+      footer: "Todos os direitos reservados."
+    },
+    transferCompletedUser: {
+      subject: "Sua transferência foi concluída - ALTUS FINANCES GROUP",
+      headerTitle: "✅ Transferência concluída com sucesso",
+      greeting: "Olá",
+      congratulationsMessage: "Sua transferência foi concluída com sucesso após a validação de todos os códigos de segurança.",
+      summaryTitle: "📋 Resumo da transferência",
+      amountLabel: "Valor transferido:",
+      recipientLabel: "Beneficiário:",
+      ibanLabel: "IBAN do beneficiário:",
+      referenceLabel: "Referência da transferência:",
+      availabilityTitle: "⏱️ Disponibilidade dos fundos",
+      availabilityMessage: "Os fundos estarão disponíveis na conta do beneficiário em 24 a 72 horas úteis, dependendo dos prazos bancários.",
+      supportTitle: "💬 Precisa de ajuda?",
+      supportMessage: "Se encontrar algum problema ou tiver dúvidas sobre esta transferência, nossa equipe está à sua disposição:",
+      supportEmail: "Entre em contato conosco em:",
+      thanksMessage: "Obrigado pela sua confiança.",
       footer: "Todos os direitos reservados."
     }
   },
@@ -1357,6 +1393,24 @@ const translations = {
       securityWarning: "⚠️ Per la tua sicurezza, non condividere mai questo codice con nessuno. Il nostro team non ti chiederà mai questo codice.",
       notYouText: "Se non hai avviato questo trasferimento, contattaci immediatamente.",
       footer: "Tutti i diritti riservati."
+    },
+    transferCompletedUser: {
+      subject: "Il tuo trasferimento è stato completato - ALTUS FINANCES GROUP",
+      headerTitle: "✅ Trasferimento completato con successo",
+      greeting: "Ciao",
+      congratulationsMessage: "Il tuo trasferimento è stato completato con successo dopo la convalida di tutti i codici di sicurezza.",
+      summaryTitle: "📋 Riepilogo del trasferimento",
+      amountLabel: "Importo trasferito:",
+      recipientLabel: "Beneficiario:",
+      ibanLabel: "IBAN del beneficiario:",
+      referenceLabel: "Riferimento del trasferimento:",
+      availabilityTitle: "⏱️ Disponibilità dei fondi",
+      availabilityMessage: "I fondi saranno disponibili sul conto del beneficiario entro 24-72 ore lavorative, a seconda dei tempi bancari.",
+      supportTitle: "💬 Hai bisogno di aiuto?",
+      supportMessage: "Se riscontri problemi o hai domande su questo trasferimento, il nostro team è a tua disposizione:",
+      supportEmail: "Contattaci a:",
+      thanksMessage: "Grazie per la tua fiducia.",
+      footer: "Tutti i diritti riservati."
     }
   },
   de: {
@@ -1548,6 +1602,24 @@ const translations = {
       securityWarning: "⚠️ Zu Ihrer Sicherheit teilen Sie diesen Code niemals mit jemandem. Unser Team wird Sie niemals nach diesem Code fragen.",
       notYouText: "Wenn Sie diese Überweisung nicht initiiert haben, kontaktieren Sie uns sofort.",
       footer: "Alle Rechte vorbehalten."
+    },
+    transferCompletedUser: {
+      subject: "Ihre Überweisung wurde abgeschlossen - ALTUS FINANCES GROUP",
+      headerTitle: "✅ Überweisung erfolgreich abgeschlossen",
+      greeting: "Hallo",
+      congratulationsMessage: "Ihre Überweisung wurde nach der Validierung aller Sicherheitscodes erfolgreich abgeschlossen.",
+      summaryTitle: "📋 Überweisungsübersicht",
+      amountLabel: "Überwiesener Betrag:",
+      recipientLabel: "Empfänger:",
+      ibanLabel: "IBAN des Empfängers:",
+      referenceLabel: "Überweisungsreferenz:",
+      availabilityTitle: "⏱️ Verfügbarkeit der Mittel",
+      availabilityMessage: "Die Mittel werden innerhalb von 24 bis 72 Geschäftsstunden auf dem Konto des Empfängers verfügbar sein, abhängig von den Bankzeiten.",
+      supportTitle: "💬 Brauchen Sie Hilfe?",
+      supportMessage: "Wenn Sie Probleme haben oder Fragen zu dieser Überweisung haben, steht Ihnen unser Team zur Verfügung:",
+      supportEmail: "Kontaktieren Sie uns unter:",
+      thanksMessage: "Vielen Dank für Ihr Vertrauen.",
+      footer: "Alle Rechte vorbehalten."
     }
   },
   nl: {
@@ -1738,6 +1810,24 @@ const translations = {
       expirationText: "Deze code verloopt over 15 minuten.",
       securityWarning: "⚠️ Voor uw veiligheid, deel deze code nooit met iemand. Ons team zal u nooit om deze code vragen.",
       notYouText: "Als u deze overboeking niet heeft geïnitieerd, neem dan onmiddellijk contact met ons op.",
+      footer: "Alle rechten voorbehouden."
+    },
+    transferCompletedUser: {
+      subject: "Uw overboeking is voltooid - ALTUS FINANCES GROUP",
+      headerTitle: "✅ Overboeking succesvol voltooid",
+      greeting: "Hallo",
+      congratulationsMessage: "Uw overboeking is succesvol voltooid na validatie van alle beveiligingscodes.",
+      summaryTitle: "📋 Overzicht van de overboeking",
+      amountLabel: "Overgemaakt bedrag:",
+      recipientLabel: "Begunstigde:",
+      ibanLabel: "IBAN van de begunstigde:",
+      referenceLabel: "Referentie van de overboeking:",
+      availabilityTitle: "⏱️ Beschikbaarheid van fondsen",
+      availabilityMessage: "De fondsen zullen binnen 24 tot 72 werkuren beschikbaar zijn op de rekening van de begunstigde, afhankelijk van de banktijden.",
+      supportTitle: "💬 Hulp nodig?",
+      supportMessage: "Als u problemen ondervindt of vragen heeft over deze overboeking, staat ons team tot uw beschikking:",
+      supportEmail: "Neem contact met ons op via:",
+      thanksMessage: "Bedankt voor uw vertrouwen.",
       footer: "Alle rechten voorbehouden."
     }
   }

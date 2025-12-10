@@ -1,4 +1,5 @@
 import * as brevo from '@getbrevo/brevo';
+import { getEmailTemplate } from './emailTemplates';
 
 function escapeHtml(unsafe: string): string {
   return unsafe
@@ -776,110 +777,22 @@ export async function sendTransferCompletedEmail(
 ) {
   try {
     const { fromEmail } = await getBrevoClient();
-    const safeName = escapeHtml(fullName);
-    const safeRecipient = escapeHtml(recipient);
     
-    const subject = language === 'en' 
-      ? `Transfer Completed - ${amount}` 
-      : `Virement effectué - ${amount}`;
-    
-    const html = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, sans-serif;">
-  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f4f4f4; padding: 20px 0;">
-    <tr>
-      <td align="center">
-        <table cellpadding="0" cellspacing="0" border="0" width="600" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <tr>
-            <td style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 40px 20px; text-align: center;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 28px;">${language === 'en' ? 'Transfer Completed' : 'Virement effectué'}</h1>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding: 40px 30px;">
-              <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 20px 0;">
-                ${language === 'en' ? 'Hello' : 'Bonjour'} <strong>${safeName}</strong>,
-              </p>
-              <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 30px 0;">
-                ${language === 'en' 
-                  ? 'Your transfer has been successfully completed.'
-                  : 'Votre virement a été effectué avec succès.'}
-              </p>
-              
-              <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
-                <table cellpadding="8" cellspacing="0" border="0" width="100%">
-                  <tr>
-                    <td style="color: #6b7280; font-weight: bold; width: 140px;">${language === 'en' ? 'Amount' : 'Montant'} :</td>
-                    <td style="color: #059669; font-weight: bold; font-size: 18px;">${amount}</td>
-                  </tr>
-                  <tr>
-                    <td style="color: #6b7280; font-weight: bold;">${language === 'en' ? 'Recipient' : 'Bénéficiaire'} :</td>
-                    <td style="color: #1f2937;">${safeRecipient}</td>
-                  </tr>
-                  <tr>
-                    <td style="color: #6b7280; font-weight: bold;">IBAN :</td>
-                    <td style="color: #1f2937; font-family: monospace;">${recipientIban}</td>
-                  </tr>
-                  <tr>
-                    <td style="color: #6b7280; font-weight: bold;">${language === 'en' ? 'Reference' : 'Référence'} :</td>
-                    <td style="color: #1f2937; font-family: monospace;">${transferId}</td>
-                  </tr>
-                </table>
-              </div>
-              
-              <p style="color: #6b7280; font-size: 14px; line-height: 1.5; margin: 0;">
-                ${language === 'en'
-                  ? 'You can view this transaction in your dashboard.'
-                  : 'Vous pouvez consulter cette transaction dans votre tableau de bord.'}
-              </p>
-            </td>
-          </tr>
-          <tr>
-            <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
-              <p style="color: #6b7280; font-size: 14px; margin: 0;">
-                ALTUS FINANCES GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
-                ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-    `;
-    
-    const text = `${language === 'en' ? 'Hello' : 'Bonjour'} ${fullName},
-
-${language === 'en' 
-  ? 'Your transfer has been successfully completed.'
-  : 'Votre virement a été effectué avec succès.'}
-
-${language === 'en' ? 'Amount' : 'Montant'}: ${amount}
-${language === 'en' ? 'Recipient' : 'Bénéficiaire'}: ${recipient}
-IBAN: ${recipientIban}
-${language === 'en' ? 'Reference' : 'Référence'}: ${transferId}
-
-${language === 'en'
-  ? 'You can view this transaction in your dashboard.'
-  : 'Vous pouvez consulter cette transaction dans votre tableau de bord.'}
-
-ALTUS FINANCES GROUP
-${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
-    `;
+    const template = getEmailTemplate('transferCompletedUser', language as any, {
+      fullName,
+      amount,
+      recipient,
+      recipientIban,
+      transferId,
+      supportEmail: 'support@altusfinancesgroup.com',
+    });
     
     await sendEmail({
       to: toEmail,
       from: fromEmail,
-      subject,
-      html,
-      text,
+      subject: template.subject,
+      html: template.html,
+      text: template.text,
     });
 
     console.log(`Transfer completed email sent to ${toEmail} in ${language}`);
