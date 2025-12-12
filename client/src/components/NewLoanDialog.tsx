@@ -136,14 +136,16 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
     onError: (error: any) => {
       let errorMessage = t.dialogs.newLoan.error.loanErrorDesc;
       
-      const isMaxLoansError = (error instanceof ApiError && error.code === 'MAX_ACTIVE_LOANS_REACHED') || 
-                               error?.message === 'loan.tierMaxLoansReached';
-      const isLimitExceededError = (error instanceof ApiError && error.code === 'CUMULATIVE_LIMIT_EXCEEDED') || 
-                                    error?.message === 'loan.limitExceeded';
+      const errorCode = error?.code || '';
+      const errorMsg = error?.message || '';
+      const errorDetails = error?.details || {};
+      
+      const isMaxLoansError = errorCode === 'MAX_ACTIVE_LOANS_REACHED' || errorMsg === 'loan.tierMaxLoansReached';
+      const isLimitExceededError = errorCode === 'CUMULATIVE_LIMIT_EXCEEDED' || errorMsg === 'loan.limitExceeded';
       
       if (isMaxLoansError) {
-        if (error.details) {
-          const { tier, currentActive, maxAllowed } = error.details;
+        const { tier, currentActive, maxAllowed } = errorDetails;
+        if (tier !== undefined || currentActive !== undefined || maxAllowed !== undefined) {
           const detailedMessage = t.loanOffers?.maxLoansMessage
             ?.replace('{tier}', tier || 'bronze')
             .replace('{current}', String(currentActive || 0))
@@ -157,9 +159,9 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
           errorMessage = t.loanOffers?.maxLoansMessageFallback || errorMessage;
         }
       } else if (isLimitExceededError) {
-        if (error.details) {
-          const { currentCumulative, maxAllowed, remainingCapacity } = error.details;
-          const formatNumber = (n: number) => n.toLocaleString();
+        const { currentCumulative, maxAllowed, remainingCapacity } = errorDetails;
+        if (currentCumulative !== undefined || maxAllowed !== undefined || remainingCapacity !== undefined) {
+          const formatNumber = (n: number) => n?.toLocaleString?.() || String(n || 0);
           const detailedMessage = t.loanOffers?.cumulativeLimitMessage
             ?.replace('{current}', formatNumber(currentCumulative || 0))
             .replace('{max}', formatNumber(maxAllowed || 0))
@@ -172,8 +174,8 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
         } else {
           errorMessage = t.loanOffers?.limitExceededFallback || errorMessage;
         }
-      } else if (error?.message && !error.message.startsWith('loan.')) {
-        errorMessage = translateBackendMessage(error.message, language);
+      } else if (errorMsg && !errorMsg.startsWith('loan.')) {
+        errorMessage = translateBackendMessage(errorMsg, language);
       }
       
       toast({
