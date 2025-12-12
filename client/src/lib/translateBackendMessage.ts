@@ -32,6 +32,10 @@ const messageMapping: Record<string, { key: string; path: string[] }> = {
     key: 'invalidCredentials',
     path: ['auth']
   },
+  'Identifiants invalides': {
+    key: 'invalidCredentials',
+    path: ['auth']
+  },
   'Confirmez votre adresse électronique avant d\'accéder à votre espace': {
     key: 'pleaseVerifyEmail',
     path: ['auth']
