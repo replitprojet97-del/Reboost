@@ -5441,10 +5441,27 @@ ${urls.map(url => `  <url>
   // Create new conversation
   app.post("/api/chat/conversations", requireAuth, requireCSRF, async (req, res) => {
     try {
-      const userId = req.session.userId!;
+      const sessionUserId = req.session.userId!;
+      const user = await storage.getUser(sessionUserId);
+      
+      // Determine the target userId for the conversation
+      // Admins can create conversations for other users
+      // Regular users create conversations for themselves
+      let targetUserId = sessionUserId;
+      let assignedAdminId = null;
+      
+      if (user?.role === 'admin' && req.body.userId) {
+        // Admin is creating a conversation for a specific user
+        targetUserId = req.body.userId;
+        // Auto-assign the admin to this conversation
+        assignedAdminId = req.body.assignedAdminId || sessionUserId;
+        console.log(`[CHAT] Admin ${sessionUserId} creating conversation for user ${targetUserId}`);
+      }
+      
       const validation = createConversationSchema.safeParse({
         ...req.body,
-        userId,
+        userId: targetUserId,
+        assignedAdminId: assignedAdminId,
       });
 
       if (!validation.success) {
@@ -5454,7 +5471,33 @@ ${urls.map(url => `  <url>
         });
       }
 
+      // Check if a conversation already exists for this user
+      const existingConversations = await storage.getUserConversations(targetUserId);
+      if (existingConversations.length > 0) {
+        // Return the existing conversation instead of creating a new one
+        const existingConv = existingConversations[0];
+        console.log(`[CHAT] Conversation already exists for user ${targetUserId}: ${existingConv.id}`);
+        
+        // If admin is creating and conversation is not assigned, assign it
+        if (user?.role === 'admin' && !existingConv.assignedAdminId && assignedAdminId) {
+          const updated = await storage.assignConversationToAdmin(existingConv.id, assignedAdminId);
+          return res.status(200).json(updated);
+        }
+        
+        return res.status(200).json(existingConv);
+      }
+
       const conversation = await storage.createConversation(validation.data);
+      
+      // Emit socket event to notify the user about the new conversation
+      if (io && user?.role === 'admin') {
+        io.to(`user:${targetUserId}`).emit('conversation:created', {
+          conversationId: conversation.id,
+          createdBy: 'admin',
+        });
+        console.log(`[CHAT] Notified user ${targetUserId} about new conversation ${conversation.id}`);
+      }
+      
       res.status(201).json(conversation);
     } catch (error: any) {
       console.error('[CHAT] Erreur création conversation:', error);
