@@ -139,7 +139,7 @@ export default function Transfers() {
               />
               <div className="space-y-1 sm:space-y-2" data-testid="stat-initialized-transfers">
                 <p className="text-xs sm:text-sm font-medium text-muted-foreground">{t.transfer.initialized || "Initialisés"}</p>
-                <p className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">{pendingCount + inProgressCount}</p>
+                <p className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">{transfers.length}</p>
               </div>
               <div className="space-y-1 sm:space-y-2" data-testid="stat-in-progress-transfers">
                 <p className="text-xs sm:text-sm font-medium text-muted-foreground">{t.transfer.inProgress || "En cours"}</p>
