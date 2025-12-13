@@ -176,9 +176,7 @@ export default function Transfers() {
                 <SelectItem value="all">{t.transfer.allStatuses || "Tous les statuts"}</SelectItem>
                 <SelectItem value="active">{t.transfer.activeTransfers || "En cours"}</SelectItem>
                 <SelectItem value="pending">{t.transfer.pendingStatus || "Initialisé"}</SelectItem>
-                <SelectItem value="in-progress">{t.transfer.processingStatus || "En traitement"}</SelectItem>
                 <SelectItem value="completed">{t.transfer.completedStatus || "Terminé"}</SelectItem>
-                <SelectItem value="suspended">{t.transfer.suspended || "Suspendu"}</SelectItem>
               </SelectContent>
             </Select>
           </div>
