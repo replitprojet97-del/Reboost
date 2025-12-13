@@ -703,7 +703,7 @@ export default function Dashboard() {
                         </div>
                         <div className="flex items-center gap-2">
                           <Badge variant={loan.status === 'active' ? 'default' : 'secondary'}>
-                            {loan.status}
+                            {loan.status === 'active' ? t.common.active : loan.status === 'pending' ? t.common.pending : loan.status}
                           </Badge>
                           {loan.status === 'active' && (() => {
                             const amortT = getAmortizationScheduleTranslations(language);
