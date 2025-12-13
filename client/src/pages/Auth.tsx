@@ -339,7 +339,8 @@ export default function Auth() {
                         <FaEnvelope className="text-gray-500 dark:text-gray-400" />
                         <Input
                           {...field}
-                          type="email"
+                          type="text"
+                          autoComplete="email"
                           placeholder={t.auth.emailPlaceholder}
                           className="border-0 bg-transparent p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                           data-testid="input-login-email"
@@ -588,7 +589,8 @@ export default function Auth() {
                         <FaEnvelope className="text-gray-500 dark:text-gray-400" />
                         <Input
                           {...field}
-                          type="email"
+                          type="text"
+                          autoComplete="email"
                           placeholder={t.auth.emailPlaceholder}
                           className="border-0 bg-transparent p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                           data-testid="input-signup-email"

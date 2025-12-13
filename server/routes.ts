@@ -5694,8 +5694,18 @@ ${urls.map(url => `  <url>
         isRead: false, // Nouveau message = non lu par défaut
       });
       
-      // Émettre un événement d'invalidation des comptes non lus pour le destinataire
+      // Émettre directement le unread count au destinataire (comme dans chat-socket.ts)
       const recipientId = user?.role === 'admin' ? conversation.userId : (conversation.assignedAdminId || 'admin');
+      if (recipientId) {
+        const unreadCount = await storage.getUnreadMessageCount(validation.data.conversationId, recipientId);
+        io.to(`user:${recipientId}`).emit('chat:unread-count', {
+          conversationId: validation.data.conversationId,
+          count: unreadCount,
+        });
+        console.log(`[CHAT] Unread count envoyé à ${recipientId}: ${unreadCount} pour conversation ${validation.data.conversationId}`);
+      }
+      
+      // Aussi envoyer unread_sync_required pour les cas edge
       io.emit('unread_sync_required', { userId: recipientId });
       
       res.status(201).json(message);
