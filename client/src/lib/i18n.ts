@@ -408,6 +408,12 @@ type TranslationKeys = {
     noTransactionsFoundFiltered: string;
     noTransactionsYet: string;
   };
+  transactionTypes: {
+    loanDisbursement: string;
+    transferCompleted: string;
+    monthlyPayment: string;
+    feePayment: string;
+  };
   fee: {
     type: string;
     reason: string;
@@ -2785,6 +2791,12 @@ export const translations: Record<Language, TranslationKeys> = {
       noTransactionsFound: 'Aucune transaction trouvée',
       noTransactionsFoundFiltered: 'Essayez de modifier vos critères de recherche',
       noTransactionsYet: 'Vous n\'avez pas encore de transactions',
+    },
+    transactionTypes: {
+      loanDisbursement: 'Décaissement du prêt #{loanRef}',
+      transferCompleted: 'Virement vers {recipient}',
+      monthlyPayment: 'Remboursement mensuel prêt #{loanRef}',
+      feePayment: 'Frais : {feeType}',
     },
     fee: {
       type: 'Type de frais',
@@ -5507,6 +5519,12 @@ export const translations: Record<Language, TranslationKeys> = {
       noTransactionsFoundFiltered: 'Try modifying your search criteria',
       noTransactionsYet: 'You don\'t have any transactions yet',
     },
+    transactionTypes: {
+      loanDisbursement: 'Loan disbursement #{loanRef}',
+      transferCompleted: 'Transfer to {recipient}',
+      monthlyPayment: 'Monthly payment loan #{loanRef}',
+      feePayment: 'Fee: {feeType}',
+    },
     fee: {
       type: 'Fee Type',
       reason: 'Reason',
@@ -8203,6 +8221,12 @@ export const translations: Record<Language, TranslationKeys> = {
       noTransactionsFoundFiltered: 'Intente modificar sus criterios de búsqueda',
       noTransactionsYet: 'Aún no tiene transacciones',
     },
+    transactionTypes: {
+      loanDisbursement: 'Desembolso del préstamo #{loanRef}',
+      transferCompleted: 'Transferencia a {recipient}',
+      monthlyPayment: 'Pago mensual préstamo #{loanRef}',
+      feePayment: 'Comisión: {feeType}',
+    },
     fee: {
       type: 'Tipo de cargo',
       reason: 'Motivo',
@@ -10879,6 +10903,12 @@ export const translations: Record<Language, TranslationKeys> = {
       filterType: 'Tipo',
       noTransactionsFoundFiltered: 'Tente modificar seus critérios de pesquisa',
       noTransactionsYet: 'Você ainda não tem transações',
+    transactionTypes: {
+      loanDisbursement: 'Desembolso do empréstimo #{loanRef}',
+      transferCompleted: 'Transferência para {recipient}',
+      monthlyPayment: 'Pagamento mensal empréstimo #{loanRef}',
+      feePayment: 'Taxa: {feeType}',
+    },
     },
     fee: {
       type: 'Tipo de Taxa',
@@ -13388,6 +13418,12 @@ export const translations: Record<Language, TranslationKeys> = {
       filterType: 'Tipo',
       noTransactionsFoundFiltered: 'Prova a modificare i criteri di ricerca',
       noTransactionsYet: 'Non hai ancora transazioni',
+    transactionTypes: {
+      loanDisbursement: 'Erogazione del prestito #{loanRef}',
+      transferCompleted: 'Trasferimento a {recipient}',
+      monthlyPayment: 'Pagamento mensile prestito #{loanRef}',
+      feePayment: 'Commissione: {feeType}',
+    },
     },
     fee: {
       type: 'Tipo di commissione',
@@ -15983,6 +16019,12 @@ export const translations: Record<Language, TranslationKeys> = {
       filterType: 'Typ',
       noTransactionsFoundFiltered: 'Versuchen Sie, Ihre Suchkriterien zu ändern',
       noTransactionsYet: 'Sie haben noch keine Transaktionen',
+    transactionTypes: {
+      loanDisbursement: 'Darlehensauszahlung #{loanRef}',
+      transferCompleted: 'Überweisung an {recipient}',
+      monthlyPayment: 'Monatliche Zahlung Darlehen #{loanRef}',
+      feePayment: 'Gebühr: {feeType}',
+    },
     },
     fee: {
       type: 'Gebührenart',
@@ -18578,6 +18620,12 @@ export const translations: Record<Language, TranslationKeys> = {
       filterType: 'Type',
       noTransactionsFoundFiltered: 'Probeer uw zoekcriteria te wijzigen',
       noTransactionsYet: 'U heeft nog geen transacties',
+    transactionTypes: {
+      loanDisbursement: 'Leninguitbetaling #{loanRef}',
+      transferCompleted: 'Overboeking naar {recipient}',
+      monthlyPayment: 'Maandelijkse betaling lening #{loanRef}',
+      feePayment: 'Kosten: {feeType}',
+    },
     },
     fee: {
       type: 'Type kosten',

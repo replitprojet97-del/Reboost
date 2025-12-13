@@ -26,6 +26,26 @@ export default function TransactionHistoryDialog({ open, onOpenChange }: Transac
     enabled: open,
   });
 
+  const translateDescription = (description: string): string => {
+    if (description.startsWith('loan_disbursement:')) {
+      const loanRef = description.split(':')[1];
+      return t.transactionTypes?.loanDisbursement?.replace('{loanRef}', loanRef) || `Loan disbursement #${loanRef}`;
+    }
+    if (description.startsWith('transfer_completed:')) {
+      const recipient = description.split(':')[1];
+      return t.transactionTypes?.transferCompleted?.replace('{recipient}', recipient) || `Transfer to ${recipient}`;
+    }
+    if (description.startsWith('monthly_payment:')) {
+      const loanRef = description.split(':')[1];
+      return t.transactionTypes?.monthlyPayment?.replace('{loanRef}', loanRef) || `Monthly payment loan #${loanRef}`;
+    }
+    if (description.startsWith('fee_payment:')) {
+      const feeType = description.split(':')[1];
+      return t.transactionTypes?.feePayment?.replace('{feeType}', feeType) || `Fee: ${feeType}`;
+    }
+    return description;
+  };
+
   const formatCurrency = (amount: string) => {
     return new Intl.NumberFormat('fr-FR', {
       style: 'currency',
@@ -83,7 +103,7 @@ export default function TransactionHistoryDialog({ open, onOpenChange }: Transac
                       {getTransactionIcon(transaction.type)}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base truncate">{transaction.description}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base truncate">{translateDescription(transaction.description)}</p>
                       <p className="text-xs sm:text-sm text-muted-foreground">{formatDate(transaction.createdAt)}</p>
                     </div>
                   </div>

@@ -2447,7 +2447,7 @@ export class DatabaseStorage implements IStorage {
         userId: loan.userId,
         type: 'credit',
         amount: loan.amount,
-        description: `Décaissement du prêt #${loan.id.slice(0, 8)}`,
+        description: `loan_disbursement:${loan.id.slice(0, 8)}`,
       });
       
       await tx.insert(notifications).values({
