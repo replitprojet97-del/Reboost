@@ -36,7 +36,13 @@ export default function VerifyTwoFactor() {
         description: t.twoFactorAuth.login.successMessage,
       });
       queryClient.invalidateQueries({ queryKey: ['/api/user'] });
-      setLocation('/dashboard');
+      
+      // Rediriger vers l'espace admin si l'utilisateur est un admin
+      if (data.user?.role === 'admin') {
+        setLocation('/admin');
+      } else {
+        setLocation('/dashboard');
+      }
     },
     onError: (error: any) => {
       toast({
