@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown, Globe, Sparkles, ChevronRight, Home, FileText, He
 import { useTranslations, useLanguage, type Language } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import solventisLogo from '@assets/generated_images/solventis_group_premium_fintech_logo.png';
 
 const languages: { code: Language; name: string; flag: string }[] = [
   { code: 'fr', name: 'FR', flag: '🇫🇷' },
@@ -100,16 +101,16 @@ export default function Header() {
             }`}>
               <div className="relative flex-shrink-0">
                 <img 
-                  src="/logo-altus-new.png" 
-                  alt="Altus Finances Group" 
+                  src={solventisLogo} 
+                  alt="Solventis Group" 
                   className={`transition-all duration-300 object-contain ${
-                    scrolled ? 'h-10' : 'h-12'
+                    scrolled ? 'h-9 w-9' : 'h-11 w-11'
                   }`} 
                 />
               </div>
               <div className="hidden lg:block">
                 <span className="font-bold text-lg bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent group-hover:from-primary group-hover:via-primary/80 group-hover:to-primary transition-all duration-300">
-                  Altus Finances Group
+                  Solventis Group
                 </span>
                 <div className="flex items-center gap-1 text-xs text-muted-foreground/70 font-medium">
                   <Sparkles className="w-3 h-3" />
