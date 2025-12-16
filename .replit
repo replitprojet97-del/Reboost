@@ -46,9 +46,6 @@ expertMode = true
 
 [userenv.development]
 PORT = "5000"
-ADMIN_EMAIL = "admin@altusfinancesgroup.com"
-ADMIN_PASSWORD = "Admin123!@#"
-EXTERNAL_DATABASE_URL = "postgresql://mericlarck_user:vXAbmDyWm7zxNu8Ck6NZ36LnMp3hggyO@dpg-d4q7kmggjchc73b7ee50-a.frankfurt-postgres.render.com/mericlarck?sslmode=require"
 
 [userenv.shared]
 COMETCHAT_APP_ID = "1671924081918af0d"

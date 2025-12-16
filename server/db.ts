@@ -3,8 +3,8 @@ const { Pool } = pkg;
 import { drizzle } from 'drizzle-orm/node-postgres';
 import * as schema from "@shared/schema";
 
-// Priority: EXTERNAL_DATABASE_URL (user's Render DB) > DATABASE_URL (Replit DB)
-const databaseUrl = process.env.EXTERNAL_DATABASE_URL || process.env.DATABASE_URL;
+// Use DATABASE_URL (Neon PostgreSQL)
+const databaseUrl = process.env.DATABASE_URL;
 
 if (!databaseUrl) {
   throw new Error(
@@ -13,7 +13,7 @@ if (!databaseUrl) {
 }
 
 const isProduction = process.env.NODE_ENV === 'production';
-console.log(`[DB] Using ${process.env.EXTERNAL_DATABASE_URL ? 'EXTERNAL (Render)' : 'Replit'} database`);
+console.log('[DB] Using Neon PostgreSQL database');
 
 export const pool = new Pool({ 
   connectionString: databaseUrl,
