@@ -99,7 +99,7 @@ export default function AppSidebar() {
           <div className="flex flex-col items-center gap-3">
             <img 
               src="/logo-altus-new.png" 
-              alt="Altus Finance Group" 
+              alt="SolventisGroup" 
               className="w-28 h-auto drop-shadow-md hover:drop-shadow-lg transition-all duration-300"
             />
             

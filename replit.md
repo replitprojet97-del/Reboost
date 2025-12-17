@@ -1,12 +1,24 @@
-# Altus Finances Group - Professional Loan Platform
+# SolventisGroup - Professional Loan Platform
 
 ## Overview
 
-Altus Finances Group is a multi-language professional loan management platform for business clients, offering a comprehensive dashboard for managing loans, transfers, fees, and financial transactions. It supports multiple languages (French, English, Spanish, Portuguese, Italian, German, Dutch) and includes features like an interactive amortization calculator, real-time transfer tracking, external bank account management, KYC document upload, and financial analytics. The platform aims to provide robust tools for loan financing and financial management, ensuring a secure environment for financial operations.
+SolventisGroup is a multi-language professional loan management platform for business clients, offering a comprehensive dashboard for managing loans, transfers, fees, and financial transactions. It supports multiple languages (French, English, Spanish, Portuguese, Italian, German, Dutch) and includes features like an interactive amortization calculator, real-time transfer tracking, external bank account management, KYC document upload, and financial analytics. The platform aims to provide robust tools for loan financing and financial management, ensuring a secure environment for financial operations.
 
 ## User Preferences
 
 Preferred communication style: Simple, everyday language. High standards for security, SEO, and code quality - all implementations must be production-ready.
+
+## Recent Changes (December 17, 2025)
+
+- **Brand Renaming to SolventisGroup:** Replaced all user-visible occurrences of "Altus Finances Group" with "SolventisGroup":
+  - i18n translations (all 7 languages)
+  - SEO metadata (seo-config.ts, seo-data.ts, seo-keywords.ts)
+  - index.html title and meta tags
+  - manifest.json and site.webmanifest
+  - Video subtitles (all 7 languages)
+  - Email templates and contract generator
+  - 2FA/OTP messages
+  - All frontend pages and components
 
 ## Recent Changes (December 8, 2025)
 

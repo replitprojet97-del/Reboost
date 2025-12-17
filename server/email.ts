@@ -211,7 +211,7 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                   <td align="center" style="padding-bottom: 15px;">
-                    <img src="${logoUrl}" alt="Altus Finances Group" width="180" height="auto" style="display: block; max-width: 180px; height: auto;" />
+                    <img src="${logoUrl}" alt="SolventisGroup" width="180" height="auto" style="display: block; max-width: 180px; height: auto;" />
                   </td>
                 </tr>
                 <tr>
@@ -273,7 +273,7 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                   <td align="center" style="padding-bottom: 15px;">
-                    <img src="${logoUrl}" alt="Altus Finances Group" width="120" height="auto" style="display: block; max-width: 120px; height: auto; opacity: 0.8;" />
+                    <img src="${logoUrl}" alt="SolventisGroup" width="120" height="auto" style="display: block; max-width: 120px; height: auto; opacity: 0.8;" />
                   </td>
                 </tr>
                 <tr>
@@ -372,7 +372,7 @@ export async function sendContactFormEmail(name: string, email: string, phone: s
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                   <td align="center" style="padding-bottom: 15px;">
-                    <img src="${logoUrl}" alt="Altus Finances Group" width="180" height="auto" style="display: block; max-width: 180px; height: auto;" />
+                    <img src="${logoUrl}" alt="SolventisGroup" width="180" height="auto" style="display: block; max-width: 180px; height: auto;" />
                   </td>
                 </tr>
                 <tr>
@@ -412,7 +412,7 @@ export async function sendContactFormEmail(name: string, email: string, phone: s
               </table>
               
               <p style="color: #6b7280; font-size: 13px; margin: 30px 0 0 0; padding-top: 20px; border-top: 1px solid #e5e7eb;">
-                Ce message a été envoyé depuis le formulaire de contact du site Altus Finances Group.
+                Ce message a été envoyé depuis le formulaire de contact du site SolventisGroup.
               </p>
             </td>
           </tr>
@@ -421,7 +421,7 @@ export async function sendContactFormEmail(name: string, email: string, phone: s
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                   <td align="center" style="padding-bottom: 15px;">
-                    <img src="${logoUrl}" alt="Altus Finances Group" width="120" height="auto" style="display: block; max-width: 120px; height: auto; opacity: 0.8;" />
+                    <img src="${logoUrl}" alt="SolventisGroup" width="120" height="auto" style="display: block; max-width: 120px; height: auto; opacity: 0.8;" />
                   </td>
                 </tr>
                 <tr>
@@ -453,7 +453,7 @@ Message :
 ${message}
 
 ---
-Ce message a été envoyé depuis le formulaire de contact du site Altus Finances Group.
+Ce message a été envoyé depuis le formulaire de contact du site SolventisGroup.
 ALTUS FINANCES GROUP
 ${new Date().getFullYear()} Tous droits réservés.
     `;

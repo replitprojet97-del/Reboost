@@ -36,7 +36,7 @@ export default function FooterPremium() {
           {/* Brand column */}
           <div className="lg:col-span-2">
             <div className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
-              Altus Finances Group
+              SolventisGroup
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed max-w-md">
               {t.footer.description}

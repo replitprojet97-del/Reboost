@@ -55,7 +55,7 @@ export default function About() {
       <SEO
         title={t.seo.about.title}
         description={t.seo.about.description}
-        keywords="about Altus Finances Group, Altus Finances Group mission, financing company values, professional loan experience, reliable business financing"
+        keywords="about SolventisGroup, SolventisGroup mission, financing company values, professional loan experience, reliable business financing"
         path="/about"
         structuredData={[organizationSchema, aboutBreadcrumb]}
       />

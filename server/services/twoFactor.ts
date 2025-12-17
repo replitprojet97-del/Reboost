@@ -4,8 +4,8 @@ import { decryptSecret } from './encryption';
 
 export function generateTwoFactorSecret(email: string): { secret: string; otpauthUrl: string } {
   const secret = speakeasy.generateSecret({
-    name: `Altus Finances Group (${email})`,
-    issuer: 'Altus Finances Group',
+    name: `SolventisGroup (${email})`,
+    issuer: 'SolventisGroup',
     length: 32,
   });
 

@@ -20,7 +20,7 @@ export default function Expertise() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <SEO
-        title={`${t.premium.expertises.title} | Altus Finances Group`}
+        title={`${t.premium.expertises.title} | SolventisGroup`}
         description={t.premium.expertises.subtitle}
         path="/expertise"
       />

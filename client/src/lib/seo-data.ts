@@ -62,12 +62,12 @@ export const breadcrumbSchema = (items: Array<{name: string, path: string}>) => 
 
 export const loanProductSchema = (locale: string = 'fr') => {
   const loanNames = {
-    fr: "Financement Entreprise Altus Finances Group",
-    en: "Altus Finances Group Professional Loan",
-    es: "Préstamo Profesional Altus Finances Group",
-    pt: "Empréstimo Profissional Altus Finances Group",
-    it: "Prestito Professionale Altus Finances Group",
-    de: "Altus Finances Group Geschäftskredit"
+    fr: "Financement Entreprise SolventisGroup",
+    en: "SolventisGroup Professional Loan",
+    es: "Préstamo Profesional SolventisGroup",
+    pt: "Empréstimo Profissional SolventisGroup",
+    it: "Prestito Professionale SolventisGroup",
+    de: "SolventisGroup Geschäftskredit"
   };
 
   const loanDescriptions = {
@@ -109,7 +109,7 @@ export const faqSchema = (faqs: Array<{question: string, answer: string}>) => ({
 
 export const contactPageSchema = {
   "@type": "ContactPage",
-  "name": "Contact Altus Finances Group",
+  "name": "Contact SolventisGroup",
   "description": "Contact us for all your questions about our financing solutions",
   "url": `${seoConfig.siteUrl}/contact`
 };

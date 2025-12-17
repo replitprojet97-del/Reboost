@@ -17,7 +17,7 @@ function getEmailBaseUrl(): string {
 }
 
 function getEmailLogoUrl(): string {
-  // Use the official Altus Finance Group logo
+  // Use the official SolventisGroup logo
   const baseUrl = getEmailBaseUrl();
   return `${baseUrl}/logo-email.png`;
 }
@@ -46,7 +46,7 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
           ${showLogo ? `
           <tr>
             <td align="center" style="padding-bottom: 15px;">
-              <img src="${logoUrl}" alt="Altus Finances Group" width="180" height="auto" style="display: block; max-width: 180px; height: auto;" />
+              <img src="${logoUrl}" alt="SolventisGroup" width="180" height="auto" style="display: block; max-width: 180px; height: auto;" />
             </td>
           </tr>
           ` : ''}
@@ -80,7 +80,7 @@ function getEmailFooter(footerText: string): string {
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
           <tr>
             <td align="center" style="padding-bottom: 15px;">
-              <img src="${logoUrl}" alt="Altus Finances Group" width="120" height="auto" style="display: block; max-width: 120px; height: auto; opacity: 0.8;" />
+              <img src="${logoUrl}" alt="SolventisGroup" width="120" height="auto" style="display: block; max-width: 120px; height: auto; opacity: 0.8;" />
             </td>
           </tr>
           <tr>

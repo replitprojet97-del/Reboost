@@ -6,7 +6,7 @@ export default function InfoBarPremium() {
     { icon: CreditCard, text: "Les virements Altus Finances sont désormais traités sous 24h ouvrées." },
     { icon: Shield, text: "Vos opérations sont protégées par une authentification renforcée." },
     { icon: FileText, text: "Votre contrat numérique est disponible dans votre espace sécurisé." },
-    { icon: Briefcase, text: "Altus Finances Group – Solutions professionnelles haut de gamme." }
+    { icon: Briefcase, text: "SolventisGroup – Solutions professionnelles haut de gamme." }
   ];
 
   const [index, setIndex] = useState(0);
