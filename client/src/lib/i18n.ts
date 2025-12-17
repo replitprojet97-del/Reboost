@@ -2949,7 +2949,7 @@ export const translations: Record<Language, TranslationKeys> = {
       invalidFile: 'Fichier invalide',
     },
     about: {
-      title: 'À propos d\'SolventisGroup',
+      title: 'À propos de SolventisGroup',
       subtitle: 'Votre partenaire de confiance pour le financement des particuliers et professionnels',
       badge: 'Leader du Financement Professionnel',
       mission: 'Notre Mission',
@@ -4736,7 +4736,7 @@ export const translations: Record<Language, TranslationKeys> = {
         keywords: 'prêt professionnel, crédit entreprise, financement professionnel, prêt personnel, crédit rapide, taux compétitifs, SolventisGroup',
       },
       about: {
-        title: 'À propos d\'SolventisGroup - Notre Mission et Nos Valeurs | Solutions de Financement',
+        title: 'À propos de SolventisGroup - Notre Mission et Nos Valeurs | Solutions de Financement',
         description: 'Découvrez SolventisGroup, leader en solutions de prêt professionnel avec plus de 15 ans d\'expérience, 15 000+ clients satisfaits et 500M€ de prêts accordés. Notre mission : rendre le financement accessible à tous.',
         keywords: 'à propos SolventisGroup, mission SolventisGroup, valeurs entreprise financement, expérience prêt professionnel, financement entreprise fiable',
       },
