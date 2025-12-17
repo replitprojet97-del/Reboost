@@ -29,11 +29,11 @@ export default function FinalCTASection() {
             <Link href="/loans/new">
               <Button 
                 size="lg"
-                className="px-8 py-6 text-base font-semibold rounded-full bg-background text-foreground hover:bg-background/90"
+                className="group px-8 py-6 text-base font-semibold rounded-full bg-background text-foreground btn-shimmer transition-all duration-300 hover:shadow-[0_8px_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 no-default-hover-elevate no-default-active-elevate"
                 data-testid="button-start-dossier"
               >
                 {t.premium.finalCTA.primaryButton}
-                <ArrowRight className="h-4 w-4 ml-2" />
+                <ArrowRight className="h-4 w-4 ml-2 icon-arrow-right" />
               </Button>
             </Link>
 
@@ -41,7 +41,7 @@ export default function FinalCTASection() {
               <Button 
                 variant="outline"
                 size="lg"
-                className="px-8 py-6 text-base font-semibold rounded-full border-background/30 text-background hover:bg-background/10"
+                className="px-8 py-6 text-base font-semibold rounded-full border-background/30 text-background transition-all duration-300 hover:bg-background/10 hover:border-background/50 hover:-translate-y-0.5 no-default-hover-elevate no-default-active-elevate"
                 data-testid="button-talk-adviser"
               >
                 {t.premium.finalCTA.secondaryButton}

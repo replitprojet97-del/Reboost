@@ -34,18 +34,18 @@ export default function HeroPremium() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Button
               size="lg"
-              className="px-8 py-6 text-base font-semibold rounded-full group shadow-lg hover:shadow-xl transition-shadow"
+              className="px-8 py-6 text-base font-semibold rounded-full group btn-premium-primary btn-shimmer no-default-hover-elevate no-default-active-elevate"
               onClick={() => setLocation('/products')}
               data-testid="button-hero-cta-primary"
             >
               {t.hero.cta1}
-              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 ml-2 icon-arrow-right" />
             </Button>
             
             <Button
               variant="outline"
               size="lg"
-              className="px-8 py-6 text-base font-semibold rounded-full hover:shadow-md transition-shadow"
+              className="px-8 py-6 text-base font-semibold rounded-full btn-premium-outline no-default-hover-elevate no-default-active-elevate"
               onClick={() => setLocation('/login')}
               data-testid="button-hero-cta-secondary"
             >

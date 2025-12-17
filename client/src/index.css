@@ -516,4 +516,98 @@
   .btn-glow:hover::before {
     opacity: 1;
   }
+
+  /* Premium Button Hover Effects */
+  .btn-premium-primary {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-premium-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .btn-premium-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  /* Premium Outline Button with subtle glow */
+  .btn-premium-outline {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: transparent;
+  }
+
+  .btn-premium-outline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: hsl(var(--foreground) / 0.03);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .btn-premium-outline:hover::before {
+    opacity: 1;
+  }
+
+  .btn-premium-outline:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
+    border-color: hsl(var(--foreground) / 0.2);
+  }
+
+  /* Shimmer effect for premium buttons */
+  .btn-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  .btn-shimmer:hover::after {
+    left: 100%;
+  }
+
+  /* Icon arrow animation */
+  .icon-arrow-right {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .group:hover .icon-arrow-right {
+    transform: translateX(4px);
+  }
+
+  /* Premium card with glass morphism effect */
+  .glass-card {
+    background: hsl(var(--card) / 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Gradient text for headings */
+  .text-gradient-premium {
+    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
