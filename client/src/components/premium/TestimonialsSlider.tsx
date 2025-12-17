@@ -57,7 +57,7 @@ export default function TestimonialsSlider() {
           >
             {t.premium.testimonials.items.map((testimonial, index) => (
               <SwiperSlide key={index}>
-                <div className="h-full p-6 rounded-2xl bg-card border border-border transition-all duration-200 hover:shadow-md hover:border-border/60" data-testid={`testimonial-${index}`}>
+                <div className="h-full p-6 rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 transition-all duration-200 hover:shadow-md hover:border-accent/40 hover-elevate" data-testid={`testimonial-${index}`}>
                   <div className="flex gap-0.5 mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="h-4 w-4 fill-accent text-accent" />
@@ -72,7 +72,7 @@ export default function TestimonialsSlider() {
                     <img
                       src={avatarImages[index]}
                       alt={testimonial.name}
-                      className="h-10 w-10 rounded-full object-cover"
+                      className="h-10 w-10 rounded-full object-cover border-2 border-accent/20"
                     />
                     <div>
                       <div className="font-medium text-foreground text-sm">{testimonial.name}</div>

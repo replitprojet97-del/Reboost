@@ -26,9 +26,21 @@ export default function ExpertisesModern() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-8">
           {t.premium.expertises.items.map((expertise, index) => {
             const Icon = expertiseIcons[index];
+            const colors = [
+              'from-accent/15 to-accent/5 border-accent/30',
+              'from-primary/15 to-primary/5 border-primary/30',
+              'from-green-500/15 to-green-500/5 border-green-500/30',
+              'from-blue-500/15 to-blue-500/5 border-blue-500/30',
+            ];
+            const iconColors = [
+              'text-accent',
+              'text-primary',
+              'text-green-500',
+              'text-blue-500',
+            ];
             return (
               <motion.div
                 key={index}
@@ -39,9 +51,9 @@ export default function ExpertisesModern() {
                 className="group"
                 data-testid={`expertise-card-${index}`}
               >
-                <div className="h-full p-8 rounded-2xl bg-card border border-border card-hover-premium">
-                  <div className="inline-flex p-3 rounded-xl bg-muted mb-5">
-                    <Icon className="h-6 w-6 text-foreground" />
+                <div className={`h-full p-8 rounded-2xl bg-gradient-to-br ${colors[index]} border card-hover-premium`}>
+                  <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${colors[index]} mb-5`}>
+                    <Icon className={`h-6 w-6 ${iconColors[index]}`} />
                   </div>
 
                   <h3 className="text-xl font-semibold text-foreground mb-3">{expertise.title}</h3>
@@ -51,7 +63,7 @@ export default function ExpertisesModern() {
                     {expertise.features.map((feature, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1.5 text-xs font-medium rounded-full bg-muted text-muted-foreground"
+                        className="px-3 py-1.5 text-xs font-medium rounded-full bg-muted/40 text-muted-foreground"
                       >
                         {feature}
                       </span>
