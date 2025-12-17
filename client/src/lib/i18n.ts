@@ -3257,7 +3257,7 @@ export const translations: Record<Language, TranslationKeys> = {
         section6Title: '6. Cookies',
         section6Content: 'Nous utilisons des cookies et des technologies de suivi similaires pour améliorer votre expérience sur notre plateforme. Vous pouvez contrôler les cookies via les paramètres de votre navigateur.',
         section7Title: '7. Nous Contacter',
-        section7Content: 'Si vous avez des questions concernant cette politique de confidentialité, veuillez nous contacter à privacy@altusfinancesgroup.com',
+        section7Content: 'Si vous avez des questions concernant cette politique de confidentialité, veuillez nous contacter à privacy@solventisgroup.org',
       },
     },
     individualLoans: {
@@ -4544,7 +4544,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '12. RÉCLAMATIONS',
         content: 'Pour toute réclamation, le Titulaire peut contacter le service client Altus Finances :',
         list: [
-          'Par email : support@altusfinancesgroup.com',
+          'Par email : support@solventisgroup.org',
           'Par téléphone : +33 1 XX XX XX XX',
           'Via l\'espace client sécurisé',
         ],
@@ -4683,7 +4683,7 @@ export const translations: Record<Language, TranslationKeys> = {
     footer: {
       description: 'Votre partenaire de confiance pour tous vos projets de financement. Solutions de prêt adaptées aux particuliers et professionnels.',
       phone: '+352 40 63 48',
-      email: 'infos@altusfinancesgroup.com',
+      email: 'infos@solventisgroup.org',
       address: '19 Rue Sigismond, L-2537 Luxembourg',
       hoursTitle: 'Horaires d\'ouverture',
       hours: {
@@ -5900,7 +5900,7 @@ export const translations: Record<Language, TranslationKeys> = {
         section6Title: '6. Cookies',
         section6Content: 'We use cookies and similar tracking technologies to enhance your experience on our platform. You can control cookies through your browser settings.',
         section7Title: '7. Contact Us',
-        section7Content: 'If you have questions about this Privacy Policy, please contact us at privacy@altusfinancesgroup.com',
+        section7Content: 'If you have questions about this Privacy Policy, please contact us at privacy@solventisgroup.org',
       },
     },
     individualLoans: {
@@ -7270,7 +7270,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '12. COMPLAINTS',
         content: 'For any complaint, the Cardholder may contact Altus Finances customer service:',
         list: [
-          'By email: support@altusfinancesgroup.com',
+          'By email: support@solventisgroup.org',
           'By phone: +44 XX XX XX XX',
           'Via secure client area',
         ],
@@ -7409,7 +7409,7 @@ export const translations: Record<Language, TranslationKeys> = {
     footer: {
       description: 'Your trusted partner for all your financing projects. Loan solutions tailored to individuals and professionals.',
       phone: '+352 40 63 48',
-      email: 'infos@altusfinancesgroup.com',
+      email: 'infos@solventisgroup.org',
       address: '19 Rue Sigismond, L-2537 Luxembourg',
       hoursTitle: 'Opening Hours',
       hours: {
@@ -8617,7 +8617,7 @@ export const translations: Record<Language, TranslationKeys> = {
         section6Title: '6. Cookies',
         section6Content: 'Utilizamos cookies y tecnologías de seguimiento similares para mejorar su experiencia en nuestra plataforma. Puede controlar las cookies a través de la configuración de su navegador.',
         section7Title: '7. Contáctenos',
-        section7Content: 'Si tiene preguntas sobre esta Política de Privacidad, contáctenos en privacy@altusfinancesgroup.com',
+        section7Content: 'Si tiene preguntas sobre esta Política de Privacidad, contáctenos en privacy@solventisgroup.org',
       },
     },
     individualLoans: {
@@ -9889,7 +9889,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '12. RECLAMACIONES',
         content: 'Para cualquier reclamación, el Titular puede contactar al servicio de atención al cliente Altus Finances:',
         list: [
-          'Por correo electrónico: support@altusfinancesgroup.com',
+          'Por correo electrónico: support@solventisgroup.org',
           'Por teléfono: +34 XX XX XX XX',
           'A través del área de cliente segura',
         ],
@@ -10028,7 +10028,7 @@ export const translations: Record<Language, TranslationKeys> = {
     footer: {
       description: 'Su socio de confianza para todos sus proyectos de financiamiento. Soluciones de préstamo adaptadas a particulares y profesionales.',
       phone: '+352 40 63 48',
-      email: 'infos@altusfinancesgroup.com',
+      email: 'infos@solventisgroup.org',
       address: '19 Rue Sigismond, L-2537 Luxembourg',
       hoursTitle: 'Horario de Atención',
       hours: {
@@ -11334,7 +11334,7 @@ export const translations: Record<Language, TranslationKeys> = {
         section6Title: '6. Cookies',
         section6Content: 'Usamos cookies e tecnologias de rastreamento semelhantes para melhorar sua experiência em nossa plataforma. Você pode controlar cookies através das configurações do seu navegador.',
         section7Title: '7. Contate-nos',
-        section7Content: 'Se você tiver dúvidas sobre esta Política de Privacidade, entre em contato conosco em privacy@altusfinancesgroup.com',
+        section7Content: 'Se você tiver dúvidas sobre esta Política de Privacidade, entre em contato conosco em privacy@solventisgroup.org',
       },
     },
     individualLoans: {
@@ -12606,7 +12606,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '12. RECLAMAÇÕES',
         content: 'Para qualquer reclamação, o Titular pode contatar o atendimento ao cliente Altus Finances:',
         list: [
-          'Por e-mail: support@altusfinancesgroup.com',
+          'Por e-mail: support@solventisgroup.org',
           'Por telefone: +351 XX XX XX XX',
           'Através da área do cliente segura',
         ],
@@ -12745,7 +12745,7 @@ export const translations: Record<Language, TranslationKeys> = {
     footer: {
       description: 'Seu parceiro de confiança para todos os seus projetos de financiamento. Soluções de empréstimo adaptadas a particulares e profissionais.',
       phone: '+352 40 63 48',
-      email: 'infos@altusfinancesgroup.com',
+      email: 'infos@solventisgroup.org',
       address: '19 Rue Sigismond, L-2537 Luxembourg',
       hoursTitle: 'Horário de Atendimento',
       hours: {
@@ -13957,7 +13957,7 @@ export const translations: Record<Language, TranslationKeys> = {
         section6Title: '6. Cookie',
         section6Content: 'Utilizziamo cookie e tecnologie di tracciamento simili per migliorare la tua esperienza sulla nostra piattaforma. Puoi controllare i cookie tramite le impostazioni del tuo browser.',
         section7Title: '7. Contattaci',
-        section7Content: 'Se hai domande su questa politica sulla privacy, contattaci a privacy@altusfinancesgroup.com',
+        section7Content: 'Se hai domande su questa politica sulla privacy, contattaci a privacy@solventisgroup.org',
       },
     },
     individualLoans: {
@@ -15134,7 +15134,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '12. RECLAMI',
         content: 'Per qualsiasi reclamo, il Titolare può contattare il servizio clienti Altus Finances:',
         list: [
-          'Via email: support@altusfinancesgroup.com',
+          'Via email: support@solventisgroup.org',
           'Per telefono: +39 XX XX XX XX XX',
           'Tramite l\'area clienti sicura',
         ],
@@ -15273,7 +15273,7 @@ export const translations: Record<Language, TranslationKeys> = {
     footer: {
       description: 'Il vostro partner di fiducia per tutti i vostri progetti di finanziamento. Soluzioni di prestito adattate a privati e professionisti.',
       phone: '+352 40 63 48',
-      email: 'infos@altusfinancesgroup.com',
+      email: 'infos@solventisgroup.org',
       address: '19 Rue Sigismond, L-2537 Luxembourg',
       hoursTitle: 'Orari di Apertura',
       hours: {
@@ -16571,7 +16571,7 @@ export const translations: Record<Language, TranslationKeys> = {
         section6Title: '6. Cookies',
         section6Content: 'Wir verwenden Cookies und ähnliche Tracking-Technologien, um Ihre Erfahrung auf unserer Plattform zu verbessern. Sie können Cookies über Ihre Browsereinstellungen kontrollieren.',
         section7Title: '7. Kontaktieren Sie uns',
-        section7Content: 'Wenn Sie Fragen zu dieser Datenschutzrichtlinie haben, kontaktieren Sie uns bitte unter privacy@altusfinancesgroup.com',
+        section7Content: 'Wenn Sie Fragen zu dieser Datenschutzrichtlinie haben, kontaktieren Sie uns bitte unter privacy@solventisgroup.org',
       },
     },
     individualLoans: {
@@ -17748,7 +17748,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '12. BESCHWERDEN',
         content: 'Für Beschwerden kann der Karteninhaber den Altus Finances-Kundendienst kontaktieren:',
         list: [
-          'Per E-Mail: support@altusfinancesgroup.com',
+          'Per E-Mail: support@solventisgroup.org',
           'Per Telefon: +49 XX XX XX XX XX',
           'Über den sicheren Kundenbereich',
         ],
@@ -17887,7 +17887,7 @@ export const translations: Record<Language, TranslationKeys> = {
     footer: {
       description: 'Ihr vertrauenswürdiger Partner für alle Ihre Finanzierungsprojekte. Kreditlösungen für Privat- und Geschäftskunden.',
       phone: '+352 40 63 48',
-      email: 'infos@altusfinancesgroup.com',
+      email: 'infos@solventisgroup.org',
       address: '19 Rue Sigismond, L-2537 Luxembourg',
       hoursTitle: 'Öffnungszeiten',
       hours: {
@@ -19185,7 +19185,7 @@ export const translations: Record<Language, TranslationKeys> = {
         section6Title: '6. Cookies',
         section6Content: 'We gebruiken cookies en soortgelijke trackingtechnologieën om uw ervaring op ons platform te verbeteren. U kunt cookies beheren via uw browserinstellingen.',
         section7Title: '7. Neem contact met ons op',
-        section7Content: 'Als u vragen heeft over dit privacybeleid, neem dan contact met ons op via privacy@altusfinancesgroup.com',
+        section7Content: 'Als u vragen heeft over dit privacybeleid, neem dan contact met ons op via privacy@solventisgroup.org',
       },
     },
     individualLoans: {
@@ -20332,7 +20332,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '12. KLACHTEN',
         content: 'Voor klachten kan de Kaarthouder contact opnemen met de Altus Finances-klantenservice:',
         list: [
-          'Per e-mail: support@altusfinancesgroup.com',
+          'Per e-mail: support@solventisgroup.org',
           'Per telefoon: +31 XX XX XX XX XX',
           'Via het beveiligde klantengebied',
         ],
@@ -20471,7 +20471,7 @@ export const translations: Record<Language, TranslationKeys> = {
     footer: {
       description: 'Uw betrouwbare partner voor al uw financieringsprojecten. Leningsoplossingen aangepast aan particulieren en professionals.',
       phone: '+352 40 63 48',
-      email: 'infos@altusfinancesgroup.com',
+      email: 'infos@solventisgroup.org',
       address: '19 Rue Sigismond, L-2537 Luxembourg',
       hoursTitle: 'Openingstijden',
       hours: {

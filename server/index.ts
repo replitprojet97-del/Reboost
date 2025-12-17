@@ -68,11 +68,11 @@ const IS_REPLIT = !IS_PRODUCTION && (
   process.env.REPL_SLUG !== undefined
 );
 
-// In production: use '.altusfinancesgroup.com' to share cookies between frontend and api subdomains
+// In production: use '.solventisgroup.org' to share cookies between frontend and api subdomains
 // In development: undefined (same domain only)
-const COOKIE_DOMAIN = IS_PRODUCTION ? '.altusfinancesgroup.com' : undefined;
+const COOKIE_DOMAIN = IS_PRODUCTION ? '.solventisgroup.org' : undefined;
 
-// In production: use 'none' for cross-domain cookies (frontend on altusfinancesgroup.com, api on api.altusfinancesgroup.com)
+// In production: use 'none' for cross-domain cookies (frontend on solventisgroup.org, api on api.solventisgroup.org)
 // In Replit development: use 'none' with secure:true (Replit uses HTTPS proxy)
 // In local development: use 'lax' (frontend and backend on same localhost)
 const SAME_SITE_POLICY = IS_PRODUCTION ? 'none' : (IS_REPLIT ? 'none' : 'lax');
@@ -95,8 +95,8 @@ console.log('='.repeat(60));
 // Do NOT add any Vercel preview domains or other domains
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? [
-      'https://altusfinancesgroup.com',
-      'https://www.altusfinancesgroup.com',
+      'https://solventisgroup.org',
+      'https://www.solventisgroup.org',
     ]
   : ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000'];
 
@@ -130,9 +130,9 @@ app.use('/api/chat/file', (req, res, next) => {
   // Set permissive CSP for chat files to allow iframe embedding
   res.setHeader(
     "Content-Security-Policy",
-    "frame-ancestors https://altusfinancesgroup.com https://www.altusfinancesgroup.com https://dashboard.altusfinancesgroup.com"
+    "frame-ancestors https://solventisgroup.org https://www.solventisgroup.org https://dashboard.solventisgroup.org"
   );
-  res.setHeader("Access-Control-Allow-Origin", "https://altusfinancesgroup.com");
+  res.setHeader("Access-Control-Allow-Origin", "https://solventisgroup.org");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   // Skip helmet for this route by marking it
   (req as any).skipHelmet = true;
@@ -157,7 +157,7 @@ app.use((req, res, next) => {
           : ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
         imgSrc: ["'self'", "data:", "https:"],
         connectSrc: process.env.NODE_ENV === 'production'
-          ? ["'self'", "https://api.altusfinancesgroup.com", ...allowedOrigins.filter((origin): origin is string => origin !== undefined)]
+          ? ["'self'", "https://api.solventisgroup.org", ...allowedOrigins.filter((origin): origin is string => origin !== undefined)]
           : ["'self'", "https://*.replit.dev"],
         fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
         objectSrc: ["'none'"],

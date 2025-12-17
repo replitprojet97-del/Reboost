@@ -20,6 +20,15 @@ Preferred communication style: Simple, everyday language. High standards for sec
   - 2FA/OTP messages
   - All frontend pages and components
 
+- **Domain Migration:** Updated all domain references from altusfinancesgroup.com to solventisgroup.org:
+  - CORS origins (server/index.ts, server/chat-socket.ts)
+  - Cookie domain configuration (server/index.ts, server/routes.ts)
+  - API base URLs (client/src/lib/queryClient.ts, socket.ts)
+  - Email addresses in i18n translations and UI (infos@, support@, privacy@, contact@)
+  - Contract generator and email templates
+  - CSP frame-ancestors configuration
+  - sitemap.xml references
+
 ## Recent Changes (December 8, 2025)
 
 - **Production Synchronization:** Synchronized development version with production (altusfinancesgroup.com):

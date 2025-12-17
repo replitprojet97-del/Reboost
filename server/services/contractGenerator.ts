@@ -941,8 +941,8 @@ const getContractTemplate = (data: ContractData): string => {
         <span class="contact-line"><strong>Siège:</strong> 19 Rue Sigismond, L-2537 Luxembourg</span>
         <span class="contact-line"><strong>RCS:</strong> Luxembourg B123456</span>
         <span class="contact-line"><strong>Tél:</strong> +352 40 63 48</span>
-        <span class="contact-line"><strong>Email:</strong> contact@altusfinancesgroup.com</span>
-        <span class="contact-line"><strong>Web:</strong> www.altusfinancesgroup.com</span>
+        <span class="contact-line"><strong>Email:</strong> contact@solventisgroup.org</span>
+        <span class="contact-line"><strong>Web:</strong> www.solventisgroup.org</span>
       </div>
     </div>
     <div style="text-align: center;">
@@ -1106,8 +1106,8 @@ const getContractTemplate = (data: ContractData): string => {
     <p style="margin: 8px 0;">
       ${t.shareCapital}: 1 000 000 € • RCS Luxembourg B123456<br>
       ${t.headquarters}: 19 Rue Sigismond, L-2537 Luxembourg<br>
-      ${t.tel}: +352 40 63 48 • Email: infos@altusfinancesgroup.com<br>
-      www.altusfinancesgroup.com
+      ${t.tel}: +352 40 63 48 • Email: infos@solventisgroup.org<br>
+      www.solventisgroup.org
     </p>
     <p style="margin-top: 15px; font-size: 8pt; font-style: italic;">
       ${t.confidentialNotice}
