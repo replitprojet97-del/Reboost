@@ -153,15 +153,15 @@ export default function Contracts() {
   }
 
   return (
-    <div className="p-6 md:p-8 space-y-8 animate-in fade-in-50 slide-in-from-bottom-4 duration-500">
+    <div className="p-6 md:p-10 space-y-10 animate-in fade-in-50 slide-in-from-bottom-4 duration-500">
       <SectionTitle
         title={t.contracts?.title || 'Gestion des Contrats'}
         subtitle={t.contracts?.description || 'Téléchargez, signez et renvoyez vos contrats de prêt en toute sécurité'}
       />
 
       <Tabs defaultValue="pending" className="w-full" data-testid="tabs-contracts">
-        <GlassPanel className="p-1">
-          <TabsList className="grid w-full grid-cols-3 bg-transparent gap-1">
+        <GlassPanel className="p-1.5">
+          <TabsList className="grid w-full grid-cols-3 bg-transparent gap-2">
             <TabsTrigger 
               value="pending" 
               data-testid="tab-pending-contracts"
@@ -202,9 +202,9 @@ export default function Contracts() {
           </TabsList>
         </GlassPanel>
 
-        <TabsContent value="pending" className="mt-6 space-y-6 motion-safe:animate-in motion-safe:fade-in-50 motion-safe:slide-in-from-bottom-4 duration-300">
+        <TabsContent value="pending" className="mt-8 space-y-8 motion-safe:animate-in motion-safe:fade-in-50 motion-safe:slide-in-from-bottom-4 duration-300">
           {contractsToSign.length > 0 ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {contractsToSign.map((loan) => {
                 const StatusIcon = CONTRACT_STATUS_CONFIG.awaiting_user_signature.icon;
                 return (
@@ -311,9 +311,9 @@ export default function Contracts() {
           )}
         </TabsContent>
 
-        <TabsContent value="review" className="mt-6 space-y-6 motion-safe:animate-in motion-safe:fade-in-50 motion-safe:slide-in-from-bottom-4 duration-300">
+        <TabsContent value="review" className="mt-8 space-y-8 motion-safe:animate-in motion-safe:fade-in-50 motion-safe:slide-in-from-bottom-4 duration-300">
           {contractsAwaitingReview.length > 0 ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {contractsAwaitingReview.map((loan) => (
                 <DashboardCard 
                   key={loan.id} 
@@ -370,9 +370,9 @@ export default function Contracts() {
           )}
         </TabsContent>
 
-        <TabsContent value="completed" className="mt-6 space-y-6 motion-safe:animate-in motion-safe:fade-in-50 motion-safe:slide-in-from-bottom-4 duration-300">
+        <TabsContent value="completed" className="mt-8 space-y-8 motion-safe:animate-in motion-safe:fade-in-50 motion-safe:slide-in-from-bottom-4 duration-300">
           {contractsSigned.length > 0 ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {contractsSigned.map((loan) => (
                 <DashboardCard 
                   key={loan.id} 

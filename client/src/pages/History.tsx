@@ -171,7 +171,7 @@ export default function History() {
 
   return (
     <div className="bg-background overflow-x-hidden">
-      <div className="p-4 sm:p-6 md:p-8 max-w-[1400px] mx-auto space-y-6 md:space-y-8 animate-fade-in w-full">
+      <div className="p-4 sm:p-6 md:p-10 max-w-[1400px] mx-auto space-y-8 md:space-y-10 animate-fade-in w-full">
         {/* Header */}
         <SectionTitle
           title={t.history.pageTitle}
@@ -179,7 +179,7 @@ export default function History() {
         />
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-8">
           <DashboardCard className="bg-gradient-to-br from-accent/10 via-background to-background border-accent/20">
             <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
               <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center shadow-sm flex-shrink-0">

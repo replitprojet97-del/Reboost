@@ -187,30 +187,32 @@ export default function BankAccounts() {
   return (
     <>
       <div className="bg-background">
-        <div className="p-6 md:p-8 max-w-[1400px] mx-auto space-y-8 animate-fade-in">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="p-6 md:p-10 max-w-[1400px] mx-auto space-y-10 animate-fade-in">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
             <SectionTitle
               title={t.bankAccounts.title}
               subtitle={t.bankAccounts.description}
             />
-            <GradientButton
-              variant="primary"
-              icon={Plus}
-              onClick={() => setDialogOpen(true)}
-              data-testid="button-add-account"
-            >
-              {t.bankAccounts.addAccount}
-            </GradientButton>
+            <div className="flex-shrink-0">
+              <GradientButton
+                variant="primary"
+                icon={Plus}
+                onClick={() => setDialogOpen(true)}
+                data-testid="button-add-account"
+              >
+                {t.bankAccounts.addAccount}
+              </GradientButton>
+            </div>
           </div>
 
           {accounts && accounts.length === 0 ? (
             <DashboardCard className="bg-muted/20">
-              <div className="flex flex-col items-center justify-center text-center py-16">
-                <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 shadow-sm">
-                  <Building2 className="h-10 w-10 text-primary" />
+              <div className="flex flex-col items-center justify-center text-center py-20">
+                <div className="w-24 h-24 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 shadow-sm">
+                  <Building2 className="h-12 w-12 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-foreground">{t.bankAccounts.noAccountsTitle}</h3>
-                <p className="text-muted-foreground text-sm mb-8 max-w-md">
+                <h3 className="text-2xl font-bold mb-3 text-foreground">{t.bankAccounts.noAccountsTitle}</h3>
+                <p className="text-muted-foreground text-base mb-10 max-w-md">
                   {t.bankAccounts.noAccountsDescription}
                 </p>
                 <GradientButton
@@ -224,7 +226,7 @@ export default function BankAccounts() {
               </div>
             </DashboardCard>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-testid="list-bank-accounts">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8" data-testid="list-bank-accounts">
               {accounts?.map((account) => (
                 <DashboardCard 
                   key={account.id}
@@ -244,27 +246,27 @@ export default function BankAccounts() {
                     </div>
                   )}
                   
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4 pt-2">
-                      <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 flex items-center justify-center shadow-sm">
-                        <Building2 className="h-8 w-8 text-primary" />
+                  <div className="space-y-8">
+                    <div className="flex items-start gap-5 pt-2">
+                      <div className="flex-shrink-0 w-18 h-18 rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 flex items-center justify-center shadow-sm">
+                        <Building2 className="h-9 w-9 text-primary" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-xl text-foreground mb-1 truncate">{account.bankName}</h3>
+                        <h3 className="font-bold text-xl text-foreground mb-2 truncate">{account.bankName}</h3>
                         <div className="flex items-center gap-2">
-                          <CreditCard className="w-3.5 h-3.5 text-muted-foreground" />
+                          <CreditCard className="w-4 h-4 text-muted-foreground" />
                           <p className="text-sm text-muted-foreground truncate">{account.accountLabel}</p>
                         </div>
                         {account.bankCountry && (
-                          <Badge variant="secondary" className="mt-2 text-xs">
+                          <Badge variant="secondary" className="mt-3 text-xs">
                             {account.bankCountry}
                           </Badge>
                         )}
                       </div>
                     </div>
 
-                    <div className="space-y-3">
-                      <div className="space-y-2 p-4 rounded-xl bg-muted/30 border border-border/50">
+                    <div className="space-y-4">
+                      <div className="space-y-3 p-5 rounded-xl bg-muted/30 border border-border/50">
                         <div className="flex items-center gap-2">
                           <ShieldCheck className="w-4 h-4 text-muted-foreground" />
                           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">IBAN</p>
@@ -274,8 +276,8 @@ export default function BankAccounts() {
                         </p>
                       </div>
 
-                      <div className="flex items-center gap-2">
-                        <Globe className="w-4 h-4 text-muted-foreground" />
+                      <div className="flex items-center gap-3">
+                        <Globe className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.transferFlow.form.transferType}</p>
                         <Badge className={`text-xs px-2.5 py-1 ${getNetworkBadgeColor(getNetworkFromIban(account.iban))}`}>
                           {TRANSFER_TYPES[getNetworkFromIban(account.iban)].name}
@@ -284,13 +286,13 @@ export default function BankAccounts() {
                     </div>
 
                     {account.bic && (
-                      <div className="space-y-2">
+                      <div className="space-y-3 p-5 rounded-xl bg-muted/30 border border-border/50">
                         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">BIC/SWIFT</p>
                         <p className="font-mono text-base text-foreground font-semibold">{account.bic}</p>
                       </div>
                     )}
 
-                    <div className="pt-4 border-t border-border/50 flex justify-end">
+                    <div className="pt-6 border-t border-border/50 flex justify-end">
                       <Button
                         variant="destructive"
                         size="sm"

@@ -92,16 +92,16 @@ export default function IndividualLoans() {
 
   return (
     <>
-      <div className="p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8 animate-in fade-in-50 slide-in-from-bottom-4 duration-500 overflow-x-hidden">
+      <div className="p-4 sm:p-6 md:p-10 space-y-8 sm:space-y-10 animate-in fade-in-50 slide-in-from-bottom-4 duration-500 overflow-x-hidden">
         <SectionTitle
           title={t.loan.pageTitle}
           subtitle={t.loan.pageDescription}
         />
 
-        <div className="mt-6 space-y-6">
+        <div className="mt-8 space-y-8">
           <Tabs defaultValue="active" className="w-full" data-testid="tabs-loan-status">
-              <GlassPanel className="p-1 overflow-x-auto">
-                <TabsList className="grid w-full grid-cols-2 min-w-fit bg-transparent gap-1">
+              <GlassPanel className="p-1.5 overflow-x-auto">
+                <TabsList className="grid w-full grid-cols-2 min-w-fit bg-transparent gap-2">
                   <TabsTrigger 
                     value="active" 
                     data-testid="tab-active-loans"
