@@ -2,66 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* LIGHT MODE - Fintech Premium 2025 (Stripe/Qonto inspired - Blue Slate) */
+/* LIGHT MODE - Ultra Premium Qonto Style 2025 */
 :root {
-  --button-outline: rgba(0,0,0, .08);
+  --button-outline: rgba(0,0,0, .06);
   --badge-outline: rgba(0,0,0, .04);
 
   /* Automatic computation of border around primary / danger buttons */
-  --opaque-button-border-intensity: -10; /* In terms of percentages */
+  --opaque-button-border-intensity: -8;
 
   /* Backgrounds applied on top of other backgrounds when hovered/active */
   --elevate-1: rgba(0,0,0, .02);
-  --elevate-2: rgba(0,0,0, .06);
+  --elevate-2: rgba(0,0,0, .05);
 
-  /* ===== FINTECH PREMIUM PALETTE 2025 - BLUE SLATE ===== */
-  --background: 210 20% 99%;        /* Ultra blanc cassé avec teinte bleue */
+  /* ===== QONTO ULTRA PREMIUM PALETTE ===== */
+  --background: 0 0% 100%;          /* Blanc pur */
 
-  --foreground: 215 35% 14%;        /* Bleu ardoise très foncé pour texte */
+  --foreground: 240 10% 10%;        /* Noir profond pour texte */
 
-  --border: 214 20% 91%;            /* Bordures bleu-gris très discrètes */
+  --border: 240 6% 92%;             /* Bordures ultra discrètes */
 
   --card: 0 0% 100%;                /* Cards blanc pur */
 
-  --card-foreground: 215 35% 14%;
+  --card-foreground: 240 10% 10%;
 
-  --card-border: 214 18% 93%;       /* Bordures card ultra subtiles */
+  --card-border: 240 6% 94%;        /* Bordures card quasi invisibles */
 
-  --sidebar: 213 35% 98%;           /* Sidebar blanc légèrement teinté bleu */
+  --sidebar: 240 5% 98%;            /* Sidebar blanc très subtil */
 
-  --sidebar-foreground: 215 35% 14%;
+  --sidebar-foreground: 240 10% 10%;
 
-  --sidebar-border: 214 22% 93%;
+  --sidebar-border: 240 6% 94%;
 
-  --sidebar-primary: 221 83% 53%;   /* Bleu Stripe/Qonto */
+  --sidebar-primary: 240 10% 10%;   /* Noir pour accent sidebar */
 
   --sidebar-primary-foreground: 0 0% 100%;
 
-  --sidebar-accent: 214 60% 96%;    /* Hover subtil bleu */
+  --sidebar-accent: 240 5% 96%;     /* Hover très subtil */
 
-  --sidebar-accent-foreground: 221 83% 53%;
+  --sidebar-accent-foreground: 240 10% 10%;
 
-  --sidebar-ring: 221 83% 53%;
+  --sidebar-ring: 240 10% 10%;
 
   --popover: 0 0% 100%;
 
-  --popover-foreground: 215 35% 14%;
+  --popover-foreground: 240 10% 10%;
 
-  --popover-border: 214 18% 93%;
+  --popover-border: 240 6% 94%;
 
-  --primary: 221 83% 53%;           /* Bleu principal (Stripe-like #3B82F6) */
+  --primary: 240 10% 10%;           /* Noir élégant comme Qonto */
 
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 214 18% 95%;
+  --secondary: 240 5% 96%;
 
-  --secondary-foreground: 215 35% 14%;
+  --secondary-foreground: 240 10% 10%;
 
-  --muted: 214 15% 97%;             /* Background très léger bleu-gris */
+  --muted: 240 5% 97%;              /* Background ultra léger */
 
-  --muted-foreground: 215 18% 46%;  /* Texte secondaire lisible */
+  --muted-foreground: 240 5% 46%;   /* Texte secondaire */
 
-  --accent: 217 70% 50%;            /* Bleu accent professionnel */
+  --accent: 262 83% 58%;            /* Violet Qonto */
 
   --accent-foreground: 0 0% 100%;
 }
@@ -140,63 +140,63 @@
   --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
 }
 
-/* DARK MODE - Fintech Premium 2025 - Blue Slate */
+/* DARK MODE - Ultra Premium Qonto Style 2025 */
 .dark {
-  --button-outline: rgba(255,255,255, .08);
+  --button-outline: rgba(255,255,255, .06);
   --badge-outline: rgba(255,255,255, .04);
 
-  --opaque-button-border-intensity: 10;  /* In terms of percentages */
+  --opaque-button-border-intensity: 8;
 
   /* Backgrounds applied on top of other backgrounds when hovered/active */
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .08);
+  --elevate-1: rgba(255,255,255, .03);
+  --elevate-2: rgba(255,255,255, .06);
 
-  /* ===== DARK MODE FINTECH PREMIUM - BLUE SLATE ===== */
-  --background: 217 33% 8%;           /* Bleu ardoise très foncé */
+  /* ===== DARK MODE QONTO PREMIUM ===== */
+  --background: 240 10% 6%;           /* Noir profond */
 
-  --foreground: 213 20% 96%;          /* Texte presque blanc */
+  --foreground: 0 0% 98%;             /* Blanc pur pour texte */
 
-  --border: 217 28% 16%;              /* Bordures subtiles dark */
+  --border: 240 8% 14%;               /* Bordures subtiles */
 
-  --card: 217 30% 11%;                /* Cards légèrement plus claires */
+  --card: 240 10% 9%;                 /* Cards légèrement plus claires */
 
-  --card-foreground: 213 20% 96%;
+  --card-foreground: 0 0% 98%;
 
-  --card-border: 217 26% 18%;
+  --card-border: 240 8% 16%;
 
-  --sidebar: 217 35% 9%;              /* Sidebar encore plus foncée */
+  --sidebar: 240 10% 7%;              /* Sidebar encore plus foncée */
 
-  --sidebar-foreground: 213 20% 96%;
+  --sidebar-foreground: 0 0% 98%;
 
-  --sidebar-border: 217 28% 16%;
+  --sidebar-border: 240 8% 14%;
 
-  --sidebar-primary: 217 91% 60%;     /* Bleu lumineux en dark */
+  --sidebar-primary: 0 0% 100%;       /* Blanc pour accent */
 
-  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-primary-foreground: 240 10% 6%;
 
-  --sidebar-accent: 217 35% 18%;      /* Hover subtil */
+  --sidebar-accent: 240 8% 12%;       /* Hover subtil */
 
-  --sidebar-accent-foreground: 217 91% 60%;
+  --sidebar-accent-foreground: 0 0% 98%;
 
-  --sidebar-ring: 217 91% 60%;
+  --sidebar-ring: 0 0% 100%;
 
-  --popover: 217 30% 11%;
+  --popover: 240 10% 9%;
 
-  --popover-foreground: 213 20% 96%;
+  --popover-foreground: 0 0% 98%;
 
-  --popover-border: 217 26% 18%;
+  --popover-border: 240 8% 16%;
 
-  --primary: 217 91% 60%;             /* Bleu lumineux */
+  --primary: 0 0% 100%;               /* Blanc élégant */
 
-  --primary-foreground: 0 0% 100%;
+  --primary-foreground: 240 10% 6%;
 
-  --secondary: 217 26% 18%;
+  --secondary: 240 8% 14%;
 
-  --secondary-foreground: 213 20% 96%;
+  --secondary-foreground: 0 0% 98%;
 
-  --muted: 217 28% 14%;
+  --muted: 240 8% 12%;
 
-  --muted-foreground: 213 18% 68%;
+  --muted-foreground: 240 5% 60%;
 
 
 
