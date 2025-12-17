@@ -1,6 +1,5 @@
 import { useTranslations } from '@/lib/i18n';
-import Header from '@/components/Header';
-import TopBar from '@/components/TopBar';
+import HeaderPremium from '@/components/HeaderPremium';
 import FooterPremium from '@/components/premium/FooterPremium';
 import SEO from '@/components/SEO';
 import { Building2, User, RefreshCw, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
@@ -25,8 +24,7 @@ export default function Expertise() {
         path="/expertise"
       />
       
-      <TopBar />
-      <Header />
+      <HeaderPremium />
 
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 bg-gradient-to-b from-indigo-50 to-white">

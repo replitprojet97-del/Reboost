@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import HeaderPremium from '@/components/HeaderPremium';
 import FooterPremium from '@/components/premium/FooterPremium';
 import SEO from '@/components/SEO';
 import { useTranslations, useLanguage } from '@/lib/i18n';
@@ -26,7 +26,7 @@ export default function Resources() {
         path="/resources"
         structuredData={faqSchema(faqData)}
       />
-      <Header />
+      <HeaderPremium />
       <main className="pt-24 pb-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center mb-20">

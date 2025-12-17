@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import HeaderPremium from '@/components/HeaderPremium';
 import FooterPremium from '@/components/premium/FooterPremium';
 import SEO from '@/components/SEO';
 import { useTranslations } from '@/lib/i18n';
@@ -59,7 +59,7 @@ export default function About() {
         path="/about"
         structuredData={[organizationSchema, aboutBreadcrumb]}
       />
-      <Header />
+      <HeaderPremium />
       
       {/* Hero Section */}
       <section className="relative pt-4 pb-20 overflow-hidden">

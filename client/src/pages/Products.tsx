@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import HeaderPremium from '@/components/HeaderPremium';
 import FooterPremium from '@/components/premium/FooterPremium';
 import SEO from '@/components/SEO';
 import { useTranslations, useLanguage } from '@/lib/i18n';
@@ -30,7 +30,7 @@ export default function Products() {
         path="/products"
         structuredData={loanProductSchema(language)}
       />
-      <Header />
+      <HeaderPremium />
       
       {/* Hero Section */}
       <section className="relative pt-4 pb-20 overflow-hidden">

@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Helmet } from 'react-helmet-async';
 import * as LucideIcons from 'lucide-react';
-import Header from '@/components/Header';
+import HeaderPremium from '@/components/HeaderPremium';
 import FooterPremium from '@/components/premium/FooterPremium';
 import { ChevronRight, Check } from 'lucide-react';
 
@@ -38,7 +38,7 @@ export default function LoanDetail() {
         <meta name="description" content={loanContent.hero.subtitle} />
       </Helmet>
       
-      <Header />
+      <HeaderPremium />
       
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-background py-16 md:py-24">

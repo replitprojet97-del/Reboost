@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import HeaderPremium from '@/components/HeaderPremium';
 import FooterPremium from '@/components/premium/FooterPremium';
 import SEO from '@/components/SEO';
 import { useTranslations } from '@/lib/i18n';
@@ -71,7 +71,7 @@ export default function HowItWorks() {
         keywords="how to get professional loan, business credit process, business loan documents, eligibility criteria, financing timeline, loan application steps"
         path="/how-it-works"
       />
-      <Header />
+      <HeaderPremium />
       
       {/* Hero Section */}
       <section className="relative pt-4 pb-20 overflow-hidden">

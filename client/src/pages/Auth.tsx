@@ -16,6 +16,8 @@ import { ArrowLeft, Hash, FileText, Eye, EyeOff } from 'lucide-react';
 import { useLanguage, useTranslations } from '@/lib/i18n';
 import { translateBackendMessage } from '@/lib/translateBackendMessage';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import HeaderPremium from '@/components/HeaderPremium';
+import FooterPremium from '@/components/premium/FooterPremium';
 
 export default function Auth() {
   const [location, setLocation] = useLocation();
@@ -258,32 +260,25 @@ export default function Auth() {
   };
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-white dark:bg-slate-950 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-slate-950 dark:to-slate-900">
+      <HeaderPremium />
       
-      {/* ANIMATED BACKGROUND BUBBLES */}
-      <div className="absolute w-[500px] h-[500px] bg-gradient-to-br from-altusfinances-purple to-altusfinances-blue opacity-20 dark:opacity-10 rounded-full blur-3xl animate-float top-10 left-10" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tr from-altusfinances-blue to-altusfinances-purple opacity-20 dark:opacity-10 rounded-full blur-3xl animate-float" style={{ animationDelay: '-9s' }} />
+      <main className="relative flex items-center justify-center py-24 overflow-hidden">
+        
+        {/* ANIMATED BACKGROUND BUBBLES */}
+        <div className="absolute w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 opacity-30 dark:opacity-10 rounded-full blur-3xl animate-float top-10 left-10" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tr from-purple-500/20 to-indigo-500/20 opacity-30 dark:opacity-10 rounded-full blur-3xl animate-float" style={{ animationDelay: '-9s' }} />
 
-      {/* AUTH CARD */}
-      <div className="relative z-10 w-full max-w-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-gray-200 dark:border-slate-700 shadow-2xl rounded-2xl p-8 sm:p-10 mx-4">
+        {/* AUTH CARD */}
+        <div className="relative z-10 w-full max-w-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-gray-200 dark:border-slate-700 shadow-2xl rounded-2xl p-8 sm:p-10 mx-4">
 
-        {/* HEADER WITH LOGO AND LANGUAGE SWITCHER */}
-        <div className="flex items-start justify-between mb-6">
-          <div className="flex-1 text-center">
-            <img 
-              src="/logo-altus-new.png" 
-              alt="ALTUS FINANCES GROUP" 
-              className="mx-auto h-44 w-auto mb-3"
-              data-testid="img-logo-auth"
-            />
-            <p className="text-gray-600 dark:text-gray-400 text-sm">{t.auth.subtitle}</p>
+          {/* HEADER WITH LOGO AND LANGUAGE SWITCHER */}
+          <div className="flex items-start justify-between mb-6">
+            <div className="flex-1 text-center">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{activeTab === 'login' ? t.auth.login : t.auth.signup}</h1>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">{t.auth.subtitle}</p>
+            </div>
           </div>
-
-          {/* LANGUAGE SELECTOR */}
-          <div className="absolute right-4 top-4">
-            <LanguageSwitcher />
-          </div>
-        </div>
 
         {/* TABS */}
         <div className="grid grid-cols-2 rounded-xl mb-8 border border-gray-200 dark:border-slate-700 overflow-hidden">
@@ -291,7 +286,7 @@ export default function Auth() {
             onClick={() => setActiveTab('login')}
             className={`py-3 font-semibold transition-all ${
               activeTab === 'login' 
-                ? 'bg-altusfinances-blue text-white' 
+                ? 'bg-indigo-600 text-white' 
                 : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400'
             }`}
             data-testid="tab-login"
@@ -303,7 +298,7 @@ export default function Auth() {
             onClick={() => setActiveTab('signup')}
             className={`py-3 font-semibold transition-all ${
               activeTab === 'signup' 
-                ? 'bg-altusfinances-blue text-white' 
+                ? 'bg-indigo-600 text-white' 
                 : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400'
             }`}
             data-testid="tab-signup"
@@ -387,7 +382,7 @@ export default function Auth() {
                 <Link href="/forgot-password">
                   <button
                     type="button"
-                    className="text-sm text-altusfinances-blue hover:text-altusfinances-purple font-medium transition-colors"
+                    className="text-sm text-indigo-600 hover:text-purple-600 font-medium transition-colors"
                     data-testid="link-forgot-password"
                   >
                     {t.auth.forgotPasswordLink}
@@ -398,7 +393,7 @@ export default function Auth() {
               <Button
                 type="submit"
                 disabled={loginMutation.isPending}
-                className="w-full bg-altusfinances-blue hover:bg-altusfinances-purple text-white py-3 rounded-lg font-bold relative overflow-hidden group transition-all"
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 rounded-lg font-bold relative overflow-hidden group transition-all"
                 data-testid="button-submit-login"
               >
                 <span className="relative z-10">
@@ -451,10 +446,10 @@ export default function Auth() {
                           />
                           <Label
                             htmlFor="personal"
-                            className="flex flex-col items-center justify-center border-2 border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg p-4 cursor-pointer transition-all peer-data-[state=checked]:border-altusfinances-blue peer-data-[state=checked]:bg-altusfinances-blue/10 dark:peer-data-[state=checked]:bg-altusfinances-blue/20"
+                            className="flex flex-col items-center justify-center border-2 border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg p-4 cursor-pointer transition-all peer-data-[state=checked]:border-indigo-600 peer-data-[state=checked]:bg-indigo-600/10 dark:peer-data-[state=checked]:bg-indigo-600/20"
                             data-testid="label-personal"
                           >
-                            <FaUser className="text-3xl mb-2 text-altusfinances-blue" />
+                            <FaUser className="text-3xl mb-2 text-indigo-600" />
                             <span className="font-semibold text-gray-900 dark:text-white">{t.auth.personal}</span>
                             <span className="text-xs text-gray-600 dark:text-gray-400 text-center mt-1">{t.auth.personalLoan}</span>
                           </Label>
@@ -469,10 +464,10 @@ export default function Auth() {
                           />
                           <Label
                             htmlFor="business"
-                            className="flex flex-col items-center justify-center border-2 border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg p-4 cursor-pointer transition-all peer-data-[state=checked]:border-altusfinances-blue peer-data-[state=checked]:bg-altusfinances-blue/10 dark:peer-data-[state=checked]:bg-altusfinances-blue/20"
+                            className="flex flex-col items-center justify-center border-2 border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg p-4 cursor-pointer transition-all peer-data-[state=checked]:border-indigo-600 peer-data-[state=checked]:bg-indigo-600/10 dark:peer-data-[state=checked]:bg-indigo-600/20"
                             data-testid="label-business"
                           >
-                            <FaBuilding className="text-3xl mb-2 text-altusfinances-blue" />
+                            <FaBuilding className="text-3xl mb-2 text-indigo-600" />
                             <span className="font-semibold text-gray-900 dark:text-white">{t.auth.business}</span>
                             <span className="text-xs text-gray-600 dark:text-gray-400 text-center mt-1">{t.auth.businessLoan}</span>
                           </Label>
@@ -531,7 +526,7 @@ export default function Auth() {
 
               {/* BUSINESS FIELDS */}
               {accountType === 'business' && (
-                <div className="space-y-4 p-4 bg-altusfinances-blue/5 dark:bg-altusfinances-blue/10 rounded-lg border border-altusfinances-blue/30 dark:border-altusfinances-blue/30">
+                <div className="space-y-4 p-4 bg-indigo-50 dark:bg-indigo-950/30 rounded-lg border border-indigo-200 dark:border-indigo-800">
                   <FormField
                     control={signupForm.control}
                     name="companyName"
@@ -669,7 +664,7 @@ export default function Auth() {
               <Button
                 type="submit"
                 disabled={signupMutation.isPending}
-                className="w-full bg-altusfinances-blue hover:bg-altusfinances-purple text-white py-3 rounded-lg font-bold relative overflow-hidden group transition-all"
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 rounded-lg font-bold relative overflow-hidden group transition-all"
                 data-testid="button-submit-signup"
               >
                 <span className="relative z-10">
@@ -680,7 +675,10 @@ export default function Auth() {
             </form>
           </Form>
         )}
-      </div>
+        </div>
+      </main>
+      
+      <FooterPremium />
     </div>
   );
 }
