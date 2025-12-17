@@ -280,7 +280,7 @@ export default function Dashboard() {
             <Link href="/contracts">
               <Button 
                 size="sm" 
-                className="whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white gap-2"
+                className="whitespace-nowrap gap-2 btn-premium-primary btn-shimmer no-default-hover-elevate no-default-active-elevate"
                 data-testid="button-view-pending-contracts"
               >
                 <Eye className="w-4 h-4" />
@@ -447,18 +447,19 @@ export default function Dashboard() {
           </div>
         </DashboardCard>
 
-        {/* Quick Actions - Fintech Style */}
+        {/* Quick Actions - Premium Style */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 w-full">
           <Link href="/transfer/new">
-            <Button size="sm" className="gap-1 sm:gap-2 shadow-md w-full text-xs sm:text-sm" data-testid="button-new-transfer">
+            <Button size="sm" className="group gap-1 sm:gap-2 w-full text-xs sm:text-sm btn-premium-primary btn-shimmer no-default-hover-elevate no-default-active-elevate" data-testid="button-new-transfer">
               <Send className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>{t.dashboard.newTransfer}</span>
+              <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 icon-arrow-right" />
             </Button>
           </Link>
           <Button 
             size="sm" 
             variant="outline" 
-            className="gap-1 sm:gap-2 w-full text-xs sm:text-sm" 
+            className="gap-1 sm:gap-2 w-full text-xs sm:text-sm btn-premium-outline no-default-hover-elevate no-default-active-elevate" 
             onClick={() => setLoanModalOpen(true)}
             data-testid="button-request-loan"
           >
@@ -466,7 +467,7 @@ export default function Dashboard() {
             <span>{t.dashboard.requestLoan}</span>
           </Button>
           <Link href="/accounts">
-            <Button size="sm" variant="outline" className="gap-1 sm:gap-2 w-full text-xs sm:text-sm" data-testid="button-manage-accounts">
+            <Button size="sm" variant="outline" className="gap-1 sm:gap-2 w-full text-xs sm:text-sm btn-premium-outline no-default-hover-elevate no-default-active-elevate" data-testid="button-manage-accounts">
               <Wallet className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>{t.dashboard.manageAccounts}</span>
             </Button>
@@ -494,7 +495,7 @@ export default function Dashboard() {
             <Link href="/loans">
               <Button 
                 size="sm" 
-                className="whitespace-nowrap bg-orange-600 hover:bg-orange-700 text-white gap-2"
+                className="whitespace-nowrap gap-2 btn-premium-primary btn-shimmer no-default-hover-elevate no-default-active-elevate"
                 data-testid="button-view-payments"
               >
                 <Clock className="w-4 h-4" />

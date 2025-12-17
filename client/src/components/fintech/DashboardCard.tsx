@@ -25,7 +25,7 @@ export function DashboardCard({
 }: DashboardCardProps) {
   return (
     <Card 
-      className={`overflow-hidden backdrop-blur-sm bg-card/95 border-card-border shadow-md hover:shadow-lg transition-all duration-300 ${className}`}
+      className={`overflow-visible bg-card border-border/60 shadow-sm transition-all duration-300 hover:shadow-md hover:border-border ${className}`}
       style={{ borderRadius: 'var(--dashboard-radius)' }}
       data-testid={testId}
     >
@@ -34,7 +34,7 @@ export function DashboardCard({
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 flex-1 min-w-0">
               {Icon && (
-                <div className={`flex items-center justify-center rounded-xl p-2.5 bg-primary/10 ${iconColor}`}>
+                <div className={`flex items-center justify-center rounded-xl p-2.5 bg-muted ${iconColor}`}>
                   <Icon className="w-5 h-5" />
                 </div>
               )}
