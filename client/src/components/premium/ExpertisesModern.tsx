@@ -39,7 +39,7 @@ export default function ExpertisesModern() {
                 className="group"
                 data-testid={`expertise-card-${index}`}
               >
-                <div className="h-full p-8 rounded-2xl bg-card border border-border hover:border-border/80 transition-colors duration-300">
+                <div className="h-full p-8 rounded-2xl bg-card border border-border card-hover-premium">
                   <div className="inline-flex p-3 rounded-xl bg-muted mb-5">
                     <Icon className="h-6 w-6 text-foreground" />
                   </div>

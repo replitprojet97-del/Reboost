@@ -22,7 +22,7 @@ export default function Products() {
   const businessProducts = getBusinessLoans(t);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-muted/50 to-background dark:from-background dark:to-background">
       <SEO
         title={seo.title}
         description={seo.description}
@@ -35,12 +35,12 @@ export default function Products() {
       {/* Hero Section */}
       <section className="relative pt-4 pb-20 overflow-hidden">
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-primary/5 to-accent/5 dark:from-accent/10 dark:via-primary/5 dark:to-accent/10" />
         
         {/* Animated circles */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-48 -left-48 h-96 w-96 rounded-full bg-indigo-200/30 blur-3xl animate-pulse" />
-          <div className="absolute -bottom-48 -right-48 h-96 w-96 rounded-full bg-blue-200/30 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute -top-48 -left-48 h-96 w-96 rounded-full bg-accent/20 blur-3xl animate-pulse" />
+          <div className="absolute -bottom-48 -right-48 h-96 w-96 rounded-full bg-primary/10 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,15 +50,15 @@ export default function Products() {
             transition={{ duration: 0.7 }}
             className="text-center"
           >
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-indigo-100 mb-6">
-              <Sparkles className="w-4 h-4 text-indigo-600 mr-2" />
-              <span className="text-sm font-semibold text-indigo-600">{t.products.premiumFinancingTitle}</span>
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-card/80 dark:bg-card/60 backdrop-blur-sm border border-border mb-6">
+              <Sparkles className="w-4 h-4 text-accent mr-2" />
+              <span className="text-sm font-semibold text-accent">{t.products.premiumFinancingTitle}</span>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-indigo-900 to-gray-900 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">
               {t.products.title}
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               {t.products.subtitle}
             </p>
           </motion.div>
@@ -77,8 +77,8 @@ export default function Products() {
                   <div className={`inline-flex p-3 rounded-2xl bg-gradient-to-br ${stat.color} mb-3`}>
                     <Icon className="w-5 h-5 text-white" />
                   </div>
-                  <div className="text-2xl md:text-3xl font-bold text-gray-900">{stat.value}</div>
-                  <div className="text-xs md:text-sm text-gray-600 mt-1">{stat.label}</div>
+                  <div className="text-2xl md:text-3xl font-bold text-foreground">{stat.value}</div>
+                  <div className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</div>
                 </div>
               );
             })}
@@ -96,13 +96,13 @@ export default function Products() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 font-semibold text-sm mb-4">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-accent/10 text-accent font-semibold text-sm mb-4">
               {t.products.forIndividuals}
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-4" data-testid="heading-individual-loans">
               {t.individualLoans.title}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               {t.individualLoans.subtitle}
             </p>
           </motion.div>
@@ -128,32 +128,32 @@ export default function Products() {
                     }
                   }}
                 >
-                  <Card className="relative h-full p-8 bg-white border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-visible">
+                  <Card className="relative h-full p-8 bg-card border border-border hover:border-accent/30 hover:shadow-xl dark:hover:shadow-accent/5 transition-all duration-300 hover:-translate-y-1 overflow-visible">
                     <div className={`inline-flex p-4 rounded-2xl ${product.bgColor} mb-6 group-hover:scale-110 transition-transform duration-300`}>
                       <Icon className={`w-8 h-8 ${product.color}`} />
                     </div>
                     
-                    <h3 className="text-2xl font-bold mb-4 text-gray-900">{product.title}</h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">{product.description}</p>
+                    <h3 className="text-2xl font-bold mb-4 text-foreground">{product.title}</h3>
+                    <p className="text-muted-foreground mb-6 leading-relaxed">{product.description}</p>
                     
-                    <div className="space-y-3 mb-8 pb-6 border-t pt-6">
+                    <div className="space-y-3 mb-8 pb-6 border-t border-border pt-6">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">{t.products.amount}</span>
-                        <span className="font-bold text-gray-900">{product.amount}</span>
+                        <span className="text-sm text-muted-foreground">{t.products.amount}</span>
+                        <span className="font-bold text-foreground">{product.amount}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">{t.products.rate}</span>
-                        <span className="font-bold text-indigo-600">{product.rate}</span>
+                        <span className="text-sm text-muted-foreground">{t.products.rate}</span>
+                        <span className="font-bold text-accent">{product.rate}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">{t.products.duration}</span>
-                        <span className="font-bold text-gray-900">{product.duration}</span>
+                        <span className="text-sm text-muted-foreground">{t.products.duration}</span>
+                        <span className="font-bold text-foreground">{product.duration}</span>
                       </div>
                     </div>
                     
                     <Link href="/loans/new">
                       <Button 
-                        className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 group/btn" 
+                        className="w-full group/btn" 
                         data-testid={`button-apply-individual-${index}`}
                       >
                         {t.hero.cta1}
@@ -162,7 +162,7 @@ export default function Products() {
                     </Link>
                     
                     {/* Gradient overlay */}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   </Card>
                 </motion.div>
               );
@@ -172,7 +172,7 @@ export default function Products() {
       </section>
 
       {/* Business Loans Section */}
-      <section id="business" className="relative py-24 bg-gradient-to-b from-gray-50 to-white scroll-mt-24">
+      <section id="business" className="relative py-24 bg-gradient-to-b from-muted/30 to-background scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -181,13 +181,13 @@ export default function Products() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-100 text-purple-700 font-semibold text-sm mb-4">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-accent/10 text-accent font-semibold text-sm mb-4">
               {t.products.forBusinesses}
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-4" data-testid="heading-business-loans">
               {t.products.businessTitle}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               {t.products.businessSubtitle}
             </p>
           </motion.div>
@@ -214,34 +214,34 @@ export default function Products() {
                     }
                   }}
                 >
-                  <Card className="relative h-full p-10 bg-white border border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-visible">
+                  <Card className="relative h-full p-10 bg-card border border-border hover:border-accent/30 hover:shadow-xl dark:hover:shadow-accent/5 transition-all duration-300 hover:-translate-y-1 overflow-visible">
                     <div className={`inline-flex p-5 rounded-2xl ${product.bgColor} mb-6 group-hover:scale-110 transition-transform duration-300`}>
                       <Icon className={`w-10 h-10 ${product.color}`} />
                     </div>
                     
-                    <h3 className="text-3xl font-bold mb-4 text-gray-900">{product.title}</h3>
-                    <p className="text-gray-600 mb-8 leading-relaxed text-lg">{product.description}</p>
+                    <h3 className="text-3xl font-bold mb-4 text-foreground">{product.title}</h3>
+                    <p className="text-muted-foreground mb-8 leading-relaxed text-lg">{product.description}</p>
                     
-                    <div className="space-y-3 mb-8 pb-8 border-t border-b pt-8">
+                    <div className="space-y-3 mb-8 pb-8 border-t border-b border-border pt-8">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">{t.products.amount}</span>
-                        <span className="font-bold text-gray-900">{product.amount}</span>
+                        <span className="text-sm text-muted-foreground">{t.products.amount}</span>
+                        <span className="font-bold text-foreground">{product.amount}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">{t.products.rate}</span>
-                        <span className="font-bold text-indigo-600">{product.rate}</span>
+                        <span className="text-sm text-muted-foreground">{t.products.rate}</span>
+                        <span className="font-bold text-accent">{product.rate}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">{t.products.duration}</span>
-                        <span className="font-bold text-gray-900">{product.duration}</span>
+                        <span className="text-sm text-muted-foreground">{t.products.duration}</span>
+                        <span className="font-bold text-foreground">{product.duration}</span>
                       </div>
                     </div>
                     
                     {features && features.length > 0 && (
                       <ul className="space-y-3 mb-8">
                         {features.map((feature: string, idx: number) => (
-                          <li key={idx} className="flex items-start text-gray-700">
-                            <CheckCircle2 className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                          <li key={idx} className="flex items-start text-foreground/80">
+                            <CheckCircle2 className="w-5 h-5 text-accent mr-3 mt-0.5 flex-shrink-0" />
                             <span>{feature}</span>
                           </li>
                         ))}
@@ -250,7 +250,7 @@ export default function Products() {
                     
                     <Link href="/loans/new">
                       <Button 
-                        className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 h-12 text-base group/btn" 
+                        className="w-full h-12 text-base group/btn" 
                         data-testid={`button-apply-business-${index}`}
                       >
                         {t.hero.cta1}
@@ -259,7 +259,7 @@ export default function Products() {
                     </Link>
                     
                     {/* Gradient overlay */}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   </Card>
                 </motion.div>
               );

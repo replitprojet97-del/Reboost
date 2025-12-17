@@ -34,7 +34,7 @@ export default function HeroPremium() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Button
               size="lg"
-              className="px-8 py-6 text-base font-semibold rounded-full group"
+              className="px-8 py-6 text-base font-semibold rounded-full group shadow-lg hover:shadow-xl transition-shadow"
               onClick={() => setLocation('/products')}
               data-testid="button-hero-cta-primary"
             >
@@ -45,7 +45,7 @@ export default function HeroPremium() {
             <Button
               variant="outline"
               size="lg"
-              className="px-8 py-6 text-base font-semibold rounded-full"
+              className="px-8 py-6 text-base font-semibold rounded-full hover:shadow-md transition-shadow"
               onClick={() => setLocation('/login')}
               data-testid="button-hero-cta-secondary"
             >
