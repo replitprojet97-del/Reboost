@@ -58,7 +58,7 @@ function AnimatedStatValue({ value, inView }: { value: string; inView: boolean }
     : animatedNumber.toString();
 
   return (
-    <span className="stat-value">
+    <span className="text-foreground">
       {prefix}{formattedNumber}{suffix}
     </span>
   );
@@ -72,11 +72,10 @@ export default function StatsSection() {
   const stats = getOfficialStats(t);
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    hidden: { opacity: 0, y: 30 },
     visible: (index: number) => ({
       opacity: 1,
       y: 0,
-      scale: 1,
       transition: {
         duration: 0.5,
         delay: index * 0.1,
@@ -86,59 +85,62 @@ export default function StatsSection() {
   };
   
   return (
-    <section ref={sectionRef} className="relative py-16 lg:py-20 bg-stats-gradient">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section ref={sectionRef} className="relative py-20 lg:py-28 bg-background">
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background to-accent/2 pointer-events-none" />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-16 lg:mb-20"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.premium.stats.title}</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t.premium.stats.subtitle}</p>
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+            {t.premium.stats.title}
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            {t.premium.stats.subtitle}
+          </p>
         </motion.div>
 
+        {/* Stats grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-          {stats.map((stat, index) => {
-            const colors = [
-              'from-accent/10 to-accent/5 border-accent/20 hover:border-accent/40',
-              'from-primary/10 to-primary/5 border-primary/20 hover:border-primary/40',
-              'from-green-500/10 to-green-500/5 border-green-500/20 hover:border-green-500/40',
-              'from-blue-500/10 to-blue-500/5 border-blue-500/20 hover:border-blue-500/40',
-            ];
-            const iconColors = [
-              'text-accent bg-accent/10',
-              'text-foreground bg-primary/10',
-              'text-green-500 bg-green-500/10',
-              'text-blue-500 bg-blue-500/10',
-            ];
-            return (
-              <motion.div
-                key={index}
-                custom={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={cardVariants}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className={`text-center p-6 lg:p-8 rounded-2xl bg-gradient-to-br ${colors[index]} border transition-all duration-300 cursor-default`}
-                data-testid={`stat-card-${index}`}
-              >
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              custom={index}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={cardVariants}
+              className="group"
+              data-testid={`stat-card-${index}`}
+            >
+              <div className="relative h-full p-8 lg:p-10 rounded-xl border border-border bg-card hover:border-accent/30 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col items-center justify-center text-center">
+                {/* Icon */}
                 <motion.div 
-                  className={`inline-flex p-3 rounded-xl ${iconColors[index]} mb-4`}
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  className="inline-flex p-3 rounded-lg bg-accent/10 mb-6 group-hover:bg-accent/15 transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
                 >
-                  <stat.icon className="h-6 w-6" />
+                  <stat.icon className="h-6 w-6 text-accent" />
                 </motion.div>
-                <div className="text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-2">
+
+                {/* Stat value */}
+                <div className="text-4xl lg:text-5xl font-bold mb-2 tabular-nums">
                   <AnimatedStatValue value={stat.value} inView={isInView} />
                 </div>
-                <div className="text-sm lg:text-base text-muted-foreground font-medium">{stat.label}</div>
-              </motion.div>
-            );
-          })}
+
+                {/* Stat label */}
+                <div className="text-sm lg:text-base text-muted-foreground font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
