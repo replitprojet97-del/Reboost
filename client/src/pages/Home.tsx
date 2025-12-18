@@ -30,9 +30,9 @@ export default function Home() {
       
       <HeroPremium />
       
+      <StorytellingSection />
       <StatsSection />
       <ExpertisesModern />
-      <StorytellingSection />
       <BankingSecurity />
       <TestimonialsSlider />
       <PremiumTestimonials />
