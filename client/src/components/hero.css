@@ -1,7 +1,8 @@
 .hero {
   position: relative;
-  height: 70vh;
-  max-height: 900px;
+  height: 85vh;
+  min-height: 600px;
+  max-height: 1000px;
   width: 100%;
   overflow: hidden;
   background: #000;
@@ -150,7 +151,8 @@
 /* IMPROVEMENT #5 & #7: Responsive adjustments for mobile */
 @media (max-width: 768px) {
   .hero {
-    height: 60vh;
+    height: 70vh;
+    min-height: 500px;
   }
 
   .image {
@@ -201,7 +203,8 @@
 
 @media (max-width: 480px) {
   .hero {
-    height: 55vh;
+    height: 65vh;
+    min-height: 450px;
   }
 
   .text {

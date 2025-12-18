@@ -1,64 +1,42 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import './hero.css';
+import { useTranslations } from '@/lib/i18n';
 
-interface HeroSlide {
+interface HeroSlideImage {
   leftImage: string;
   rightImage: string;
-  title: string;
-  subtitle: string;
-  cta?: string;
 }
 
-// 6 professional financial/banking themed slides - coherent premium imagery
-const heroSlides: HeroSlide[] = [
-  // === FIRST CYCLE ===
+const heroSlideImages: HeroSlideImage[] = [
   {
     leftImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
     rightImage: 'https://images.unsplash.com/photo-1460925895917-adf4e565db43?w=800&h=600&fit=crop',
-    title: 'Réalisez vos projets',
-    subtitle: 'Financement personnalisé pour particuliers et professionnels',
-    cta: 'Demander un financement'
   },
   {
     leftImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
     rightImage: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop',
-    title: 'Solutions rapides et transparentes',
-    subtitle: 'Réponse en 24h avec un processus clair et de confiance',
-    cta: 'Obtenir ma réponse'
   },
   {
     leftImage: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop',
     rightImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
-    title: 'Sécurité bancaire suisse',
-    subtitle: 'Approuvé rapidement avec protection maximale de vos données',
-    cta: 'Commencer maintenant'
   },
-  // === SECOND CYCLE ===
   {
     leftImage: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop',
     rightImage: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&h=600&fit=crop',
-    title: 'Croissance garantie',
-    subtitle: 'Investissements intelligents pour vos ambitions futures',
-    cta: 'Explorer les options'
   },
   {
     leftImage: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop',
     rightImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
-    title: 'Conseil expert à votre service',
-    subtitle: 'Nos spécialistes vous accompagnent à chaque étape',
-    cta: 'Consulter un expert'
   },
   {
     leftImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
     rightImage: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop',
-    title: 'Partenariat durable',
-    subtitle: 'Bâtissons ensemble une relation de confiance long terme',
-    cta: 'Devenir partenaire'
   }
 ];
 
 export default function HeroSection() {
+  const t = useTranslations();
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
@@ -72,8 +50,8 @@ export default function HeroSection() {
       const timeline = gsap.timeline({ repeat: -1 });
       timelineRef.current = timeline;
 
-      heroSlides.forEach((_, index) => {
-        const isLastSlide = index === heroSlides.length - 1;
+      heroSlideImages.forEach((_, index) => {
+        const isLastSlide = index === heroSlideImages.length - 1;
 
         // ═════════════════════════════════════════════════════════════
         // ATOMIC SCENE PRINCIPLE: Each slide is a complete isolated unit
@@ -184,37 +162,39 @@ export default function HeroSection() {
       onMouseLeave={() => handleHover(false)}
       data-testid="hero-section"
     >
-      {heroSlides.map((slide, index) => (
-        <div className={`slide slide-${index}`} key={index} data-testid={`slide-hero-${index}`}>
-          <div
-            className="image left"
-            style={{ backgroundImage: `url(${slide.leftImage})` }}
-            data-testid={`image-left-${index}`}
-          />
-          <div
-            className="image right"
-            style={{ backgroundImage: `url(${slide.rightImage})` }}
-            data-testid={`image-right-${index}`}
-          />
-          <div className="text" data-testid={`text-hero-${index}`}>
-            <h1 data-testid={`title-${index}`}>{slide.title}</h1>
-            <p data-testid={`subtitle-${index}`}>{slide.subtitle}</p>
-            {/* IMPROVEMENT #2: CTA Button */}
-            <button className="cta-button" data-testid={`cta-${index}`}>
-              {slide.cta || 'En savoir plus'}
-            </button>
+      {heroSlideImages.map((slideImage, index) => {
+        const slideText = t.hero.slides[index];
+        return (
+          <div className={`slide slide-${index}`} key={index} data-testid={`slide-hero-${index}`}>
+            <div
+              className="image left"
+              style={{ backgroundImage: `url(${slideImage.leftImage})` }}
+              data-testid={`image-left-${index}`}
+            />
+            <div
+              className="image right"
+              style={{ backgroundImage: `url(${slideImage.rightImage})` }}
+              data-testid={`image-right-${index}`}
+            />
+            <div className="text" data-testid={`text-hero-${index}`}>
+              <h1 data-testid={`title-${index}`}>{slideText?.title || t.hero.title}</h1>
+              <p data-testid={`subtitle-${index}`}>{slideText?.subtitle || t.hero.subtitle}</p>
+              <button className="cta-button" data-testid={`cta-${index}`}>
+                {t.hero.cta1}
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
 
-      {/* IMPROVEMENT #1: Slide Indicators (Dots) */}
+      {/* Slide Indicators (Dots) */}
       <div className="slide-indicators" data-testid="slide-indicators">
-        {heroSlides.map((_, index) => (
+        {heroSlideImages.map((_, index) => (
           <button
             key={index}
             className={`dot ${currentSlide === index ? 'active' : ''}`}
             data-testid={`dot-${index}`}
-            aria-label={`Go to slide ${index + 1}`}
+            aria-label={`${t.common.goToSlide || 'Go to slide'} ${index + 1}`}
           />
         ))}
       </div>
