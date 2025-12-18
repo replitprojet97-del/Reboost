@@ -161,12 +161,10 @@ export default function Auth() {
       } else if (error.errorCode === 'ACCOUNT_SUSPENDED') {
         let description = translateBackendMessage(error.message, language) || t.auth.accountSuspendedDesc;
         
-        // Ajouter les détails de suspension s'ils existent
         if (error.suspendedUntil || error.reason) {
           let details = [];
           
           if (error.reason) {
-            // Traduire la raison EN ANGLAIS en utilisant t.admin.suspensionReasons
             const suspensionReasons: Record<string, string> = {
               'violation_of_terms': t.auth.suspensionReasons.violationOfTerms || 'Violation des conditions d\'utilisation',
               'suspicious_activity': t.auth.suspensionReasons.suspiciousActivity || 'Activité suspecte détectée',
@@ -260,34 +258,34 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-slate-950 dark:to-slate-900">
+    <div className="min-h-screen bg-background dark:bg-foreground/5">
       <HeaderPremium />
       
       <main className="relative flex items-center justify-center py-24 overflow-hidden">
         
-        {/* ANIMATED BACKGROUND BUBBLES */}
-        <div className="absolute w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 opacity-30 dark:opacity-10 rounded-full blur-3xl animate-float top-10 left-10" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tr from-purple-500/20 to-indigo-500/20 opacity-30 dark:opacity-10 rounded-full blur-3xl animate-float" style={{ animationDelay: '-9s' }} />
+        {/* ULTRA PREMIUM ACCENT GLOWS */}
+        <div className="absolute w-[500px] h-[500px] bg-gradient-to-br from-accent/15 to-accent/5 opacity-40 dark:opacity-20 rounded-full blur-3xl animate-float top-10 left-10" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tr from-accent/10 to-primary/5 opacity-40 dark:opacity-20 rounded-full blur-3xl animate-float" style={{ animationDelay: '-9s' }} />
 
-        {/* AUTH CARD */}
-        <div className="relative z-10 w-full max-w-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-gray-200 dark:border-slate-700 shadow-2xl rounded-2xl p-8 sm:p-10 mx-4">
+        {/* ULTRA PREMIUM AUTH CARD */}
+        <div className="relative z-10 w-full max-w-2xl bg-card/95 dark:bg-card/90 backdrop-blur-xl border border-border rounded-2xl shadow-lg p-8 sm:p-10 mx-4">
 
-          {/* HEADER WITH LOGO AND LANGUAGE SWITCHER */}
-          <div className="flex items-start justify-between mb-6">
+          {/* HEADER */}
+          <div className="flex items-start justify-between mb-8">
             <div className="flex-1 text-center">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{activeTab === 'login' ? t.auth.login : t.auth.signup}</h1>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">{t.auth.subtitle}</p>
+              <h1 className="text-3xl font-bold text-foreground mb-2">{activeTab === 'login' ? t.auth.login : t.auth.signup}</h1>
+              <p className="text-muted-foreground text-sm">{t.auth.subtitle}</p>
             </div>
           </div>
 
-        {/* TABS */}
-        <div className="grid grid-cols-2 rounded-xl mb-8 border border-gray-200 dark:border-slate-700 overflow-hidden">
+        {/* PREMIUM TABS */}
+        <div className="grid grid-cols-2 gap-0 rounded-lg mb-8 border border-border overflow-hidden bg-muted/30">
           <button
             onClick={() => setActiveTab('login')}
             className={`py-3 font-semibold transition-all ${
               activeTab === 'login' 
-                ? 'bg-indigo-600 text-white' 
-                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400'
+                ? 'bg-accent text-accent-foreground' 
+                : 'bg-transparent text-muted-foreground hover:text-foreground'
             }`}
             data-testid="tab-login"
           >
@@ -298,8 +296,8 @@ export default function Auth() {
             onClick={() => setActiveTab('signup')}
             className={`py-3 font-semibold transition-all ${
               activeTab === 'signup' 
-                ? 'bg-indigo-600 text-white' 
-                : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400'
+                ? 'bg-accent text-accent-foreground' 
+                : 'bg-transparent text-muted-foreground hover:text-foreground'
             }`}
             data-testid="tab-signup"
           >
@@ -328,10 +326,10 @@ export default function Auth() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-700 dark:text-gray-300 font-semibold">{t.auth.email}</FormLabel>
+                    <FormLabel className="text-foreground font-semibold">{t.auth.email}</FormLabel>
                     <FormControl>
-                      <div className="flex items-center border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg px-4 py-3 gap-3">
-                        <FaEnvelope className="text-gray-500 dark:text-gray-400" />
+                      <div className="flex items-center border border-border bg-muted/40 dark:bg-primary/5 rounded-lg px-4 py-3 gap-3">
+                        <FaEnvelope className="text-muted-foreground" />
                         <Input
                           {...field}
                           type="text"
@@ -352,10 +350,10 @@ export default function Auth() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-700 dark:text-gray-300 font-semibold">{t.auth.password}</FormLabel>
+                    <FormLabel className="text-foreground font-semibold">{t.auth.password}</FormLabel>
                     <FormControl>
-                      <div className="flex items-center border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg px-4 py-3 gap-3">
-                        <FaLock className="text-gray-500 dark:text-gray-400" />
+                      <div className="flex items-center border border-border bg-muted/40 dark:bg-primary/5 rounded-lg px-4 py-3 gap-3">
+                        <FaLock className="text-muted-foreground" />
                         <Input
                           {...field}
                           type={showLoginPassword ? "text" : "password"}
@@ -366,7 +364,7 @@ export default function Auth() {
                         <button
                           type="button"
                           onClick={() => setShowLoginPassword(!showLoginPassword)}
-                          className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                          className="text-muted-foreground hover:text-foreground transition-colors"
                           data-testid="button-toggle-login-password"
                         >
                           {showLoginPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -382,7 +380,7 @@ export default function Auth() {
                 <Link href="/forgot-password">
                   <button
                     type="button"
-                    className="text-sm text-indigo-600 hover:text-purple-600 font-medium transition-colors"
+                    className="text-sm text-accent hover:text-accent/80 font-medium transition-colors"
                     data-testid="link-forgot-password"
                   >
                     {t.auth.forgotPasswordLink}
@@ -393,13 +391,10 @@ export default function Auth() {
               <Button
                 type="submit"
                 disabled={loginMutation.isPending}
-                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 rounded-lg font-bold relative overflow-hidden group transition-all"
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground py-3 font-bold transition-all"
                 data-testid="button-submit-login"
               >
-                <span className="relative z-10">
-                  {loginMutation.isPending ? t.auth.loggingIn : t.auth.login}
-                </span>
-                <div className="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-shine" />
+                {loginMutation.isPending ? t.auth.loggingIn : t.auth.login}
               </Button>
             </form>
           </Form>
@@ -427,7 +422,7 @@ export default function Auth() {
                 name="accountType"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-700 dark:text-gray-300 font-semibold text-base">{t.auth.accountType}</FormLabel>
+                    <FormLabel className="text-foreground font-semibold text-base">{t.auth.accountType}</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={(value) => {
@@ -446,12 +441,12 @@ export default function Auth() {
                           />
                           <Label
                             htmlFor="personal"
-                            className="flex flex-col items-center justify-center border-2 border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg p-4 cursor-pointer transition-all peer-data-[state=checked]:border-indigo-600 peer-data-[state=checked]:bg-indigo-600/10 dark:peer-data-[state=checked]:bg-indigo-600/20"
+                            className="flex flex-col items-center justify-center border-2 border-border bg-muted/30 rounded-lg p-4 cursor-pointer transition-all peer-data-[state=checked]:border-accent peer-data-[state=checked]:bg-accent/10"
                             data-testid="label-personal"
                           >
-                            <FaUser className="text-3xl mb-2 text-indigo-600" />
-                            <span className="font-semibold text-gray-900 dark:text-white">{t.auth.personal}</span>
-                            <span className="text-xs text-gray-600 dark:text-gray-400 text-center mt-1">{t.auth.personalLoan}</span>
+                            <FaUser className="text-2xl mb-2 text-accent" />
+                            <span className="font-semibold text-foreground">{t.auth.personal}</span>
+                            <span className="text-xs text-muted-foreground text-center mt-1">{t.auth.personalLoan}</span>
                           </Label>
                         </div>
 
@@ -464,12 +459,12 @@ export default function Auth() {
                           />
                           <Label
                             htmlFor="business"
-                            className="flex flex-col items-center justify-center border-2 border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg p-4 cursor-pointer transition-all peer-data-[state=checked]:border-indigo-600 peer-data-[state=checked]:bg-indigo-600/10 dark:peer-data-[state=checked]:bg-indigo-600/20"
+                            className="flex flex-col items-center justify-center border-2 border-border bg-muted/30 rounded-lg p-4 cursor-pointer transition-all peer-data-[state=checked]:border-accent peer-data-[state=checked]:bg-accent/10"
                             data-testid="label-business"
                           >
-                            <FaBuilding className="text-3xl mb-2 text-indigo-600" />
-                            <span className="font-semibold text-gray-900 dark:text-white">{t.auth.business}</span>
-                            <span className="text-xs text-gray-600 dark:text-gray-400 text-center mt-1">{t.auth.businessLoan}</span>
+                            <FaBuilding className="text-2xl mb-2 text-accent" />
+                            <span className="font-semibold text-foreground">{t.auth.business}</span>
+                            <span className="text-xs text-muted-foreground text-center mt-1">{t.auth.businessLoan}</span>
                           </Label>
                         </div>
                       </RadioGroup>
@@ -485,10 +480,10 @@ export default function Auth() {
                 name="fullName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-700 dark:text-gray-300 font-semibold">{t.auth.fullName} *</FormLabel>
+                    <FormLabel className="text-foreground font-semibold">{t.auth.fullName} *</FormLabel>
                     <FormControl>
-                      <div className="flex items-center border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg px-4 py-3 gap-3">
-                        <FaUser className="text-gray-500 dark:text-gray-400" />
+                      <div className="flex items-center border border-border bg-muted/40 dark:bg-primary/5 rounded-lg px-4 py-3 gap-3">
+                        <FaUser className="text-muted-foreground" />
                         <Input
                           {...field}
                           placeholder={t.auth.fullNamePlaceholder}
@@ -507,10 +502,10 @@ export default function Auth() {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-700 dark:text-gray-300 font-semibold">{t.auth.phone}</FormLabel>
+                    <FormLabel className="text-foreground font-semibold">{t.auth.phone}</FormLabel>
                     <FormControl>
-                      <div className="flex items-center border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg px-4 py-3 gap-3">
-                        <FaPhone className="text-gray-500 dark:text-gray-400" />
+                      <div className="flex items-center border border-border bg-muted/40 dark:bg-primary/5 rounded-lg px-4 py-3 gap-3">
+                        <FaPhone className="text-muted-foreground" />
                         <Input
                           {...field}
                           placeholder={t.auth.phonePlaceholder}
@@ -526,16 +521,16 @@ export default function Auth() {
 
               {/* BUSINESS FIELDS */}
               {accountType === 'business' && (
-                <div className="space-y-4 p-4 bg-indigo-50 dark:bg-indigo-950/30 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                <div className="space-y-4 p-4 bg-accent/5 rounded-lg border border-accent/20">
                   <FormField
                     control={signupForm.control}
                     name="companyName"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-700 dark:text-gray-300 font-semibold">{t.auth.companyName} *</FormLabel>
+                        <FormLabel className="text-foreground font-semibold">{t.auth.companyName} *</FormLabel>
                         <FormControl>
-                          <div className="flex items-center border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-lg px-4 py-3 gap-3">
-                            <FileText className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                          <div className="flex items-center border border-border bg-card rounded-lg px-4 py-3 gap-3">
+                            <FaBuilding className="text-muted-foreground" />
                             <Input
                               {...field}
                               placeholder={t.auth.companyNamePlaceholder}
@@ -554,10 +549,10 @@ export default function Auth() {
                     name="siret"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-700 dark:text-gray-300 font-semibold">{t.auth.siret}</FormLabel>
+                        <FormLabel className="text-foreground font-semibold">{t.auth.siret}</FormLabel>
                         <FormControl>
-                          <div className="flex items-center border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 rounded-lg px-4 py-3 gap-3">
-                            <Hash className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                          <div className="flex items-center border border-border bg-card rounded-lg px-4 py-3 gap-3">
+                            <Hash className="text-muted-foreground h-4 w-4" />
                             <Input
                               {...field}
                               placeholder={t.auth.siretPlaceholder}
@@ -578,10 +573,10 @@ export default function Auth() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-gray-700 dark:text-gray-300 font-semibold">{t.auth.email} *</FormLabel>
+                    <FormLabel className="text-foreground font-semibold">{t.auth.email} *</FormLabel>
                     <FormControl>
-                      <div className="flex items-center border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg px-4 py-3 gap-3">
-                        <FaEnvelope className="text-gray-500 dark:text-gray-400" />
+                      <div className="flex items-center border border-border bg-muted/40 dark:bg-primary/5 rounded-lg px-4 py-3 gap-3">
+                        <FaEnvelope className="text-muted-foreground" />
                         <Input
                           {...field}
                           type="text"
@@ -603,10 +598,10 @@ export default function Auth() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-700 dark:text-gray-300 font-semibold">{t.auth.password} *</FormLabel>
+                      <FormLabel className="text-foreground font-semibold">{t.auth.password} *</FormLabel>
                       <FormControl>
-                        <div className="flex items-center border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg px-4 py-3 gap-3">
-                          <FaLock className="text-gray-500 dark:text-gray-400" />
+                        <div className="flex items-center border border-border bg-muted/40 dark:bg-primary/5 rounded-lg px-4 py-3 gap-3">
+                          <FaLock className="text-muted-foreground" />
                           <Input
                             {...field}
                             type={showSignupPassword ? "text" : "password"}
@@ -617,7 +612,7 @@ export default function Auth() {
                           <button
                             type="button"
                             onClick={() => setShowSignupPassword(!showSignupPassword)}
-                            className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
                             data-testid="button-toggle-signup-password"
                           >
                             {showSignupPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -634,10 +629,10 @@ export default function Auth() {
                   name="confirmPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-gray-700 dark:text-gray-300 font-semibold">{t.auth.confirmPassword} *</FormLabel>
+                      <FormLabel className="text-foreground font-semibold">{t.auth.confirmPassword} *</FormLabel>
                       <FormControl>
-                        <div className="flex items-center border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 rounded-lg px-4 py-3 gap-3">
-                          <FaLock className="text-gray-500 dark:text-gray-400" />
+                        <div className="flex items-center border border-border bg-muted/40 dark:bg-primary/5 rounded-lg px-4 py-3 gap-3">
+                          <FaLock className="text-muted-foreground" />
                           <Input
                             {...field}
                             type={showConfirmPassword ? "text" : "password"}
@@ -648,7 +643,7 @@ export default function Auth() {
                           <button
                             type="button"
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
                             data-testid="button-toggle-confirm-password"
                           >
                             {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -664,13 +659,10 @@ export default function Auth() {
               <Button
                 type="submit"
                 disabled={signupMutation.isPending}
-                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 rounded-lg font-bold relative overflow-hidden group transition-all"
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground py-3 font-bold transition-all"
                 data-testid="button-submit-signup"
               >
-                <span className="relative z-10">
-                  {signupMutation.isPending ? t.auth.signingUp : t.auth.signup}
-                </span>
-                <div className="absolute top-0 left-[-100%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-shine" />
+                {signupMutation.isPending ? t.auth.signingUp : t.auth.signup}
               </Button>
             </form>
           </Form>
