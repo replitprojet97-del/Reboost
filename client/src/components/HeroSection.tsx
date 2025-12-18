@@ -38,8 +38,8 @@ export default function HeroSection() {
     if (!containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      // SINGLE GSAP TIMELINE - plays all slides sequentially, then stops
-      const timeline = gsap.timeline();
+      // SINGLE GSAP TIMELINE - plays all slides sequentially, repeats infinitely
+      const timeline = gsap.timeline({ repeat: -1 });
 
       heroSlides.forEach((_, index) => {
         const isLastSlide = index === heroSlides.length - 1;
@@ -101,23 +101,30 @@ export default function HeroSection() {
           // PHASE 6: HIDE THIS SLIDE - Make way for next
           timeline.set(`.slide-${index}`, { visibility: 'hidden', opacity: 0 }, '+=0');
         } else {
-          // LAST SLIDE: Keep text and images visible
-          // Text stays visible, images return to normal position
+          // LAST SLIDE: Fade out and hide to prepare for loop restart
           
-          // PHASE 4 (last): Text continues visible (no fade out)
-          timeline.to(`.slide-${index} .text`, { opacity: 1, duration: 0.4 }, '+=0');
+          // PHASE 4 (last): TEXT FADE OUT
+          timeline.to(`.slide-${index} .text`, { opacity: 0, duration: 0.4 }, '+=0');
 
-          // PHASE 5 (last): Reset image transforms - return to normal view
+          // PHASE 5 (last): IMAGES SPLIT - Left up, right down
           timeline.to(
-            [`.slide-${index} .left`, `.slide-${index} .right`],
-            { clearProps: 'all', duration: 0.8, ease: 'power2.inOut' },
+            `.slide-${index} .left`,
+            { clipPath: 'inset(0 0 50% 0)', y: '-100%', duration: 1, ease: 'power4.in' },
             '<'
           );
-          // Last slide stays visible - no hide
+
+          timeline.to(
+            `.slide-${index} .right`,
+            { clipPath: 'inset(50% 0 0 0)', y: '100%', duration: 1, ease: 'power4.in' },
+            '<'
+          );
+
+          // PHASE 6 (last): HIDE THIS SLIDE - Loop will restart from slide 0
+          timeline.set(`.slide-${index}`, { visibility: 'hidden', opacity: 0 }, '+=0');
         }
       });
 
-      // Timeline plays exactly once, then stops (no repeat)
+      // Timeline repeats infinitely - sequence loops through all 3 slides forever
     }, containerRef);
 
     return () => ctx.revert();
