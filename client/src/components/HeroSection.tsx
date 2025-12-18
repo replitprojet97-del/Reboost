@@ -9,43 +9,43 @@ interface HeroSlide {
   subtitle: string;
 }
 
-// 6 professional financial/banking themed slides - cycles through different content
+// 6 professional financial/banking themed slides - premium imagery
 const heroSlides: HeroSlide[] = [
   // === FIRST CYCLE ===
   {
-    leftImage: 'https://images.unsplash.com/photo-1460925895917-adf4e565db43?w=800&h=600&fit=crop',
-    rightImage: 'https://images.unsplash.com/photo-1579621970563-fbf46d27c313?w=800&h=600&fit=crop',
+    leftImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop',
+    rightImage: 'https://images.unsplash.com/photo-1460925895917-adf4e565db43?w=800&h=600&fit=crop',
     title: 'Réalisez vos projets',
     subtitle: 'Financement personnalisé pour particuliers et professionnels'
   },
   {
-    leftImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
-    rightImage: 'https://images.unsplash.com/photo-1556740742-a3247c3433b5?w=800&h=600&fit=crop',
+    leftImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
+    rightImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
     title: 'Solutions rapides et transparentes',
     subtitle: 'Réponse en 24h avec un processus clair et de confiance'
   },
   {
-    leftImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-    rightImage: 'https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=800&h=600&fit=crop',
+    leftImage: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop',
+    rightImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
     title: 'Sécurité bancaire suisse',
     subtitle: 'Approuvé rapidement avec protection maximale de vos données'
   },
   // === SECOND CYCLE ===
   {
-    leftImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
-    rightImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+    leftImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
+    rightImage: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop',
     title: 'Croissance garantie',
     subtitle: 'Investissements intelligents pour vos ambitions futures'
   },
   {
-    leftImage: 'https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=800&h=600&fit=crop',
+    leftImage: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop',
     rightImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
     title: 'Conseil expert à votre service',
     subtitle: 'Nos spécialistes vous accompagnent à chaque étape'
   },
   {
-    leftImage: 'https://images.unsplash.com/photo-1573496359142-b8d93c34b8a4?w=800&h=600&fit=crop',
-    rightImage: 'https://images.unsplash.com/photo-1560264357-8d9766ba0e4d?w=800&h=600&fit=crop',
+    leftImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop',
+    rightImage: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop',
     title: 'Partenariat durable',
     subtitle: 'Bâtissons ensemble une relation de confiance long terme'
   }
