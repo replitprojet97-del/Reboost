@@ -9,8 +9,9 @@ interface HeroSlide {
   subtitle: string;
 }
 
-// Exactly 3 professional financial/banking themed slides
+// 6 professional financial/banking themed slides - cycles through different content
 const heroSlides: HeroSlide[] = [
+  // === FIRST CYCLE ===
   {
     leftImage: 'https://images.unsplash.com/photo-1460925895917-adf4e565db43?w=800&h=600&fit=crop',
     rightImage: 'https://images.unsplash.com/photo-1579621970563-fbf46d27c313?w=800&h=600&fit=crop',
@@ -28,6 +29,25 @@ const heroSlides: HeroSlide[] = [
     rightImage: 'https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=800&h=600&fit=crop',
     title: 'Sécurité bancaire suisse',
     subtitle: 'Approuvé rapidement avec protection maximale de vos données'
+  },
+  // === SECOND CYCLE ===
+  {
+    leftImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
+    rightImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+    title: 'Croissance garantie',
+    subtitle: 'Investissements intelligents pour vos ambitions futures'
+  },
+  {
+    leftImage: 'https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=800&h=600&fit=crop',
+    rightImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
+    title: 'Conseil expert à votre service',
+    subtitle: 'Nos spécialistes vous accompagnent à chaque étape'
+  },
+  {
+    leftImage: 'https://images.unsplash.com/photo-1573496359142-b8d93c34b8a4?w=800&h=600&fit=crop',
+    rightImage: 'https://images.unsplash.com/photo-1560264357-8d9766ba0e4d?w=800&h=600&fit=crop',
+    title: 'Partenariat durable',
+    subtitle: 'Bâtissons ensemble une relation de confiance long terme'
   }
 ];
 
