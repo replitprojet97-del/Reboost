@@ -26,12 +26,12 @@ export default function HeroPremium() {
           </h1>
           
           {/* Subtitle */}
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-16 leading-relaxed">
             {t.hero.subtitle}
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
             <Button
               size="lg"
               className="px-8 py-6 text-base font-semibold rounded-full group btn-premium-primary btn-shimmer no-default-hover-elevate no-default-active-elevate"
