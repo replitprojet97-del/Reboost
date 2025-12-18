@@ -2,7 +2,10 @@ import HeroPremium from '@/components/HeroPremium';
 import HeaderPremium from '@/components/HeaderPremium';
 import StatsSection from '@/components/premium/StatsSection';
 import ExpertisesModern from '@/components/premium/ExpertisesModern';
+import StorytellingSection from '@/components/premium/StorytellingSection';
+import BankingSecurity from '@/components/premium/BankingSecurity';
 import TestimonialsSlider from '@/components/premium/TestimonialsSlider';
+import PremiumTestimonials from '@/components/PremiumTestimonials';
 import FinalCTASection from '@/components/premium/FinalCTASection';
 import FooterPremium from '@/components/premium/FooterPremium';
 import SEO from '@/components/SEO';
@@ -29,7 +32,10 @@ export default function Home() {
       
       <StatsSection />
       <ExpertisesModern />
+      <StorytellingSection />
+      <BankingSecurity />
       <TestimonialsSlider />
+      <PremiumTestimonials />
       <FinalCTASection />
       
       <FooterPremium />
