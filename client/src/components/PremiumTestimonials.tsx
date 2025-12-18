@@ -125,7 +125,7 @@ export default function PremiumTestimonials() {
 
                   {/* Content */}
                   <p className="text-lg md:text-xl text-foreground leading-relaxed mb-8 italic">
-                    "{t.premiumTestimonials?.[testimonials[currentIndex].contentKey] || testimonials[currentIndex].contentKey}"
+                    "{(t.premiumTestimonials as any)?.[testimonials[currentIndex].contentKey] || testimonials[currentIndex].contentKey}"
                   </p>
 
                   {/* Author */}
@@ -135,10 +135,10 @@ export default function PremiumTestimonials() {
                     </div>
                     <div>
                       <p className="font-semibold text-lg">
-                        {t.premiumTestimonials?.[testimonials[currentIndex].nameKey] || testimonials[currentIndex].nameKey}
+                        {(t.premiumTestimonials as any)?.[testimonials[currentIndex].nameKey] || testimonials[currentIndex].nameKey}
                       </p>
                       <p className="text-muted-foreground">
-                        {t.premiumTestimonials?.[testimonials[currentIndex].roleKey] || testimonials[currentIndex].roleKey}
+                        {(t.premiumTestimonials as any)?.[testimonials[currentIndex].roleKey] || testimonials[currentIndex].roleKey}
                       </p>
                     </div>
                   </div>

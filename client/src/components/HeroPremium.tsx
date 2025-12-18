@@ -2,6 +2,7 @@ import { useLocation } from 'wouter';
 import { useTranslations } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Shield, Clock, CheckCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function HeroPremium() {
   const [, setLocation] = useLocation();
@@ -68,26 +69,23 @@ export default function HeroPremium() {
           </div>
         </div>
 
-        {/* Optional: Dashboard Preview Image */}
-        <div className="mt-16 lg:mt-20 relative">
-          <div className="relative mx-auto max-w-5xl">
-            {/* Shadow/glow effect */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-accent/10 via-primary/5 to-accent/10 blur-3xl rounded-3xl" />
-            
-            {/* Dashboard preview placeholder */}
-            <div className="relative bg-card border border-border rounded-2xl lg:rounded-3xl shadow-2xl overflow-hidden">
-              <div className="aspect-[16/9] bg-gradient-to-br from-muted/50 to-muted flex items-center justify-center">
-                <div className="text-center space-y-4 p-8">
-                  <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center">
-                    <Shield className="w-8 h-8 text-white" />
-                  </div>
-                  <p className="text-lg font-medium text-foreground">{t.hero.trustIndicator}</p>
-                  <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                    {t.hero.subtitle}
-                  </p>
-                </div>
-              </div>
-            </div>
+        {/* Trust Statistics Section */}
+        <div className="mt-20 lg:mt-28 max-w-4xl mx-auto">
+          <div className="text-center space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="space-y-3"
+            >
+              <h3 className="text-3xl lg:text-4xl font-bold text-foreground">
+                Plus de 15 000 clients satisfaits nous font confiance
+              </h3>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Solutions de financement pour particuliers et professionnels – Taux compétitifs et processus transparent
+              </p>
+            </motion.div>
           </div>
         </div>
       </div>
