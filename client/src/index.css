@@ -610,4 +610,167 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  /* ===== HOMEPAGE PREMIUM GRADIENTS ===== */
+  
+  /* Hero gradient background - subtle but visible */
+  .bg-hero-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent) / 0.08) 0%,
+      hsl(var(--background)) 50%,
+      hsl(var(--accent) / 0.05) 100%
+    );
+  }
+  
+  .dark .bg-hero-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent) / 0.12) 0%,
+      hsl(var(--background)) 50%,
+      hsl(var(--accent) / 0.08) 100%
+    );
+  }
+
+  /* Accent glow effect for hero */
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsl(var(--accent) / 0.15) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .dark .hero-glow {
+    background: radial-gradient(circle, hsl(var(--accent) / 0.2) 0%, transparent 70%);
+  }
+
+  /* Stats section gradient */
+  .bg-stats-gradient {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--muted) / 0.3) 0%,
+      hsl(var(--background)) 100%
+    );
+  }
+
+  /* ===== MODERATE ENTRANCE ANIMATIONS ===== */
+  
+  @keyframes heroFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes heroScaleIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes floatGlow {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.1);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes countUp {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-hero-fade-in {
+    animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-hero-scale-in {
+    animation: heroScaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-float-glow {
+    animation: floatGlow 6s ease-in-out infinite;
+  }
+
+  .animate-count-up {
+    animation: countUp 0.5s ease-out forwards;
+  }
+
+  /* Stagger delays for sequential animations */
+  .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+  .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+  .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+  .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+  .stagger-5 { animation-delay: 0.5s; opacity: 0; }
+
+  /* ===== REDUCED MOTION SUPPORT ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-hero-fade-in,
+    .animate-hero-scale-in,
+    .animate-float-glow,
+    .animate-count-up,
+    .animate-slide-in-up,
+    .animate-fade-in,
+    .animate-marquee {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .stagger-1, .stagger-2, .stagger-3, .stagger-4, .stagger-5 {
+      animation-delay: 0s !important;
+      opacity: 1 !important;
+    }
+  }
+
+  /* ===== STAT COUNTER STYLES ===== */
+  .stat-value {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Testimonial card enhanced hover */
+  .testimonial-card-premium {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .testimonial-card-premium:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Star rating animation */
+  @keyframes starPulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  .star-animated:hover {
+    animation: starPulse 0.3s ease-in-out;
+  }
 }
