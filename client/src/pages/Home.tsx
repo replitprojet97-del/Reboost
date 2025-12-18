@@ -1,4 +1,4 @@
-import HeroPremium from '@/components/HeroPremium';
+import HeroSection from '@/components/HeroSection';
 import HeaderPremium from '@/components/HeaderPremium';
 import StatsSection from '@/components/premium/StatsSection';
 import ExpertisesModern from '@/components/premium/ExpertisesModern';
@@ -27,7 +27,7 @@ export default function Home() {
       
       <HeaderPremium />
       
-      <HeroPremium />
+      <HeroSection />
       
       <StorytellingSection />
       <StatsSection />
