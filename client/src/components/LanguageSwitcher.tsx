@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,26 +26,35 @@ interface LanguageSwitcherProps {
 export default function LanguageSwitcher({ scrolled = false }: LanguageSwitcherProps) {
   const { language, setLanguage } = useLanguage();
   const currentLang = languages.find((l) => l.code === language);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
           size="sm"
           className="gap-1.5 hover-elevate active-elevate-2"
           data-testid="button-language-toggle"
+          onMouseEnter={() => setIsOpen(true)}
         >
           <span className="text-2xl leading-none">{currentLang?.flag}</span>
           <span className="hidden sm:inline text-sm font-medium">{currentLang?.name}</span>
           <ChevronDown className="h-3.5 w-3.5 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-[180px]">
+      <DropdownMenuContent 
+        align="end" 
+        className="min-w-[180px]"
+        onMouseLeave={() => setIsOpen(false)}
+      >
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
-            onClick={() => setLanguage(lang.code)}
+            onClick={() => {
+              setLanguage(lang.code);
+              setIsOpen(false);
+            }}
             className={`cursor-pointer`}
             data-testid={`button-language-${lang.code}`}
           >
