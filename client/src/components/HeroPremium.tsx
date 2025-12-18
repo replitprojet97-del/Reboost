@@ -68,19 +68,6 @@ export default function HeroPremium() {
           </div>
         </div>
 
-        {/* Trust Statistics Section */}
-        <div className="mt-20 lg:mt-28 max-w-4xl mx-auto">
-          <div className="text-center space-y-6">
-            <div className="space-y-3">
-              <h3 className="text-3xl lg:text-4xl font-bold text-foreground">
-                Plus de 15 000 clients satisfaits nous font confiance
-              </h3>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Solutions de financement pour particuliers et professionnels – Taux compétitifs et processus transparent
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
