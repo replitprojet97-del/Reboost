@@ -10,11 +10,12 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useUser, getUserInitials, useUserProfilePhotoUrl } from '@/hooks/use-user';
 import { useTranslations } from '@/lib/i18n';
-import { Settings, LogOut, User, ChevronDown } from 'lucide-react';
+import { Settings, LogOut, User, ChevronDown, Home } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import NotificationBell from '@/components/NotificationBell';
 import InfoBanner from '@/components/InfoBanner';
+import { Link } from 'wouter';
 
 interface DashboardHeaderProps {
   title?: string;
@@ -50,7 +51,19 @@ export default function DashboardHeader({ title, subtitle }: DashboardHeaderProp
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <Link href="/">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover-elevate"
+                data-testid="button-back-to-site"
+                title={t.nav.home}
+              >
+                <Home className="h-5 w-5 text-foreground/70" />
+              </Button>
+            </Link>
+
             <NotificationBell />
 
             <DropdownMenu>
