@@ -2,16 +2,17 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Check } from "lucide-react";
 import { Link } from "wouter";
 import VideoTemoignage from "@/components/VideoTemoignage";
-import { useTranslations } from "@/lib/i18n";
+import { useTranslations, useLanguage } from "@/lib/i18n";
+import { getStorytellingFeatures } from "@/lib/storytelling-features";
 
 export default function StorytellingSection() {
   const t = useTranslations();
+  const { language } = useLanguage();
   
-  const features = [
-    { icon: Check, text: "Processus transparent et sécurisé" },
-    { icon: Check, text: "Approbation en 24-48 heures" },
-    { icon: Check, text: "Taux compétitifs garantis" }
-  ];
+  const features = getStorytellingFeatures(language).map(text => ({
+    icon: Check,
+    text
+  }));
 
   const containerVariants = {
     hidden: { opacity: 0 },
