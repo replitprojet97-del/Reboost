@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, TrendingUp, Lock, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import businessProfessionalsImg from '@assets/generated_images/business_professionals_planning_finance.png';
+import familyPlanningImg from '@assets/generated_images/family_planning_financial_future.png';
+import renewableEnergyImg from '@assets/generated_images/renewable_energy_infrastructure.png';
+import realEstateImg from '@assets/generated_images/real_estate_development_project.png';
 
 interface SectorSection {
   title: string;
@@ -20,7 +24,7 @@ const sectors: SectorSection[] = [
     title: 'Crédits entreprise',
     subtitle: 'votre fonds de roulement à portée de clic',
     description: 'Obtenez jusqu\'à 50 000 € de crédit de trésorerie non affecté pour tous vos usages',
-    image: '/generated_images/business_professionals_planning_finance.png',
+    image: businessProfessionalsImg,
     features: [
       {
         icon: <TrendingUp className="h-5 w-5 text-emerald-500" />,
@@ -44,7 +48,7 @@ const sectors: SectorSection[] = [
     title: 'Prêts aux particuliers',
     subtitle: 'réalisez vos projets de vie',
     description: 'Réalisez vos projets grâce à des offres adaptées : acquisition immobilière, mobilité, aménagement',
-    image: '/generated_images/family_planning_financial_future.png',
+    image: familyPlanningImg,
     features: [
       {
         icon: <TrendingUp className="h-5 w-5 text-emerald-500" />,
@@ -68,7 +72,7 @@ const sectors: SectorSection[] = [
     title: 'Énergie renouvelable',
     subtitle: 'financez votre transition énergétique',
     description: 'Concrétisez vos projets d\'énergie verte et durable avec nos solutions de financement',
-    image: '/generated_images/renewable_energy_infrastructure.png',
+    image: renewableEnergyImg,
     features: [
       {
         icon: <TrendingUp className="h-5 w-5 text-emerald-500" />,
@@ -92,7 +96,7 @@ const sectors: SectorSection[] = [
     title: 'Immobilier & Construction',
     subtitle: 'concrétisez vos ambitions immobilières',
     description: 'Des solutions de financement flexibles et compétitives pour tous vos projets immobiliers',
-    image: '/generated_images/real_estate_development_project.png',
+    image: realEstateImg,
     features: [
       {
         icon: <TrendingUp className="h-5 w-5 text-emerald-500" />,
