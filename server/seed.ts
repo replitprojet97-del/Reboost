@@ -11,11 +11,34 @@ async function seed() {
 
   const demoUserId = "demo-user-001";
   
-  const existingUser = await db.select().from(users).where(eq(users.id, demoUserId));
-  
-  if (existingUser.length > 0) {
-    console.log("✅ Database already seeded");
-    return;
+  // Attempt to update existing test users to ensure emailVerified is true
+  try {
+    const existingUser = await db.select().from(users).where(eq(users.id, demoUserId));
+    
+    if (existingUser.length > 0) {
+      console.log("[Seed] Updating existing test users to ensure email is verified...");
+      // Update demo user
+      await db
+        .update(users)
+        .set({ emailVerified: true })
+        .where(eq(users.email, "jean.dupont@entreprise.fr"));
+      
+      // Update other test users
+      await db
+        .update(users)
+        .set({ emailVerified: true })
+        .where(eq(users.email, "marie.martin@societe.fr"));
+      
+      await db
+        .update(users)
+        .set({ emailVerified: true })
+        .where(eq(users.email, "pierre.bernard@company.fr"));
+      
+      console.log("✅ Test users updated");
+      return;
+    }
+  } catch (error) {
+    console.log("[Seed] Error updating test users, continuing with full seed...");
   }
 
   // bcrypt hash for "Password123!" (bcrypt rounds=10)
@@ -26,6 +49,7 @@ async function seed() {
     username: "jean.dupont",
     password: testPasswordHash,
     email: "jean.dupont@entreprise.fr",
+    emailVerified: true,
     fullName: "Jean Dupont",
     phone: "+33612345678",
     accountType: "business",
@@ -195,6 +219,7 @@ async function seed() {
       username: "marie.martin",
       password: testPasswordHash,
       email: "marie.martin@societe.fr",
+      emailVerified: true,
       fullName: "Marie Martin",
       phone: "+33698765432",
       accountType: "business",
@@ -209,6 +234,7 @@ async function seed() {
       username: "pierre.bernard",
       password: testPasswordHash,
       email: "pierre.bernard@company.fr",
+      emailVerified: true,
       fullName: "Pierre Bernard",
       phone: "+33687654321",
       accountType: "business",
