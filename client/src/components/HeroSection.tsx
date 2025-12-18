@@ -42,6 +42,8 @@ export default function HeroSection() {
       const timeline = gsap.timeline();
 
       heroSlides.forEach((_, index) => {
+        const isLastSlide = index === heroSlides.length - 1;
+
         // ═════════════════════════════════════════════════════════════
         // ATOMIC SCENE PRINCIPLE: Each slide is a complete isolated unit
         // Inactive slides are FULLY invisible (visibility: hidden + opacity: 0)
@@ -77,28 +79,41 @@ export default function HeroSection() {
         // PHASE 3: TEXT HOLD - Visible for 1.5 seconds
         timeline.to(`.slide-${index} .text`, { opacity: 1, duration: 1.5 }, '+=0');
 
-        // PHASE 4: TEXT FADE OUT
-        timeline.to(`.slide-${index} .text`, { opacity: 0, duration: 0.4 }, '+=0');
+        if (!isLastSlide) {
+          // INTERMEDIATE SLIDES: Fade out text and split images away
+          
+          // PHASE 4: TEXT FADE OUT
+          timeline.to(`.slide-${index} .text`, { opacity: 0, duration: 0.4 }, '+=0');
 
-        // PHASE 5: IMAGES SPLIT - Left up, right down
-        timeline.to(
-          `.slide-${index} .left`,
-          { clipPath: 'inset(0 0 50% 0)', y: '-100%', duration: 1, ease: 'power4.in' },
-          '<'
-        );
+          // PHASE 5: IMAGES SPLIT - Left up, right down
+          timeline.to(
+            `.slide-${index} .left`,
+            { clipPath: 'inset(0 0 50% 0)', y: '-100%', duration: 1, ease: 'power4.in' },
+            '<'
+          );
 
-        timeline.to(
-          `.slide-${index} .right`,
-          { clipPath: 'inset(50% 0 0 0)', y: '100%', duration: 1, ease: 'power4.in' },
-          '<'
-        );
+          timeline.to(
+            `.slide-${index} .right`,
+            { clipPath: 'inset(50% 0 0 0)', y: '100%', duration: 1, ease: 'power4.in' },
+            '<'
+          );
 
-        // PHASE 6: HIDE SLIDE (except last one)
-        if (index < heroSlides.length - 1) {
+          // PHASE 6: HIDE THIS SLIDE - Make way for next
           timeline.set(`.slide-${index}`, { visibility: 'hidden', opacity: 0 }, '+=0');
         } else {
-          // Last slide: revert transforms but stay visible
-          timeline.set([`.slide-${index} .left`, `.slide-${index} .right`], { clearProps: 'all' }, '+=0');
+          // LAST SLIDE: Keep text and images visible
+          // Text stays visible, images return to normal position
+          
+          // PHASE 4 (last): Text continues visible (no fade out)
+          timeline.to(`.slide-${index} .text`, { opacity: 1, duration: 0.4 }, '+=0');
+
+          // PHASE 5 (last): Reset image transforms - return to normal view
+          timeline.to(
+            [`.slide-${index} .left`, `.slide-${index} .right`],
+            { clearProps: 'all', duration: 0.8, ease: 'power2.inOut' },
+            '<'
+          );
+          // Last slide stays visible - no hide
         }
       });
 
