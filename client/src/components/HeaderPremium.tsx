@@ -18,10 +18,17 @@ export default function HeaderPremium() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const langMenuRef = useRef<HTMLDivElement>(null);
   const t = useTranslations();
   const { language, setLanguage } = useLanguage();
   const [, setLocation] = useLocation();
+
+  // Check authentication status
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -129,22 +136,22 @@ export default function HeaderPremium() {
                 )}
               </div>
 
-              <Link href="/login">
+              <Link href={isAuthenticated ? "/dashboard" : "/auth"}>
                 <Button 
                   variant="ghost"
                   className="text-sm font-medium"
                   data-testid="button-login-desktop"
                 >
-                  {t.auth.login}
+                  {isAuthenticated ? t.nav.dashboard : t.auth.login}
                 </Button>
               </Link>
 
-              <Link href="/login">
+              <Link href={isAuthenticated ? "/dashboard" : "/auth?signup"}>
                 <Button 
                   className="px-6 text-sm font-semibold rounded-full"
                   data-testid="button-cta-desktop"
                 >
-                  {t.hero.cta2}
+                  {isAuthenticated ? t.nav.dashboard : t.hero.cta2}
                 </Button>
               </Link>
             </div>
@@ -227,14 +234,14 @@ export default function HeaderPremium() {
 
               {/* Mobile CTA */}
               <div className="px-6 py-6 border-t border-border space-y-3">
-                <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                <Link href={isAuthenticated ? "/dashboard" : "/auth"} onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="outline" className="w-full rounded-full" data-testid="button-login-mobile">
-                    {t.auth.login}
+                    {isAuthenticated ? t.nav.dashboard : t.auth.login}
                   </Button>
                 </Link>
-                <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                <Link href={isAuthenticated ? "/dashboard" : "/auth?signup"} onClick={() => setMobileMenuOpen(false)}>
                   <Button className="w-full rounded-full" data-testid="button-cta-mobile">
-                    {t.hero.cta2}
+                    {isAuthenticated ? t.nav.dashboard : t.hero.cta2}
                   </Button>
                 </Link>
               </div>
