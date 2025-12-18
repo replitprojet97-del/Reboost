@@ -1,59 +1,132 @@
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { ArrowRight, TrendingUp, Lock, CheckCircle2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-interface SectorCard {
+interface SectorSection {
   title: string;
+  subtitle: string;
   description: string;
   image: string;
-  badges: string[];
-  color: string;
+  features: {
+    icon: React.ReactNode;
+    title: string;
+    description: string;
+  }[];
+  ctaText: string;
 }
 
-const sectors: SectorCard[] = [
+const sectors: SectorSection[] = [
   {
     title: 'Crédits entreprise',
-    description: 'Des financements pensés pour les structures de toutes tailles : création, développement et croissance externe.',
+    subtitle: 'votre fonds de roulement à portée de clic',
+    description: 'Obtenez jusqu\'à 50 000 € de crédit de trésorerie non affecté pour tous vos usages',
     image: '/generated_images/business_professionals_planning_finance.png',
-    badges: ['Prêts équipement', 'Crédit-bail', 'Affacturage'],
-    color: 'from-blue-500 to-indigo-600',
+    features: [
+      {
+        icon: <TrendingUp className="h-5 w-5 text-emerald-500" />,
+        title: 'Mise à disposition express',
+        description: 'recevez votre offre en 2h et les fonds en 24h!',
+      },
+      {
+        icon: <Lock className="h-5 w-5 text-emerald-500" />,
+        title: 'Modalités parmi les plus compétitives du marché',
+        description: 'taux d\'intérêts mensuels fixes à partir de 0,8% sans caution personnelle du dirigeant',
+      },
+      {
+        icon: <CheckCircle2 className="h-5 w-5 text-emerald-500" />,
+        title: 'Critères d\'acceptation accessibles',
+        description: 'un apport de trésorerie conçu pour toutes les entreprises et situations',
+      },
+    ],
+    ctaText: 'En savoir plus sur le prêt de trésorerie',
   },
   {
     title: 'Prêts aux particuliers',
-    description: 'Réalisez vos projets de vie grâce à des offres adaptées : acquisition immobilière, mobilité, aménagement.',
+    subtitle: 'réalisez vos projets de vie',
+    description: 'Réalisez vos projets grâce à des offres adaptées : acquisition immobilière, mobilité, aménagement',
     image: '/generated_images/family_planning_financial_future.png',
-    badges: ['Prêts immobiliers', 'Crédits auto', 'Prêts travaux'],
-    color: 'from-indigo-500 to-purple-600',
+    features: [
+      {
+        icon: <TrendingUp className="h-5 w-5 text-emerald-500" />,
+        title: 'Solutions rapides et flexibles',
+        description: 'obtenez une réponse en 48h avec des modalités adaptées à votre situation',
+      },
+      {
+        icon: <Lock className="h-5 w-5 text-emerald-500" />,
+        title: 'Taux compétitifs garantis',
+        description: 'des taux parmi les plus avantageux du marché sans frais cachés',
+      },
+      {
+        icon: <CheckCircle2 className="h-5 w-5 text-emerald-500" />,
+        title: 'Accompagnement personnalisé',
+        description: 'nos experts vous conseillent à chaque étape de votre projet',
+      },
+    ],
+    ctaText: 'Explorer les offres pour particuliers',
   },
   {
     title: 'Énergie renouvelable',
-    description: 'Financer vos projets d\'énergie verte et durable. Solutions adaptées pour les investissements en énergies propres.',
+    subtitle: 'financez votre transition énergétique',
+    description: 'Concrétisez vos projets d\'énergie verte et durable avec nos solutions de financement',
     image: '/generated_images/renewable_energy_infrastructure.png',
-    badges: ['Panneaux solaires', 'Éoliennes', 'Batteries'],
-    color: 'from-emerald-500 to-teal-600',
+    features: [
+      {
+        icon: <TrendingUp className="h-5 w-5 text-emerald-500" />,
+        title: 'Financement spécialisé',
+        description: 'des solutions pensées pour les projets solaires, éoliens et énergies propres',
+      },
+      {
+        icon: <Lock className="h-5 w-5 text-emerald-500" />,
+        title: 'Expertise verte',
+        description: 'une équipe dédiée qui comprend les spécificités des énergies renouvelables',
+      },
+      {
+        icon: <CheckCircle2 className="h-5 w-5 text-emerald-500" />,
+        title: 'Contribuez à la durabilité',
+        description: 'financez l\'avenir tout en bénéficiant d\'avantages fiscaux et des subventions',
+      },
+    ],
+    ctaText: 'Financer mon projet vert',
   },
   {
     title: 'Immobilier & Construction',
-    description: 'Concrétisez vos projets immobiliers avec nos solutions de financement flexibles et compétitives.',
+    subtitle: 'concrétisez vos ambitions immobilières',
+    description: 'Des solutions de financement flexibles et compétitives pour tous vos projets immobiliers',
     image: '/generated_images/real_estate_development_project.png',
-    badges: ['Promotion immobilière', 'Rénovation', 'Commercial'],
-    color: 'from-amber-500 to-orange-600',
+    features: [
+      {
+        icon: <TrendingUp className="h-5 w-5 text-emerald-500" />,
+        title: 'Expertise immobilière reconnue',
+        description: 'plus de 15 ans d\'expérience dans le financement de projets d\'envergure',
+      },
+      {
+        icon: <Lock className="h-5 w-5 text-emerald-500" />,
+        title: 'Montages financiers sur-mesure',
+        description: 'des structures adaptées à votre projet, de la conception à la réalisation',
+      },
+      {
+        icon: <CheckCircle2 className="h-5 w-5 text-emerald-500" />,
+        title: 'Accompagnement de bout en bout',
+        description: 'suivi personnalisé de vos démarches administratives et financières',
+      },
+    ],
+    ctaText: 'Demander un financement immobilier',
   },
 ];
 
 export default function SectorsInterventionCards() {
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-white via-background/50 to-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 md:py-24 bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             Nos secteurs d'intervention
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -61,65 +134,81 @@ export default function SectorsInterventionCards() {
           </p>
         </motion.div>
 
-        {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
-          {sectors.map((sector, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group rounded-2xl overflow-hidden bg-card border border-border hover-elevate transition-all duration-300"
-            >
-              {/* Image Container */}
-              <div className="relative h-64 md:h-72 overflow-hidden bg-gradient-to-br from-muted to-muted/50">
-                <img
-                  src={sector.image}
-                  alt={sector.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                {/* Gradient Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${sector.color} opacity-20 mix-blend-multiply`} />
-              </div>
-
-              {/* Content */}
-              <div className="p-6 md:p-8">
-                {/* Title */}
-                <h3 className="text-2xl font-bold text-foreground mb-3">
-                  {sector.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-muted-foreground mb-6 leading-relaxed text-sm md:text-base">
-                  {sector.description}
-                </p>
-
-                {/* Badges */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {sector.badges.map((badge, idx) => (
-                    <Badge
-                      key={idx}
-                      variant="secondary"
-                      className="text-xs md:text-sm"
-                    >
-                      {badge}
-                    </Badge>
-                  ))}
+        {/* Sectors - Alternating Layout */}
+        <div className="space-y-24">
+          {sectors.map((sector, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center"
+              >
+                {/* Image Section */}
+                <div className={isEven ? 'md:order-1' : 'md:order-2'}>
+                  <div className="relative rounded-xl overflow-hidden shadow-xl">
+                    <img
+                      src={sector.image}
+                      alt={sector.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/5" />
+                  </div>
                 </div>
 
-                {/* CTA Link */}
-                <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 text-accent font-semibold text-sm md:text-base hover:gap-3 transition-all duration-300 group/link"
-                  data-testid={`button-sector-${index}`}
-                >
-                  En savoir plus
-                  <ArrowRight className="h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
-                </a>
-              </div>
-            </motion.div>
-          ))}
+                {/* Content Section */}
+                <div className={isEven ? 'md:order-2' : 'md:order-1'}>
+                  {/* Title */}
+                  <h3 className="text-4xl font-bold text-foreground mb-2">
+                    {sector.title}
+                  </h3>
+
+                  {/* Subtitle */}
+                  <p className="text-xl text-foreground font-medium mb-4">
+                    {sector.subtitle}
+                  </p>
+
+                  {/* Main Description */}
+                  <p className="text-muted-foreground mb-8 leading-relaxed text-base">
+                    {sector.description}
+                  </p>
+
+                  {/* Features List */}
+                  <div className="space-y-4 mb-8">
+                    {sector.features.map((feature, idx) => (
+                      <div key={idx} className="flex gap-4">
+                        <div className="flex-shrink-0 mt-1">
+                          {feature.icon}
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-foreground mb-1">
+                            {feature.title}
+                          </h4>
+                          <p className="text-muted-foreground text-sm">
+                            {feature.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* CTA Button */}
+                  <Button
+                    asChild
+                    className="bg-emerald-500 hover:bg-emerald-600 text-white h-12 px-8 rounded-full font-semibold"
+                    data-testid={`button-sector-cta-${index}`}
+                  >
+                    <a href="/contact" className="inline-flex items-center gap-2">
+                      {sector.ctaText}
+                    </a>
+                  </Button>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
