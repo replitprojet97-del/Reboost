@@ -76,7 +76,7 @@ export default function PremiumTestimonials() {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-muted/30 to-background">
+    <section className="py-12 md:py-16 bg-gradient-to-b from-muted/30 to-background">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -110,10 +110,10 @@ export default function PremiumTestimonials() {
                 }}
                 className="absolute w-full"
               >
-                <div className="bg-card rounded-2xl p-8 md:p-12 shadow-xl border border-border/50">
+                <div className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl p-8 md:p-12 shadow-xl border border-accent/30">
                   {/* Quote icon */}
                   <div className="mb-6">
-                    <Quote className="w-12 h-12 text-primary/20" />
+                    <Quote className="w-12 h-12 text-accent/40" />
                   </div>
 
                   {/* Rating */}

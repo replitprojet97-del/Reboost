@@ -14,7 +14,7 @@ export default function HeroPremium() {
   ];
 
   return (
-    <section className="relative pt-32 lg:pt-40 pb-20 lg:pb-32 overflow-hidden">
+    <section className="relative pt-24 lg:pt-32 pb-16 lg:pb-24 overflow-hidden">
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-transparent to-transparent pointer-events-none" />
       
@@ -31,7 +31,7 @@ export default function HeroPremium() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
             <Button
               size="lg"
               className="px-8 py-6 text-base font-semibold rounded-full group btn-premium-primary btn-shimmer no-default-hover-elevate no-default-active-elevate"
@@ -69,7 +69,7 @@ export default function HeroPremium() {
         </div>
 
         {/* Optional: Dashboard Preview Image */}
-        <div className="mt-20 lg:mt-28 relative">
+        <div className="mt-16 lg:mt-20 relative">
           <div className="relative mx-auto max-w-5xl">
             {/* Shadow/glow effect */}
             <div className="absolute -inset-4 bg-gradient-to-r from-accent/10 via-primary/5 to-accent/10 blur-3xl rounded-3xl" />

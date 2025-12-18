@@ -6,20 +6,20 @@ export default function StatsSection() {
   const t = useTranslations();
   
   return (
-    <section className="relative py-24 lg:py-32 bg-background">
+    <section className="relative py-12 lg:py-16 bg-background">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.premium.stats.title}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t.premium.stats.subtitle}</p>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
           {getOfficialStats(t).map((stat, index) => {
             const colors = [
               'from-accent/10 to-accent/5 border-accent/20',

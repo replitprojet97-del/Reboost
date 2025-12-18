@@ -11,14 +11,14 @@ export default function ExpertisesModern() {
   const [, setLocation] = useLocation();
   
   return (
-    <section className="relative py-24 lg:py-32 bg-muted/30">
+    <section className="relative py-12 lg:py-16 bg-muted/30">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t.premium.expertises.title}</h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -26,7 +26,7 @@ export default function ExpertisesModern() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-6">
           {t.premium.expertises.items.map((expertise, index) => {
             const Icon = expertiseIcons[index];
             const colors = [
