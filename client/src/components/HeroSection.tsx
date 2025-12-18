@@ -43,16 +43,15 @@ export default function HeroSection() {
 
       heroSlides.forEach((_, index) => {
         // ═════════════════════════════════════════════════════════════
-        // PHASE 0: MAKE SLIDE VISIBLE (Atomic Unit Concept)
+        // ATOMIC SCENE PRINCIPLE: Each slide is a complete isolated unit
+        // Inactive slides are FULLY invisible (visibility: hidden + opacity: 0)
+        // All animations stay within slide container
         // ═════════════════════════════════════════════════════════════
-        // This slide becomes the active scene - everything inside must be visible
-        timeline.set(`.slide-${index}`, { opacity: 1 }, `slide-${index}-start`);
 
-        // ═════════════════════════════════════════════════════════════
+        // PHASE 0: ACTIVATE SLIDE - Make it the visible scene
+        timeline.set(`.slide-${index}`, { visibility: 'visible', opacity: 1 }, `slide-${index}-start`);
+
         // PHASE 1: IMAGE ENTRY - Both images animate in simultaneously
-        // ═════════════════════════════════════════════════════════════
-        // Left image enters from left (-100% → 0%)
-        // Right image enters from right (+100% → 0%)
         timeline.fromTo(
           `.slide-${index} .left`,
           { x: '-100%' },
@@ -60,85 +59,47 @@ export default function HeroSection() {
           `slide-${index}-start`
         );
 
-        // Right image enters SIMULTANEOUSLY (not after left)
         timeline.fromTo(
           `.slide-${index} .right`,
           { x: '100%' },
           { x: '0%', duration: 1, ease: 'power4.out' },
-          `slide-${index}-start` // Same label = same start time
+          `slide-${index}-start`
         );
 
-        // ═════════════════════════════════════════════════════════════
-        // PHASE 2: TEXT FADE IN - After images meet in center
-        // ═════════════════════════════════════════════════════════════
-        // Text appears with slight upward motion after images settle
+        // PHASE 2: TEXT FADE IN - After images settle
         timeline.fromTo(
           `.slide-${index} .text`,
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, duration: 0.6 },
-          `-=0.4`
+          '-=0.4'
         );
 
-        // ═════════════════════════════════════════════════════════════
-        // PHASE 3: TEXT HOLD - Text stays visible
-        // ═════════════════════════════════════════════════════════════
-        timeline.to(
-          `.slide-${index} .text`,
-          { opacity: 1, duration: 1.5 },
-          '+=0'
-        );
+        // PHASE 3: TEXT HOLD - Visible for 1.5 seconds
+        timeline.to(`.slide-${index} .text`, { opacity: 1, duration: 1.5 }, '+=0');
 
-        // ═════════════════════════════════════════════════════════════
-        // PHASE 4: TEXT FADE OUT - Prepare for image exit
-        // ═════════════════════════════════════════════════════════════
-        timeline.to(
-          `.slide-${index} .text`,
-          { opacity: 0, duration: 0.4 },
-          '+=0'
-        );
+        // PHASE 4: TEXT FADE OUT
+        timeline.to(`.slide-${index} .text`, { opacity: 0, duration: 0.4 }, '+=0');
 
-        // ═════════════════════════════════════════════════════════════
-        // PHASE 5: IMAGE EXIT - Images split apart simultaneously
-        // ═════════════════════════════════════════════════════════════
-        // Left image: clip bottom half, move upward
+        // PHASE 5: IMAGES SPLIT - Left up, right down
         timeline.to(
           `.slide-${index} .left`,
-          {
-            clipPath: 'inset(0 0 50% 0)',
-            y: '-100%',
-            duration: 1,
-            ease: 'power4.in'
-          },
+          { clipPath: 'inset(0 0 50% 0)', y: '-100%', duration: 1, ease: 'power4.in' },
           '<'
         );
 
-        // Right image: clip top half, move downward (SIMULTANEOUSLY with left)
         timeline.to(
           `.slide-${index} .right`,
-          {
-            clipPath: 'inset(50% 0 0 0)',
-            y: '100%',
-            duration: 1,
-            ease: 'power4.in'
-          },
+          { clipPath: 'inset(50% 0 0 0)', y: '100%', duration: 1, ease: 'power4.in' },
           '<'
         );
 
-        // ═════════════════════════════════════════════════════════════
-        // PHASE 6: RESET TRANSFORMS (but keep slide visible for next)
-        // ═════════════════════════════════════════════════════════════
-        // This allows next slide to start fresh, but doesn't hide the slide
-        timeline.set(
-          [`.slide-${index} .left`, `.slide-${index} .right`],
-          { clearProps: 'all' },
-          '+=0'
-        );
-
-        // Hide this slide ONLY if it's not the last slide
+        // PHASE 6: HIDE SLIDE (except last one)
         if (index < heroSlides.length - 1) {
-          timeline.set(`.slide-${index}`, { opacity: 0 }, '+=0');
+          timeline.set(`.slide-${index}`, { visibility: 'hidden', opacity: 0 }, '+=0');
+        } else {
+          // Last slide: revert transforms but stay visible
+          timeline.set([`.slide-${index} .left`, `.slide-${index} .right`], { clearProps: 'all' }, '+=0');
         }
-        // If it IS the last slide, keep it visible with final image state
       });
 
       // Timeline plays exactly once, then stops (no repeat)

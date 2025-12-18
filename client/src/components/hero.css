@@ -11,6 +11,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  visibility: hidden;
   opacity: 0;
 }
 
