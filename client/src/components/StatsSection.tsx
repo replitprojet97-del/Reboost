@@ -5,11 +5,11 @@ export default function StatsSection() {
 
   const stats = [
     {
-      value: '15 000+',
+      value: '2,500+',
       label: t.stats.clients,
     },
     {
-      value: '€500M+',
+      value: '€250M+',
       label: t.stats.funded,
     },
     {
@@ -17,7 +17,7 @@ export default function StatsSection() {
       label: t.stats.satisfaction,
     },
     {
-      value: '15+',
+      value: '12+',
       label: t.stats.years,
     },
   ];

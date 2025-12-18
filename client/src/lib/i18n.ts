@@ -2461,7 +2461,7 @@ export const translations: Record<Language, TranslationKeys> = {
       cta1: 'Demander un financement',
       cta2: 'Mon espace',
       learnMore: 'En savoir plus',
-      trustIndicator: 'Plus de 15 000 clients satisfaits nous font confiance',
+      trustIndicator: 'Plus de 2,500 clients satisfaits nous font confiance',
       trustBadges: {
         response24h: 'Réponse en 24h',
         swissSecurity: 'Sécurité bancaire suisse',
@@ -2496,7 +2496,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           title: 'Votre partenaire de confiance',
-          subtitle: 'Plus de 15 000 clients satisfaits nous font confiance pour leurs besoins de financement',
+          subtitle: 'Plus de 2,500 clients satisfaits nous font confiance pour leurs besoins de financement',
         },
         {
           title: 'Financez vos ambitions',
@@ -3431,7 +3431,7 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     testimonials: {
       title: 'Ce que disent nos clients',
-      subtitle: 'Plus de 15 000 particuliers et professionnels nous font confiance',
+      subtitle: 'Plus de 2,500 particuliers et professionnels nous font confiance',
       reviews: [
         { name: 'Sophie Martin', role: 'Chef d\'entreprise', company: 'Boutique Bio Paris', text: 'SolventisGroup m\'a permis d\'obtenir un financement rapide pour développer mon commerce. Le processus était simple et transparent, j\'ai reçu les fonds en moins d\'une semaine.', rating: 5 },
         { name: 'Thomas Dubois', role: 'Particulier', company: 'Propriétaire', text: 'Excellent service pour mon prêt immobilier. Les conseillers sont à l\'écoute et m\'ont trouvé le meilleur taux. Je recommande vivement leurs services.', rating: 5 },
@@ -4737,7 +4737,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       about: {
         title: 'À propos de SolventisGroup - Notre Mission et Nos Valeurs | Solutions de Financement',
-        description: 'Découvrez SolventisGroup, leader en solutions de prêt professionnel avec plus de 15 ans d\'expérience, 15 000+ clients satisfaits et 500M€ de prêts accordés. Notre mission : rendre le financement accessible à tous.',
+        description: 'Découvrez SolventisGroup, leader en solutions de prêt professionnel avec plus de 15 ans d\'expérience, 2,500+ clients satisfaits et 500M€ de prêts accordés. Notre mission : rendre le financement accessible à tous.',
         keywords: 'à propos SolventisGroup, mission SolventisGroup, valeurs entreprise financement, expérience prêt professionnel, financement entreprise fiable',
       },
       contact: {
@@ -5008,13 +5008,13 @@ export const translations: Record<Language, TranslationKeys> = {
       primaryButton: 'Soumettre ma demande',
       secondaryButton: 'Échanger avec un expert',
       trustText: '✓ Aucun engagement • Retour sous 24h • Totalement sécurisé',
-      stat1Value: '15 000+',
+      stat1Value: '2,500+',
       stat1Label: 'Dossiers financés',
       stat2Value: '98%',
       stat2Label: 'Demandes acceptées',
       stat3Value: '24h',
       stat3Label: 'Temps de traitement',
-      stat4Value: '€500M+',
+      stat4Value: '€250M+',
       stat4Label: 'Montants accordés',
     },
     premium: {
@@ -6074,7 +6074,7 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     testimonials: {
       title: 'What Our Clients Say',
-      subtitle: 'Trusted by 15,000+ individuals and businesses',
+      subtitle: 'Trusted by 2,500+ individuals and businesses',
       reviews: [
         { name: 'Sophie Martin', role: 'Business Owner', company: 'Organic Store Paris', text: 'SolventisGroup enabled me to obtain quick financing to develop my business. The process was simple and transparent, I received the funds in less than a week.', rating: 5 },
         { name: 'Thomas Dubois', role: 'Individual', company: 'Homeowner', text: 'Excellent service for my mortgage. The advisors are attentive and found me the best rate. I highly recommend their services.', rating: 5 },
@@ -7462,7 +7462,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       about: {
         title: 'About SolventisGroup - Our Mission and Values | Financing Solutions',
-        description: 'Discover SolventisGroup, leader in professional loan solutions with over 15 years of experience, 15,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+        description: 'Discover SolventisGroup, leader in professional loan solutions with over 15 years of experience, 2,500+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
       },
       contact: {
         title: 'Contact Us - SolventisGroup | Questions About Our Professional Loans',
@@ -7730,13 +7730,13 @@ export const translations: Record<Language, TranslationKeys> = {
       primaryButton: 'Open my file',
       secondaryButton: 'Talk to an advisor',
       trustText: '✓ No commitment • 24h response • 100% secure',
-      stat1Value: '15,000+',
+      stat1Value: '2,500+',
       stat1Label: 'Satisfied Customers',
       stat2Value: '98%',
       stat2Label: 'Approval Rate',
       stat3Value: '24h',
       stat3Label: 'Response Time',
-      stat4Value: '€500M+',
+      stat4Value: '€250M+',
       stat4Label: 'Funds Distributed',
     },
     premium: {
@@ -10452,7 +10452,7 @@ export const translations: Record<Language, TranslationKeys> = {
       stat2Label: 'Tasa de aprobación',
       stat3Value: '24h',
       stat3Label: 'Tiempo de respuesta',
-      stat4Value: '€500M+',
+      stat4Value: '€250M+',
       stat4Label: 'Fondos distribuidos',
     },
     premium: {
@@ -12798,7 +12798,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       about: {
         title: 'About SolventisGroup - Our Mission and Values | Financing Solutions',
-        description: 'Discover SolventisGroup, leader in professional loan solutions with over 15 years of experience, 15,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+        description: 'Discover SolventisGroup, leader in professional loan solutions with over 15 years of experience, 2,500+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
       },
       contact: {
         title: 'Contact Us - SolventisGroup | Questions About Our Professional Loans',
@@ -15326,7 +15326,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       about: {
         title: 'About SolventisGroup - Our Mission and Values | Financing Solutions',
-        description: 'Discover SolventisGroup, leader in professional loan solutions with over 15 years of experience, 15,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+        description: 'Discover SolventisGroup, leader in professional loan solutions with over 15 years of experience, 2,500+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
       },
       contact: {
         title: 'Contact Us - SolventisGroup | Questions About Our Professional Loans',
@@ -15594,7 +15594,7 @@ export const translations: Record<Language, TranslationKeys> = {
       stat2Label: 'Tasso di approvazione',
       stat3Value: '24h',
       stat3Label: 'Tempo di risposta',
-      stat4Value: '€500M+',
+      stat4Value: '€250M+',
       stat4Label: 'Fondi distribuiti',
     },
     premium: {
@@ -17940,7 +17940,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       about: {
         title: 'About SolventisGroup - Our Mission and Values | Financing Solutions',
-        description: 'Discover SolventisGroup, leader in professional loan solutions with over 15 years of experience, 15,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+        description: 'Discover SolventisGroup, leader in professional loan solutions with over 15 years of experience, 2,500+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
       },
       contact: {
         title: 'Contact Us - SolventisGroup | Questions About Our Professional Loans',
@@ -18363,7 +18363,7 @@ export const translations: Record<Language, TranslationKeys> = {
       stat2Label: 'Genehmigungsrate',
       stat3Value: '24h',
       stat3Label: 'Antwortzeit',
-      stat4Value: '€500M+',
+      stat4Value: '€250M+',
       stat4Label: 'Verteilte Mittel',
     },
   },
@@ -20524,7 +20524,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       about: {
         title: 'About SolventisGroup - Our Mission and Values | Financing Solutions',
-        description: 'Discover SolventisGroup, leader in professional loan solutions with over 15 years of experience, 15,000+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
+        description: 'Discover SolventisGroup, leader in professional loan solutions with over 15 years of experience, 2,500+ satisfied clients and €500M in loans granted. Our mission: make financing accessible to all.',
       },
       contact: {
         title: 'Contact Us - SolventisGroup | Questions About Our Professional Loans',
@@ -20947,7 +20947,7 @@ export const translations: Record<Language, TranslationKeys> = {
       stat2Label: 'Goedkeuringspercentage',
       stat3Value: '24h',
       stat3Label: 'Reactietijd',
-      stat4Value: '€500M+',
+      stat4Value: '€250M+',
       stat4Label: 'Verdeelde fondsen',
     },
   },
