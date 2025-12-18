@@ -11,10 +11,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-}
-
-.slide.active {
-  z-index: 2;
+  opacity: 0;
 }
 
 .image {
