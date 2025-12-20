@@ -1,18 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card } from '@/components/ui/card';
 import { ArrowRight, Calculator } from 'lucide-react';
 import { Link } from 'wouter';
-import heroImage from '@assets/stock_images/professional_financi_a39d1c5b.jpg';
+import image1 from '@assets/stock_images/modern_business_prof_e6d6637f.jpg';
+import image2 from '@assets/stock_images/financial_advisor_co_cd5f43f9.jpg';
+import image3 from '@assets/stock_images/entrepreneur_reviewi_d8b8cad0.jpg';
+import image4 from '@assets/stock_images/modern_business_prof_2525f578.jpg';
+import image5 from '@assets/stock_images/financial_advisor_co_3eccfc80.jpg';
+import image6 from '@assets/stock_images/entrepreneur_reviewi_c85fc2e1.jpg';
 import { useLanguage, translations } from '@/lib/i18n';
+
+const heroImages = [image1, image2, image3, image4, image5, image6];
 
 export default function Hero() {
   const { language } = useLanguage();
   const t = translations[language];
   const [loanAmount, setLoanAmount] = useState('50000');
   const [loanDuration, setLoanDuration] = useState('48');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   const calculateMonthlyPayment = () => {
     const amount = parseInt(loanAmount);
@@ -27,10 +42,10 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center transition-all duration-1000"
         style={{ 
-          backgroundImage: `url(${heroImage})`,
-          filter: 'brightness(0.3)'
+          backgroundImage: `url(${heroImages[currentImageIndex]})`,
+          filter: 'brightness(0.35)'
         }}
       />
       
@@ -183,6 +198,23 @@ export default function Hero() {
             </div>
           </Card>
         </div>
+      </div>
+
+      {/* Carousel Navigation Dots */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
+        {heroImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentImageIndex(index)}
+            className={`h-2.5 rounded-full transition-all duration-300 ${
+              index === currentImageIndex 
+                ? 'bg-white w-8' 
+                : 'bg-white/50 w-2.5 hover:bg-white/75'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+            data-testid={`carousel-dot-${index}`}
+          />
+        ))}
       </div>
     </section>
   );
