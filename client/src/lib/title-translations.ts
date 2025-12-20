@@ -15,10 +15,10 @@ export const titleTranslations = {
     { text: "vos initiatives", weight: "bold" }
   ],
   de: [
-    { text: "Finanzierung", weight: "black" },
-    { text: "Exzellenz", weight: "gradient" },
+    { text: "Exzellenz", weight: "black" },
+    { text: "finanzieren", weight: "gradient" },
     { text: "Wachstum", weight: "semibold", separator: true },
-    { text: "vorantreiben", weight: "bold" }
+    { text: "antreiben", weight: "bold" }
   ],
   es: [
     { text: "Financiar", weight: "black" },
@@ -27,10 +27,22 @@ export const titleTranslations = {
     { text: "el crecimiento", weight: "bold" }
   ],
   it: [
-    { text: "Finanziamento", weight: "black" },
-    { text: "eccellenza", weight: "gradient" },
-    { text: "guidare", weight: "semibold", separator: true },
+    { text: "Finanziare", weight: "black" },
+    { text: "l'eccellenza", weight: "gradient" },
+    { text: "stimolare", weight: "semibold", separator: true },
     { text: "la crescita", weight: "bold" }
+  ],
+  pt: [
+    { text: "Financiar", weight: "black" },
+    { text: "a excelência", weight: "gradient" },
+    { text: "impulsionar", weight: "semibold", separator: true },
+    { text: "o crescimento", weight: "bold" }
+  ],
+  nl: [
+    { text: "Excellentie", weight: "black" },
+    { text: "financieren", weight: "gradient" },
+    { text: "groei", weight: "semibold", separator: true },
+    { text: "stimuleren", weight: "bold" }
   ]
 };
 
