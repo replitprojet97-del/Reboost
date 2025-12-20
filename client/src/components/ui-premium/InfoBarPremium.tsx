@@ -3,7 +3,7 @@ import { CreditCard, Shield, FileText, Briefcase } from "lucide-react";
 
 export default function InfoBarPremium() {
   const messages = [
-    { icon: CreditCard, text: "Les virements Altus Finances sont désormais traités sous 24h ouvrées." },
+    { icon: CreditCard, text: "Les virements Solventis Group sont désormais traités sous 24h ouvrées." },
     { icon: Shield, text: "Vos opérations sont protégées par une authentification renforcée." },
     { icon: FileText, text: "Votre contrat numérique est disponible dans votre espace sécurisé." },
     { icon: Briefcase, text: "SolventisGroup – Solutions professionnelles haut de gamme." }

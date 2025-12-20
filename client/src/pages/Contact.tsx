@@ -95,7 +95,7 @@ export default function Contact() {
       <SEO
         title={t.seo.contact.title}
         description={t.seo.contact.description}
-        keywords="contact SolventisGroup, contact us, loan customer service, business financing help, Altus Finances customer support"
+        keywords="contact SolventisGroup, contact us, loan customer service, business financing help, Solventis Group customer support"
         path="/contact"
         structuredData={[contactPageSchema, contactBreadcrumb]}
       />

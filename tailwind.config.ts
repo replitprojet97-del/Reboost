@@ -15,7 +15,7 @@ export default {
         'soft-2025': '0 8px 40px rgba(11,15,30,0.06)',
       },
       colors: {
-        // Altus Finances Group brand colors - Premium 2025
+        // Solventis Group Group brand colors - Premium 2025
         altusfinances: {
           blue: "#1A4BFF",
           purple: "#6A5BFF",

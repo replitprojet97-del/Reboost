@@ -39,7 +39,7 @@ export function AdminLayout({
   return (
     <>
       <Helmet>
-        <title>{title} | Altus Finances Admin Portal</title>
+        <title>{title} | Solventis Group Admin Portal</title>
       </Helmet>
       <SidebarProvider style={style as CSSProperties}>
         <div className="flex h-screen w-full">

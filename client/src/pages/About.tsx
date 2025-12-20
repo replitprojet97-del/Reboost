@@ -173,7 +173,7 @@ export default function About() {
                 <div className="aspect-[4/3] bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center text-white/90">
-                      <div className="text-7xl font-bold mb-4">Altus Finances</div>
+                      <div className="text-7xl font-bold mb-4">Solventis Group</div>
                       <div className="text-2xl">Finance Group</div>
                       <div className="text-sm mt-4 opacity-75">Since 2013</div>
                     </div>

@@ -94,7 +94,7 @@ export default function AppSidebar() {
   return (
     <Sidebar className="border-r border-sidebar-border bg-sidebar backdrop-blur-xl">
       <SidebarContent className="px-3 py-4">
-        {/* Logo Section - Official Altus Finances Branding */}
+        {/* Logo Section - Official Solventis Group Branding */}
         <div className="px-2 py-4 mb-6" data-testid="sidebar-logo">
           <div className="flex flex-col items-center gap-3">
             <img 
