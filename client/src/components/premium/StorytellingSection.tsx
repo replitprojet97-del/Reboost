@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import VideoTemoignage from "@/components/VideoTemoignage";
 import { useTranslations, useLanguage } from "@/lib/i18n";
 import { getStorytellingFeatures } from "@/lib/storytelling-features";
+import { getTitleWords, type LanguageCode } from "@/lib/title-translations";
 
 export default function StorytellingSection() {
   const t = useTranslations();
@@ -78,26 +79,28 @@ export default function StorytellingSection() {
                 <span className="text-8xl font-bold text-accent/20 leading-none">"</span>
               </div>
 
-              {/* Premium title with split styling */}
+              {/* Premium title with split styling - MULTILINGUE */}
               <div className="space-y-2">
+                {/* First line: word1 and word2 */}
                 <div className="flex items-baseline gap-3 flex-wrap">
                   <h2 className="text-5xl lg:text-7xl font-black text-foreground leading-tight tracking-tight">
-                    Financing
+                    {getTitleWords(language as LanguageCode)[0].text}
                   </h2>
                   <span className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent">
-                    excellence
+                    {getTitleWords(language as LanguageCode)[1].text}
                   </span>
                 </div>
+                {/* Second line: separator + word3 + word4 */}
                 <div className="flex items-baseline gap-3">
                   <span className="text-2xl lg:text-4xl font-light text-muted-foreground">
                     {/* Subtle separator dot */}
                     <span className="inline-block w-2 h-2 rounded-full bg-accent/40 mx-2" />
                   </span>
                   <h2 className="text-4xl lg:text-5xl font-semibold text-foreground/90">
-                    driving
+                    {getTitleWords(language as LanguageCode)[2].text}
                   </h2>
                   <span className="text-4xl lg:text-5xl font-bold text-accent">
-                    growth
+                    {getTitleWords(language as LanguageCode)[3].text}
                   </span>
                 </div>
               </div>
