@@ -65,18 +65,70 @@ export default function StorytellingSection() {
               <span className="text-sm font-semibold text-accent">{t.premium.storytelling.badge}</span>
             </motion.div>
 
-            {/* Main title */}
+            {/* Main title with premium styling */}
             <motion.div
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="space-y-4"
+              className="space-y-6"
             >
-              <h2 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-                {t.premium.storytelling.title}
-              </h2>
-              <div className="h-1 w-20 bg-gradient-to-r from-accent to-accent/50 rounded-full" />
+              {/* Decorative quote mark */}
+              <div className="inline-block">
+                <span className="text-8xl font-bold text-accent/20 leading-none">"</span>
+              </div>
+
+              {/* Premium title with split styling */}
+              <div className="space-y-2">
+                <div className="flex items-baseline gap-3 flex-wrap">
+                  <h2 className="text-5xl lg:text-7xl font-black text-foreground leading-tight tracking-tight">
+                    Financing
+                  </h2>
+                  <span className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent">
+                    excellence
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-3">
+                  <span className="text-2xl lg:text-4xl font-light text-muted-foreground">
+                    {/* Subtle separator dot */}
+                    <span className="inline-block w-2 h-2 rounded-full bg-accent/40 mx-2" />
+                  </span>
+                  <h2 className="text-4xl lg:text-5xl font-semibold text-foreground/90">
+                    driving
+                  </h2>
+                  <span className="text-4xl lg:text-5xl font-bold text-accent">
+                    growth
+                  </span>
+                </div>
+              </div>
+
+              {/* Animated underline with premium styling */}
+              <motion.div
+                initial={{ scaleX: 0, opacity: 0 }}
+                whileInView={{ scaleX: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="origin-left space-y-2"
+              >
+                <div className="h-1.5 w-32 bg-gradient-to-r from-accent via-accent/60 to-transparent rounded-full shadow-lg shadow-accent/30" />
+                <div className="h-0.5 w-20 bg-gradient-to-r from-accent/40 to-transparent rounded-full" />
+              </motion.div>
+
+              {/* Premium stat badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="inline-flex items-center gap-2 pt-2"
+              >
+                <div className="flex -space-x-1">
+                  <div className="w-2 h-2 rounded-full bg-accent" />
+                  <div className="w-2 h-2 rounded-full bg-accent/70" />
+                  <div className="w-2 h-2 rounded-full bg-accent/40" />
+                </div>
+                <span className="text-sm font-medium text-accent">Proven Excellence Since 2014</span>
+              </motion.div>
             </motion.div>
 
             {/* Descriptions */}
