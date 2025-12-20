@@ -29,8 +29,8 @@ export default function Home() {
       
       <HeroSection />
       
-      <StorytellingSection />
       <SectorsInterventionCards />
+      <StorytellingSection />
       <StatsSection />
       <BankingSecurity />
       <TestimonialsSlider />
