@@ -42,10 +42,13 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <div 
-        className="absolute inset-0 bg-cover bg-center transition-all duration-1000"
+        className="absolute inset-0 bg-cover bg-center"
         style={{ 
           backgroundImage: `url(${heroImages[currentImageIndex]})`,
-          filter: 'brightness(0.35)'
+          filter: 'brightness(0.35)',
+          transition: 'background-image 0.15s cubic-bezier(0.4, 0, 0.6, 1)',
+          backgroundPosition: 'center center',
+          backgroundSize: 'cover'
         }}
       />
       
