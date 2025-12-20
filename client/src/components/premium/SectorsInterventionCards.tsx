@@ -345,6 +345,60 @@ const translations = {
       },
     ],
   },
+  nl: {
+    title: 'Onze Interventiebereiken',
+    subtitle: 'Financieringsoplossingen aangepast aan al uw professionele en persoonlijke behoeften',
+    sectors: [
+      {
+        title: 'Zakelijke Leningen',
+        subtitle: 'uw werkkapitaal op afstand van een klik',
+        description: 'Financiering ontworpen voor organisaties van alle grootten: oprichting, ontwikkeling en externe groei.',
+        image: businessProfessionalsImg,
+        features: [
+          { title: 'Apparatuumleningen', description: 'Maatwerk financiering voor aankoop van apparatuur en professionele materialen' },
+          { title: 'Leasing', description: 'Flexibele verhuuroplossingen met koopoptie aan het einde van de periode' },
+          { title: 'Factoring', description: 'Optimaliseer uw cashflow door uw vorderingen op klanten te verkopen' },
+        ],
+        ctaText: 'Zakelijke financiering aanvragen',
+      },
+      {
+        title: 'Persoonlijke Leningen',
+        subtitle: 'verwerkelijk uw levensdoelen',
+        description: 'Verwezenlijk uw levensdoelen met maatwerk aanbiedingen: onroerend goed aankoop, mobiliteit, renovatie.',
+        image: familyPlanningImg,
+        features: [
+          { title: 'Hypotheken', description: 'Verwezenlijk uw onroerendgoeddomen met gunstige voorwaarden en deskundige ondersteuning' },
+          { title: 'Autoleningen', description: 'Flexibele financiering voor uw nieuwe of gebruikte voertuig' },
+          { title: 'Renovatieleningen', description: 'Renoveer uw huis met op maat gemaakte financieringsoplossingen' },
+        ],
+        ctaText: 'Verken persoonlijke leningaanbiedingen',
+      },
+      {
+        title: 'Schuldenconsolidatie',
+        subtitle: 'beheer uw budget',
+        description: 'Verlaag uw maandelijkse betalingen door uw leningen te consolideren. Zorg voor rustig financieel beheer.',
+        image: renewableEnergyImg,
+        features: [
+          { title: 'Kredietaudit', description: 'Volledige analyse van uw financiële situatie en identificatie van kansen' },
+          { title: 'Herstructurering', description: 'Intelligente reorganisatie van uw schulden om uw maandelijkse betalingen te verlagen' },
+          { title: 'Optimalisatie', description: 'Verbeter uw cashflow en verhoog uw koopkracht' },
+        ],
+        ctaText: 'Raadpleeg voor schuldenconsolidatie',
+      },
+      {
+        title: 'Alternatieve Aanbiedingen',
+        subtitle: 'aangepast aan marktveranderingen',
+        description: 'Moderne financiële producten die zich aanpassen aan marktveranderingen en opkomende behoeften.',
+        image: realEstateImg,
+        features: [
+          { title: 'Fintech', description: 'Krijg toegang tot de nieuwste innovaties in financiële technologie en digitaal bankieren' },
+          { title: 'Groen Financiering', description: 'Investeer in duurzame en ecologische projecten met positieve impact' },
+          { title: 'Innovatieve Financiering', description: 'Ontdek innovatieve financieringsoplossingen afgestemd op uw profiel' },
+        ],
+        ctaText: 'Ontdek alternatieve aanbiedingen',
+      },
+    ],
+  },
 };
 
 export default function SectorsInterventionCards() {
