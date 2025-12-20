@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card } from '@/components/ui/card';
 import { ArrowRight, Calculator } from 'lucide-react';
 import { Link } from 'wouter';
-import heroImage from '@assets/generated_images/professional_business_handshake_deal.png';
+import heroImage from '@assets/stock_images/professional_financi_a39d1c5b.jpg';
 import { useLanguage, translations } from '@/lib/i18n';
 
 export default function Hero() {
