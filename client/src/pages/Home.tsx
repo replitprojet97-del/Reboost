@@ -1,7 +1,6 @@
 import HeroSection from '@/components/HeroSection';
 import HeaderPremium from '@/components/HeaderPremium';
 import StatsSection from '@/components/premium/StatsSection';
-import ExpertisesModern from '@/components/premium/ExpertisesModern';
 import StorytellingSection from '@/components/premium/StorytellingSection';
 import SectorsInterventionCards from '@/components/premium/SectorsInterventionCards';
 import BankingSecurity from '@/components/premium/BankingSecurity';
@@ -33,7 +32,6 @@ export default function Home() {
       <StorytellingSection />
       <StatsSection />
       <SectorsInterventionCards />
-      <ExpertisesModern />
       <BankingSecurity />
       <TestimonialsSlider />
       <FinalCTASection />
