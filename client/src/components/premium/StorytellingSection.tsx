@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Check } from "lucide-react";
 import { Link } from "wouter";
-import VideoTemoignage from "@/components/VideoTemoignage";
 import { useTranslations, useLanguage } from "@/lib/i18n";
 import { getStorytellingFeatures } from "@/lib/storytelling-features";
 import { getTitleWords, type LanguageCode } from "@/lib/title-translations";
@@ -46,13 +45,13 @@ export default function StorytellingSection() {
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left content section */}
+          {/* Full width content section */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 space-y-8"
+            className="lg:col-span-12 space-y-8"
           >
             {/* Badge */}
             <motion.div
@@ -190,32 +189,6 @@ export default function StorytellingSection() {
                 </button>
               </Link>
             </motion.div>
-          </motion.div>
-
-          {/* Right visual section */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7"
-          >
-            {/* Video container with enhanced styling */}
-            <div className="relative group">
-              {/* Glow effect behind video */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-accent/30 to-accent/10 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              {/* Video wrapper */}
-              <div className="relative bg-background rounded-3xl overflow-hidden shadow-2xl border border-accent/10 group-hover:border-accent/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-                <div style={{ minHeight: '500px', position: 'relative' }}>
-                  <VideoTemoignage />
-                </div>
-              </div>
-
-              {/* Decorative corners */}
-              <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-accent/20 rounded-tr-3xl pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-accent/20 rounded-bl-3xl pointer-events-none" />
-            </div>
           </motion.div>
         </div>
       </div>
