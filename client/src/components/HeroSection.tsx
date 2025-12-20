@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'wouter';
 import gsap from 'gsap';
 import './hero.css';
 import { useTranslations } from '@/lib/i18n';
@@ -37,6 +38,7 @@ const heroSlideImages: HeroSlideImage[] = [
 
 export default function HeroSection() {
   const t = useTranslations();
+  const [, setLocation] = useLocation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
@@ -179,7 +181,11 @@ export default function HeroSection() {
             <div className="text" data-testid={`text-hero-${index}`}>
               <h1 data-testid={`title-${index}`}>{slideText?.title || t.hero.title}</h1>
               <p data-testid={`subtitle-${index}`}>{slideText?.subtitle || t.hero.subtitle}</p>
-              <button className="cta-button" data-testid={`cta-${index}`}>
+              <button 
+                className="cta-button" 
+                data-testid={`cta-${index}`}
+                onClick={() => setLocation('/loans/new')}
+              >
                 {t.hero.cta1}
               </button>
             </div>

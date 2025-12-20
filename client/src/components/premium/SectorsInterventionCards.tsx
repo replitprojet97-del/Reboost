@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { TrendingUp, Lock, CheckCircle2 } from 'lucide-react';
+import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/lib/i18n';
 import businessProfessionalsImg from '@assets/generated_images/business_professionals_planning_finance.png';
@@ -403,6 +404,7 @@ const translations = {
 
 export default function SectorsInterventionCards() {
   const { language } = useLanguage();
+  const [, setLocation] = useLocation();
   const data = translations[language as keyof typeof translations] || translations.fr;
 
   const getSectors = (): SectorSection[] => {
@@ -502,13 +504,11 @@ export default function SectorsInterventionCards() {
 
                   {/* CTA Button */}
                   <Button
-                    asChild
                     className="bg-emerald-500 hover:bg-emerald-600 text-white h-12 px-8 rounded-full font-semibold"
                     data-testid={`button-sector-cta-${index}`}
+                    onClick={() => setLocation('/products')}
                   >
-                    <a href="/contact" className="inline-flex items-center gap-2">
-                      {sector.ctaText}
-                    </a>
+                    {sector.ctaText}
                   </Button>
                 </div>
               </motion.div>
