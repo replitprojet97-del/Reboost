@@ -152,7 +152,7 @@ export default function About() {
               <ul className="space-y-4">
                 {achievements.map((achievement, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                    <CheckCircle2 className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
                     <div>
                       <div className="font-semibold text-gray-900">{achievement.label}</div>
                       <div className="text-sm text-gray-600">{achievement.status}</div>

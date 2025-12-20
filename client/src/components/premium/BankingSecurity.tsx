@@ -76,15 +76,15 @@ export default function BankingSecurity() {
           className="mt-16 flex flex-wrap justify-center gap-8 items-center"
         >
           <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-            <CheckCircle2 className="h-5 w-5 text-green-400" />
+            <CheckCircle2 className="h-5 w-5 text-accent" />
             <span className="text-white font-semibold">{t.premium.security.certifications.iso27001}</span>
           </div>
           <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-            <CheckCircle2 className="h-5 w-5 text-green-400" />
+            <CheckCircle2 className="h-5 w-5 text-accent" />
             <span className="text-white font-semibold">{t.premium.security.certifications.gdpr}</span>
           </div>
           <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-            <CheckCircle2 className="h-5 w-5 text-green-400" />
+            <CheckCircle2 className="h-5 w-5 text-accent" />
             <span className="text-white font-semibold">{t.premium.security.certifications.pciDss}</span>
           </div>
         </motion.div>

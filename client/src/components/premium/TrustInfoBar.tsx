@@ -95,7 +95,7 @@ export function TrustInfoBar() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center gap-2 bg-emerald-500 rounded-full px-4 py-1.5"
+            className="flex items-center gap-2 bg-accent rounded-full px-4 py-1.5"
             data-testid="protection-badge"
           >
             <div className="w-2 h-2 rounded-full bg-white animate-pulse" />

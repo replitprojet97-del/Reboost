@@ -411,9 +411,9 @@ export default function SectorsInterventionCards() {
     return data.sectors.map(sector => ({
       ...sector,
       features: sector.features.map((f, idx) => ({
-        icon: idx === 0 ? <TrendingUp className="h-5 w-5 text-emerald-500" /> :
-              idx === 1 ? <Lock className="h-5 w-5 text-emerald-500" /> :
-              <CheckCircle2 className="h-5 w-5 text-emerald-500" />,
+        icon: idx === 0 ? <TrendingUp className="h-5 w-5 text-accent" /> :
+              idx === 1 ? <Lock className="h-5 w-5 text-accent" /> :
+              <CheckCircle2 className="h-5 w-5 text-accent" />,
         title: f.title,
         description: f.description,
       })),
@@ -504,7 +504,7 @@ export default function SectorsInterventionCards() {
 
                   {/* CTA Button */}
                   <Button
-                    className="bg-emerald-500 hover:bg-emerald-600 text-white h-12 px-8 rounded-full font-semibold"
+                    className="bg-accent hover:bg-accent/90 text-accent-foreground h-12 px-8 rounded-full font-semibold"
                     data-testid={`button-sector-cta-${index}`}
                     onClick={() => setLocation('/products')}
                   >
