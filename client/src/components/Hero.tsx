@@ -7,10 +7,10 @@ import { ArrowRight, Calculator } from 'lucide-react';
 import { Link } from 'wouter';
 import image1 from '@assets/stock_images/modern_business_prof_e6d6637f.jpg';
 import image2 from '@assets/stock_images/financial_advisor_co_cd5f43f9.jpg';
-import image3 from '@assets/stock_images/entrepreneur_reviewi_d8b8cad0.jpg';
+import image3 from '@assets/stock_images/professional_busines_18a0ae91.jpg';
 import image4 from '@assets/stock_images/modern_business_prof_2525f578.jpg';
 import image5 from '@assets/stock_images/financial_advisor_co_3eccfc80.jpg';
-import image6 from '@assets/stock_images/entrepreneur_reviewi_c85fc2e1.jpg';
+import image6 from '@assets/stock_images/professional_busines_c74b6c1f.jpg';
 import { useLanguage, translations } from '@/lib/i18n';
 
 const heroImages = [image1, image2, image3, image4, image5, image6];
