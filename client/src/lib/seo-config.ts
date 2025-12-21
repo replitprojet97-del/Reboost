@@ -5,7 +5,7 @@ export const seoConfig = {
   defaultDescription: 'SolventisGroup propose des solutions de crédit adaptées à vos projets personnels et professionnels. Accédez rapidement à des fonds avec des taux avantageux et un processus de validation transparent.',
   defaultKeywords: 'crédit professionnel, financement entreprise, prêt personnel, emprunt rapide, taux avantageux, financement PME, crédit société, solution de financement, prêt particulier, crédit auto, prêt immobilier, crédit étudiant, crédit consommation, prêt travaux, crédit renouvelable, prêt sans justificatif, financement pro',
   defaultImage: '/og-image.jpg',
-  twitterHandle: '@altusfinancesgroup',
+  twitterHandle: '@solventisgroup',
   themeColor: '#0066cc',
   locale: 'en_US',
   alternateLangs: ['fr', 'es', 'pt', 'it', 'de'],
@@ -24,9 +24,9 @@ export const seoConfig = {
       longitude: 6.1319
     },
     sameAs: [
-      'https://www.facebook.com/altusfinancesgroup',
-      'https://www.linkedin.com/company/altusfinancesgroup',
-      'https://twitter.com/altusfinancesgroup'
+      'https://www.facebook.com/solventisgroup',
+      'https://www.linkedin.com/company/solventisgroup',
+      'https://twitter.com/solventisgroup'
     ]
   }
 } as const;

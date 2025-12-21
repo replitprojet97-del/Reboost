@@ -63,7 +63,7 @@ export function AppSidebarAdmin() {
       <SidebarContent>
         <div className="p-6" data-testid="text-admin-logo">
           <img 
-            src="/logo-altus-new.png" 
+            src="/logo.png" 
             alt="SolventisGroup Admin" 
             className="h-16 w-auto mx-auto"
           />

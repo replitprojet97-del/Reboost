@@ -98,7 +98,7 @@ export default function AppSidebar() {
         <div className="px-2 py-4 mb-6" data-testid="sidebar-logo">
           <div className="flex flex-col items-center gap-3">
             <img 
-              src="/logo-altus-new.png" 
+              src="/logo.png" 
               alt="SolventisGroup" 
               className="w-28 h-auto drop-shadow-md hover:drop-shadow-lg transition-all duration-300"
             />
