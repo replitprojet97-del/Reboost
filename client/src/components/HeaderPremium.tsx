@@ -182,16 +182,51 @@ export default function HeaderPremium() {
               </Link>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              ref={hamburgerRef}
-              onClick={handleMenuOpen}
-              className="lg:hidden p-2 text-foreground circular-menu-trigger"
-              data-testid="button-mobile-menu"
-              aria-label="Menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
+            {/* Mobile Right Actions */}
+            <div className="flex lg:hidden items-center gap-2">
+              {/* Mobile Language Selector */}
+              <div className="relative" ref={langMenuRef}>
+                <button
+                  onClick={() => setLangMenuOpen(!langMenuOpen)}
+                  className="flex items-center justify-center w-10 h-10 text-foreground/70 hover:text-foreground transition-colors duration-200"
+                  data-testid="button-language-selector-mobile"
+                  aria-label="Language"
+                >
+                  <Globe className="w-5 h-5" />
+                </button>
+
+                {langMenuOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-40 bg-white dark:bg-card rounded-lg shadow-lg border border-border py-1.5 animate-in fade-in slide-in-from-top-2 duration-200 z-[10000]">
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => { setLanguage(lang.code); setLangMenuOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-3 py-2 text-sm transition-colors duration-200 ${
+                          language === lang.code
+                            ? 'bg-muted font-medium text-foreground'
+                            : 'text-foreground/70 hover:bg-muted/50 hover:text-foreground'
+                        }`}
+                        data-testid={`button-language-${lang.code}-mobile`}
+                      >
+                        <span className="font-medium">{lang.flag}</span>
+                        <span>{lang.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                ref={hamburgerRef}
+                onClick={handleMenuOpen}
+                className="p-2 text-foreground circular-menu-trigger"
+                data-testid="button-mobile-menu"
+                aria-label="Menu"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -235,31 +270,6 @@ export default function HeaderPremium() {
                     </Link>
                   ))}
                 </nav>
-
-                {/* Separator */}
-                <div className="circular-menu-divider" />
-
-                {/* Languages */}
-                <div className="circular-menu-languages">
-                  <p className="circular-menu-languages-label">
-                    {t.nav.language}
-                  </p>
-                  <div className="circular-menu-languages-buttons">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => {
-                          setLanguage(lang.code);
-                          handleMenuClose();
-                        }}
-                        className={`circular-menu-lang-button ${language === lang.code ? 'active' : ''}`}
-                        data-testid={`button-mobile-language-${lang.code}`}
-                      >
-                        {lang.flag}
-                      </button>
-                    ))}
-                  </div>
-                </div>
 
                 {/* Separator */}
                 <div className="circular-menu-divider" />
