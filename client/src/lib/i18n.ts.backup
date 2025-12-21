@@ -2555,7 +2555,7 @@ export const translations: Record<Language, TranslationKeys> = {
       faq: 'FAQ',
       about: 'À propos',
       contact: 'Contact',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       dashboard: 'Tableau de bord',
       loans: 'Prêts',
       myLoans: 'Mes prêts',
@@ -2990,7 +2990,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       cta: {
         title: 'Rejoignez des milliers d\'entreprises satisfaites',
-        subtitle: 'Faites confiance à l\'expertise Altus Finances pour financer vos projets les plus ambitieux',
+        subtitle: 'Faites confiance à l\'expertise Solventis Group pour financer vos projets les plus ambitieux',
         button1: 'Demander un financement',
         button2: 'Nous contacter',
       },
@@ -3148,13 +3148,13 @@ export const translations: Record<Language, TranslationKeys> = {
       responseTime: 'Réponse sous 24h',
       businessHours: 'Lun-Ven 9h-18h',
       addressLabel: 'Adresse',
-      addressStreet: '19 Rue Sigismond',
-      addressFull: 'L-2537 Luxembourg',
+      addressStreet: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0',
+      addressFull: 'Ireland',
       formTitle: 'Envoyez-nous un message',
       formSubtitle: 'Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais',
       namePlaceholder: 'Votre nom complet',
       emailPlaceholder: 'votre@email.com',
-      phonePlaceholder: '+352 XX XX XX',
+      phonePlaceholder: '+353 XX XX XX',
       messagePlaceholder: 'Comment pouvons-nous vous aider ?',
       weAreAvailable: 'Nous sommes disponibles',
       responseGuaranteed: 'Réponse garantie sous 24h',
@@ -3315,7 +3315,7 @@ export const translations: Record<Language, TranslationKeys> = {
       years: 'ans',
       features: 'Avantages',
       learnMore: 'En savoir plus',
-      advantagesTitle: 'Avantages Altus Finances Pro',
+      advantagesTitle: 'Avantages Solventis Group Pro',
       advantages: [
         'Conseiller dédié pour votre entreprise',
         'Étude personnalisée de votre dossier',
@@ -3371,7 +3371,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Comment fonctionne le processus de demande en ligne ?',
-          answer: '1) Remplissez notre formulaire en ligne (5 min) et téléchargez vos documents. 2) Analyse de votre dossier par nos experts (24-48h). 3) Recevez votre accord de principe avec conditions. 4) Signature électronique du contrat. 5) Mise en place des garanties. 6) Déblocage des fonds sur votre compte Altus Finances.',
+          answer: '1) Remplissez notre formulaire en ligne (5 min) et téléchargez vos documents. 2) Analyse de votre dossier par nos experts (24-48h). 3) Recevez votre accord de principe avec conditions. 4) Signature électronique du contrat. 5) Mise en place des garanties. 6) Déblocage des fonds sur votre compte Solventis Group.',
         },
         {
           question: 'Puis-je cumuler plusieurs types de financement ?',
@@ -3397,7 +3397,7 @@ export const translations: Record<Language, TranslationKeys> = {
       security: 'Sécurité Bancaire de Niveau Entreprise',
       securityDesc: 'Cryptage AES-256, conformité RGPD, certification SOC 2 Type II et ISO 27001. Vos données financières sont protégées avec les mêmes standards que les grandes banques. Authentification multi-facteurs et surveillance 24/7 contre la fraude.',
       fast: 'Réponse Express - Quelques Minutes à 24h',
-      fastDesc: 'Notre technologie d\'IA analyse votre dossier en temps réel. Réponse de principe en quelques minutes à 24h maximum. Fonds immédiatement débloqués sur votre compte Altus Finances sécurisé. Transférez ensuite vers votre compte bancaire quand vous le souhaitez. 100% digital, zéro paperasse.',
+      fastDesc: 'Notre technologie d\'IA analyse votre dossier en temps réel. Réponse de principe en quelques minutes à 24h maximum. Fonds immédiatement débloqués sur votre compte Solventis Group sécurisé. Transférez ensuite vers votre compte bancaire quand vous le souhaitez. 100% digital, zéro paperasse.',
       competitive: 'Taux Parmi Les Plus Bas du Marché',
       competitiveDesc: 'Grâce à notre réseau de 50+ partenaires financiers et notre technologie d\'évaluation optimisée, nous négocions pour vous les meilleurs taux : de 0,5% à 9,0% TAEG selon profil et type de prêt. Comparaison automatique pour vous garantir la meilleure offre.',
       flexible: 'Flexibilité Maximale Sans Pénalité',
@@ -3458,7 +3458,7 @@ export const translations: Record<Language, TranslationKeys> = {
       ],
     },
     auth: {
-      title: 'Altus Finances',
+      title: 'Solventis Group',
       subtitle: 'Votre partenaire de confiance pour le financement',
       loginTab: 'Connexion',
       signupTab: 'Inscription',
@@ -3480,7 +3480,7 @@ export const translations: Record<Language, TranslationKeys> = {
       signingUp: 'Inscription en cours...',
       backToHome: 'Retour à l\'accueil',
       loginSuccess: 'Connexion réussie !',
-      loginSuccessDesc: 'Bienvenue sur Altus Finances',
+      loginSuccessDesc: 'Bienvenue sur Solventis Group',
       signupSuccess: 'Inscription réussie !',
       signupSuccessDesc: 'Un email de vérification a été envoyé à votre adresse.',
       loginError: 'Erreur de connexion',
@@ -3492,7 +3492,7 @@ export const translations: Record<Language, TranslationKeys> = {
       passwordPlaceholder: '••••••••',
       fullNamePlaceholder: 'Jean Dupont',
       phonePlaceholder: '+33 6 12 34 56 78',
-      companyNamePlaceholder: 'SARL Altus Finances',
+      companyNamePlaceholder: 'SARL Solventis Group',
       siretPlaceholder: '123 456 789 00010',
       required: 'requis',
       companyRequired: 'Le nom de l\'entreprise est requis pour un compte professionnel',
@@ -3501,6 +3501,13 @@ export const translations: Record<Language, TranslationKeys> = {
       passwordUppercase: 'Le mot de passe doit contenir au moins une majuscule',
       passwordLowercase: 'Le mot de passe doit contenir au moins une minuscule',
       passwordNumber: 'Le mot de passe doit contenir au moins un chiffre',
+      panelTitle: 'Secure Finance',
+      panelSubtitle: 'Access Your Accounts',
+      bankEncryption: 'Chiffrement de niveau bancaire',
+      verifiedAuth: 'Authentification vérifiée',
+      twoFactorAvailable: '2FA disponible pour plus de sécurité',
+      complianceStandard: 'Conforme aux normes',
+      internationalCertifications: 'Certifications financières internationales',
       passwordSpecial: 'Le mot de passe doit contenir au moins un caractère spécial',
       passwordMatch: 'Les mots de passe ne correspondent pas',
       invalidOtp: 'Code invalide ou expiré',
@@ -3553,7 +3560,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderCard: 'Commander ma carte',
       orderSuccess: 'Commande de carte virtuelle',
       orderSuccessDesc: 'Votre carte virtuelle est en cours d\'activation. Vous recevrez les détails par email dans quelques instants.',
-      modalTitle: 'Carte Bancaire Professionnelle Altus Finances',
+      modalTitle: 'Carte Bancaire Professionnelle Solventis Group',
       modalSubtitle: 'Une carte bancaire complète pour tous vos besoins professionnels',
       advantagesTitle: 'Avantages de la carte',
       advantages: {
@@ -3797,7 +3804,7 @@ export const translations: Record<Language, TranslationKeys> = {
         declineTerms: 'Refuser',
       },
       welcome: {
-        title: 'Bienvenue sur Altus Finances',
+        title: 'Bienvenue sur Solventis Group',
         description: 'Votre compte a été créé avec succès',
         accountTypeTitle: 'Votre type de compte',
         individualAccount: 'Compte Particulier',
@@ -4049,7 +4056,7 @@ export const translations: Record<Language, TranslationKeys> = {
         `Format IBAN invalide pour ${country}. Attendu : ${expected} caractères (actuellement ${actual}).`,
     },
     welcomeModal: {
-      title: 'Bienvenue sur Altus Finances',
+      title: 'Bienvenue sur Solventis Group',
       description: 'Votre compte a été créé avec succès',
       accountType: 'Votre type de compte',
       individualAccount: 'Compte Particulier',
@@ -4267,7 +4274,7 @@ export const translations: Record<Language, TranslationKeys> = {
         bankLabel: 'Banque',
         transferAmountLabel: 'Montant du transfert',
         senderLabel: 'Expéditeur',
-        senderValue: 'Compte Altus Finances',
+        senderValue: 'Compte Solventis Group',
         recipientLabel: 'Destinataire',
         recipientDefault: 'Banque SEPA',
         referenceLabel: 'Référence',
@@ -4434,11 +4441,11 @@ export const translations: Record<Language, TranslationKeys> = {
       limitExceededFallback: 'Le montant demandé dépasse votre limite de financement autorisée.',
     },
     cardTermsContent: {
-      title: 'Conditions Générales d\'Utilisation - Carte Virtuelle Altus Finances',
+      title: 'Conditions Générales d\'Utilisation - Carte Virtuelle Solventis Group',
       lastUpdated: 'Dernière mise à jour : Novembre 2025',
       section1: {
         title: '1. OBJET ET CHAMP D\'APPLICATION',
-        content: 'Les présentes conditions générales (ci-après « CGU ») régissent l\'utilisation de la carte bancaire virtuelle Altus Finances (ci-après « la Carte Virtuelle »), proposée par SolventisGroup aux clients titulaires d\'un compte Altus Finances (ci-après « le Titulaire »). La Carte Virtuelle est un moyen de paiement dématérialisé lié à votre compte Altus Finances.',
+        content: 'Les présentes conditions générales (ci-après « CGU ») régissent l\'utilisation de la carte bancaire virtuelle Solventis Group (ci-après « la Carte Virtuelle »), proposée par SolventisGroup aux clients titulaires d\'un compte Solventis Group (ci-après « le Titulaire »). La Carte Virtuelle est un moyen de paiement dématérialisé lié à votre compte Solventis Group.',
       },
       section2: {
         title: '2. DESCRIPTION DU SERVICE',
@@ -4452,7 +4459,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '3. CONDITIONS D\'ÉLIGIBILITÉ',
         content: 'Pour obtenir une Carte Virtuelle, le Titulaire doit :',
         list: [
-          'Être client Altus Finances avec un compte actif et approvisionné',
+          'Être client Solventis Group avec un compte actif et approvisionné',
           'Avoir complété la vérification d\'identité (KYC)',
           'Ne pas être en situation de découvert non autorisé',
           'Avoir activé l\'authentification forte (double facteur)',
@@ -4462,7 +4469,7 @@ export const translations: Record<Language, TranslationKeys> = {
       section4: {
         title: '4. ACTIVATION ET UTILISATION',
         subtitle1: '4.1 Activation',
-        content1: 'La Carte Virtuelle est activée instantanément dès sa création via l\'application ou l\'espace client Altus Finances. Le Titulaire reçoit immédiatement les coordonnées complètes de la carte.',
+        content1: 'La Carte Virtuelle est activée instantanément dès sa création via l\'application ou l\'espace client Solventis Group. Le Titulaire reçoit immédiatement les coordonnées complètes de la carte.',
         subtitle2: '4.2 Utilisations autorisées',
         list1: [
           'Paiements sur tous les sites marchands en ligne acceptant Visa/Mastercard',
@@ -4494,7 +4501,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section6: {
         title: '6. PLAFONDS ET LIMITES',
-        content: 'Les plafonds de paiement de la Carte Virtuelle sont identiques à ceux de votre carte principale Altus Finances :',
+        content: 'Les plafonds de paiement de la Carte Virtuelle sont identiques à ceux de votre carte principale Solventis Group :',
         list: [
           'Plafond mensuel : jusqu\'à 50 000 € selon votre profil',
           'Plafond par transaction : jusqu\'à 10 000 €',
@@ -4514,7 +4521,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section8: {
         title: '8. DÉBIT ET RELEVÉ',
-        content: 'Toutes les opérations effectuées avec la Carte Virtuelle sont débitées en temps réel sur votre compte Altus Finances. Elles apparaissent immédiatement dans votre historique de transactions et sur vos relevés mensuels.',
+        content: 'Toutes les opérations effectuées avec la Carte Virtuelle sont débitées en temps réel sur votre compte Solventis Group. Elles apparaissent immédiatement dans votre historique de transactions et sur vos relevés mensuels.',
       },
       section9: {
         title: '9. OPPOSITION ET RÉSILIATION',
@@ -4527,7 +4534,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section10: {
         title: '10. RESPONSABILITÉ',
-        content: 'Altus Finances ne pourra être tenu responsable en cas de :',
+        content: 'Solventis Group ne pourra être tenu responsable en cas de :',
         list: [
           'Refus d\'un commerçant d\'accepter la Carte Virtuelle',
           'Interruption temporaire du service pour maintenance',
@@ -4538,11 +4545,11 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section11: {
         title: '11. DURÉE ET MODIFICATION',
-        content: 'Les présentes CGU sont conclues pour une durée indéterminée. Altus Finances se réserve le droit de modifier les présentes CGU à tout moment. Toute modification sera notifiée au Titulaire au moins 2 mois avant son entrée en vigueur. L\'absence d\'opposition dans ce délai vaudra acceptation.',
+        content: 'Les présentes CGU sont conclues pour une durée indéterminée. Solventis Group se réserve le droit de modifier les présentes CGU à tout moment. Toute modification sera notifiée au Titulaire au moins 2 mois avant son entrée en vigueur. L\'absence d\'opposition dans ce délai vaudra acceptation.',
       },
       section12: {
         title: '12. RÉCLAMATIONS',
-        content: 'Pour toute réclamation, le Titulaire peut contacter le service client Altus Finances :',
+        content: 'Pour toute réclamation, le Titulaire peut contacter le service client Solventis Group :',
         list: [
           'Par email : support@solventisgroup.org',
           'Par téléphone : +33 1 XX XX XX XX',
@@ -4554,7 +4561,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '13. DROIT APPLICABLE ET JURIDICTION',
         content: 'Les présentes CGU sont régies par le droit français. Tout litige relatif à leur interprétation ou exécution relève de la compétence exclusive des tribunaux français.',
       },
-      note: 'En activant votre Carte Virtuelle Altus Finances, vous reconnaissez avoir lu, compris et accepté l\'intégralité des présentes Conditions Générales d\'Utilisation.',
+      note: 'En activant votre Carte Virtuelle Solventis Group, vous reconnaissez avoir lu, compris et accepté l\'intégralité des présentes Conditions Générales d\'Utilisation.',
     },
     processTimeline: {
       title: 'Processus de Financement',
@@ -4682,9 +4689,9 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     footer: {
       description: 'Votre partenaire de confiance pour tous vos projets de financement. Solutions de prêt adaptées aux particuliers et professionnels.',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       email: 'infos@solventisgroup.org',
-      address: '19 Rue Sigismond, L-2537 Luxembourg',
+      address: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland',
       hoursTitle: 'Horaires d\'ouverture',
       hours: {
         weekdays: 'Lun - Ven : 9h00 - 19h00',
@@ -4743,7 +4750,7 @@ export const translations: Record<Language, TranslationKeys> = {
       contact: {
         title: 'Contactez-nous - SolventisGroup | Questions sur nos Prêts Professionnels',
         description: 'Une question sur nos solutions de financement ? Contactez SolventisGroup. Notre équipe est à votre disposition pour vous accompagner dans votre projet de prêt professionnel. Réponse rapide garantie.',
-        keywords: 'contact SolventisGroup, nous contacter, service client prêt, aide financement entreprise, support client Altus Finances',
+        keywords: 'contact SolventisGroup, nous contacter, service client prêt, aide financement entreprise, support client Solventis Group',
       },
       howItWorks: {
         title: 'Comment Obtenir un Prêt Pro - Processus Détaillé | SolventisGroup',
@@ -5117,7 +5124,7 @@ export const translations: Record<Language, TranslationKeys> = {
           {
             name: 'Laurent Bertrand',
             role: 'Dirigeant, RestauGourmet',
-            text: 'Grâce à Altus Finances, j\'ai pu ouvrir mon second restaurant. Des solutions flexibles adaptées aux besoins des commerçants.',
+            text: 'Grâce à Solventis Group, j\'ai pu ouvrir mon second restaurant. Des solutions flexibles adaptées aux besoins des commerçants.',
           },
           {
             name: 'Émilie Rousseau',
@@ -5290,7 +5297,7 @@ export const translations: Record<Language, TranslationKeys> = {
       faq: 'FAQ',
       about: 'About',
       contact: 'Contact',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       dashboard: 'Dashboard',
       loans: 'Loans',
       myLoans: 'My Loans',
@@ -5635,7 +5642,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       cta: {
         title: 'Join thousands of satisfied companies',
-        subtitle: 'Trust Altus Finances expertise to finance your most ambitious projects',
+        subtitle: 'Trust Solventis Group expertise to finance your most ambitious projects',
         button1: 'Request financing',
         button2: 'Contact us',
       },
@@ -5654,7 +5661,7 @@ export const translations: Record<Language, TranslationKeys> = {
       step3Desc: 'Once your application is approved, funds are immediately released to your secure SolventisGroup account. You maintain full control of your funds with 24/7 access from your client dashboard.',
       step3Duration: '< 24h',
       step4Title: 'Transfer to Your Account - At Your Pace',
-      step4Desc: 'Transfer your funds whenever you want to your personal or business bank account directly from your Altus Finances dashboard. Instant or scheduled transfers according to your needs, with no additional fees.',
+      step4Desc: 'Transfer your funds whenever you want to your personal or business bank account directly from your Solventis Group dashboard. Instant or scheduled transfers according to your needs, with no additional fees.',
       step4Duration: 'Immediate',
       averageTimePrefix: 'Average total time:',
       averageTimeValue: '2 to 3 weeks from application submission to fund disbursement',
@@ -5791,13 +5798,13 @@ export const translations: Record<Language, TranslationKeys> = {
       responseTime: 'Response within 24h',
       businessHours: 'Mon-Fri 9am-6pm',
       addressLabel: 'Address',
-      addressStreet: '19 Rue Sigismond',
-      addressFull: 'L-2537 Luxembourg',
+      addressStreet: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0',
+      addressFull: 'Ireland',
       formTitle: 'Send us a message',
       formSubtitle: 'Fill out the form below and we will get back to you as soon as possible',
       namePlaceholder: 'Your full name',
       emailPlaceholder: 'your@email.com',
-      phonePlaceholder: '+352 XX XX XX',
+      phonePlaceholder: '+353 XX XX XX',
       messagePlaceholder: 'How can we help you?',
       weAreAvailable: 'We are available',
       responseGuaranteed: 'Response guaranteed within 24h',
@@ -5958,7 +5965,7 @@ export const translations: Record<Language, TranslationKeys> = {
       years: 'years',
       features: 'Advantages',
       learnMore: 'Learn more',
-      advantagesTitle: 'Altus Finances Pro Advantages',
+      advantagesTitle: 'Solventis Group Pro Advantages',
       advantages: [
         'Dedicated advisor for your business',
         'Personalized study of your file',
@@ -6014,7 +6021,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'How does the online application process work?',
-          answer: '1) Fill out our online form (5 min) and upload your documents. 2) Analysis of your application by our experts (24-48h). 3) Receive your approval in principle with conditions. 4) Electronic signature of contract. 5) Guarantee setup. 6) Fund disbursement to your Altus Finances account.',
+          answer: '1) Fill out our online form (5 min) and upload your documents. 2) Analysis of your application by our experts (24-48h). 3) Receive your approval in principle with conditions. 4) Electronic signature of contract. 5) Guarantee setup. 6) Fund disbursement to your Solventis Group account.',
         },
         {
           question: 'Can I combine multiple types of financing?',
@@ -6040,7 +6047,7 @@ export const translations: Record<Language, TranslationKeys> = {
       security: 'Enterprise-Grade Banking Security',
       securityDesc: 'AES-256 encryption, GDPR compliance, SOC 2 Type II and ISO 27001 certification. Your financial data is protected with the same standards as major banks. Multi-factor authentication and 24/7 fraud monitoring.',
       fast: 'Express Response - Minutes to 24h',
-      fastDesc: 'Our AI technology analyzes your file in real-time. Approval response in minutes to 24 hours maximum. Funds immediately released to your secure Altus Finances account. Then transfer to your bank account whenever you want. 100% digital, zero paperwork.',
+      fastDesc: 'Our AI technology analyzes your file in real-time. Approval response in minutes to 24 hours maximum. Funds immediately released to your secure Solventis Group account. Then transfer to your bank account whenever you want. 100% digital, zero paperwork.',
       competitive: 'Among The Lowest Rates on the Market',
       competitiveDesc: 'Thanks to our network of 50+ financial partners and optimized assessment technology, we negotiate the best rates for you: from 0.5% to 9.0% APR depending on profile and loan type. Automatic comparison to guarantee you the best offer.',
       flexible: 'Maximum Flexibility Without Penalty',
@@ -6089,7 +6096,7 @@ export const translations: Record<Language, TranslationKeys> = {
       ],
     },
     auth: {
-      title: 'Altus Finances',
+      title: 'Solventis Group',
       subtitle: 'Your trusted partner for financing',
       loginTab: 'Login',
       signupTab: 'Sign up',
@@ -6111,7 +6118,7 @@ export const translations: Record<Language, TranslationKeys> = {
       signingUp: 'Signing up...',
       backToHome: 'Back to home',
       loginSuccess: 'Login successful!',
-      loginSuccessDesc: 'Welcome to Altus Finances',
+      loginSuccessDesc: 'Welcome to Solventis Group',
       signupSuccess: 'Sign up successful!',
       signupSuccessDesc: 'A verification email has been sent to your address.',
       loginError: 'Login error',
@@ -6121,6 +6128,13 @@ export const translations: Record<Language, TranslationKeys> = {
       emailNotVerified: 'Email not verified',
       emailPlaceholder: 'john.doe@example.com',
       passwordPlaceholder: '••••••••',
+      panelTitle: 'Secure Finance',
+      panelSubtitle: 'Access Your Accounts',
+      bankEncryption: 'Bank-level encryption',
+      verifiedAuth: 'Verified authentication',
+      twoFactorAvailable: '2FA available for enhanced security',
+      complianceStandard: 'Compliant with industry standards',
+      internationalCertifications: 'International financial certifications',
       fullNamePlaceholder: 'John Doe',
       phonePlaceholder: '+44 20 1234 5678',
       companyNamePlaceholder: 'Company Ltd',
@@ -6279,7 +6293,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderCard: 'Order my card',
       orderSuccess: 'Virtual card order',
       orderSuccessDesc: 'Your virtual card is being activated. You will receive details by email shortly.',
-      modalTitle: 'Altus Finances Professional Bank Card',
+      modalTitle: 'Solventis Group Professional Bank Card',
       modalSubtitle: 'A complete bank card for all your professional needs',
       advantagesTitle: 'Card Benefits',
       advantages: {
@@ -6523,7 +6537,7 @@ export const translations: Record<Language, TranslationKeys> = {
         declineTerms: 'Decline',
       },
       welcome: {
-        title: 'Welcome to Altus Finances',
+        title: 'Welcome to Solventis Group',
         description: 'Your account has been successfully created',
         accountTypeTitle: 'Your Account Type',
         individualAccount: 'Personal Account',
@@ -6775,7 +6789,7 @@ export const translations: Record<Language, TranslationKeys> = {
         `Invalid IBAN format for ${country}. Expected: ${expected} characters (currently ${actual}).`,
     },
     welcomeModal: {
-      title: 'Welcome to Altus Finances',
+      title: 'Welcome to Solventis Group',
       description: 'Your account has been successfully created',
       accountType: 'Your Account Type',
       individualAccount: 'Personal Account',
@@ -6993,7 +7007,7 @@ export const translations: Record<Language, TranslationKeys> = {
         bankLabel: 'Bank',
         transferAmountLabel: 'Transfer Amount',
         senderLabel: 'Sender',
-        senderValue: 'Altus Finances Account',
+        senderValue: 'Solventis Group Account',
         recipientLabel: 'Recipient',
         recipientDefault: 'SEPA Bank',
         referenceLabel: 'Reference',
@@ -7160,11 +7174,11 @@ export const translations: Record<Language, TranslationKeys> = {
       limitExceededFallback: 'The requested amount exceeds your authorized financing limit.',
     },
     cardTermsContent: {
-      title: 'Terms and Conditions - Altus Finances Virtual Card',
+      title: 'Terms and Conditions - Solventis Group Virtual Card',
       lastUpdated: 'Last updated: November 2025',
       section1: {
         title: '1. PURPOSE AND SCOPE',
-        content: 'These general terms and conditions (hereinafter "T&C") govern the use of the Altus Finances virtual bank card (hereinafter "Virtual Card"), offered by SolventisGroup to customers holding an Altus Finances account (hereinafter "Cardholder"). The Virtual Card is a dematerialized means of payment linked to your Altus Finances account.',
+        content: 'These general terms and conditions (hereinafter "T&C") govern the use of the Solventis Group virtual bank card (hereinafter "Virtual Card"), offered by SolventisGroup to customers holding an Solventis Group account (hereinafter "Cardholder"). The Virtual Card is a dematerialized means of payment linked to your Solventis Group account.',
       },
       section2: {
         title: '2. SERVICE DESCRIPTION',
@@ -7178,7 +7192,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '3. ELIGIBILITY CONDITIONS',
         content: 'To obtain a Virtual Card, the Cardholder must:',
         list: [
-          'Be an Altus Finances customer with an active and funded account',
+          'Be an Solventis Group customer with an active and funded account',
           'Have completed identity verification (KYC)',
           'Not be in an unauthorized overdraft situation',
           'Have activated strong authentication (two-factor)',
@@ -7188,7 +7202,7 @@ export const translations: Record<Language, TranslationKeys> = {
       section4: {
         title: '4. ACTIVATION AND USE',
         subtitle1: '4.1 Activation',
-        content1: 'The Virtual Card is instantly activated upon creation via the Altus Finances application or client area. The Cardholder immediately receives the complete card credentials.',
+        content1: 'The Virtual Card is instantly activated upon creation via the Solventis Group application or client area. The Cardholder immediately receives the complete card credentials.',
         subtitle2: '4.2 Authorized Uses',
         list1: [
           'Payments on all online merchant sites accepting Visa/Mastercard',
@@ -7220,7 +7234,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section6: {
         title: '6. LIMITS AND CEILINGS',
-        content: 'The Virtual Card payment limits are identical to those of your main Altus Finances card:',
+        content: 'The Virtual Card payment limits are identical to those of your main Solventis Group card:',
         list: [
           'Monthly limit: up to €50,000 depending on your profile',
           'Per transaction limit: up to €10,000',
@@ -7240,7 +7254,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section8: {
         title: '8. DEBIT AND STATEMENT',
-        content: 'All operations performed with the Virtual Card are debited in real-time from your Altus Finances account. They appear immediately in your transaction history and on your monthly statements.',
+        content: 'All operations performed with the Virtual Card are debited in real-time from your Solventis Group account. They appear immediately in your transaction history and on your monthly statements.',
       },
       section9: {
         title: '9. OPPOSITION AND TERMINATION',
@@ -7253,7 +7267,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section10: {
         title: '10. LIABILITY',
-        content: 'Altus Finances cannot be held liable in case of:',
+        content: 'Solventis Group cannot be held liable in case of:',
         list: [
           'Merchant refusal to accept the Virtual Card',
           'Temporary service interruption for maintenance',
@@ -7264,11 +7278,11 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section11: {
         title: '11. TERM AND MODIFICATION',
-        content: 'These T&C are concluded for an indefinite period. Altus Finances reserves the right to modify these T&C at any time. Any modification will be notified to the Cardholder at least 2 months before its entry into force. Absence of opposition within this period will constitute acceptance.',
+        content: 'These T&C are concluded for an indefinite period. Solventis Group reserves the right to modify these T&C at any time. Any modification will be notified to the Cardholder at least 2 months before its entry into force. Absence of opposition within this period will constitute acceptance.',
       },
       section12: {
         title: '12. COMPLAINTS',
-        content: 'For any complaint, the Cardholder may contact Altus Finances customer service:',
+        content: 'For any complaint, the Cardholder may contact Solventis Group customer service:',
         list: [
           'By email: support@solventisgroup.org',
           'By phone: +44 XX XX XX XX',
@@ -7280,7 +7294,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '13. APPLICABLE LAW AND JURISDICTION',
         content: 'These T&C are governed by English law. Any dispute relating to their interpretation or execution falls under the exclusive jurisdiction of English courts.',
       },
-      note: 'By activating your Altus Finances Virtual Card, you acknowledge having read, understood, and accepted all of these Terms and Conditions.',
+      note: 'By activating your Solventis Group Virtual Card, you acknowledge having read, understood, and accepted all of these Terms and Conditions.',
     },
     processTimeline: {
       title: 'Financing Process',
@@ -7408,9 +7422,9 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     footer: {
       description: 'Your trusted partner for all your financing projects. Loan solutions tailored to individuals and professionals.',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       email: 'infos@solventisgroup.org',
-      address: '19 Rue Sigismond, L-2537 Luxembourg',
+      address: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland',
       hoursTitle: 'Opening Hours',
       hours: {
         weekdays: 'Mon - Fri: 9:00 AM - 7:00 PM',
@@ -7839,7 +7853,7 @@ export const translations: Record<Language, TranslationKeys> = {
           {
             name: 'Laurent Bertrand',
             role: 'Owner, RestauGourmet',
-            text: 'Thanks to Altus Finances, I was able to open my second restaurant. Flexible solutions adapted to the needs of retailers.',
+            text: 'Thanks to Solventis Group, I was able to open my second restaurant. Flexible solutions adapted to the needs of retailers.',
           },
           {
             name: 'Émilie Rousseau',
@@ -8012,7 +8026,7 @@ export const translations: Record<Language, TranslationKeys> = {
       faq: 'Preguntas frecuentes',
       about: 'Acerca de',
       contact: 'Contacto',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       dashboard: 'Panel de control',
       loans: 'Préstamos',
       myLoans: 'Mis préstamos',
@@ -8350,7 +8364,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       cta: {
         title: 'Únase a miles de empresas satisfechas',
-        subtitle: 'Confíe en la experiencia de Altus Finances para financiar sus proyectos más ambiciosos',
+        subtitle: 'Confíe en la experiencia de Solventis Group para financiar sus proyectos más ambiciosos',
         button1: 'Solicitar financiación',
         button2: 'Contactar',
       },
@@ -8508,13 +8522,13 @@ export const translations: Record<Language, TranslationKeys> = {
       responseTime: 'Respuesta en 24h',
       businessHours: 'Lun-Vie 9h-18h',
       addressLabel: 'Dirección',
-      addressStreet: '19 Rue Sigismond',
-      addressFull: 'L-2537 Luxemburgo',
+      addressStreet: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0',
+      addressFull: 'N91 X6Y0, Ireland',
       formTitle: 'Envíenos un mensaje',
       formSubtitle: 'Complete el formulario a continuación y le responderemos lo antes posible',
       namePlaceholder: 'Su nombre completo',
       emailPlaceholder: 'su@email.com',
-      phonePlaceholder: '+352 XX XX XX',
+      phonePlaceholder: '+353 XX XX XX',
       messagePlaceholder: '¿Cómo podemos ayudarle?',
       weAreAvailable: 'Estamos disponibles',
       responseGuaranteed: 'Respuesta garantizada en 24h',
@@ -8649,7 +8663,7 @@ export const translations: Record<Language, TranslationKeys> = {
       security: 'Seguridad Bancaria de Nivel Empresarial',
       securityDesc: 'Cifrado AES-256, cumplimiento RGPD, certificación SOC 2 Type II e ISO 27001. Sus datos financieros están protegidos con los mismos estándares que los grandes bancos. Autenticación multifactor y monitoreo 24/7 contra fraude.',
       fast: 'Respuesta Express - Minutos a 24h',
-      fastDesc: 'Nuestra tecnología de IA analiza su expediente en tiempo real. Respuesta de aprobación en minutos a 24 horas máximo. Fondos inmediatamente desbloqueados en su cuenta segura Altus Finances. Luego transfiera a su cuenta bancaria cuando desee. 100% digital, cero papeleo.',
+      fastDesc: 'Nuestra tecnología de IA analiza su expediente en tiempo real. Respuesta de aprobación en minutos a 24 horas máximo. Fondos inmediatamente desbloqueados en su cuenta segura Solventis Group. Luego transfiera a su cuenta bancaria cuando desee. 100% digital, cero papeleo.',
       competitive: 'Entre Las Tasas Más Bajas del Mercado',
       competitiveDesc: 'Gracias a nuestra red de 50+ socios financieros y tecnología de evaluación optimizada, negociamos para usted las mejores tasas: de 0.5% a 9.0% TAE según perfil y tipo de préstamo. Comparación automática para garantizarle la mejor oferta.',
       flexible: 'Flexibilidad Máxima Sin Penalización',
@@ -8710,7 +8724,7 @@ export const translations: Record<Language, TranslationKeys> = {
       ],
     },
     auth: {
-      title: 'Altus Finances',
+      title: 'Solventis Group',
       subtitle: 'Su socio de confianza para financiamiento',
       loginTab: 'Iniciar sesión',
       signupTab: 'Registrarse',
@@ -8732,13 +8746,20 @@ export const translations: Record<Language, TranslationKeys> = {
       signingUp: 'Registrándose...',
       backToHome: 'Volver al inicio',
       loginSuccess: '¡Inicio de sesión exitoso!',
-      loginSuccessDesc: 'Bienvenido a Altus Finances',
+      loginSuccessDesc: 'Bienvenido a Solventis Group',
       signupSuccess: '¡Registro exitoso!',
       signupSuccessDesc: 'Se ha enviado un correo de verificación a su dirección.',
       loginError: 'Error de inicio de sesión',
       loginErrorDesc: 'Correo electrónico o contraseña incorrectos',
       signupError: 'Error',
       signupErrorDesc: 'Ocurrió un error durante el registro',
+      panelTitle: 'Finanzas Seguras',
+      panelSubtitle: 'Accede a tus cuentas',
+      bankEncryption: 'Cifrado de nivel bancario',
+      verifiedAuth: 'Autenticación verificada',
+      twoFactorAvailable: '2FA disponible para mayor seguridad',
+      complianceStandard: 'Cumple con los estándares',
+      internationalCertifications: 'Certificaciones financieras internacionales',
       emailNotVerified: 'Correo electrónico no verificado',
       emailPlaceholder: 'juan.perez@example.com',
       passwordPlaceholder: '••••••••',
@@ -8900,7 +8921,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderCard: 'Ordenar mi tarjeta',
       orderSuccess: 'Pedido de tarjeta virtual',
       orderSuccessDesc: 'Su tarjeta virtual se está activando. Recibirá los detalles por correo en breve.',
-      modalTitle: 'Tarjeta Bancaria Profesional Altus Finances',
+      modalTitle: 'Tarjeta Bancaria Profesional Solventis Group',
       modalSubtitle: 'Una tarjeta bancaria completa para todas sus necesidades profesionales',
       advantagesTitle: 'Ventajas de la tarjeta',
       advantages: {
@@ -9144,7 +9165,7 @@ export const translations: Record<Language, TranslationKeys> = {
         declineTerms: 'Rechazar',
       },
       welcome: {
-        title: 'Bienvenido a Altus Finances',
+        title: 'Bienvenido a Solventis Group',
         description: 'Su cuenta ha sido creada exitosamente',
         accountTypeTitle: 'Su Tipo de Cuenta',
         individualAccount: 'Cuenta Personal',
@@ -9394,7 +9415,7 @@ export const translations: Record<Language, TranslationKeys> = {
         `Formato IBAN inválido para ${country}. Esperado: ${expected} caracteres (actualmente ${actual}).`,
     },
     welcomeModal: {
-      title: 'Bienvenido a Altus Finances',
+      title: 'Bienvenido a Solventis Group',
       description: 'Su cuenta ha sido creada exitosamente',
       accountType: 'Su Tipo de Cuenta',
       individualAccount: 'Cuenta Personal',
@@ -9612,7 +9633,7 @@ export const translations: Record<Language, TranslationKeys> = {
         stepsTitle: 'Pasos de la transferencia',
         transferAmountLabel: 'Monto de transferencia',
         senderLabel: 'Emisor',
-        senderValue: 'Cuenta Altus Finances',
+        senderValue: 'Cuenta Solventis Group',
         recipientLabel: 'Destinatario',
         recipientDefault: 'Banco SEPA',
         referenceLabel: 'Referencia',
@@ -9779,11 +9800,11 @@ export const translations: Record<Language, TranslationKeys> = {
       limitExceededFallback: 'El monto solicitado supera su límite de financiamiento autorizado.',
     },
     cardTermsContent: {
-      title: 'Condiciones Generales de Uso - Tarjeta Virtual Altus Finances',
+      title: 'Condiciones Generales de Uso - Tarjeta Virtual Solventis Group',
       lastUpdated: 'Última actualización: Noviembre 2025',
       section1: {
         title: '1. OBJETO Y ÁMBITO DE APLICACIÓN',
-        content: 'Las presentes condiciones generales (en adelante "CGU") rigen el uso de la tarjeta bancaria virtual Altus Finances (en adelante "la Tarjeta Virtual"), propuesta por SolventisGroup a los clientes titulares de una cuenta Altus Finances (en adelante "el Titular"). La Tarjeta Virtual es un medio de pago desmaterializado vinculado a su cuenta Altus Finances.',
+        content: 'Las presentes condiciones generales (en adelante "CGU") rigen el uso de la tarjeta bancaria virtual Solventis Group (en adelante "la Tarjeta Virtual"), propuesta por SolventisGroup a los clientes titulares de una cuenta Solventis Group (en adelante "el Titular"). La Tarjeta Virtual es un medio de pago desmaterializado vinculado a su cuenta Solventis Group.',
       },
       section2: {
         title: '2. DESCRIPCIÓN DEL SERVICIO',
@@ -9797,7 +9818,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '3. CONDICIONES DE ELEGIBILIDAD',
         content: 'Para obtener una Tarjeta Virtual, el Titular debe:',
         list: [
-          'Ser cliente Altus Finances con una cuenta activa y con fondos',
+          'Ser cliente Solventis Group con una cuenta activa y con fondos',
           'Haber completado la verificación de identidad (KYC)',
           'No estar en situación de descubierto no autorizado',
           'Haber activado la autenticación fuerte (doble factor)',
@@ -9807,7 +9828,7 @@ export const translations: Record<Language, TranslationKeys> = {
       section4: {
         title: '4. ACTIVACIÓN Y USO',
         subtitle1: '4.1 Activación',
-        content1: 'La Tarjeta Virtual se activa instantáneamente desde su creación a través de la aplicación o el área de cliente Altus Finances. El Titular recibe inmediatamente las credenciales completas de la tarjeta.',
+        content1: 'La Tarjeta Virtual se activa instantáneamente desde su creación a través de la aplicación o el área de cliente Solventis Group. El Titular recibe inmediatamente las credenciales completas de la tarjeta.',
         subtitle2: '4.2 Usos Autorizados',
         list1: [
           'Pagos en todos los sitios comerciales en línea que acepten Visa/Mastercard',
@@ -9839,7 +9860,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section6: {
         title: '6. LÍMITES Y TECHOS',
-        content: 'Los límites de pago de la Tarjeta Virtual son idénticos a los de su tarjeta principal Altus Finances:',
+        content: 'Los límites de pago de la Tarjeta Virtual son idénticos a los de su tarjeta principal Solventis Group:',
         list: [
           'Límite mensual: hasta 50.000 € según su perfil',
           'Límite por transacción: hasta 10.000 €',
@@ -9859,7 +9880,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section8: {
         title: '8. DÉBITO Y EXTRACTO',
-        content: 'Todas las operaciones realizadas con la Tarjeta Virtual se debitan en tiempo real de su cuenta Altus Finances. Aparecen inmediatamente en su historial de transacciones y en sus extractos mensuales.',
+        content: 'Todas las operaciones realizadas con la Tarjeta Virtual se debitan en tiempo real de su cuenta Solventis Group. Aparecen inmediatamente en su historial de transacciones y en sus extractos mensuales.',
       },
       section9: {
         title: '9. OPOSICIÓN Y RESOLUCIÓN',
@@ -9872,7 +9893,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section10: {
         title: '10. RESPONSABILIDAD',
-        content: 'Altus Finances no podrá ser responsable en caso de:',
+        content: 'Solventis Group no podrá ser responsable en caso de:',
         list: [
           'Rechazo de un comerciante a aceptar la Tarjeta Virtual',
           'Interrupción temporal del servicio por mantenimiento',
@@ -9883,11 +9904,11 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section11: {
         title: '11. DURACIÓN Y MODIFICACIÓN',
-        content: 'Las presentes CGU se concluyen por duración indeterminada. Altus Finances se reserva el derecho de modificar las presentes CGU en cualquier momento. Toda modificación será notificada al Titular al menos 2 meses antes de su entrada en vigor. La ausencia de oposición en este plazo valdrá aceptación.',
+        content: 'Las presentes CGU se concluyen por duración indeterminada. Solventis Group se reserva el derecho de modificar las presentes CGU en cualquier momento. Toda modificación será notificada al Titular al menos 2 meses antes de su entrada en vigor. La ausencia de oposición en este plazo valdrá aceptación.',
       },
       section12: {
         title: '12. RECLAMACIONES',
-        content: 'Para cualquier reclamación, el Titular puede contactar al servicio de atención al cliente Altus Finances:',
+        content: 'Para cualquier reclamación, el Titular puede contactar al servicio de atención al cliente Solventis Group:',
         list: [
           'Por correo electrónico: support@solventisgroup.org',
           'Por teléfono: +34 XX XX XX XX',
@@ -9899,7 +9920,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '13. DERECHO APLICABLE Y JURISDICCIÓN',
         content: 'Las presentes CGU se rigen por el derecho español. Todo litigio relativo a su interpretación o ejecución es competencia exclusiva de los tribunales españoles.',
       },
-      note: 'Al activar su Tarjeta Virtual Altus Finances, usted reconoce haber leído, comprendido y aceptado la totalidad de las presentes Condiciones Generales de Uso.',
+      note: 'Al activar su Tarjeta Virtual Solventis Group, usted reconoce haber leído, comprendido y aceptado la totalidad de las presentes Condiciones Generales de Uso.',
     },
     processTimeline: {
       title: 'Proceso de Financiamiento',
@@ -10027,9 +10048,9 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     footer: {
       description: 'Su socio de confianza para todos sus proyectos de financiamiento. Soluciones de préstamo adaptadas a particulares y profesionales.',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       email: 'infos@solventisgroup.org',
-      address: '19 Rue Sigismond, L-2537 Luxembourg',
+      address: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland',
       hoursTitle: 'Horario de Atención',
       hours: {
         weekdays: 'Lun - Vie: 9:00 - 19:00',
@@ -10142,7 +10163,7 @@ export const translations: Record<Language, TranslationKeys> = {
       years: 'años',
       features: 'Ventajas',
       learnMore: 'Más información',
-      advantagesTitle: 'Ventajas Altus Finances Pro',
+      advantagesTitle: 'Ventajas Solventis Group Pro',
       advantages: [
         'Asesor dedicado para su empresa',
         'Estudio personalizado de su expediente',
@@ -10198,7 +10219,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: '¿Cómo funciona el proceso de solicitud en línea?',
-          answer: '1) Complete nuestro formulario en línea (5 min) y cargue sus documentos. 2) Análisis de su solicitud por nuestros expertos (24-48h). 3) Reciba su aprobación en principio con condiciones. 4) Firma electrónica del contrato. 5) Configuración de garantías. 6) Desembolso de fondos en su cuenta Altus Finances.',
+          answer: '1) Complete nuestro formulario en línea (5 min) y cargue sus documentos. 2) Análisis de su solicitud por nuestros expertos (24-48h). 3) Reciba su aprobación en principio con condiciones. 4) Firma electrónica del contrato. 5) Configuración de garantías. 6) Desembolso de fondos en su cuenta Solventis Group.',
         },
         {
           question: '¿Puedo combinar múltiples tipos de financiamiento?',
@@ -10555,7 +10576,7 @@ export const translations: Record<Language, TranslationKeys> = {
           {
             name: 'Laurent Bertrand',
             role: 'Director, RestauGourmet',
-            text: 'Gracias a Altus Finances, pude abrir mi segundo restaurante. Soluciones flexibles adaptadas a las necesidades de los comerciantes.',
+            text: 'Gracias a Solventis Group, pude abrir mi segundo restaurante. Soluciones flexibles adaptadas a las necesidades de los comerciantes.',
           },
           {
             name: 'Emilia Rousseau',
@@ -10728,7 +10749,7 @@ export const translations: Record<Language, TranslationKeys> = {
       faq: 'FAQ',
       about: 'Sobre',
       contact: 'Contato',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       dashboard: 'Painel',
       loans: 'Empréstimos',
       myLoans: 'Meus Empréstimos',
@@ -11067,7 +11088,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       cta: {
         title: 'Junte-se a milhares de empresas satisfeitas',
-        subtitle: 'Confie na expertise da Altus Finances para financiar os seus projetos mais ambiciosos',
+        subtitle: 'Confie na expertise da Solventis Group para financiar os seus projetos mais ambiciosos',
         button1: 'Solicitar financiamento',
         button2: 'Contactar',
       },
@@ -11225,13 +11246,13 @@ export const translations: Record<Language, TranslationKeys> = {
       responseTime: 'Resposta em 24h',
       businessHours: 'Seg-Sex 9h-18h',
       addressLabel: 'Endereço',
-      addressStreet: '19 Rue Sigismond',
-      addressFull: 'L-2537 Luxemburgo',
+      addressStreet: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0',
+      addressFull: 'N91 X6Y0, Ireland',
       formTitle: 'Envie-nos uma mensagem',
       formSubtitle: 'Preencha o formulário abaixo e responderemos o mais breve possível',
       namePlaceholder: 'Seu nome completo',
       emailPlaceholder: 'seu@email.com',
-      phonePlaceholder: '+352 XX XX XX',
+      phonePlaceholder: '+353 XX XX XX',
       messagePlaceholder: 'Como podemos ajudá-lo?',
       weAreAvailable: 'Estamos disponíveis',
       responseGuaranteed: 'Resposta garantida em 24h',
@@ -11366,7 +11387,7 @@ export const translations: Record<Language, TranslationKeys> = {
       security: 'Segurança Bancária de Nível Empresarial',
       securityDesc: 'Criptografia AES-256, conformidade GDPR, certificação SOC 2 Type II e ISO 27001. Seus dados financeiros são protegidos com os mesmos padrões dos grandes bancos. Autenticação multifator e monitoramento 24/7 contra fraude.',
       fast: 'Resposta Expressa - Minutos a 24h',
-      fastDesc: 'Nossa tecnologia de IA analisa seu arquivo em tempo real. Resposta de aprovação em minutos a 24 horas no máximo. Fundos imediatamente liberados em sua conta segura Altus Finances. Depois transfira para sua conta bancária quando quiser. 100% digital, zero papelada.',
+      fastDesc: 'Nossa tecnologia de IA analisa seu arquivo em tempo real. Resposta de aprovação em minutos a 24 horas no máximo. Fundos imediatamente liberados em sua conta segura Solventis Group. Depois transfira para sua conta bancária quando quiser. 100% digital, zero papelada.',
       competitive: 'Entre as Taxas Mais Baixas do Mercado',
       competitiveDesc: 'Graças à nossa rede de 50+ parceiros financeiros e tecnologia de avaliação otimizada, negociamos as melhores taxas para você: de 0,5% a 9,0% TAE dependendo do perfil e tipo de empréstimo. Comparação automática para garantir a melhor oferta.',
       flexible: 'Flexibilidade Máxima Sem Penalidade',
@@ -11427,7 +11448,7 @@ export const translations: Record<Language, TranslationKeys> = {
       ],
     },
     auth: {
-      title: 'Altus Finances',
+      title: 'Solventis Group',
       subtitle: 'Seu parceiro de confiança para financiamento',
       loginTab: 'Entrar',
       signupTab: 'Cadastrar',
@@ -11449,7 +11470,7 @@ export const translations: Record<Language, TranslationKeys> = {
       signingUp: 'Cadastrando...',
       backToHome: 'Voltar ao início',
       loginSuccess: 'Login bem-sucedido!',
-      loginSuccessDesc: 'Bem-vindo à Altus Finances',
+      loginSuccessDesc: 'Bem-vindo à Solventis Group',
       signupSuccess: 'Cadastro bem-sucedido!',
       signupSuccessDesc: 'Um e-mail de verificação foi enviado para seu endereço.',
       loginError: 'Erro de login',
@@ -11465,6 +11486,13 @@ export const translations: Record<Language, TranslationKeys> = {
       invalidCredentials: 'Credenciais inválidas',
       pleaseVerifyEmail: 'Por favor verifique seu email antes de fazer login',
       accountCreationError: 'Não foi possível criar a conta. Por favor verifique suas informações.',
+      panelTitle: 'Sichere Finanzlösungen',
+      panelSubtitle: 'Zugriff auf Ihre Konten',
+      bankEncryption: 'Verschlüsselung auf Bankniveau',
+      verifiedAuth: 'Verifizierte Authentifizierung',
+      twoFactorAvailable: '2FA für zusätzliche Sicherheit verfügbar',
+      complianceStandard: 'Konform mit geltenden Standards',
+      internationalCertifications: 'Internationale Finanzzertifizierungen',
       twoFactorEnabledSuccess: 'Autenticação de dois fatores ativada com sucesso',
       twoFactorDisabledSuccess: 'Autenticação de dois fatores desativada',
       passwordResetSuccess: 'Senha redefinida com sucesso. Você já pode fazer login.',
@@ -11609,7 +11637,7 @@ export const translations: Record<Language, TranslationKeys> = {
       invalidFile: 'Arquivo inválido',
     },
     bankCard: {
-      title: 'Cartão Bancário Premium Altus Finances',
+      title: 'Cartão Bancário Premium Solventis Group',
       subtitle: 'Peça seu cartão exclusivo e aproveite vantagens excepcionais',
       learnMore: 'Saiba Mais',
       viewDetails: 'Ver detalhes',
@@ -11617,7 +11645,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderCard: 'Pedir Cartão',
       orderSuccess: 'Pedido de cartão virtual',
       orderSuccessDesc: 'Seu cartão virtual está sendo ativado. Você receberá detalhes por e-mail em breve.',
-      modalTitle: 'Cartão Bancário Premium Altus Finances',
+      modalTitle: 'Cartão Bancário Premium Solventis Group',
       modalSubtitle: 'Descubra todas as vantagens do nosso cartão exclusivo',
       advantagesTitle: 'Vantagens Exclusivas',
       advantages: {
@@ -11677,7 +11705,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       orderProcess: 'Processo de Pedido',
       orderProcessDesc: 'Preencha o formulário de pedido, forneça seus documentos, aguarde a aprovação (24-48h) e receba seu cartão em casa.',
-      termsConditions: 'Termos e Condições do Cartão Premium Altus Finances',
+      termsConditions: 'Termos e Condições do Cartão Premium Solventis Group',
       close: 'Fechar',
     },
     notifications: {
@@ -11856,7 +11884,7 @@ export const translations: Record<Language, TranslationKeys> = {
         missingDocumentsPrefix: 'Por favor, anexe todos os documentos obrigatórios:',
       },
       cardTerms: {
-        title: 'Termos e Condições do Cartão Premium Altus Finances',
+        title: 'Termos e Condições do Cartão Premium Solventis Group',
         acceptTerms: 'Aceitar e Pedir Cartão',
         declineTerms: 'Recusar',
       },
@@ -12329,7 +12357,7 @@ export const translations: Record<Language, TranslationKeys> = {
         bankLabel: 'Banco',
         transferAmountLabel: 'Valor da transferência',
         senderLabel: 'Remetente',
-        senderValue: 'Conta Altus Finances',
+        senderValue: 'Conta Solventis Group',
         recipientLabel: 'Destinatário',
         recipientDefault: 'Banco SEPA',
         referenceLabel: 'Referência',
@@ -12496,11 +12524,11 @@ export const translations: Record<Language, TranslationKeys> = {
       limitExceededFallback: 'O valor solicitado excede seu limite de financiamento autorizado.',
     },
     cardTermsContent: {
-      title: 'Termos e Condições de Uso - Cartão Virtual Altus Finances',
+      title: 'Termos e Condições de Uso - Cartão Virtual Solventis Group',
       lastUpdated: 'Última atualização: Novembro 2025',
       section1: {
         title: '1. OBJETO E ÂMBITO DE APLICAÇÃO',
-        content: 'Os presentes termos e condições gerais (doravante "TCG") regem o uso do cartão bancário virtual Altus Finances (doravante "Cartão Virtual"), oferecido pela SolventisGroup aos clientes titulares de uma conta Altus Finances (doravante "Titular"). O Cartão Virtual é um meio de pagamento desmaterializado vinculado à sua conta Altus Finances.',
+        content: 'Os presentes termos e condições gerais (doravante "TCG") regem o uso do cartão bancário virtual Solventis Group (doravante "Cartão Virtual"), oferecido pela SolventisGroup aos clientes titulares de uma conta Solventis Group (doravante "Titular"). O Cartão Virtual é um meio de pagamento desmaterializado vinculado à sua conta Solventis Group.',
       },
       section2: {
         title: '2. DESCRIÇÃO DO SERVIÇO',
@@ -12514,7 +12542,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '3. CONDIÇÕES DE ELEGIBILIDADE',
         content: 'Para obter um Cartão Virtual, o Titular deve:',
         list: [
-          'Ser cliente Altus Finances com uma conta ativa e com fundos',
+          'Ser cliente Solventis Group com uma conta ativa e com fundos',
           'Ter concluído a verificação de identidade (KYC)',
           'Não estar em situação de saque a descoberto não autorizado',
           'Ter ativado a autenticação forte (duplo fator)',
@@ -12524,7 +12552,7 @@ export const translations: Record<Language, TranslationKeys> = {
       section4: {
         title: '4. ATIVAÇÃO E USO',
         subtitle1: '4.1 Ativação',
-        content1: 'O Cartão Virtual é ativado instantaneamente após sua criação através do aplicativo ou da área do cliente Altus Finances. O Titular recebe imediatamente as credenciais completas do cartão.',
+        content1: 'O Cartão Virtual é ativado instantaneamente após sua criação através do aplicativo ou da área do cliente Solventis Group. O Titular recebe imediatamente as credenciais completas do cartão.',
         subtitle2: '4.2 Usos Autorizados',
         list1: [
           'Pagamentos em todos os sites comerciais online que aceitem Visa/Mastercard',
@@ -12556,7 +12584,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section6: {
         title: '6. LIMITES E TETOS',
-        content: 'Os limites de pagamento do Cartão Virtual são idênticos aos do seu cartão principal Altus Finances:',
+        content: 'Os limites de pagamento do Cartão Virtual são idênticos aos do seu cartão principal Solventis Group:',
         list: [
           'Limite mensal: até 50.000 € conforme seu perfil',
           'Limite por transação: até 10.000 €',
@@ -12576,7 +12604,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section8: {
         title: '8. DÉBITO E EXTRATO',
-        content: 'Todas as operações realizadas com o Cartão Virtual são debitadas em tempo real da sua conta Altus Finances. Aparecem imediatamente no seu histórico de transações e nos seus extratos mensais.',
+        content: 'Todas as operações realizadas com o Cartão Virtual são debitadas em tempo real da sua conta Solventis Group. Aparecem imediatamente no seu histórico de transações e nos seus extratos mensais.',
       },
       section9: {
         title: '9. OPOSIÇÃO E RESCISÃO',
@@ -12589,7 +12617,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section10: {
         title: '10. RESPONSABILIDADE',
-        content: 'A Altus Finances não poderá ser responsabilizada em caso de:',
+        content: 'A Solventis Group não poderá ser responsabilizada em caso de:',
         list: [
           'Recusa de um comerciante em aceitar o Cartão Virtual',
           'Interrupção temporária do serviço para manutenção',
@@ -12600,11 +12628,11 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section11: {
         title: '11. DURAÇÃO E MODIFICAÇÃO',
-        content: 'Os presentes TCG são celebrados por prazo indeterminado. A Altus Finances reserva-se o direito de modificar os presentes TCG a qualquer momento. Qualquer modificação será notificada ao Titular pelo menos 2 meses antes de sua entrada em vigor. A ausência de oposição neste prazo valerá como aceitação.',
+        content: 'Os presentes TCG são celebrados por prazo indeterminado. A Solventis Group reserva-se o direito de modificar os presentes TCG a qualquer momento. Qualquer modificação será notificada ao Titular pelo menos 2 meses antes de sua entrada em vigor. A ausência de oposição neste prazo valerá como aceitação.',
       },
       section12: {
         title: '12. RECLAMAÇÕES',
-        content: 'Para qualquer reclamação, o Titular pode contatar o atendimento ao cliente Altus Finances:',
+        content: 'Para qualquer reclamação, o Titular pode contatar o atendimento ao cliente Solventis Group:',
         list: [
           'Por e-mail: support@solventisgroup.org',
           'Por telefone: +351 XX XX XX XX',
@@ -12616,7 +12644,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '13. LEI APLICÁVEL E JURISDIÇÃO',
         content: 'Os presentes TCG são regidos pela lei portuguesa. Qualquer litígio relativo à sua interpretação ou execução é da competência exclusiva dos tribunais portugueses.',
       },
-      note: 'Ao ativar o seu Cartão Virtual Altus Finances, você reconhece ter lido, compreendido e aceitado a totalidade dos presentes Termos e Condições de Uso.',
+      note: 'Ao ativar o seu Cartão Virtual Solventis Group, você reconhece ter lido, compreendido e aceitado a totalidade dos presentes Termos e Condições de Uso.',
     },
     processTimeline: {
       title: 'Processo de Financiamento',
@@ -12744,9 +12772,9 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     footer: {
       description: 'Seu parceiro de confiança para todos os seus projetos de financiamento. Soluções de empréstimo adaptadas a particulares e profissionais.',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       email: 'infos@solventisgroup.org',
-      address: '19 Rue Sigismond, L-2537 Luxembourg',
+      address: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland',
       hoursTitle: 'Horário de Atendimento',
       hours: {
         weekdays: 'Seg - Sex: 9h00 - 19h00',
@@ -12859,7 +12887,7 @@ export const translations: Record<Language, TranslationKeys> = {
       years: 'anos',
       features: 'Vantagens',
       learnMore: 'Saiba mais',
-      advantagesTitle: 'Vantagens Altus Finances Pro',
+      advantagesTitle: 'Vantagens Solventis Group Pro',
       advantages: [
         'Consultor dedicado para sua empresa',
         'Estudo personalizado do seu dossiê',
@@ -12915,7 +12943,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Como funciona o processo de solicitação online?',
-          answer: '1) Preencha nosso formulário online (5 min) e carregue seus documentos. 2) Análise de sua solicitação por nossos especialistas (24-48h). 3) Receba sua aprovação de princípio com condições. 4) Assinatura eletrônica do contrato. 5) Configuração de garantia. 6) Desembolso de fundos para sua conta Altus Finances.',
+          answer: '1) Preencha nosso formulário online (5 min) e carregue seus documentos. 2) Análise de sua solicitação por nossos especialistas (24-48h). 3) Receba sua aprovação de princípio com condições. 4) Assinatura eletrônica do contrato. 5) Configuração de garantia. 6) Desembolso de fundos para sua conta Solventis Group.',
         },
         {
           question: 'Posso combinar vários tipos de financiamento?',
@@ -13035,7 +13063,7 @@ export const translations: Record<Language, TranslationKeys> = {
           {
             name: 'Laurent Bertrand',
             role: 'Diretor, RestauGourmet',
-            text: 'Graças à Altus Finances, consegui abrir meu segundo restaurante. Soluções flexíveis adaptadas às necessidades dos comerciantes.',
+            text: 'Graças à Solventis Group, consegui abrir meu segundo restaurante. Soluções flexíveis adaptadas às necessidades dos comerciantes.',
           },
           {
             name: 'Emília Rousseau',
@@ -13256,7 +13284,7 @@ export const translations: Record<Language, TranslationKeys> = {
       faq: 'FAQ',
       about: 'Chi siamo',
       contact: 'Contatti',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       dashboard: 'Pannello di controllo',
       loans: 'Prestiti',
       myLoans: 'I Miei Prestiti',
@@ -13690,7 +13718,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       cta: {
         title: 'Unisciti a migliaia di aziende soddisfatte',
-        subtitle: 'Affidati all\'esperienza di Altus Finances per finanziare i tuoi progetti più ambiziosi',
+        subtitle: 'Affidati all\'esperienza di Solventis Group per finanziare i tuoi progetti più ambiziosi',
         button1: 'Richiedi finanziamento',
         button2: 'Contattaci',
       },
@@ -13848,13 +13876,13 @@ export const translations: Record<Language, TranslationKeys> = {
       responseTime: 'Risposta entro 24h',
       businessHours: 'Lun-Ven 9h-18h',
       addressLabel: 'Indirizzo',
-      addressStreet: '19 Rue Sigismond',
-      addressFull: 'L-2537 Lussemburgo',
+      addressStreet: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0',
+      addressFull: 'N91 X6Y0, Ireland',
       formTitle: 'Inviaci un messaggio',
       formSubtitle: 'Compila il modulo qui sotto e ti risponderemo il prima possibile',
       namePlaceholder: 'Il tuo nome completo',
       emailPlaceholder: 'tua@email.com',
-      phonePlaceholder: '+352 XX XX XX',
+      phonePlaceholder: '+353 XX XX XX',
       messagePlaceholder: 'Come possiamo aiutarti?',
       weAreAvailable: 'Siamo disponibili',
       responseGuaranteed: 'Risposta garantita entro 24h',
@@ -13989,7 +14017,7 @@ export const translations: Record<Language, TranslationKeys> = {
       security: 'Sicurezza bancaria di livello aziendale',
       securityDesc: 'Crittografia AES-256, conformità GDPR, certificazione SOC 2 Type II e ISO 27001. I tuoi dati finanziari sono protetti con gli stessi standard delle grandi banche. Autenticazione multi-fattore e monitoraggio 24/7 contro le frodi.',
       fast: 'Risposta express - Minuti a 24h',
-      fastDesc: 'La nostra tecnologia AI analizza il tuo dossier in tempo reale. Risposta di approvazione da minuti a 24 ore massimo. Fondi immediatamente sbloccati sul tuo conto sicuro Altus Finances. Poi trasferisci sul tuo conto bancario quando vuoi. 100% digitale, zero burocrazia.',
+      fastDesc: 'La nostra tecnologia AI analizza il tuo dossier in tempo reale. Risposta di approvazione da minuti a 24 ore massimo. Fondi immediatamente sbloccati sul tuo conto sicuro Solventis Group. Poi trasferisci sul tuo conto bancario quando vuoi. 100% digitale, zero burocrazia.',
       competitive: 'Tra i tassi più bassi del mercato',
       competitiveDesc: 'Grazie alla nostra rete di 50+ partner finanziari e tecnologia di valutazione ottimizzata, negoziamo i migliori tassi per te: dallo 0,5% al 9,0% APR secondo il profilo e il tipo di prestito. Confronto automatico per garantire la migliore offerta.',
       flexible: 'Massima flessibilità senza penale',
@@ -14050,7 +14078,7 @@ export const translations: Record<Language, TranslationKeys> = {
       ],
     },
     auth: {
-      title: 'Altus Finances',
+      title: 'Solventis Group',
       subtitle: 'Il tuo partner di fiducia per il finanziamento',
       loginTab: 'Accedi',
       signupTab: 'Registrati',
@@ -14072,7 +14100,7 @@ export const translations: Record<Language, TranslationKeys> = {
       signingUp: 'Registrazione in corso...',
       backToHome: 'Torna alla home',
       loginSuccess: 'Accesso riuscito!',
-      loginSuccessDesc: 'Benvenuto su Altus Finances',
+      loginSuccessDesc: 'Benvenuto su Solventis Group',
       signupSuccess: 'Registrazione riuscita!',
       signupSuccessDesc: 'Un\'email di verifica è stata inviata al tuo indirizzo.',
       loginError: 'Errore di accesso',
@@ -14088,6 +14116,13 @@ export const translations: Record<Language, TranslationKeys> = {
       siretPlaceholder: '12345678901',
       required: 'obbligatorio',
       companyRequired: 'Il nome dell\'azienda è obbligatorio per i conti aziendali',
+      panelTitle: 'Finanza Sicura',
+      panelSubtitle: 'Accedi ai tuoi account',
+      bankEncryption: 'Crittografia a livello bancario',
+      verifiedAuth: 'Autenticazione verificata',
+      twoFactorAvailable: '2FA disponibile per una maggiore sicurezza',
+      complianceStandard: 'Conforme agli standard',
+      internationalCertifications: 'Certificazioni finanziarie internazionali',
       emailInvalid: 'Email non valida',
       passwordMinLength: 'La password deve contenere almeno 12 caratteri',
       passwordUppercase: 'La password deve contenere almeno una lettera maiuscola',
@@ -14137,7 +14172,7 @@ export const translations: Record<Language, TranslationKeys> = {
       verificationFailed: 'Verifica fallita',
     },
     bankCard: {
-      title: 'Carta bancaria Premium Altus Finances',
+      title: 'Carta bancaria Premium Solventis Group',
       subtitle: 'Richiedi la tua carta esclusiva e approfitta di vantaggi eccezionali',
       learnMore: 'Scopri di più',
       viewDetails: 'Visualizza dettagli',
@@ -14145,7 +14180,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderCard: 'Richiedi carta',
       orderSuccess: 'Ordine carta virtuale',
       orderSuccessDesc: 'La tua carta virtuale è in attivazione. Riceverai i dettagli via email a breve.',
-      modalTitle: 'Carta bancaria Premium Altus Finances',
+      modalTitle: 'Carta bancaria Premium Solventis Group',
       modalSubtitle: 'Scopri tutti i vantaggi della nostra carta esclusiva',
       advantagesTitle: 'Vantaggi esclusivi',
       advantages: {
@@ -14205,7 +14240,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       orderProcess: 'Processo di richiesta',
       orderProcessDesc: 'Compila il modulo di richiesta, fornisci i tuoi documenti, attendi l\'approvazione (24-48h) e ricevi la tua carta a casa.',
-      termsConditions: 'Termini e condizioni della carta Premium Altus Finances',
+      termsConditions: 'Termini e condizioni della carta Premium Solventis Group',
       close: 'Chiudi',
     },
     notifications: {
@@ -14384,7 +14419,7 @@ export const translations: Record<Language, TranslationKeys> = {
         missingDocumentsPrefix: 'Si prega di allegare tutti i documenti obbligatori:',
       },
       cardTerms: {
-        title: 'Termini e condizioni della carta Premium Altus Finances',
+        title: 'Termini e condizioni della carta Premium Solventis Group',
         acceptTerms: 'Accetta e richiedi carta',
         declineTerms: 'Rifiuta',
       },
@@ -14857,7 +14892,7 @@ export const translations: Record<Language, TranslationKeys> = {
         bankLabel: 'Banca',
         transferAmountLabel: 'Importo del trasferimento',
         senderLabel: 'Mittente',
-        senderValue: 'Conto Altus Finances',
+        senderValue: 'Conto Solventis Group',
         recipientLabel: 'Destinatario',
         recipientDefault: 'Banca SEPA',
         referenceLabel: 'Riferimento',
@@ -15024,11 +15059,11 @@ export const translations: Record<Language, TranslationKeys> = {
       limitExceededFallback: "L'importo richiesto supera il tuo limite di finanziamento autorizzato.",
     },
     cardTermsContent: {
-      title: 'Condizioni Generali d\'Uso - Carta Virtuale Altus Finances',
+      title: 'Condizioni Generali d\'Uso - Carta Virtuale Solventis Group',
       lastUpdated: 'Ultimo aggiornamento: Novembre 2025',
       section1: {
         title: '1. OGGETTO E CAMPO DI APPLICAZIONE',
-        content: 'Le presenti condizioni generali (di seguito "CGU") regolano l\'uso della carta bancaria virtuale Altus Finances (di seguito "la Carta Virtuale"), proposta da SolventisGroup ai clienti titolari di un conto Altus Finances (di seguito "il Titolare"). La Carta Virtuale è un mezzo di pagamento dematerializzato collegato al vostro conto Altus Finances.',
+        content: 'Le presenti condizioni generali (di seguito "CGU") regolano l\'uso della carta bancaria virtuale Solventis Group (di seguito "la Carta Virtuale"), proposta da SolventisGroup ai clienti titolari di un conto Solventis Group (di seguito "il Titolare"). La Carta Virtuale è un mezzo di pagamento dematerializzato collegato al vostro conto Solventis Group.',
       },
       section2: {
         title: '2. DESCRIZIONE DEL SERVIZIO',
@@ -15042,7 +15077,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '3. CONDIZIONI DI IDONEITÀ',
         content: 'Per ottenere una Carta Virtuale, il Titolare deve:',
         list: [
-          'Essere cliente Altus Finances con un conto attivo e finanziato',
+          'Essere cliente Solventis Group con un conto attivo e finanziato',
           'Aver completato la verifica d\'identità (KYC)',
           'Non essere in situazione di scoperto non autorizzato',
           'Aver attivato l\'autenticazione forte (doppio fattore)',
@@ -15052,7 +15087,7 @@ export const translations: Record<Language, TranslationKeys> = {
       section4: {
         title: '4. ATTIVAZIONE E UTILIZZO',
         subtitle1: '4.1 Attivazione',
-        content1: 'La Carta Virtuale viene attivata istantaneamente alla sua creazione tramite l\'applicazione o l\'area clienti Altus Finances. Il Titolare riceve immediatamente le coordinate complete della carta.',
+        content1: 'La Carta Virtuale viene attivata istantaneamente alla sua creazione tramite l\'applicazione o l\'area clienti Solventis Group. Il Titolare riceve immediatamente le coordinate complete della carta.',
         subtitle2: '4.2 Utilizzi autorizzati',
         list1: [
           'Pagamenti su tutti i siti commerciali online che accettano Visa/Mastercard',
@@ -15084,7 +15119,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section6: {
         title: '6. MASSIMALI E LIMITI',
-        content: 'I massimali di pagamento della Carta Virtuale sono identici a quelli della vostra carta principale Altus Finances:',
+        content: 'I massimali di pagamento della Carta Virtuale sono identici a quelli della vostra carta principale Solventis Group:',
         list: [
           'Massimale mensile: fino a 50.000 € secondo il vostro profilo',
           'Massimale per transazione: fino a 10.000 €',
@@ -15104,7 +15139,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section8: {
         title: '8. ADDEBITO E ESTRATTO CONTO',
-        content: 'Tutte le operazioni effettuate con la Carta Virtuale vengono addebitate in tempo reale sul vostro conto Altus Finances. Appaiono immediatamente nella vostra cronologia delle transazioni e sui vostri estratti conto mensili.',
+        content: 'Tutte le operazioni effettuate con la Carta Virtuale vengono addebitate in tempo reale sul vostro conto Solventis Group. Appaiono immediatamente nella vostra cronologia delle transazioni e sui vostri estratti conto mensili.',
       },
       section9: {
         title: '9. OPPOSIZIONE E RISOLUZIONE',
@@ -15117,7 +15152,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section10: {
         title: '10. RESPONSABILITÀ',
-        content: 'Altus Finances non può essere ritenuto responsabile in caso di:',
+        content: 'Solventis Group non può essere ritenuto responsabile in caso di:',
         list: [
           'Rifiuto di un commerciante di accettare la Carta Virtuale',
           'Interruzione temporanea del servizio per manutenzione',
@@ -15128,11 +15163,11 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section11: {
         title: '11. DURATA E MODIFICA',
-        content: 'Le presenti CGU sono concluse per una durata indeterminata. Altus Finances si riserva il diritto di modificare le presenti CGU in qualsiasi momento. Qualsiasi modifica sarà notificata al Titolare almeno 2 mesi prima della sua entrata in vigore. L\'assenza di opposizione entro questo termine varrà come accettazione.',
+        content: 'Le presenti CGU sono concluse per una durata indeterminata. Solventis Group si riserva il diritto di modificare le presenti CGU in qualsiasi momento. Qualsiasi modifica sarà notificata al Titolare almeno 2 mesi prima della sua entrata in vigore. L\'assenza di opposizione entro questo termine varrà come accettazione.',
       },
       section12: {
         title: '12. RECLAMI',
-        content: 'Per qualsiasi reclamo, il Titolare può contattare il servizio clienti Altus Finances:',
+        content: 'Per qualsiasi reclamo, il Titolare può contattare il servizio clienti Solventis Group:',
         list: [
           'Via email: support@solventisgroup.org',
           'Per telefono: +39 XX XX XX XX XX',
@@ -15144,7 +15179,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '13. LEGGE APPLICABILE E GIURISDIZIONE',
         content: 'Le presenti CGU sono regolate dalla legge italiana. Qualsiasi controversia relativa alla loro interpretazione o esecuzione è di competenza esclusiva dei tribunali italiani.',
       },
-      note: 'Attivando la vostra Carta Virtuale Altus Finances, riconoscete di aver letto, compreso e accettato l\'interezza delle presenti Condizioni Generali d\'Uso.',
+      note: 'Attivando la vostra Carta Virtuale Solventis Group, riconoscete di aver letto, compreso e accettato l\'interezza delle presenti Condizioni Generali d\'Uso.',
     },
     processTimeline: {
       title: 'Processo di Finanziamento',
@@ -15272,9 +15307,9 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     footer: {
       description: 'Il vostro partner di fiducia per tutti i vostri progetti di finanziamento. Soluzioni di prestito adattate a privati e professionisti.',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       email: 'infos@solventisgroup.org',
-      address: '19 Rue Sigismond, L-2537 Luxembourg',
+      address: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland',
       hoursTitle: 'Orari di Apertura',
       hours: {
         weekdays: 'Lun - Ven: 9:00 - 19:00',
@@ -15387,7 +15422,7 @@ export const translations: Record<Language, TranslationKeys> = {
       years: 'anni',
       features: 'Vantaggi',
       learnMore: 'Per saperne di più',
-      advantagesTitle: 'Vantaggi Altus Finances Pro',
+      advantagesTitle: 'Vantaggi Solventis Group Pro',
       advantages: [
         'Consulente dedicato per la tua azienda',
         'Studio personalizzato del tuo fascicolo',
@@ -15443,7 +15478,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Come funziona il processo di richiesta online?',
-          answer: '1) Compila il nostro modulo online (5 min) e carica i tuoi documenti. 2) Analisi della tua richiesta da parte dei nostri esperti (24-48h). 3) Ricevi la tua approvazione di principio con condizioni. 4) Firma elettronica del contratto. 5) Configurazione garanzie. 6) Erogazione fondi sul tuo conto Altus Finances.',
+          answer: '1) Compila il nostro modulo online (5 min) e carica i tuoi documenti. 2) Analisi della tua richiesta da parte dei nostri esperti (24-48h). 3) Ricevi la tua approvazione di principio con condizioni. 4) Firma elettronica del contratto. 5) Configurazione garanzie. 6) Erogazione fondi sul tuo conto Solventis Group.',
         },
         {
           question: 'Posso combinare diversi tipi di finanziamento?',
@@ -15697,7 +15732,7 @@ export const translations: Record<Language, TranslationKeys> = {
           {
             name: 'Lorenzo Conti',
             role: 'Titolare, RestauGourmet',
-            text: 'Grazie ad Altus Finances, ho potuto aprire il mio secondo ristorante. Soluzioni flessibili adatte alle esigenze dei commercianti.',
+            text: 'Grazie ad Solventis Group, ho potuto aprire il mio secondo ristorante. Soluzioni flessibili adatte alle esigenze dei commercianti.',
           },
           {
             name: 'Emilia Romano',
@@ -15870,7 +15905,7 @@ export const translations: Record<Language, TranslationKeys> = {
       faq: 'FAQ',
       about: 'Über uns',
       contact: 'Kontakt',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       dashboard: 'Übersicht',
       loans: 'Kredite',
       myLoans: 'Meine Kredite',
@@ -16304,7 +16339,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       cta: {
         title: 'Schließen Sie sich Tausenden zufriedener Unternehmen an',
-        subtitle: 'Vertrauen Sie auf die Expertise von Altus Finances, um Ihre ehrgeizigsten Projekte zu finanzieren',
+        subtitle: 'Vertrauen Sie auf die Expertise von Solventis Group, um Ihre ehrgeizigsten Projekte zu finanzieren',
         button1: 'Finanzierung beantragen',
         button2: 'Kontakt',
       },
@@ -16462,13 +16497,13 @@ export const translations: Record<Language, TranslationKeys> = {
       responseTime: 'Antwort innerhalb von 24h',
       businessHours: 'Mo-Fr 9-18 Uhr',
       addressLabel: 'Adresse',
-      addressStreet: '19 Rue Sigismond',
-      addressFull: 'L-2537 Luxemburg',
+      addressStreet: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0',
+      addressFull: 'N91 X6Y0, Ireland',
       formTitle: 'Senden Sie uns eine Nachricht',
       formSubtitle: 'Füllen Sie das untenstehende Formular aus und wir werden uns so schnell wie möglich bei Ihnen melden',
       namePlaceholder: 'Ihr vollständiger Name',
       emailPlaceholder: 'ihre@email.com',
-      phonePlaceholder: '+352 XX XX XX',
+      phonePlaceholder: '+353 XX XX XX',
       messagePlaceholder: 'Wie können wir Ihnen helfen?',
       weAreAvailable: 'Wir sind verfügbar',
       responseGuaranteed: 'Antwort garantiert innerhalb von 24h',
@@ -16603,7 +16638,7 @@ export const translations: Record<Language, TranslationKeys> = {
       security: 'Banksicherheit auf Unternehmensniveau',
       securityDesc: 'AES-256-Verschlüsselung, DSGVO-Konformität, SOC 2 Type II- und ISO 27001-Zertifizierung. Ihre Finanzdaten sind mit den gleichen Standards wie bei großen Banken geschützt. Multi-Faktor-Authentifizierung und 24/7-Überwachung gegen Betrug.',
       fast: 'Express-Antwort - Minuten bis 24h',
-      fastDesc: 'Unsere KI-Technologie analysiert Ihren Fall in Echtzeit. Genehmigungsantwort in Minuten bis maximal 24 Stunden. Mittel sofort auf Ihr sicheres Altus Finances-Konto freigegeben. Dann auf Ihr Bankkonto überweisen, wann Sie möchten. 100% digital, null Papierkram.',
+      fastDesc: 'Unsere KI-Technologie analysiert Ihren Fall in Echtzeit. Genehmigungsantwort in Minuten bis maximal 24 Stunden. Mittel sofort auf Ihr sicheres Solventis Group-Konto freigegeben. Dann auf Ihr Bankkonto überweisen, wann Sie möchten. 100% digital, null Papierkram.',
       competitive: 'Zu den niedrigsten Zinsen auf dem Markt',
       competitiveDesc: 'Dank unserem Netzwerk von 50+ Finanzpartnern und optimierter Bewertungstechnologie verhandeln wir die besten Zinsen für Sie: von 0,5% bis 9,0% effektiver Jahreszins je nach Profil und Kreditart. Automatischer Vergleich, um das beste Angebot zu garantieren.',
       flexible: 'Maximale Flexibilität ohne Strafe',
@@ -16664,7 +16699,7 @@ export const translations: Record<Language, TranslationKeys> = {
       ],
     },
     auth: {
-      title: 'Altus Finances',
+      title: 'Solventis Group',
       subtitle: 'Ihr vertrauenswürdiger Partner für Finanzierung',
       loginTab: 'Anmelden',
       signupTab: 'Registrieren',
@@ -16686,7 +16721,7 @@ export const translations: Record<Language, TranslationKeys> = {
       signingUp: 'Registrierung läuft...',
       backToHome: 'Zurück zur Startseite',
       loginSuccess: 'Anmeldung erfolgreich!',
-      loginSuccessDesc: 'Willkommen bei Altus Finances',
+      loginSuccessDesc: 'Willkommen bei Solventis Group',
       signupSuccess: 'Registrierung erfolgreich!',
       signupSuccessDesc: 'Eine Bestätigungs-E-Mail wurde an Ihre Adresse gesendet.',
       loginError: 'Anmeldefehler',
@@ -16695,6 +16730,13 @@ export const translations: Record<Language, TranslationKeys> = {
       signupErrorDesc: 'Bei der Registrierung ist ein Fehler aufgetreten',
       emailNotVerified: 'E-Mail nicht verifiziert',
       emailPlaceholder: 'max.mustermann@beispiel.de',
+      panelTitle: 'Veilige Financiering',
+      panelSubtitle: 'Toegang tot uw accounts',
+      bankEncryption: 'Versleuteling op bankniveau',
+      verifiedAuth: 'Geverifieerde authenticatie',
+      twoFactorAvailable: '2FA beschikbaar voor extra veiligheid',
+      complianceStandard: 'Conform industriële normen',
+      internationalCertifications: 'Internationale financiële certificeringen',
       passwordPlaceholder: '••••••••',
       fullNamePlaceholder: 'Max Mustermann',
       phonePlaceholder: '+49 151 12345678',
@@ -16751,7 +16793,7 @@ export const translations: Record<Language, TranslationKeys> = {
       verificationFailed: 'Überprüfung fehlgeschlagen',
     },
     bankCard: {
-      title: 'Altus Finances Premium-Bankkarte',
+      title: 'Solventis Group Premium-Bankkarte',
       subtitle: 'Bestellen Sie Ihre exklusive Karte und profitieren Sie von außergewöhnlichen Vorteilen',
       learnMore: 'Mehr erfahren',
       viewDetails: 'Details anzeigen',
@@ -16759,7 +16801,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderCard: 'Karte bestellen',
       orderSuccess: 'Virtuelle Karte bestellen',
       orderSuccessDesc: 'Ihre virtuelle Karte wird aktiviert. Sie erhalten die Details in Kürze per E-Mail.',
-      modalTitle: 'Altus Finances Premium-Bankkarte',
+      modalTitle: 'Solventis Group Premium-Bankkarte',
       modalSubtitle: 'Entdecken Sie alle Vorteile unserer exklusiven Karte',
       advantagesTitle: 'Exklusive Vorteile',
       advantages: {
@@ -16819,7 +16861,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       orderProcess: 'Bestellvorgang',
       orderProcessDesc: 'Füllen Sie das Bestellformular aus, stellen Sie Ihre Dokumente bereit, warten Sie auf die Genehmigung (24-48h) und erhalten Sie Ihre Karte zu Hause.',
-      termsConditions: 'Allgemeine Geschäftsbedingungen der Altus Finances Premium-Karte',
+      termsConditions: 'Allgemeine Geschäftsbedingungen der Solventis Group Premium-Karte',
       close: 'Schließen',
     },
     notifications: {
@@ -16998,7 +17040,7 @@ export const translations: Record<Language, TranslationKeys> = {
         missingDocumentsPrefix: 'Bitte fügen Sie alle erforderlichen Dokumente bei:',
       },
       cardTerms: {
-        title: 'Allgemeine Geschäftsbedingungen der Altus Finances Premium-Karte',
+        title: 'Allgemeine Geschäftsbedingungen der Solventis Group Premium-Karte',
         acceptTerms: 'Akzeptieren und Karte bestellen',
         declineTerms: 'Ablehnen',
       },
@@ -17471,7 +17513,7 @@ export const translations: Record<Language, TranslationKeys> = {
         bankLabel: 'Bank',
         transferAmountLabel: 'Überweisungsbetrag',
         senderLabel: 'Absender',
-        senderValue: 'Altus Finances Konto',
+        senderValue: 'Solventis Group Konto',
         recipientLabel: 'Empfänger',
         recipientDefault: 'SEPA Bank',
         referenceLabel: 'Referenz',
@@ -17638,11 +17680,11 @@ export const translations: Record<Language, TranslationKeys> = {
       limitExceededFallback: 'Der angeforderte Betrag übersteigt Ihr genehmigtes Finanzierungslimit.',
     },
     cardTermsContent: {
-      title: 'Allgemeine Nutzungsbedingungen - Altus Finances Virtuelle Karte',
+      title: 'Allgemeine Nutzungsbedingungen - Solventis Group Virtuelle Karte',
       lastUpdated: 'Letzte Aktualisierung: November 2025',
       section1: {
         title: '1. ZWECK UND GELTUNGSBEREICH',
-        content: 'Diese Allgemeinen Geschäftsbedingungen (nachfolgend "AGB") regeln die Nutzung der virtuellen Bankkarte Altus Finances (nachfolgend "die Virtuelle Karte"), die von SolventisGroup den Kunden mit einem Altus Finances-Konto (nachfolgend "der Karteninhaber") angeboten wird. Die Virtuelle Karte ist ein dematerialisiertes Zahlungsmittel, das mit Ihrem Altus Finances-Konto verbunden ist.',
+        content: 'Diese Allgemeinen Geschäftsbedingungen (nachfolgend "AGB") regeln die Nutzung der virtuellen Bankkarte Solventis Group (nachfolgend "die Virtuelle Karte"), die von SolventisGroup den Kunden mit einem Solventis Group-Konto (nachfolgend "der Karteninhaber") angeboten wird. Die Virtuelle Karte ist ein dematerialisiertes Zahlungsmittel, das mit Ihrem Solventis Group-Konto verbunden ist.',
       },
       section2: {
         title: '2. SERVICEBESCHREIBUNG',
@@ -17656,7 +17698,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '3. TEILNAHMEBEDINGUNGEN',
         content: 'Um eine Virtuelle Karte zu erhalten, muss der Karteninhaber:',
         list: [
-          'Altus Finances-Kunde mit einem aktiven und finanzierten Konto sein',
+          'Solventis Group-Kunde mit einem aktiven und finanzierten Konto sein',
           'Die Identitätsprüfung (KYC) abgeschlossen haben',
           'Sich nicht in einer Situation nicht genehmigter Überziehung befinden',
           'Die starke Authentifizierung (Zwei-Faktor) aktiviert haben',
@@ -17666,7 +17708,7 @@ export const translations: Record<Language, TranslationKeys> = {
       section4: {
         title: '4. AKTIVIERUNG UND NUTZUNG',
         subtitle1: '4.1 Aktivierung',
-        content1: 'Die Virtuelle Karte wird sofort nach ihrer Erstellung über die Anwendung oder den Altus Finances-Kundenbereich aktiviert. Der Karteninhaber erhält sofort die vollständigen Kartenkoordinaten.',
+        content1: 'Die Virtuelle Karte wird sofort nach ihrer Erstellung über die Anwendung oder den Solventis Group-Kundenbereich aktiviert. Der Karteninhaber erhält sofort die vollständigen Kartenkoordinaten.',
         subtitle2: '4.2 Zugelassene Verwendungen',
         list1: [
           'Zahlungen auf allen Online-Händlerseiten, die Visa/Mastercard akzeptieren',
@@ -17698,7 +17740,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section6: {
         title: '6. LIMITS UND GRENZEN',
-        content: 'Die Zahlungslimits der Virtuellen Karte sind identisch mit denen Ihrer Altus Finances-Hauptkarte:',
+        content: 'Die Zahlungslimits der Virtuellen Karte sind identisch mit denen Ihrer Solventis Group-Hauptkarte:',
         list: [
           'Monatslimit: bis zu 50.000 € je nach Profil',
           'Limit pro Transaktion: bis zu 10.000 €',
@@ -17718,7 +17760,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section8: {
         title: '8. ABBUCHUNG UND KONTOAUSZUG',
-        content: 'Alle mit der Virtuellen Karte durchgeführten Transaktionen werden in Echtzeit von Ihrem Altus Finances-Konto abgebucht. Sie erscheinen sofort in Ihrer Transaktionshistorie und auf Ihren monatlichen Kontoauszügen.',
+        content: 'Alle mit der Virtuellen Karte durchgeführten Transaktionen werden in Echtzeit von Ihrem Solventis Group-Konto abgebucht. Sie erscheinen sofort in Ihrer Transaktionshistorie und auf Ihren monatlichen Kontoauszügen.',
       },
       section9: {
         title: '9. WIDERSPRUCH UND KÜNDIGUNG',
@@ -17731,7 +17773,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section10: {
         title: '10. HAFTUNG',
-        content: 'Altus Finances kann nicht haftbar gemacht werden im Falle von:',
+        content: 'Solventis Group kann nicht haftbar gemacht werden im Falle von:',
         list: [
           'Ablehnung eines Händlers, die Virtuelle Karte zu akzeptieren',
           'Vorübergehende Serviceunterbrechung zur Wartung',
@@ -17742,11 +17784,11 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section11: {
         title: '11. LAUFZEIT UND ÄNDERUNG',
-        content: 'Diese AGB werden auf unbestimmte Zeit geschlossen. Altus Finances behält sich das Recht vor, diese AGB jederzeit zu ändern. Jede Änderung wird dem Karteninhaber mindestens 2 Monate vor ihrem Inkrafttreten mitgeteilt. Das Fehlen eines Widerspruchs innerhalb dieser Frist gilt als Annahme.',
+        content: 'Diese AGB werden auf unbestimmte Zeit geschlossen. Solventis Group behält sich das Recht vor, diese AGB jederzeit zu ändern. Jede Änderung wird dem Karteninhaber mindestens 2 Monate vor ihrem Inkrafttreten mitgeteilt. Das Fehlen eines Widerspruchs innerhalb dieser Frist gilt als Annahme.',
       },
       section12: {
         title: '12. BESCHWERDEN',
-        content: 'Für Beschwerden kann der Karteninhaber den Altus Finances-Kundendienst kontaktieren:',
+        content: 'Für Beschwerden kann der Karteninhaber den Solventis Group-Kundendienst kontaktieren:',
         list: [
           'Per E-Mail: support@solventisgroup.org',
           'Per Telefon: +49 XX XX XX XX XX',
@@ -17758,7 +17800,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '13. ANWENDBARES RECHT UND GERICHTSSTAND',
         content: 'Diese AGB unterliegen deutschem Recht. Alle Streitigkeiten bezüglich ihrer Auslegung oder Ausführung fallen in die ausschließliche Zuständigkeit der deutschen Gerichte.',
       },
-      note: 'Durch Aktivierung Ihrer Altus Finances Virtuellen Karte bestätigen Sie, dass Sie die gesamten Allgemeinen Nutzungsbedingungen gelesen, verstanden und akzeptiert haben.',
+      note: 'Durch Aktivierung Ihrer Solventis Group Virtuellen Karte bestätigen Sie, dass Sie die gesamten Allgemeinen Nutzungsbedingungen gelesen, verstanden und akzeptiert haben.',
     },
     processTimeline: {
       title: 'Finanzierungsprozess',
@@ -17886,9 +17928,9 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     footer: {
       description: 'Ihr vertrauenswürdiger Partner für alle Ihre Finanzierungsprojekte. Kreditlösungen für Privat- und Geschäftskunden.',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       email: 'infos@solventisgroup.org',
-      address: '19 Rue Sigismond, L-2537 Luxembourg',
+      address: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland',
       hoursTitle: 'Öffnungszeiten',
       hours: {
         weekdays: 'Mo - Fr: 9:00 - 19:00',
@@ -18001,7 +18043,7 @@ export const translations: Record<Language, TranslationKeys> = {
       years: 'Jahre',
       features: 'Vorteile',
       learnMore: 'Mehr erfahren',
-      advantagesTitle: 'Altus Finances Pro Vorteile',
+      advantagesTitle: 'Solventis Group Pro Vorteile',
       advantages: [
         'Dedizierter Berater für Ihr Unternehmen',
         'Individuelle Prüfung Ihrer Unterlagen',
@@ -18057,7 +18099,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Wie funktioniert der Online-Antragsprozess?',
-          answer: '1) Füllen Sie unser Online-Formular aus (5 Min.) und laden Sie Ihre Dokumente hoch. 2) Analyse Ihres Antrags durch unsere Experten (24-48h). 3) Erhalten Sie Ihre grundsätzliche Genehmigung mit Bedingungen. 4) Elektronische Vertragsunterzeichnung. 5) Sicherheitenstellung. 6) Auszahlung auf Ihr Altus Finances-Konto.',
+          answer: '1) Füllen Sie unser Online-Formular aus (5 Min.) und laden Sie Ihre Dokumente hoch. 2) Analyse Ihres Antrags durch unsere Experten (24-48h). 3) Erhalten Sie Ihre grundsätzliche Genehmigung mit Bedingungen. 4) Elektronische Vertragsunterzeichnung. 5) Sicherheitenstellung. 6) Auszahlung auf Ihr Solventis Group-Konto.',
         },
         {
           question: 'Kann ich mehrere Finanzierungsarten kombinieren?',
@@ -18177,7 +18219,7 @@ export const translations: Record<Language, TranslationKeys> = {
           {
             name: 'Laurent Bertrand',
             role: 'Geschäftsführer, RestauGourmet',
-            text: 'Dank Altus Finances konnte ich mein zweites Restaurant eröffnen. Flexible Lösungen, angepasst an die Bedürfnisse von Gewerbetreibenden.',
+            text: 'Dank Solventis Group konnte ich mein zweites Restaurant eröffnen. Flexible Lösungen, angepasst an die Bedürfnisse von Gewerbetreibenden.',
           },
           {
             name: 'Émilie Rousseau',
@@ -18484,7 +18526,7 @@ export const translations: Record<Language, TranslationKeys> = {
       faq: 'FAQ',
       about: 'Over ons',
       contact: 'Contact',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       dashboard: 'Overzicht',
       loans: 'Leningen',
       myLoans: 'Mijn Leningen',
@@ -18918,7 +18960,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       cta: {
         title: 'Sluit u aan bij duizenden tevreden bedrijven',
-        subtitle: 'Vertrouw op de expertise van Altus Finances om uw meest ambitieuze projecten te financieren',
+        subtitle: 'Vertrouw op de expertise van Solventis Group om uw meest ambitieuze projecten te financieren',
         button1: 'Financiering aanvragen',
         button2: 'Contact',
       },
@@ -19076,13 +19118,13 @@ export const translations: Record<Language, TranslationKeys> = {
       responseTime: 'Antwoord binnen 24u',
       businessHours: 'Ma-Vr 9u-18u',
       addressLabel: 'Adres',
-      addressStreet: '19 Rue Sigismond',
-      addressFull: 'L-2537 Luxemburg',
+      addressStreet: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0',
+      addressFull: 'N91 X6Y0, Ireland',
       formTitle: 'Stuur ons een bericht',
       formSubtitle: 'Vul het onderstaande formulier in en we nemen zo snel mogelijk contact met u op',
       namePlaceholder: 'Uw volledige naam',
       emailPlaceholder: 'uw@email.com',
-      phonePlaceholder: '+352 XX XX XX',
+      phonePlaceholder: '+353 XX XX XX',
       messagePlaceholder: 'Hoe kunnen we u helpen?',
       weAreAvailable: 'We zijn beschikbaar',
       responseGuaranteed: 'Antwoord gegarandeerd binnen 24u',
@@ -19217,7 +19259,7 @@ export const translations: Record<Language, TranslationKeys> = {
       security: 'Bankbeveiliging op bedrijfsniveau',
       securityDesc: 'AES-256 encryptie, AVG-naleving, SOC 2 Type II en ISO 27001 certificering. Uw financiële gegevens zijn beschermd met dezelfde standaarden als grote banken. Multi-factor authenticatie en 24/7 bewaking tegen fraude.',
       fast: 'Express reactie - Minuten tot 24u',
-      fastDesc: 'Onze AI-technologie analyseert uw dossier in realtime. Goedkeuringsantwoord in minuten tot maximaal 24 uur. Middelen direct vrijgegeven op uw beveiligde Altus Finances-account. Vervolgens overmaken naar uw bankrekening wanneer u wilt. 100% digitaal, nul papierwerk.',
+      fastDesc: 'Onze AI-technologie analyseert uw dossier in realtime. Goedkeuringsantwoord in minuten tot maximaal 24 uur. Middelen direct vrijgegeven op uw beveiligde Solventis Group-account. Vervolgens overmaken naar uw bankrekening wanneer u wilt. 100% digitaal, nul papierwerk.',
       competitive: 'Tot de laagste tarieven op de markt',
       competitiveDesc: 'Dankzij ons netwerk van 50+ financiële partners en geoptimaliseerde beoordelingstechnologie onderhandelen we de beste tarieven voor u: van 0,5% tot 9,0% JKP volgens profiel en type lening. Automatische vergelijking om het beste aanbod te garanderen.',
       flexible: 'Maximale flexibiliteit zonder boete',
@@ -19278,7 +19320,7 @@ export const translations: Record<Language, TranslationKeys> = {
       ],
     },
     auth: {
-      title: 'Altus Finances',
+      title: 'Solventis Group',
       subtitle: 'Uw betrouwbare partner voor financiering',
       loginTab: 'Inloggen',
       signupTab: 'Registreren',
@@ -19300,8 +19342,15 @@ export const translations: Record<Language, TranslationKeys> = {
       signingUp: 'Registreren...',
       backToHome: 'Terug naar home',
       loginSuccess: 'Inloggen geslaagd!',
-      loginSuccessDesc: 'Welkom bij Altus Finances',
+      loginSuccessDesc: 'Welkom bij Solventis Group',
       signupSuccess: 'Registratie geslaagd!',
+      panelTitle: 'Finanças Seguras',
+      panelSubtitle: 'Acesse suas contas',
+      bankEncryption: 'Criptografia de nível bancário',
+      verifiedAuth: 'Autenticação verificada',
+      twoFactorAvailable: '2FA disponível para segurança adicional',
+      complianceStandard: 'Em conformidade com os padrões',
+      internationalCertifications: 'Certificações financeiras internacionais',
       signupSuccessDesc: 'Een verificatie-e-mail is verzonden naar uw adres.',
       loginError: 'Inlogfout',
       loginErrorDesc: 'E-mail of wachtwoord onjuist',
@@ -19365,7 +19414,7 @@ export const translations: Record<Language, TranslationKeys> = {
       verificationFailed: 'Verificatie mislukt',
     },
     bankCard: {
-      title: 'Altus Finances Premium bankkaart',
+      title: 'Solventis Group Premium bankkaart',
       subtitle: 'Bestel uw exclusieve kaart en profiteer van uitzonderlijke voordelen',
       learnMore: 'Meer informatie',
       viewDetails: 'Details bekijken',
@@ -19373,7 +19422,7 @@ export const translations: Record<Language, TranslationKeys> = {
       orderCard: 'Kaart bestellen',
       orderSuccess: 'Virtuele kaart bestellen',
       orderSuccessDesc: 'Uw virtuele kaart wordt geactiveerd. U ontvangt de details binnenkort per e-mail.',
-      modalTitle: 'Altus Finances Premium bankkaart',
+      modalTitle: 'Solventis Group Premium bankkaart',
       modalSubtitle: 'Ontdek alle voordelen van onze exclusieve kaart',
       advantagesTitle: 'Exclusieve voordelen',
       advantages: {
@@ -19433,7 +19482,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       orderProcess: 'Bestelproces',
       orderProcessDesc: 'Vul het bestelformulier in, verstrek uw documenten, wacht op goedkeuring (24-48u) en ontvang uw kaart thuis.',
-      termsConditions: 'Algemene voorwaarden van de Altus Finances Premium kaart',
+      termsConditions: 'Algemene voorwaarden van de Solventis Group Premium kaart',
       close: 'Sluiten',
     },
     notifications: {
@@ -19582,7 +19631,7 @@ export const translations: Record<Language, TranslationKeys> = {
         missingDocumentsPrefix: 'Voeg alle vereiste documenten toe:',
       },
       cardTerms: {
-        title: 'Algemene voorwaarden van de Altus Finances Premium kaart',
+        title: 'Algemene voorwaarden van de Solventis Group Premium kaart',
         acceptTerms: 'Accepteren en kaart bestellen',
         declineTerms: 'Weigeren',
       },
@@ -20055,7 +20104,7 @@ export const translations: Record<Language, TranslationKeys> = {
         stepsTitle: 'Overboekingsstappen',
         transferAmountLabel: 'Overboekingsbedrag',
         senderLabel: 'Afzender',
-        senderValue: 'Altus Finances rekening',
+        senderValue: 'Solventis Group rekening',
         recipientLabel: 'Ontvanger',
         recipientDefault: 'SEPA Bank',
         referenceLabel: 'Referentie',
@@ -20222,11 +20271,11 @@ export const translations: Record<Language, TranslationKeys> = {
       limitExceededFallback: 'Het gevraagde bedrag overschrijdt uw geautoriseerde financieringslimiet.',
     },
     cardTermsContent: {
-      title: 'Algemene Gebruiksvoorwaarden - Altus Finances Virtuele Kaart',
+      title: 'Algemene Gebruiksvoorwaarden - Solventis Group Virtuele Kaart',
       lastUpdated: 'Laatste update: November 2025',
       section1: {
         title: '1. DOEL EN TOEPASSINGSGEBIED',
-        content: 'Deze algemene voorwaarden (hierna "AV") regelen het gebruik van de virtuele bankkaart Altus Finances (hierna "de Virtuele Kaart"), aangeboden door SolventisGroup aan klanten met een Altus Finances-rekening (hierna "de Kaarthouder"). De Virtuele Kaart is een gedematerialiseerd betaalmiddel gekoppeld aan uw Altus Finances-rekening.',
+        content: 'Deze algemene voorwaarden (hierna "AV") regelen het gebruik van de virtuele bankkaart Solventis Group (hierna "de Virtuele Kaart"), aangeboden door SolventisGroup aan klanten met een Solventis Group-rekening (hierna "de Kaarthouder"). De Virtuele Kaart is een gedematerialiseerd betaalmiddel gekoppeld aan uw Solventis Group-rekening.',
       },
       section2: {
         title: '2. SERVICEBESCHRIJVING',
@@ -20240,7 +20289,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '3. GESCHIKTHEIDSVOORWAARDEN',
         content: 'Om een Virtuele Kaart te verkrijgen, moet de Kaarthouder:',
         list: [
-          'Altus Finances-klant zijn met een actieve en gefinancierde rekening',
+          'Solventis Group-klant zijn met een actieve en gefinancierde rekening',
           'De identiteitsverificatie (KYC) hebben voltooid',
           'Niet in een situatie van ongeautoriseerde overtrekking verkeren',
           'Sterke authenticatie (twee-factor) hebben geactiveerd',
@@ -20250,7 +20299,7 @@ export const translations: Record<Language, TranslationKeys> = {
       section4: {
         title: '4. ACTIVERING EN GEBRUIK',
         subtitle1: '4.1 Activering',
-        content1: 'De Virtuele Kaart wordt onmiddellijk geactiveerd bij het aanmaken via de applicatie of het Altus Finances-klantengebied. De Kaarthouder ontvangt onmiddellijk de volledige kaartcoördinaten.',
+        content1: 'De Virtuele Kaart wordt onmiddellijk geactiveerd bij het aanmaken via de applicatie of het Solventis Group-klantengebied. De Kaarthouder ontvangt onmiddellijk de volledige kaartcoördinaten.',
         subtitle2: '4.2 Toegestaan gebruik',
         list1: [
           'Betalingen op alle online handelssites die Visa/Mastercard accepteren',
@@ -20282,7 +20331,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section6: {
         title: '6. LIMIETEN EN GRENZEN',
-        content: 'De betalingslimieten van de Virtuele Kaart zijn identiek aan die van uw Altus Finances-hoofdkaart:',
+        content: 'De betalingslimieten van de Virtuele Kaart zijn identiek aan die van uw Solventis Group-hoofdkaart:',
         list: [
           'Maandelijks limiet: tot 50.000 € afhankelijk van uw profiel',
           'Limiet per transactie: tot 10.000 €',
@@ -20302,7 +20351,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section8: {
         title: '8. AFSCHRIJVING EN AFSCHRIFT',
-        content: 'Alle transacties uitgevoerd met de Virtuele Kaart worden in realtime van uw Altus Finances-rekening afgeschreven. Ze verschijnen onmiddellijk in uw transactiegeschiedenis en op uw maandelijkse afschriften.',
+        content: 'Alle transacties uitgevoerd met de Virtuele Kaart worden in realtime van uw Solventis Group-rekening afgeschreven. Ze verschijnen onmiddellijk in uw transactiegeschiedenis en op uw maandelijkse afschriften.',
       },
       section9: {
         title: '9. VERZET EN BEËINDIGING',
@@ -20315,7 +20364,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section10: {
         title: '10. AANSPRAKELIJKHEID',
-        content: 'Altus Finances kan niet aansprakelijk worden gesteld in geval van:',
+        content: 'Solventis Group kan niet aansprakelijk worden gesteld in geval van:',
         list: [
           'Weigering van een handelaar om de Virtuele Kaart te accepteren',
           'Tijdelijke onderbreking van de service voor onderhoud',
@@ -20326,11 +20375,11 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       section11: {
         title: '11. DUUR EN WIJZIGING',
-        content: 'Deze AV worden voor onbepaalde tijd aangegaan. Altus Finances behoudt zich het recht voor deze AV op elk moment te wijzigen. Elke wijziging wordt de Kaarthouder minstens 2 maanden vóór inwerkingtreding medegedeeld. Het ontbreken van bezwaar binnen deze termijn geldt als aanvaarding.',
+        content: 'Deze AV worden voor onbepaalde tijd aangegaan. Solventis Group behoudt zich het recht voor deze AV op elk moment te wijzigen. Elke wijziging wordt de Kaarthouder minstens 2 maanden vóór inwerkingtreding medegedeeld. Het ontbreken van bezwaar binnen deze termijn geldt als aanvaarding.',
       },
       section12: {
         title: '12. KLACHTEN',
-        content: 'Voor klachten kan de Kaarthouder contact opnemen met de Altus Finances-klantenservice:',
+        content: 'Voor klachten kan de Kaarthouder contact opnemen met de Solventis Group-klantenservice:',
         list: [
           'Per e-mail: support@solventisgroup.org',
           'Per telefoon: +31 XX XX XX XX XX',
@@ -20342,7 +20391,7 @@ export const translations: Record<Language, TranslationKeys> = {
         title: '13. TOEPASSELIJK RECHT EN JURISDICTIE',
         content: 'Deze AV worden beheerst door Nederlands recht. Alle geschillen met betrekking tot hun interpretatie of uitvoering vallen onder de exclusieve bevoegdheid van de Nederlandse rechtbanken.',
       },
-      note: 'Door uw Altus Finances Virtuele Kaart te activeren, erkent u dat u de volledige Algemene Gebruiksvoorwaarden hebt gelezen, begrepen en geaccepteerd.',
+      note: 'Door uw Solventis Group Virtuele Kaart te activeren, erkent u dat u de volledige Algemene Gebruiksvoorwaarden hebt gelezen, begrepen en geaccepteerd.',
     },
     processTimeline: {
       title: 'Financieringsproces',
@@ -20470,9 +20519,9 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     footer: {
       description: 'Uw betrouwbare partner voor al uw financieringsprojecten. Leningsoplossingen aangepast aan particulieren en professionals.',
-      phone: '+352 40 63 48',
+      phone: '+353-431-5918',
       email: 'infos@solventisgroup.org',
-      address: '19 Rue Sigismond, L-2537 Luxembourg',
+      address: '1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland',
       hoursTitle: 'Openingstijden',
       hours: {
         weekdays: 'Ma - Vr: 9:00 - 19:00',
@@ -20585,7 +20634,7 @@ export const translations: Record<Language, TranslationKeys> = {
       years: 'jaar',
       features: 'Voordelen',
       learnMore: 'Meer informatie',
-      advantagesTitle: 'Altus Finances Pro Voordelen',
+      advantagesTitle: 'Solventis Group Pro Voordelen',
       advantages: [
         'Toegewijde adviseur voor uw bedrijf',
         'Gepersonaliseerde studie van uw dossier',
@@ -20641,7 +20690,7 @@ export const translations: Record<Language, TranslationKeys> = {
         },
         {
           question: 'Hoe werkt het online aanvraagproces?',
-          answer: '1) Vul ons online formulier in (5 min) en upload uw documenten. 2) Analyse van uw aanvraag door onze experts (24-48u). 3) Ontvang uw principiële goedkeuring met voorwaarden. 4) Elektronische ondertekening van contract. 5) Garantieopstelling. 6) Uitbetaling van fondsen naar uw Altus Finances-rekening.',
+          answer: '1) Vul ons online formulier in (5 min) en upload uw documenten. 2) Analyse van uw aanvraag door onze experts (24-48u). 3) Ontvang uw principiële goedkeuring met voorwaarden. 4) Elektronische ondertekening van contract. 5) Garantieopstelling. 6) Uitbetaling van fondsen naar uw Solventis Group-rekening.',
         },
         {
           question: 'Kan ik meerdere soorten financiering combineren?',
@@ -20761,7 +20810,7 @@ export const translations: Record<Language, TranslationKeys> = {
           {
             name: 'Laurent Bertrand',
             role: 'Manager, RestauGourmet',
-            text: 'Dankzij Altus Finances kon ik mijn tweede restaurant openen. Flexibele oplossingen aangepast aan de behoeften van handelaars.',
+            text: 'Dankzij Solventis Group kon ik mijn tweede restaurant openen. Flexibele oplossingen aangepast aan de behoeften van handelaars.',
           },
           {
             name: 'Émilie Rousseau',
