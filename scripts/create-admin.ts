@@ -22,7 +22,7 @@ async function createAdmin() {
 
     console.log('\n🔧 Création d\'un compte administrateur Solventis\n');
     console.log(`📧 Email: ${email}`);
-    console.log(`🔑 Password: ${password}\n`);
+    console.log(`🔑 Password: ${password ? '***hidden***' : 'undefined'}\n`);
 
     // Hacher le mot de passe
     console.log('🔐 Hachage du mot de passe...');
