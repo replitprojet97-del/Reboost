@@ -52,12 +52,12 @@ interface ContractTranslations {
   signatureSection: string;
   madeInDuplicates: string;
   inLuxembourg: string;
-  forAltusFinances: string;
+  forSolventisGroup: string;
   lender: string;
   borrower: string;
   preSigned: string;
   management: string;
-  altusStamp: string;
+  solventisStamp: string;
   luxembourg: string;
   electronicSignature: string;
   date: string;
@@ -103,7 +103,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `Le taux d'intérêt appliqué est fixe et s'élève à ${rate}% par an. Le coût total du crédit, incluant les intérêts, est estimé à <strong>${totalInterest} €</strong>. Le montant total à rembourser s'élève donc à <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Article 4 – Déblocage des fonds',
-    article4Content: `Les fonds du prêt seront mis à disposition de l'Emprunteur sur le compte affilié SOLVENTIS GROUP ouvert au nom de l'Emprunteur au sein du réseau ALTUS FINANCES. L'Emprunteur reconnaît et accepte que le versement initial sera crédité sur ce compte affilié, qu'il lui appartient d'initier le virement vers son compte bancaire externe, et que le déblocage effectif des fonds aura lieu dans un délai maximum de 24 heures ouvrées à compter de la réception du présent contrat dûment signé.`,
+    article4Content: `Les fonds du prêt seront mis à disposition de l'Emprunteur sur le compte affilié SOLVENTIS GROUP ouvert au nom de l'Emprunteur au sein du réseau SOLVENTIS GROUP. L'Emprunteur reconnaît et accepte que le versement initial sera crédité sur ce compte affilié, qu'il lui appartient d'initier le virement vers son compte bancaire externe, et que le déblocage effectif des fonds aura lieu dans un délai maximum de 24 heures ouvrées à compter de la réception du présent contrat dûment signé.`,
     article5Title: 'Article 5 - Remboursement anticipé',
     article5Content: "L'Emprunteur a la possibilité de procéder à un remboursement anticipé, total ou partiel, du capital restant dû sans pénalités. Toute demande de remboursement anticipé doit être formulée par écrit au moins 30 jours avant la date souhaitée.",
     article6Title: 'Article 6 - Défaut de paiement',
@@ -117,12 +117,12 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Signatures',
     madeInDuplicates: 'Fait en deux exemplaires originaux',
     inLuxembourg: 'À Luxembourg, le',
-    forAltusFinances: 'Pour SOLVENTIS GROUP',
+    forSolventisGroup: 'Pour SOLVENTIS GROUP',
     lender: 'Le Prêteur',
     borrower: "L'Emprunteur",
     preSigned: '✓ Document pré-signé et validé',
     management: 'Direction Générale',
-    altusStamp: 'SOLVENTIS GROUP',
+    solventisStamp: 'SOLVENTIS GROUP',
     luxembourg: 'Luxembourg',
     electronicSignature: 'Signature électronique certifiée',
     date: 'Date',
@@ -179,7 +179,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `The applied interest rate is fixed at ${rate}% per year. The total cost of credit, including interest, is estimated at <strong>€${totalInterest}</strong>. The total amount to be repaid is therefore <strong>€${totalRepayment}</strong>.`,
     article4Title: 'Article 4 – Fund Disbursement',
-    article4Content: 'The loan funds will be made available to the Borrower in the SOLVENTIS GROUP affiliated account opened in the Borrower\'s name within the ALTUS FINANCES network. The Borrower acknowledges and accepts that the initial payment will be credited to this affiliated account, that it is their responsibility to initiate the transfer to their external bank account, and that the effective disbursement of funds will occur within a maximum of 24 business hours from receipt of this duly signed contract.',
+    article4Content: 'The loan funds will be made available to the Borrower in the SOLVENTIS GROUP affiliated account opened in the Borrower\'s name within the SOLVENTIS GROUP network. The Borrower acknowledges and accepts that the initial payment will be credited to this affiliated account, that it is their responsibility to initiate the transfer to their external bank account, and that the effective disbursement of funds will occur within a maximum of 24 business hours from receipt of this duly signed contract.',
     article5Title: 'Article 5 - Early Repayment',
     article5Content: 'The Borrower has the option to make early repayment, total or partial, of the remaining capital without penalties. Any request for early repayment must be submitted in writing at least 30 days before the desired date.',
     article6Title: 'Article 6 - Default of Payment',
@@ -193,12 +193,12 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Signatures',
     madeInDuplicates: 'Made in two original copies',
     inLuxembourg: 'In Luxembourg, on',
-    forAltusFinances: 'For SOLVENTIS GROUP',
+    forSolventisGroup: 'For SOLVENTIS GROUP',
     lender: 'The Lender',
     borrower: 'The Borrower',
     preSigned: '✓ Pre-signed and validated document',
     management: 'General Management',
-    altusStamp: 'SOLVENTIS GROUP',
+    solventisStamp: 'SOLVENTIS GROUP',
     luxembourg: 'Luxembourg',
     electronicSignature: 'Certified electronic signature',
     date: 'Date',
@@ -255,7 +255,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `Der angewandte Zinssatz ist fest und beträgt ${rate}% pro Jahr. Die Gesamtkreditkosten einschließlich Zinsen werden auf <strong>${totalInterest} €</strong> geschätzt. Der gesamte zurückzuzahlende Betrag beläuft sich somit auf <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Artikel 4 – Auszahlung der Mittel',
-    article4Content: 'Die Darlehensmittel werden dem Darlehensnehmer auf dem SOLVENTIS GROUP-Partnerkonto zur Verfügung gestellt, das im Namen des Darlehensnehmers im ALTUS FINANCES-Netzwerk eröffnet wurde. Der Darlehensnehmer erkennt an und akzeptiert, dass die anfängliche Zahlung auf diesem Partnerkonto gutgeschrieben wird, dass es in seiner Verantwortung liegt, die Überweisung auf sein externes Bankkonto zu veranlassen, und dass die effektive Auszahlung der Mittel innerhalb von maximal 24 Werktagen nach Erhalt dieses ordnungsgemäß unterzeichneten Vertrags erfolgt.',
+    article4Content: 'Die Darlehensmittel werden dem Darlehensnehmer auf dem SOLVENTIS GROUP-Partnerkonto zur Verfügung gestellt, das im Namen des Darlehensnehmers im SOLVENTIS GROUP-Netzwerk eröffnet wurde. Der Darlehensnehmer erkennt an und akzeptiert, dass die anfängliche Zahlung auf diesem Partnerkonto gutgeschrieben wird, dass es in seiner Verantwortung liegt, die Überweisung auf sein externes Bankkonto zu veranlassen, und dass die effektive Auszahlung der Mittel innerhalb von maximal 24 Werktagen nach Erhalt dieses ordnungsgemäß unterzeichneten Vertrags erfolgt.',
     article5Title: 'Artikel 5 - Vorzeitige Rückzahlung',
     article5Content: 'Der Darlehensnehmer hat die Möglichkeit, das verbleibende Kapital ganz oder teilweise vorzeitig und ohne Strafen zurückzuzahlen. Jeder Antrag auf vorzeitige Rückzahlung muss mindestens 30 Tage vor dem gewünschten Datum schriftlich gestellt werden.',
     article6Title: 'Artikel 6 - Zahlungsverzug',
@@ -269,12 +269,12 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Unterschriften',
     madeInDuplicates: 'In zwei Originalexemplaren erstellt',
     inLuxembourg: 'In Luxemburg, am',
-    forAltusFinances: 'Für SOLVENTIS GROUP',
+    forSolventisGroup: 'Für SOLVENTIS GROUP',
     lender: 'Der Darlehensgeber',
     borrower: 'Der Darlehensnehmer',
     preSigned: '✓ Vorab unterzeichnetes und validiertes Dokument',
     management: 'Geschäftsführung',
-    altusStamp: 'SOLVENTIS GROUP',
+    solventisStamp: 'SOLVENTIS GROUP',
     luxembourg: 'Luxemburg',
     electronicSignature: 'Zertifizierte elektronische Signatur',
     date: 'Datum',
@@ -331,7 +331,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `A taxa de juros aplicada é fixa e corresponde a ${rate}% ao ano. O custo total do crédito, incluindo juros, é estimado em <strong>${totalInterest} €</strong>. O montante total a reembolsar ascende portanto a <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Artigo 4 – Desembolso dos Fundos',
-    article4Content: 'Os fundos do empréstimo serão disponibilizados ao Mutuário na conta afiliada SOLVENTIS GROUP aberta em nome do Mutuário dentro da rede ALTUS FINANCES. O Mutuário reconhece e aceita que o pagamento inicial será creditado nesta conta afiliada, que é sua responsabilidade iniciar a transferência para sua conta bancária externa, e que o desembolso efetivo dos fundos ocorrerá dentro de um máximo de 24 horas úteis a partir do recebimento deste contrato devidamente assinado.',
+    article4Content: 'Os fundos do empréstimo serão disponibilizados ao Mutuário na conta afiliada SOLVENTIS GROUP aberta em nome do Mutuário dentro da rede SOLVENTIS GROUP. O Mutuário reconhece e aceita que o pagamento inicial será creditado nesta conta afiliada, que é sua responsabilidade iniciar a transferência para sua conta bancária externa, e que o desembolso efetivo dos fundos ocorrerá dentro de um máximo de 24 horas úteis a partir do recebimento deste contrato devidamente assinado.',
     article5Title: 'Artigo 5 - Reembolso Antecipado',
     article5Content: 'O Mutuário tem a opção de proceder ao reembolso antecipado, total ou parcial, do capital remanescente sem penalidades. Qualquer pedido de reembolso antecipado deve ser formulado por escrito pelo menos 30 dias antes da data desejada.',
     article6Title: 'Artigo 6 - Inadimplência',
@@ -345,12 +345,12 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Assinaturas',
     madeInDuplicates: 'Feito em dois originais',
     inLuxembourg: 'No Luxemburgo, em',
-    forAltusFinances: 'Por SOLVENTIS GROUP',
+    forSolventisGroup: 'Por SOLVENTIS GROUP',
     lender: 'O Mutuante',
     borrower: 'O Mutuário',
     preSigned: '✓ Documento pré-assinado e validado',
     management: 'Direção Geral',
-    altusStamp: 'SOLVENTIS GROUP',
+    solventisStamp: 'SOLVENTIS GROUP',
     luxembourg: 'Luxemburgo',
     electronicSignature: 'Assinatura eletrónica certificada',
     date: 'Data',
@@ -407,7 +407,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `La tasa de interés aplicada es fija y asciende a ${rate}% por año. El costo total del crédito, incluyendo intereses, se estima en <strong>${totalInterest} €</strong>. El monto total a reembolsar asciende por lo tanto a <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Artículo 4 – Desembolso de los Fondos',
-    article4Content: 'Los fondos del préstamo se pondrán a disposición del Prestatario en la cuenta afiliada SOLVENTIS GROUP abierta a nombre del Prestatario dentro de la red ALTUS FINANCES. El Prestatario reconoce y acepta que el pago inicial se acreditará en esta cuenta afiliada, que es su responsabilidad iniciar la transferencia a su cuenta bancaria externa, y que el desembolso efectivo de los fondos se realizará dentro de un máximo de 24 horas hábiles desde la recepción de este contrato debidamente firmado.',
+    article4Content: 'Los fondos del préstamo se pondrán a disposición del Prestatario en la cuenta afiliada SOLVENTIS GROUP abierta a nombre del Prestatario dentro de la red SOLVENTIS GROUP. El Prestatario reconoce y acepta que el pago inicial se acreditará en esta cuenta afiliada, que es su responsabilidad iniciar la transferencia a su cuenta bancaria externa, y que el desembolso efectivo de los fondos se realizará dentro de un máximo de 24 horas hábiles desde la recepción de este contrato debidamente firmado.',
     article5Title: 'Artículo 5 - Reembolso Anticipado',
     article5Content: 'El Prestatario tiene la opción de proceder al reembolso anticipado, total o parcial, del capital restante sin penalidades. Cualquier solicitud de reembolso anticipado debe formularse por escrito al menos 30 días antes de la fecha deseada.',
     article6Title: 'Artículo 6 - Incumplimiento de Pago',
@@ -421,12 +421,12 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Firmas',
     madeInDuplicates: 'Hecho en dos originales',
     inLuxembourg: 'En Luxemburgo, el',
-    forAltusFinances: 'Por SOLVENTIS GROUP',
+    forSolventisGroup: 'Por SOLVENTIS GROUP',
     lender: 'El Prestamista',
     borrower: 'El Prestatario',
     preSigned: '✓ Documento pre-firmado y validado',
     management: 'Dirección General',
-    altusStamp: 'SOLVENTIS GROUP',
+    solventisStamp: 'SOLVENTIS GROUP',
     luxembourg: 'Luxemburgo',
     electronicSignature: 'Firma electrónica certificada',
     date: 'Fecha',
@@ -483,7 +483,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `Il tasso di interesse applicato è fisso e ammonta al ${rate}% annuo. Il costo totale del credito, compresi gli interessi, è stimato in <strong>${totalInterest} €</strong>. L'importo totale da rimborsare ammonta quindi a <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Articolo 4 – Erogazione dei Fondi',
-    article4Content: 'I fondi del prestito saranno messi a disposizione del Mutuatario sul conto affiliato SOLVENTIS GROUP aperto a nome del Mutuatario all\'interno della rete ALTUS FINANCES. Il Mutuatario riconosce e accetta che il pagamento iniziale sarà accreditato su questo conto affiliato, che è sua responsabilità avviare il trasferimento verso il suo conto bancario esterno, e che l\'erogazione effettiva dei fondi avverrà entro un massimo di 24 ore lavorative dalla ricezione del presente contratto debitamente firmato.',
+    article4Content: 'I fondi del prestito saranno messi a disposizione del Mutuatario sul conto affiliato SOLVENTIS GROUP aperto a nome del Mutuatario all\'interno della rete SOLVENTIS GROUP. Il Mutuatario riconosce e accetta che il pagamento iniziale sarà accreditato su questo conto affiliato, che è sua responsabilità avviare il trasferimento verso il suo conto bancario esterno, e che l\'erogazione effettiva dei fondi avverrà entro un massimo di 24 ore lavorative dalla ricezione del presente contratto debitamente firmato.',
     article5Title: 'Articolo 5 - Rimborso Anticipato',
     article5Content: 'Il Mutuatario ha la possibilità di procedere al rimborso anticipato, totale o parziale, del capitale residuo senza penalità. Qualsiasi richiesta di rimborso anticipato deve essere formulata per iscritto almeno 30 giorni prima della data desiderata.',
     article6Title: 'Articolo 6 - Inadempienza di Pagamento',
@@ -497,12 +497,12 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Firme',
     madeInDuplicates: 'Fatto in due originali',
     inLuxembourg: 'A Lussemburgo, il',
-    forAltusFinances: 'Per SOLVENTIS GROUP',
+    forSolventisGroup: 'Per SOLVENTIS GROUP',
     lender: 'Il Prestatore',
     borrower: 'Il Mutuatario',
     preSigned: '✓ Documento pre-firmato e convalidato',
     management: 'Direzione Generale',
-    altusStamp: 'SOLVENTIS GROUP',
+    solventisStamp: 'SOLVENTIS GROUP',
     luxembourg: 'Lussemburgo',
     electronicSignature: 'Firma elettronica certificata',
     date: 'Data',
@@ -559,7 +559,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article3Content: (rate, totalInterest, totalRepayment) =>
       `Het toegepaste rentepercentage is vast en bedraagt ${rate}% per jaar. De totale kosten van het krediet, inclusief rente, worden geschat op <strong>${totalInterest} €</strong>. Het totaal terug te betalen bedrag bedraagt dus <strong>${totalRepayment} €</strong>.`,
     article4Title: 'Artikel 4 – Uitbetaling van de Fondsen',
-    article4Content: 'De leningsfondsen worden ter beschikking gesteld van de Lener op de SOLVENTIS GROUP-gelieerde rekening geopend op naam van de Lener binnen het ALTUS FINANCES-netwerk. De Lener erkent en accepteert dat de initiële betaling wordt gecrediteerd op deze gelieerde rekening, dat het zijn verantwoordelijkheid is om de overboeking naar zijn externe bankrekening te starten, en dat de effectieve uitbetaling van de fondsen zal plaatsvinden binnen maximaal 24 werkuren na ontvangst van dit naar behoren ondertekende contract.',
+    article4Content: 'De leningsfondsen worden ter beschikking gesteld van de Lener op de SOLVENTIS GROUP-gelieerde rekening geopend op naam van de Lener binnen het SOLVENTIS GROUP-netwerk. De Lener erkent en accepteert dat de initiële betaling wordt gecrediteerd op deze gelieerde rekening, dat het zijn verantwoordelijkheid is om de overboeking naar zijn externe bankrekening te starten, en dat de effectieve uitbetaling van de fondsen zal plaatsvinden binnen maximaal 24 werkuren na ontvangst van dit naar behoren ondertekende contract.',
     article5Title: 'Artikel 5 - Vervroegde Terugbetaling',
     article5Content: 'De Lener heeft de mogelijkheid om vervroegd, geheel of gedeeltelijk, het resterende kapitaal terug te betalen zonder boetes. Elk verzoek tot vervroegde terugbetaling moet minstens 30 dagen voor de gewenste datum schriftelijk worden ingediend.',
     article6Title: 'Artikel 6 - Wanbetaling',
@@ -573,12 +573,12 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     signatureSection: 'Handtekeningen',
     madeInDuplicates: 'Opgesteld in twee originelen',
     inLuxembourg: 'In Luxemburg, op',
-    forAltusFinances: 'Voor SOLVENTIS GROUP',
+    forSolventisGroup: 'Voor SOLVENTIS GROUP',
     lender: 'De Kredietgever',
     borrower: 'De Lener',
     preSigned: '✓ Vooraf ondertekend en gevalideerd document',
     management: 'Algemeen Bestuur',
-    altusStamp: 'SOLVENTIS GROUP',
+    solventisStamp: 'SOLVENTIS GROUP',
     luxembourg: 'Luxemburg',
     electronicSignature: 'Gecertificeerde elektronische handtekening',
     date: 'Datum',
@@ -931,7 +931,7 @@ const getContractTemplate = (data: ContractData): string => {
             <div class="logo-icon-text">A</div>
           </div>
           <div class="logo-text-group">
-            <div class="logo">ALTUS FINANCES</div>
+            <div class="logo">SOLVENTIS GROUP</div>
             <div class="logo-subtitle">GROUP</div>
           </div>
         </div>
@@ -1061,7 +1061,7 @@ const getContractTemplate = (data: ContractData): string => {
 
     <div class="signature-box">
       <div class="signature-item">
-        <div class="signature-header">${t.forAltusFinances}</div>
+        <div class="signature-header">${t.forSolventisGroup}</div>
         <div class="signature-role">${t.lender}</div>
         <div class="pre-signed">
           <p style="font-style: italic; font-size: 10pt; color: #2563eb; margin-bottom: 10px;">
@@ -1073,7 +1073,7 @@ const getContractTemplate = (data: ContractData): string => {
           <svg width="120" height="120" xmlns="http://www.w3.org/2000/svg">
             <circle cx="60" cy="60" r="55" fill="none" stroke="#2563eb" stroke-width="3" stroke-dasharray="5,5"/>
             <circle cx="60" cy="60" r="50" fill="#f8fafc" opacity="0.7"/>
-            <text x="60" y="52" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e3a8a">ALTUS FINANCES</text>
+            <text x="60" y="52" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e3a8a">SOLVENTIS GROUP</text>
             <text x="60" y="68" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e3a8a">GROUP</text>
             <text x="60" y="88" text-anchor="middle" font-size="9" fill="#64748b">${t.luxembourg}</text>
           </svg>

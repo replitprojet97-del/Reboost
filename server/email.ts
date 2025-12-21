@@ -52,7 +52,7 @@ async function sendEmail(options: {
   sendSmtpEmail.subject = options.subject;
   sendSmtpEmail.htmlContent = options.html;
   sendSmtpEmail.textContent = options.text;
-  sendSmtpEmail.sender = { email: options.from, name: 'ALTUS FINANCES GROUP' };
+  sendSmtpEmail.sender = { email: options.from, name: 'SOLVENTIS FINANCES GROUP' };
   sendSmtpEmail.to = [{ email: options.to }];
   
   if (options.replyTo) {
@@ -179,8 +179,8 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
     const currentYear = new Date().getFullYear();
     
     const subject = language === 'en' 
-      ? 'Reset your password - ALTUS FINANCES GROUP'
-      : 'Réinitialisez votre mot de passe - ALTUS FINANCES GROUP';
+      ? 'Reset your password - SOLVENTIS FINANCES GROUP'
+      : 'Réinitialisez votre mot de passe - SOLVENTIS FINANCES GROUP';
     
     const html = `
 <!DOCTYPE html>
@@ -189,7 +189,7 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ALTUS FINANCES GROUP</title>
+  <title>SOLVENTIS FINANCES GROUP</title>
   <style type="text/css">
     body, table, td, p, a, li, blockquote { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
     table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
@@ -229,8 +229,8 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
               </p>
               <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 20px 0;">
                 ${language === 'en' 
-                  ? 'We received a request to reset your password for your ALTUS FINANCES GROUP account.'
-                  : 'Nous avons reçu une demande de réinitialisation du mot de passe pour votre compte ALTUS FINANCES GROUP.'}
+                  ? 'We received a request to reset your password for your SOLVENTIS FINANCES GROUP account.'
+                  : 'Nous avons reçu une demande de réinitialisation du mot de passe pour votre compte SOLVENTIS FINANCES GROUP.'}
               </p>
               <p style="color: #374151; font-size: 16px; line-height: 1.5; margin: 0 0 30px 0;">
                 ${language === 'en'
@@ -279,7 +279,7 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
                 <tr>
                   <td align="center">
                     <p style="margin: 0; font-size: 12px; color: #64748b; font-family: Arial, sans-serif;">
-                      &copy; ${currentYear} ALTUS FINANCES GROUP. ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
+                      &copy; ${currentYear} SOLVENTIS FINANCES GROUP. ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
                     </p>
                   </td>
                 </tr>
@@ -297,8 +297,8 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
     const text = `${language === 'en' ? 'Hello' : 'Bonjour'} ${fullName},
 
 ${language === 'en' 
-  ? 'We received a request to reset your password for your ALTUS FINANCES GROUP account.'
-  : 'Nous avons reçu une demande de réinitialisation du mot de passe pour votre compte ALTUS FINANCES GROUP.'}
+  ? 'We received a request to reset your password for your SOLVENTIS FINANCES GROUP account.'
+  : 'Nous avons reçu une demande de réinitialisation du mot de passe pour votre compte SOLVENTIS FINANCES GROUP.'}
 
 ${language === 'en'
   ? 'To reset your password, visit this link:'
@@ -310,7 +310,7 @@ ${language === 'en'
   ? 'This link will expire in 1 hour. If you didn\'t request a password reset, please ignore this email.'
   : 'Ce lien expirera dans 1 heure. Si vous n\'avez pas demandé de réinitialisation de mot de passe, veuillez ignorer cet email.'}
 
-ALTUS FINANCES GROUP
+SOLVENTIS FINANCES GROUP
 ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
     `;
     
@@ -350,7 +350,7 @@ export async function sendContactFormEmail(name: string, email: string, phone: s
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ALTUS FINANCES GROUP</title>
+  <title>SOLVENTIS FINANCES GROUP</title>
   <style type="text/css">
     body, table, td, p, a, li, blockquote { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
     table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
@@ -427,7 +427,7 @@ export async function sendContactFormEmail(name: string, email: string, phone: s
                 <tr>
                   <td align="center">
                     <p style="margin: 0; font-size: 12px; color: #64748b; font-family: Arial, sans-serif;">
-                      &copy; ${currentYear} ALTUS FINANCES GROUP. Tous droits réservés.
+                      &copy; ${currentYear} SOLVENTIS FINANCES GROUP. Tous droits réservés.
                     </p>
                   </td>
                 </tr>
@@ -454,7 +454,7 @@ ${message}
 
 ---
 Ce message a été envoyé depuis le formulaire de contact du site SolventisGroup.
-ALTUS FINANCES GROUP
+SOLVENTIS FINANCES GROUP
 ${new Date().getFullYear()} Tous droits réservés.
     `;
     
@@ -814,8 +814,8 @@ export async function sendOTPEmail(
     const safeName = escapeHtml(fullName);
     
     const subject = language === 'en' 
-      ? 'Your verification code - ALTUS FINANCES GROUP'
-      : 'Votre code de vérification - ALTUS FINANCES GROUP';
+      ? 'Your verification code - SOLVENTIS FINANCES GROUP'
+      : 'Votre code de vérification - SOLVENTIS FINANCES GROUP';
     
     const html = `
 <!DOCTYPE html>
@@ -857,7 +857,7 @@ export async function sendOTPEmail(
           <tr>
             <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="color: #6b7280; font-size: 14px; margin: 0;">
-                ALTUS FINANCES GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
+                SOLVENTIS FINANCES GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
                 ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
               </p>
             </td>
@@ -882,7 +882,7 @@ ${language === 'en'
   ? 'This code will expire in 10 minutes. Do not share it with anyone.'
   : 'Ce code expirera dans 10 minutes. Ne le partagez avec personne.'}
 
-ALTUS FINANCES GROUP
+SOLVENTIS FINANCES GROUP
 ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
     `;
     
@@ -989,7 +989,7 @@ export async function sendSignedContractToAdmins(
           <tr>
             <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="color: #6b7280; font-size: 14px; margin: 0;">
-                ALTUS FINANCES GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
+                SOLVENTIS FINANCES GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
                 ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
               </p>
             </td>
@@ -1015,7 +1015,7 @@ ${language === 'en'
 
 ${language === 'en' ? 'Review in Dashboard' : 'Vérifier dans le Dashboard'}: ${reviewUrl}
 
-ALTUS FINANCES GROUP
+SOLVENTIS FINANCES GROUP
 ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
     `;
     
@@ -1138,7 +1138,7 @@ export async function sendTransferCodesAdminEmail(
           <tr>
             <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="color: #6b7280; font-size: 14px; margin: 0;">
-                ALTUS FINANCES GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
+                SOLVENTIS FINANCES GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
                 ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
               </p>
             </td>
@@ -1168,7 +1168,7 @@ ${language === 'en'
   ? 'These codes will be required at each pause percentage during the transfer.'
   : 'Ces codes seront requis à chaque pourcentage de pause pendant le transfert.'}
 
-ALTUS FINANCES GROUP
+SOLVENTIS FINANCES GROUP
 ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
     `;
     
@@ -1270,7 +1270,7 @@ export async function sendAdminTransferCompletionReport(
           <tr>
             <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="color: #6b7280; font-size: 14px; margin: 0;">
-                ALTUS FINANCES GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
+                SOLVENTIS FINANCES GROUP - ${language === 'en' ? 'Financing Solutions' : 'Solutions de financement'}<br>
                 ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
               </p>
             </td>
@@ -1293,7 +1293,7 @@ IBAN: ${recipientIban}
 ${language === 'en' ? 'Transfer ID' : 'Réf. Virement'}: ${transferId.substring(0, 8)}
 ${language === 'en' ? 'Loan ID' : 'Réf. Prêt'}: ${loanId.substring(0, 8)}
 
-ALTUS FINANCES GROUP
+SOLVENTIS FINANCES GROUP
 ${new Date().getFullYear()} ${language === 'en' ? 'All rights reserved' : 'Tous droits réservés'}.
     `;
     
