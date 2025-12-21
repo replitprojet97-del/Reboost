@@ -22,7 +22,8 @@ export default function HeaderPremium() {
   const [scrolled, setScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [menuOrigin, setMenuOrigin] = useState({ x: '50%', y: '50%' });
-  const langMenuRef = useRef<HTMLDivElement>(null);
+  const langMenuDesktopRef = useRef<HTMLDivElement>(null);
+  const langMenuMobileRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations();
   const { language, setLanguage } = useLanguage();
@@ -44,7 +45,10 @@ export default function HeaderPremium() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (langMenuRef.current && !langMenuRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      const inDesktopRef = langMenuDesktopRef.current && langMenuDesktopRef.current.contains(target);
+      const inMobileRef = langMenuMobileRef.current && langMenuMobileRef.current.contains(target);
+      if (!inDesktopRef && !inMobileRef) {
         setLangMenuOpen(false);
       }
     };
@@ -130,7 +134,7 @@ export default function HeaderPremium() {
             {/* Desktop Right Actions */}
             <div className="hidden lg:flex items-center gap-4">
               {/* Language Selector */}
-              <div className="relative" ref={langMenuRef}>
+              <div className="relative" ref={langMenuDesktopRef}>
                 <button
                   onClick={() => setLangMenuOpen(!langMenuOpen)}
                   className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-200"
@@ -175,7 +179,7 @@ export default function HeaderPremium() {
             {/* Mobile Right Actions */}
             <div className="flex lg:hidden items-center gap-1">
               {/* Mobile Language Selector */}
-              <div className="relative" ref={langMenuRef}>
+              <div className="relative" ref={langMenuMobileRef}>
                 <button
                   onClick={() => setLangMenuOpen(!langMenuOpen)}
                   className="flex items-center justify-center w-10 h-10 text-foreground/70 hover:text-foreground transition-colors duration-200"
