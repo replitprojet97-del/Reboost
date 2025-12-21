@@ -928,7 +928,7 @@ const getContractTemplate = (data: ContractData): string => {
       <div class="logo-section">
         <div class="logo-container">
           <div class="logo-icon">
-            <div class="logo-icon-text">A</div>
+            <div class="logo-icon-text">S</div>
           </div>
           <div class="logo-text-group">
             <div class="logo">SOLVENTIS GROUP</div>
@@ -939,7 +939,7 @@ const getContractTemplate = (data: ContractData): string => {
       <div class="header-info">
         <div class="company-name">SOLVENTIS GROUP S.à r.l.</div>
         <span class="contact-line"><strong>Siège:</strong> 1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland</span>
-        <span class="contact-line"><strong>RCS:</strong> Luxembourg B123456</span>
+        <span class="contact-line"><strong>Company Reg:</strong> Ireland</span>
         <span class="contact-line"><strong>Tél:</strong> +353-431-5918</span>
         <span class="contact-line"><strong>Email:</strong> contact@solventisgroup.org</span>
         <span class="contact-line"><strong>Web:</strong> www.solventisgroup.org</span>
