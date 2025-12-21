@@ -7,7 +7,7 @@
     "dev": "NODE_ENV=development tsx server/index.ts",
     "build": "npm run build:frontend && npm run build:backend",
     "build:frontend": "vite build",
-    "build:backend": "npx esbuild server/index.ts --platform=node --packages=bundle --bundle --format=cjs --outfile=dist/index.cjs",
+    "build:backend": "npx esbuild server/index.ts --platform=node --packages=external --bundle --format=cjs --outfile=dist/index.cjs",
     "vercel-build": "bash vercel-build.sh",
     "start": "NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
