@@ -1104,7 +1104,7 @@ const getContractTemplate = (data: ContractData): string => {
   <div class="footer">
     <p class="footer-bold">SOLVENTIS GROUP - S.à r.l.</p>
     <p style="margin: 8px 0;">
-      ${t.shareCapital}: 1 000 000 € • RCS Luxembourg B123456<br>
+      ${t.shareCapital}: 1 000 000 € • Company Registration Ireland<br>
       ${t.headquarters}: 1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland<br>
       ${t.tel}: +353-431-5918 • Email: infos@solventisgroup.org<br>
       www.solventisgroup.org
