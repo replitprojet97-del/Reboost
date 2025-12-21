@@ -1,33 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card } from '@/components/ui/card';
 import { ArrowRight, Calculator } from 'lucide-react';
 import { Link } from 'wouter';
-import image1 from '@assets/stock_images/modern_business_prof_e6d6637f.jpg';
-import image2 from '@assets/stock_images/financial_advisor_co_cd5f43f9.jpg';
-import image3 from '@assets/stock_images/professional_busines_18a0ae91.jpg';
-import image4 from '@assets/stock_images/modern_business_prof_2525f578.jpg';
-import image5 from '@assets/stock_images/financial_advisor_co_3eccfc80.jpg';
-import image6 from '@assets/stock_images/professional_busines_c74b6c1f.jpg';
 import { useLanguage, translations } from '@/lib/i18n';
 
-const heroImages = [image1, image2, image3, image4, image5, image6];
+const heroImageUrl = '/og_image.png';
 
 export default function Hero() {
   const { language } = useLanguage();
   const t = translations[language];
   const [loanAmount, setLoanAmount] = useState('50000');
   const [loanDuration, setLoanDuration] = useState('48');
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
 
   const calculateMonthlyPayment = () => {
     const amount = parseInt(loanAmount);
@@ -44,15 +30,13 @@ export default function Hero() {
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{ 
-          backgroundImage: `url(${heroImages[currentImageIndex]})`,
-          filter: 'brightness(0.35)',
-          transition: 'background-image 0.15s cubic-bezier(0.4, 0, 0.6, 1)',
+          backgroundImage: `url(${heroImageUrl})`,
           backgroundPosition: 'center center',
           backgroundSize: 'cover'
         }}
       />
       
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/80 via-blue-500/70 to-blue-700/80" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 via-blue-800/40 to-blue-900/50" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -203,22 +187,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Carousel Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
-        {heroImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            className={`h-2.5 rounded-full transition-all duration-300 ${
-              index === currentImageIndex 
-                ? 'bg-white w-8' 
-                : 'bg-white/50 w-2.5 hover:bg-white/75'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-            data-testid={`carousel-dot-${index}`}
-          />
-        ))}
-      </div>
     </section>
   );
 }
