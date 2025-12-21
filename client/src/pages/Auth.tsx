@@ -12,7 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
 import { FaEnvelope, FaLock, FaUser, FaPhone, FaBuilding } from 'react-icons/fa';
-import { ArrowLeft, Hash, FileText, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Hash, FileText, Eye, EyeOff, Lock, Shield } from 'lucide-react';
 import { useLanguage, useTranslations } from '@/lib/i18n';
 import { translateBackendMessage } from '@/lib/translateBackendMessage';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
@@ -258,57 +258,122 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-background dark:bg-foreground/5">
+    <div className="min-h-screen bg-background dark:bg-foreground/5 flex flex-col">
       <HeaderPremium />
       
-      <main className="relative flex items-center justify-center py-24 overflow-hidden">
-        
-        {/* ULTRA PREMIUM ACCENT GLOWS */}
-        <div className="absolute w-[500px] h-[500px] bg-gradient-to-br from-accent/15 to-accent/5 opacity-40 dark:opacity-20 rounded-full blur-3xl animate-float top-10 left-10" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tr from-accent/10 to-primary/5 opacity-40 dark:opacity-20 rounded-full blur-3xl animate-float" style={{ animationDelay: '-9s' }} />
-
-        {/* ULTRA PREMIUM AUTH CARD */}
-        <div className="relative z-10 w-full max-w-2xl bg-card/95 dark:bg-card/90 backdrop-blur-xl border border-border rounded-2xl shadow-lg p-8 sm:p-10 mx-4">
-
-          {/* HEADER */}
-          <div className="flex items-start justify-between mb-8">
-            <div className="flex-1 text-center">
-              <h1 className="text-3xl font-bold text-foreground mb-2">{activeTab === 'login' ? t.auth.login : t.auth.signup}</h1>
-              <p className="text-muted-foreground text-sm">{t.auth.subtitle}</p>
-            </div>
+      <main className="relative flex-1 flex overflow-hidden">
+        {/* LEFT COLUMN - PREMIUM ABSTRACT BACKGROUND (DESKTOP ONLY) */}
+        <div className="hidden lg:flex lg:w-[45%] relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex-col items-center justify-center px-12 py-24 overflow-hidden">
+          
+          {/* ABSTRACT PREMIUM SHAPES */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-blue-500/10 to-purple-500/5 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-tr from-indigo-500/8 to-blue-500/4 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-600/5 to-transparent rounded-full blur-3xl" />
           </div>
 
-        {/* PREMIUM TABS */}
-        <div className="grid grid-cols-2 gap-0 rounded-lg mb-8 border border-border overflow-hidden bg-muted/30">
-          <button
-            onClick={() => setActiveTab('login')}
-            className={`py-3 font-semibold transition-all ${
-              activeTab === 'login' 
-                ? 'bg-accent text-accent-foreground' 
-                : 'bg-transparent text-muted-foreground hover:text-foreground'
-            }`}
-            data-testid="tab-login"
-          >
-            {t.auth.loginTab}
-          </button>
-
-          <button
-            onClick={() => setActiveTab('signup')}
-            className={`py-3 font-semibold transition-all ${
-              activeTab === 'signup' 
-                ? 'bg-accent text-accent-foreground' 
-                : 'bg-transparent text-muted-foreground hover:text-foreground'
-            }`}
-            data-testid="tab-signup"
-          >
-            {t.auth.signupTab}
-          </button>
+          {/* PREMIUM CONTENT */}
+          <div className="relative z-10 text-center max-w-sm">
+            <div className="mb-6 inline-flex items-center justify-center h-16 w-16 rounded-full bg-white/10 backdrop-blur-xl border border-white/20">
+              <Lock className="w-8 h-8 text-white" />
+            </div>
+            
+            <h2 className="text-4xl font-bold text-white mb-4 leading-tight">
+              Secure Finance
+            </h2>
+            
+            <p className="text-white/80 text-lg font-medium mb-3">
+              Access Your Accounts
+            </p>
+            
+            <div className="space-y-4 mt-12 text-left">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 mt-1">
+                  <Shield className="w-5 h-5 text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-white/90 font-semibold text-sm">{t.auth.subtitle || 'Données sécurisées'}</p>
+                  <p className="text-white/60 text-xs mt-1">Chiffrement de niveau bancaire</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 mt-1">
+                  <Shield className="w-5 h-5 text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-white/90 font-semibold text-sm">Authentification vérifiée</p>
+                  <p className="text-white/60 text-xs mt-1">2FA disponible pour plus de sécurité</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 mt-1">
+                  <Shield className="w-5 h-5 text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-white/90 font-semibold text-sm">Conforme aux normes</p>
+                  <p className="text-white/60 text-xs mt-1">Certifications financières internationales</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* LOGIN FORM */}
-        {activeTab === 'login' && (
-          <Form {...loginForm}>
-            <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-5">
+        {/* RIGHT COLUMN - FORM CARD (WITH RESPONSIVE PADDING) */}
+        <div className="w-full lg:w-[55%] flex flex-col items-center justify-center p-4 sm:p-8 lg:p-12 overflow-y-auto">
+          
+          <div className="w-full max-w-md">
+            {/* PREMIUM FORM CARD */}
+            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 p-8 sm:p-10">
+
+              {/* HEADER */}
+              <div className="mb-8">
+                <h1 className="text-3xl font-bold text-foreground mb-2">
+                  {activeTab === 'login' ? t.auth.login : t.auth.signup}
+                </h1>
+                <p className="text-muted-foreground text-sm">{t.auth.subtitle || 'Accédez à votre compte Solventis'}</p>
+              </div>
+
+              {/* ELEGANT TABS WITH UNDERLINE ANIMATION */}
+              <div className="mb-8 border-b border-gray-200 dark:border-slate-700">
+                <div className="flex gap-8">
+                  <button
+                    onClick={() => setActiveTab('login')}
+                    className={`pb-4 px-1 font-semibold text-base relative transition-colors duration-200 ${
+                      activeTab === 'login' 
+                        ? 'text-foreground' 
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                    data-testid="tab-login"
+                  >
+                    {t.auth.loginTab}
+                    {activeTab === 'login' && (
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-t-full animate-in fade-in slide-in-from-left-4 duration-300" />
+                    )}
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('signup')}
+                    className={`pb-4 px-1 font-semibold text-base relative transition-colors duration-200 ${
+                      activeTab === 'signup' 
+                        ? 'text-foreground' 
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                    data-testid="tab-signup"
+                  >
+                    {t.auth.signupTab}
+                    {activeTab === 'signup' && (
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-t-full animate-in fade-in slide-in-from-right-4 duration-300" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* LOGIN FORM */}
+              {activeTab === 'login' && (
+                <Form {...loginForm}>
+                  <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-6">
               <Link href="/">
                 <Button
                   type="button"
@@ -388,22 +453,22 @@ export default function Auth() {
                 </Link>
               </div>
 
-              <Button
-                type="submit"
-                disabled={loginMutation.isPending}
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground py-3 font-bold transition-all"
-                data-testid="button-submit-login"
-              >
-                {loginMutation.isPending ? t.auth.loggingIn : t.auth.login}
-              </Button>
-            </form>
-          </Form>
-        )}
+                  <Button
+                    type="submit"
+                    disabled={loginMutation.isPending}
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 font-bold transition-all rounded-lg"
+                    data-testid="button-submit-login"
+                  >
+                    {loginMutation.isPending ? t.auth.loggingIn : t.auth.login}
+                  </Button>
+                </form>
+              </Form>
+              )}
 
-        {/* SIGNUP FORM */}
-        {activeTab === 'signup' && (
-          <Form {...signupForm}>
-            <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-5">
+              {/* SIGNUP FORM */}
+              {activeTab === 'signup' && (
+                <Form {...signupForm}>
+                  <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-6">
               <Link href="/">
                 <Button
                   type="button"
@@ -656,21 +721,21 @@ export default function Auth() {
                 />
               </div>
 
-              <Button
-                type="submit"
-                disabled={signupMutation.isPending}
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground py-3 font-bold transition-all"
-                data-testid="button-submit-signup"
-              >
-                {signupMutation.isPending ? t.auth.signingUp : t.auth.signup}
-              </Button>
-            </form>
-          </Form>
-        )}
+                  <Button
+                    type="submit"
+                    disabled={signupMutation.isPending}
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 font-bold transition-all rounded-lg"
+                    data-testid="button-submit-signup"
+                  >
+                    {signupMutation.isPending ? t.auth.signingUp : t.auth.signup}
+                  </Button>
+                </form>
+              </Form>
+              )}
+            </div>
+          </div>
         </div>
       </main>
-      
-      <FooterPremium />
     </div>
   );
 }

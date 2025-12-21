@@ -773,4 +773,49 @@
   .star-animated:hover {
     animation: starPulse 0.3s ease-in-out;
   }
+
+  /* ===== SECURE FINANCE ACCESS AUTH PAGE ===== */
+  
+  /* Elegant tab underline animation */
+  @keyframes slideInUnderline {
+    from {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+
+  .auth-tab-underline {
+    animation: slideInUnderline 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left;
+  }
+
+  /* Premium form card shadow */
+  .auth-form-card {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark .auth-form-card {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Abstract shapes animation */
+  @keyframes abstractPulse {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.05);
+    }
+  }
+
+  .abstract-shape {
+    animation: abstractPulse 8s ease-in-out infinite;
+  }
 }
