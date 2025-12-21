@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import PageLoader from '@/components/PageLoader';
+import { SEOHead } from '@/components/SEOHead';
 import NotFound from '@/pages/not-found';
 import Home from '@/pages/Home';
 import About from '@/pages/About';
@@ -37,6 +38,7 @@ import BankingMock from '@/pages/BankingMock';
 function App() {
   return (
     <HelmetProvider>
+      <SEOHead />
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <SessionMonitor />
