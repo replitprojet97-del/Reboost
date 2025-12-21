@@ -46,13 +46,13 @@ export default function FooterPremium() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-4 w-4" />
-                <a href="tel:+35240634" className="hover:text-foreground transition-colors" data-testid="link-footer-phone">
-                  +352 40 63 48
+                <a href="tel:+353431591800" className="hover:text-foreground transition-colors" data-testid="link-footer-phone">
+                  +353-431-5918
                 </a>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 mt-0.5" />
-                <span>19 Rue Sigismond, L-2537 Luxembourg</span>
+                <span>1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland</span>
               </div>
             </div>
           </div>
