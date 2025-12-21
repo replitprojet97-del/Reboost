@@ -16,26 +16,6 @@
   opacity: 0;
 }
 
-.image {
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  will-change: transform, clip-path;
-}
-
-.image.left {
-  left: 0;
-  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
-}
-
-.image.right {
-  right: 0;
-  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
-}
 
 .text {
   position: absolute;
@@ -156,19 +136,6 @@
     min-height: 500px;
   }
 
-  .image {
-    width: 100%;
-  }
-
-  .image.left {
-    display: none;
-  }
-
-  .image.right {
-    width: 100%;
-    right: auto;
-    left: 0;
-  }
 
   .text {
     padding: 2rem 1.5rem;
