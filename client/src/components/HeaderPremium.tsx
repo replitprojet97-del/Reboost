@@ -164,20 +164,10 @@ export default function HeaderPremium() {
 
               <Link href={isAuthenticated ? "/dashboard" : "/auth"}>
                 <Button 
-                  variant="ghost"
-                  className="text-sm font-medium"
-                  data-testid="button-login-desktop"
+                  className="px-6 text-sm font-semibold rounded-full"
+                  data-testid="button-auth-desktop"
                 >
                   {isAuthenticated ? t.nav.dashboard : t.auth.login}
-                </Button>
-              </Link>
-
-              <Link href={isAuthenticated ? "/dashboard" : "/auth?signup"}>
-                <Button 
-                  className="px-6 text-sm font-semibold rounded-full"
-                  data-testid="button-cta-desktop"
-                >
-                  {isAuthenticated ? t.nav.dashboard : t.hero.cta2}
                 </Button>
               </Link>
             </div>
