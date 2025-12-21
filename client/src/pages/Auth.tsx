@@ -261,9 +261,9 @@ export default function Auth() {
     <div className="min-h-screen bg-background dark:bg-foreground/5 flex flex-col">
       <HeaderPremium />
       
-      <main className="relative flex-1 flex overflow-hidden">
-        {/* LEFT COLUMN - PREMIUM ABSTRACT BACKGROUND (DESKTOP ONLY) */}
-        <div className="hidden lg:flex lg:w-[45%] relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex-col items-center justify-center px-12 py-24 overflow-hidden">
+      <main className="relative flex-1 flex">
+        {/* LEFT COLUMN - FIXED PREMIUM BRANDING PANEL (DESKTOP ONLY) */}
+        <div className="hidden lg:flex fixed left-0 top-[60px] w-[45%] h-[calc(100vh-60px)] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex-col items-center justify-center px-12 py-24 overflow-hidden">
           
           {/* ABSTRACT PREMIUM SHAPES */}
           <div className="absolute inset-0 overflow-hidden">
@@ -320,12 +320,12 @@ export default function Auth() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN - INTEGRATED PANEL */}
-        <div className="relative w-full lg:w-[55%] flex flex-col items-center justify-center bg-white dark:bg-slate-950 px-4 sm:px-8 py-8 lg:py-0 overflow-y-auto">
-          {/* Subtle vertical divider */}
-          <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-200/40 to-transparent dark:via-slate-700/30"></div>
+        {/* RIGHT COLUMN - INDEPENDENT SCROLLING AUTHENTICATION PANEL */}
+        <div className="w-full lg:ml-[45%] flex flex-col items-center justify-center bg-white dark:bg-slate-950 px-4 sm:px-8 py-8 lg:py-0 min-h-screen lg:min-h-auto overflow-y-auto">
+          {/* Subtle vertical divider (desktop only) */}
+          <div className="hidden lg:block fixed left-[45%] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-200/40 to-transparent dark:via-slate-700/30"></div>
           
-          <div className="w-full max-w-[440px] flex flex-col justify-center lg:min-h-screen lg:py-0">
+          <div className="w-full max-w-[440px] flex flex-col justify-center lg:min-h-screen lg:py-0 lg:mx-auto">
             {/* PREMIUM FORM PANEL - INTEGRATED DESIGN */}
             <div className="p-8 sm:p-10 lg:p-0 lg:pr-16">
 
