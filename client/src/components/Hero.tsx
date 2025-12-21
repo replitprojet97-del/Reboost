@@ -28,15 +28,17 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0"
         style={{ 
           backgroundImage: `url(${heroImageUrl})`,
           backgroundPosition: 'center center',
-          backgroundSize: 'cover'
+          backgroundSize: '150%',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed'
         }}
       />
       
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 via-blue-800/40 to-blue-900/50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-blue-800/10 to-blue-900/20" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
