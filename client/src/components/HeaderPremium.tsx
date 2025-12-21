@@ -183,7 +183,7 @@ export default function HeaderPremium() {
             </div>
 
             {/* Mobile Right Actions */}
-            <div className="flex lg:hidden items-center gap-2">
+            <div className="flex lg:hidden items-center gap-1">
               {/* Mobile Language Selector */}
               <div className="relative" ref={langMenuRef}>
                 <button
@@ -215,6 +215,18 @@ export default function HeaderPremium() {
                   </div>
                 )}
               </div>
+
+              {/* Mobile Auth Buttons */}
+              <Link href={isAuthenticated ? "/dashboard" : "/auth"}>
+                <Button 
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs font-medium px-2 h-9"
+                  data-testid="button-login-mobile-header"
+                >
+                  {isAuthenticated ? t.nav.dashboard : t.auth.login}
+                </Button>
+              </Link>
 
               {/* Mobile Menu Button */}
               <button
@@ -270,23 +282,6 @@ export default function HeaderPremium() {
                     </Link>
                   ))}
                 </nav>
-
-                {/* Separator */}
-                <div className="circular-menu-divider" />
-
-                {/* CTA Buttons */}
-                <div className="circular-menu-cta">
-                  <Link href={isAuthenticated ? "/dashboard" : "/auth"} onClick={handleMenuClose}>
-                    <button className="circular-menu-cta-button outline" data-testid="button-login-mobile">
-                      {isAuthenticated ? t.nav.dashboard : t.auth.login}
-                    </button>
-                  </Link>
-                  <Link href={isAuthenticated ? "/dashboard" : "/auth?signup"} onClick={handleMenuClose}>
-                    <button className="circular-menu-cta-button" data-testid="button-cta-mobile">
-                      {isAuthenticated ? t.nav.dashboard : t.hero.cta2}
-                    </button>
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
