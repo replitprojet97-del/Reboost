@@ -279,11 +279,11 @@ export default function Auth() {
             </div>
             
             <h2 className="text-4xl font-bold text-white mb-4 leading-tight">
-              Secure Finance
+              {t.auth.panelTitle}
             </h2>
             
             <p className="text-white/80 text-lg font-medium mb-3">
-              Access Your Accounts
+              {t.auth.panelSubtitle}
             </p>
             
             <div className="space-y-4 mt-12 text-left">
@@ -292,8 +292,8 @@ export default function Auth() {
                   <Shield className="w-5 h-5 text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-white/90 font-semibold text-sm">{t.auth.subtitle || 'Données sécurisées'}</p>
-                  <p className="text-white/60 text-xs mt-1">Chiffrement de niveau bancaire</p>
+                  <p className="text-white/90 font-semibold text-sm">{t.auth.subtitle}</p>
+                  <p className="text-white/60 text-xs mt-1">{t.auth.bankEncryption}</p>
                 </div>
               </div>
               
@@ -302,8 +302,8 @@ export default function Auth() {
                   <Shield className="w-5 h-5 text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-white/90 font-semibold text-sm">Authentification vérifiée</p>
-                  <p className="text-white/60 text-xs mt-1">2FA disponible pour plus de sécurité</p>
+                  <p className="text-white/90 font-semibold text-sm">{t.auth.verifiedAuth}</p>
+                  <p className="text-white/60 text-xs mt-1">{t.auth.twoFactorAvailable}</p>
                 </div>
               </div>
               
@@ -312,8 +312,8 @@ export default function Auth() {
                   <Shield className="w-5 h-5 text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-white/90 font-semibold text-sm">Conforme aux normes</p>
-                  <p className="text-white/60 text-xs mt-1">Certifications financières internationales</p>
+                  <p className="text-white/90 font-semibold text-sm">{t.auth.complianceStandard}</p>
+                  <p className="text-white/60 text-xs mt-1">{t.auth.internationalCertifications}</p>
                 </div>
               </div>
             </div>
