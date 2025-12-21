@@ -216,56 +216,65 @@ export default function HeaderPremium() {
               <X className="w-5 h-5" />
             </button>
 
-            {/* Navigation Links */}
-            <nav className="circular-menu-nav mt-8">
-              <Link href="/" onClick={handleMenuClose}>
-                <div className="circular-menu-link" data-testid="link-home-mobile">
-                  {t.nav.home}
-                </div>
-              </Link>
-              {navLinks.map((link) => (
-                <Link key={link.href} href={link.href} onClick={handleMenuClose}>
-                  <div className="circular-menu-link" data-testid={`link-${link.href.slice(1)}-mobile`}>
-                    {link.label}
+            {/* Centered menu wrapper */}
+            <div className="circular-menu-wrapper">
+              {/* Navigation Links */}
+              <nav className="circular-menu-nav">
+                <Link href="/" onClick={handleMenuClose}>
+                  <div className="circular-menu-link" data-testid="link-home-mobile">
+                    {t.nav.home}
                   </div>
                 </Link>
-              ))}
-            </nav>
-
-            {/* Languages */}
-            <div className="circular-menu-languages">
-              <p className="circular-menu-languages-label">
-                {t.nav.language}
-              </p>
-              <div className="circular-menu-languages-buttons">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => {
-                      setLanguage(lang.code);
-                      handleMenuClose();
-                    }}
-                    className={`circular-menu-lang-button ${language === lang.code ? 'active' : ''}`}
-                    data-testid={`button-mobile-language-${lang.code}`}
-                  >
-                    {lang.flag}
-                  </button>
+                {navLinks.map((link) => (
+                  <Link key={link.href} href={link.href} onClick={handleMenuClose}>
+                    <div className="circular-menu-link" data-testid={`link-${link.href.slice(1)}-mobile`}>
+                      {link.label}
+                    </div>
+                  </Link>
                 ))}
-              </div>
-            </div>
+              </nav>
 
-            {/* CTA Buttons */}
-            <div className="circular-menu-cta">
-              <Link href={isAuthenticated ? "/dashboard" : "/auth"} onClick={handleMenuClose}>
-                <button className="circular-menu-cta-button outline" data-testid="button-login-mobile">
-                  {isAuthenticated ? t.nav.dashboard : t.auth.login}
-                </button>
-              </Link>
-              <Link href={isAuthenticated ? "/dashboard" : "/auth?signup"} onClick={handleMenuClose}>
-                <button className="circular-menu-cta-button" data-testid="button-cta-mobile">
-                  {isAuthenticated ? t.nav.dashboard : t.hero.cta2}
-                </button>
-              </Link>
+              {/* Separator */}
+              <div className="circular-menu-divider" />
+
+              {/* Languages */}
+              <div className="circular-menu-languages">
+                <p className="circular-menu-languages-label">
+                  {t.nav.language}
+                </p>
+                <div className="circular-menu-languages-buttons">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code);
+                        handleMenuClose();
+                      }}
+                      className={`circular-menu-lang-button ${language === lang.code ? 'active' : ''}`}
+                      data-testid={`button-mobile-language-${lang.code}`}
+                    >
+                      {lang.flag}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Separator */}
+              <div className="circular-menu-divider" />
+
+              {/* CTA Buttons */}
+              <div className="circular-menu-cta">
+                <Link href={isAuthenticated ? "/dashboard" : "/auth"} onClick={handleMenuClose}>
+                  <button className="circular-menu-cta-button outline" data-testid="button-login-mobile">
+                    {isAuthenticated ? t.nav.dashboard : t.auth.login}
+                  </button>
+                </Link>
+                <Link href={isAuthenticated ? "/dashboard" : "/auth?signup"} onClick={handleMenuClose}>
+                  <button className="circular-menu-cta-button" data-testid="button-cta-mobile">
+                    {isAuthenticated ? t.nav.dashboard : t.hero.cta2}
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
