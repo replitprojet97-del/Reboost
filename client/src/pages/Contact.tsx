@@ -77,7 +77,7 @@ export default function Contact() {
     {
       icon: Phone,
       title: t.contact.phone,
-      value: "+352 40 63 48",
+      value: "354 431 5918",
       detail: t.contact.businessHours,
       color: "from-indigo-500 to-purple-600"
     },

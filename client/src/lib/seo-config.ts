@@ -12,12 +12,12 @@ export const seoConfig = {
   organization: {
     name: 'SolventisGroup',
     logo: '/logo.png',
-    telephone: '+352-40-63-48',
+    telephone: '+353-431-5918',
     address: {
-      streetAddress: '19 Rue Sigismond',
-      addressLocality: 'Luxembourg',
-      postalCode: 'L-2537',
-      addressCountry: 'LU'
+      streetAddress: '1 Pakenhamhall Rd, Townparks',
+      addressLocality: 'Castlepollard',
+      postalCode: 'N91 X6Y0',
+      addressCountry: 'IE'
     },
     geo: {
       latitude: 49.6117,

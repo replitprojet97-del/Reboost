@@ -938,9 +938,9 @@ const getContractTemplate = (data: ContractData): string => {
       </div>
       <div class="header-info">
         <div class="company-name">SOLVENTIS GROUP S.à r.l.</div>
-        <span class="contact-line"><strong>Siège:</strong> 19 Rue Sigismond, L-2537 Luxembourg</span>
+        <span class="contact-line"><strong>Siège:</strong> 1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland</span>
         <span class="contact-line"><strong>RCS:</strong> Luxembourg B123456</span>
-        <span class="contact-line"><strong>Tél:</strong> +352 40 63 48</span>
+        <span class="contact-line"><strong>Tél:</strong> +353-431-5918</span>
         <span class="contact-line"><strong>Email:</strong> contact@solventisgroup.org</span>
         <span class="contact-line"><strong>Web:</strong> www.solventisgroup.org</span>
       </div>
@@ -1105,8 +1105,8 @@ const getContractTemplate = (data: ContractData): string => {
     <p class="footer-bold">SOLVENTIS GROUP - S.à r.l.</p>
     <p style="margin: 8px 0;">
       ${t.shareCapital}: 1 000 000 € • RCS Luxembourg B123456<br>
-      ${t.headquarters}: 19 Rue Sigismond, L-2537 Luxembourg<br>
-      ${t.tel}: +352 40 63 48 • Email: infos@solventisgroup.org<br>
+      ${t.headquarters}: 1 Pakenhamhall Rd, Townparks, Castlepollard, Co. Westmeath, N91 X6Y0, Ireland<br>
+      ${t.tel}: +353-431-5918 • Email: infos@solventisgroup.org<br>
       www.solventisgroup.org
     </p>
     <p style="margin-top: 15px; font-size: 8pt; font-style: italic;">
