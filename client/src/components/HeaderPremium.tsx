@@ -206,12 +206,10 @@ export default function HeaderPremium() {
                 )}
               </div>
 
-              {/* Mobile Auth Buttons */}
+              {/* Mobile Auth Button */}
               <Link href={isAuthenticated ? "/dashboard" : "/auth"}>
                 <Button 
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs font-medium px-2 h-9"
+                  className="text-sm font-semibold rounded-full"
                   data-testid="button-login-mobile-header"
                 >
                   {isAuthenticated ? t.nav.dashboard : t.auth.login}
