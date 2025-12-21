@@ -3,6 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import { useTranslations, useLanguage, type Language } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
+import './circular-menu.css';
 
 const languages: { code: Language; name: string; flag: string }[] = [
   { code: 'fr', name: 'Francais', flag: 'FR' },
@@ -16,10 +17,13 @@ const languages: { code: Language; name: string; flag: string }[] = [
 
 export default function HeaderPremium() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [menuClosing, setMenuClosing] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [menuOrigin, setMenuOrigin] = useState({ x: '50%', y: '50%' });
   const langMenuRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations();
   const { language, setLanguage } = useLanguage();
   const [, setLocation] = useLocation();
@@ -56,6 +60,28 @@ export default function HeaderPremium() {
     }
     return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
+
+  const handleMenuOpen = () => {
+    if (hamburgerRef.current) {
+      const rect = hamburgerRef.current.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      setMenuOrigin({
+        x: `${x}px`,
+        y: `${y}px`,
+      });
+    }
+    setMobileMenuOpen(true);
+    setMenuClosing(false);
+  };
+
+  const handleMenuClose = () => {
+    setMenuClosing(true);
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+      setMenuClosing(false);
+    }, 400);
+  };
 
   const currentLang = languages.find(lang => lang.code === language) || languages[0];
 
@@ -158,8 +184,9 @@ export default function HeaderPremium() {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 text-foreground"
+              ref={hamburgerRef}
+              onClick={handleMenuOpen}
+              className="lg:hidden p-2 text-foreground circular-menu-trigger"
               data-testid="button-mobile-menu"
               aria-label="Menu"
             >
@@ -169,85 +196,79 @@ export default function HeaderPremium() {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Circular Reveal Mobile Menu */}
       {mobileMenuOpen && (
-        <>
-          <div 
-            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[99998] lg:hidden"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          
-          <div className="fixed inset-y-0 right-0 w-full max-w-sm z-[99999] bg-white dark:bg-background shadow-xl lg:hidden animate-in slide-in-from-right duration-300">
-            <div className="flex flex-col h-full">
-              {/* Mobile Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-                <span className="text-lg font-bold text-foreground">Menu</span>
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 text-foreground/60 hover:text-foreground"
-                  data-testid="button-close-menu"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+        <div 
+          className="circular-menu-container"
+          style={{
+            '--menu-origin-x': menuOrigin.x,
+            '--menu-origin-y': menuOrigin.y,
+          } as React.CSSProperties}
+        >
+          <div className={`circular-menu-content ${menuClosing ? 'closing' : ''}`}>
+            {/* Close Button */}
+            <button
+              onClick={handleMenuClose}
+              className="circular-menu-close"
+              data-testid="button-close-menu"
+              aria-label="Fermer le menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
 
-              {/* Mobile Navigation */}
-              <nav className="flex-1 overflow-y-auto px-4 py-6">
-                <div className="space-y-1">
-                  <Link href="/" onClick={() => setMobileMenuOpen(false)}>
-                    <div className="px-4 py-3 text-base font-medium text-foreground hover:bg-muted rounded-lg transition-colors" data-testid="link-home-mobile">
-                      {t.nav.home}
-                    </div>
-                  </Link>
-                  {navLinks.map((link) => (
-                    <Link key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)}>
-                      <div className="px-4 py-3 text-base font-medium text-foreground hover:bg-muted rounded-lg transition-colors" data-testid={`link-${link.href.slice(1)}-mobile`}>
-                        {link.label}
-                      </div>
-                    </Link>
-                  ))}
+            {/* Navigation Links */}
+            <nav className="circular-menu-nav mt-8">
+              <Link href="/" onClick={handleMenuClose}>
+                <div className="circular-menu-link" data-testid="link-home-mobile">
+                  {t.nav.home}
                 </div>
-
-                {/* Mobile Language Selector */}
-                <div className="mt-8 px-4">
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-                    {t.nav.language}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => setLanguage(lang.code)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                          language === lang.code
-                            ? 'bg-foreground text-background'
-                            : 'bg-muted text-foreground hover:bg-muted/80'
-                        }`}
-                        data-testid={`button-mobile-language-${lang.code}`}
-                      >
-                        {lang.flag}
-                      </button>
-                    ))}
+              </Link>
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href} onClick={handleMenuClose}>
+                  <div className="circular-menu-link" data-testid={`link-${link.href.slice(1)}-mobile`}>
+                    {link.label}
                   </div>
-                </div>
-              </nav>
+                </Link>
+              ))}
+            </nav>
 
-              {/* Mobile CTA */}
-              <div className="px-6 py-6 border-t border-border space-y-3">
-                <Link href={isAuthenticated ? "/dashboard" : "/auth"} onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" className="w-full rounded-full" data-testid="button-login-mobile">
-                    {isAuthenticated ? t.nav.dashboard : t.auth.login}
-                  </Button>
-                </Link>
-                <Link href={isAuthenticated ? "/dashboard" : "/auth?signup"} onClick={() => setMobileMenuOpen(false)}>
-                  <Button className="w-full rounded-full" data-testid="button-cta-mobile">
-                    {isAuthenticated ? t.nav.dashboard : t.hero.cta2}
-                  </Button>
-                </Link>
+            {/* Languages */}
+            <div className="circular-menu-languages">
+              <p className="circular-menu-languages-label">
+                {t.nav.language}
+              </p>
+              <div className="circular-menu-languages-buttons">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setLanguage(lang.code);
+                      handleMenuClose();
+                    }}
+                    className={`circular-menu-lang-button ${language === lang.code ? 'active' : ''}`}
+                    data-testid={`button-mobile-language-${lang.code}`}
+                  >
+                    {lang.flag}
+                  </button>
+                ))}
               </div>
             </div>
+
+            {/* CTA Buttons */}
+            <div className="circular-menu-cta">
+              <Link href={isAuthenticated ? "/dashboard" : "/auth"} onClick={handleMenuClose}>
+                <button className="circular-menu-cta-button outline" data-testid="button-login-mobile">
+                  {isAuthenticated ? t.nav.dashboard : t.auth.login}
+                </button>
+              </Link>
+              <Link href={isAuthenticated ? "/dashboard" : "/auth?signup"} onClick={handleMenuClose}>
+                <button className="circular-menu-cta-button" data-testid="button-cta-mobile">
+                  {isAuthenticated ? t.nav.dashboard : t.hero.cta2}
+                </button>
+              </Link>
+            </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );
