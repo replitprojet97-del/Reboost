@@ -70,7 +70,7 @@ async function sendEmail(options: {
 }
 
 function getBaseUrl(): string {
-  if (process.env.NODE_ENV === 'production' && process.env.FRONTEND_URL) {
+  if (process.env.FRONTEND_URL) {
     return process.env.FRONTEND_URL;
   }
   return process.env.REPLIT_DEV_DOMAIN 
