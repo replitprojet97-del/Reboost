@@ -1,18 +1,6 @@
 import pkg from 'pg';
 const { Pool } = pkg;
-import * as bcrypt from 'bcrypt';
-import * as readline from 'readline';
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-function question(query: string): Promise<string> {
-  return new Promise((resolve) => {
-    rl.question(query, resolve);
-  });
-}
+import bcrypt from 'bcrypt';
 
 async function createAdmin() {
   const pool = new Pool({
@@ -27,32 +15,35 @@ async function createAdmin() {
       process.exit(1);
     }
 
-    console.log('🔧 Création d\'un compte administrateur ALTUS\n');
+    const email = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
+    const password = process.env.ADMIN_PASSWORD || 'Admin123!@#Solventis';
+    const fullName = 'Administrator';
+    const username = 'admin';
 
-    // Collecter les informations
-    const fullName = await question('Nom complet de l\'admin: ');
-    const email = await question('Email de l\'admin: ');
-    const username = await question('Nom d\'utilisateur (laisser vide pour générer automatiquement): ');
-    const password = await question('Mot de passe (minimum 12 caractères): ');
-
-    // Validation du mot de passe
-    if (password.length < 12) {
-      console.error('❌ Le mot de passe doit contenir au moins 12 caractères');
-      rl.close();
-      await pool.end();
-      process.exit(1);
-    }
-
-    // Générer un username UUID si non fourni
-    const finalUsername = username.trim() || `admin_${Date.now()}`;
+    console.log('\n🔧 Création d\'un compte administrateur Solventis\n');
+    console.log(`📧 Email: ${email}`);
+    console.log(`🔑 Password: ${password}\n`);
 
     // Hacher le mot de passe
-    console.log('\n🔐 Hachage du mot de passe...');
+    console.log('🔐 Hachage du mot de passe...');
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Connexion à la base de données
     console.log('📡 Connexion à la base de données...');
     const client = await pool.connect();
+
+    // Vérifier si l'admin existe déjà
+    const existingAdmin = await client.query(
+      'SELECT id FROM users WHERE email = $1 LIMIT 1',
+      [email]
+    );
+
+    if (existingAdmin.rows.length > 0) {
+      console.log('⚠️  Un compte administrateur avec cet email existe déjà!');
+      client.release();
+      await pool.end();
+      process.exit(0);
+    }
 
     // Créer l'admin directement via SQL
     console.log('👤 Création du compte administrateur...');
@@ -61,28 +52,29 @@ async function createAdmin() {
         username, password, email, email_verified, full_name, 
         account_type, role, status, kyc_status, preferred_language
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
-      [finalUsername, hashedPassword, email, true, fullName, 'business', 'admin', 'active', 'approved', 'fr']
+      [username, hashedPassword, email, true, fullName, 'business', 'admin', 'active', 'approved', 'fr']
     );
     
     client.release();
 
     console.log('\n✅ Compte administrateur créé avec succès!');
     console.log('\n📋 Détails du compte:');
-    console.log(`   Nom d'utilisateur: ${finalUsername}`);
+    console.log(`   Nom d'utilisateur: ${username}`);
     console.log(`   Email: ${email}`);
     console.log(`   Nom complet: ${fullName}`);
     console.log(`   Rôle: admin`);
     console.log(`   Statut: actif`);
-    console.log('\n🔑 Vous pouvez maintenant vous connecter avec ces identifiants.');
+    console.log('\n🔑 Identifiants de connexion:');
+    console.log(`   Email: ${email}`);
+    console.log(`   Mot de passe: ${password}`);
+    console.log('\n⚠️  Changez le mot de passe par défaut immédiatement après la connexion!');
 
-    rl.close();
     await pool.end();
   } catch (error: any) {
     console.error('\n❌ Erreur lors de la création de l\'admin:', error.message);
     if (error.code === '23505') {
       console.error('   → L\'email ou le nom d\'utilisateur existe déjà.');
     }
-    rl.close();
     await pool.end();
     process.exit(1);
   }
