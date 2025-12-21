@@ -320,24 +320,26 @@ export default function Auth() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN - FORM CARD (WITH RESPONSIVE PADDING) */}
-        <div className="w-full lg:w-[55%] flex flex-col items-center justify-center p-4 sm:p-8 lg:p-12 overflow-y-auto">
+        {/* RIGHT COLUMN - INTEGRATED PANEL */}
+        <div className="relative w-full lg:w-[55%] flex flex-col items-center justify-center bg-white dark:bg-slate-950 px-4 sm:px-8 py-8 lg:py-0 overflow-y-auto">
+          {/* Subtle vertical divider */}
+          <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-200/40 to-transparent dark:via-slate-700/30"></div>
           
-          <div className="w-full max-w-md">
-            {/* PREMIUM FORM CARD */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 p-8 sm:p-10">
+          <div className="w-full max-w-[440px] flex flex-col justify-center lg:min-h-screen lg:py-0">
+            {/* PREMIUM FORM PANEL - INTEGRATED DESIGN */}
+            <div className="p-8 sm:p-10 lg:p-0 lg:pr-16">
 
               {/* HEADER */}
-              <div className="mb-8">
-                <h1 className="text-3xl font-bold text-foreground mb-2">
+              <div className="mb-10">
+                <h1 className="text-3xl font-bold text-foreground mb-3">
                   {activeTab === 'login' ? t.auth.login : t.auth.signup}
                 </h1>
                 <p className="text-muted-foreground text-sm">{t.auth.subtitle || 'Accédez à votre compte Solventis'}</p>
               </div>
 
               {/* ELEGANT TABS WITH UNDERLINE ANIMATION */}
-              <div className="mb-8 border-b border-gray-200 dark:border-slate-700">
-                <div className="flex gap-8">
+              <div className="mb-10 pb-4 border-b border-gray-200 dark:border-slate-700">
+                <div className="flex gap-10">
                   <button
                     onClick={() => setActiveTab('login')}
                     className={`pb-4 px-1 font-semibold text-base relative transition-colors duration-200 ${
@@ -373,7 +375,7 @@ export default function Auth() {
               {/* LOGIN FORM */}
               {activeTab === 'login' && (
                 <Form {...loginForm}>
-                  <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-6">
+                  <form onSubmit={loginForm.handleSubmit(onLoginSubmit)} className="space-y-7 auth-form-generous">
               <Link href="/">
                 <Button
                   type="button"
@@ -456,7 +458,7 @@ export default function Auth() {
                   <Button
                     type="submit"
                     disabled={loginMutation.isPending}
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 font-bold transition-all rounded-lg"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 font-bold rounded-lg"
                     data-testid="button-submit-login"
                   >
                     {loginMutation.isPending ? t.auth.loggingIn : t.auth.login}
@@ -468,7 +470,7 @@ export default function Auth() {
               {/* SIGNUP FORM */}
               {activeTab === 'signup' && (
                 <Form {...signupForm}>
-                  <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-6">
+                  <form onSubmit={signupForm.handleSubmit(onSignupSubmit)} className="space-y-7 auth-form-generous">
               <Link href="/">
                 <Button
                   type="button"
@@ -724,7 +726,7 @@ export default function Auth() {
                   <Button
                     type="submit"
                     disabled={signupMutation.isPending}
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white py-3 font-bold transition-all rounded-lg"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 font-bold rounded-lg"
                     data-testid="button-submit-signup"
                   >
                     {signupMutation.isPending ? t.auth.signingUp : t.auth.signup}
