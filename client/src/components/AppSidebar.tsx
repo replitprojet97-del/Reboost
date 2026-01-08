@@ -121,17 +121,14 @@ export default function AppSidebar() {
 
   return (
     <Sidebar className="border-r border-border bg-white">
-      <SidebarContent className="px-2 py-4 custom-scrollbar">
-        {/* Header Section */}
-        <div className="mb-6 px-4 flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="Solventis" className="h-7 w-auto" />
-            <span className="text-xl font-bold tracking-tight text-foreground">Solventis</span>
-          </div>
+      <SidebarContent className="px-0 py-0 custom-scrollbar overflow-y-auto">
+        {/* Header Section - Logo positioned as in the reference image */}
+        <div className="p-6 flex justify-center border-b border-border/50">
+          <img src="/logo.png" alt="Solventis" className="h-16 w-auto object-contain" />
         </div>
 
         {/* Navigation Groups */}
-        <div className="space-y-6">
+        <div className="py-4 space-y-6">
           <SidebarGroup className="p-0">
             <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
               PRÊTS
