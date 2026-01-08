@@ -125,57 +125,57 @@ export default function Header() {
             <a 
               href="/"
               onClick={(e) => { e.preventDefault(); setLocation('/'); }} 
-              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 group relative flex items-center gap-2" 
+              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 hover:scale-105 active:scale-95 transition-all duration-300 group relative flex items-center gap-2" 
               data-testid="link-home-desktop"
             >
-              <Home className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+              <Home className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors duration-300" />
               <span>{t.nav.home}</span>
-              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300" />
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300 shadow-[0_0_8px_rgba(0,93,255,0.5)]" />
             </a>
 
             <a 
               href="/products"
               onClick={(e) => { e.preventDefault(); setLocation('/products'); }} 
-              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 group relative flex items-center gap-2" 
+              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 hover:scale-105 active:scale-95 transition-all duration-300 group relative flex items-center gap-2" 
               data-testid="link-loans-desktop"
             >
-              <FileText className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+              <FileText className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors duration-300" />
               <span>{t.nav.products}</span>
-              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300" />
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300 shadow-[0_0_8px_rgba(0,93,255,0.5)]" />
             </a>
 
             <a 
               href="/how-it-works"
               onClick={(e) => { e.preventDefault(); setLocation('/how-it-works'); }} 
-              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 group relative flex items-center gap-2" 
+              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 hover:scale-105 active:scale-95 transition-all duration-300 group relative flex items-center gap-2" 
               data-testid="link-how-it-works-desktop"
             >
-              <HelpCircle className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+              <HelpCircle className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors duration-300" />
               <span>{t.nav.howItWorks}</span>
-              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300" />
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300 shadow-[0_0_8px_rgba(0,93,255,0.5)]" />
             </a>
 
             <a 
               href="/contact"
               onClick={(e) => { e.preventDefault(); setLocation('/contact'); }} 
-              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 group relative flex items-center gap-2" 
+              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 hover:scale-105 active:scale-95 transition-all duration-300 group relative flex items-center gap-2" 
               data-testid="link-contact-desktop"
             >
-              <Info className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+              <Info className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors duration-300" />
               <span>{t.nav.contact}</span>
-              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300" />
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300 shadow-[0_0_8px_rgba(0,93,255,0.5)]" />
             </a>
 
             <div className="relative" ref={moreMenuRef}>
               <button
                 onClick={() => setMoreMenuOpen(!moreMenuOpen)}
-                className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 group relative"
+                className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 hover:scale-105 active:scale-95 transition-all duration-300 group relative"
                 data-testid="button-more-menu"
               >
-                <Shield className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+                <Shield className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors duration-300" />
                 <span>{t.nav.more}</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${moreMenuOpen ? 'rotate-180' : ''}`} />
-                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300" />
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300 shadow-[0_0_8px_rgba(0,93,255,0.5)]" />
               </button>
 
               {moreMenuOpen && (
@@ -238,12 +238,12 @@ export default function Header() {
             <div className="relative" ref={langMenuRef}>
               <button
                 onClick={() => setLangMenuOpen(!langMenuOpen)}
-                className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-primary/5 rounded-lg transition-all duration-300 group"
+                className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-primary/10 hover:text-primary rounded-xl hover:scale-105 active:scale-95 transition-all duration-300 group"
                 data-testid="button-language-selector"
               >
-                <Globe className="w-4 h-4 group-hover:text-primary transition-colors" />
-                <span className="text-lg">{currentLang.flag}</span>
-                <span className="group-hover:text-primary transition-colors">{currentLang.name}</span>
+                <Globe className="w-4 h-4 group-hover:text-primary transition-colors duration-300" />
+                <span className="text-lg transition-transform group-hover:scale-110 duration-300">{currentLang.flag}</span>
+                <span className="group-hover:text-primary transition-colors duration-300">{currentLang.name}</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${langMenuOpen ? 'rotate-180' : ''}`} />
               </button>
 
