@@ -80,20 +80,20 @@ export function AppSidebarAdmin() {
                     <SidebarMenuButton asChild data-testid={`link-admin-${item.label.toLowerCase()}`}>
                       <Link href={item.link} onClick={closeMenuOnMobileOnly}>
                         <div
-                          className={`flex items-center justify-between gap-3 p-3 rounded-xl transition-all w-full ${
+                          className={`flex items-center justify-between gap-3 p-3 rounded-xl transition-all w-full overflow-hidden ${
                             isActive
                               ? "bg-indigo-100 text-indigo-700 font-semibold"
                               : "hover:bg-indigo-50 text-gray-700"
                           }`}
                         >
-                          <div className="flex items-center gap-3">
-                            <Icon className="w-5 h-5" />
-                            <span className="font-medium">{item.label}</span>
+                          <div className="flex items-center gap-3 min-w-0">
+                            <Icon className="w-5 h-5 shrink-0" />
+                            <span className="font-medium truncate">{item.label}</span>
                           </div>
                           {item.count > 0 && (
                             <Badge 
                               variant="destructive" 
-                              className="ml-auto min-w-[24px] h-5 flex items-center justify-center px-2"
+                              className="ml-auto min-w-[24px] h-5 flex items-center justify-center px-2 shrink-0"
                               data-testid={`badge-admin-count-${item.label.toLowerCase()}`}
                             >
                               {item.count}

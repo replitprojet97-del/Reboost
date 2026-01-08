@@ -154,27 +154,27 @@ export default function AppSidebar() {
                     
                     return (
                       <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton
-                          isActive={isActive}
-                          onClick={() => handleNavigate(item.url)}
-                          data-testid={`button-${item.url.slice(1).replace(/\//g, '-')}`}
-                          className={`group relative overflow-hidden rounded-xl transition-all duration-200 ${
-                            isActive 
-                              ? 'bg-primary text-primary-foreground shadow-md' 
-                              : 'hover:bg-sidebar-accent'
-                          }`}
-                        >
-                          <item.icon className="w-5 h-5" />
-                          <span className="font-medium flex-1">{item.title}</span>
-                          {item.badge && (
-                            <Badge variant="secondary" className="ml-auto h-5 px-2 text-xs">
-                              {item.badge}
-                            </Badge>
-                          )}
-                          {isActive && (
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary-foreground rounded-r-full" />
-                          )}
-                        </SidebarMenuButton>
+                          <SidebarMenuButton
+                            isActive={isActive}
+                            onClick={() => handleNavigate(item.url)}
+                            data-testid={`button-${item.url.slice(1).replace(/\//g, '-')}`}
+                            className={`group relative overflow-hidden rounded-xl transition-all duration-200 ${
+                              isActive 
+                                ? 'bg-primary text-primary-foreground shadow-md' 
+                                : 'hover:bg-sidebar-accent'
+                            }`}
+                          >
+                            <item.icon className="w-5 h-5 shrink-0" />
+                            <span className="font-medium flex-1 truncate">{item.title}</span>
+                            {item.badge && (
+                              <Badge variant="secondary" className="ml-auto h-5 px-2 text-xs shrink-0">
+                                {item.badge}
+                              </Badge>
+                            )}
+                            {isActive && (
+                              <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary-foreground rounded-r-full" />
+                            )}
+                          </SidebarMenuButton>
                       </SidebarMenuItem>
                     );
                   })}
@@ -202,10 +202,10 @@ export default function AppSidebar() {
                               : 'hover:bg-sidebar-accent'
                           }`}
                         >
-                          <item.icon className="w-5 h-5" />
-                          <span className="font-medium flex-1">{item.title}</span>
+                          <item.icon className="w-5 h-5 shrink-0" />
+                          <span className="font-medium flex-1 truncate">{item.title}</span>
                           {item.badge && (
-                            <Badge variant="secondary" className="ml-auto h-5 px-2 text-xs">
+                            <Badge variant="secondary" className="ml-auto h-5 px-2 text-xs shrink-0">
                               {item.badge}
                             </Badge>
                           )}
