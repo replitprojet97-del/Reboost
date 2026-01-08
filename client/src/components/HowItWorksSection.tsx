@@ -86,11 +86,11 @@ export default function HowItWorksSection() {
                   </motion.div>
                   
                   <h3 className="text-xl md:text-2xl font-semibold mb-3">
-                    {t.howItWorksSection?.[step.titleKey] || step.titleKey}
+                    {t.howItWorksSection?.[step.titleKey as keyof typeof t.howItWorksSection] || step.titleKey}
                   </h3>
                   
                   <p className="text-muted-foreground leading-relaxed max-w-xs">
-                    {t.howItWorksSection?.[step.descKey] || step.descKey}
+                    {t.howItWorksSection?.[step.descKey as keyof typeof t.howItWorksSection] || step.descKey}
                   </p>
                 </div>
               </motion.div>
@@ -111,7 +111,7 @@ export default function HowItWorksSection() {
           </p>
           <a
             href="/auth"
-            className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-primary text-primary-foreground rounded-xl hover-elevate active-elevate-2 transition-all"
+            className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-primary text-primary-foreground rounded-xl shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all"
             data-testid="button-start-application"
           >
             {t.howItWorksSection?.ctaButton || 'Commencer ma demande'}

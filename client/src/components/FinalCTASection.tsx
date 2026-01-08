@@ -53,7 +53,7 @@ export default function FinalCTASection() {
                 >
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                   <span className="text-foreground">
-                    {t.finalCTA?.[benefit.key] || benefit.key}
+                    {t.finalCTA?.[benefit.key as keyof typeof t.finalCTA] || benefit.key}
                   </span>
                 </motion.div>
               ))}
@@ -113,10 +113,10 @@ export default function FinalCTASection() {
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                  {t.finalCTA?.[stat.key] || '---'}
+                  {t.finalCTA?.[stat.key as keyof typeof t.finalCTA] || '---'}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  {t.finalCTA?.[stat.labelKey] || stat.labelKey}
+                  {t.finalCTA?.[stat.labelKey as keyof typeof t.finalCTA] || stat.labelKey}
                 </div>
               </div>
             ))}
