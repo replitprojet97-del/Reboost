@@ -406,7 +406,7 @@ export default function Header() {
                             onClick={() => setLanguage(lang.code)}
                             className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 flex-shrink-0 ${
                               language === lang.code
-                                ? 'bg-[#005DFF] text-white shadow-lg scale-105'
+                                ? 'bg-primary text-white shadow-lg scale-105'
                                 : 'bg-gray-100/80 dark:bg-slate-800/80 text-gray-700 dark:text-gray-300 hover:bg-gray-200/80 dark:hover:bg-slate-700/80'
                             }`}
                             data-testid={`button-language-${lang.code}-mobile`}
@@ -424,7 +424,7 @@ export default function Header() {
               {/* Footer with CTA button */}
               <div className="sticky bottom-0 px-6 py-5 bg-gradient-to-t from-white/95 to-white/80 dark:from-slate-900/95 dark:to-slate-900/80 backdrop-blur-xl border-t border-gray-200/30 dark:border-gray-700/30">
                 <Link href="/login" onClick={closeMobileMenu}>
-                  <button className="w-full px-6 py-4 bg-gradient-to-r from-[#005DFF] to-[#0044FF] hover:from-[#0044FF] hover:to-[#0033DD] text-white font-bold text-base rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]" data-testid="button-mon-espace-mobile">
+                  <button className="w-full px-6 py-4 bg-primary hover:bg-primary/90 text-white font-bold text-base rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]" data-testid="button-mon-espace-mobile">
                     {t.hero.cta2}
                   </button>
                 </Link>

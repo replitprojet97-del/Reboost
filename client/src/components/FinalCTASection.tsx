@@ -69,7 +69,7 @@ export default function FinalCTASection() {
             >
               <a
                 href="/auth"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold bg-primary text-primary-foreground rounded-xl hover-elevate active-elevate-2 transition-all w-full sm:w-auto"
+                className="group inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold bg-primary text-primary-foreground rounded-xl shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all w-full sm:w-auto"
                 data-testid="button-open-account"
               >
                 {t.finalCTA?.primaryButton || 'Ouvrir mon dossier'}
