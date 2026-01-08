@@ -78,19 +78,19 @@ export default function AppSidebar() {
   const inProgressTransfersCount = transfers?.filter(t => t.status === 'in-progress' || t.status === 'in_progress').length || 0;
 
   const mainSection = [
-    { title: t('dashboard.title'), url: '/dashboard', icon: LayoutDashboard },
+    { title: t('dashboard.title') as string, url: '/dashboard', icon: LayoutDashboard },
   ];
 
   const loansSection = [
-    { title: t('loans.title'), url: '/loans', icon: PieChart },
-    { title: t('contracts.title'), url: '/contracts', icon: FileText },
+    { title: t('loans.title') as string, url: '/loans', icon: PieChart },
+    { title: t('contracts.title') as string, url: '/contracts', icon: FileText },
   ];
 
   const operationsSection = [
-    { title: t('transfers.title'), url: '/transfers', icon: ArrowRightLeft },
-    { title: t('accounts.title'), url: '/accounts', icon: Building2 },
-    { title: t('history.title'), url: '/history', icon: Clock },
-    { title: t('settings.title'), url: '/settings', icon: Settings },
+    { title: t('transfers.title') as string, url: '/transfers', icon: ArrowRightLeft },
+    { title: t('accounts.title') as string, url: '/accounts', icon: Building2 },
+    { title: t('history.title') as string, url: '/history', icon: Clock },
+    { title: t('settings.title') as string, url: '/settings', icon: Settings },
   ];
 
   const renderMenuItem = (item: any) => {
@@ -131,7 +131,7 @@ export default function AppSidebar() {
         <div className="py-4 space-y-6">
           <SidebarGroup className="p-0">
             <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
-              {t('loans.nav_title') || 'PRÊTS'}
+              {(t('loans.nav_title') as string) || 'PRÊTS'}
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
               {loansSection.map(renderMenuItem)}
@@ -140,7 +140,7 @@ export default function AppSidebar() {
 
           <SidebarGroup className="p-0">
             <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
-              {t('dashboard.nav_title') || 'TABLEAU DE BORD'}
+              {(t('dashboard.nav_title') as string) || 'TABLEAU DE BORD'}
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
               {mainSection.map(renderMenuItem)}
@@ -179,7 +179,7 @@ export default function AppSidebar() {
               className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
             >
               <LogOut className="w-4 h-4" />
-              <span className="text-sm font-medium">{t('auth.logout')}</span>
+              <span className="text-sm font-medium">{t('auth.logout') as string}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
