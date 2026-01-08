@@ -103,11 +103,11 @@ export default function AppSidebar() {
           className={cn(
             "group relative flex items-center gap-3 px-4 py-2 rounded-r-full transition-all duration-200",
             isActive 
-              ? "bg-primary/10 text-primary font-medium" 
+              ? "bg-primary text-white font-medium" 
               : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
           )}
         >
-          <item.icon className={cn("w-4 h-4 transition-colors", isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground")} />
+          <item.icon className={cn("w-4 h-4 transition-colors", isActive ? "text-white" : "text-muted-foreground group-hover:text-foreground")} />
           <span className="flex-1 text-sm">{item.title}</span>
           {item.badge && (
             <Badge variant="default" className="bg-primary text-primary-foreground h-4 px-1 text-[10px] min-w-[18px] flex items-center justify-center rounded-full">
