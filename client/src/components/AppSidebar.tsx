@@ -78,36 +78,19 @@ export default function AppSidebar() {
   const inProgressTransfersCount = transfers?.filter(t => t.status === 'in-progress' || t.status === 'in_progress').length || 0;
 
   const mainSection = [
-    { title: t.nav.dashboard, url: '/dashboard', icon: LayoutDashboard },
+    { title: 'Tableau de bord', url: '/dashboard', icon: LayoutDashboard },
   ];
 
   const loansSection = [
-    { 
-      title: 'Vue d\'ensemble', 
-      url: '/loans', 
-      icon: PieChart,
-      badge: pendingLoansCount > 0 ? pendingLoansCount : undefined,
-    },
-    { title: 'Historique', url: '/history', icon: Clock },
-    { title: 'Statut des remboursements', url: '/loans/repayments', icon: CreditCard },
-  ];
-
-  const docsSection = [
-    { title: t.nav.contracts || 'Contrats', url: '/contracts', icon: FileText },
+    { title: 'Mes prêts', url: '/loans', icon: PieChart },
+    { title: 'Contrats', url: '/contracts', icon: FileText },
   ];
 
   const operationsSection = [
-    { 
-      title: t.nav.transfers, 
-      url: '/transfers', 
-      icon: ArrowRightLeft,
-      badge: inProgressTransfersCount > 0 ? inProgressTransfersCount : undefined,
-    },
-    { title: t.bankAccounts.title, url: '/accounts', icon: Building2 },
-  ];
-
-  const settingsSection = [
-    { title: t.nav.settings, url: '/settings', icon: Settings },
+    { title: 'Transferts', url: '/transfers', icon: ArrowRightLeft },
+    { title: 'Comptes bancaires', url: '/accounts', icon: Building2 },
+    { title: 'Historique', url: '/history', icon: Clock },
+    { title: 'Paramètres', url: '/settings', icon: Settings },
   ];
 
   const renderMenuItem = (item: any) => {
@@ -118,21 +101,18 @@ export default function AppSidebar() {
           isActive={isActive}
           onClick={() => handleNavigate(item.url)}
           className={cn(
-            "group relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300",
+            "group relative flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200",
             isActive 
-              ? "bg-primary/10 text-primary font-semibold shadow-[0_2px_10px_-3px_rgba(0,0,0,0.07)]" 
+              ? "bg-primary/5 text-primary font-medium" 
               : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
           )}
         >
-          <item.icon className={cn("w-5 h-5 transition-transform duration-300", isActive ? "scale-110" : "group-hover:scale-110")} />
+          <item.icon className={cn("w-4 h-4 transition-colors", isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground")} />
           <span className="flex-1 text-sm">{item.title}</span>
           {item.badge && (
-            <Badge variant="default" className="bg-primary text-primary-foreground h-5 px-1.5 text-[10px] min-w-[20px] flex items-center justify-center rounded-full font-bold">
+            <Badge variant="default" className="bg-primary text-primary-foreground h-4 px-1 text-[10px] min-w-[18px] flex items-center justify-center rounded-full">
               {item.badge}
             </Badge>
-          )}
-          {isActive && (
-            <ChevronRight className="w-4 h-4 text-primary animate-in fade-in slide-in-from-left-2 duration-300" />
           )}
         </SidebarMenuButton>
       </SidebarMenuItem>
@@ -140,49 +120,21 @@ export default function AppSidebar() {
   };
 
   return (
-    <Sidebar className="border-r border-border bg-background/95 backdrop-blur-xl">
-      <SidebarContent className="px-4 py-6 custom-scrollbar">
+    <Sidebar className="border-r border-border bg-white">
+      <SidebarContent className="px-2 py-4 custom-scrollbar">
         {/* Header Section */}
-        <div className="mb-8 px-2 flex flex-col gap-6">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-xl">
-              <img src="/logo.png" alt="Solventis" className="h-6 w-auto" />
-            </div>
-            <span className="text-lg font-bold tracking-tight text-foreground">Solventis</span>
+        <div className="mb-6 px-4 flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <img src="/logo.png" alt="Solventis" className="h-7 w-auto" />
+            <span className="text-xl font-bold tracking-tight text-foreground">Solventis</span>
           </div>
-
-          {/* User Profile Card */}
-          {!isUserLoading && user && (
-            <div className="flex items-center gap-3 p-3 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/10 shadow-sm">
-              <Avatar className="h-10 w-10 border-2 border-background shadow-sm">
-                {profilePhotoUrl ? <AvatarImage src={profilePhotoUrl} /> : null}
-                <AvatarFallback className="bg-primary text-primary-foreground font-bold text-xs">
-                  {getUserInitials(user.fullName)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold truncate text-foreground leading-tight">
-                  {user.fullName}
-                </p>
-                <Badge variant="secondary" className="mt-1 h-4 px-1.5 text-[9px] uppercase tracking-wider bg-primary/10 text-primary border-none font-bold">
-                  {getAccountTypeLabel(user.accountType)}
-                </Badge>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Navigation Groups */}
         <div className="space-y-6">
           <SidebarGroup className="p-0">
-            <SidebarMenu>
-              {mainSection.map(renderMenuItem)}
-            </SidebarMenu>
-          </SidebarGroup>
-
-          <SidebarGroup className="p-0">
-            <SidebarGroupLabel className="px-3 text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground/60 mb-2">
-              Prêts & Crédits
+            <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
+              PRÊTS
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
               {loansSection.map(renderMenuItem)}
@@ -190,35 +142,47 @@ export default function AppSidebar() {
           </SidebarGroup>
 
           <SidebarGroup className="p-0">
-            <SidebarGroupLabel className="px-3 text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground/60 mb-2">
-              Opérations
+            <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
+              TABLEAU DE BORD
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
+              {mainSection.map(renderMenuItem)}
               {operationsSection.map(renderMenuItem)}
-            </SidebarMenu>
-          </SidebarGroup>
-
-          <SidebarGroup className="p-0">
-            <SidebarGroupLabel className="px-3 text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground/60 mb-2">
-              Documents
-            </SidebarGroupLabel>
-            <SidebarMenu className="space-y-1">
-              {docsSection.map(renderMenuItem)}
             </SidebarMenu>
           </SidebarGroup>
         </div>
       </SidebarContent>
       
-      <SidebarFooter className="p-4 border-t border-border bg-muted/20">
+      <SidebarFooter className="p-4 border-t border-border bg-muted/5">
         <SidebarMenu>
-          {settingsSection.map(renderMenuItem)}
-          <SidebarMenuItem className="mt-2">
+          {/* User Profile Card */}
+          {!isUserLoading && user && (
+            <SidebarMenuItem>
+              <div className="flex items-center gap-3 p-2 rounded-xl bg-primary/5 border border-primary/10 mb-2">
+                <Avatar className="h-9 w-9 border-2 border-background">
+                  {profilePhotoUrl ? <AvatarImage src={profilePhotoUrl} /> : null}
+                  <AvatarFallback className="bg-primary text-primary-foreground font-bold text-xs">
+                    {getUserInitials(user.fullName)}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold truncate text-foreground leading-tight">
+                    {user.fullName}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground uppercase font-medium">
+                    {getAccountTypeLabel(user.accountType)}
+                  </p>
+                </div>
+              </div>
+            </SidebarMenuItem>
+          )}
+          <SidebarMenuItem>
             <SidebarMenuButton
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-destructive hover:bg-destructive/10 hover:text-destructive transition-colors duration-300"
+              className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
             >
-              <LogOut className="w-5 h-5" />
-              <span className="text-sm font-semibold">Déconnexion</span>
+              <LogOut className="w-4 h-4" />
+              <span className="text-sm font-medium">Déconnexion</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
