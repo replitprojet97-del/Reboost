@@ -77,11 +77,11 @@ export function SEOHead({
       ))}
       
       {/* Favicon */}
-      <link rel="icon" type="image/png" href="/favicon.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-      <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-      <link rel="shortcut icon" href="/favicon.png" />
+      <link rel="icon" type="image/png" href="/favicon.png?v=3" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=3" />
+      <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png?v=3" />
+      <link rel="apple-touch-icon" href="/favicon.png?v=3" />
+      <link rel="shortcut icon" href="/favicon.png?v=3" />
       
       {/* Manifest */}
       <link rel="manifest" href="/manifest.json" />
