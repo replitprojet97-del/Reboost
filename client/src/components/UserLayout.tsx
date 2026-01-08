@@ -26,8 +26,8 @@ export function UserLayout({
         {description && <meta name="description" content={description} />}
       </Helmet>
 
-      <div className="p-6 md:p-8">
-        <div className={`mx-auto max-w-${maxWidth} space-y-6`}>
+      <div className="p-6 md:p-8 min-h-screen bg-background/50 backdrop-blur-3xl">
+        <div className={`mx-auto max-w-${maxWidth} space-y-8 animate-fade-in`}>
           {customHeader ? (
             customHeader
           ) : (

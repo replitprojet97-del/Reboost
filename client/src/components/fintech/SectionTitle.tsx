@@ -9,16 +9,16 @@ interface SectionTitleProps {
 
 export function SectionTitle({ title, subtitle, action, className = '' }: SectionTitleProps) {
   return (
-    <div className={`flex items-center justify-between gap-4 mb-6 ${className}`}>
+    <div className={`flex items-center justify-between gap-4 mb-8 ${className}`}>
       <div className="flex-1 min-w-0">
-        <h2 className="text-2xl font-bold text-foreground tracking-tight">
+        <h2 className="text-3xl font-extrabold text-foreground tracking-tight leading-tight">
           {title}
         </h2>
         {subtitle && (
-          <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
+          <p className="text-base font-medium text-muted-foreground mt-2 max-w-2xl">{subtitle}</p>
         )}
       </div>
-      {action && <div className="flex-shrink-0">{action}</div>}
+      {action && <div className="flex-shrink-0 animate-in fade-in slide-in-from-right-4 duration-500">{action}</div>}
     </div>
   );
 }

@@ -15,60 +15,60 @@
   --elevate-2: rgba(0,0,0, .05);
 
   /* ===== QONTO ULTRA PREMIUM PALETTE ===== */
-  --background: 0 0% 100%;          /* Blanc pur */
+  --background: 210 20% 98%;          /* Gris-bleu ultra léger pour profondeur */
 
-  --foreground: 240 10% 10%;        /* Noir profond pour texte */
+  --foreground: 222 47% 11%;        /* Bleu-noir profond pour texte */
 
-  --border: 240 6% 92%;             /* Bordures ultra discrètes */
+  --border: 214 32% 91%;             /* Bordures douces */
 
-  --card: 0 0% 100%;                /* Cards blanc pur */
+  --card: 0 0% 100%;                /* Cards blanc pur pour contraste */
 
-  --card-foreground: 240 10% 10%;
+  --card-foreground: 222 47% 11%;
 
-  --card-border: 240 6% 94%;        /* Bordures card quasi invisibles */
+  --card-border: 214 32% 91%;
 
-  --sidebar: 240 5% 98%;            /* Sidebar blanc très subtil */
+  --sidebar: 222 47% 11%;            /* Sidebar foncée pour aspect premium */
 
-  --sidebar-foreground: 240 10% 10%;
+  --sidebar-foreground: 210 40% 98%;
 
-  --sidebar-border: 240 6% 94%;
+  --sidebar-border: 222 47% 15%;
 
-  --sidebar-primary: 240 10% 10%;   /* Noir pour accent sidebar */
+  --sidebar-primary: 217 91% 60%;   /* Bleu vif pour accent sidebar */
 
   --sidebar-primary-foreground: 0 0% 100%;
 
-  --sidebar-accent: 240 5% 96%;     /* Hover très subtil */
+  --sidebar-accent: 222 47% 15%;     /* Hover subtil */
 
-  --sidebar-accent-foreground: 240 10% 10%;
+  --sidebar-accent-foreground: 210 40% 98%;
 
-  --sidebar-ring: 240 10% 10%;
+  --sidebar-ring: 217 91% 60%;
 
   --popover: 0 0% 100%;
 
-  --popover-foreground: 240 10% 10%;
+  --popover-foreground: 222 47% 11%;
 
-  --popover-border: 240 6% 94%;
+  --popover-border: 214 32% 91%;
 
-  --primary: 240 10% 10%;           /* Noir élégant comme Qonto */
+  --primary: 221 83% 53%;           /* Bleu institutionnel chaleureux */
 
-  --primary-foreground: 0 0% 100%;
+  --primary-foreground: 210 40% 98%;
 
-  --secondary: 240 5% 96%;
+  --secondary: 210 40% 96.1%;
 
-  --secondary-foreground: 240 10% 10%;
+  --secondary-foreground: 222 47% 11%;
 
-  --muted: 240 5% 97%;              /* Background ultra léger */
+  --muted: 210 40% 96.1%;
 
-  --muted-foreground: 240 5% 46%;   /* Texte secondaire */
+  --muted-foreground: 215.4 16.3% 46.9%;
 
-  --accent: 262 83% 58%;            /* Violet Qonto */
+  --accent: 221 83% 53%;            /* Bleu accent */
 
   --accent-foreground: 0 0% 100%;
 }
 
 /* Classe personnalisée pour les hover/focus states - Violet subtil translucide */
 .bg-accent-subtle {
-  background-color: rgba(124, 58, 237, 0.08) !important;
+  background-color: rgba(37, 99, 235, 0.08) !important;
 }
 
 :root {
@@ -82,8 +82,8 @@
   --destructive-foreground: 0 0% 100%;
 
   --input: 220 15% 92%;
-  --ring: 248 95% 63%;
-  --chart-1: 248 95% 63%;           /* Indigo */
+  --ring: 221 83% 53%;
+  --chart-1: 221 83% 53%;           /* Bleu */
   --chart-2: 200 95% 58%;           /* Cyan fintech */
   --chart-3: 166 76% 46%;           /* Vert */
   --chart-4: 280 85% 65%;           /* Violet */
@@ -152,51 +152,66 @@
   --elevate-2: rgba(255,255,255, .06);
 
   /* ===== DARK MODE QONTO PREMIUM ===== */
-  --background: 240 10% 6%;           /* Noir profond */
+  --background: 222 47% 4%;           /* Bleu-noir abyssal */
 
-  --foreground: 0 0% 98%;             /* Blanc pur pour texte */
+  --foreground: 210 40% 98%;             /* Blanc cassé doux */
 
-  --border: 240 8% 14%;               /* Bordures subtiles */
+  --border: 222 47% 12%;               /* Bordures subtiles */
 
-  --card: 240 10% 9%;                 /* Cards légèrement plus claires */
+  --card: 222 47% 7%;                 /* Cards légèrement surélevées */
 
-  --card-foreground: 0 0% 98%;
+  --card-foreground: 210 40% 98%;
 
-  --card-border: 240 8% 16%;
+  --card-border: 222 47% 15%;
 
-  --sidebar: 240 10% 7%;              /* Sidebar encore plus foncée */
+  --sidebar: 222 47% 5%;              /* Sidebar cohérente */
 
-  --sidebar-foreground: 0 0% 98%;
+  --sidebar-foreground: 210 40% 98%;
 
-  --sidebar-border: 240 8% 14%;
+  --sidebar-border: 222 47% 12%;
 
-  --sidebar-primary: 0 0% 100%;       /* Blanc pour accent */
+  --sidebar-primary: 217 91% 60%;
 
-  --sidebar-primary-foreground: 240 10% 6%;
+  --sidebar-primary-foreground: 210 40% 98%;
 
-  --sidebar-accent: 240 8% 12%;       /* Hover subtil */
+  --sidebar-accent: 222 47% 10%;
 
-  --sidebar-accent-foreground: 0 0% 98%;
+  --sidebar-accent-foreground: 210 40% 98%;
 
-  --sidebar-ring: 0 0% 100%;
+  --sidebar-ring: 217 91% 60%;
 
-  --popover: 240 10% 9%;
+  --popover: 222 47% 7%;
 
-  --popover-foreground: 0 0% 98%;
+  --popover-foreground: 210 40% 98%;
 
-  --popover-border: 240 8% 16%;
+  --popover-border: 222 47% 15%;
 
-  --primary: 0 0% 100%;               /* Blanc élégant */
+  --primary: 217 91% 60%;
 
-  --primary-foreground: 240 10% 6%;
+  --primary-foreground: 222 47% 4%;
 
-  --secondary: 240 8% 14%;
+  --secondary: 222 47% 12%;
 
-  --secondary-foreground: 0 0% 98%;
+  --secondary-foreground: 210 40% 98%;
 
-  --muted: 240 8% 12%;
+  --muted: 222 47% 12%;
 
-  --muted-foreground: 240 5% 60%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217 91% 60%;
+
+  --accent-foreground: 0 0% 100%;
+
+  --gold: 43 85% 65%;
+
+  --gold-foreground: 217 33% 8%;
+
+  --destructive: 358 65% 62%;
+
+  --destructive-foreground: 0 0% 100%;
+
+  --input: 217 26% 22%;
+  --ring: 217 91% 60%;
 
 
 
