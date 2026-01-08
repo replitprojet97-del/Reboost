@@ -391,6 +391,25 @@
     scrollbar-color: hsl(var(--sidebar-foreground) / 0.2) transparent;
   }
 
+  /* Interactive Scrollbar for Sidebar */
+  .interactive-scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .interactive-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .interactive-scrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .interactive-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+  }
+
   @keyframes slideInUp {
     from {
       opacity: 0;
