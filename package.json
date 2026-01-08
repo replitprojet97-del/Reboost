@@ -16,7 +16,6 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@getbrevo/brevo": "^3.0.1",
     "@hookform/resolvers": "^3.10.0",
     "@neondatabase/serverless": "^0.10.4",
     "@radix-ui/react-accordion": "^1.2.4",

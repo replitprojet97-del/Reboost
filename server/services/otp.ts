@@ -2,30 +2,7 @@ import crypto from "crypto";
 import { db } from "../db";
 import { userOtps } from "@shared/schema";
 import { eq, and, lt } from "drizzle-orm";
-import * as brevo from '@getbrevo/brevo';
-
-async function getCredentials() {
-  const apiKey = process.env.BREVO_API_KEY;
-  const email = process.env.BREVO_FROM_EMAIL;
-
-  if (!apiKey || !email) {
-    throw new Error('Brevo configuration missing: BREVO_API_KEY and BREVO_FROM_EMAIL must be set');
-  }
-
-  return { apiKey, email };
-}
-
-async function getBrevoClient() {
-  const { apiKey, email } = await getCredentials();
-  
-  const apiInstance = new brevo.TransactionalEmailsApi();
-  apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, apiKey);
-  
-  return {
-    client: apiInstance,
-    fromEmail: email
-  };
-}
+import { sendTransactionalEmail } from "../email";
 
 export async function generateAndSendOTP(userId: string, userEmail: string, fullName: string, language: string = 'fr'): Promise<void> {
   try {
@@ -39,7 +16,6 @@ export async function generateAndSendOTP(userId: string, userEmail: string, full
       used: false,
     });
 
-    const { client, fromEmail } = await getBrevoClient();
     const { getOtpEmailTemplate } = await import('../emailTemplates');
     
     const template = getOtpEmailTemplate(language as any, {
@@ -47,15 +23,14 @@ export async function generateAndSendOTP(userId: string, userEmail: string, full
       otpCode: code,
     });
 
-    const sendSmtpEmail = new brevo.SendSmtpEmail();
-    sendSmtpEmail.subject = template.subject;
-    sendSmtpEmail.htmlContent = template.html;
-    sendSmtpEmail.textContent = template.text;
-    sendSmtpEmail.sender = { email: fromEmail, name: 'SOLVENTIS GROUP' };
-    sendSmtpEmail.to = [{ email: userEmail }];
-
-    await client.sendTransacEmail(sendSmtpEmail);
-    console.log(`OTP code sent to ${userEmail} in ${language}`);
+    await sendTransactionalEmail({
+      to: userEmail,
+      subject: template.subject,
+      html: template.html,
+      text: template.text,
+    });
+    
+    console.log(`OTP code sent to ${userEmail} via SendPulse`);
   } catch (error) {
     console.error('Error generating/sending OTP:', error);
     throw error;
