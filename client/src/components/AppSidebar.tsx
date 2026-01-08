@@ -92,8 +92,8 @@ export default function AppSidebar() {
   ];
 
   return (
-    <Sidebar className="border-r border-sidebar-border bg-sidebar backdrop-blur-xl">
-      <SidebarContent className="px-3 py-4 custom-scrollbar">
+    <Sidebar className="border-r border-sidebar-border bg-sidebar/95 backdrop-blur-xl transition-colors duration-500">
+      <SidebarContent className="px-3 py-4 custom-scrollbar bg-sidebar/50">
         {/* Logo Section - Official Solventis Group Branding */}
         <div className="px-2 py-4 mb-6" data-testid="sidebar-logo">
           <div className="flex flex-col items-center gap-3">
@@ -158,10 +158,10 @@ export default function AppSidebar() {
                             isActive={isActive}
                             onClick={() => handleNavigate(item.url)}
                             data-testid={`button-${item.url.slice(1).replace(/\//g, '-')}`}
-                            className={`group relative overflow-hidden rounded-xl transition-all duration-200 ${
+                            className={`group relative overflow-hidden rounded-xl transition-all duration-300 ${
                               isActive 
-                                ? 'bg-primary text-primary-foreground shadow-md' 
-                                : 'hover:bg-sidebar-accent'
+                                ? 'bg-primary text-primary-foreground shadow-[0_0_15px_rgba(0,93,255,0.3)] scale-[1.02]' 
+                                : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground hover:scale-[1.01]'
                             }`}
                           >
                             <item.icon className="w-5 h-5 shrink-0" />
@@ -196,10 +196,10 @@ export default function AppSidebar() {
                           isActive={isActive}
                           onClick={() => handleNavigate(item.url)}
                           data-testid={`button-${item.url.slice(1)}`}
-                          className={`group relative overflow-hidden rounded-xl transition-all duration-200 ${
+                          className={`group relative overflow-hidden rounded-xl transition-all duration-300 ${
                             isActive 
-                              ? 'bg-primary text-primary-foreground shadow-md' 
-                              : 'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
+                              ? 'bg-primary text-primary-foreground shadow-[0_0_15px_rgba(0,93,255,0.3)] scale-[1.02]' 
+                              : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground hover:scale-[1.01]'
                           }`}
                         >
                           <item.icon className="w-5 h-5 shrink-0" />
@@ -236,7 +236,7 @@ export default function AppSidebar() {
                 </div>
               </div>
             ) : user ? (
-              <div className="flex items-center gap-3 px-3 py-3 rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 backdrop-blur-sm">
+              <div className="flex items-center gap-3 px-3 py-3 rounded-xl bg-gradient-to-r from-primary/20 via-primary/10 to-transparent border border-primary/30 backdrop-blur-md shadow-lg transition-all duration-300 hover:shadow-primary/10">
                 <Avatar className="h-11 w-11 border-2 border-primary/20 shadow-sm">
                   {profilePhotoUrl ? (
                     <AvatarImage 
@@ -263,10 +263,10 @@ export default function AppSidebar() {
             <SidebarMenuButton
               onClick={handleLogout}
               data-testid="button-logout"
-              className="rounded-xl text-sidebar-foreground/70 hover:bg-destructive/10 hover:text-destructive transition-all duration-200"
+              className="rounded-xl text-sidebar-foreground/60 hover:bg-destructive/15 hover:text-destructive transition-all duration-300 group"
             >
-              <LogOut className="w-5 h-5" />
-              <span className="font-medium">{t.nav.logout}</span>
+              <LogOut className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+              <span className="font-semibold">{t.nav.logout}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
