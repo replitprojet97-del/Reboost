@@ -8,12 +8,8 @@ function escapeHtml(unsafe: string): string {
 }
 
 function getEmailBaseUrl(): string {
-  if (process.env.FRONTEND_URL) {
-    return process.env.FRONTEND_URL;
-  }
-  return process.env.REPLIT_DEV_DOMAIN 
-    ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
-    : 'https://solventisgroup.org';
+  // Always use the production URL for email assets to ensure they are accessible
+  return 'https://solventisgroup.org';
 }
 
 function getEmailLogoUrl(): string {

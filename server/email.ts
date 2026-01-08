@@ -80,6 +80,15 @@ export async function sendTransactionalEmail(options: {
     },
   };
 
+  // Ensure all images in HTML use absolute URLs with the production domain
+  let finalHtml = options.html;
+  if (process.env.NODE_ENV === 'production' || true) {
+    finalHtml = finalHtml.replace(/src="\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo-email.png"');
+    finalHtml = finalHtml.replace(/src="\.\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo-email.png"');
+  }
+  
+  emailData.email.html = Buffer.from(finalHtml).toString('base64');
+
   if (options.replyTo) {
     emailData.email.reply_to = options.replyTo;
   }
@@ -146,8 +155,52 @@ export async function sendContractEmail(toEmail: string, fullName: string, loanI
 
 export async function sendResetPasswordEmail(toEmail: string, fullName: string, token: string, language: string = 'fr') {
   const resetUrl = `${getBaseUrl()}/reset-password/${token}`;
+  const logoUrl = 'https://solventisgroup.org/logo-email.png';
+  const currentYear = new Date().getFullYear();
+  
   const subject = language === 'en' ? 'Reset your password - SOLVENTIS GROUP' : 'Réinitialisez votre mot de passe - SOLVENTIS GROUP';
-  const html = `<p>Bonjour ${fullName}, cliquez ici pour réinitialiser votre mot de passe: <a href="${resetUrl}">${resetUrl}</a></p>`;
+  const html = `
+<!DOCTYPE html>
+<html lang="${language}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOLVENTIS GROUP</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, sans-serif;">
+  <table width="100%" bgcolor="#f4f4f4">
+    <tr>
+      <td align="center" style="padding: 20px;">
+        <table width="600" bgcolor="#ffffff" style="border-radius: 8px; overflow: hidden;">
+          <tr>
+            <td align="center" style="background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #c9a227 100%); padding: 30px;">
+              <img src="${logoUrl}" alt="SolventisGroup" width="180" style="display: block;" />
+              <h1 style="color: #ffffff; margin-top: 15px; font-size: 24px;">${language === 'en' ? 'Password Reset' : 'Réinitialisation du mot de passe'}</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 40px;">
+              <p>Bonjour <strong>${fullName}</strong>,</p>
+              <p>${language === 'en' ? 'Click the button below to reset your password:' : 'Cliquez sur le bouton ci-dessous pour réinitialiser votre mot de passe :'}</p>
+              <div align="center" style="margin: 30px 0;">
+                <a href="${resetUrl}" style="background: #2563eb; color: #ffffff; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block;">
+                  ${language === 'en' ? 'Reset Password' : 'Réinitialiser mon mot de passe'}
+                </a>
+              </div>
+              <p style="font-size: 12px; color: #6b7280; word-break: break-all;">${resetUrl}</p>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0;">
+              <p style="font-size: 12px; color: #64748b;">&copy; ${currentYear} SOLVENTIS GROUP</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
   const text = `Bonjour ${fullName}, visitez ce lien pour réinitialiser votre mot de passe: ${resetUrl}`;
   await sendTransactionalEmail({ to: toEmail, subject, html, text });
   return true;
