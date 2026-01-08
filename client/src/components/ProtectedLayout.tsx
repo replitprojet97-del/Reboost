@@ -66,7 +66,7 @@ export default function ProtectedLayout() {
       <LoanDialogProvider>
         <TopBar />
         <SidebarProvider style={style as React.CSSProperties}>
-          <div className="flex min-h-screen w-full">
+          <div className="flex min-h-screen w-full pt-10">
             <AppSidebar />
             <div className="flex flex-col flex-1 min-w-0">
               {/* Fintech Premium Header */}
