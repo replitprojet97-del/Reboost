@@ -93,7 +93,7 @@ export default function AppSidebar() {
 
   return (
     <Sidebar className="border-r border-sidebar-border bg-sidebar backdrop-blur-xl">
-      <SidebarContent className="px-3 py-4">
+      <SidebarContent className="px-3 py-4 custom-scrollbar">
         {/* Logo Section - Official Solventis Group Branding */}
         <div className="px-2 py-4 mb-6" data-testid="sidebar-logo">
           <div className="flex flex-col items-center gap-3">
@@ -199,7 +199,7 @@ export default function AppSidebar() {
                           className={`group relative overflow-hidden rounded-xl transition-all duration-200 ${
                             isActive 
                               ? 'bg-primary text-primary-foreground shadow-md' 
-                              : 'hover:bg-sidebar-accent'
+                              : 'text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
                           }`}
                         >
                           <item.icon className="w-5 h-5 shrink-0" />
@@ -263,7 +263,7 @@ export default function AppSidebar() {
             <SidebarMenuButton
               onClick={handleLogout}
               data-testid="button-logout"
-              className="rounded-xl hover:bg-destructive/10 hover:text-destructive transition-all duration-200"
+              className="rounded-xl text-sidebar-foreground/70 hover:bg-destructive/10 hover:text-destructive transition-all duration-200"
             >
               <LogOut className="w-5 h-5" />
               <span className="font-medium">{t.nav.logout}</span>
