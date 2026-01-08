@@ -105,9 +105,15 @@ export async function sendTransactionalEmail(options: {
 }
 
 function getBaseUrl(): string {
+  // En production, on utilise toujours l'URL du frontend Vercel
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://solventisgroup.org';
+  }
+  
   if (process.env.FRONTEND_URL) {
     return process.env.FRONTEND_URL;
   }
+  
   return process.env.REPLIT_DEV_DOMAIN 
     ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
     : 'http://localhost:5000';
