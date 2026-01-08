@@ -78,8 +78,8 @@ export default function HeroCarousel() {
         <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in delay-500">
           <button
             onClick={() => setLocation("/login")}
-            className="px-6 sm:px-7 py-3 rounded-lg bg-[#005DFF] font-semibold text-base shadow-lg
-              hover:bg-[#0052E0] hover:shadow-[0_0_20px_rgba(0,93,255,0.4)]
+            className="px-6 sm:px-7 py-3 rounded-xl bg-primary font-semibold text-base shadow-lg
+              hover:shadow-[0_0_20px_rgba(0,93,255,0.4)]
               transition-all duration-300 transform hover:scale-105"
             data-testid="button-apply-loan"
           >

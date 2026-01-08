@@ -273,7 +273,7 @@ export default function Header() {
             <Link href="/login">
               <Button 
                 size="lg"
-                className="px-6 h-11 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-white font-bold text-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
+                className="px-6 h-11 bg-primary hover:bg-primary/90 text-white font-bold text-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
                 data-testid="button-mon-espace-desktop"
               >
                 <span className="relative z-10">{t.hero.cta2}</span>
