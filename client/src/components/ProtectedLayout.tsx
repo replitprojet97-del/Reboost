@@ -102,6 +102,7 @@ export default function ProtectedLayout() {
                 <Switch>
                   <Route path="/dashboard" component={DashboardWrapper} />
                   <Route path="/loans" component={IndividualLoans} />
+                  <Route path="/loans/repayments" component={IndividualLoans} />
                   <Route path="/loans/new" component={LoanRequestDashboard} />
                   <Route path="/loan-request" component={LoanRequestDashboard} />
                   <Route path="/loan-offers/:offerId" component={LoanOfferDetail} />
