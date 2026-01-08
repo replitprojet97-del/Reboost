@@ -125,52 +125,57 @@ export default function Header() {
             <a 
               href="/"
               onClick={(e) => { e.preventDefault(); setLocation('/'); }} 
-              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-lg hover:bg-primary/5 transition-all duration-300 group relative" 
+              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 group relative flex items-center gap-2" 
               data-testid="link-home-desktop"
             >
-              {t.nav.home}
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent group-hover:w-full transition-all duration-300" />
+              <Home className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+              <span>{t.nav.home}</span>
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300" />
             </a>
 
             <a 
               href="/products"
               onClick={(e) => { e.preventDefault(); setLocation('/products'); }} 
-              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-lg hover:bg-primary/5 transition-all duration-300 group relative" 
+              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 group relative flex items-center gap-2" 
               data-testid="link-loans-desktop"
             >
-              {t.nav.products}
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent group-hover:w-full transition-all duration-300" />
+              <FileText className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+              <span>{t.nav.products}</span>
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300" />
             </a>
 
             <a 
               href="/how-it-works"
               onClick={(e) => { e.preventDefault(); setLocation('/how-it-works'); }} 
-              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-lg hover:bg-primary/5 transition-all duration-300 group relative" 
+              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 group relative flex items-center gap-2" 
               data-testid="link-how-it-works-desktop"
             >
-              {t.nav.howItWorks}
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent group-hover:w-full transition-all duration-300" />
+              <HelpCircle className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+              <span>{t.nav.howItWorks}</span>
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300" />
             </a>
 
             <a 
               href="/contact"
               onClick={(e) => { e.preventDefault(); setLocation('/contact'); }} 
-              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-lg hover:bg-primary/5 transition-all duration-300 group relative" 
+              className="px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 group relative flex items-center gap-2" 
               data-testid="link-contact-desktop"
             >
-              {t.nav.contact}
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent group-hover:w-full transition-all duration-300" />
+              <Info className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+              <span>{t.nav.contact}</span>
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300" />
             </a>
 
             <div className="relative" ref={moreMenuRef}>
               <button
                 onClick={() => setMoreMenuOpen(!moreMenuOpen)}
-                className="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-lg hover:bg-primary/5 transition-all duration-300 group relative"
+                className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-primary rounded-xl hover:bg-primary/10 transition-all duration-300 group relative"
                 data-testid="button-more-menu"
               >
-                {t.nav.more}
+                <Shield className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+                <span>{t.nav.more}</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${moreMenuOpen ? 'rotate-180' : ''}`} />
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent group-hover:w-full transition-all duration-300" />
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full group-hover:w-1/2 transition-all duration-300" />
               </button>
 
               {moreMenuOpen && (
