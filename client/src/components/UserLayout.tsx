@@ -26,18 +26,18 @@ export function UserLayout({
         {description && <meta name="description" content={description} />}
       </Helmet>
 
-      <div className="p-6 md:p-8 min-h-screen bg-background/50 backdrop-blur-3xl">
-        <div className={`mx-auto max-w-${maxWidth} space-y-8 animate-fade-in`}>
+      <div className="p-4 md:p-8 min-h-screen bg-background/50 backdrop-blur-3xl">
+        <div className={`mx-auto max-w-${maxWidth} space-y-6 md:space-y-8 animate-fade-in`}>
           {customHeader ? (
             customHeader
           ) : (
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
-                <h1 className="text-3xl md:text-4xl font-semibold mb-2" data-testid="text-page-title">
+                <h1 className="text-2xl md:text-4xl font-bold tracking-tight mb-1 md:mb-2" data-testid="text-page-title">
                   {title}
                 </h1>
                 {description && (
-                  <p className="text-muted-foreground" data-testid="text-page-description">
+                  <p className="text-sm md:text-base text-muted-foreground font-medium" data-testid="text-page-description">
                     {description}
                   </p>
                 )}

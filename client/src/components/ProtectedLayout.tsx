@@ -51,7 +51,8 @@ export default function ProtectedLayout() {
   const { data: user } = useUser();
   
   const style = {
-    '--sidebar-width': '16rem',
+    '--sidebar-width': '18rem',
+    '--sidebar-width-mobile': '100vw',
   };
 
   // Show suspension page if user is suspended
@@ -65,22 +66,29 @@ export default function ProtectedLayout() {
       <LoanDialogProvider>
         <TopBar />
         <SidebarProvider style={style as React.CSSProperties}>
-          <div className="flex min-h-screen w-full pt-10">
+          <div className="flex min-h-screen w-full">
             <AppSidebar />
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-col flex-1 min-w-0">
               {/* Fintech Premium Header */}
-              <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl shadow-sm">
-                <div className="flex items-center justify-between px-6 py-4">
-                  <SidebarTrigger data-testid="button-sidebar-toggle" className="hover:bg-muted rounded-xl transition-colors" />
-                  <div className="flex items-center gap-3">
+              <header className="sticky top-0 z-40 border-b border-border bg-background/60 backdrop-blur-xl transition-all duration-300">
+                <div className="flex items-center justify-between px-4 h-16 md:px-6">
+                  <div className="flex items-center gap-4">
+                    <SidebarTrigger data-testid="button-sidebar-toggle" className="md:hidden hover:bg-muted rounded-full w-10 h-10 flex items-center justify-center transition-colors" />
+                    <div className="hidden md:block">
+                       <ScrollingInfoBanner />
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 md:gap-4">
                     <LanguageSwitcher />
                     <ThemeToggle />
                     <NotificationBell />
-                    <UserProfileHeader />
+                    <div className="hidden sm:block">
+                      <UserProfileHeader />
+                    </div>
                   </div>
                 </div>
-                {/* Scrolling Info Banner */}
-                <div className="px-6 pb-4">
+                {/* Mobile Info Banner */}
+                <div className="md:hidden px-4 pb-3">
                   <ScrollingInfoBanner />
                 </div>
               </header>
