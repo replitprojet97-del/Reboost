@@ -88,7 +88,7 @@ export default function AppSidebar() {
       badge: pendingLoansCount > 0 ? pendingLoansCount : undefined,
     },
     { title: 'Historique', url: '/history', icon: Clock },
-    { title: 'Statut des remboursements', url: '/loans/repayments', icon: CreditCard },
+    { title: 'Statut des remboursements', url: '/loans', icon: CreditCard },
   ];
 
   const docsSection = [
