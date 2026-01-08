@@ -101,9 +101,9 @@ export default function AppSidebar() {
           isActive={isActive}
           onClick={() => handleNavigate(item.url)}
           className={cn(
-            "group relative flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200",
+            "group relative flex items-center gap-3 px-4 py-2 rounded-r-full transition-all duration-200",
             isActive 
-              ? "bg-primary/5 text-primary font-medium" 
+              ? "bg-primary/10 text-primary font-medium" 
               : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
           )}
         >

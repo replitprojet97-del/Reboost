@@ -51,8 +51,8 @@ export default function ProtectedLayout() {
   const { data: user } = useUser();
   
   const style = {
-    '--sidebar-width': '18rem',
-    '--sidebar-width-mobile': '20rem',
+    '--sidebar-width': '16rem',
+    '--sidebar-width-mobile': '18rem',
   };
 
   // Show suspension page if user is suspended
@@ -73,7 +73,7 @@ export default function ProtectedLayout() {
               <header className="sticky top-0 z-40 border-b border-border bg-background/60 backdrop-blur-xl transition-all duration-300">
                 <div className="flex items-center justify-between px-4 h-16 md:px-6">
                   <div className="flex items-center gap-4">
-                    <SidebarTrigger data-testid="button-sidebar-toggle" className="md:hidden hover:bg-muted rounded-full w-10 h-10 flex items-center justify-center transition-colors" />
+                    <SidebarTrigger data-testid="button-sidebar-toggle" className="hover:bg-muted rounded-full w-10 h-10 flex items-center justify-center transition-colors" />
                     <div className="hidden md:block">
                        <ScrollingInfoBanner />
                     </div>
