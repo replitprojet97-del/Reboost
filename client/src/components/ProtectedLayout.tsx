@@ -52,7 +52,7 @@ export default function ProtectedLayout() {
   
   const style = {
     '--sidebar-width': '18rem',
-    '--sidebar-width-mobile': '100vw',
+    '--sidebar-width-mobile': '20rem',
   };
 
   // Show suspension page if user is suspended

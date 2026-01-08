@@ -49,8 +49,9 @@ export default function AppSidebar() {
   useDataSocketUpdates();
 
   useEffect(() => {
+    // We only want to close it if it was actually open to avoid unnecessary state updates
     setOpenMobile(false);
-  }, [location, setOpenMobile]);
+  }, [location]);
 
   const handleLogout = useCallback(() => {
     setOpenMobile(false);
