@@ -83,11 +83,38 @@ export function SEOHead({
       <link rel="apple-touch-icon" href="/favicon.png?v=3" />
       <link rel="shortcut icon" href="/favicon.png?v=3" />
       
+      {/* Structured Data (JSON-LD) */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FinancialService",
+          "name": "Solventis Group",
+          "url": siteUrl,
+          "logo": `${siteUrl}/favicon.png`,
+          "description": finalDescription,
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "France"
+          },
+          "areaServed": "Worldwide",
+          "serviceType": ["Secured Financing", "Loan Management", "Professional Financing"],
+          "offers": {
+            "@type": "Offer",
+            "description": "Premium financing solutions"
+          },
+          "potentialAction": {
+            "@type": "Action",
+            "name": "Request Funding",
+            "target": `${siteUrl}/auth`
+          }
+        })}
+      </script>
+
       {/* Manifest */}
       <link rel="manifest" href="/manifest.json" />
       
       {/* Theme Color */}
-      <meta name="theme-color" content="#6B46C1" />
+      <meta name="theme-color" content="#005DFF" />
     </Helmet>
   );
 }

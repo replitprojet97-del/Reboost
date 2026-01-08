@@ -2,12 +2,12 @@ export type Language = 'fr' | 'en' | 'es' | 'pt' | 'it' | 'de' | 'nl';
 
 export const SEO_CONTENT: Record<Language, { title: string; description: string }> = {
   fr: {
-    title: 'Solventis Group – Financement en ligne rapide pour particuliers et entreprises',
-    description: 'Solventis Group propose des solutions de financement entièrement en ligne pour particuliers et entreprises. Demande simplifiée en quelques minutes, réponse rapide et mise à disposition des fonds dans des délais optimisés.'
+    title: 'Solventis Group – Solutions de Financement Sécurisées et Prêts Professionnels',
+    description: 'Solventis Group offre des solutions de financement premium et sécurisées pour vos projets. Gestion de prêts, transferts bancaires et contrats professionnels avec une discrétion absolue.'
   },
   en: {
-    title: 'Solventis Group – Fast online financing for individuals and businesses',
-    description: 'Solventis Group provides fully online financing solutions for individuals and businesses. Simple application process, fast response and quick access to funds.'
+    title: 'Solventis Group – Secure Financing Solutions and Professional Loans',
+    description: 'Solventis Group offers premium and secure financing solutions for your projects. Loan management, bank transfers and professional contracts with absolute discretion.'
   },
   es: {
     title: 'Solventis Group – Financiación online rápida para particulares y empresas',
