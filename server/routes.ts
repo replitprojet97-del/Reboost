@@ -2601,17 +2601,22 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
       const fileBuffer = await fs.promises.readFile(req.file.path);
       
-      const { sendSignedContractToAdmins } = await import('./email');
-      await sendSignedContractToAdmins(
-        user.fullName,
-        user.email,
-        loan.id,
-        loan.amount,
-        fileBuffer,
-        req.file.originalname,
-        'application/pdf',
-        'fr'
-      );
+      try {
+        const { sendSignedContractToAdmins } = await import('./email');
+        await sendSignedContractToAdmins(
+          user.fullName,
+          user.email,
+          loan.id,
+          loan.amount,
+          fileBuffer,
+          req.file.originalname,
+          'application/pdf',
+          'fr'
+        );
+      } catch (emailError) {
+        console.warn('Failed to send signed contract email to admins:', emailError instanceof Error ? emailError.message : emailError);
+        // On continue même si l'email échoue pour ne pas bloquer l'utilisateur
+      }
 
       // Sauvegarder le nom du fichier pour téléchargement ultérieur
       // Le fichier est déjà sauvegardé par multer dans signedContractsDir
