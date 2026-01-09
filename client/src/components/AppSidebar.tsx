@@ -123,7 +123,7 @@ export default function AppSidebar() {
     <Sidebar className="border-r border-border bg-sidebar">
       <SidebarContent className="px-0 py-0 overflow-y-auto interactive-scrollbar bg-sidebar">
         {/* Header Section - Logo positioned as in the reference image */}
-        <div className="p-8 flex justify-center border-b border-sidebar-border/50">
+        <div className="p-8 flex justify-center border-b border-sidebar-border/30">
           <img src="/logo.png" alt="Solventis" className="h-28 w-auto object-contain max-w-[85%]" />
         </div>
 
