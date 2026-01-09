@@ -36,11 +36,14 @@ import { useEffect, useCallback } from 'react';
 import { useDataSocketUpdates } from '@/hooks/use-data-socket-updates';
 import { cn } from '@/lib/utils';
 
+import { useTheme } from '@/hooks/use-theme';
+
 export default function AppSidebar() {
   const t = useTranslations();
   const [location, setLocation] = useLocation();
   const { setOpenMobile } = useSidebar();
   const { data: user, isLoading: isUserLoading } = useUser();
+  const { theme } = useTheme();
   const profilePhotoUrl = useUserProfilePhotoUrl();
 
   const isAdminPath = location.startsWith('/admin');
@@ -124,7 +127,14 @@ export default function AppSidebar() {
       <SidebarContent className="px-0 py-0 overflow-y-auto interactive-scrollbar bg-sidebar">
         {/* Header Section - Logo positioned as in the reference image */}
         <div className="p-8 flex justify-center border-b border-sidebar-border/30">
-          <img src="/logo.png" alt="Solventis" className="h-28 w-auto object-contain max-w-[85%]" />
+          <img 
+            src={theme === 'dark' ? "/logo-dark.png" : "/logo.png"} 
+            alt="Solventis" 
+            className={cn(
+              "h-auto w-auto object-contain max-w-[85%]",
+              theme === 'dark' ? "max-h-20" : "max-h-28"
+            )} 
+          />
         </div>
 
         {/* Navigation Groups */}
