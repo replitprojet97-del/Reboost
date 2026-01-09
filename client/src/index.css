@@ -15,30 +15,30 @@
   --elevate-2: rgba(0,0,0, .05);
 
   /* ===== LIGHT MODE - Sync with Image Reference (White/Grey Menu) ===== */
-  --background: 210 20% 98%;          /* Gris-bleu ultra léger pour profondeur */
-  --foreground: 222 47% 11%;        /* Bleu-noir profond pour texte */
-  --border: 214 32% 91%;             /* Bordures douces */
-  --card: 0 0% 100%;                /* Cards blanc pur pour contraste */
+  --background: 210 20% 98%;          /* Gris-bleu ultra léger */
+  --foreground: 222 47% 11%;
+  --border: 214 32% 91%;
+  --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
   --card-border: 214 32% 91%;
-  --sidebar: 210 20% 98%;            /* Fond de menu blanc/gris très clair de l'image */
+  --sidebar: 210 20% 98%;            /* Fond de menu gris très clair identique à l'image */
   --sidebar-foreground: 222 47% 11%;
-  --sidebar-border: 214 32% 91%;
-  --sidebar-primary: 221 100% 50%;   /* Bleu Solventis */
+  --sidebar-border: 0 0% 100%;       /* Pas de bordure visible sur la sidebar dans l'image */
+  --sidebar-primary: 221 100% 50%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 221 100% 50%;     /* Bleu vif pour l'élément actif (Panel bleu de l'image) */
+  --sidebar-accent: 221 100% 50%;     /* Bleu vif pour l'élément actif */
   --sidebar-accent-foreground: 0 0% 100%;
   --sidebar-ring: 217 91% 60%;
   --popover: 0 0% 100%;
   --popover-foreground: 222 47% 11%;
   --popover-border: 214 32% 91%;
-  --primary: 221 100% 50%;           /* Bleu vif (#005DFF) */
+  --primary: 221 100% 50%;
   --primary-foreground: 210 40% 98%;
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222 47% 11%;
   --muted: 210 40% 96.1%;
   --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 221 100% 50%;            /* Bleu accent identique au bouton Panel */
+  --accent: 221 100% 50%;
   --accent-foreground: 0 0% 100%;
 }
 
