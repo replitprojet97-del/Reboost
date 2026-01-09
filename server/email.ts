@@ -83,8 +83,10 @@ export async function sendTransactionalEmail(options: {
   // Ensure all images in HTML use absolute URLs with the production domain
   let finalHtml = options.html;
   if (process.env.NODE_ENV === 'production' || true) {
-    finalHtml = finalHtml.replace(/src="\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo-email.png"');
-    finalHtml = finalHtml.replace(/src="\.\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo-email.png"');
+    finalHtml = finalHtml.replace(/src="\/logo\.png"/g, 'src="https://solventisgroup.org/logo.png"');
+    finalHtml = finalHtml.replace(/src="\.\/logo\.png"/g, 'src="https://solventisgroup.org/logo.png"');
+    finalHtml = finalHtml.replace(/src="\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo.png"');
+    finalHtml = finalHtml.replace(/src="\.\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo.png"');
   }
   
   emailData.email.html = Buffer.from(finalHtml).toString('base64');
@@ -155,7 +157,7 @@ export async function sendContractEmail(toEmail: string, fullName: string, loanI
 
 export async function sendResetPasswordEmail(toEmail: string, fullName: string, token: string, language: string = 'fr') {
   const resetUrl = `${getBaseUrl()}/reset-password/${token}`;
-  const logoUrl = 'https://solventisgroup.org/logo-email.png';
+  const logoUrl = 'https://solventisgroup.org/logo.png';
   const currentYear = new Date().getFullYear();
   
   const subject = language === 'en' ? 'Reset your password - SOLVENTIS GROUP' : 'Réinitialisez votre mot de passe - SOLVENTIS GROUP';

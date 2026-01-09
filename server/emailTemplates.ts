@@ -15,7 +15,7 @@ function getEmailBaseUrl(): string {
 function getEmailLogoUrl(): string {
   // Use the official SolventisGroup logo
   const baseUrl = getEmailBaseUrl();
-  return `${baseUrl}/logo-email.png`;
+  return `${baseUrl}/logo.png`;
 }
 
 interface EmailHeaderOptions {
