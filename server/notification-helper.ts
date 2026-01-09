@@ -1,10 +1,5 @@
 import { storage } from './storage';
 import { type InsertNotification, type InsertAdminMessage } from '@shared/schema';
-import { 
-  sendLoanApprovedEmail, 
-  sendTransferCompletedUserEmail, 
-  sendLoanRejectedEmail 
-} from './email';
 
 export type NotificationType =
   | 'loan_request'
@@ -53,15 +48,6 @@ export async function createUserNotification(params: CreateNotificationParams) {
 }
 
 export async function notifyLoanApproved(userId: string, loanId: string, amount: string) {
-  const user = await storage.getUser(userId);
-  if (user && user.email) {
-    try {
-      await sendLoanApprovedEmail(user.email, user.fullName || '', 'Standard', amount, loanId, user.language || 'fr');
-    } catch (error) {
-      console.error('Failed to send loan approved email:', error);
-    }
-  }
-
   return await createUserNotification({
     userId,
     type: 'loan_approved',
@@ -73,17 +59,6 @@ export async function notifyLoanApproved(userId: string, loanId: string, amount:
 }
 
 export async function notifyLoanRejected(userId: string, loanId: string, reason: string) {
-  const user = await storage.getUser(userId);
-  if (user && user.email) {
-    try {
-      // Assuming amount is needed, but let's check loan details if possible or pass empty
-      const loan = await storage.getLoan(loanId);
-      await sendLoanRejectedEmail(user.email, user.fullName || '', loan?.amount || '0', reason, user.language || 'fr');
-    } catch (error) {
-      console.error('Failed to send loan rejected email:', error);
-    }
-  }
-
   return await createUserNotification({
     userId,
     type: 'loan_rejected',
@@ -117,26 +92,6 @@ export async function notifyLoanDisbursed(userId: string, loanId: string, amount
 }
 
 export async function notifyTransferCompleted(userId: string, transferId: string, amount: string) {
-  const user = await storage.getUser(userId);
-  if (user && user.email) {
-    try {
-      const transfer = await storage.getTransfer(transferId);
-      if (transfer) {
-        await sendTransferCompletedUserEmail(
-          user.email,
-          user.fullName || '',
-          amount,
-          transfer.recipientName,
-          transfer.recipientIban,
-          transferId,
-          user.language || 'fr'
-        );
-      }
-    } catch (error) {
-      console.error('Failed to send transfer completed email:', error);
-    }
-  }
-
   return await createUserNotification({
     userId,
     type: 'transfer_completed',

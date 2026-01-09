@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 
 const SENDPULSE_API_URL = 'https://api.sendpulse.com';
@@ -249,17 +250,6 @@ export async function sendLoanApprovedEmail(toEmail: string, fullName: string, l
   return true;
 }
 
-export async function sendLoanRejectedEmail(toEmail: string, fullName: string, amount: string, reason: string, language: string = 'fr') {
-  const { getEmailTemplate } = await import('./emailTemplates');
-  // There is no loanRejected template in translations, so we'll use a manual one or check if it exists in templates
-  // Looking at translations, there is no explicit loanRejected, but let's check templates
-  const subject = language === 'en' ? 'Loan Application Status - SOLVENTIS GROUP' : 'Statut de votre demande de prêt - SOLVENTIS GROUP';
-  const html = `<p>Bonjour ${fullName}, votre demande de prêt de ${amount} € a été refusée pour la raison suivante : ${reason}</p>`;
-  const text = `Bonjour ${fullName}, votre demande de prêt de ${amount} € a été refusée. Raison : ${reason}`;
-  await sendTransactionalEmail({ to: toEmail, subject, html, text });
-  return true;
-}
-
 export async function sendTransferInitiatedAdminEmail(fullName: string, email: string, amount: string, recipient: string, transferId: string, userId: string, language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
@@ -275,20 +265,5 @@ export async function sendTransferCodeEmail(toEmail: string, fullName: string, a
   const html = `<p>Bonjour ${fullName}, votre code de transfert ${sequence}/${total} pour un montant de ${amount} vers ${recipient} est: <strong>${code}</strong></p>`;
   const text = `Bonjour ${fullName}, votre code de transfert ${sequence}/${total} pour un montant de ${amount} vers ${recipient} est: ${code}`;
   await sendTransactionalEmail({ to: toEmail, subject, html, text });
-  return true;
-}
-
-export async function sendTransferCompletedUserEmail(toEmail: string, fullName: string, amount: string, recipient: string, recipientIban: string, transferId: string, language: string = 'fr') {
-  const { getEmailTemplate } = await import('./emailTemplates');
-  const supportEmail = process.env.SUPPORT_EMAIL || 'support@solventisgroup.org';
-  const template = getEmailTemplate('transferCompletedUser', language as any, { 
-    fullName, 
-    amount, 
-    recipient, 
-    recipientIban, 
-    transferId, 
-    supportEmail 
-  });
-  await sendTransactionalEmail({ to: toEmail, subject: template.subject, html: template.html, text: template.text });
   return true;
 }
