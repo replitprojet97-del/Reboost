@@ -81,6 +81,15 @@ const allowedOrigins = process.env.NODE_ENV === 'production'
     ]
   : ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000'];
 
+// In production: use 'none' for cross-domain cookies (frontend on solventisgroup.org, api on api.solventisgroup.org)
+// In Replit development: use 'none' with secure:true (Replit uses HTTPS proxy)
+// In local development: use 'lax' (frontend and backend on same localhost)
+const SAME_SITE_POLICY = IS_PRODUCTION ? 'none' : (IS_REPLIT ? 'none' : 'lax');
+
+// Cookies must be Secure when SameSite=none, and Replit uses HTTPS
+const COOKIE_SECURE = IS_PRODUCTION || IS_REPLIT;
+
+
 app.use(cors({
   origin: (origin, callback) => {
     if (process.env.NODE_ENV !== 'production') {
