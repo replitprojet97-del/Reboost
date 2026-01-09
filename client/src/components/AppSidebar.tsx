@@ -103,11 +103,11 @@ export default function AppSidebar() {
           className={cn(
             "group relative flex items-center gap-3 px-4 py-2 rounded-r-full transition-all duration-200",
             isActive 
-              ? "bg-primary/10 text-primary font-medium" 
-              : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+              ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium" 
+              : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
           )}
         >
-          <item.icon className={cn("w-4 h-4 transition-colors", isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground")} />
+          <item.icon className={cn("w-4 h-4 transition-colors", isActive ? "text-sidebar-accent-foreground" : "text-sidebar-foreground/40 group-hover:text-sidebar-accent-foreground")} />
           <span className="flex-1 text-sm">{item.title}</span>
           {item.badge && (
             <Badge variant="default" className="bg-primary text-primary-foreground h-4 px-1 text-[10px] min-w-[18px] flex items-center justify-center rounded-full">
@@ -120,17 +120,17 @@ export default function AppSidebar() {
   };
 
   return (
-    <Sidebar className="border-r border-border bg-white">
-      <SidebarContent className="px-0 py-0 overflow-y-auto interactive-scrollbar">
+    <Sidebar className="border-r border-border bg-sidebar">
+      <SidebarContent className="px-0 py-0 overflow-y-auto interactive-scrollbar bg-sidebar">
         {/* Header Section - Logo positioned as in the reference image */}
-        <div className="p-8 flex justify-center border-b border-border/50">
+        <div className="p-8 flex justify-center border-b border-sidebar-border/50">
           <img src="/logo.png" alt="Solventis" className="h-28 w-auto object-contain max-w-[85%]" />
         </div>
 
         {/* Navigation Groups */}
         <div className="py-4 space-y-6">
           <SidebarGroup className="p-0">
-            <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
+            <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-sidebar-foreground/40 mb-2">
               {t.nav.loansSection || 'PRÊTS'}
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
@@ -139,7 +139,7 @@ export default function AppSidebar() {
           </SidebarGroup>
 
           <SidebarGroup className="p-0">
-            <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
+            <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-sidebar-foreground/40 mb-2">
               {t.nav.dashboard || 'TABLEAU DE BORD'}
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
@@ -150,23 +150,23 @@ export default function AppSidebar() {
         </div>
       </SidebarContent>
       
-      <SidebarFooter className="p-4 border-t border-border bg-muted/5">
+      <SidebarFooter className="p-4 border-t border-sidebar-border bg-sidebar-accent/20">
         <SidebarMenu>
           {/* User Profile Card */}
           {!isUserLoading && user && (
             <SidebarMenuItem>
-              <div className="flex items-center gap-3 p-2 rounded-xl bg-primary/5 border border-primary/10 mb-2">
-                <Avatar className="h-9 w-9 border-2 border-background">
+              <div className="flex items-center gap-3 p-2 rounded-xl bg-sidebar-accent/40 border border-sidebar-border/50 mb-2">
+                <Avatar className="h-9 w-9 border-2 border-sidebar">
                   {profilePhotoUrl ? <AvatarImage src={profilePhotoUrl} /> : null}
                   <AvatarFallback className="bg-primary text-primary-foreground font-bold text-xs">
                     {getUserInitials(user.fullName)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold truncate text-foreground leading-tight">
+                  <p className="text-sm font-bold truncate text-sidebar-foreground leading-tight">
                     {user.fullName}
                   </p>
-                  <p className="text-[10px] text-muted-foreground uppercase font-medium">
+                  <p className="text-[10px] text-sidebar-foreground/60 uppercase font-medium">
                     {getAccountTypeLabel(user.accountType)}
                   </p>
                 </div>
@@ -176,7 +176,7 @@ export default function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
+              className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-sidebar-foreground/70 hover:bg-destructive/10 hover:text-destructive transition-colors"
             >
               <LogOut className="w-4 h-4" />
               <span className="text-sm font-medium">{t.nav.logout || 'Déconnexion'}</span>
