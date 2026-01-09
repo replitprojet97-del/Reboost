@@ -72,31 +72,12 @@ const IS_REPLIT = !IS_PRODUCTION && (
 // In development: undefined (same domain only)
 const COOKIE_DOMAIN = IS_PRODUCTION ? '.solventisgroup.org' : undefined;
 
-// In production: use 'none' for cross-domain cookies (frontend on solventisgroup.org, api on api.solventisgroup.org)
-// In Replit development: use 'none' with secure:true (Replit uses HTTPS proxy)
-// In local development: use 'lax' (frontend and backend on same localhost)
-const SAME_SITE_POLICY = IS_PRODUCTION ? 'none' : (IS_REPLIT ? 'none' : 'lax');
-
-// Cookies must be Secure when SameSite=none, and Replit uses HTTPS
-const COOKIE_SECURE = IS_PRODUCTION || IS_REPLIT;
-
-console.log('='.repeat(60));
-console.log(`[CONFIG] Environment: ${process.env.NODE_ENV || 'development'}`);
-console.log(`[CONFIG] Is Replit: ${IS_REPLIT}`);
-console.log(`[CONFIG] Cookie Domain: ${COOKIE_DOMAIN || 'undefined (same domain only)'}`);
-console.log(`[CONFIG] Cookie SameSite: ${SAME_SITE_POLICY}`);
-console.log(`[CONFIG] Cookie Secure: ${COOKIE_SECURE}`);
-console.log(`[CONFIG] CORS Allowed Origins: ${IS_PRODUCTION ? 'production domains' : 'localhost'}`);
-console.log(`[CONFIG] Frontend URL: ${process.env.FRONTEND_URL || 'NOT SET'}`);
-console.log(`[CONFIG] Trust Proxy: enabled`);
-console.log('='.repeat(60));
-
-// PRODUCTION: Only allow the official production domains
-// Do NOT add any Vercel preview domains or other domains
+// In production: allow the dashboard subdomain
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? [
       'https://solventisgroup.org',
       'https://www.solventisgroup.org',
+      'https://dashboard.solventisgroup.org',
     ]
   : ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000'];
 
