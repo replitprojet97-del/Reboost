@@ -101,16 +101,16 @@ export default function AppSidebar() {
           isActive={isActive}
           onClick={() => handleNavigate(item.url)}
           className={cn(
-            "group relative flex items-center gap-3 px-4 py-2 rounded-r-full transition-all duration-200",
+            "group relative flex items-center gap-3 px-4 py-2 rounded-r-full transition-all duration-200 ml-0 mr-4",
             isActive 
-              ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium" 
-              : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
+              ? "bg-sidebar-accent text-sidebar-accent-foreground font-semibold shadow-lg shadow-primary/20" 
+              : "text-sidebar-foreground/60 hover:bg-sidebar-accent/20 hover:text-sidebar-accent-foreground"
           )}
         >
-          <item.icon className={cn("w-4 h-4 transition-colors", isActive ? "text-sidebar-accent-foreground" : "text-sidebar-foreground/40 group-hover:text-sidebar-accent-foreground")} />
-          <span className="flex-1 text-sm">{item.title}</span>
+          <item.icon className={cn("w-4.5 h-4.5 transition-colors", isActive ? "text-sidebar-accent-foreground" : "text-sidebar-foreground/40 group-hover:text-sidebar-accent-foreground")} />
+          <span className="flex-1 text-sm tracking-wide">{item.title}</span>
           {item.badge && (
-            <Badge variant="default" className="bg-primary text-primary-foreground h-4 px-1 text-[10px] min-w-[18px] flex items-center justify-center rounded-full">
+            <Badge variant="default" className="bg-primary text-primary-foreground h-4 px-1.5 text-[10px] min-w-[18px] flex items-center justify-center rounded-full font-bold">
               {item.badge}
             </Badge>
           )}
@@ -128,9 +128,9 @@ export default function AppSidebar() {
         </div>
 
         {/* Navigation Groups */}
-        <div className="py-4 space-y-6">
+        <div className="py-4 space-y-8">
           <SidebarGroup className="p-0">
-            <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-sidebar-foreground/40 mb-2">
+            <SidebarGroupLabel className="px-4 text-[10px] font-bold uppercase tracking-[0.15em] text-sidebar-foreground/30 mb-3">
               {t.nav.loansSection || 'PRÊTS'}
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
@@ -139,7 +139,7 @@ export default function AppSidebar() {
           </SidebarGroup>
 
           <SidebarGroup className="p-0">
-            <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-sidebar-foreground/40 mb-2">
+            <SidebarGroupLabel className="px-4 text-[10px] font-bold uppercase tracking-[0.15em] text-sidebar-foreground/30 mb-3">
               {t.nav.dashboard || 'TABLEAU DE BORD'}
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
