@@ -130,10 +130,7 @@ export default function AppSidebar() {
           <img 
             src={theme === 'dark' ? "/logo-dark.png" : "/logo.png"} 
             alt="Solventis" 
-            className={cn(
-              "h-auto w-auto object-contain max-w-[85%]",
-              theme === 'dark' ? "max-h-20" : "max-h-28"
-            )} 
+            className="h-auto w-auto object-contain max-w-[85%] max-h-20" 
           />
         </div>
 
