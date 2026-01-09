@@ -269,3 +269,24 @@ export async function sendTransferCodeEmail(toEmail: string, fullName: string, a
   await sendTransactionalEmail({ to: toEmail, subject, html, text });
   return true;
 }
+
+export async function sendSignedContractToAdmins(fullName: string, email: string, loanId: string, amount: string, fileBuffer: Buffer, fileName: string, fileType: string, language: string = 'fr') {
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
+  const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+  const subject = `Contrat signé reçu - ${fullName}`;
+  const html = `<p>L'utilisateur ${fullName} (${email}) a envoyé son contrat signé pour le prêt ${loanId} d'un montant de ${amount} €.</p>`;
+  const text = `L'utilisateur ${fullName} (${email}) a envoyé son contrat signé pour le prêt ${loanId} d'un montant de ${amount} €.`;
+  
+  await sendTransactionalEmail({ 
+    to: adminEmail, 
+    subject, 
+    html, 
+    text,
+    attachments: [{
+      content: fileBuffer.toString('base64'),
+      filename: fileName,
+      type: fileType
+    }]
+  });
+  return true;
+}
