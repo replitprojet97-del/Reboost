@@ -78,19 +78,19 @@ export default function AppSidebar() {
   const inProgressTransfersCount = transfers?.filter(t => t.status === 'in-progress' || t.status === 'in_progress').length || 0;
 
   const mainSection = [
-    { title: t('dashboard.title') as string, url: '/dashboard', icon: LayoutDashboard },
+    { title: 'Tableau de bord', url: '/dashboard', icon: LayoutDashboard },
   ];
 
   const loansSection = [
-    { title: t('loans.title') as string, url: '/loans', icon: PieChart },
-    { title: t('contracts.title') as string, url: '/contracts', icon: FileText },
+    { title: 'Mes prêts', url: '/loans', icon: PieChart },
+    { title: 'Contrats', url: '/contracts', icon: FileText },
   ];
 
   const operationsSection = [
-    { title: t('transfers.title') as string, url: '/transfers', icon: ArrowRightLeft },
-    { title: t('accounts.title') as string, url: '/accounts', icon: Building2 },
-    { title: t('history.title') as string, url: '/history', icon: Clock },
-    { title: t('settings.title') as string, url: '/settings', icon: Settings },
+    { title: 'Transferts', url: '/transfers', icon: ArrowRightLeft },
+    { title: 'Comptes bancaires', url: '/accounts', icon: Building2 },
+    { title: 'Historique', url: '/history', icon: Clock },
+    { title: 'Paramètres', url: '/settings', icon: Settings },
   ];
 
   const renderMenuItem = (item: any) => {
@@ -103,11 +103,11 @@ export default function AppSidebar() {
           className={cn(
             "group relative flex items-center gap-3 px-4 py-2 rounded-r-full transition-all duration-200",
             isActive 
-              ? "bg-primary text-white font-medium" 
+              ? "bg-primary/10 text-primary font-medium" 
               : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
           )}
         >
-          <item.icon className={cn("w-4 h-4 transition-colors", isActive ? "text-white" : "text-muted-foreground group-hover:text-foreground")} />
+          <item.icon className={cn("w-4 h-4 transition-colors", isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground")} />
           <span className="flex-1 text-sm">{item.title}</span>
           {item.badge && (
             <Badge variant="default" className="bg-primary text-primary-foreground h-4 px-1 text-[10px] min-w-[18px] flex items-center justify-center rounded-full">
@@ -120,10 +120,10 @@ export default function AppSidebar() {
   };
 
   return (
-    <Sidebar className="border-r border-border bg-slate-50/50">
+    <Sidebar className="border-r border-border bg-white">
       <SidebarContent className="px-0 py-0 overflow-y-auto interactive-scrollbar">
         {/* Header Section - Logo positioned as in the reference image */}
-        <div className="p-8 flex justify-center border-b border-border/50 bg-white">
+        <div className="p-8 flex justify-center border-b border-border/50">
           <img src="/logo.png" alt="Solventis" className="h-28 w-auto object-contain max-w-[85%]" />
         </div>
 
@@ -131,7 +131,7 @@ export default function AppSidebar() {
         <div className="py-4 space-y-6">
           <SidebarGroup className="p-0">
             <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
-              {(t('loans.nav_title') as string) || 'PRÊTS'}
+              PRÊTS
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
               {loansSection.map(renderMenuItem)}
@@ -140,7 +140,7 @@ export default function AppSidebar() {
 
           <SidebarGroup className="p-0">
             <SidebarGroupLabel className="px-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
-              {(t('dashboard.nav_title') as string) || 'TABLEAU DE BORD'}
+              TABLEAU DE BORD
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
               {mainSection.map(renderMenuItem)}
@@ -179,7 +179,7 @@ export default function AppSidebar() {
               className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
             >
               <LogOut className="w-4 h-4" />
-              <span className="text-sm font-medium">{t('auth.logout') as string}</span>
+              <span className="text-sm font-medium">Déconnexion</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
