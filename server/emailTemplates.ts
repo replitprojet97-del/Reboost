@@ -366,12 +366,12 @@ const translations = {
       step2Title: "Signer le document",
       step2Text: "Imprimez, signez avec la mention \"Lu et approuvé\" suivie de votre signature",
       step3Title: "Retourner le contrat signé",
-      step3Text: "Téléchargez le document signé directement depuis votre espace client.",
+      step3Text: "Téléchargez le document signé depuis votre espace client ou envoyez-le par email à",
       downloadButton: "📥 Télécharger le contrat",
       importantTitle: "⚠️ Important :",
       importantMessage: "Les fonds seront débloqués dans un délai allant de quelques minutes à 24 heures maximum.",
       accessNote: "Vous pouvez également accéder à votre contrat depuis votre espace client à tout moment.",
-      contactText: "Des questions ? Contactez-nous à contact@solventisgroup.org",
+      contactText: "Des questions ? Contactez-nous à",
       footer: "Tous droits réservés."
     },
     fundingRelease: {
