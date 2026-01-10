@@ -246,7 +246,7 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
   // Attachments processing
   const attachments: any[] = [];
   let totalAttachmentSize = 0;
-  const MAX_TOTAL_ATTACHMENT_SIZE = 10 * 1024 * 1024; // 10MB limit for total attachments
+  const MAX_TOTAL_ATTACHMENT_SIZE = 5 * 1024 * 1024; // Lower limit to 5MB to avoid SendPulse 422 error
 
   if (documents && Array.isArray(documents)) {
     for (const doc of documents) {
@@ -260,7 +260,7 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
             
             // Limit each attachment to a reasonable size if needed, or skip if total exceeded
             if (totalAttachmentSize + stats.size > MAX_TOTAL_ATTACHMENT_SIZE) {
-              console.warn(`[Email] Skipping document ${doc.fileName} because total attachment size would exceed 10MB`);
+              console.warn(`[Email] Skipping document ${doc.fileName} because total attachment size would exceed ${MAX_TOTAL_ATTACHMENT_SIZE / (1024 * 1024)}MB`);
               continue;
             }
 
@@ -268,6 +268,12 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
             const base64Content = fileBuffer.toString('base64');
             const fileExtension = path.extname(doc.fileName || '').toLowerCase();
             const mimeType = fileExtension === '.pdf' ? 'application/pdf' : 'image/jpeg';
+            
+            // SendPulse has a limit on base64 content size per message
+            if (base64Content.length > 7 * 1024 * 1024) { // Roughly 5MB binary becomes ~7MB base64
+               console.warn(`[Email] Skipping document ${doc.fileName} because base64 content is too large`);
+               continue;
+            }
             
             attachments.push({
               content: base64Content,
