@@ -264,6 +264,15 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     legacyHeaders: false,
   });
 
+  // Fonction utilitaire pour générer un lien de téléchargement signé Cloudinary
+  function generateSignedCloudinaryDownloadUrl(publicId: string, extension: string) {
+    return cloudinary.utils.private_download_url(
+      publicId,
+      extension,
+      { expires_at: Math.floor(Date.now() / 1000) + 300 }
+    );
+  }
+
   // Language detection endpoint
   app.get("/api/detect-language", generalApiLimiter, async (req, res) => {
     try {
@@ -2284,6 +2293,36 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
               
               const fileUrl = `/uploads/kyc_documents/${uniqueFileName}`;
 
+              // ☁️ Uploader vers Cloudinary (resource_type: "raw")
+              let cloudinaryPublicId = null;
+              let cloudinarySecureUrl = null;
+              
+              try {
+                const cloudinaryResult = await new Promise<any>((resolve, reject) => {
+                  const uploadStream = cloudinary.uploader.upload_stream(
+                    {
+                      resource_type: "raw",
+                      folder: "loan-documents",
+                      public_id: `${req.session.userId}/${documentType}_${Date.now()}`
+                    },
+                    (error, result) => {
+                      if (error) reject(error);
+                      else resolve(result);
+                    }
+                  );
+                  const stream = new PassThrough();
+                  stream.end(cleanedFile.buffer);
+                  stream.pipe(uploadStream);
+                });
+                
+                cloudinaryPublicId = cloudinaryResult.public_id;
+                cloudinarySecureUrl = cloudinaryResult.secure_url;
+                console.log(`✓ Document uploaded to Cloudinary: ${cloudinaryPublicId}`);
+              } catch (cloudinaryError) {
+                console.error(`[Cloudinary] Error uploading ${documentType}:`, cloudinaryError);
+                // On continue pour ne pas bloquer le workflow local
+              }
+
               const kycDocument = await storage.createKycDocument({
                 userId: req.session.userId!,
                 loanId: loan.id,
@@ -2293,13 +2332,15 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
                 fileUrl: fileUrl,
                 fileName: cleanedFile.filename,
                 fileSize: cleanedFile.buffer.length,
-                cloudinaryPublicId: null,
+                cloudinaryPublicId: cloudinaryPublicId,
               });
 
               uploadedDocuments.push({
                 documentType,
                 fileUrl: fileUrl,
                 fileName: cleanedFile.filename,
+                cloudinaryPublicId: cloudinaryPublicId,
+                cloudinarySecureUrl: cloudinarySecureUrl
               });
 
               await notifyAdminsNewKycDocument(
