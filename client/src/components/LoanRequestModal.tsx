@@ -301,6 +301,15 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
       return;
     }
 
+    if (file.type !== 'application/pdf') {
+      toast({
+        title: 'Format non autorisé',
+        description: 'Seuls les fichiers PDF sont acceptés.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = () => {
       setUploadedDocuments(prev => ({ ...prev, [documentId]: file }));
@@ -523,7 +532,7 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                     <div key={doc.id} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 border rounded-md">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1 sm:gap-2 mb-1 flex-wrap">
-                          <span className="text-xs sm:text-sm font-medium truncate">{documentLabels[doc.id]}</span>
+                          <span className="text-xs sm:text-sm font-medium truncate">{documentLabels[doc.id]} <span className="text-red-500 font-bold">(PDF uniquement)</span></span>
                           {doc.required && <Badge variant="destructive" className="h-4 sm:h-5 text-xs flex-shrink-0">{t.required}</Badge>}
                           {!doc.required && <Badge variant="secondary" className="h-4 sm:h-5 text-xs flex-shrink-0">{t.optional}</Badge>}
                         </div>
@@ -564,7 +573,7 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                             </Button>
                             <input
                               type="file"
-                              accept=".pdf,.jpg,.jpeg,.png"
+                              accept=".pdf"
                               className="hidden"
                               onChange={(e) => {
                                 const file = e.target.files?.[0];
