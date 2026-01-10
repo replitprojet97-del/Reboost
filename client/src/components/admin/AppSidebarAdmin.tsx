@@ -1,5 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { LayoutDashboard, Users, Landmark, MessageSquare, FileText, BarChart2, MessagesSquare, Shield } from "lucide-react";
+import logoSolventis from '@assets/generated_images/fintech_logo_solventis_group_white.png';
 import {
   Sidebar,
   SidebarContent,
@@ -61,6 +62,14 @@ export function AppSidebarAdmin() {
   return (
     <Sidebar className="border-r border-gray-200 bg-[#F8F9FF]">
       <SidebarContent>
+        {/* Logo Section */}
+        <div className="p-6 flex justify-center border-b border-gray-100 bg-white">
+          <img 
+            src={logoSolventis} 
+            alt="Solventis Group" 
+            className="h-12 w-auto object-contain brightness-0 opacity-80" 
+          />
+        </div>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu className="px-3 space-y-1">

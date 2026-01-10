@@ -10,6 +10,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import logoSolventis from '@assets/generated_images/fintech_logo_solventis_group_white.png';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -125,6 +126,15 @@ export default function AppSidebar() {
   return (
     <Sidebar className="border-r border-border bg-sidebar">
       <SidebarContent className="px-0 py-0 overflow-y-auto interactive-scrollbar bg-sidebar">
+        {/* Logo Section */}
+        <div className="p-6 flex justify-center border-b border-white/5">
+          <img 
+            src={logoSolventis} 
+            alt="Solventis Group" 
+            className="h-12 w-auto object-contain" 
+          />
+        </div>
+
         {/* Navigation Groups */}
         <div className="py-4 space-y-8">
           <SidebarGroup className="p-0">
