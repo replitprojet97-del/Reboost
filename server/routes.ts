@@ -2526,28 +2526,6 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
             fileName: doc.fileName
           }));
 
-        const getBaseUrlInternal = (): string => {
-          if (process.env.NODE_ENV === 'production') {
-            return 'https://solventisgroup.org';
-          }
-          if (process.env.FRONTEND_URL) {
-            return process.env.FRONTEND_URL;
-          }
-          return process.env.REPLIT_DEV_DOMAIN 
-            ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
-            : 'http://localhost:5000';
-        };
-        
-        const finalBaseUrl = getBaseUrlInternal();
-        const loanDocumentsFinal = kycDocuments
-          .filter(doc => doc.loanId === loan.id)
-          .map(doc => ({
-            documentType: doc.documentType,
-            fileUrl: doc.fileUrl.startsWith('http') ? doc.fileUrl : `${finalBaseUrl}${doc.fileUrl}`,
-            fileName: doc.fileName
-          }));
-
-
         const supportedLanguages = ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'] as const;
         const userLanguage = (user.preferredLanguage && supportedLanguages.includes(user.preferredLanguage as any)) 
           ? user.preferredLanguage 
