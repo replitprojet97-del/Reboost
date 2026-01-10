@@ -137,7 +137,7 @@ export default function LanguageSwitcher({ scrolled = false }: LanguageSwitcherP
       {/* Dropdown menu: Only renders when isOpen is true */}
       {isOpen && (
         <div 
-          className="absolute top-full right-0 mt-2 w-48 bg-background border border-border rounded-lg shadow-lg z-50 py-1 animate-in fade-in-0 zoom-in-95"
+          className="absolute top-full right-0 mt-2 w-48 bg-popover border border-border rounded-lg shadow-lg z-50 py-1 animate-in fade-in-0 zoom-in-95"
           data-testid="language-dropdown"
           role="menu"
           aria-label="Language selection menu"
@@ -146,8 +146,8 @@ export default function LanguageSwitcher({ scrolled = false }: LanguageSwitcherP
             <button
               key={lang.code}
               onClick={() => handleLanguageSelect(lang.code)}
-              className={`w-full px-4 py-2 text-left hover:bg-accent/10 transition-colors flex items-center gap-3 ${
-                language === lang.code ? 'bg-accent/5' : ''
+              className={`w-full px-4 py-2 text-left hover:bg-accent hover:text-accent-foreground transition-colors flex items-center gap-3 ${
+                language === lang.code ? 'bg-accent/50 text-accent-foreground' : 'text-popover-foreground'
               }`}
               data-testid={`button-language-${lang.code}`}
               role="menuitem"
