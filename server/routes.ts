@@ -86,7 +86,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
   // Socket.IO instance (will be initialized after httpServer is created)
   let io: any;
 
-  // Génère un secret fort pour signer les liens de téléchargement temporaires
+      // Génère un secret fort pour signer les liens de téléchargement temporaires
   // Régénéré à chaque démarrage du serveur (acceptable car les tokens n'ont qu'une durée de vie de 5 min)
   const DOWNLOAD_SECRET = randomBytes(64).toString('hex');
   const CONTRACTS_DIR = path.join(process.cwd(), 'uploads', 'contracts');
@@ -269,7 +269,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     return cloudinary.utils.private_download_url(
       publicId,
       extension,
-      { expires_at: Math.floor(Date.now() / 1000) + 300 }
+      { expires_at: Math.floor(Date.now() / 1000) + (6 * 60 * 60) } // 6 hours
     );
   }
 
@@ -2387,7 +2387,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
                   stream.pipe(uploadStream);
                 });
                 
-                cloudinaryPublicId = cloudinaryResult.public_id;
+              cloudinaryPublicId = cloudinaryResult.public_id;
                 cloudinarySecureUrl = cloudinaryResult.secure_url;
                 console.log(`✓ Document uploaded to Cloudinary: ${cloudinaryPublicId}`);
               } catch (cloudinaryError) {
@@ -2395,17 +2395,24 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
                 // On continue pour ne pas bloquer le workflow local
               }
 
-              const kycDocument = await storage.createKycDocument({
-                userId: req.session.userId!,
-                loanId: loan.id,
-                documentType,
-                loanType,
-                status: 'pending',
-                fileUrl: fileUrl,
-                fileName: cleanedFile.filename,
-                fileSize: cleanedFile.buffer.length,
-                cloudinaryPublicId: cloudinaryPublicId,
-              });
+              // Enregistrer le document KYC en base de données
+              try {
+                const kycDoc = await storage.createKycDocument({
+                  userId: req.session.userId!,
+                  loanId: loan.id,
+                  documentType: documentType,
+                  fileName: cleanedFile.filename,
+                  cloudinaryPublicId: cloudinaryPublicId || '',
+                  fileType: mimeType,
+                  status: 'pending',
+                  uploadedAt: new Date(),
+                  fileUrl: fileUrl,
+                  fileSize: cleanedFile.buffer.length,
+                } as any);
+                console.log(`[KYC] Document saved to DB: ${kycDoc.id}`);
+              } catch (dbErr) {
+                console.error(`[KYC] Error saving document to DB:`, dbErr);
+              }
 
               uploadedDocuments.push({
                 documentType,
@@ -2415,12 +2422,17 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
                 cloudinarySecureUrl: cloudinarySecureUrl
               });
 
-              await notifyAdminsNewKycDocument(
-                req.session.userId!,
-                user?.fullName || 'Utilisateur',
-                documentType,
-                loanType
-              );
+              // Notification Admin pour chaque document
+              try {
+                await notifyAdminsNewKycDocument(
+                  req.session.userId!,
+                  user?.fullName || 'Utilisateur',
+                  documentType,
+                  loanType
+                );
+              } catch (notifyErr) {
+                console.error(`[KYC] Error notifying admins:`, notifyErr);
+              }
             } finally {
               // Supprimer le fichier temporaire
               if (tempFilePath) {
