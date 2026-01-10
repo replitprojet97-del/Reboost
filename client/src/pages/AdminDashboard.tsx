@@ -51,6 +51,7 @@ export default function AdminDashboard() {
     signedContracts: number;
     transfersRequiringCode: number;
     unreadMessages: number;
+    pendingKyc: number;
     total: number;
   }>({
     queryKey: ["/api/admin/notifications-count"],
@@ -161,6 +162,34 @@ export default function AdminDashboard() {
                     {notificationCounts?.pendingLoans === 1 
                       ? t.admin.dashboard.pendingLoansDescOne 
                       : t.admin.dashboard.pendingLoansDescMany.replace('{count}', String(notificationCounts?.pendingLoans))}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Documents KYC en attente */}
+            {(notificationCounts?.pendingKyc || 0) > 0 && (
+              <Card 
+                className="bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-300 hover-elevate active-elevate-2 cursor-pointer transition-all"
+                onClick={() => setLocation('/admin/kyc')}
+                data-testid="card-alert-pending-kyc"
+              >
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <FileText className="w-8 h-8 text-indigo-600" />
+                    <Badge variant="default" className="bg-indigo-600">
+                      {notificationCounts?.pendingKyc}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardTitle className="text-lg font-semibold text-indigo-900 mb-1">
+                    Documents KYC
+                  </CardTitle>
+                  <p className="text-sm text-indigo-700">
+                    {notificationCounts?.pendingKyc === 1
+                      ? "1 nouveau document KYC à vérifier"
+                      : `${notificationCounts?.pendingKyc} nouveaux documents KYC à vérifier`}
                   </p>
                 </CardContent>
               </Card>

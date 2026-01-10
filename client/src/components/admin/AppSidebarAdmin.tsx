@@ -44,6 +44,7 @@ export function AppSidebarAdmin() {
     signedContracts: number;
     transfersRequiringCode: number;
     unreadMessages: number;
+    pendingKyc: number;
     total: number;
   }>({
     queryKey: ["/api/admin/notifications-count"],
@@ -59,7 +60,7 @@ export function AppSidebarAdmin() {
       count: (notificationCounts?.pendingLoans || 0) + (notificationCounts?.signedContracts || 0) + (notificationCounts?.transfersRequiringCode || 0)
     },
     { label: t.admin.sidebar.users, link: "/admin/users", icon: Users, count: 0 },
-    { label: "KYC", link: "/admin/kyc", icon: FileText, count: 0 },
+    { label: "KYC", link: "/admin/kyc", icon: FileText, count: notificationCounts?.pendingKyc || 0 },
     { 
       label: t.admin.sidebar.chat || "Chat", 
       link: "/admin/chat", 

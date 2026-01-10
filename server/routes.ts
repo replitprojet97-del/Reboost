@@ -573,6 +573,20 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         return res.status(400).json({ error: 'Statut invalide' });
       }
       const updated = await storage.updateKycDocumentStatus(req.params.docId, status);
+      
+      // Notifier l'utilisateur du changement de statut KYC
+      if (updated) {
+        if (status === 'verified') {
+          await notifyKycApproved(updated.userId);
+        } else if (status === 'rejected') {
+          await notifyKycRejected(updated.userId, 'Document non conforme ou illisible');
+        }
+        
+        // Émettre une mise à jour via socket
+        emitNotificationUpdate(updated.userId);
+        emitAdminDashboardUpdate();
+      }
+      
       res.json(updated);
     } catch (error) {
       console.error('Error updating KYC document status:', error);
