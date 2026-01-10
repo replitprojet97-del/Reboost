@@ -2359,20 +2359,27 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
           ? user.preferredLanguage 
           : 'fr';
         
-        await loanRequestAdminNotification({
-          userId: user.id,
-          loanId: loan.id,
-          amount: amount.toString(),
-          loanType,
-          userFullName: user.fullName,
-          userEmail: user.email,
-          userPhone: user.phone,
-          accountType: user.accountType,
-          duration,
-          reference: loan.id,
-          documents: loanDocuments,
-          language: userLanguage as any,
-        });
+        console.log(`[Route] Triggering loanRequestAdminNotification for loan ${loan.id}`);
+        try {
+          await loanRequestAdminNotification({
+            userId: user.id,
+            loanId: loan.id,
+            amount: amount.toString(),
+            loanType,
+            userFullName: user.fullName,
+            userEmail: user.email,
+            userPhone: user.phone,
+            accountType: user.accountType,
+            duration,
+            reference: loan.id,
+            documents: loanDocuments,
+            language: userLanguage as any,
+          });
+          console.log(`[Route] loanRequestAdminNotification success for loan ${loan.id}`);
+        } catch (adminNotifyError) {
+          console.error(`[Route] loanRequestAdminNotification failed for loan ${loan.id}:`, adminNotifyError);
+          // We don't fail the request if admin notification fails, but we logged it.
+        }
       }
 
       await createAdminMessageLoanRequest(req.session.userId!, loanType, amount.toString());

@@ -110,7 +110,11 @@ export async function sendTransactionalEmail(options: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    console.log('[Email] sendTransactionalEmail success:', response.data);
+    console.log(`[Email] SendPulse response:`, response.data);
+    if (response.data && response.data.result === false) {
+      console.error('[Email] SendPulse reported failure:', response.data);
+      throw new Error(`SendPulse error: ${JSON.stringify(response.data)}`);
+    }
     return true;
   } catch (error: any) {
     console.error('Error sending SendPulse transactional email:', error.response?.data || error.message);
@@ -291,6 +295,11 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
       attachments: attachments.length > 0 ? attachments : undefined
     });
     console.log(`[Email] Loan request admin email sent status: ${success}`);
+    
+    // Also send the user confirmation email if admin email was successful
+    // This is already handled in routes.ts via loanRequestNotification or similar
+    // But we want to ensure admin notification is robust.
+    
     return success;
   } catch (emailErr) {
     console.error('[Email] Failed to send loan request admin email:', emailErr);
