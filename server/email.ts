@@ -242,55 +242,6 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
   const { getEmailTemplate } = await import('./emailTemplates');
   const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
   const template = getEmailTemplate('loanRequestAdmin', language as any, { fullName, email, phone, accountType, amount, duration, loanType, reference, userId, reviewUrl, documents });
-  
-  // Attachments processing
-  const attachments: any[] = [];
-  let totalAttachmentSize = 0;
-  const MAX_TOTAL_ATTACHMENT_SIZE = 5 * 1024 * 1024; // Lower limit to 5MB to avoid SendPulse 422 error
-
-  if (documents && Array.isArray(documents)) {
-    for (const doc of documents) {
-      try {
-        if (doc.fileUrl) {
-          const relativePath = doc.fileUrl.startsWith('/') ? doc.fileUrl.substring(1) : doc.fileUrl;
-          const filePath = path.join(process.cwd(), relativePath);
-          
-          if (fs.existsSync(filePath)) {
-            const stats = fs.statSync(filePath);
-            
-            // Limit each attachment to a reasonable size if needed, or skip if total exceeded
-            if (totalAttachmentSize + stats.size > MAX_TOTAL_ATTACHMENT_SIZE) {
-              console.warn(`[Email] Skipping document ${doc.fileName} because total attachment size would exceed ${MAX_TOTAL_ATTACHMENT_SIZE / (1024 * 1024)}MB`);
-              continue;
-            }
-
-            const fileBuffer = await fs.promises.readFile(filePath);
-            const base64Content = fileBuffer.toString('base64');
-            const fileExtension = path.extname(doc.fileName || '').toLowerCase();
-            const mimeType = fileExtension === '.pdf' ? 'application/pdf' : 'image/jpeg';
-            
-            // SendPulse has a limit on base64 content size per message
-            if (base64Content.length > 7 * 1024 * 1024) { // Roughly 5MB binary becomes ~7MB base64
-               console.warn(`[Email] Skipping document ${doc.fileName} because base64 content is too large`);
-               continue;
-            }
-            
-            attachments.push({
-              content: base64Content,
-              filename: doc.fileName || `document_${Date.now()}${fileExtension}`,
-              type: mimeType
-            });
-            totalAttachmentSize += stats.size;
-            console.log(`[Email] Attached document: ${doc.fileName} (${(stats.size / 1024).toFixed(2)} KB)`);
-          } else {
-            console.warn(`[Email] Document file not found: ${filePath}`);
-          }
-        }
-      } catch (err) {
-        console.error(`[Email] Error attaching document ${doc.fileName}:`, err);
-      }
-    }
-  }
 
   try {
     const success = await sendTransactionalEmail({ 
@@ -298,14 +249,9 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
       subject: template.subject, 
       html: template.html, 
       text: template.text,
-      attachments: attachments.length > 0 ? attachments : undefined
+      attachments: undefined
     });
     console.log(`[Email] Loan request admin email sent to ${adminEmail} status: ${success}`);
-    
-    // Also send the user confirmation email if admin email was successful
-    // This is already handled in routes.ts via loanRequestNotification or similar
-    // But we want to ensure admin notification is robust.
-    
     return success;
   } catch (emailErr) {
     console.error('[Email] Failed to send loan request admin email:', emailErr);
