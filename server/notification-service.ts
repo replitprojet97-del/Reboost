@@ -113,6 +113,7 @@ export async function loanRequestNotification(params: LoanRequestNotificationPar
 }
 
 export async function loanRequestAdminNotification(params: LoanRequestNotificationParams): Promise<void> {
+  console.log(`[Notification] Triggering loanRequestAdminNotification for loan ${params.loanId}`);
   await executeMultiChannel(
     [
       () => notifyAdminsNewLoanRequest(

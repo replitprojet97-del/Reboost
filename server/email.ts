@@ -105,14 +105,18 @@ export async function sendTransactionalEmail(options: {
   }
 
   try {
-    await axios.post(`${SENDPULSE_API_URL}/smtp/emails`, emailData, {
+    const response = await axios.post(`${SENDPULSE_API_URL}/smtp/emails`, emailData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    console.log('[Email] sendTransactionalEmail success:', response.data);
     return true;
   } catch (error: any) {
     console.error('Error sending SendPulse transactional email:', error.response?.data || error.message);
+    if (error.response?.data) {
+      console.error('[Email] Detailed SendPulse error:', JSON.stringify(error.response.data));
+    }
     throw error;
   }
 }
@@ -230,6 +234,7 @@ export async function sendLoanRequestUserEmail(toEmail: string, fullName: string
 export async function sendLoanRequestAdminEmail(fullName: string, email: string, phone: string | null, accountType: string, amount: string, duration: number, loanType: string, reference: string, userId: string, documents: any[], language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+  console.log(`[Email] Preparing loan request admin email. To: ${adminEmail}, From: ${fromEmail}, User: ${email}`);
   const { getEmailTemplate } = await import('./emailTemplates');
   const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
   const template = getEmailTemplate('loanRequestAdmin', language as any, { fullName, email, phone, accountType, amount, duration, loanType, reference, userId, reviewUrl, documents });
@@ -265,14 +270,20 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
     }
   }
 
-  await sendTransactionalEmail({ 
-    to: adminEmail, 
-    subject: template.subject, 
-    html: template.html, 
-    text: template.text,
-    attachments: attachments.length > 0 ? attachments : undefined
-  });
-  return true;
+  try {
+    const success = await sendTransactionalEmail({ 
+      to: adminEmail, 
+      subject: template.subject, 
+      html: template.html, 
+      text: template.text,
+      attachments: attachments.length > 0 ? attachments : undefined
+    });
+    console.log(`[Email] Loan request admin email sent status: ${success}`);
+    return success;
+  } catch (emailErr) {
+    console.error('[Email] Failed to send loan request admin email:', emailErr);
+    throw emailErr;
+  }
 }
 
 export async function sendKYCUploadedAdminEmail(fullName: string, email: string, documentType: string, loanType: string, userId: string, language: string = 'fr') {
