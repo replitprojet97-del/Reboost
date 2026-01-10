@@ -61,14 +61,6 @@ export function AppSidebarAdmin() {
   return (
     <Sidebar className="border-r border-gray-200 bg-[#F8F9FF]">
       <SidebarContent>
-        <div className="p-6" data-testid="text-admin-logo">
-          <img 
-            src="/logo.png" 
-            alt="SolventisGroup Admin" 
-            className="h-16 w-auto mx-auto"
-          />
-        </div>
-
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu className="px-3 space-y-1">

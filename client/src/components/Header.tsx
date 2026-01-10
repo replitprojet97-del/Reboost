@@ -99,15 +99,6 @@ export default function Header() {
             <div className={`flex items-center gap-2 cursor-pointer group transition-all duration-300 ${
               scrolled ? 'scale-95' : 'scale-100'
             }`}>
-              <div className="relative flex-shrink-0">
-                <img 
-                  src={solventisLogo} 
-                  alt="Solventis Group" 
-                  className={`transition-all duration-300 object-contain ${
-                    scrolled ? 'h-9 w-9' : 'h-11 w-11'
-                  }`} 
-                />
-              </div>
               <div className="hidden lg:block">
                 <span className="font-bold text-lg bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent group-hover:from-primary group-hover:via-primary/80 group-hover:to-primary transition-all duration-300">
                   Solventis Group

@@ -125,15 +125,6 @@ export default function AppSidebar() {
   return (
     <Sidebar className="border-r border-border bg-sidebar">
       <SidebarContent className="px-0 py-0 overflow-y-auto interactive-scrollbar bg-sidebar">
-        {/* Header Section - Logo positioned as in the reference image */}
-        <div className="p-8 flex justify-center border-b border-sidebar-border/30">
-          <img 
-            src={theme === 'dark' ? "/logo-dark.png" : "/logo.png"} 
-            alt="Solventis" 
-            className="h-auto w-auto object-contain max-w-[85%] max-h-20" 
-          />
-        </div>
-
         {/* Navigation Groups */}
         <div className="py-4 space-y-8">
           <SidebarGroup className="p-0">
