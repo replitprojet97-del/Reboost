@@ -3,11 +3,13 @@ import AdminDataTable from "@/components/admin/AdminDataTable";
 import AdminHeader from "@/components/admin/AdminHeader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Download, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Download, CheckCircle, XCircle, Clock, ArrowLeft } from "lucide-react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
+import { cn } from "@/lib/utils";
 
 interface KycDocument {
   id: string;
@@ -22,6 +24,7 @@ interface KycDocument {
 
 export default function AdminKycPage() {
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   const { data: documents, isLoading } = useQuery<KycDocument[]>({
     queryKey: ["/api/admin/all-kyc-documents"],
@@ -142,10 +145,20 @@ export default function AdminKycPage() {
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
-      <AdminHeader 
-        title="Gestion KYC" 
-        description="Vérifiez et validez les documents d'identité et justificatifs des utilisateurs."
-      />
+      <div className="flex items-center gap-4 mb-2">
+        <Button 
+          variant="outline" 
+          size="icon" 
+          onClick={() => setLocation("/admin")}
+          className="rounded-full"
+        >
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+        <AdminHeader 
+          title="Gestion KYC" 
+          description="Vérifiez et validez les documents d'identité et justificatifs des utilisateurs."
+        />
+      </div>
       <AdminDataTable 
         columns={columns} 
         data={documents || []} 
