@@ -4,6 +4,7 @@ import AdminLoans from "./AdminLoans";
 import AdminUsers from "./AdminUsers";
 import AdminContact from "./AdminContact";
 import AdminSecurity from "./AdminSecurity";
+import AdminKycPage from "./admin/AdminKycPage";
 
 export default function AdminSimple() {
   const [location] = useLocation();
@@ -18,6 +19,10 @@ export default function AdminSimple() {
 
   if (location.startsWith("/admin/users")) {
     return <AdminUsers />;
+  }
+
+  if (location.startsWith("/admin/kyc")) {
+    return <AdminKycPage />;
   }
 
   if (location.startsWith("/admin/contact")) {
