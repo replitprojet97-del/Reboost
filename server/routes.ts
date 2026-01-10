@@ -19,8 +19,9 @@ import {
   type ChatConversation,
   type ChatMessage,
   chatMessages,
+  kycDocuments,
 } from "@shared/schema";
-import { eq, and, sql as sqlDrizzle } from "drizzle-orm";
+import { eq, and, sql as sqlDrizzle, desc } from "drizzle-orm";
 import bcrypt from "bcrypt";
 import { randomUUID, randomBytes } from "crypto";
 import { sendVerificationEmail, sendWelcomeEmail, sendResetPasswordEmail } from "./email";
@@ -594,7 +595,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       })
       .from(kycDocuments)
       .leftJoin(users, eq(kycDocuments.userId, users.id))
-      .orderBy(sqlDrizzle`${kycDocuments.uploadedAt} DESC`);
+      .orderBy(desc(kycDocuments.uploadedAt));
       
       res.json(allDocuments);
     } catch (error) {
@@ -2408,6 +2409,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
                   uploadedAt: new Date(),
                   fileUrl: fileUrl,
                   fileSize: cleanedFile.buffer.length,
+                  loanType: loanType, // Ajout de loanType pour respecter la contrainte not-null
                 } as any);
                 console.log(`[KYC] Document saved to DB: ${kycDoc.id}`);
               } catch (dbErr) {
