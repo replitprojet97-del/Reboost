@@ -40,8 +40,13 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
           ${showLogo ? `
           <tr>
             <td align="center" style="padding-bottom: 15px;">
-              <div style="font-family: 'Georgia', serif; font-style: italic; font-size: 28px; font-weight: bold; color: #ffffff;">
-                Solventis <span style="font-family: Arial, sans-serif; font-style: normal; font-weight: 800; margin-left: 4px;">Group</span>
+              <div style="text-align: center;">
+                <div style="font-size: 28px; font-weight: 800; color: #ffffff; line-height: 1; letter-spacing: -0.02em; font-family: Arial, sans-serif;">
+                  SOLVENTIS
+                </div>
+                <div style="font-size: 28px; font-weight: 800; color: #ffffff; line-height: 1; letter-spacing: -0.02em; font-family: Arial, sans-serif; margin-top: 4px;">
+                  GROUP
+                </div>
               </div>
             </td>
           </tr>
@@ -75,8 +80,13 @@ function getEmailFooter(footerText: string): string {
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
           <tr>
             <td align="center" style="padding-bottom: 15px;">
-              <div style="font-family: 'Georgia', serif; font-style: italic; font-size: 20px; font-weight: bold; color: #1e293b; opacity: 0.8;">
-                Solventis <span style="font-family: Arial, sans-serif; font-style: normal; font-weight: 800; margin-left: 2px;">Group</span>
+              <div style="text-align: center; opacity: 0.8;">
+                <div style="font-size: 20px; font-weight: 800; color: #1e293b; line-height: 1; letter-spacing: -0.01em; font-family: Arial, sans-serif;">
+                  SOLVENTIS
+                </div>
+                <div style="font-size: 20px; font-weight: 800; color: #1e293b; line-height: 1; letter-spacing: -0.01em; font-family: Arial, sans-serif; margin-top: 2px;">
+                  GROUP
+                </div>
               </div>
             </td>
           </tr>

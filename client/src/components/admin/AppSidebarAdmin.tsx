@@ -63,9 +63,12 @@ export function AppSidebarAdmin() {
     <Sidebar className="border-r border-gray-200 bg-[#F8F9FF]">
       <SidebarContent>
         {/* Logo Section */}
-        <div className="p-8 flex items-center justify-center border-b border-gray-100 bg-white">
-          <span className="text-2xl font-bold tracking-tight text-slate-900 font-serif italic">
-            Solventis <span className="text-indigo-600 not-italic font-sans font-extrabold ml-1">Group</span>
+        <div className="p-8 flex flex-col items-start px-8 border-b border-gray-100 bg-white">
+          <span className="text-2xl font-black tracking-tighter text-slate-900 leading-[0.85] uppercase">
+            Solventis
+          </span>
+          <span className="text-2xl font-black tracking-tighter text-indigo-600 leading-[0.85] uppercase mt-1">
+            Group
           </span>
         </div>
         <SidebarGroup>
