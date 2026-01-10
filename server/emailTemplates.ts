@@ -13,9 +13,8 @@ function getEmailBaseUrl(): string {
 }
 
 function getEmailLogoUrl(): string {
-  // Use the official SolventisGroup logo
-  const baseUrl = getEmailBaseUrl();
-  return "https://solventisgroup.org/attached_assets/generated_images/fintech_logo_solventis_group_white.png";
+  // Use the official SolventisGroup email-optimized logo
+  return "https://solventisgroup.org/attached_assets/generated_images/professional_fintech_logo_for_solventisgroup_emails.png";
 }
 
 interface EmailHeaderOptions {
@@ -33,6 +32,8 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
     showLogo = true
   } = options;
   
+  const logoUrl = getEmailLogoUrl();
+  
   return `
     <tr>
       <td align="center" style="background: ${gradientColors}; padding: 30px 20px;">
@@ -40,14 +41,7 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
           ${showLogo ? `
           <tr>
             <td align="center" style="padding-bottom: 15px;">
-              <div style="text-align: center;">
-                <div style="font-size: 28px; font-weight: 800; color: #ffffff; line-height: 1; letter-spacing: -0.02em; font-family: Arial, sans-serif;">
-                  SOLVENTIS
-                </div>
-                <div style="font-size: 28px; font-weight: 800; color: #ffffff; line-height: 1; letter-spacing: -0.02em; font-family: Arial, sans-serif; margin-top: 4px;">
-                  GROUP
-                </div>
-              </div>
+              <img src="${logoUrl}" alt="SolventisGroup" width="180" style="display: block; width: 180px; max-width: 100%; border: 0; outline: none; text-decoration: none;">
             </td>
           </tr>
           ` : ''}
@@ -73,6 +67,7 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
 
 function getEmailFooter(footerText: string): string {
   const currentYear = new Date().getFullYear();
+  const logoUrl = getEmailLogoUrl();
   
   return `
     <tr>
@@ -80,14 +75,7 @@ function getEmailFooter(footerText: string): string {
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
           <tr>
             <td align="center" style="padding-bottom: 15px;">
-              <div style="text-align: center; opacity: 0.8;">
-                <div style="font-size: 20px; font-weight: 800; color: #1e293b; line-height: 1; letter-spacing: -0.01em; font-family: Arial, sans-serif;">
-                  SOLVENTIS
-                </div>
-                <div style="font-size: 20px; font-weight: 800; color: #1e293b; line-height: 1; letter-spacing: -0.01em; font-family: Arial, sans-serif; margin-top: 2px;">
-                  GROUP
-                </div>
-              </div>
+              <img src="${logoUrl}" alt="SolventisGroup" width="120" style="display: block; width: 120px; max-width: 100%; border: 0; outline: none; text-decoration: none; opacity: 0.8; filter: grayscale(100%);">
             </td>
           </tr>
           <tr>
