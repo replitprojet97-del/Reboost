@@ -2090,13 +2090,15 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         });
       }
 
+      // Cloudinary Download Logic Fix
+      const resourceType = document.fileName.toLowerCase().endsWith('.pdf') ? 'raw' : 'image';
       const signedUrl = cloudinary.utils.private_download_url(
         document.cloudinaryPublicId,
-        'raw',
+        document.fileName.toLowerCase().endsWith('.pdf') ? 'pdf' : 'jpg', // format doesn't matter much for raw
         {
           expires_at: Math.floor(Date.now() / 1000) + 3600,
           attachment: false,
-          resource_type: 'raw',
+          resource_type: resourceType,
         }
       );
 
@@ -2325,7 +2327,18 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       
       const loan = await storage.createLoan(validated);
       
-      // user is already fetched above for cumulative validation
+      // Notify admins about new loan request
+      try {
+        await notifyAdminsNewLoanRequest(
+          user.id,
+          user.fullName,
+          loan.id,
+          amount.toString(),
+          loanType
+        );
+      } catch (notifyError) {
+        console.error('Error notifying admins of new loan request:', notifyError);
+      }
       
       const uploadedDocuments: any[] = [];
       
