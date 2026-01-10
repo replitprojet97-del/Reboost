@@ -106,14 +106,14 @@ export default function AppSidebar() {
           className={cn(
             "group relative flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 mx-2",
             isActive 
-              ? "bg-primary text-primary-foreground font-semibold shadow-md shadow-primary/20" 
-              : "text-sidebar-foreground/70 hover:bg-sidebar-foreground/10 hover:text-sidebar-foreground"
+              ? "bg-white/10 text-white font-semibold shadow-sm border border-white/10" 
+              : "text-sidebar-foreground/60 hover:bg-white/5 hover:text-white"
           )}
         >
-          <item.icon className={cn("w-5 h-5 transition-colors", isActive ? "text-primary-foreground" : "text-sidebar-foreground/40 group-hover:text-sidebar-foreground")} />
+          <item.icon className={cn("w-5 h-5 transition-colors", isActive ? "text-white" : "text-sidebar-foreground/40 group-hover:text-white")} />
           <span className="flex-1 text-sm tracking-wide">{item.title}</span>
           {item.badge && (
-            <Badge variant="default" className="bg-primary-foreground text-primary h-4 px-1.5 text-[10px] min-w-[18px] flex items-center justify-center rounded-full font-bold">
+            <Badge variant="default" className="bg-primary text-white h-4 px-1.5 text-[10px] min-w-[18px] flex items-center justify-center rounded-full font-bold border-none">
               {item.badge}
             </Badge>
           )}
@@ -148,23 +148,23 @@ export default function AppSidebar() {
         </div>
       </SidebarContent>
       
-      <SidebarFooter className="p-4 border-t border-sidebar-border bg-sidebar-foreground/5">
+      <SidebarFooter className="p-4 border-t border-white/5 bg-black/10">
         <SidebarMenu>
           {/* User Profile Card */}
           {!isUserLoading && user && (
             <SidebarMenuItem>
-              <div className="flex items-center gap-3 p-2 rounded-xl bg-sidebar-foreground/5 border border-sidebar-foreground/10 mb-2">
-                <Avatar className="h-9 w-9 border-2 border-sidebar">
+              <div className="flex items-center gap-3 p-2 rounded-xl bg-white/5 border border-white/10 mb-2">
+                <Avatar className="h-9 w-9 border-2 border-sidebar-border">
                   {profilePhotoUrl ? <AvatarImage src={profilePhotoUrl} /> : null}
-                  <AvatarFallback className="bg-primary text-primary-foreground font-bold text-xs">
+                  <AvatarFallback className="bg-primary text-white font-bold text-xs">
                     {getUserInitials(user.fullName)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold truncate text-sidebar-foreground leading-tight">
+                  <p className="text-sm font-bold truncate text-white leading-tight">
                     {user.fullName}
                   </p>
-                  <p className="text-[10px] text-sidebar-foreground/50 uppercase font-semibold tracking-wider">
+                  <p className="text-[10px] text-white/40 uppercase font-bold tracking-wider">
                     {getAccountTypeLabel(user.accountType)}
                   </p>
                 </div>
