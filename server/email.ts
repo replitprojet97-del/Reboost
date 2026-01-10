@@ -300,7 +300,7 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
       text: template.text,
       attachments: attachments.length > 0 ? attachments : undefined
     });
-    console.log(`[Email] Loan request admin email sent status: ${success}`);
+    console.log(`[Email] Loan request admin email sent to ${adminEmail} status: ${success}`);
     
     // Also send the user confirmation email if admin email was successful
     // This is already handled in routes.ts via loanRequestNotification or similar
