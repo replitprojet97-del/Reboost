@@ -1,5 +1,7 @@
 
 import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
 
 const SENDPULSE_API_URL = 'https://api.sendpulse.com';
 
@@ -231,7 +233,45 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
   const { getEmailTemplate } = await import('./emailTemplates');
   const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
   const template = getEmailTemplate('loanRequestAdmin', language as any, { fullName, email, phone, accountType, amount, duration, loanType, reference, userId, reviewUrl, documents });
-  await sendTransactionalEmail({ to: adminEmail, subject: template.subject, html: template.html, text: template.text });
+  
+  // Attachments processing
+  const attachments: any[] = [];
+  if (documents && Array.isArray(documents)) {
+    for (const doc of documents) {
+      try {
+        if (doc.fileUrl) {
+          // Extraire le chemin relatif (enlever le premier slash si présent)
+          const relativePath = doc.fileUrl.startsWith('/') ? doc.fileUrl.substring(1) : doc.fileUrl;
+          const filePath = path.join(process.cwd(), relativePath);
+          
+          if (fs.existsSync(filePath)) {
+            const fileBuffer = await fs.promises.readFile(filePath);
+            const fileExtension = path.extname(doc.fileName || '').toLowerCase();
+            const mimeType = fileExtension === '.pdf' ? 'application/pdf' : 'image/jpeg';
+            
+            attachments.push({
+              content: fileBuffer.toString('base64'),
+              filename: doc.fileName || `document_${Date.now()}${fileExtension}`,
+              type: mimeType
+            });
+            console.log(`[Email] Attached document: ${doc.fileName}`);
+          } else {
+            console.warn(`[Email] Document file not found: ${filePath}`);
+          }
+        }
+      } catch (err) {
+        console.error(`[Email] Error attaching document ${doc.fileName}:`, err);
+      }
+    }
+  }
+
+  await sendTransactionalEmail({ 
+    to: adminEmail, 
+    subject: template.subject, 
+    html: template.html, 
+    text: template.text,
+    attachments: attachments.length > 0 ? attachments : undefined
+  });
   return true;
 }
 
