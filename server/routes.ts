@@ -48,6 +48,8 @@ import {
   notifyTransferCompleted, 
   notifyCodeIssued,
   notifyAdminMessage,
+  notifyKycApproved,
+  notifyKycRejected,
   notifyAdminsNewKycDocument,
   notifyAdminsNewLoanRequest,
   notifyAdminsNewTransfer,

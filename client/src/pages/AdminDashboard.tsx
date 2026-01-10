@@ -3,7 +3,21 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { Users, ArrowRightLeft, DollarSign, Activity, FileCheck, FileSignature, ShieldCheck, MessageSquare, Bell, AlertCircle, RotateCcw, Trash2 } from "lucide-react";
+import { 
+  Users, 
+  ArrowRightLeft, 
+  DollarSign, 
+  Activity, 
+  FileCheck, 
+  FileSignature, 
+  ShieldCheck, 
+  MessageSquare, 
+  Bell, 
+  AlertCircle, 
+  RotateCcw, 
+  Trash2,
+  FileText
+} from "lucide-react";
 import { useTranslations } from "@/lib/i18n";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { useLocation } from "wouter";
