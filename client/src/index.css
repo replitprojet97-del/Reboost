@@ -14,25 +14,25 @@
   --elevate-1: rgba(0,0,0, .02);
   --elevate-2: rgba(0,0,0, .05);
 
-  /* ===== LIGHT MODE - Sync with Image Reference (White/Grey Menu) ===== */
-  --background: 210 20% 98%;          /* Gris-bleu ultra léger */
+  /* ===== LIGHT MODE - Fintech Premium Solventis ===== */
+  --background: 210 40% 98%;          /* Light blue-grey background */
   --foreground: 222 47% 11%;
   --border: 214 32% 91%;
   --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
   --card-border: 214 32% 91%;
-  --sidebar: 210 20% 98%;            /* Fond de menu gris très clair identique à l'image */
-  --sidebar-foreground: 222 47% 11%;
-  --sidebar-border: 0 0% 100%;       /* Pas de bordure visible sur la sidebar dans l'image */
+  --sidebar: 222 47% 11%;            /* Dark sidebar for fintech look (Auth/Home sync) */
+  --sidebar-foreground: 210 40% 98%;
+  --sidebar-border: 222 47% 15%;
   --sidebar-primary: 221 100% 50%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 221 100% 50%;     /* Bleu vif pour l'élément actif */
-  --sidebar-accent-foreground: 0 0% 100%;
-  --sidebar-ring: 217 91% 60%;
+  --sidebar-accent: 217 91% 60% / 0.15;
+  --sidebar-accent-foreground: 210 40% 98%;
+  --sidebar-ring: 221 100% 50%;
   --popover: 0 0% 100%;
   --popover-foreground: 222 47% 11%;
   --popover-border: 214 32% 91%;
-  --primary: 221 100% 50%;
+  --primary: 221 100% 50%;           /* Primary Solventis Blue */
   --primary-foreground: 210 40% 98%;
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222 47% 11%;

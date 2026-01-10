@@ -104,16 +104,16 @@ export default function AppSidebar() {
           isActive={isActive}
           onClick={() => handleNavigate(item.url)}
           className={cn(
-            "group relative flex items-center gap-3 px-4 py-2 rounded-r-full transition-all duration-200 ml-0 mr-4",
+            "group relative flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 mx-2",
             isActive 
-              ? "bg-sidebar-accent text-sidebar-accent-foreground font-semibold shadow-lg shadow-primary/20" 
-              : "text-sidebar-foreground/60 hover:bg-sidebar-accent/20 hover:text-sidebar-accent-foreground"
+              ? "bg-primary text-primary-foreground font-semibold shadow-md shadow-primary/20" 
+              : "text-sidebar-foreground/70 hover:bg-sidebar-foreground/10 hover:text-sidebar-foreground"
           )}
         >
-          <item.icon className={cn("w-4.5 h-4.5 transition-colors", isActive ? "text-sidebar-accent-foreground" : "text-sidebar-foreground/40 group-hover:text-sidebar-accent-foreground")} />
+          <item.icon className={cn("w-5 h-5 transition-colors", isActive ? "text-primary-foreground" : "text-sidebar-foreground/40 group-hover:text-sidebar-foreground")} />
           <span className="flex-1 text-sm tracking-wide">{item.title}</span>
           {item.badge && (
-            <Badge variant="default" className="bg-primary text-primary-foreground h-4 px-1.5 text-[10px] min-w-[18px] flex items-center justify-center rounded-full font-bold">
+            <Badge variant="default" className="bg-primary-foreground text-primary h-4 px-1.5 text-[10px] min-w-[18px] flex items-center justify-center rounded-full font-bold">
               {item.badge}
             </Badge>
           )}
@@ -128,7 +128,7 @@ export default function AppSidebar() {
         {/* Navigation Groups */}
         <div className="py-4 space-y-8">
           <SidebarGroup className="p-0">
-            <SidebarGroupLabel className="px-4 text-[10px] font-bold uppercase tracking-[0.15em] text-sidebar-foreground/30 mb-3">
+            <SidebarGroupLabel className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] text-sidebar-foreground/40 mb-3">
               {t.nav.loansSection || 'PRÊTS'}
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
@@ -137,7 +137,7 @@ export default function AppSidebar() {
           </SidebarGroup>
 
           <SidebarGroup className="p-0">
-            <SidebarGroupLabel className="px-4 text-[10px] font-bold uppercase tracking-[0.15em] text-sidebar-foreground/30 mb-3">
+            <SidebarGroupLabel className="px-4 text-[10px] font-bold uppercase tracking-[0.2em] text-sidebar-foreground/40 mb-3">
               {t.nav.dashboard || 'TABLEAU DE BORD'}
             </SidebarGroupLabel>
             <SidebarMenu className="space-y-1">
@@ -148,12 +148,12 @@ export default function AppSidebar() {
         </div>
       </SidebarContent>
       
-      <SidebarFooter className="p-4 border-t border-sidebar-border bg-sidebar-accent/20">
+      <SidebarFooter className="p-4 border-t border-sidebar-border bg-sidebar-foreground/5">
         <SidebarMenu>
           {/* User Profile Card */}
           {!isUserLoading && user && (
             <SidebarMenuItem>
-              <div className="flex items-center gap-3 p-2 rounded-xl bg-sidebar-accent/40 border border-sidebar-border/50 mb-2">
+              <div className="flex items-center gap-3 p-2 rounded-xl bg-sidebar-foreground/5 border border-sidebar-foreground/10 mb-2">
                 <Avatar className="h-9 w-9 border-2 border-sidebar">
                   {profilePhotoUrl ? <AvatarImage src={profilePhotoUrl} /> : null}
                   <AvatarFallback className="bg-primary text-primary-foreground font-bold text-xs">
@@ -164,7 +164,7 @@ export default function AppSidebar() {
                   <p className="text-sm font-bold truncate text-sidebar-foreground leading-tight">
                     {user.fullName}
                   </p>
-                  <p className="text-[10px] text-sidebar-foreground/60 uppercase font-medium">
+                  <p className="text-[10px] text-sidebar-foreground/50 uppercase font-semibold tracking-wider">
                     {getAccountTypeLabel(user.accountType)}
                   </p>
                 </div>
