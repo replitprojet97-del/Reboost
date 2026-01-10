@@ -63,7 +63,7 @@ export function AppSidebarAdmin() {
     <Sidebar className="border-r border-gray-200 bg-[#F8F9FF]">
       <SidebarContent>
         {/* Logo Section */}
-        <div className="p-8 flex flex-col items-start px-8 border-b border-gray-100 bg-white">
+        <div className="p-8 mt-4 flex flex-col items-start px-8 border-b border-gray-100 bg-white">
           <span className="text-2xl font-black tracking-tighter text-slate-900 leading-[0.85] uppercase">
             Solventis
           </span>

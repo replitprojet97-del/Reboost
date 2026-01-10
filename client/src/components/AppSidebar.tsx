@@ -127,7 +127,7 @@ export default function AppSidebar() {
     <Sidebar className="border-r border-border bg-sidebar">
       <SidebarContent className="px-0 py-0 overflow-y-auto interactive-scrollbar bg-sidebar">
         {/* Logo Section */}
-        <div className="p-8 flex flex-col items-start px-8 border-b border-white/5">
+        <div className="p-8 mt-4 flex flex-col items-start px-8 border-b border-white/5">
           <span className="text-2xl font-black tracking-tighter text-white leading-[0.85] uppercase">
             Solventis
           </span>
