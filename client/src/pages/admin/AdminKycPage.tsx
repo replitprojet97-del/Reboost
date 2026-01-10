@@ -83,8 +83,11 @@ export default function AdminKycPage() {
         const status = row.getValue("status");
         return (
           <Badge 
-            variant={status === 'verified' ? 'success' : status === 'rejected' ? 'destructive' : 'secondary'}
-            className="flex w-fit items-center gap-1"
+            variant={status === 'verified' ? 'default' : status === 'rejected' ? 'destructive' : 'secondary'}
+            className={cn(
+              "flex w-fit items-center gap-1",
+              status === 'verified' && "bg-green-500 hover:bg-green-600 text-white"
+            )}
           >
             {status === 'verified' ? <CheckCircle className="w-3 h-3" /> : 
              status === 'rejected' ? <XCircle className="w-3 h-3" /> : 
