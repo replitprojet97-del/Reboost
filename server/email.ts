@@ -241,25 +241,37 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
   
   // Attachments processing
   const attachments: any[] = [];
+  let totalAttachmentSize = 0;
+  const MAX_TOTAL_ATTACHMENT_SIZE = 10 * 1024 * 1024; // 10MB limit for total attachments
+
   if (documents && Array.isArray(documents)) {
     for (const doc of documents) {
       try {
         if (doc.fileUrl) {
-          // Extraire le chemin relatif (enlever le premier slash si présent)
           const relativePath = doc.fileUrl.startsWith('/') ? doc.fileUrl.substring(1) : doc.fileUrl;
           const filePath = path.join(process.cwd(), relativePath);
           
           if (fs.existsSync(filePath)) {
+            const stats = fs.statSync(filePath);
+            
+            // Limit each attachment to a reasonable size if needed, or skip if total exceeded
+            if (totalAttachmentSize + stats.size > MAX_TOTAL_ATTACHMENT_SIZE) {
+              console.warn(`[Email] Skipping document ${doc.fileName} because total attachment size would exceed 10MB`);
+              continue;
+            }
+
             const fileBuffer = await fs.promises.readFile(filePath);
+            const base64Content = fileBuffer.toString('base64');
             const fileExtension = path.extname(doc.fileName || '').toLowerCase();
             const mimeType = fileExtension === '.pdf' ? 'application/pdf' : 'image/jpeg';
             
             attachments.push({
-              content: fileBuffer.toString('base64'),
+              content: base64Content,
               filename: doc.fileName || `document_${Date.now()}${fileExtension}`,
               type: mimeType
             });
-            console.log(`[Email] Attached document: ${doc.fileName}`);
+            totalAttachmentSize += stats.size;
+            console.log(`[Email] Attached document: ${doc.fileName} (${(stats.size / 1024).toFixed(2)} KB)`);
           } else {
             console.warn(`[Email] Document file not found: ${filePath}`);
           }

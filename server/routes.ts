@@ -604,7 +604,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
   const upload = multer({
     storage: kycStorage,
     limits: {
-      fileSize: 5 * 1024 * 1024,
+      fileSize: 2 * 1024 * 1024, // Réduction à 2MB pour éviter de saturer les emails
       files: 1,
     },
     fileFilter: fileFilter,
