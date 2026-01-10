@@ -458,8 +458,7 @@ export default function Dashboard() {
           </Link>
           <Button 
             size="sm" 
-            variant="outline" 
-            className="gap-1 sm:gap-2 w-full text-xs sm:text-sm btn-premium-outline no-default-hover-elevate no-default-active-elevate" 
+            className="group gap-1 sm:gap-2 w-full text-xs sm:text-sm btn-premium-primary btn-shimmer no-default-hover-elevate no-default-active-elevate" 
             onClick={() => setLoanModalOpen(true)}
             data-testid="button-request-loan"
           >
@@ -467,7 +466,7 @@ export default function Dashboard() {
             <span>{t.dashboard.requestLoan}</span>
           </Button>
           <Link href="/accounts">
-            <Button size="sm" variant="outline" className="gap-1 sm:gap-2 w-full text-xs sm:text-sm btn-premium-outline no-default-hover-elevate no-default-active-elevate" data-testid="button-manage-accounts">
+            <Button size="sm" className="group gap-1 sm:gap-2 w-full text-xs sm:text-sm btn-premium-primary btn-shimmer no-default-hover-elevate no-default-active-elevate" data-testid="button-manage-accounts">
               <Wallet className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>{t.dashboard.manageAccounts}</span>
             </Button>
