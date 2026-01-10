@@ -260,13 +260,13 @@ export async function notifyAllAdmins(params: Omit<CreateNotificationParams, 'us
   return notifications;
 }
 
-export async function notifyAdminsNewKycDocument(userId: string, userName: string, documentType: string) {
+export async function notifyAdminsNewKycDocument(userId: string, userName: string, documentType: string, loanType: string = 'Inconnu') {
   return await notifyAllAdmins({
     type: 'general',
     title: 'Nouveau document KYC',
     message: `${userName} a uploadé un nouveau document KYC (${documentType})`,
     severity: 'info',
-    metadata: { userId, userName, documentType },
+    metadata: { userId, userName, documentType, loanType },
   });
 }
 

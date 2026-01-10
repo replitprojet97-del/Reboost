@@ -72,12 +72,14 @@ const IS_REPLIT = !IS_PRODUCTION && (
 // In development: undefined (same domain only)
 const COOKIE_DOMAIN = IS_PRODUCTION ? '.solventisgroup.org' : undefined;
 
-// In production: allow the dashboard subdomain
+// In production: allow the dashboard subdomain and current vercel domain
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? [
       'https://solventisgroup.org',
       'https://www.solventisgroup.org',
       'https://dashboard.solventisgroup.org',
+      'https://solventis-group-reboost.vercel.app',
+      'https://solventis-group.vercel.app',
     ]
   : ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000'];
 

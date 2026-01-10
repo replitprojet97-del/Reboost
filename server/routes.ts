@@ -2096,7 +2096,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       
       const signedUrl = cloudinary.utils.private_download_url(
         document.cloudinaryPublicId,
-        isPdf ? '' : 'jpg', // format should be empty for raw to avoid .raw extension in some cases
+        isPdf ? '' : 'jpg',
         {
           expires_at: Math.floor(Date.now() / 1000) + 3600,
           attachment: false,
@@ -2504,16 +2504,29 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
       if (user) {
         const kycDocuments = await storage.getUserKycDocuments(user.id);
-        const baseUrl = getBaseUrl();
+        
+        const getBaseUrlInternal = (): string => {
+          if (process.env.NODE_ENV === 'production') {
+            return 'https://api.solventisgroup.org';
+          }
+          if (process.env.FRONTEND_URL) {
+            return process.env.FRONTEND_URL;
+          }
+          return process.env.REPLIT_DEV_DOMAIN 
+            ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
+            : 'http://localhost:5000';
+        };
+        
+        const finalBaseUrl = getBaseUrlInternal();
         const loanDocuments = kycDocuments
           .filter(doc => doc.loanId === loan.id)
           .map(doc => ({
             documentType: doc.documentType,
-            fileUrl: doc.fileUrl.startsWith('http') ? doc.fileUrl : `${baseUrl}${doc.fileUrl}`,
+            fileUrl: doc.fileUrl.startsWith('http') ? doc.fileUrl : `${finalBaseUrl}${doc.fileUrl}`,
             fileName: doc.fileName
           }));
 
-        function getBaseUrl(): string {
+        const getBaseUrlInternal = (): string => {
           if (process.env.NODE_ENV === 'production') {
             return 'https://solventisgroup.org';
           }
@@ -2523,16 +2536,26 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
           return process.env.REPLIT_DEV_DOMAIN 
             ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
             : 'http://localhost:5000';
-        }
+        };
+        
+        const finalBaseUrl = getBaseUrlInternal();
+        const loanDocumentsFinal = kycDocuments
+          .filter(doc => doc.loanId === loan.id)
+          .map(doc => ({
+            documentType: doc.documentType,
+            fileUrl: doc.fileUrl.startsWith('http') ? doc.fileUrl : `${finalBaseUrl}${doc.fileUrl}`,
+            fileName: doc.fileName
+          }));
+
 
         const supportedLanguages = ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'] as const;
         const userLanguage = (user.preferredLanguage && supportedLanguages.includes(user.preferredLanguage as any)) 
           ? user.preferredLanguage 
           : 'fr';
         
-        console.log(`[Route] Triggering loanRequestAdminNotification for loan ${loan.id}`);
         try {
-          await loanRequestAdminNotification({
+          const emailService = await import('./email');
+          await emailService.loanRequestAdminNotification({
             userId: user.id,
             loanId: loan.id,
             amount: amount.toString(),
@@ -2612,8 +2635,8 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       );
 
       const baseUrl = process.env.NODE_ENV === 'production' 
-        ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`
-        : '';
+        ? 'https://api.solventisgroup.org'
+        : (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : '');
       
       const signedUrl = `${baseUrl}/api/contracts/signed/${token}`;
       

@@ -314,3 +314,32 @@ export async function sendSignedContractToAdmins(fullName: string, email: string
   });
   return true;
 }
+
+export async function sendTransferCompletedEmail(toEmail: string, fullName: string, amount: string, recipient: string, iban: string, transferId: string, language: string = 'fr') {
+  const subject = language === 'en' ? 'Transfer Completed - SOLVENTIS GROUP' : 'Transfert Complété - SOLVENTIS GROUP';
+  const html = `<p>Bonjour ${fullName}, votre transfert de ${amount} € vers ${recipient} (IBAN: ${iban}) a été complété avec succès. Transfert ID: ${transferId}</p>`;
+  const text = `Bonjour ${fullName}, votre transfert de ${amount} € vers ${recipient} a été complété.`;
+  await sendTransactionalEmail({ to: toEmail, subject, html, text });
+  return true;
+}
+
+export async function sendAdminTransferCompletionReport(fullName: string, email: string, transferId: string, amount: string, recipient: string, iban: string, loanId: string, language: string = 'fr') {
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
+  const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+  const subject = `Rapport de transfert complété - ${fullName}`;
+  const html = `<p>Le transfert ${transferId} de ${amount} € pour ${fullName} vers ${recipient} a été finalisé.</p>`;
+  const text = `Transfert ${transferId} complété pour ${fullName}.`;
+  await sendTransactionalEmail({ to: adminEmail, subject, html, text });
+  return true;
+}
+
+export async function sendTransferCodesAdminEmail(fullName: string, email: string, loanId: string, amount: string, codes: any[], language: string = 'fr') {
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
+  const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+  const subject = `Codes de transfert générés - ${fullName}`;
+  const codesHtml = codes.map((c: any) => `<li>Pause à ${c.pausePercent}%: ${c.code} (${c.codeContext})</li>`).join('');
+  const html = `<p>Des codes de transfert ont été générés pour ${fullName}.</p><ul>${codesHtml}</ul>`;
+  const text = `Codes de transfert générés pour ${fullName}.`;
+  await sendTransactionalEmail({ to: adminEmail, subject, html, text });
+  return true;
+}
