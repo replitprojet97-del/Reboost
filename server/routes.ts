@@ -2091,10 +2091,12 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       }
 
       // Cloudinary Download Logic Fix
-      const resourceType = document.fileName.toLowerCase().endsWith('.pdf') ? 'raw' : 'image';
+      const isPdf = document.fileName.toLowerCase().endsWith('.pdf');
+      const resourceType = isPdf ? 'raw' : 'image';
+      
       const signedUrl = cloudinary.utils.private_download_url(
         document.cloudinaryPublicId,
-        document.fileName.toLowerCase().endsWith('.pdf') ? 'pdf' : 'jpg', // format doesn't matter much for raw
+        isPdf ? '' : 'jpg', // format should be empty for raw to avoid .raw extension in some cases
         {
           expires_at: Math.floor(Date.now() / 1000) + 3600,
           attachment: false,
@@ -2395,15 +2397,16 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
               
               const fileUrl = `/uploads/kyc_documents/${uniqueFileName}`;
 
-              // ☁️ Uploader vers Cloudinary (resource_type: "raw")
+              // ☁️ Uploader vers Cloudinary
               let cloudinaryPublicId = null;
               let cloudinarySecureUrl = null;
               
               try {
+                const isPdf = cleanedFile.filename.toLowerCase().endsWith('.pdf');
                 const cloudinaryResult = await new Promise<any>((resolve, reject) => {
                   const uploadStream = cloudinary.uploader.upload_stream(
                     {
-                      resource_type: "raw",
+                      resource_type: isPdf ? "raw" : "image",
                       folder: "loan-documents",
                       public_id: `${req.session.userId}/${documentType}_${Date.now()}`
                     },
@@ -2419,10 +2422,9 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
                 
               cloudinaryPublicId = cloudinaryResult.public_id;
                 cloudinarySecureUrl = cloudinaryResult.secure_url;
-                console.log(`✓ Document uploaded to Cloudinary: ${cloudinaryPublicId}`);
+                console.log(`✓ Document uploaded to Cloudinary: ${cloudinaryPublicId} (type: ${isPdf ? 'raw' : 'image'})`);
               } catch (cloudinaryError) {
                 console.error(`[Cloudinary] Error uploading ${documentType}:`, cloudinaryError);
-                // On continue pour ne pas bloquer le workflow local
               }
 
               // Enregistrer le document KYC en base de données
@@ -2502,13 +2504,26 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
       if (user) {
         const kycDocuments = await storage.getUserKycDocuments(user.id);
+        const baseUrl = getBaseUrl();
         const loanDocuments = kycDocuments
           .filter(doc => doc.loanId === loan.id)
           .map(doc => ({
             documentType: doc.documentType,
-            fileUrl: doc.fileUrl,
+            fileUrl: doc.fileUrl.startsWith('http') ? doc.fileUrl : `${baseUrl}${doc.fileUrl}`,
             fileName: doc.fileName
           }));
+
+        function getBaseUrl(): string {
+          if (process.env.NODE_ENV === 'production') {
+            return 'https://solventisgroup.org';
+          }
+          if (process.env.FRONTEND_URL) {
+            return process.env.FRONTEND_URL;
+          }
+          return process.env.REPLIT_DEV_DOMAIN 
+            ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
+            : 'http://localhost:5000';
+        }
 
         const supportedLanguages = ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'] as const;
         const userLanguage = (user.preferredLanguage && supportedLanguages.includes(user.preferredLanguage as any)) 
