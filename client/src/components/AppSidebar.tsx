@@ -128,12 +128,12 @@ export default function AppSidebar() {
       <SidebarContent className="px-0 py-0 overflow-y-auto interactive-scrollbar bg-sidebar">
         {/* Logo Section */}
         <div className="p-8 mt-4 flex flex-col items-start px-8 border-b border-white/5">
-          <img 
-            src={logoSolventis} 
-            alt="Solventis Group" 
-            className="h-14 w-auto object-contain"
-            data-testid="img-sidebar-logo"
-          />
+          <span className="text-2xl font-black tracking-tighter text-white leading-[0.85] uppercase">
+            Solventis
+          </span>
+          <span className="text-2xl font-black tracking-tighter text-primary leading-[0.85] uppercase mt-1">
+            Group
+          </span>
         </div>
 
         {/* Navigation Groups */}
