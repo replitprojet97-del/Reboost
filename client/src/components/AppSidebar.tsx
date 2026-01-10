@@ -127,12 +127,10 @@ export default function AppSidebar() {
     <Sidebar className="border-r border-border bg-sidebar">
       <SidebarContent className="px-0 py-0 overflow-y-auto interactive-scrollbar bg-sidebar">
         {/* Logo Section */}
-        <div className="p-6 flex justify-center border-b border-white/5">
-          <img 
-            src={logoSolventis} 
-            alt="Solventis Group" 
-            className="h-12 w-auto object-contain" 
-          />
+        <div className="p-8 flex items-center justify-center border-b border-white/5">
+          <span className="text-2xl font-bold tracking-tight text-white font-serif italic">
+            Solventis <span className="text-primary not-italic font-sans font-extrabold ml-1">Group</span>
+          </span>
         </div>
 
         {/* Navigation Groups */}

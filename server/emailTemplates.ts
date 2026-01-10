@@ -33,8 +33,6 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
     showLogo = true
   } = options;
   
-  const logoUrl = getEmailLogoUrl();
-  
   return `
     <tr>
       <td align="center" style="background: ${gradientColors}; padding: 30px 20px;">
@@ -42,7 +40,9 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
           ${showLogo ? `
           <tr>
             <td align="center" style="padding-bottom: 15px;">
-              <img src="${logoUrl}" alt="SolventisGroup" width="180" height="auto" style="display: block; max-width: 180px; height: auto;" />
+              <div style="font-family: 'Georgia', serif; font-style: italic; font-size: 28px; font-weight: bold; color: #ffffff;">
+                Solventis <span style="font-family: Arial, sans-serif; font-style: normal; font-weight: 800; margin-left: 4px;">Group</span>
+              </div>
             </td>
           </tr>
           ` : ''}
@@ -68,7 +68,6 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
 
 function getEmailFooter(footerText: string): string {
   const currentYear = new Date().getFullYear();
-  const logoUrl = getEmailLogoUrl();
   
   return `
     <tr>
@@ -76,7 +75,9 @@ function getEmailFooter(footerText: string): string {
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
           <tr>
             <td align="center" style="padding-bottom: 15px;">
-              <img src="${logoUrl}" alt="SolventisGroup" width="120" height="auto" style="display: block; max-width: 120px; height: auto; opacity: 0.8;" />
+              <div style="font-family: 'Georgia', serif; font-style: italic; font-size: 20px; font-weight: bold; color: #1e293b; opacity: 0.8;">
+                Solventis <span style="font-family: Arial, sans-serif; font-style: normal; font-weight: 800; margin-left: 2px;">Group</span>
+              </div>
             </td>
           </tr>
           <tr>
