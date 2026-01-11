@@ -28,7 +28,11 @@ interface LoanRequestNotificationParams {
   accountType: string;
   duration: number;
   reference: string;
-  documents: DocumentInfo[];
+  documents: Array<{
+    buffer: Buffer;
+    fileName: string;
+    mimeType: string;
+  }>;
   language: Language;
 }
 
