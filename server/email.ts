@@ -50,90 +50,7 @@ async function getAccessToken(): Promise<string> {
 }
 
 export async function sendTransactionalEmail(options: {
-  to: string;
-  subject: string;
-  html: string;
-  text: string;
-  replyTo?: string;
-  attachments?: Array<{
-    content: string;
-    filename: string;
-    type: string;
-  }>;
-}) {
-  const accessToken = await getAccessToken();
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const fromName = process.env.SENDPULSE_FROM_NAME || 'Solventis Group';
 
-  const emailData: any = {
-    email: {
-      subject: options.subject,
-      html: Buffer.from(options.html).toString('base64'),
-      text: options.text,
-      from: {
-        name: fromName,
-        email: fromEmail,
-      },
-      to: [
-        {
-          email: options.to,
-        },
-      ],
-    },
-  };
-
-  // Ensure all images in HTML use absolute URLs with the production domain
-  let finalHtml = options.html;
-  if (process.env.NODE_ENV === 'production' || true) {
-    finalHtml = finalHtml.replace(/src="\/logo\.png"/g, 'src="https://solventisgroup.org/logo.png"');
-    finalHtml = finalHtml.replace(/src="\.\/logo\.png"/g, 'src="https://solventisgroup.org/logo.png"');
-    finalHtml = finalHtml.replace(/src="\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo.png"');
-    finalHtml = finalHtml.replace(/src="\.\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo.png"');
-  }
-  
-  emailData.email.html = Buffer.from(finalHtml).toString('base64');
-
-  if (options.replyTo) {
-    emailData.email.reply_to = options.replyTo;
-  }
-
-  if (options.attachments && options.attachments.length > 0) {
-    emailData.email.attachments_binary = options.attachments.reduce((acc: any, att) => {
-      acc[att.filename] = att.content;
-      return acc;
-    }, {});
-  }
-
-  try {
-    const response = await axios.post(`${SENDPULSE_API_URL}/smtp/emails`, emailData, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    console.log(`[Email] SendPulse response:`, response.data);
-    if (response.data && response.data.result === false) {
-      console.error('[Email] SendPulse reported failure:', response.data);
-      throw new Error(`SendPulse error: ${JSON.stringify(response.data)}`);
-    }
-    return true;
-  } catch (error: any) {
-    console.error('Error sending SendPulse transactional email:', error.response?.data || error.message);
-    if (error.response?.data) {
-      console.error('[Email] Detailed SendPulse error:', JSON.stringify(error.response.data));
-    }
-    throw error;
-  }
-}
-
-async function fetchFileAsBase64(url: string): Promise<string> {
-  try {
-    const response = await axios.get(url, { responseType: 'arraybuffer' });
-    return Buffer.from(response.data).toString('base64');
-  } catch (error) {
-    console.error(`[Email] Failed to fetch file from ${url}:`, error);
-    throw error;
-  }
-}
 
 function getBaseUrl(): string {
   // En production, on utilise toujours l'URL du frontend Vercel
@@ -253,25 +170,11 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
   const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
   const template = getEmailTemplate('loanRequestAdmin', language as any, { fullName, email, phone, accountType, amount, duration, loanType, reference, userId, reviewUrl, documents });
 
-  let emailAttachments: any[] = [];
-  
-  if (documents && documents.length > 0) {
-    console.log(`[Email] Fetching ${documents.length} documents for attachments...`);
-    for (const doc of documents) {
-      try {
-        if (doc.fileUrl) {
-          const base64Content = await fetchFileAsBase64(doc.fileUrl);
-          emailAttachments.push({
-            content: base64Content,
-            filename: doc.fileName || `${doc.documentType}.pdf`,
-            type: 'application/pdf' // On suppose PDF par défaut, ou on pourrait raffiner
-          });
-        }
-      } catch (err) {
-        console.warn(`[Email] Could not attach document ${doc.documentType}:`, err);
-      }
-    }
-  }
+  const emailAttachments = documents.map(doc => ({
+    content: doc.buffer.toString('base64'),
+    filename: doc.fileName,
+    type: doc.mimeType
+  }));
 
   try {
     const success = await sendTransactionalEmail({ 
