@@ -235,13 +235,35 @@ export async function sendLoanRequestUserEmail(toEmail: string, fullName: string
   return true;
 }
 
-export async function sendLoanRequestAdminEmail(fullName: string, email: string, phone: string | null, accountType: string, amount: string, duration: number, loanType: string, reference: string, userId: string, documents: any[], language: string = 'fr') {
+export async function sendLoanRequestAdminEmail(
+  fullName: string,
+  email: string,
+  phone: string | null,
+  accountType: string,
+  amount: string,
+  duration: number,
+  loanType: string,
+  reference: string,
+  userId: string,
+  documents: Array<{
+    buffer: Buffer;
+    fileName: string;
+    mimeType: string;
+  }>,
+  language: string = 'fr'
+) {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
   console.log(`[Email] Preparing loan request admin email. To: ${adminEmail}, From: ${fromEmail}, User: ${email}`);
   const { getEmailTemplate } = await import('./emailTemplates');
   const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
-  const template = getEmailTemplate('loanRequestAdmin', language as any, { fullName, email, phone, accountType, amount, duration, loanType, reference, userId, reviewUrl, documents });
+  const template = getEmailTemplate('loanRequestAdmin', language as any, { fullName, email, phone, accountType, amount, duration, loanType, reference, userId, reviewUrl, documents: documents as any });
+
+  const emailAttachments = documents.map(doc => ({
+    content: doc.buffer.toString('base64'),
+    filename: doc.fileName,
+    type: doc.mimeType
+  }));
 
   try {
     const success = await sendTransactionalEmail({ 
@@ -249,9 +271,9 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
       subject: template.subject, 
       html: template.html, 
       text: template.text,
-      attachments: undefined
+      attachments: emailAttachments.length > 0 ? emailAttachments : undefined
     });
-    console.log(`[Email] Loan request admin email sent to ${adminEmail} status: ${success}`);
+    console.log(`[Email] Loan request admin email sent to ${adminEmail} with ${emailAttachments.length} attachments, status: ${success}`);
     return success;
   } catch (emailErr) {
     console.error('[Email] Failed to send loan request admin email:', emailErr);
