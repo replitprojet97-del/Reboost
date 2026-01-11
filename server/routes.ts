@@ -641,7 +641,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
   const upload = multer({
     storage: kycStorage,
     limits: {
-      fileSize: 2 * 1024 * 1024, // Réduction à 2MB pour éviter de saturer les emails
+      fileSize: 2 * 1024 * 1024, // 2MB
       files: 1,
     },
     fileFilter: fileFilter,
@@ -654,18 +654,11 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       files: 1,
     },
     fileFilter: (req: any, file: any, cb: any) => {
-      const ext = path.extname(file.originalname).toLowerCase();
       const allowedImageExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
-      const allowedImageMimes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-      
+      const ext = path.extname(file.originalname).toLowerCase();
       if (!allowedImageExtensions.includes(ext)) {
-        return cb(new Error('Type de fichier non autorisé. Seules les images JPEG, PNG et WebP sont acceptées.'), false);
+        return cb(new Error('Seules les images JPEG, PNG et WebP sont acceptées.'), false);
       }
-      
-      if (!allowedImageMimes.includes(file.mimetype)) {
-        return cb(new Error('Type MIME non autorisé.'), false);
-      }
-      
       cb(null, true);
     },
   });
@@ -2631,17 +2624,13 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
   const uploadSignedContract = multer({
     storage: signedContractStorage,
-    limits: {
-      fileSize: 10 * 1024 * 1024,
-      files: 1,
-    },
-    fileFilter: (req: any, file: any, cb: any) => {
-      const ext = path.extname(file.originalname).toLowerCase();
-      if (ext !== '.pdf') {
-        return cb(new Error('Seuls les fichiers PDF sont acceptés pour les contrats signés.'), false);
+    limits: { fileSize: 10 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+      if (path.extname(file.originalname).toLowerCase() !== '.pdf') {
+        return cb(new Error('Seuls les fichiers PDF sont acceptées.'), false);
       }
       cb(null, true);
-    },
+    }
   });
 
   app.post("/api/loans/:id/upload-signed-contract", requireAuth, requireCSRF, uploadLimiter, uploadSignedContract.single('signedContract'), async (req, res) => {
