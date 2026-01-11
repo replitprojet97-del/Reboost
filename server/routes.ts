@@ -536,87 +536,27 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
   // Routes Admin KYC
   app.get("/api/admin/users/:userId/kyc-documents", requireAuth, requireAdmin, adminLimiter, async (req, res) => {
-    try {
-      const documents = await storage.getUserKycDocuments(req.params.userId);
-      res.json(documents);
-    } catch (error) {
-      console.error('Error fetching user KYC documents:', error);
-      res.status(500).json({ error: 'Erreur lors de la récupération des documents KYC' });
-    }
+    return res.status(410).json({
+      error: "KYC admin désactivé. Les documents sont désormais transmis uniquement par email."
+    });
   });
 
   app.get("/api/admin/kyc-documents/:docId/download", requireAuth, requireAdmin, adminLimiter, async (req, res) => {
-    try {
-      const allDocs = await db.select().from(kycDocuments).where(eq(kycDocuments.id, req.params.docId));
-      const document = allDocs[0];
-      
-      if (!document) {
-        return res.status(404).json({ error: 'Document non trouvé' });
-      }
-
-      if (!document.cloudinaryPublicId) {
-        return res.status(400).json({ error: 'Ce document n\'est pas hébergé sur Cloudinary' });
-      }
-
-      const extension = document.fileName.split('.').pop() || 'pdf';
-      const signedUrl = generateSignedCloudinaryDownloadUrl(document.cloudinaryPublicId, extension);
-      
-      res.json({ url: signedUrl });
-    } catch (error) {
-      console.error('Error generating KYC download link:', error);
-      res.status(500).json({ error: 'Erreur lors de la génération du lien de téléchargement' });
-    }
+    return res.status(410).json({
+      error: "KYC admin désactivé. Les documents sont désormais transmis uniquement par email."
+    });
   });
 
   app.patch("/api/admin/kyc-documents/:docId/status", requireAuth, requireAdmin, adminLimiter, async (req, res) => {
-    try {
-      const { status } = req.body;
-      if (!['verified', 'rejected', 'pending'].includes(status)) {
-        return res.status(400).json({ error: 'Statut invalide' });
-      }
-      const updated = await storage.updateKycDocumentStatus(req.params.docId, status);
-      
-      // Notifier l'utilisateur du changement de statut KYC
-      if (updated) {
-        if (status === 'verified') {
-          await notifyKycApproved(updated.userId);
-        } else if (status === 'rejected') {
-          await notifyKycRejected(updated.userId, 'Document non conforme ou illisible');
-        }
-        
-        emitNotificationUpdate(updated.userId, updated.id);
-        emitAdminDashboardUpdate();
-      }
-      
-      res.json(updated);
-    } catch (error) {
-      console.error('Error updating KYC document status:', error);
-      res.status(500).json({ error: 'Erreur lors de la mise à jour du statut' });
-    }
+    return res.status(410).json({
+      error: "KYC admin désactivé. Les documents sont désormais transmis uniquement par email."
+    });
   });
 
   app.get("/api/admin/all-kyc-documents", requireAuth, requireAdmin, adminLimiter, async (req, res) => {
-    try {
-      const allDocuments = await db.select({
-        id: kycDocuments.id,
-        userId: kycDocuments.userId,
-        loanId: kycDocuments.loanId,
-        documentType: kycDocuments.documentType,
-        status: kycDocuments.status,
-        fileName: kycDocuments.fileName,
-        uploadedAt: kycDocuments.uploadedAt,
-        cloudinaryPublicId: kycDocuments.cloudinaryPublicId,
-        userFullName: users.fullName,
-      })
-      .from(kycDocuments)
-      .leftJoin(users, eq(kycDocuments.userId, users.id))
-      .orderBy(desc(kycDocuments.uploadedAt));
-      
-      res.json(allDocuments);
-    } catch (error) {
-      console.error('Error fetching all KYC documents:', error);
-      res.status(500).json({ error: 'Erreur lors de la récupération de tous les documents KYC' });
-    }
+    return res.status(410).json({
+      error: "KYC admin désactivé. Les documents sont désormais transmis uniquement par email."
+    });
   });
 
   const calculateInterestRate = async (loanType: string, amount: number): Promise<number> => {
