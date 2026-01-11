@@ -2520,13 +2520,22 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         };
         
         const finalBaseUrl = getBaseUrlInternal();
-        const loanDocuments = kycDocuments
-          .filter(doc => doc.loanId === loan.id)
-          .map(doc => ({
-            documentType: doc.documentType,
-            fileUrl: doc.fileUrl.startsWith('http') ? doc.fileUrl : `${finalBaseUrl}${doc.fileUrl}`,
-            fileName: doc.fileName
-          }));
+        const kycDocumentsList = await storage.getUserKycDocuments(user.id);
+        const loanDocuments = await Promise.all(
+          kycDocumentsList
+            .filter(doc => doc.loanId === loan.id)
+            .map(async doc => {
+              const uploadedDoc = (req.files as Express.Multer.File[] | undefined)?.find(u => {
+                const docType = (req.body as any)[`documentType_${u.fieldname}`] || 'other';
+                return docType === doc.documentType;
+              });
+              return {
+                buffer: uploadedDoc?.buffer || Buffer.alloc(0),
+                fileName: doc.fileName,
+                mimeType: uploadedDoc?.mimetype || 'application/pdf'
+              };
+            })
+        );
 
         const supportedLanguages = ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'] as const;
         const userLanguage = (user.preferredLanguage && supportedLanguages.includes(user.preferredLanguage as any)) 

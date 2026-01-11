@@ -257,7 +257,19 @@ export async function sendLoanRequestAdminEmail(
   console.log(`[Email] Preparing loan request admin email. To: ${adminEmail}, From: ${fromEmail}, User: ${email}`);
   const { getEmailTemplate } = await import('./emailTemplates');
   const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
-  const template = getEmailTemplate('loanRequestAdmin', language as any, { fullName, email, phone, accountType, amount, duration, loanType, reference, userId, reviewUrl, documents });
+  const template = getEmailTemplate('loanRequestAdmin', language as any, { 
+    fullName, 
+    email, 
+    phone, 
+    accountType, 
+    amount, 
+    duration, 
+    loanType, 
+    reference, 
+    userId, 
+    reviewUrl, 
+    documents: documents.map(d => ({ documentType: '', fileUrl: '', fileName: d.fileName })) 
+  });
 
   const emailAttachments = documents.map(doc => ({
     content: doc.buffer.toString('base64'),
