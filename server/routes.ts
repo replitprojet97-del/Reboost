@@ -1862,51 +1862,21 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     }
   });
 
-  app.post("/api/kyc/upload", requireAuth, requireCSRF, uploadLimiter, upload.single('document'), async (req, res) => {
+  app.post("/api/kyc/upload", requireAuth, requireCSRF, uploadLimiter, kycUpload.single('document'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'Aucun fichier fourni' });
       }
 
-      const fileType = await fileTypeFromFile(req.file.path);
+      const { validateAndCleanFile, deleteTemporaryFile } = await import('./fileValidator');
+      const tempDir = path.join(process.cwd(), 'uploads', 'temp_kyc');
+      await fs.promises.mkdir(tempDir, { recursive: true });
       
-      const allowedTypes = new Set(['application/pdf', 'image/jpeg', 'image/png']);
-      const allowedExtensions = new Set(['pdf', 'jpg', 'jpeg', 'png']);
-      
-      if (!fileType || !allowedTypes.has(fileType.mime) || !allowedExtensions.has(fileType.ext)) {
-        try {
-          await fs.promises.unlink(req.file.path);
-        } catch (cleanupError) {
-          console.error('Error cleaning up invalid file:', cleanupError);
-        }
-        return res.status(400).json({ 
-          error: 'Type de fichier non autorisé. Seuls les fichiers PDF, JPEG et PNG sont acceptés.' 
-        });
-      }
+      const tempFilePath = path.join(tempDir, `${randomUUID()}_${req.file.originalname}`);
+      await fs.promises.writeFile(tempFilePath, req.file.buffer);
 
-      const kycUploadSchema = z.object({
-        documentType: z.string().min(1, 'Type de document requis'),
-        loanType: z.string().min(1, 'Type de prêt requis'),
-        loanId: z.string().optional(),
-      });
-
-      const validatedData = kycUploadSchema.parse(req.body);
-
-      // Sauvegarder le fichier dans le système de fichiers local
-      const kycDocumentsDir = path.join(process.cwd(), 'uploads', 'kyc_documents');
-      await fs.promises.mkdir(kycDocumentsDir, { recursive: true });
-      
-      const uniqueFileName = `${randomUUID()}_${req.file.originalname}`;
-      const finalFilePath = path.join(kycDocumentsDir, uniqueFileName);
-      await fs.promises.copyFile(req.file.path, finalFilePath);
-      
-      const fileUrl = `/uploads/kyc_documents/${uniqueFileName}`;
-
-      try {
-        await fs.promises.unlink(req.file.path);
-      } catch (cleanupError) {
-        console.error('Error deleting temp KYC file:', cleanupError);
-      }
+      const cleanedFile = await validateAndCleanFile(tempFilePath, req.file.originalname);
+      await deleteTemporaryFile(tempFilePath);
 
       // Les documents KYC ne sont plus enregistrés en base de données ni uploadés sur Cloudinary
       // Ils sont désormais transmis uniquement par email via SendPulse
@@ -2150,16 +2120,24 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     }
   });
 
-  app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, async (req, res) => {
+  // Documents KYC (loan request) configuration
+  const kycUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 10 * 1024 * 1024, // 10MB
+      files: 10,
+    }
+  });
+
+  app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, kycUpload.array('documents', 10), async (req, res) => {
     try {
       const loanRequestSchema = z.object({
         loanType: z.string(),
         amount: z.number().min(1000).max(2000000),
         duration: z.number().int().min(6).max(360),
-        documents: z.record(z.string()).optional(),
       });
 
-      const { loanType, amount, duration, documents } = loanRequestSchema.parse(req.body);
+      const { loanType, amount, duration } = loanRequestSchema.parse(req.body);
       
       const user = await storage.getUser(req.session.userId!);
       if (!user) {
@@ -2181,16 +2159,10 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       }
       
       const userLoans = await storage.getUserLoans(req.session.userId!);
-      const userTransfers = await storage.getUserTransfers(req.session.userId!);
       
       // Utiliser le plafond basé sur le tier ET le type de compte
-      // Business/Professional: toujours 2,000,000€ peu importe le tier
-      // Particuliers: Bronze=500K, Silver=750K, Gold=1M
       const maxLoanAmount = storage.getMaxBorrowingCapacity(stats.tier, user.accountType);
       
-      // Calculer le cumul des demandes existantes (tous les statuts non-terminaux)
-      // Les statuts terminaux sont : rejected, cancelled, completed, closed, repaid, defaulted, written_off
-      // Tous les autres statuts comptent dans le cumul (y compris 'active')
       const terminalStatuses = ['rejected', 'cancelled', 'completed', 'closed', 'repaid', 'defaulted', 'written_off'];
       const cumulativeLoanAmount = userLoans
         .filter(loan => 
@@ -2199,7 +2171,6 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         )
         .reduce((total, loan) => total + parseFloat(loan.amount), 0);
       
-      // Vérifier si le cumul + nouveau montant dépasse le plafond
       const projectedTotal = cumulativeLoanAmount + amount;
       if (projectedTotal > maxLoanAmount) {
         const remainingCapacity = Math.max(0, maxLoanAmount - cumulativeLoanAmount);
@@ -2231,133 +2202,76 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       
       const loan = await storage.createLoan(validated);
       
-      // Notify admins about new loan request
+      const uploadedDocuments: any[] = [];
+      const files = req.files as Express.Multer.File[];
+      
+      if (files && files.length > 0) {
+        const { validateAndCleanFile, deleteTemporaryFile } = await import('./fileValidator');
+        const tempDir = path.join(process.cwd(), 'uploads', 'temp_kyc');
+        await fs.promises.mkdir(tempDir, { recursive: true });
+
+        for (const file of files) {
+          let tempFilePath: string | null = null;
+          try {
+            const documentType = file.fieldname;
+            const buffer = file.buffer;
+
+            // Sauvegarder temporairement pour validation
+            tempFilePath = path.join(tempDir, `${randomUUID()}_${file.originalname}`);
+            await fs.promises.writeFile(tempFilePath, buffer);
+
+            const cleanedFile = await validateAndCleanFile(tempFilePath, file.originalname);
+            
+            const kycDocumentsDir = path.join(process.cwd(), 'uploads', 'kyc_documents');
+            await fs.promises.mkdir(kycDocumentsDir, { recursive: true });
+            
+            const uniqueFileName = `${randomUUID()}_${cleanedFile.filename}`;
+            const finalFilePath = path.join(kycDocumentsDir, uniqueFileName);
+            await fs.promises.writeFile(finalFilePath, cleanedFile.buffer);
+            
+            uploadedDocuments.push({
+              documentType: documentType || 'loan_document',
+              fileUrl: `/uploads/kyc_documents/${uniqueFileName}`,
+              fileName: cleanedFile.filename,
+              buffer: cleanedFile.buffer,
+              mimeType: cleanedFile.mimeType
+            });
+          } finally {
+            if (tempFilePath) {
+              await deleteTemporaryFile(tempFilePath);
+            }
+          }
+        }
+
+        await storage.updateLoan(loan.id, {
+          documents: uploadedDocuments.length > 0 ? uploadedDocuments : null,
+        });
+      }
+
+      // Notify admins about new loan request with attachments from buffers
       try {
-        await notifyAdminsNewLoanRequest(
-          user.id,
+        const { sendLoanRequestAdminEmail } = await import('./email');
+        await sendLoanRequestAdminEmail(
           user.fullName,
-          loan.id,
+          user.email,
+          user.phone,
+          user.accountType || 'personal',
           amount.toString(),
-          loanType
+          duration,
+          loanType,
+          loan.id,
+          user.id,
+          uploadedDocuments.map(d => ({
+            buffer: d.buffer,
+            fileName: d.fileName,
+            mimeType: d.mimeType
+          })),
+          user.preferredLanguage || 'fr'
         );
       } catch (notifyError) {
         console.error('Error notifying admins of new loan request:', notifyError);
       }
-      
-      const uploadedDocuments: any[] = [];
-      
-      try {
-        if (documents && Object.keys(documents).length > 0) {
-          const { validateAndCleanFile, deleteTemporaryFile } = await import('./fileValidator');
-          const tempDir = path.join(process.cwd(), 'uploads');
-          await fs.promises.mkdir(tempDir, { recursive: true });
 
-          for (const [documentType, dataUrl] of Object.entries(documents)) {
-            let tempFilePath: string | null = null;
-            try {
-              if (!dataUrl || !dataUrl.startsWith('data:')) {
-                throw new Error(`Invalid document format for ${documentType}`);
-              }
-
-              const matches = dataUrl.match(/^data:([^;]+);base64,(.+)$/);
-              if (!matches) {
-                throw new Error(`Invalid base64 format for ${documentType}`);
-              }
-
-              const mimeType = matches[1];
-              const base64Data = matches[2];
-              const buffer = Buffer.from(base64Data, 'base64');
-
-              const maxSize = 10 * 1024 * 1024;
-              if (buffer.length > maxSize) {
-                throw new Error(`Document ${documentType} exceeds maximum size of 10MB`);
-              }
-
-              const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'application/pdf'];
-              if (!allowedMimes.includes(mimeType)) {
-                throw new Error(`Invalid file type for ${documentType}. Allowed: PDF, JPEG, PNG, WEBP`);
-              }
-
-              const extension = mimeType.split('/')[1].replace('jpeg', 'jpg');
-              const fileName = `${documentType}.${extension}`;
-
-              // Sauvegarder temporairement pour validation
-              tempFilePath = path.join(tempDir, `${randomUUID()}_${fileName}`);
-              await fs.promises.writeFile(tempFilePath, buffer);
-
-              // Valider et nettoyer le fichier
-              const cleanedFile = await validateAndCleanFile(tempFilePath, fileName);
-              console.log(`✓ Document cleaned and validated: ${cleanedFile.filename}`);
-
-              // Sauvegarder le fichier nettoyé dans le système de fichiers local
-              const kycDocumentsDir = path.join(process.cwd(), 'uploads', 'kyc_documents');
-              await fs.promises.mkdir(kycDocumentsDir, { recursive: true });
-              
-              const uniqueFileName = `${randomUUID()}_${cleanedFile.filename}`;
-              const finalFilePath = path.join(kycDocumentsDir, uniqueFileName);
-              await fs.promises.writeFile(finalFilePath, cleanedFile.buffer);
-              
-              const fileUrl = `/uploads/kyc_documents/${uniqueFileName}`;
-
-      // ☁️ Uploader vers Cloudinary (DÉSACTIVÉ POUR LE KYC)
-      /* 
-      let cloudinaryPublicId = null;
-      let cloudinarySecureUrl = null;
-      
-      try {
-        const isPdf = cleanedFile.filename.toLowerCase().endsWith('.pdf');
-        const cloudinaryResult = await new Promise<any>((resolve, reject) => {
-          const uploadStream = cloudinary.uploader.upload_stream(
-            {
-              resource_type: isPdf ? "raw" : "image",
-              folder: "loan-documents",
-              public_id: `${req.session.userId}/${documentType}_${Date.now()}`
-            },
-            (error, result) => {
-              if (error) reject(error);
-              else resolve(result);
-            }
-          );
-          const stream = new PassThrough();
-          stream.end(cleanedFile.buffer);
-          stream.pipe(uploadStream);
-        });
-        
-      cloudinaryPublicId = cloudinaryResult.public_id;
-        cloudinarySecureUrl = cloudinaryResult.secure_url;
-        console.log(`✓ Document uploaded to Cloudinary: ${cloudinaryPublicId} (type: ${isPdf ? 'raw' : 'image'})`);
-      } catch (cloudinaryError) {
-        console.error(`[Cloudinary] Error uploading ${documentType}:`, cloudinaryError);
-      }
-
-      // Enregistrer le document KYC en base de données (DÉSACTIVÉ)
-      try {
-        const kycDoc = await storage.createKycDocument({
-          userId: req.session.userId!,
-          loanId: loan.id,
-          documentType: documentType,
-          fileName: cleanedFile.filename,
-          cloudinaryPublicId: cloudinaryPublicId || '',
-          fileType: mimeType,
-          status: 'pending',
-          uploadedAt: new Date(),
-          fileUrl: fileUrl,
-          fileSize: cleanedFile.buffer.length,
-          loanType: loanType, // Ajout de loanType pour respecter la contrainte not-null
-        } as any);
-        console.log(`[KYC] Document saved to DB: ${kycDoc.id}`);
-      } catch (dbErr) {
-        console.error(`[KYC] Error saving document to DB:`, dbErr);
-      }
-      */
-
-      uploadedDocuments.push({
-        documentType,
-        fileUrl: fileUrl,
-        fileName: cleanedFile.filename,
-        buffer: cleanedFile.buffer, // On conserve le buffer pour l'email
-        mimeType: mimeType
-      });
 
               // Notification Admin pour chaque document
               try {
