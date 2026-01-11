@@ -125,16 +125,6 @@ export async function sendTransactionalEmail(options: {
   }
 }
 
-async function fetchFileAsBase64(url: string): Promise<string> {
-  try {
-    const response = await axios.get(url, { responseType: 'arraybuffer' });
-    return Buffer.from(response.data).toString('base64');
-  } catch (error) {
-    console.error(`[Email] Failed to fetch file from ${url}:`, error);
-    throw error;
-  }
-}
-
 function getBaseUrl(): string {
   // En production, on utilise toujours l'URL du frontend Vercel
   if (process.env.NODE_ENV === 'production') {
@@ -253,35 +243,15 @@ export async function sendLoanRequestAdminEmail(fullName: string, email: string,
   const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
   const template = getEmailTemplate('loanRequestAdmin', language as any, { fullName, email, phone, accountType, amount, duration, loanType, reference, userId, reviewUrl, documents });
 
-  let emailAttachments: any[] = [];
-  
-  if (documents && documents.length > 0) {
-    console.log(`[Email] Fetching ${documents.length} documents for attachments...`);
-    for (const doc of documents) {
-      try {
-        if (doc.fileUrl) {
-          const base64Content = await fetchFileAsBase64(doc.fileUrl);
-          emailAttachments.push({
-            content: base64Content,
-            filename: doc.fileName || `${doc.documentType}.pdf`,
-            type: 'application/pdf' // On suppose PDF par défaut, ou on pourrait raffiner
-          });
-        }
-      } catch (err) {
-        console.warn(`[Email] Could not attach document ${doc.documentType}:`, err);
-      }
-    }
-  }
-
   try {
     const success = await sendTransactionalEmail({ 
       to: adminEmail, 
       subject: template.subject, 
       html: template.html, 
       text: template.text,
-      attachments: emailAttachments.length > 0 ? emailAttachments : undefined
+      attachments: undefined
     });
-    console.log(`[Email] Loan request admin email sent to ${adminEmail} with ${emailAttachments.length} attachments, status: ${success}`);
+    console.log(`[Email] Loan request admin email sent to ${adminEmail} status: ${success}`);
     return success;
   } catch (emailErr) {
     console.error('[Email] Failed to send loan request admin email:', emailErr);
