@@ -584,11 +584,8 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
           await notifyKycRejected(updated.userId, 'Document non conforme ou illisible');
         }
         
-      // Émettre une mise à jour via socket
-      if (updated) {
         emitNotificationUpdate(updated.userId, updated.id);
         emitAdminDashboardUpdate();
-      }
       }
       
       res.json(updated);
