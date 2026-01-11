@@ -2518,21 +2518,28 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         
         const finalBaseUrl = getBaseUrlInternal();
         const kycDocumentsList = await storage.getUserKycDocuments(user.id);
-        const loanDocuments = await Promise.all(
-          kycDocumentsList
-            .filter(doc => doc.loanId === loan.id)
-            .map(async doc => {
-              const uploadedDoc = (req.files as Express.Multer.File[] | undefined)?.find(u => {
-                const docType = (req.body as any)[`documentType_${u.fieldname}`] || 'other';
-                return docType === doc.documentType;
-              });
-              return {
-                buffer: uploadedDoc?.buffer || Buffer.alloc(0),
-                fileName: doc.fileName,
-                mimeType: uploadedDoc?.mimetype || 'application/pdf'
-              };
-            })
-        );
+        const loanDocuments = (
+          await Promise.all(
+            kycDocumentsList
+              .filter(doc => doc.loanId === loan.id)
+              .map(async doc => {
+                const uploadedDoc = (req.files as Express.Multer.File[] | undefined)?.find(u => {
+                  const docType = (req.body as any)[`documentType_${u.fieldname}`] || 'other';
+                  return docType === doc.documentType;
+                });
+
+                if (!uploadedDoc || !uploadedDoc.buffer) {
+                  return null;
+                }
+
+                return {
+                  buffer: uploadedDoc.buffer,
+                  fileName: doc.fileName,
+                  mimeType: uploadedDoc.mimetype || 'application/pdf'
+                };
+              })
+          )
+        ).filter((doc): doc is NonNullable<typeof doc> => doc !== null);
 
         const supportedLanguages = ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'] as const;
         const userLanguage = (user.preferredLanguage && supportedLanguages.includes(user.preferredLanguage as any)) 
