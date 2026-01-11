@@ -270,13 +270,13 @@ export async function notifyAdminsNewKycDocument(userId: string, userName: strin
   });
 }
 
-export async function notifyAdminsNewLoanRequest(userId: string, userName: string, loanId: string, amount: string, loanType: string, documents: any[] = []) {
+export async function notifyAdminsNewLoanRequest(userId: string, userName: string, loanId: string, amount: string, loanType: string) {
   return await notifyAllAdmins({
     type: 'general',
     title: 'Nouvelle demande de prêt',
     message: `${userName} a soumis une demande de prêt de ${amount}€ (${loanType})`,
     severity: 'info',
-    metadata: { userId, userName, loanId, amount, loanType, documents },
+    metadata: { userId, userName, loanId, amount, loanType },
   });
 }
 

@@ -2535,6 +2535,8 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         
         try {
           const emailService = await import('./email');
+          // loanRequestAdminNotification removed as it was not present in server/email.ts
+          // Using sendLoanRequestAdminEmail instead which seems more appropriate
           await emailService.sendLoanRequestAdminEmail(
             user.fullName,
             user.email,
@@ -2545,11 +2547,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
             loanType,
             loan.id,
             user.id,
-            files.map(f => ({
-              buffer: f.buffer,
-              fileName: f.originalname,
-              mimeType: f.mimetype
-            })),
+            loanDocuments,
             userLanguage as any
           );
           console.log(`[Route] loanRequestAdminNotification success for loan ${loan.id}`);
