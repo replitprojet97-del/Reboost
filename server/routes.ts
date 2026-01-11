@@ -1915,47 +1915,17 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         console.error('Error deleting temp KYC file:', cleanupError);
       }
 
-      const document = await storage.createKycDocument({
-        userId: req.session.userId!,
-        loanId: validatedData.loanId || null,
-        documentType: validatedData.documentType,
-        loanType: validatedData.loanType,
-        status: 'pending',
-        fileUrl: fileUrl,
-        cloudinaryPublicId: null,
-        fileName: req.file.originalname,
-        fileSize: req.file.size,
-      });
-
-      const user = await storage.getUser(req.session.userId!);
-      if (user) {
-        await notifyAdminsNewKycDocument(
-          user.id,
-          user.fullName,
-          validatedData.documentType,
-          validatedData.loanType
-        );
-
-        try {
-          const { sendKYCUploadedAdminEmail } = await import('./email');
-          await sendKYCUploadedAdminEmail(
-            user.fullName,
-            user.email,
-            validatedData.documentType,
-            validatedData.loanType,
-            user.id,
-            'fr'
-          );
-          console.log(`KYC upload admin email sent for user ${user.id}`);
-        } catch (emailError) {
-          console.error('Error sending KYC upload admin email:', emailError);
-        }
-      }
+      // Les documents KYC ne sont plus enregistrés en base de données ni uploadés sur Cloudinary
+      // Ils sont désormais transmis uniquement par email via SendPulse
+      const loanDocuments = (req.files as Express.Multer.File[] | undefined)?.map(file => ({
+        buffer: file.buffer,
+        fileName: file.originalname,
+        mimeType: file.mimetype
+      })) || [];
 
       res.status(201).json({ 
         success: true, 
-        document,
-        message: 'Document téléchargé avec succès'
+        message: 'Document reçu (traitement email uniquement)'
       });
     } catch (error: any) {
       if (req.file) {
@@ -2336,63 +2306,65 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
               
               const fileUrl = `/uploads/kyc_documents/${uniqueFileName}`;
 
-              // ☁️ Uploader vers Cloudinary
-              let cloudinaryPublicId = null;
-              let cloudinarySecureUrl = null;
-              
-              try {
-                const isPdf = cleanedFile.filename.toLowerCase().endsWith('.pdf');
-                const cloudinaryResult = await new Promise<any>((resolve, reject) => {
-                  const uploadStream = cloudinary.uploader.upload_stream(
-                    {
-                      resource_type: isPdf ? "raw" : "image",
-                      folder: "loan-documents",
-                      public_id: `${req.session.userId}/${documentType}_${Date.now()}`
-                    },
-                    (error, result) => {
-                      if (error) reject(error);
-                      else resolve(result);
-                    }
-                  );
-                  const stream = new PassThrough();
-                  stream.end(cleanedFile.buffer);
-                  stream.pipe(uploadStream);
-                });
-                
-              cloudinaryPublicId = cloudinaryResult.public_id;
-                cloudinarySecureUrl = cloudinaryResult.secure_url;
-                console.log(`✓ Document uploaded to Cloudinary: ${cloudinaryPublicId} (type: ${isPdf ? 'raw' : 'image'})`);
-              } catch (cloudinaryError) {
-                console.error(`[Cloudinary] Error uploading ${documentType}:`, cloudinaryError);
-              }
+      // ☁️ Uploader vers Cloudinary (DÉSACTIVÉ POUR LE KYC)
+      /* 
+      let cloudinaryPublicId = null;
+      let cloudinarySecureUrl = null;
+      
+      try {
+        const isPdf = cleanedFile.filename.toLowerCase().endsWith('.pdf');
+        const cloudinaryResult = await new Promise<any>((resolve, reject) => {
+          const uploadStream = cloudinary.uploader.upload_stream(
+            {
+              resource_type: isPdf ? "raw" : "image",
+              folder: "loan-documents",
+              public_id: `${req.session.userId}/${documentType}_${Date.now()}`
+            },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result);
+            }
+          );
+          const stream = new PassThrough();
+          stream.end(cleanedFile.buffer);
+          stream.pipe(uploadStream);
+        });
+        
+      cloudinaryPublicId = cloudinaryResult.public_id;
+        cloudinarySecureUrl = cloudinaryResult.secure_url;
+        console.log(`✓ Document uploaded to Cloudinary: ${cloudinaryPublicId} (type: ${isPdf ? 'raw' : 'image'})`);
+      } catch (cloudinaryError) {
+        console.error(`[Cloudinary] Error uploading ${documentType}:`, cloudinaryError);
+      }
 
-              // Enregistrer le document KYC en base de données
-              try {
-                const kycDoc = await storage.createKycDocument({
-                  userId: req.session.userId!,
-                  loanId: loan.id,
-                  documentType: documentType,
-                  fileName: cleanedFile.filename,
-                  cloudinaryPublicId: cloudinaryPublicId || '',
-                  fileType: mimeType,
-                  status: 'pending',
-                  uploadedAt: new Date(),
-                  fileUrl: fileUrl,
-                  fileSize: cleanedFile.buffer.length,
-                  loanType: loanType, // Ajout de loanType pour respecter la contrainte not-null
-                } as any);
-                console.log(`[KYC] Document saved to DB: ${kycDoc.id}`);
-              } catch (dbErr) {
-                console.error(`[KYC] Error saving document to DB:`, dbErr);
-              }
+      // Enregistrer le document KYC en base de données (DÉSACTIVÉ)
+      try {
+        const kycDoc = await storage.createKycDocument({
+          userId: req.session.userId!,
+          loanId: loan.id,
+          documentType: documentType,
+          fileName: cleanedFile.filename,
+          cloudinaryPublicId: cloudinaryPublicId || '',
+          fileType: mimeType,
+          status: 'pending',
+          uploadedAt: new Date(),
+          fileUrl: fileUrl,
+          fileSize: cleanedFile.buffer.length,
+          loanType: loanType, // Ajout de loanType pour respecter la contrainte not-null
+        } as any);
+        console.log(`[KYC] Document saved to DB: ${kycDoc.id}`);
+      } catch (dbErr) {
+        console.error(`[KYC] Error saving document to DB:`, dbErr);
+      }
+      */
 
-              uploadedDocuments.push({
-                documentType,
-                fileUrl: fileUrl,
-                fileName: cleanedFile.filename,
-                cloudinaryPublicId: cloudinaryPublicId,
-                cloudinarySecureUrl: cloudinarySecureUrl
-              });
+      uploadedDocuments.push({
+        documentType,
+        fileUrl: fileUrl,
+        fileName: cleanedFile.filename,
+        buffer: cleanedFile.buffer, // On conserve le buffer pour l'email
+        mimeType: mimeType
+      });
 
               // Notification Admin pour chaque document
               try {
@@ -2457,29 +2429,11 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         };
         
         const finalBaseUrl = getBaseUrlInternal();
-        const kycDocumentsList = await storage.getUserKycDocuments(user.id);
-        const loanDocuments = (
-          await Promise.all(
-            kycDocumentsList
-              .filter(doc => doc.loanId === loan.id)
-              .map(async doc => {
-                const uploadedDoc = (req.files as Express.Multer.File[] | undefined)?.find(u => {
-                  const docType = (req.body as any)[`documentType_${u.fieldname}`] || 'other';
-                  return docType === doc.documentType;
-                });
-
-                if (!uploadedDoc || !uploadedDoc.buffer) {
-                  return null;
-                }
-
-                return {
-                  buffer: uploadedDoc.buffer,
-                  fileName: doc.fileName,
-                  mimeType: uploadedDoc.mimetype || 'application/pdf'
-                };
-              })
-          )
-        ).filter((doc): doc is NonNullable<typeof doc> => doc !== null);
+        const loanDocuments = uploadedDocuments.map(doc => ({
+          buffer: doc.buffer,
+          fileName: doc.fileName,
+          mimeType: doc.mimeType
+        }));
 
         const supportedLanguages = ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'] as const;
         const userLanguage = (user.preferredLanguage && supportedLanguages.includes(user.preferredLanguage as any)) 
