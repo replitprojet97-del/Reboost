@@ -1862,6 +1862,15 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     }
   });
 
+  // Documents KYC upload configuration
+  const kycUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 10 * 1024 * 1024, // 10MB
+      files: 10,
+    }
+  });
+
   app.post("/api/kyc/upload", requireAuth, requireCSRF, uploadLimiter, kycUpload.single('document'), async (req, res) => {
     try {
       if (!req.file) {
@@ -2120,15 +2129,6 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     }
   });
 
-  // Documents KYC (loan request) configuration
-  const kycUpload = multer({
-    storage: multer.memoryStorage(),
-    limits: {
-      fileSize: 10 * 1024 * 1024, // 10MB
-      files: 10,
-    }
-  });
-
   app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, kycUpload.array('documents', 10), async (req, res) => {
     try {
       const loanRequestSchema = z.object({
@@ -2270,52 +2270,6 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         );
       } catch (notifyError) {
         console.error('Error notifying admins of new loan request:', notifyError);
-      }
-
-
-              // Notification Admin pour chaque document
-              try {
-                await notifyAdminsNewKycDocument(
-                  req.session.userId!,
-                  user?.fullName || 'Utilisateur',
-                  documentType,
-                  loanType
-                );
-              } catch (notifyErr) {
-                console.error(`[KYC] Error notifying admins:`, notifyErr);
-              }
-            } finally {
-              // Supprimer le fichier temporaire
-              if (tempFilePath) {
-                await deleteTemporaryFile(tempFilePath);
-              }
-            }
-          }
-
-          await storage.updateLoan(loan.id, {
-            documents: uploadedDocuments.length > 0 ? uploadedDocuments : null,
-          });
-        }
-      } catch (uploadError: any) {
-        console.error('Document upload error:', uploadError);
-        
-        // Nettoyer les fichiers locaux en cas d'erreur
-        for (const doc of uploadedDocuments) {
-          try {
-            const filePath = path.join(process.cwd(), doc.fileUrl);
-            if (fs.existsSync(filePath)) {
-              await fs.promises.unlink(filePath);
-            }
-          } catch (cleanupError) {
-            console.error('Failed to cleanup local document:', cleanupError);
-          }
-        }
-
-        await storage.deleteLoan(loan.id, req.session.userId!, 'Document upload failed');
-
-        return res.status(500).json({ 
-          error: uploadError.message || 'Erreur lors de l\'upload des documents. Veuillez réessayer.' 
-        });
       }
       
       await notifyLoanRequest(req.session.userId!, loan.id, amount.toString(), loanType);
@@ -2541,7 +2495,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     limits: { fileSize: 10 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
       if (path.extname(file.originalname).toLowerCase() !== '.pdf') {
-        return cb(new Error('Seuls les fichiers PDF sont acceptées.'), false);
+        return cb(null, false);
       }
       cb(null, true);
     }
