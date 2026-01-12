@@ -2211,35 +2211,43 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       // Dans le workflow actuel, l'utilisateur uploade d'abord via /api/kyc/upload
       const userKycDocuments = await storage.getUserKycDocuments(user.id);
       
-      // Filtrer les documents récents (ex: les 10 dernières minutes ou liés au type de prêt)
+      // Recherche élargie : 
+      // 1. On cherche d'abord les documents liés au type de prêt
+      // 2. Si on n'en trouve pas assez, on prend tous les documents récents (dernières 30 min)
+      const THIRTY_MINUTES_MS = 30 * 60 * 1000;
+      const now = new Date().getTime();
+      
       const recentDocuments = userKycDocuments
-        .filter(doc => doc.loanType === loanType)
+        .filter(doc => {
+          const isSameType = doc.loanType === loanType;
+          const isVeryRecent = (now - new Date(doc.uploadedAt).getTime()) < THIRTY_MINUTES_MS;
+          return isSameType || isVeryRecent;
+        })
         .sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime())
-        .slice(0, 5); // Prendre les 5 plus récents pour être sûr
+        .slice(0, 10); // Augmenté à 10 pour être sûr de tout prendre
 
       const notificationDocuments = [];
       
       if (recentDocuments.length > 0) {
         for (const doc of recentDocuments) {
           try {
-            // Le fichier est stocké localement dans uploads/kyc_documents
-            // On extrait le nom du fichier de l'URL
             const fileName = doc.fileUrl.split('/').pop();
             if (fileName) {
               const filePath = path.join(process.cwd(), 'uploads', 'kyc_documents', fileName);
-              const buffer = await fs.promises.readFile(filePath);
-              notificationDocuments.push({
-                buffer,
-                fileName: doc.fileName,
-                mimeType: 'application/pdf' // Par défaut PDF pour le KYC
-              });
+              if (fs.existsSync(filePath)) {
+                const buffer = await fs.promises.readFile(filePath);
+                notificationDocuments.push({
+                  buffer,
+                  fileName: doc.fileName,
+                  mimeType: 'application/pdf'
+                });
+              }
             }
           } catch (readErr) {
             console.error(`[LoanRequest] Failed to read document ${doc.id}:`, readErr);
           }
         }
 
-        // Associer ces documents au prêt dans la base de données
         await storage.updateLoan(loan.id, {
           documents: recentDocuments.map(doc => ({
             id: doc.id,
@@ -2282,7 +2290,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         action: 'loan_request_submitted',
         entityType: 'loan',
         entityId: loan.id,
-        metadata: { amount, loanType, duration, documentsCount: uploadedDocuments.length },
+        metadata: { amount, loanType, duration, documentsCount: notificationDocuments.length },
       });
       
       res.status(201).json({ 
