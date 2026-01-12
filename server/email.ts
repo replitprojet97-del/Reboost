@@ -97,8 +97,11 @@ export async function sendTransactionalEmail(options: {
   }
 
   if (options.attachments && options.attachments.length > 0) {
-    emailData.email.attachments_binary = options.attachments.reduce((acc: any, att) => {
-      acc[att.filename] = att.content;
+    emailData.email.attachments_binary = options.attachments.reduce((acc: any, att, index) => {
+      // Nettoyage et standardisation du nom du fichier pour SendPulse
+      const extension = att.filename.split('.').pop() || 'pdf';
+      const safeFilename = `document_${index + 1}.${extension}`;
+      acc[safeFilename] = att.content;
       return acc;
     }, {});
   }
