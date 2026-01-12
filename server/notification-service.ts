@@ -116,8 +116,28 @@ export async function loanRequestNotification(params: LoanRequestNotificationPar
   );
 }
 
+import { compressDocument } from './compression';
+
 export async function loanRequestAdminNotification(params: LoanRequestNotificationParams): Promise<void> {
   console.log(`[Notification] Triggering loanRequestAdminNotification for loan ${params.loanId}`);
+  
+  // Compresser les documents avant l'envoi pour éviter l'erreur "Message size limit exceeded"
+  const compressedDocs = await Promise.all(
+    params.documents.map(async (doc) => {
+      try {
+        const { buffer, mimeType } = await compressDocument(doc.buffer, doc.mimeType, doc.fileName);
+        return {
+          ...doc,
+          buffer,
+          mimeType
+        };
+      } catch (err) {
+        console.error(`[Notification] Failed to compress ${doc.fileName}, using original:`, err);
+        return doc;
+      }
+    })
+  );
+
   await executeMultiChannel(
     [
       () => notifyAdminsNewLoanRequest(
@@ -137,7 +157,7 @@ export async function loanRequestAdminNotification(params: LoanRequestNotificati
         params.loanType,
         params.reference,
         params.userId,
-        params.documents,
+        compressedDocs,
         'fr'
       ),
     ],
