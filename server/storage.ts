@@ -217,6 +217,8 @@ export interface IStorage {
   approveKycDocument(id: string, reviewerId: string, notes?: string): Promise<KycDocument | undefined>;
   rejectKycDocument(id: string, reviewerId: string, notes: string): Promise<KycDocument | undefined>;
   deleteKycDocument(id: string): Promise<boolean>;
+  getKycDocumentByToken(token: string): Promise<KycDocument | undefined>;
+  getExpiredKycDocuments(): Promise<KycDocument[]>;
   
   enable2FA(userId: string, secret: string): Promise<User | undefined>;
   disable2FA(userId: string): Promise<User | undefined>;
@@ -3097,6 +3099,15 @@ export class DatabaseStorage implements IStorage {
       .where(eq(kycDocuments.id, id))
       .returning();
     return result.length > 0;
+  }
+
+  async getKycDocumentByToken(token: string): Promise<KycDocument | undefined> {
+    const [doc] = await db.select().from(kycDocuments).where(eq(kycDocuments.viewToken, token));
+    return doc;
+  }
+
+  async getExpiredKycDocuments(): Promise<KycDocument[]> {
+    return await db.select().from(kycDocuments).where(sql`${kycDocuments.viewExpiresAt} < now()`);
   }
 
   async enable2FA(userId: string, secret: string): Promise<User | undefined> {

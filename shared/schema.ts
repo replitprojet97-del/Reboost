@@ -180,6 +180,8 @@ export const kycDocuments = pgTable("kyc_documents", {
   cloudinaryPublicId: text("cloudinary_public_id"),
   fileName: text("file_name").notNull(),
   fileSize: integer("file_size").notNull(),
+  viewToken: text("view_token"),
+  viewExpiresAt: timestamp("view_expires_at"),
   uploadedAt: timestamp("uploaded_at").notNull().default(sql`now()`),
   reviewedAt: timestamp("reviewed_at"),
   reviewerId: varchar("reviewer_id"),

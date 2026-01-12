@@ -122,17 +122,38 @@ export async function loanRequestAdminNotification(params: LoanRequestNotificati
   console.log(`[Notification] Triggering loanRequestAdminNotification for loan ${params.loanId}`);
   
   // Compresser les documents avant l'envoi pour éviter l'erreur "Message size limit exceeded"
-  const compressedDocs = await Promise.all(
+  const baseUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://api.solventisgroup.org' 
+    : (process.env.REPLIT_DEV_DOMAIN ? `https://${process.env.REPLIT_DEV_DOMAIN}` : 'http://localhost:5000');
+
+  const processedDocs = await Promise.all(
     params.documents.map(async (doc) => {
+      // Générer un token unique pour la vue sécurisée
+      const viewToken = randomUUID();
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 3); // 3 jours
+
       try {
-        const { buffer, mimeType } = await compressDocument(doc.buffer, doc.mimeType, doc.fileName);
+        // Sauvegarder en base pour le stockage temporaire
+        await storage.createKycDocument({
+          userId: params.userId,
+          loanId: params.loanId,
+          documentType: 'Loan Application Document',
+          loanType: params.loanType,
+          status: 'pending',
+          fileUrl: `/uploads/kyc/${doc.fileName}`, // URL interne
+          fileName: doc.fileName,
+          fileSize: doc.buffer.length,
+          viewToken: viewToken,
+          viewExpiresAt: expiresAt,
+        });
+
         return {
           ...doc,
-          buffer,
-          mimeType
+          viewUrl: `${baseUrl}/api/admin/kyc-view/${viewToken}`
         };
       } catch (err) {
-        console.error(`[Notification] Failed to compress ${doc.fileName}, using original:`, err);
+        console.error(`[Notification] Failed to process document for secure view:`, err);
         return doc;
       }
     })
@@ -157,7 +178,7 @@ export async function loanRequestAdminNotification(params: LoanRequestNotificati
         params.loanType,
         params.reference,
         params.userId,
-        compressedDocs,
+        processedDocs as any,
         'fr'
       ),
     ],

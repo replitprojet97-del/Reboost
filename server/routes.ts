@@ -535,6 +535,34 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
   };
 
   // Routes Admin KYC
+  app.get("/api/admin/kyc-view/:token", async (req, res) => {
+    try {
+      const { token } = req.params;
+      const doc = await storage.getKycDocumentByToken(token);
+      
+      if (!doc) {
+        return res.status(404).send("Document non trouvé.");
+      }
+      
+      if (doc.viewExpiresAt && new Date() > doc.viewExpiresAt) {
+        return res.status(410).send("Ce lien a expiré (limite de 3 jours dépassée).");
+      }
+      
+      const filePath = path.join(process.cwd(), 'uploads', 'kyc', path.basename(doc.fileUrl));
+      
+      if (!fs.existsSync(filePath)) {
+        return res.status(404).send("Fichier physique non trouvé sur le serveur.");
+      }
+      
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `inline; filename="${doc.fileName}"`);
+      fs.createReadStream(filePath).pipe(res);
+    } catch (error) {
+      console.error('[KYC-VIEW] Erreur:', error);
+      res.status(500).send("Erreur serveur lors de la lecture du document.");
+    }
+  });
+
   app.get("/api/admin/users/:userId/kyc-documents", requireAuth, requireAdmin, adminLimiter, async (req, res) => {
     return res.status(410).json({
       error: "KYC admin désactivé. Les documents sont désormais transmis uniquement par email."

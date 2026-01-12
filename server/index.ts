@@ -3,7 +3,30 @@ import session from "express-session";
 import helmet from "helmet";
 import cors from "cors";
 import { registerRoutes } from "./routes";
+import { storage } from "./storage";
 import ConnectPgSimple from "connect-pg-simple";
+
+// Fonction de nettoyage des fichiers KYC expirés
+async function cleanupExpiredKycDocuments() {
+  try {
+    const expiredDocs = await storage.getExpiredKycDocuments();
+    if (expiredDocs.length > 0) {
+      console.log(`[Cleanup] Found ${expiredDocs.length} expired KYC documents to remove.`);
+      for (const doc of expiredDocs) {
+        await storage.deleteKycDocument(doc.id);
+        console.log(`[Cleanup] Deleted expired document: ${doc.fileName} (ID: ${doc.id})`);
+      }
+    }
+  } catch (error) {
+    console.error('[Cleanup] Error during KYC document cleanup:', error);
+  }
+}
+
+// Lancer le nettoyage toutes les heures
+setInterval(cleanupExpiredKycDocuments, 60 * 60 * 1000);
+// Lancer un premier nettoyage au démarrage après un court délai
+setTimeout(cleanupExpiredKycDocuments, 30000);
+
 import pkg from "pg";
 const { Pool } = pkg;
 import * as Sentry from "@sentry/node";

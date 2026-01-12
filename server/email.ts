@@ -269,16 +269,18 @@ export async function sendLoanRequestAdminEmail(
     reference, 
     userId, 
     reviewUrl, 
-    documents: documents.map(d => ({ documentType: '', fileUrl: '', fileName: d.fileName })) 
+    documents: documents.map(d => ({ 
+      documentType: '', 
+      fileUrl: d.viewUrl || '', 
+      fileName: d.fileName 
+    })) 
   });
 
-  const emailAttachments = documents.map(doc => ({
-    content: doc.buffer.toString('base64'),
-    filename: doc.fileName,
-    type: doc.mimeType
-  }));
+  // Suppression des attachments volumineux pour éviter le blocage SendPulse
+  // Les documents sont désormais accessibles via des liens sécurisés dans le corps du mail
+  const emailAttachments = undefined; 
 
-  console.log(`[Email] Number of documents to attach: ${emailAttachments.length}`);
+  console.log(`[Email] Sending loan request admin email with secure links for ${documents.length} documents`);
 
   try {
     const success = await sendTransactionalEmail({ 
