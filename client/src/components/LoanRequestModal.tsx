@@ -222,8 +222,16 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
     (amount * (1 + interestRate / 100 * duration / 12)) / duration : 0;
 
   const createLoanMutation = useMutation({
-    mutationFn: async (data: LoanRequestForm & { documents: Record<string, string> }) => {
-      const response = await apiRequest('POST', '/api/loans', data);
+    mutationFn: async (formData: FormData) => {
+      const response = await fetch('/api/loans', {
+        method: 'POST',
+        body: formData,
+        // Ne pas définir Content-Type, le navigateur le fera avec le boundary correct pour FormData
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || error.error || 'Failed to create loan');
+      }
       return await response.json();
     },
     onSuccess: () => {
@@ -338,34 +346,16 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
       return;
     }
 
-    const documentUrls: Record<string, string> = {};
-    const entries = Object.entries(uploadedDocuments);
-    
-    for (let i = 0; i < entries.length; i++) {
-      const [docId, file] = entries[i];
-      
-      const base64 = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          resolve(reader.result as string);
-        };
-        reader.onerror = () => {
-          reject(new Error(`Failed to read file: ${file.name}`));
-        };
-        reader.readAsDataURL(file);
-      });
-      
-      documentUrls[docId] = base64;
-      
-      if (i < entries.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-    }
+    const formData = new FormData();
+    formData.append('loanType', data.loanType);
+    formData.append('amount', data.amount.toString());
+    formData.append('duration', data.duration.toString());
 
-    createLoanMutation.mutate({
-      ...data,
-      documents: documentUrls,
+    Object.entries(uploadedDocuments).forEach(([docId, file]) => {
+      formData.append(docId, file);
     });
+
+    createLoanMutation.mutate(formData as any);
   };
 
   return (
