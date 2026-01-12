@@ -254,7 +254,7 @@ export async function sendLoanRequestAdminEmailWithResend(
   }
 
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   const { getEmailTemplate } = await import('./emailTemplates');
   const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
 
@@ -306,7 +306,7 @@ export async function sendLoanRequestAdminEmailWithResend(
 
 export async function sendKYCUploadedAdminEmail(fullName: string, email: string, documentType: string, loanType: string, userId: string, language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   const subject = `Nouveau document KYC - \${fullName}`;
   const html = `<p>L'utilisateur \${fullName} (\${email}) a téléchargé un document KYC (\${documentType}) pour un prêt \${loanType}.</p>`;
   const text = `L'utilisateur \${fullName} (\${email}) a téléchargé un document KYC (\${documentType}) pour un prêt \${loanType}.`;
@@ -323,7 +323,7 @@ export async function sendLoanApprovedEmail(toEmail: string, fullName: string, l
 
 export async function sendTransferInitiatedAdminEmail(fullName: string, email: string, amount: string, recipient: string, transferId: string, userId: string, language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   const subject = `Nouveau transfert initié - \${fullName}`;
   const html = `<p>L'utilisateur \${fullName} (\${email}) a initié un transfert de \${amount} vers \${recipient}. Transfert ID: \${transferId}</p>`;
   const text = `L'utilisateur \${fullName} (\${email}) a initié un transfert de \${amount} vers \${recipient}. Transfert ID: \${transferId}`;
@@ -341,7 +341,7 @@ export async function sendTransferCodeEmail(toEmail: string, fullName: string, a
 
 export async function sendSignedContractToAdmins(fullName: string, email: string, loanId: string, amount: string, fileBuffer: Buffer, fileName: string, fileType: string, language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   const subject = `Contrat signé reçu - \${fullName}`;
   const html = `<p>L'utilisateur \${fullName} (\${email}) a envoyé son contrat signé pour le prêt \${loanId} d'un montant de \${amount} €.</p>`;
   const text = `L'utilisateur \${fullName} (\${email}) a envoyé son contrat signé pour le prêt \${loanId} d'un montant de \${amount} €.`;
@@ -370,7 +370,7 @@ export async function sendTransferCompletedEmail(toEmail: string, fullName: stri
 
 export async function sendAdminTransferCompletionReport(fullName: string, email: string, transferId: string, amount: string, recipient: string, iban: string, loanId: string, language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   const subject = `Rapport de transfert complété - \${fullName}`;
   const html = `<p>Le transfert \${transferId} de \${amount} € pour \${fullName} vers \${recipient} a été finalisé.</p>`;
   const text = `Transfert \${transferId} complété pour \${fullName}.`;
@@ -380,7 +380,7 @@ export async function sendAdminTransferCompletionReport(fullName: string, email:
 
 export async function sendTransferCodesAdminEmail(fullName: string, email: string, loanId: string, amount: string, codes: any[], language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   const subject = `Codes de transfert générés - \${fullName}`;
   const codesHtml = codes.map((c: any) => `<li>Pause à \${c.pausePercent}%: \${c.code} (\${c.codeContext})</li>`).join('');
   const html = `<p>Des codes de transfert ont été générés pour \${fullName}.</p><ul>\${codesHtml}</ul>`;
