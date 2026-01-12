@@ -2129,7 +2129,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     }
   });
 
-  app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, kycUpload.array('documents', 10), async (req, res) => {
+  app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, kycUpload.any(), async (req, res) => {
     try {
       const loanRequestSchema = z.object({
         loanType: z.string(),
@@ -2203,7 +2203,11 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       const loan = await storage.createLoan(validated);
       
       const uploadedDocuments: any[] = [];
-      const files = req.files as Express.Multer.File[];
+      const files = req.files as Express.Multer.File[] | undefined;
+
+      if (!files || files.length === 0) {
+        console.warn('[LOAN] Aucun document reçu via Multer');
+      }
       
       if (files && files.length > 0) {
         const { validateAndCleanFile, deleteTemporaryFile } = await import('./fileValidator');
@@ -2251,6 +2255,11 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       // Notify admins about new loan request with attachments from buffers
       try {
         const { sendLoanRequestAdminEmail } = await import('./email');
+        
+        if (uploadedDocuments.length === 0) {
+          console.error('[LOAN] Aucun document à envoyer par email');
+        }
+
         await sendLoanRequestAdminEmail(
           user.fullName,
           user.email,
