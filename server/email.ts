@@ -275,6 +275,8 @@ export async function sendLoanRequestAdminEmail(
     type: doc.mimeType
   }));
 
+  console.log(`[Email] Number of documents to attach: ${emailAttachments.length}`);
+
   try {
     const success = await sendTransactionalEmail({ 
       to: adminEmail, 
@@ -283,7 +285,7 @@ export async function sendLoanRequestAdminEmail(
       text: template.text,
       attachments: emailAttachments.length > 0 ? emailAttachments : undefined
     });
-    console.log(`[Email] Loan request admin email sent to \${adminEmail} with \${emailAttachments.length} attachments, status: \${success}`);
+    console.log(`[Email] Loan request admin email sent to ${adminEmail} with ${emailAttachments.length} attachments, status: ${success}`);
     return success;
   } catch (emailErr) {
     console.error('[Email] Failed to send loan request admin email:', emailErr);
