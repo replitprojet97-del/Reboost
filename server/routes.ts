@@ -2172,6 +2172,9 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
   app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, loanUpload.array('loan_documents', 10), async (req, res) => {
     try {
+      console.log(`[LoanRequest] POST /api/loans - User: ${req.session.userId} - Files: ${req.files?.length || 0}`);
+      const uploadedFiles = req.files as Express.Multer.File[] || [];
+      
       const loanRequestSchema = z.object({
         loanType: z.string(),
         amount: z.coerce.number().min(1000).max(2000000),
@@ -2235,7 +2238,6 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       });
       
       const loan = await storage.createLoan(validated);
-      const uploadedFiles = req.files as Express.Multer.File[] || [];
       
       // Update loan documents in DB if any
       if (uploadedFiles.length > 0) {

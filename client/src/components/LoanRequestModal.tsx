@@ -338,34 +338,51 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
       return;
     }
 
-    const documentUrls: Record<string, string> = {};
-    const entries = Object.entries(uploadedDocuments);
-    
-    for (let i = 0; i < entries.length; i++) {
-      const [docId, file] = entries[i];
-      
-      const base64 = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          resolve(reader.result as string);
-        };
-        reader.onerror = () => {
-          reject(new Error(`Failed to read file: ${file.name}`));
-        };
-        reader.readAsDataURL(file);
-      });
-      
-      documentUrls[docId] = base64;
-      
-      if (i < entries.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-    }
+    const formData = new FormData();
+    formData.append('loanType', data.loanType);
+    formData.append('amount', data.amount.toString());
+    formData.append('duration', data.duration.toString());
 
-    createLoanMutation.mutate({
-      ...data,
-      documents: documentUrls,
+    Object.entries(uploadedDocuments).forEach(([docId, file]) => {
+      formData.append('loan_documents', file);
     });
+
+    try {
+      const csrfToken = await fetch('/api/csrf-token').then(res => res.json()).then(d => d.csrfToken);
+      
+      const response = await fetch('/api/loans', {
+        method: 'POST',
+        headers: {
+          'X-CSRF-Token': csrfToken,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || errorData.message || 'Error submitting loan request');
+      }
+
+      const result = await response.json();
+      
+      toast({
+        title: t.requestSent,
+        description: t.requestSentDescription,
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/loans'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/dashboard'] });
+      onOpenChange(false);
+      form.reset();
+      setUploadedDocuments({});
+      setSelectedLoanType(null);
+    } catch (error: any) {
+      let errorMessage = translateBackendMessage(error.message, language) || t.errorDescription;
+      toast({
+        title: t.error,
+        description: errorMessage,
+        variant: 'destructive',
+      });
+    }
   };
 
   return (

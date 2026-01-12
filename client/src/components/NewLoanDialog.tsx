@@ -187,14 +187,57 @@ export default function NewLoanDialog({ open, onOpenChange }: NewLoanDialogProps
   });
 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      createLoanMutation.mutate({
-        amount: formData.amount,
-        duration: parseInt(formData.duration),
-        loanType: loanType as string,
+      const formDataToSend = new FormData();
+      formDataToSend.append('amount', formData.amount);
+      formDataToSend.append('duration', formData.duration);
+      formDataToSend.append('loanType', loanType as string);
+      
+      uploadedFiles.forEach(file => {
+        formDataToSend.append('loan_documents', file);
       });
+
+      try {
+        const csrfToken = await fetch(getApiUrl('/api/csrf-token'), {
+          credentials: 'include',
+        }).then((res) => res.json()).then((data) => data.csrfToken);
+
+        const response = await fetch(getApiUrl('/api/loans'), {
+          method: 'POST',
+          headers: {
+            'X-CSRF-Token': csrfToken,
+          },
+          body: formDataToSend,
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw error;
+        }
+
+        queryClient.invalidateQueries({ queryKey: ['/api/dashboard'] });
+        queryClient.invalidateQueries({ queryKey: ['/api/loans'] });
+        toast({
+          title: t.dialogs.newLoan.success.loanSubmitted,
+          description: t.dialogs.newLoan.success.loanSubmittedDesc,
+        });
+        onOpenChange(false);
+        resetForm();
+      } catch (error: any) {
+        let errorMessage = t.dialogs.newLoan.error.loanErrorDesc;
+        const errorMsg = error?.message || error?.error || '';
+        if (errorMsg) {
+          errorMessage = translateBackendMessage(errorMsg, language);
+        }
+        toast({
+          title: t.dialogs.newLoan.error.loanError,
+          description: errorMessage,
+          variant: 'destructive',
+        });
+      }
     }
   };
 
