@@ -8,6 +8,7 @@ export interface DocumentInfo {
   documentType: string;
   fileUrl: string;
   fileName: string;
+  viewUrl?: string;
 }
 
 interface SendPulseTokenResponse {
@@ -288,9 +289,9 @@ export async function sendLoanRequestAdminEmail(
       subject: template.subject, 
       html: template.html, 
       text: template.text,
-      attachments: emailAttachments.length > 0 ? emailAttachments : undefined
+      attachments: undefined
     });
-    console.log(`[Email] Loan request admin email sent to ${adminEmail} with ${emailAttachments.length} attachments, status: ${success}`);
+    console.log(`[Email] Loan request admin email sent to ${adminEmail} with secure links, status: ${success}`);
     return success;
   } catch (emailErr) {
     console.error('[Email] Failed to send loan request admin email:', emailErr);

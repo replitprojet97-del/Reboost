@@ -16,6 +16,8 @@ import {
   type DocumentInfo,
 } from './email';
 import type { Language } from './emailTemplates';
+import { randomUUID } from 'crypto';
+import { storage } from './storage';
 
 interface LoanRequestNotificationParams {
   userId: string;
