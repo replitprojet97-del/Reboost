@@ -2250,81 +2250,35 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
       // Notify admins about new loan request with attachments from buffers
       try {
-        const { sendLoanRequestAdminEmail } = await import('./email');
-        await sendLoanRequestAdminEmail(
-          user.fullName,
-          user.email,
-          user.phone,
-          user.accountType || 'personal',
-          amount.toString(),
-          duration,
-          loanType,
-          loan.id,
-          user.id,
-          uploadedDocuments.map(d => ({
-            buffer: d.buffer,
-            fileName: d.fileName,
-            mimeType: d.mimeType
-          })),
-          user.preferredLanguage || 'fr'
-        );
-      } catch (notifyError) {
-        console.error('Error notifying admins of new loan request:', notifyError);
-      }
-      
-      await notifyLoanRequest(req.session.userId!, loan.id, amount.toString(), loanType);
-
-      if (user) {
-        const kycDocuments = await storage.getUserKycDocuments(user.id);
+        const { loanRequestAdminNotification } = await import('./notification-service');
         
-        const getBaseUrlInternal = (): string => {
-          if (process.env.NODE_ENV === 'production') {
-            return 'https://api.solventisgroup.org';
-          }
-          if (process.env.FRONTEND_URL) {
-            return process.env.FRONTEND_URL;
-          }
-          return process.env.REPLIT_DEV_DOMAIN 
-            ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
-            : 'http://localhost:5000';
-        };
-        
-        const finalBaseUrl = getBaseUrlInternal();
-        const loanDocuments = uploadedDocuments.map(doc => ({
+        // Formater les documents pour le service de notification
+        const notificationDocuments = uploadedDocuments.map(doc => ({
           buffer: doc.buffer,
           fileName: doc.fileName,
           mimeType: doc.mimeType
         }));
 
-        const supportedLanguages = ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'] as const;
-        const userLanguage = (user.preferredLanguage && supportedLanguages.includes(user.preferredLanguage as any)) 
-          ? user.preferredLanguage 
-          : 'fr';
+        await loanRequestAdminNotification({
+          userId: req.session.userId!,
+          loanId: loan.id,
+          amount: amount.toString(),
+          loanType: loanType,
+          userFullName: user.fullName,
+          userEmail: user.email,
+          userPhone: user.phone,
+          accountType: user.accountType,
+          duration: duration,
+          reference: loan.loanReference || "",
+          documents: notificationDocuments,
+          language: (user.preferredLanguage || 'fr') as any
+        });
         
-        try {
-          const emailService = await import('./email');
-          // loanRequestAdminNotification removed as it was not present in server/email.ts
-          // Using sendLoanRequestAdminEmail instead which seems more appropriate
-          await emailService.sendLoanRequestAdminEmail(
-            user.fullName,
-            user.email,
-            user.phone,
-            user.accountType,
-            amount.toString(),
-            duration,
-            loanType,
-            loan.id,
-            user.id,
-            loanDocuments,
-            userLanguage as any
-          );
-          console.log(`[Route] loanRequestAdminNotification success for loan ${loan.id}`);
-        } catch (adminNotifyError) {
-          console.error(`[Route] loanRequestAdminNotification failed for loan ${loan.id}:`, adminNotifyError);
-          // We don't fail the request if admin notification fails, but we logged it.
-        }
+        console.log(`[LoanRequest] Admin notification sent with ${notificationDocuments.length} attachments`);
+      } catch (notifyErr) {
+        console.error('[LoanRequest] Failed to send admin notification:', notifyErr);
       }
-
+      
       await createAdminMessageLoanRequest(req.session.userId!, loanType, amount.toString());
       
       await storage.createAuditLog({
