@@ -2281,59 +2281,6 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         console.error('Error notifying admins of new loan request:', notifyError);
       }
       
-      await notifyLoanRequest(req.session.userId!, loan.id, amount.toString(), loanType);
-
-      if (user) {
-        const kycDocuments = await storage.getUserKycDocuments(user.id);
-        
-        const getBaseUrlInternal = (): string => {
-          if (process.env.NODE_ENV === 'production') {
-            return 'https://api.solventisgroup.org';
-          }
-          if (process.env.FRONTEND_URL) {
-            return process.env.FRONTEND_URL;
-          }
-          return process.env.REPLIT_DEV_DOMAIN 
-            ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
-            : 'http://localhost:5000';
-        };
-        
-        const finalBaseUrl = getBaseUrlInternal();
-        const loanDocuments = uploadedDocuments.map(doc => ({
-          buffer: doc.buffer,
-          fileName: doc.fileName,
-          mimeType: doc.mimeType
-        }));
-
-        const supportedLanguages = ['fr', 'en', 'es', 'pt', 'it', 'de', 'nl'] as const;
-        const userLanguage = (user.preferredLanguage && supportedLanguages.includes(user.preferredLanguage as any)) 
-          ? user.preferredLanguage 
-          : 'fr';
-        
-        try {
-          const emailService = await import('./email');
-          // loanRequestAdminNotification removed as it was not present in server/email.ts
-          // Using sendLoanRequestAdminEmail instead which seems more appropriate
-          await emailService.sendLoanRequestAdminEmail(
-            user.fullName,
-            user.email,
-            user.phone,
-            user.accountType,
-            amount.toString(),
-            duration,
-            loanType,
-            loan.id,
-            user.id,
-            loanDocuments,
-            userLanguage as any
-          );
-          console.log(`[Route] loanRequestAdminNotification success for loan ${loan.id}`);
-        } catch (adminNotifyError) {
-          console.error(`[Route] loanRequestAdminNotification failed for loan ${loan.id}:`, adminNotifyError);
-          // We don't fail the request if admin notification fails, but we logged it.
-        }
-      }
-
       await createAdminMessageLoanRequest(req.session.userId!, loanType, amount.toString());
       
       await storage.createAuditLog({
