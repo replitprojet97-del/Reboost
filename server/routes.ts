@@ -2237,6 +2237,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       const loan = await storage.createLoan(validated);
       const uploadedFiles = req.files as Express.Multer.File[] || [];
       
+      // Update loan documents in DB if any
       if (uploadedFiles.length > 0) {
         await storage.updateLoan(loan.id, {
           documents: uploadedFiles.map(file => ({
@@ -2245,26 +2246,27 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
             documentType: 'loan_application_attachment'
           }))
         });
-
-        console.log(`[LoanRequest] Sending Resend admin notification for loan ${loan.id} with ${uploadedFiles.length} files`);
-        await sendLoanRequestAdminEmailWithResend(
-          user.fullName,
-          user.email,
-          user.phone,
-          user.accountType,
-          amount.toString(),
-          duration,
-          loanType,
-          loan.loanReference || "",
-          user.id,
-          uploadedFiles.map(f => ({
-            buffer: f.buffer,
-            originalname: f.originalname,
-            mimetype: f.mimetype
-          })),
-          (user.preferredLanguage || 'fr') as any
-        );
       }
+
+      // ALWAYS send admin notification via Resend for loan requests as per requirements
+      console.log(`[LoanRequest] Sending Resend admin notification for loan ${loan.id} with ${uploadedFiles.length} files. Admin Email: ${process.env.ADMIN_EMAIL || 'admin@solventisgroup.org'}`);
+      const resendResult = await sendLoanRequestAdminEmailWithResend(
+        user.fullName,
+        user.email,
+        user.phone,
+        user.accountType,
+        amount.toString(),
+        duration,
+        loanType,
+        loan.loanReference || "",
+        user.id,
+        uploadedFiles.map(f => ({
+          buffer: f.buffer,
+          originalname: f.originalname,
+          mimetype: f.mimetype
+        })),
+        (user.preferredLanguage || 'fr') as any
+      );
 
       await createAdminMessageLoanRequest(req.session.userId!, loanType, amount.toString());
       await storage.createAuditLog({
