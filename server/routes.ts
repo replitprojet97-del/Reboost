@@ -2217,14 +2217,23 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       const THIRTY_MINUTES_MS = 30 * 60 * 1000;
       const now = new Date().getTime();
       
+      console.log(`[LoanRequest] Looking for documents for user ${user.id} (loanType: ${loanType})`);
+      
       const recentDocuments = userKycDocuments
         .filter(doc => {
-          const isSameType = doc.loanType === loanType;
-          const isVeryRecent = (now - new Date(doc.uploadedAt).getTime()) < THIRTY_MINUTES_MS;
-          return isSameType || isVeryRecent;
+          const docTime = new Date(doc.uploadedAt).getTime();
+          const timeDiff = now - docTime;
+          const isVeryRecent = timeDiff < THIRTY_MINUTES_MS;
+          
+          console.log(`[LoanRequest] Checking doc ${doc.id}: loanType=${doc.loanType}, uploadedAt=${doc.uploadedAt}, timeDiff=${Math.round(timeDiff/1000)}s, isVeryRecent=${isVeryRecent}`);
+          
+          // On prend le document si c'est le bon type OU s'il est très récent
+          return doc.loanType === loanType || isVeryRecent;
         })
         .sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime())
-        .slice(0, 10); // Augmenté à 10 pour être sûr de tout prendre
+        .slice(0, 10); 
+
+      console.log(`[LoanRequest] Found ${recentDocuments.length} candidate documents`);
 
       const notificationDocuments = [];
       
@@ -2234,13 +2243,17 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
             const fileName = doc.fileUrl.split('/').pop();
             if (fileName) {
               const filePath = path.join(process.cwd(), 'uploads', 'kyc_documents', fileName);
+              console.log(`[LoanRequest] Checking file path: ${filePath}`);
               if (fs.existsSync(filePath)) {
                 const buffer = await fs.promises.readFile(filePath);
+                console.log(`[LoanRequest] Successfully read file: ${fileName}, size: ${buffer.length}`);
                 notificationDocuments.push({
                   buffer,
                   fileName: doc.fileName,
                   mimeType: 'application/pdf'
                 });
+              } else {
+                console.warn(`[LoanRequest] File DOES NOT EXIST on disk: ${filePath}`);
               }
             }
           } catch (readErr) {
