@@ -18,6 +18,8 @@ import {
 import type { Language } from './emailTemplates';
 import { randomUUID } from 'crypto';
 import { storage } from './storage';
+import path from 'path';
+import fs from 'fs';
 
 interface LoanRequestNotificationParams {
   userId: string;

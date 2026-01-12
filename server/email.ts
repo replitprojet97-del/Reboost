@@ -255,7 +255,7 @@ export async function sendLoanRequestAdminEmail(
 ) {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
-  console.log(`[Email] Preparing loan request admin email. To: ${adminEmail}, User: ${email}`);
+  console.log(`[Email] Preparing loan request admin email for ${email}`);
   const { getEmailTemplate } = await import('./emailTemplates');
   const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
   
