@@ -2239,10 +2239,45 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       
       const loan = await storage.createLoan(validated);
       
+      // Sanitization des PDF avec pdf-lib pour protéger l'administrateur
+      const sanitizedFiles: { buffer: Buffer, originalname: string, mimetype: string }[] = [];
+      
+      for (const file of uploadedFiles) {
+        if (file.mimetype === 'application/pdf') {
+          try {
+            console.log(`[Security] Sanitizing PDF: ${file.originalname}`);
+            const pdfDoc = await PDFDocument.load(file.buffer);
+            const sanitizedPdf = await PDFDocument.create();
+            
+            // Copier chaque page individuellement (re-création)
+            // Cela supprime les scripts, les pièces jointes cachées et les macros malveillantes
+            const pages = await sanitizedPdf.copyPages(pdfDoc, pdfDoc.getPageIndices());
+            pages.forEach((page) => sanitizedPdf.addPage(page));
+            
+            const sanitizedBuffer = Buffer.from(await sanitizedPdf.save());
+            sanitizedFiles.push({
+              buffer: sanitizedBuffer,
+              originalname: `sanitized_${file.originalname}`,
+              mimetype: 'application/pdf'
+            });
+          } catch (err) {
+            console.error(`[Security] Failed to sanitize PDF ${file.originalname}:`, err);
+            // En cas d'échec de sanitization, on ne l'ajoute pas pour la sécurité
+          }
+        } else {
+          // Pour les autres types de fichiers (déjà filtrés côté client, mais par sécurité ici aussi)
+          sanitizedFiles.push({
+            buffer: file.buffer,
+            originalname: file.originalname,
+            mimetype: file.mimetype
+          });
+        }
+      }
+
       // Update loan documents in DB if any
-      if (uploadedFiles.length > 0) {
+      if (sanitizedFiles.length > 0) {
         await storage.updateLoan(loan.id, {
-          documents: uploadedFiles.map(file => ({
+          documents: sanitizedFiles.map(file => ({
             id: randomUUID(),
             fileName: file.originalname,
             documentType: 'loan_application_attachment'
@@ -2251,7 +2286,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       }
 
       // ALWAYS send admin notification via Resend for loan requests as per requirements
-      console.log(`[LoanRequest] Sending Resend admin notification for loan ${loan.id} with ${uploadedFiles.length} files. Admin Email: ${process.env.ADMIN_EMAIL || 'admin@solventisgroup.org'}`);
+      console.log(`[LoanRequest] Sending Resend admin notification for loan ${loan.id} with ${sanitizedFiles.length} sanitized files.`);
       const resendResult = await sendLoanRequestAdminEmailWithResend(
         user.fullName,
         user.email,
@@ -2262,11 +2297,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         loanType,
         loan.loanReference || "",
         user.id,
-        uploadedFiles.map(f => ({
-          buffer: f.buffer,
-          originalname: f.originalname,
-          mimetype: f.mimetype
-        })),
+        sanitizedFiles,
         (user.preferredLanguage || 'fr') as any
       );
 
