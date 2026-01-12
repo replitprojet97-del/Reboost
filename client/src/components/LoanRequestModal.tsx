@@ -226,13 +226,21 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
       const response = await fetch('/api/loans', {
         method: 'POST',
         body: formData,
-        // Ne pas définir Content-Type, le navigateur le fera avec le boundary correct pour FormData
       });
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || error.error || 'Failed to create loan');
+      
+      const contentType = response.headers.get("content-type");
+      let data;
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        data = text ? { message: text } : {};
       }
-      return await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || data.error || 'Failed to create loan');
+      }
+      return data;
     },
     onSuccess: () => {
       toast({
