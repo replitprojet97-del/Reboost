@@ -136,7 +136,17 @@ export async function loanRequestAdminNotification(params: LoanRequestNotificati
       expiresAt.setDate(expiresAt.getDate() + 3); // 3 jours
 
       try {
-        // Sauvegarder en base pour le stockage temporaire
+        // 1. Sauvegarder physiquement le fichier sur le disque pour que le lien fonctionne
+        const uploadDir = path.join(process.cwd(), 'uploads', 'kyc');
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
+        }
+        
+        const filePath = path.join(uploadDir, doc.fileName);
+        fs.writeFileSync(filePath, doc.buffer);
+        console.log(`[Notification] Physical file saved to ${filePath}`);
+
+        // 2. Sauvegarder en base pour le stockage temporaire
         await storage.createKycDocument({
           userId: params.userId,
           loanId: params.loanId,
@@ -150,13 +160,17 @@ export async function loanRequestAdminNotification(params: LoanRequestNotificati
           viewExpiresAt: expiresAt,
         });
 
+        // 3. Retourner uniquement les métadonnées nécessaires (SANS le Buffer)
         return {
-          ...doc,
+          fileName: doc.fileName,
           viewUrl: `${baseUrl}/api/admin/kyc-view/${viewToken}`
         };
       } catch (err) {
         console.error(`[Notification] Failed to process document for secure view:`, err);
-        return doc;
+        return {
+          fileName: doc.fileName,
+          viewUrl: ''
+        };
       }
     })
   );
@@ -180,7 +194,7 @@ export async function loanRequestAdminNotification(params: LoanRequestNotificati
         params.loanType,
         params.reference,
         params.userId,
-        processedDocs as any,
+        processedDocs as any, // Contient uniquement fileName et viewUrl (Pas de Buffer !)
         'fr'
       ),
     ],

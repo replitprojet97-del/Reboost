@@ -248,17 +248,25 @@ export async function sendLoanRequestAdminEmail(
   reference: string,
   userId: string,
   documents: Array<{
-    buffer: Buffer;
     fileName: string;
-    mimeType: string;
+    viewUrl?: string;
   }>,
   language: string = 'fr'
 ) {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
-  console.log(`[Email] Preparing loan request admin email. To: \${adminEmail}, From: \${fromEmail}, User: \${email}`);
+  console.log(`[Email] Preparing loan request admin email. To: ${adminEmail}, User: ${email}`);
   const { getEmailTemplate } = await import('./emailTemplates');
-  const reviewUrl = `${getBaseUrl()}/admin/loans/\${reference}`;
+  const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
+  
+  // Nettoyage strict des documents pour ne passer que du texte à SendPulse
+  const cleanDocs = documents.map(d => ({
+    documentType: 'Document de demande',
+    fileName: d.fileName,
+    fileUrl: d.viewUrl || '',
+    viewUrl: d.viewUrl || ''
+  }));
+
   const template = getEmailTemplate('loanRequestAdmin', language as any, { 
     fullName, 
     email, 
@@ -270,18 +278,10 @@ export async function sendLoanRequestAdminEmail(
     reference, 
     userId, 
     reviewUrl, 
-    documents: documents.map(d => ({ 
-      documentType: '', 
-      fileUrl: d.viewUrl || '', 
-      fileName: d.fileName 
-    })) 
+    documents: cleanDocs
   });
 
-  // Suppression des attachments volumineux pour éviter le blocage SendPulse
-  // Les documents sont désormais accessibles via des liens sécurisés dans le corps du mail
-  const emailAttachments = undefined; 
-
-  console.log(`[Email] Sending loan request admin email with secure links for ${documents.length} documents`);
+  console.log(`[Email] Sending loan request admin email with ${cleanDocs.length} secure links`);
 
   try {
     const success = await sendTransactionalEmail({ 
