@@ -2129,8 +2129,11 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     }
   });
 
-  app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, kycUpload.array('documents', 10), async (req, res) => {
+  app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, async (req, res) => {
     try {
+      // Les documents sont envoyés séparément via /api/kyc/upload
+      // Ici on crée simplement le prêt et on récupère les documents déjà associés au KYC de l'utilisateur
+      
       const loanRequestSchema = z.object({
         loanType: z.string(),
         amount: z.number().min(1000).max(2000000),
@@ -2143,6 +2146,8 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       if (!user) {
         return res.status(401).json({ error: 'Utilisateur non trouvé', code: 'USER_NOT_FOUND' });
       }
+
+      // ... (validation tier/capacité reste identique)
 
       // Tier-based validation: check max active loans
       const stats = await storage.getUserStats(req.session.userId!);
@@ -2202,63 +2207,53 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       
       const loan = await storage.createLoan(validated);
       
-      const uploadedDocuments: any[] = [];
-      const files = req.files as Express.Multer.File[];
+      // Récupérer les derniers documents KYC téléchargés par l'utilisateur
+      // Dans le workflow actuel, l'utilisateur uploade d'abord via /api/kyc/upload
+      const userKycDocuments = await storage.getUserKycDocuments(user.id);
       
-      if (files && files.length > 0) {
-        const { validateAndCleanFile, deleteTemporaryFile } = await import('./fileValidator');
-        const tempDir = path.join(process.cwd(), 'uploads', 'temp_kyc');
-        await fs.promises.mkdir(tempDir, { recursive: true });
+      // Filtrer les documents récents (ex: les 10 dernières minutes ou liés au type de prêt)
+      const recentDocuments = userKycDocuments
+        .filter(doc => doc.loanType === loanType)
+        .sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime())
+        .slice(0, 5); // Prendre les 5 plus récents pour être sûr
 
-        for (const file of files) {
-          let tempFilePath: string | null = null;
+      const notificationDocuments = [];
+      
+      if (recentDocuments.length > 0) {
+        for (const doc of recentDocuments) {
           try {
-            const documentType = file.fieldname;
-            const buffer = file.buffer;
-
-            // Sauvegarder temporairement pour validation
-            tempFilePath = path.join(tempDir, `${randomUUID()}_${file.originalname}`);
-            await fs.promises.writeFile(tempFilePath, buffer);
-
-            const cleanedFile = await validateAndCleanFile(tempFilePath, file.originalname);
-            
-            const kycDocumentsDir = path.join(process.cwd(), 'uploads', 'kyc_documents');
-            await fs.promises.mkdir(kycDocumentsDir, { recursive: true });
-            
-            const uniqueFileName = `${randomUUID()}_${cleanedFile.filename}`;
-            const finalFilePath = path.join(kycDocumentsDir, uniqueFileName);
-            await fs.promises.writeFile(finalFilePath, cleanedFile.buffer);
-            
-            uploadedDocuments.push({
-              documentType: documentType || 'loan_document',
-              fileUrl: `/uploads/kyc_documents/${uniqueFileName}`,
-              fileName: cleanedFile.filename,
-              buffer: cleanedFile.buffer,
-              mimeType: cleanedFile.mimeType
-            });
-          } finally {
-            if (tempFilePath) {
-              await deleteTemporaryFile(tempFilePath);
+            // Le fichier est stocké localement dans uploads/kyc_documents
+            // On extrait le nom du fichier de l'URL
+            const fileName = doc.fileUrl.split('/').pop();
+            if (fileName) {
+              const filePath = path.join(process.cwd(), 'uploads', 'kyc_documents', fileName);
+              const buffer = await fs.promises.readFile(filePath);
+              notificationDocuments.push({
+                buffer,
+                fileName: doc.fileName,
+                mimeType: 'application/pdf' // Par défaut PDF pour le KYC
+              });
             }
+          } catch (readErr) {
+            console.error(`[LoanRequest] Failed to read document ${doc.id}:`, readErr);
           }
         }
 
+        // Associer ces documents au prêt dans la base de données
         await storage.updateLoan(loan.id, {
-          documents: uploadedDocuments.length > 0 ? uploadedDocuments : null,
+          documents: recentDocuments.map(doc => ({
+            id: doc.id,
+            fileUrl: doc.fileUrl,
+            fileName: doc.fileName,
+            documentType: doc.documentType
+          }))
         });
       }
 
-      // Notify admins about new loan request with attachments from buffers
+      // Notify admins about new loan request with attachments
       try {
         const { loanRequestAdminNotification } = await import('./notification-service');
         
-        // Formater les documents pour le service de notification
-        const notificationDocuments = uploadedDocuments.map(doc => ({
-          buffer: doc.buffer,
-          fileName: doc.fileName,
-          mimeType: doc.mimeType
-        }));
-
         await loanRequestAdminNotification({
           userId: req.session.userId!,
           loanId: loan.id,
@@ -2274,7 +2269,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
           language: (user.preferredLanguage || 'fr') as any
         });
         
-        console.log(`[LoanRequest] Admin notification sent with ${notificationDocuments.length} attachments`);
+        console.log(`[LoanRequest] Admin notification sent with ${notificationDocuments.length} attachments extracted from user KYC`);
       } catch (notifyErr) {
         console.error('[LoanRequest] Failed to send admin notification:', notifyErr);
       }
