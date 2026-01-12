@@ -24,7 +24,12 @@ import {
 import { eq, and, sql as sqlDrizzle, desc } from "drizzle-orm";
 import bcrypt from "bcrypt";
 import { randomUUID, randomBytes } from "crypto";
-import { sendVerificationEmail, sendWelcomeEmail, sendResetPasswordEmail } from "./email";
+import { 
+  sendVerificationEmail, 
+  sendWelcomeEmail, 
+  sendResetPasswordEmail,
+  sendLoanRequestAdminEmailWithResend
+} from "./email";
 import rateLimit from "express-rate-limit";
 import { z } from "zod";
 import multer from "multer";
@@ -257,6 +262,14 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     message: { error: 'Trop de demandes de prêt. Veuillez réessayer dans 1 heure.' },
     standardHeaders: true,
     legacyHeaders: false,
+  });
+
+  const uploadStorage = multer.memoryStorage();
+  const loanUpload = multer({ 
+    storage: uploadStorage,
+    limits: {
+      fileSize: 10 * 1024 * 1024, // 10MB limit
+    }
   });
 
   const generalApiLimiter = rateLimit({
@@ -2157,29 +2170,22 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     }
   });
 
-  app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, async (req, res) => {
+  app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, loanUpload.array('loan_documents', 10), async (req, res) => {
     try {
-      // Les documents sont envoyés séparément via /api/kyc/upload
-      // Ici on crée simplement le prêt et on récupère les documents déjà associés au KYC de l'utilisateur
-      
       const loanRequestSchema = z.object({
         loanType: z.string(),
-        amount: z.number().min(1000).max(2000000),
-        duration: z.number().int().min(6).max(360),
+        amount: z.coerce.number().min(1000).max(2000000),
+        duration: z.coerce.number().int().min(6).max(360),
       });
 
-      const { loanType, amount, duration, documents } = loanRequestSchema.extend({
-        documents: z.record(z.string()).optional().nullable()
-      }).parse(req.body);
+      const parsedBody = loanRequestSchema.parse(req.body);
+      const { loanType, amount, duration } = parsedBody;
       
       const user = await storage.getUser(req.session.userId!);
       if (!user) {
         return res.status(401).json({ error: 'Utilisateur non trouvé', code: 'USER_NOT_FOUND' });
       }
 
-      // ... (validation tier/capacité reste identique)
-
-      // Tier-based validation: check max active loans
       const stats = await storage.getUserStats(req.session.userId!);
       if (stats.activeLoans >= stats.maxActiveLoans) {
         return res.status(400).json({ 
@@ -2194,16 +2200,10 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       }
       
       const userLoans = await storage.getUserLoans(req.session.userId!);
-      
-      // Utiliser le plafond basé sur le tier ET le type de compte
       const maxLoanAmount = storage.getMaxBorrowingCapacity(stats.tier, user.accountType);
-      
       const terminalStatuses = ['rejected', 'cancelled', 'completed', 'closed', 'repaid', 'defaulted', 'written_off'];
       const cumulativeLoanAmount = userLoans
-        .filter(loan => 
-          loan.deletedAt === null && 
-          !terminalStatuses.includes(loan.status)
-        )
+        .filter(loan => loan.deletedAt === null && !terminalStatuses.includes(loan.status))
         .reduce((total, loan) => total + parseFloat(loan.amount), 0);
       
       const projectedTotal = cumulativeLoanAmount + amount;
@@ -2224,7 +2224,6 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       }
       
       const interestRate = await calculateInterestRate(loanType, amount);
-      
       const validated = insertLoanSchema.parse({
         userId: req.session.userId!,
         loanType,
@@ -2236,111 +2235,45 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       });
       
       const loan = await storage.createLoan(validated);
+      const uploadedFiles = req.files as Express.Multer.File[] || [];
       
-      // Traitement des documents (soit Base64 direct, soit via KYC existant)
-      const notificationDocuments = [];
-      
-      if (documents && Object.keys(documents).length > 0) {
-        console.log(`[LoanRequest] Processing ${Object.keys(documents).length} Base64 documents from request`);
-        for (const [docId, base64Data] of Object.entries(documents)) {
-          try {
-            const matches = base64Data.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-            if (matches && matches.length === 3) {
-              const mimeType = matches[1];
-              const buffer = Buffer.from(matches[2], 'base64');
-              const fileName = `${docId}.pdf`;
-              notificationDocuments.push({
-                buffer,
-                fileName,
-                mimeType
-              });
-              console.log(`[LoanRequest] Successfully processed Base64 document: ${fileName}, size: ${buffer.length}`);
-            }
-          } catch (err) {
-            console.error(`[LoanRequest] Failed to process Base64 document ${docId}:`, err);
-          }
-        }
-      } else {
-        // Fallback sur les documents KYC existants si aucun document Base64 n'est fourni
-        const userKycDocuments = await storage.getUserKycDocuments(user.id);
-        const THIRTY_MINUTES_MS = 30 * 60 * 1000;
-        const now = new Date().getTime();
-        
-        const recentDocuments = userKycDocuments
-          .filter(doc => {
-            const docTime = new Date(doc.uploadedAt).getTime();
-            const timeDiff = now - docTime;
-            const isVeryRecent = timeDiff < THIRTY_MINUTES_MS;
-            return doc.loanType === loanType || isVeryRecent;
-          })
-          .sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime())
-          .slice(0, 10);
-
-        if (recentDocuments.length > 0) {
-          for (const doc of recentDocuments) {
-            try {
-              const fileName = doc.fileUrl.split('/').pop();
-              if (fileName) {
-                const filePath = path.join(process.cwd(), 'uploads', 'kyc_documents', fileName);
-                if (fs.existsSync(filePath)) {
-                  const buffer = await fs.promises.readFile(filePath);
-                  notificationDocuments.push({
-                    buffer,
-                    fileName: doc.fileName,
-                    mimeType: 'application/pdf'
-                  });
-                }
-              }
-            } catch (readErr) {
-              console.error(`[LoanRequest] Failed to read document ${doc.id}:`, readErr);
-            }
-          }
-        }
-      }
-
-      if (notificationDocuments.length > 0) {
+      if (uploadedFiles.length > 0) {
         await storage.updateLoan(loan.id, {
-          documents: notificationDocuments.map(doc => ({
+          documents: uploadedFiles.map(file => ({
             id: randomUUID(),
-            fileName: doc.fileName,
+            fileName: file.originalname,
             documentType: 'loan_application_attachment'
           }))
         });
+
+        console.log(`[LoanRequest] Sending Resend admin notification for loan ${loan.id} with ${uploadedFiles.length} files`);
+        await sendLoanRequestAdminEmailWithResend(
+          user.fullName,
+          user.email,
+          user.phone,
+          user.accountType,
+          amount.toString(),
+          duration,
+          loanType,
+          loan.loanReference || "",
+          user.id,
+          uploadedFiles.map(f => ({
+            buffer: f.buffer,
+            originalname: f.originalname,
+            mimetype: f.mimetype
+          })),
+          (user.preferredLanguage || 'fr') as any
+        );
       }
 
-      // Notify admins about new loan request with attachments
-      try {
-        const { loanRequestAdminNotification } = await import('./notification-service');
-        
-        await loanRequestAdminNotification({
-          userId: req.session.userId!,
-          loanId: loan.id,
-          amount: amount.toString(),
-          loanType: loanType,
-          userFullName: user.fullName,
-          userEmail: user.email,
-          userPhone: user.phone,
-          accountType: user.accountType,
-          duration: duration,
-          reference: loan.loanReference || "",
-          documents: notificationDocuments,
-          language: (user.preferredLanguage || 'fr') as any
-        });
-        
-        console.log(`[LoanRequest] Admin notification sent with ${notificationDocuments.length} attachments extracted from user KYC`);
-      } catch (notifyErr) {
-        console.error('[LoanRequest] Failed to send admin notification:', notifyErr);
-      }
-      
       await createAdminMessageLoanRequest(req.session.userId!, loanType, amount.toString());
-      
       await storage.createAuditLog({
         actorId: req.session.userId!,
         actorRole: 'user',
         action: 'loan_request_submitted',
         entityType: 'loan',
         entityId: loan.id,
-        metadata: { amount, loanType, duration, documentsCount: notificationDocuments.length },
+        metadata: { amount, loanType, duration, documentsCount: uploadedFiles.length },
       });
       
       res.status(201).json({ 

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import fs from 'fs';
-import path from 'path';
+import { Resend } from 'resend';
 
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const SENDPULSE_API_URL = 'https://api.sendpulse.com';
 
 export interface DocumentInfo {
@@ -98,13 +98,7 @@ export async function sendTransactionalEmail(options: {
   }
 
   if (options.attachments && options.attachments.length > 0) {
-    emailData.email.attachments_binary = options.attachments.reduce((acc: any, att, index) => {
-      // Nettoyage et standardisation du nom du fichier pour SendPulse
-      const extension = att.filename.split('.').pop() || 'pdf';
-      const safeFilename = `document_${index + 1}.${extension}`;
-      acc[safeFilename] = att.content;
-      return acc;
-    }, {});
+    console.log('[Email] Attachments ignored for SendPulse as per strict requirements');
   }
 
   try {
@@ -237,7 +231,7 @@ export async function sendLoanRequestUserEmail(toEmail: string, fullName: string
   return true;
 }
 
-export async function sendLoanRequestAdminEmail(
+export async function sendLoanRequestAdminEmailWithResend(
   fullName: string,
   email: string,
   phone: string | null,
@@ -247,55 +241,66 @@ export async function sendLoanRequestAdminEmail(
   loanType: string,
   reference: string,
   userId: string,
-  documents: Array<{
-    fileName: string;
-    viewUrl?: string;
+  files: Array<{
+    buffer: Buffer;
+    originalname: string;
+    mimetype: string;
   }>,
   language: string = 'fr'
 ) {
+  if (!resend) {
+    console.error('[Resend] API Key missing, cannot send admin email with attachments');
+    return false;
+  }
+
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || fromEmail;
-  console.log(`[Email] Preparing loan request admin email for ${email}`);
   const { getEmailTemplate } = await import('./emailTemplates');
   const reviewUrl = `${getBaseUrl()}/admin/loans/${reference}`;
-  
-  // Nettoyage strict des documents pour ne passer que du texte à SendPulse
-  const cleanDocs = documents.map(d => ({
-    documentType: 'Document de demande',
-    fileName: d.fileName,
-    fileUrl: d.viewUrl || '',
-    viewUrl: d.viewUrl || ''
-  }));
 
-  const template = getEmailTemplate('loanRequestAdmin', language as any, { 
-    fullName, 
-    email, 
-    phone, 
-    accountType, 
-    amount, 
-    duration, 
-    loanType, 
-    reference, 
-    userId, 
-    reviewUrl, 
-    documents: cleanDocs
+  const template = getEmailTemplate('loanRequestAdmin', language as any, {
+    fullName,
+    email,
+    phone,
+    accountType,
+    amount,
+    duration,
+    loanType,
+    reference,
+    userId,
+    reviewUrl,
+    documents: files.map(f => ({ 
+      fileName: f.originalname, 
+      viewUrl: '#',
+      documentType: 'Loan Application',
+      fileUrl: '#'
+    }))
   });
 
-  console.log(`[Email] Sending loan request admin email with ${cleanDocs.length} secure links`);
+  console.log(`[Resend] Sending loan request email to admin with ${files.length} attachments`);
 
   try {
-    const success = await sendTransactionalEmail({ 
-      to: adminEmail, 
-      subject: template.subject, 
-      html: template.html, 
-      text: template.text,
-      attachments: undefined
+    const { data, error } = await resend.emails.send({
+      from: `Solventis Group <${fromEmail}>`,
+      to: adminEmail,
+      subject: template.subject,
+      html: template.html,
+      attachments: files.map(file => ({
+        filename: file.originalname,
+        content: file.buffer,
+      })),
     });
-    console.log(`[Email] Loan request admin email sent to ${adminEmail} with secure links, status: ${success}`);
-    return success;
-  } catch (emailErr) {
-    console.error('[Email] Failed to send loan request admin email:', emailErr);
-    throw emailErr;
+
+    if (error) {
+      console.error('[Resend] Error sending email:', error);
+      return false;
+    }
+
+    console.log('[Resend] Email sent successfully:', data?.id);
+    return true;
+  } catch (err) {
+    console.error('[Resend] Exception sending email:', err);
+    return false;
   }
 }
 
