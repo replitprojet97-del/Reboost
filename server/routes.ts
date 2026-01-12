@@ -2140,7 +2140,9 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         duration: z.number().int().min(6).max(360),
       });
 
-      const { loanType, amount, duration } = loanRequestSchema.parse(req.body);
+      const { loanType, amount, duration, documents } = loanRequestSchema.extend({
+        documents: z.record(z.string()).optional().nullable()
+      }).parse(req.body);
       
       const user = await storage.getUser(req.session.userId!);
       if (!user) {
@@ -2207,66 +2209,73 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       
       const loan = await storage.createLoan(validated);
       
-      // Récupérer les derniers documents KYC téléchargés par l'utilisateur
-      // Dans le workflow actuel, l'utilisateur uploade d'abord via /api/kyc/upload
-      const userKycDocuments = await storage.getUserKycDocuments(user.id);
-      
-      // Recherche élargie : 
-      // 1. On cherche d'abord les documents liés au type de prêt
-      // 2. Si on n'en trouve pas assez, on prend tous les documents récents (dernières 30 min)
-      const THIRTY_MINUTES_MS = 30 * 60 * 1000;
-      const now = new Date().getTime();
-      
-      console.log(`[LoanRequest] Looking for documents for user ${user.id} (loanType: ${loanType})`);
-      
-      const recentDocuments = userKycDocuments
-        .filter(doc => {
-          const docTime = new Date(doc.uploadedAt).getTime();
-          const timeDiff = now - docTime;
-          const isVeryRecent = timeDiff < THIRTY_MINUTES_MS;
-          
-          console.log(`[LoanRequest] Checking doc ${doc.id}: loanType=${doc.loanType}, uploadedAt=${doc.uploadedAt}, timeDiff=${Math.round(timeDiff/1000)}s, isVeryRecent=${isVeryRecent}`);
-          
-          // On prend le document si c'est le bon type OU s'il est très récent
-          return doc.loanType === loanType || isVeryRecent;
-        })
-        .sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime())
-        .slice(0, 10); 
-
-      console.log(`[LoanRequest] Found ${recentDocuments.length} candidate documents`);
-
+      // Traitement des documents (soit Base64 direct, soit via KYC existant)
       const notificationDocuments = [];
       
-      if (recentDocuments.length > 0) {
-        for (const doc of recentDocuments) {
+      if (documents && Object.keys(documents).length > 0) {
+        console.log(`[LoanRequest] Processing ${Object.keys(documents).length} Base64 documents from request`);
+        for (const [docId, base64Data] of Object.entries(documents)) {
           try {
-            const fileName = doc.fileUrl.split('/').pop();
-            if (fileName) {
-              const filePath = path.join(process.cwd(), 'uploads', 'kyc_documents', fileName);
-              console.log(`[LoanRequest] Checking file path: ${filePath}`);
-              if (fs.existsSync(filePath)) {
-                const buffer = await fs.promises.readFile(filePath);
-                console.log(`[LoanRequest] Successfully read file: ${fileName}, size: ${buffer.length}`);
-                notificationDocuments.push({
-                  buffer,
-                  fileName: doc.fileName,
-                  mimeType: 'application/pdf'
-                });
-              } else {
-                console.warn(`[LoanRequest] File DOES NOT EXIST on disk: ${filePath}`);
-              }
+            const matches = base64Data.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+            if (matches && matches.length === 3) {
+              const mimeType = matches[1];
+              const buffer = Buffer.from(matches[2], 'base64');
+              const fileName = `${docId}.pdf`;
+              notificationDocuments.push({
+                buffer,
+                fileName,
+                mimeType
+              });
+              console.log(`[LoanRequest] Successfully processed Base64 document: ${fileName}, size: ${buffer.length}`);
             }
-          } catch (readErr) {
-            console.error(`[LoanRequest] Failed to read document ${doc.id}:`, readErr);
+          } catch (err) {
+            console.error(`[LoanRequest] Failed to process Base64 document ${docId}:`, err);
           }
         }
+      } else {
+        // Fallback sur les documents KYC existants si aucun document Base64 n'est fourni
+        const userKycDocuments = await storage.getUserKycDocuments(user.id);
+        const THIRTY_MINUTES_MS = 30 * 60 * 1000;
+        const now = new Date().getTime();
+        
+        const recentDocuments = userKycDocuments
+          .filter(doc => {
+            const docTime = new Date(doc.uploadedAt).getTime();
+            const timeDiff = now - docTime;
+            const isVeryRecent = timeDiff < THIRTY_MINUTES_MS;
+            return doc.loanType === loanType || isVeryRecent;
+          })
+          .sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime())
+          .slice(0, 10);
 
+        if (recentDocuments.length > 0) {
+          for (const doc of recentDocuments) {
+            try {
+              const fileName = doc.fileUrl.split('/').pop();
+              if (fileName) {
+                const filePath = path.join(process.cwd(), 'uploads', 'kyc_documents', fileName);
+                if (fs.existsSync(filePath)) {
+                  const buffer = await fs.promises.readFile(filePath);
+                  notificationDocuments.push({
+                    buffer,
+                    fileName: doc.fileName,
+                    mimeType: 'application/pdf'
+                  });
+                }
+              }
+            } catch (readErr) {
+              console.error(`[LoanRequest] Failed to read document ${doc.id}:`, readErr);
+            }
+          }
+        }
+      }
+
+      if (notificationDocuments.length > 0) {
         await storage.updateLoan(loan.id, {
-          documents: recentDocuments.map(doc => ({
-            id: doc.id,
-            fileUrl: doc.fileUrl,
+          documents: notificationDocuments.map(doc => ({
+            id: randomUUID(),
             fileName: doc.fileName,
-            documentType: doc.documentType
+            documentType: 'loan_application_attachment'
           }))
         });
       }
