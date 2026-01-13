@@ -2276,6 +2276,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
       // Update loan documents in DB if any
       if (sanitizedFiles.length > 0) {
+        console.log(`[LoanRequest] Updating loan ${loan.id} with ${sanitizedFiles.length} documents`);
         await storage.updateLoan(loan.id, {
           documents: sanitizedFiles.map(file => ({
             id: randomUUID(),
@@ -2287,19 +2288,25 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
       // ALWAYS send admin notification via Resend for loan requests as per requirements
       console.log(`[LoanRequest] Sending Resend admin notification for loan ${loan.id} with ${sanitizedFiles.length} sanitized files.`);
-      const resendResult = await sendLoanRequestAdminEmailWithResend(
-        user.fullName,
-        user.email,
-        user.phone,
-        user.accountType,
-        amount.toString(),
-        duration,
-        loanType,
-        loan.loanReference || "",
-        user.id,
-        sanitizedFiles,
-        (user.preferredLanguage || 'fr') as any
-      );
+      try {
+        const resendResult = await sendLoanRequestAdminEmailWithResend(
+          user.fullName,
+          user.email,
+          user.phone,
+          user.accountType,
+          amount.toString(),
+          duration,
+          loanType,
+          loan.loanReference || "",
+          user.id,
+          sanitizedFiles,
+          (user.preferredLanguage || 'fr') as any
+        );
+        console.log(`[LoanRequest] Resend notification result for loan ${loan.id}:`, resendResult);
+      } catch (resendError) {
+        console.error(`[LoanRequest] Resend notification failed for loan ${loan.id}:`, resendError);
+        // We continue even if email fails so user doesn't get a 500 error
+      }
 
       await createAdminMessageLoanRequest(req.session.userId!, loanType, amount.toString());
       await storage.createAuditLog({
