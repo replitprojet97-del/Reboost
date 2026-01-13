@@ -170,7 +170,7 @@ export async function sendContractEmail(toEmail: string, fullName: string, loanI
 
 export async function sendResetPasswordEmail(toEmail: string, fullName: string, token: string, language: string = 'fr') {
   const resetUrl = `${getBaseUrl()}/reset-password/${token}`;
-  const logoUrl = 'https://solventisgroup.org/logo-email.png';
+  const logoUrl = 'https://solventisgroup.org/email-logo.png';
   const currentYear = new Date().getFullYear();
   
   const subject = language === 'en' ? 'Reset your password - SOLVENTIS GROUP' : 'Réinitialisez votre mot de passe - SOLVENTIS GROUP';
@@ -188,9 +188,13 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
       <td align="center" style="padding: 20px;">
         <table width="600" bgcolor="#ffffff" style="border-radius: 8px; overflow: hidden;">
           <tr>
-            <td align="center" style="background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #c9a227 100%); padding: 30px;">
-              <img src="${logoUrl}" alt="SolventisGroup" width="180" style="display: block; width: 180px; max-width: 100%; border: 0; outline: none; text-decoration: none;" />
-              <h1 style="color: #ffffff; margin-top: 15px; font-size: 24px;">${language === 'en' ? 'Password Reset' : 'Réinitialisation du mot de passe'}</h1>
+            <td align="center" style="background: #ffffff; padding: 30px; border-bottom: 1px solid #e2e8f0;">
+              <img src="${logoUrl}" alt="Solventis Group" width="160" style="display: block; width: 160px; max-width: 100%; border: 0; outline: none; text-decoration: none;" />
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #c9a227 100%); padding: 20px;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 24px;">${language === 'en' ? 'Password Reset' : 'Réinitialisation du mot de passe'}</h1>
             </td>
           </tr>
           <tr>
