@@ -224,6 +224,12 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
   const createLoanMutation = useMutation({
     mutationFn: async (data: LoanRequestForm & { documents: Record<string, string> }) => {
       const response = await apiRequest('POST', '/api/loans', data);
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("[LOAN-MUTATION-ERROR] Non-JSON response:", text);
+        throw new Error("Invalid server response (non-JSON)");
+      }
       return await response.json();
     },
     onSuccess: () => {
@@ -348,7 +354,14 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
     });
 
     try {
-      const csrfToken = await fetch('/api/csrf-token').then(res => res.json()).then(d => d.csrfToken);
+      const csrfResponse = await fetch('/api/csrf-token');
+      const contentType = csrfResponse.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await csrfResponse.text();
+        console.error("[CSRF-ERROR] Non-JSON response received:", text);
+        throw new Error("Invalid server response (non-JSON) for CSRF token");
+      }
+      const csrfToken = (await csrfResponse.json()).csrfToken;
       
       const response = await fetch('/api/loans', {
         method: 'POST',
@@ -359,10 +372,22 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
       });
 
       if (!response.ok) {
+        const responseContentType = response.headers.get("content-type");
+        if (!responseContentType || !responseContentType.includes("application/json")) {
+          const text = await response.text();
+          console.error("[LOAN-ERROR] Non-JSON error response:", text);
+          throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        }
         const errorData = await response.json();
         throw new Error(errorData.error || errorData.message || 'Error submitting loan request');
       }
 
+      const responseContentType = response.headers.get("content-type");
+      if (!responseContentType || !responseContentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("[LOAN-ERROR] Non-JSON success response:", text);
+        throw new Error("Invalid server response (non-JSON) for loan request");
+      }
       const result = await response.json();
       
       toast({
