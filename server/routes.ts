@@ -2287,24 +2287,19 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
       // ALWAYS send admin notification via Resend for loan requests as per requirements
       console.log(`[LoanRequest] Sending Resend admin notification for loan ${loan.id} with ${sanitizedFiles.length} sanitized files.`);
-      try {
-        await sendLoanRequestAdminEmailWithResend(
-          user.fullName,
-          user.email,
-          user.phone,
-          user.accountType,
-          amount.toString(),
-          duration,
-          loanType,
-          loan.loanReference || "",
-          user.id,
-          sanitizedFiles,
-          (user.preferredLanguage || 'fr') as any
-        );
-      } catch (resendError) {
-        console.error('[LoanRequest] Resend admin notification failed:', resendError);
-        // We log the error but don't throw to ensure the user gets a JSON response
-      }
+      const resendResult = await sendLoanRequestAdminEmailWithResend(
+        user.fullName,
+        user.email,
+        user.phone,
+        user.accountType,
+        amount.toString(),
+        duration,
+        loanType,
+        loan.loanReference || "",
+        user.id,
+        sanitizedFiles,
+        (user.preferredLanguage || 'fr') as any
+      );
 
       await createAdminMessageLoanRequest(req.session.userId!, loanType, amount.toString());
       await storage.createAuditLog({
