@@ -166,6 +166,7 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
   const { language } = useLanguage();
   const [uploadedDocuments, setUploadedDocuments] = useState<Record<string, File>>({});
   const [selectedLoanType, setSelectedLoanType] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const accountType = user.accountType === 'business' ? 'business' : 'individual';
   const loanOffers = getTranslatedLoanOffers(getLoanOffersByAccountType(accountType), language);
@@ -332,6 +333,8 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
   };
 
   const onSubmit = async (data: LoanRequestForm) => {
+    if (isSubmitting) return;
+
     const requiredDocs = requiredDocuments.filter(doc => doc.required);
     const missingDocs = requiredDocs.filter(doc => !uploadedDocuments[doc.id]);
 
@@ -353,6 +356,7 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
       formData.append('loan_documents', file);
     });
 
+    setIsSubmitting(true);
     try {
       // Nettoyage : On utilise apiRequest au lieu d'un fetch manuel pour centraliser la logique
       // et s'assurer que l'URL de base (API_BASE_URL) est respectée.
@@ -388,6 +392,8 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
         description: errorMessage,
         variant: 'destructive',
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -619,17 +625,18 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
                 onClick={() => onOpenChange(false)}
                 data-testid="button-cancel-loan-request"
                 className="w-full sm:w-auto"
+                disabled={isSubmitting}
               >
                 {t.cancel}
               </Button>
               <Button
                 type="submit"
-                disabled={createLoanMutation.isPending || !selectedLoanType}
+                disabled={isSubmitting || !selectedLoanType}
                 data-testid="button-submit-loan-request"
                 className="w-full sm:w-auto"
               >
-                {createLoanMutation.isPending && <Loader2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 animate-spin" />}
-                {t.submit}
+                {isSubmitting && <Loader2 className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 animate-spin" />}
+                {isSubmitting ? (language === 'fr' ? 'Envoi en cours...' : 'Submitting...') : t.submit}
               </Button>
             </div>
           </form>
