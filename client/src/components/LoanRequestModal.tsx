@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { queryClient, apiRequest } from '@/lib/queryClient';
+import { queryClient, apiRequest, getApiUrl } from '@/lib/queryClient';
 import { getLoanOffersByAccountType } from '@shared/loan-offers';
 import { getRequiredDocuments, calculateInterestRate, getLoanOfferLimits } from '@shared/loan-helpers';
 import { Loader2, Upload, X, FileText, CheckCircle2 } from 'lucide-react';
@@ -354,33 +354,13 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
     });
 
     try {
-      const csrfResponse = await fetch('/api/csrf-token');
-      const contentType = csrfResponse.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        const text = await csrfResponse.text();
-        console.error("[CSRF-ERROR] Non-JSON response received:", text);
-        throw new Error("Invalid server response (non-JSON) for CSRF token");
-      }
-      const csrfToken = (await csrfResponse.json()).csrfToken;
-      
-      const response = await fetch('/api/loans', {
-        method: 'POST',
-        headers: {
-          'X-CSRF-Token': csrfToken,
-        },
-        body: formData,
-      });
+      // Nettoyage : On utilise apiRequest au lieu d'un fetch manuel pour centraliser la logique
+      // et s'assurer que l'URL de base (API_BASE_URL) est respectée.
+      const url = '/api/loans';
+      const finalUrl = getApiUrl(url);
+      console.log("[LOAN-SUBMIT] URL =", finalUrl);
 
-      if (!response.ok) {
-        const responseContentType = response.headers.get("content-type");
-        if (!responseContentType || !responseContentType.includes("application/json")) {
-          const text = await response.text();
-          console.error("[LOAN-ERROR] Non-JSON error response:", text);
-          throw new Error(`Server error: ${response.status} ${response.statusText}`);
-        }
-        const errorData = await response.json();
-        throw new Error(errorData.error || errorData.message || 'Error submitting loan request');
-      }
+      const response = await apiRequest('POST', url, formData);
 
       const responseContentType = response.headers.get("content-type");
       if (!responseContentType || !responseContentType.includes("application/json")) {
@@ -388,6 +368,7 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
         console.error("[LOAN-ERROR] Non-JSON success response:", text);
         throw new Error("Invalid server response (non-JSON) for loan request");
       }
+      
       const result = await response.json();
       
       toast({
