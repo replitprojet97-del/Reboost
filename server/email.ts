@@ -98,7 +98,11 @@ export async function sendTransactionalEmail(options: {
   }
 
   if (options.attachments && options.attachments.length > 0) {
-    console.log('[Email] Attachments ignored for SendPulse as per strict requirements');
+    emailData.email.attachments = options.attachments.map(att => ({
+      name: att.filename,
+      content: att.content, // Base64 content
+      type: att.type
+    }));
   }
 
   try {
