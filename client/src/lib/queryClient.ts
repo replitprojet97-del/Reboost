@@ -107,12 +107,11 @@ async function getCsrfToken(): Promise<string> {
       if (contentType && contentType.includes("application/json")) {
         const data = await res.json();
         csrfToken = data.csrfToken;
-        console.log('[CSRF] Token acquired successfully');
         return csrfToken!;
       } else {
-        console.error('[CSRF] Received non-JSON response:', contentType);
         const text = await res.text();
-        console.error('[CSRF] Response preview:', text.substring(0, 100));
+        console.error('[CSRF] Non-JSON response:', text.substring(0, 200));
+        return '';
       }
     } else {
       console.error(`[CSRF] Fetch failed with status: ${res.status}`);
@@ -165,9 +164,10 @@ async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
     if (res.status === 401 || res.status === 403) {
       let errorData;
-      try {
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
         errorData = await res.json();
-      } catch {
+      } else {
         errorData = {};
       }
       
@@ -177,18 +177,23 @@ async function throwIfResNotOk(res: Response) {
     }
     
     let errorData;
-    try {
-      errorData = await res.json();
-      if (errorData?.error || errorData?.messageKey) {
-        throw new ApiError(errorData.error || errorData.messageKey, errorData?.code, errorData?.details || errorData?.data);
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      try {
+        errorData = await res.json();
+        if (errorData?.error || errorData?.messageKey) {
+          throw new ApiError(errorData.error || errorData.messageKey, errorData?.code, errorData?.details || errorData?.data);
+        }
+      } catch (e) {
+        if (e instanceof ApiError) {
+          throw e;
+        }
+        if (e instanceof Error && e.message !== '') {
+          throw e;
+        }
       }
-    } catch (e) {
-      if (e instanceof ApiError) {
-        throw e;
-      }
-      if (e instanceof Error && e.message !== '') {
-        throw e;
-      }
+    } else {
+      errorData = {};
     }
     
     throw new ApiError(getErrorMessage(res.status));
