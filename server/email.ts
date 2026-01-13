@@ -182,25 +182,25 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
         <table width="600" bgcolor="#ffffff" style="border-radius: 8px; overflow: hidden;">
           <tr>
             <td align="center" style="background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #c9a227 100%); padding: 30px;">
-              <img src="\${logoUrl}" alt="SolventisGroup" width="180" style="display: block;" />
-              <h1 style="color: #ffffff; margin-top: 15px; font-size: 24px;">\${language === 'en' ? 'Password Reset' : 'Réinitialisation du mot de passe'}</h1>
+              <img src="${logoUrl}" alt="SolventisGroup" width="180" style="display: block;" />
+              <h1 style="color: #ffffff; margin-top: 15px; font-size: 24px;">${language === 'en' ? 'Password Reset' : 'Réinitialisation du mot de passe'}</h1>
             </td>
           </tr>
           <tr>
             <td style="padding: 40px;">
-              <p>Bonjour <strong>\${fullName}</strong>,</p>
-              <p>\${language === 'en' ? 'Click the button below to reset your password:' : 'Cliquez sur le bouton ci-dessous pour réinitialiser votre mot de passe :'}</p>
+              <p>Bonjour <strong>${fullName}</strong>,</p>
+              <p>${language === 'en' ? 'Click the button below to reset your password:' : 'Cliquez sur le bouton ci-dessous pour réinitialiser votre mot de passe :'}</p>
               <div align="center" style="margin: 30px 0;">
-                <a href="\${resetUrl}" style="background: #2563eb; color: #ffffff; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block;">
-                  \${language === 'en' ? 'Reset Password' : 'Réinitialiser mon mot de passe'}
+                <a href="${resetUrl}" style="background: #2563eb; color: #ffffff; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block;">
+                  ${language === 'en' ? 'Reset Password' : 'Réinitialiser mon mot de passe'}
                 </a>
               </div>
-              <p style="font-size: 12px; color: #6b7280; word-break: break-all;">\${resetUrl}</p>
+              <p style="font-size: 12px; color: #6b7280; word-break: break-all;">${resetUrl}</p>
             </td>
           </tr>
           <tr>
             <td align="center" style="padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0;">
-              <p style="font-size: 12px; color: #64748b;">&copy; \${currentYear} SOLVENTIS GROUP</p>
+              <p style="font-size: 12px; color: #64748b;">&copy; ${currentYear} SOLVENTIS GROUP</p>
             </td>
           </tr>
         </table>
@@ -209,16 +209,16 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
   </table>
 </body>
 </html>`;
-  const text = `Bonjour \${fullName}, visitez ce lien pour réinitialiser votre mot de passe: \${resetUrl}`;
+  const text = `Bonjour ${fullName}, visitez ce lien pour réinitialiser votre mot de passe: ${resetUrl}`;
   await sendTransactionalEmail({ to: toEmail, subject, html, text });
   return true;
 }
 
 export async function sendContactFormEmail(name: string, email: string, phone: string, message: string) {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const subject = `Nouveau message de contact - \${name}`;
-  const html = `<p>Nom: \${name}</p><p>Email: \${email}</p><p>Téléphone: \${phone}</p><p>Message: \${message}</p>`;
-  const text = `Nouveau message de contact\nNom: \${name}\nEmail: \${email}\nMessage: \${message}`;
+  const subject = `Nouveau message de contact - ${name}`;
+  const html = `<p>Nom: ${name}</p><p>Email: ${email}</p><p>Téléphone: ${phone}</p><p>Message: ${message}</p>`;
+  const text = `Nouveau message de contact\nNom: ${name}\nEmail: ${email}\nMessage: ${message}`;
   await sendTransactionalEmail({ to: fromEmail, subject, html, text, replyTo: email });
   return true;
 }
@@ -308,9 +308,9 @@ export async function sendLoanRequestAdminEmailWithResend(
 export async function sendKYCUploadedAdminEmail(fullName: string, email: string, documentType: string, loanType: string, userId: string, language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
-  const subject = `Nouveau document KYC - \${fullName}`;
-  const html = `<p>L'utilisateur \${fullName} (\${email}) a téléchargé un document KYC (\${documentType}) pour un prêt \${loanType}.</p>`;
-  const text = `L'utilisateur \${fullName} (\${email}) a téléchargé un document KYC (\${documentType}) pour un prêt \${loanType}.`;
+  const subject = `Nouveau document KYC - ${fullName}`;
+  const html = `<p>L'utilisateur ${fullName} (${email}) a téléchargé un document KYC (${documentType}) pour un prêt ${loanType}.</p>`;
+  const text = `L'utilisateur ${fullName} (${email}) a téléchargé un document KYC (${documentType}) pour un prêt ${loanType}.`;
   await sendTransactionalEmail({ to: adminEmail, subject, html, text });
   return true;
 }
@@ -325,17 +325,17 @@ export async function sendLoanApprovedEmail(toEmail: string, fullName: string, l
 export async function sendTransferInitiatedAdminEmail(fullName: string, email: string, amount: string, recipient: string, transferId: string, userId: string, language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
-  const subject = `Nouveau transfert initié - \${fullName}`;
-  const html = `<p>L'utilisateur \${fullName} (\${email}) a initié un transfert de \${amount} vers \${recipient}. Transfert ID: \${transferId}</p>`;
-  const text = `L'utilisateur \${fullName} (\${email}) a initié un transfert de \${amount} vers \${recipient}. Transfert ID: \${transferId}`;
+  const subject = `Nouveau transfert initié - ${fullName}`;
+  const html = `<p>L'utilisateur ${fullName} (${email}) a initié un transfert de ${amount} vers ${recipient}. Transfert ID: ${transferId}</p>`;
+  const text = `L'utilisateur ${fullName} (${email}) a initié un transfert de ${amount} vers ${recipient}. Transfert ID: ${transferId}`;
   await sendTransactionalEmail({ to: adminEmail, subject, html, text });
   return true;
 }
 
 export async function sendTransferCodeEmail(toEmail: string, fullName: string, amount: string, recipient: string, code: string, sequence: number, total: number, language: string = 'fr') {
-  const subject = `Code de transfert \${sequence}/\${total} - SOLVENTIS GROUP`;
-  const html = `<p>Bonjour \${fullName}, votre code de transfert \${sequence}/\${total} pour un montant de \${amount} vers \${recipient} est: <strong>\${code}</strong></p>`;
-  const text = `Bonjour \${fullName}, votre code de transfert \${sequence}/\${total} pour un montant de \${amount} vers \${recipient} est: \${code}`;
+  const subject = `Code de transfert ${sequence}/${total} - SOLVENTIS GROUP`;
+  const html = `<p>Bonjour ${fullName}, votre code de transfert ${sequence}/${total} pour un montant de ${amount} vers ${recipient} est: <strong>${code}</strong></p>`;
+  const text = `Bonjour ${fullName}, votre code de transfert ${sequence}/${total} pour un montant de ${amount} vers ${recipient} est: ${code}`;
   await sendTransactionalEmail({ to: toEmail, subject, html, text });
   return true;
 }
@@ -343,9 +343,9 @@ export async function sendTransferCodeEmail(toEmail: string, fullName: string, a
 export async function sendSignedContractToAdmins(fullName: string, email: string, loanId: string, amount: string, fileBuffer: Buffer, fileName: string, fileType: string, language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
-  const subject = `Contrat signé reçu - \${fullName}`;
-  const html = `<p>L'utilisateur \${fullName} (\${email}) a envoyé son contrat signé pour le prêt \${loanId} d'un montant de \${amount} €.</p>`;
-  const text = `L'utilisateur \${fullName} (\${email}) a envoyé son contrat signé pour le prêt \${loanId} d'un montant de \${amount} €.`;
+  const subject = `Contrat signé reçu - ${fullName}`;
+  const html = `<p>L'utilisateur ${fullName} (${email}) a envoyé son contrat signé pour le prêt ${loanId} d'un montant de ${amount} €.</p>`;
+  const text = `L'utilisateur ${fullName} (${email}) a envoyé son contrat signé pour le prêt ${loanId} d'un montant de ${amount} €.`;
   
   await sendTransactionalEmail({ 
     to: adminEmail, 
@@ -363,8 +363,8 @@ export async function sendSignedContractToAdmins(fullName: string, email: string
 
 export async function sendTransferCompletedEmail(toEmail: string, fullName: string, amount: string, recipient: string, iban: string, transferId: string, language: string = 'fr') {
   const subject = language === 'en' ? 'Transfer Completed - SOLVENTIS GROUP' : 'Transfert Complété - SOLVENTIS GROUP';
-  const html = `<p>Bonjour \${fullName}, votre transfert de \${amount} € vers \${recipient} (IBAN: \${iban}) a été complété avec succès. Transfert ID: \${transferId}</p>`;
-  const text = `Bonjour \${fullName}, votre transfert de \${amount} € vers \${recipient} a été complété.`;
+  const html = `<p>Bonjour ${fullName}, votre transfert de ${amount} € vers ${recipient} (IBAN: ${iban}) a été complété avec succès. Transfert ID: ${transferId}</p>`;
+  const text = `Bonjour ${fullName}, votre transfert de ${amount} € vers ${recipient} a été complété.`;
   await sendTransactionalEmail({ to: toEmail, subject, html, text });
   return true;
 }
@@ -372,9 +372,9 @@ export async function sendTransferCompletedEmail(toEmail: string, fullName: stri
 export async function sendAdminTransferCompletionReport(fullName: string, email: string, transferId: string, amount: string, recipient: string, iban: string, loanId: string, language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
-  const subject = `Rapport de transfert complété - \${fullName}`;
-  const html = `<p>Le transfert \${transferId} de \${amount} € pour \${fullName} vers \${recipient} a été finalisé.</p>`;
-  const text = `Transfert \${transferId} complété pour \${fullName}.`;
+  const subject = `Rapport de transfert complété - ${fullName}`;
+  const html = `<p>Le transfert ${transferId} de ${amount} € pour ${fullName} vers ${recipient} a été finalisé.</p>`;
+  const text = `Transfert ${transferId} complété pour ${fullName}.`;
   await sendTransactionalEmail({ to: adminEmail, subject, html, text });
   return true;
 }
@@ -382,10 +382,10 @@ export async function sendAdminTransferCompletionReport(fullName: string, email:
 export async function sendTransferCodesAdminEmail(fullName: string, email: string, loanId: string, amount: string, codes: any[], language: string = 'fr') {
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
-  const subject = `Codes de transfert générés - \${fullName}`;
-  const codesHtml = codes.map((c: any) => `<li>Pause à \${c.pausePercent}%: \${c.code} (\${c.codeContext})</li>`).join('');
-  const html = `<p>Des codes de transfert ont été générés pour \${fullName}.</p><ul>\${codesHtml}</ul>`;
-  const text = `Codes de transfert générés pour \${fullName}.`;
+  const subject = `Codes de transfert générés - ${fullName}`;
+  const codesHtml = codes.map((c: any) => `<li>Pause à ${c.pausePercent}%: ${c.code} (${c.codeContext})</li>`).join('');
+  const html = `<p>Des codes de transfert ont été générés pour ${fullName}.</p><ul>${codesHtml}</ul>`;
+  const text = `Codes de transfert générés pour ${fullName}.`;
   await sendTransactionalEmail({ to: adminEmail, subject, html, text });
   return true;
 }
