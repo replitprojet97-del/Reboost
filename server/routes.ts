@@ -268,7 +268,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
   const loanUpload = multer({ 
     storage: uploadStorage,
     limits: {
-      fileSize: 10 * 1024 * 1024, // 10MB limit
+      fileSize: 50 * 1024 * 1024, // 50MB limit
     }
   });
 
