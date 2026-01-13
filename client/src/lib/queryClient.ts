@@ -70,8 +70,7 @@ const API_BASE_URL =
     window.location.hostname === 'localhost' ||
     window.location.hostname === '127.0.0.1' ||
     window.location.hostname.includes('replit.dev') ||
-    window.location.hostname.includes('replit.app') ||
-    window.location.hostname.includes('solventisgroup.org') // Add production domain to use relative paths
+    window.location.hostname.includes('replit.app')
   )
     ? '' 
     : 'https://api.solventisgroup.org';
