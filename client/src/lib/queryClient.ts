@@ -65,20 +65,21 @@ function getErrorMessage(status: number): string {
 // API URL configuration
 // Production: Use the dedicated API subdomain (https://api.solventisgroup.org)
 // Development (Replit/localhost): Use empty string to proxy via Vite to same port
-const API_BASE_URL = 
-  typeof window !== 'undefined' && (
-    window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1' ||
-    window.location.hostname.includes('replit.dev') ||
-    window.location.hostname.includes('replit.app')
-  )
-    ? '' 
-    : 'https://api.solventisgroup.org';
+const IS_DEV = typeof window !== 'undefined' && (
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1' ||
+  window.location.hostname.includes('replit.dev') ||
+  window.location.hostname.includes('replit.app') ||
+  window.location.hostname.includes('web-container.io')
+);
+
+const API_BASE_URL = IS_DEV ? '' : 'https://api.solventisgroup.org';
 
 export function getApiUrl(path: string): string {
   if (!path.startsWith('/')) {
     path = '/' + path;
   }
+  // Ensure we don't double the slash if API_BASE_URL is empty
   return `${API_BASE_URL}${path}`;
 }
 
@@ -90,19 +91,34 @@ export function clearCsrfToken() {
 }
 
 async function getCsrfToken(): Promise<string> {
+  // If we already have a token, return it
   if (csrfToken) return csrfToken;
   
   try {
-    const res = await fetch(getApiUrl('/api/csrf-token'), {
+    const url = getApiUrl('/api/csrf-token');
+    console.log(`[CSRF] Fetching token from: ${url}`);
+    
+    const res = await fetch(url, {
       credentials: 'include',
     });
+    
     if (res.ok) {
-      const data = await res.json();
-      csrfToken = data.csrfToken;
-      return csrfToken!;
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const data = await res.json();
+        csrfToken = data.csrfToken;
+        console.log('[CSRF] Token acquired successfully');
+        return csrfToken!;
+      } else {
+        console.error('[CSRF] Received non-JSON response:', contentType);
+        const text = await res.text();
+        console.error('[CSRF] Response preview:', text.substring(0, 100));
+      }
+    } else {
+      console.error(`[CSRF] Fetch failed with status: ${res.status}`);
     }
   } catch (error) {
-    console.error('Failed to fetch CSRF token:', error);
+    console.error('[CSRF] Error fetching token:', error);
   }
   return '';
 }
