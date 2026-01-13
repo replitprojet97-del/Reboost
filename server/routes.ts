@@ -431,6 +431,13 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
   }).strict();
 
   app.get("/api/csrf-token", (req, res) => {
+    // Force set CORS and Cookie headers for cross-domain CSRF retrieval
+    const origin = req.headers.origin;
+    if (origin && allowedOrigins.includes(origin)) {
+      res.header('Access-Control-Allow-Origin', origin);
+      res.header('Access-Control-Allow-Credentials', 'true');
+    }
+
     if (!req.session.csrfToken) {
       req.session.csrfToken = generateCSRFToken();
     }
