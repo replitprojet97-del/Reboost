@@ -441,7 +441,15 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     if (!req.session.csrfToken) {
       req.session.csrfToken = generateCSRFToken();
     }
-    res.json({ csrfToken: req.session.csrfToken });
+    
+    // Debug: Ensure session is saved before sending token
+    req.session.save((err) => {
+      if (err) {
+        console.error('[CSRF] Error saving session:', err);
+        return res.status(500).json({ error: 'Erreur session' });
+      }
+      res.json({ csrfToken: req.session.csrfToken });
+    });
   });
 
   const requireAuth = async (req: any, res: any, next: any) => {

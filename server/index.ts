@@ -216,6 +216,8 @@ if (!sessionStore && process.env.NODE_ENV === 'production') {
   process.exit(1);
 }
 
+const COOKIE_DOMAIN = IS_PRODUCTION ? '.solventisgroup.org' : undefined;
+
 const sessionMiddleware = session({
   store: sessionStore,
   secret: process.env.SESSION_SECRET || 'solventis-group-secret-key-dev-only',
@@ -226,8 +228,8 @@ const sessionMiddleware = session({
     secure: true,
     httpOnly: true,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: 'none',
-    domain: '.solventisgroup.org',
+    sameSite: 'lax',
+    domain: COOKIE_DOMAIN,
     signed: true,
   },
   name: 'sessionId',
