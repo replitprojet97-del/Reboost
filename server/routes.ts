@@ -154,7 +154,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       });
     }
 
-    const token = req.headers['x-csrf-token'] || req.body._csrf;
+    const token = req.headers['x-csrf-token'] || req.body?._csrf || req.query?._csrf;
     if (!token || token !== req.session.csrfToken) {
       // 🔒 Log sensitive data only in development
       debugInfo = {
@@ -2170,7 +2170,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     }
   });
 
-  app.post("/api/loans", requireAuth, requireCSRF, loanLimiter, loanUpload.array('loan_documents', 10), async (req, res) => {
+  app.post("/api/loans", requireAuth, loanUpload.array('loan_documents', 10), requireCSRF, loanLimiter, async (req, res) => {
     try {
       console.log(`[LoanRequest] POST /api/loans - User: ${req.session.userId} - Files: ${req.files?.length || 0}`);
       const uploadedFiles = req.files as Express.Multer.File[] || [];
