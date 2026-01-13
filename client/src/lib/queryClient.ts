@@ -95,6 +95,7 @@ async function getCsrfToken(): Promise<string> {
   try {
     const res = await fetch(getApiUrl('/api/csrf-token'), {
       credentials: 'include',
+      cache: 'no-cache'
     });
     if (res.ok) {
       const data = await res.json();
