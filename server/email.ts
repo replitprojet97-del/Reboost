@@ -68,8 +68,6 @@ export async function sendTransactionalEmail(options: {
   const emailData: any = {
     email: {
       subject: options.subject,
-      html: options.html, // Envoi en texte brut au lieu de Base64
-      text: options.text,
       from: {
         name: fromName,
         email: fromEmail,
@@ -91,7 +89,11 @@ export async function sendTransactionalEmail(options: {
     finalHtml = finalHtml.replace(/src="\.\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo.png"');
   }
   
-  emailData.email.html = finalHtml; // Mise à jour avec le HTML final sans encodage
+  // Construct finalText from options.text or strip HTML from finalHtml
+  const finalText = options.text || finalHtml.replace(/<[^>]*>?/gm, '');
+
+  emailData.email.html = finalHtml; 
+  emailData.email.text = finalText;
 
   if (options.replyTo) {
     emailData.email.reply_to = options.replyTo;
