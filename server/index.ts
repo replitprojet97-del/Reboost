@@ -104,7 +104,8 @@ const allowedOrigins = process.env.NODE_ENV === 'production'
       'https://solventis-group-reboost.vercel.app',
       'https://solventis-group.vercel.app',
       'https://api.solventisgroup.org',
-      'https://solventisgroup.org/dashboard', // Add specific dashboard path just in case
+      'https://solventisgroup.com',
+      'https://www.solventisgroup.com',
     ]
   : ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000'];
 

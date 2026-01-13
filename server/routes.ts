@@ -2181,7 +2181,14 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         duration: z.coerce.number().int().min(6).max(360),
       });
 
-      const parsedBody = loanRequestSchema.parse(req.body);
+      let parsedBody;
+      try {
+        parsedBody = loanRequestSchema.parse(req.body);
+      } catch (parseError: any) {
+        console.error('[LoanRequest] Body parse error:', parseError);
+        return res.status(400).json({ success: false, error: 'Données invalides', details: parseError.errors });
+      }
+      
       const { loanType, amount, duration } = parsedBody;
       
       const user = await storage.getUser(req.session.userId!);
@@ -2319,16 +2326,23 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       });
       
       res.status(201).json({ 
+        success: true,
         loan,
         message: 'Votre demande de prêt a été soumise avec succès et est en attente de validation par notre service.'
       });
     } catch (error: any) {
-      console.error('Loan creation error:', error);
+      console.error('[LoanRequest] Error details:', {
+        message: error.message,
+        stack: error.stack,
+        body: req.body,
+        userId: req.session?.userId
+      });
+      
       if (error.name === 'ZodError') {
         const firstError = error.errors[0];
-        return res.status(400).json({ error: firstError.message });
+        return res.status(400).json({ success: false, error: firstError.message });
       }
-      res.status(400).json({ error: 'Données de prêt invalides' });
+      res.status(500).json({ success: false, error: 'Une erreur interne est survenue lors de la création de votre prêt. Veuillez réessayer.' });
     }
   });
 
