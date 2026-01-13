@@ -91,8 +91,9 @@ export async function sendTransactionalEmail(options: {
   
   // Construct finalText from options.text or strip HTML from finalHtml
   const finalText = options.text || finalHtml.replace(/<[^>]*>?/gm, '');
+  const encodedHtml = Buffer.from(finalHtml, 'utf-8').toString('base64');
 
-  emailData.email.html = finalHtml; 
+  emailData.email.html = encodedHtml; 
   emailData.email.text = finalText;
 
   if (options.replyTo) {
