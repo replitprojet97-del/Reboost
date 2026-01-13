@@ -348,14 +348,7 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
     });
 
     try {
-      const csrfRes = await fetch('/api/csrf-token');
-      const contentType = csrfRes.headers.get("content-type");
-      
-      if (!csrfRes.ok || !contentType || !contentType.includes("application/json")) {
-        throw new Error("Impossible de récupérer le jeton de sécurité (CSRF). Veuillez rafraîchir la page.");
-      }
-      
-      const { csrfToken } = await csrfRes.json();
+      const csrfToken = await fetch('/api/csrf-token').then(res => res.json()).then(d => d.csrfToken);
       
       const response = await fetch('/api/loans', {
         method: 'POST',
@@ -365,20 +358,9 @@ export function LoanRequestModal({ open, onOpenChange, user }: LoanRequestModalP
         body: formData,
       });
 
-      const resContentType = response.headers.get("content-type");
-
       if (!response.ok) {
-        let errorData;
-        if (resContentType && resContentType.includes("application/json")) {
-          errorData = await response.json();
-        } else {
-          errorData = { error: "Erreur serveur lors de la soumission. Veuillez réessayer." };
-        }
+        const errorData = await response.json();
         throw new Error(errorData.error || errorData.message || 'Error submitting loan request');
-      }
-
-      if (!resContentType || !resContentType.includes("application/json")) {
-        throw new Error("Réponse serveur invalide (Format non-JSON).");
       }
 
       const result = await response.json();
