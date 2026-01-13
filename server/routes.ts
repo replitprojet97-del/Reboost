@@ -431,25 +431,10 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
   }).strict();
 
   app.get("/api/csrf-token", (req, res) => {
-    // Force set CORS and Cookie headers for cross-domain CSRF retrieval
-    const origin = req.headers.origin;
-    if (origin && allowedOrigins.includes(origin)) {
-      res.header('Access-Control-Allow-Origin', origin);
-      res.header('Access-Control-Allow-Credentials', 'true');
-    }
-
     if (!req.session.csrfToken) {
       req.session.csrfToken = generateCSRFToken();
     }
-    
-    // Debug: Ensure session is saved before sending token
-    req.session.save((err) => {
-      if (err) {
-        console.error('[CSRF] Error saving session:', err);
-        return res.status(500).json({ error: 'Erreur session' });
-      }
-      res.json({ csrfToken: req.session.csrfToken });
-    });
+    res.json({ csrfToken: req.session.csrfToken });
   });
 
   const requireAuth = async (req: any, res: any, next: any) => {
@@ -2196,14 +2181,7 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         duration: z.coerce.number().int().min(6).max(360),
       });
 
-      let parsedBody;
-      try {
-        parsedBody = loanRequestSchema.parse(req.body);
-      } catch (parseError: any) {
-        console.error('[LoanRequest] Body parse error:', parseError);
-        return res.status(400).json({ success: false, error: 'Données invalides', details: parseError.errors });
-      }
-      
+      const parsedBody = loanRequestSchema.parse(req.body);
       const { loanType, amount, duration } = parsedBody;
       
       const user = await storage.getUser(req.session.userId!);
@@ -2298,7 +2276,6 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
       // Update loan documents in DB if any
       if (sanitizedFiles.length > 0) {
-        console.log(`[LoanRequest] Updating loan ${loan.id} with ${sanitizedFiles.length} documents`);
         await storage.updateLoan(loan.id, {
           documents: sanitizedFiles.map(file => ({
             id: randomUUID(),
@@ -2310,29 +2287,19 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
 
       // ALWAYS send admin notification via Resend for loan requests as per requirements
       console.log(`[LoanRequest] Sending Resend admin notification for loan ${loan.id} with ${sanitizedFiles.length} sanitized files.`);
-      try {
-        const resendResult = await sendLoanRequestAdminEmailWithResend(
-          user.fullName,
-          user.email,
-          user.phone,
-          user.accountType,
-          amount.toString(),
-          duration,
-          loanType,
-          loan.loanReference || "",
-          user.id,
-          sanitizedFiles,
-          (user.preferredLanguage || 'fr') as any
-        );
-        console.log(`[LoanRequest] Resend notification result for loan ${loan.id}:`, resendResult);
-      } catch (resendError: any) {
-        console.error(`[LoanRequest] Resend notification failed for loan ${loan.id}:`, {
-          error: resendError.message,
-          stack: resendError.stack,
-          details: resendError.response?.data
-        });
-        // We continue even if email fails so user doesn't get a 500 error
-      }
+      const resendResult = await sendLoanRequestAdminEmailWithResend(
+        user.fullName,
+        user.email,
+        user.phone,
+        user.accountType,
+        amount.toString(),
+        duration,
+        loanType,
+        loan.loanReference || "",
+        user.id,
+        sanitizedFiles,
+        (user.preferredLanguage || 'fr') as any
+      );
 
       await createAdminMessageLoanRequest(req.session.userId!, loanType, amount.toString());
       await storage.createAuditLog({
@@ -2345,23 +2312,16 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
       });
       
       res.status(201).json({ 
-        success: true,
         loan,
         message: 'Votre demande de prêt a été soumise avec succès et est en attente de validation par notre service.'
       });
     } catch (error: any) {
-      console.error('[LoanRequest] Error details:', {
-        message: error.message,
-        stack: error.stack,
-        body: req.body,
-        userId: req.session?.userId
-      });
-      
+      console.error('Loan creation error:', error);
       if (error.name === 'ZodError') {
         const firstError = error.errors[0];
-        return res.status(400).json({ success: false, error: firstError.message });
+        return res.status(400).json({ error: firstError.message });
       }
-      res.status(500).json({ success: false, error: 'Une erreur interne est survenue lors de la création de votre prêt. Veuillez réessayer.' });
+      res.status(400).json({ error: 'Données de prêt invalides' });
     }
   });
 

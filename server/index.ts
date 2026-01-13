@@ -96,19 +96,17 @@ const IS_REPLIT = !IS_PRODUCTION && (
 const COOKIE_DOMAIN = IS_PRODUCTION ? '.solventisgroup.org' : undefined;
 
 // In production: allow the dashboard subdomain and current vercel domain
-const allowedOrigins = [
-  'https://solventisgroup.org',
-  'https://www.solventisgroup.org',
-  'https://dashboard.solventisgroup.org',
-  'https://solventis-group-reboost.vercel.app',
-  'https://solventis-group.vercel.app',
-  'https://api.solventisgroup.org',
-  'https://solventisgroup.com',
-  'https://www.solventisgroup.com',
-  'http://localhost:3000',
-  'http://localhost:5173',
-  'http://127.0.0.1:3000'
-];
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? [
+      'https://solventisgroup.org',
+      'https://www.solventisgroup.org',
+      'https://dashboard.solventisgroup.org',
+      'https://solventis-group-reboost.vercel.app',
+      'https://solventis-group.vercel.app',
+      'https://api.solventisgroup.org',
+      'https://solventisgroup.org/dashboard', // Add specific dashboard path just in case
+    ]
+  : ['http://localhost:3000', 'http://localhost:5173', 'http://127.0.0.1:3000'];
 
 // In production: use 'none' for cross-domain cookies (frontend on solventisgroup.org, api on api.solventisgroup.org)
 // In Replit development: use 'none' with secure:true (Replit uses HTTPS proxy)
@@ -216,19 +214,16 @@ if (!sessionStore && process.env.NODE_ENV === 'production') {
   process.exit(1);
 }
 
-const COOKIE_DOMAIN = IS_PRODUCTION ? '.solventisgroup.org' : undefined;
-
 const sessionMiddleware = session({
   store: sessionStore,
   secret: process.env.SESSION_SECRET || 'solventis-group-secret-key-dev-only',
   resave: false,
   saveUninitialized: false,
-  proxy: true,
   cookie: {
-    secure: true,
+    secure: COOKIE_SECURE,
     httpOnly: true,
     maxAge: 7 * 24 * 60 * 60 * 1000,
-    sameSite: 'lax',
+    sameSite: SAME_SITE_POLICY,
     domain: COOKIE_DOMAIN,
     signed: true,
   },
