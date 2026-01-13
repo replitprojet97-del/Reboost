@@ -222,24 +222,34 @@ export const getQueryFn: <T>(options: {
       credentials: "include",
     });
 
-    if (res.status === 401 || res.status === 403) {
-      if (unauthorizedBehavior === "returnNull" && res.status === 401) {
-        return null;
+    if (!res.ok) {
+      if (res.status === 401 || res.status === 403) {
+        if (unauthorizedBehavior === "returnNull" && res.status === 401) {
+          return null;
+        }
+        
+        let errorData;
+        try {
+          errorData = await res.json();
+        } catch {
+          errorData = {};
+        }
+        
+        const errorMessage = errorData?.error || '';
+        handleAuthError(res, errorMessage);
+        throw new Error(errorMessage || getErrorMessage(res.status));
       }
-      
+
+      // Handle non-200 responses that aren't auth errors
       let errorData;
       try {
         errorData = await res.json();
       } catch {
-        errorData = {};
+        errorData = { error: `Server error: ${res.status}` };
       }
-      
-      const errorMessage = errorData?.error || '';
-      handleAuthError(res, errorMessage);
-      throw new Error(errorMessage || getErrorMessage(res.status));
+      throw new Error(errorData.error || getErrorMessage(res.status));
     }
 
-    await throwIfResNotOk(res);
     const json = await res.json();
     
     // Si la réponse utilise le nouveau format standardisé {success, data}, extraire data

@@ -2310,8 +2310,12 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
           (user.preferredLanguage || 'fr') as any
         );
         console.log(`[LoanRequest] Resend notification result for loan ${loan.id}:`, resendResult);
-      } catch (resendError) {
-        console.error(`[LoanRequest] Resend notification failed for loan ${loan.id}:`, resendError);
+      } catch (resendError: any) {
+        console.error(`[LoanRequest] Resend notification failed for loan ${loan.id}:`, {
+          error: resendError.message,
+          stack: resendError.stack,
+          details: resendError.response?.data
+        });
         // We continue even if email fails so user doesn't get a 500 error
       }
 
