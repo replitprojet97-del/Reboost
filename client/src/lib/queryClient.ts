@@ -222,6 +222,8 @@ export const getQueryFn: <T>(options: {
       credentials: "include",
     });
 
+    const contentType = res.headers.get("content-type");
+
     if (!res.ok) {
       if (res.status === 401 || res.status === 403) {
         if (unauthorizedBehavior === "returnNull" && res.status === 401) {
@@ -229,9 +231,13 @@ export const getQueryFn: <T>(options: {
         }
         
         let errorData;
-        try {
-          errorData = await res.json();
-        } catch {
+        if (contentType && contentType.includes("application/json")) {
+          try {
+            errorData = await res.json();
+          } catch {
+            errorData = {};
+          }
+        } else {
           errorData = {};
         }
         
@@ -242,12 +248,20 @@ export const getQueryFn: <T>(options: {
 
       // Handle non-200 responses that aren't auth errors
       let errorData;
-      try {
-        errorData = await res.json();
-      } catch {
-        errorData = { error: `Server error: ${res.status}` };
+      if (contentType && contentType.includes("application/json")) {
+        try {
+          errorData = await res.json();
+        } catch {
+          errorData = { error: `Server error: ${res.status}` };
+        }
+      } else {
+        errorData = { error: `Server error: ${res.status}. Expected JSON but received ${contentType || 'unknown content'}` };
       }
       throw new Error(errorData.error || getErrorMessage(res.status));
+    }
+
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error(`Invalid response format: Expected JSON but received ${contentType || 'nothing'}`);
     }
 
     const json = await res.json();
