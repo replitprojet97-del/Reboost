@@ -317,6 +317,9 @@ app.get('/healthz', (req, res) => {
   res.status(200).send("OK");
 });
 
+// Serve static files from the public directory
+app.use(express.static("public"));
+
 (async () => {
   const server = await registerRoutes(app, sessionMiddleware);
 
