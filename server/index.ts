@@ -56,6 +56,9 @@ if (process.env.NODE_ENV === 'production' && process.env.SENTRY_DSN) {
 
 const app = express();
 
+// Servir les fichiers statiques du dossier 'public' AVANT toute autre route
+app.use(express.static("public"));
+
 app.set("trust proxy", 1);
 
 declare module 'express-session' {
