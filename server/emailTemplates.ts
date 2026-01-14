@@ -13,8 +13,8 @@ function getEmailBaseUrl(): string {
 }
 
 function getEmailLogoUrl(): string {
-  // Use the official SolventisGroup email logo from public assets
-  return "https://solventisgroup.org/logo-email.png";
+  // Use the official SolventisGroup email logo from Cloudinary
+  return "https://res.cloudinary.com/dm2x1y5zi/image/upload/v1736863600/solventis_assets/solventis-email-logo.png";
 }
 
 interface EmailHeaderOptions {

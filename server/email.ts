@@ -170,7 +170,7 @@ export async function sendContractEmail(toEmail: string, fullName: string, loanI
 
 export async function sendResetPasswordEmail(toEmail: string, fullName: string, token: string, language: string = 'fr') {
   const resetUrl = `${getBaseUrl()}/reset-password/${token}`;
-  const logoUrl = 'https://solventisgroup.org/email-logo.png';
+  const logoUrl = 'https://res.cloudinary.com/dm2x1y5zi/image/upload/v1736863600/solventis_assets/solventis-email-logo.png';
   const currentYear = new Date().getFullYear();
   
   const subject = language === 'en' ? 'Reset your password - SOLVENTIS GROUP' : 'Réinitialisez votre mot de passe - SOLVENTIS GROUP';
