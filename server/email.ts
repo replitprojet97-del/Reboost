@@ -155,8 +155,7 @@ export async function sendWelcomeEmail(toEmail: string, fullName: string, accoun
 export async function sendContractEmail(toEmail: string, fullName: string, loanId: string, amount: string, contractUrl: string, language: string = 'fr') {
   const { getEmailTemplate } = await import('./emailTemplates');
   const dashboardUrl = `${getBaseUrl()}/contracts`;
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const template = getEmailTemplate('contract', language as any, { fullName, amount, loanId, dashboardUrl, fromEmail });
+  const template = getEmailTemplate('contract', language as any, { fullName, amount, loanId, dashboardUrl });
   await sendTransactionalEmail({ to: toEmail, subject: template.subject, html: template.html, text: template.text });
   return true;
 }
