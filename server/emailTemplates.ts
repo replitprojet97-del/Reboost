@@ -396,12 +396,12 @@ const translations = {
       step2Title: "Signer le document",
       step2Text: "Imprimez, signez avec la mention \"Lu et approuvé\" suivie de votre signature",
       step3Title: "Retourner le contrat signé",
-      step3Text: "Téléchargez le document signé depuis votre espace client ou envoyez-le par email à",
+      step3Text: "Téléchargez le document signé depuis votre espace client et cliquer sur envoyer.",
       downloadButton: "📥 Télécharger le contrat",
       importantTitle: "⚠️ Important :",
       importantMessage: "Les fonds seront débloqués dans un délai allant de quelques minutes à 24 heures maximum.",
       accessNote: "Vous pouvez également accéder à votre contrat depuis votre espace client à tout moment.",
-      contactText: "Des questions ? Contactez-nous à",
+      contactText: "Des questions ? Contactez-nous à support@solventisgroup.org",
       footer: "Tous droits réservés."
     },
     fundingRelease: {
@@ -640,12 +640,12 @@ const translations = {
       step2Title: "Sign the document",
       step2Text: "Print, sign with the mention \"Read and approved\" followed by your signature",
       step3Title: "Return the signed contract",
-      step3Text: "Upload the signed document from your client area or send it by email to",
+      step3Text: "Upload the signed document from your client area and click send.",
       downloadButton: "📥 Download contract",
       importantTitle: "⚠️ Important:",
       importantMessage: "Funds will be released within a few minutes to a maximum of 24 hours.",
       accessNote: "You can also access your contract from your client area at any time.",
-      contactText: "Questions? Contact us at",
+      contactText: "Questions? Contact us at support@solventisgroup.org",
       footer: "All rights reserved."
     },
     fundingRelease: {
@@ -868,12 +868,12 @@ const translations = {
       step2Title: "Firmar el documento",
       step2Text: "Imprime, firma con la mención \"Leído y aprobado\" seguida de tu firma",
       step3Title: "Devolver el contrato firmado",
-      step3Text: "Sube el documento firmado desde tu área de cliente o envíalo por correo a",
+      step3Text: "Sube el documento firmado desde tu área de cliente y haz clic en enviar.",
       downloadButton: "📥 Descargar contrato",
       importantTitle: "⚠️ Importante:",
       importantMessage: "Los fondos se liberarán en un plazo de unos minutos a un máximo de 24 horas.",
       accessNote: "También puedes acceder a tu contrato desde tu área de cliente en cualquier momento.",
-      contactText: "¿Preguntas? Contáctanos en",
+      contactText: "¿Preguntas? Contáctanos en support@solventisgroup.org",
       footer: "Todos los derechos reservados."
     },
     fundingRelease: {
@@ -1077,12 +1077,12 @@ const translations = {
       step2Title: "Assinar o documento",
       step2Text: "Imprima, assine com a menção \"Lido e aprovado\" seguida de sua assinatura",
       step3Title: "Devolver o contrato assinado",
-      step3Text: "Carregue o documento assinado da sua área de cliente ou envie por email para",
+      step3Text: "Carregue o documento assinado da sua área de cliente e clique em enviar.",
       downloadButton: "📥 Baixar contrato",
       importantTitle: "⚠️ Importante:",
       importantMessage: "Os fundos serão liberados dentro de alguns minutos a um máximo de 24 horas.",
       accessNote: "Você também pode acessar seu contrato da sua área de cliente a qualquer momento.",
-      contactText: "Dúvidas? Entre em contato conosco em",
+      contactText: "Dúvidas? Entre em contato conosco em support@solventisgroup.org",
       footer: "Todos os direitos reservados."
     },
     fundingRelease: {
@@ -1286,12 +1286,12 @@ const translations = {
       step2Title: "Firmare il documento",
       step2Text: "Stampa, firma con la dicitura \"Letto e approvato\" seguita dalla tua firma",
       step3Title: "Restituire il contratto firmato",
-      step3Text: "Carica il documento firmato dalla tua area cliente o invialo per email a",
+      step3Text: "Carica il documento firmato dalla tua area cliente e clicca su invia.",
       downloadButton: "📥 Scarica contratto",
       importantTitle: "⚠️ Importante:",
       importantMessage: "I fondi saranno rilasciati entro pochi minuti fino a un massimo di 24 ore.",
       accessNote: "Puoi anche accedere al tuo contratto dalla tua area cliente in qualsiasi momento.",
-      contactText: "Domande? Contattaci a",
+      contactText: "Domande? Contattaci a support@solventisgroup.org",
       footer: "Tutti i diritti riservati."
     },
     fundingRelease: {
@@ -1495,12 +1495,12 @@ const translations = {
       step2Title: "Dokument unterschreiben",
       step2Text: "Drucken Sie es aus, unterschreiben Sie es mit dem Vermerk \"Gelesen und genehmigt\", gefolgt von Ihrer Unterschrift",
       step3Title: "Unterschriebenen Vertrag zurückgeben",
-      step3Text: "Laden Sie das unterschriebene Dokument aus Ihrem Kundenbereich hoch oder senden Sie es per E-Mail an",
+      step3Text: "Laden Sie das unterschriebene Dokument aus Ihrem Kundenbereich hoch und klicken Sie auf Senden.",
       downloadButton: "📥 Vertrag herunterladen",
       importantTitle: "⚠️ Wichtig:",
       importantMessage: "Die Mittel werden innerhalb von wenigen Minuten bis maximal 24 Stunden freigegeben.",
       accessNote: "Sie können jederzeit über Ihren Kundenbereich auf Ihren Vertrag zugreifen.",
-      contactText: "Fragen? Kontaktieren Sie uns unter",
+      contactText: "Fragen? Kontaktieren Sie uns unter support@solventisgroup.org",
       footer: "Alle Rechte vorbehalten."
     },
     fundingRelease: {
@@ -1704,12 +1704,12 @@ const translations = {
       step2Title: "Document ondertekenen",
       step2Text: "Afdrukken, ondertekenen met de vermelding \"Gelezen en goedgekeurd\" gevolgd door uw handtekening",
       step3Title: "Ondertekend contract retourneren",
-      step3Text: "Upload het ondertekende document vanuit uw klantengebied of stuur het per e-mail naar",
+      step3Text: "Upload het ondertekende document vanuit uw klantengebied en klik op verzenden.",
       downloadButton: "📥 Contract downloaden",
       importantTitle: "⚠️ Belangrijk:",
       importantMessage: "De middelen worden vrijgegeven binnen enkele minuten tot maximaal 24 uur.",
       accessNote: "U kunt ook op elk moment toegang krijgen tot uw contract vanuit uw klantengebied.",
-      contactText: "Vragen? Neem contact met ons op via",
+      contactText: "Vragen? Neem contact met ons op via support@solventisgroup.org",
       footer: "Alle rechten voorbehouden."
     },
     fundingRelease: {
