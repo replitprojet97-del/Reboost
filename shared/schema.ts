@@ -29,6 +29,7 @@ export const users = pgTable("users", {
   siret: text("siret"),
   role: text("role").notNull().default("user"),
   status: text("status").notNull().default("pending"),
+  kycStatus: text("kyc_status").notNull().default("pending"),
   maxLoanAmount: decimal("max_loan_amount", { precision: 12, scale: 2 }).default("500000.00"),
   suspendedUntil: timestamp("suspended_until"),
   suspensionReason: text("suspension_reason"),
