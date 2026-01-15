@@ -322,7 +322,7 @@ export default function Dashboard() {
                 {user.kycStatus === 'pending' && <Clock className="w-3.5 h-3.5" />}
                 {user.kycStatus === 'rejected' && <AlertCircle className="w-3.5 h-3.5" />}
                 {user.kycStatus !== 'verified' && user.kycStatus !== 'approved' && user.kycStatus !== 'pending' && user.kycStatus !== 'rejected' && <HelpCircle className="w-3.5 h-3.5" />}
-                <span>KYC: {user.kycStatus === 'verified' || user.kycStatus === 'approved' ? 'KYC Valide' : user.kycStatus === 'pending' ? 'En attente' : user.kycStatus === 'rejected' ? 'Rejeté' : 'Non soumis'}</span>
+                <span>{user.kycStatus === 'verified' || user.kycStatus === 'approved' ? 'Identity Verified' : user.kycStatus === 'pending' ? 'KYC Pending Review' : user.kycStatus === 'rejected' ? 'Rejected' : 'Not Submitted'}</span>
               </Badge>
             </div>
           )}
