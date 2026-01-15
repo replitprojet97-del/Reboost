@@ -3069,6 +3069,20 @@ export class DatabaseStorage implements IStorage {
     return result[0];
   }
 
+  async approveUserKycManually(userId: string, adminId: string): Promise<User | undefined> {
+    const [user] = await db.update(users)
+      .set({
+        status: 'active',
+        kycStatus: 'verified',
+        verificationTier: 'silver',
+        updatedAt: new Date()
+      })
+      .where(eq(users.id, userId))
+      .returning();
+
+    return user;
+  }
+
   async rejectKycDocument(id: string, reviewerId: string, notes: string): Promise<KycDocument | undefined> {
     const result = await db.update(kycDocuments)
       .set({ 
