@@ -96,7 +96,7 @@ export async function sendTransactionalEmail(options: {
 
   if (options.attachments && options.attachments.length > 0) {
     emailData.email.attachments = options.attachments.map(att => ({
-      name: att.filename,
+      filename: att.filename,
       content: att.content, // Base64 content
       type: att.type
     }));
