@@ -51,7 +51,7 @@ interface ContractTranslations {
   article9Content: string;
   signatureSection: string;
   madeInDuplicates: string;
-  inLuxembourg: string;
+  inIreland: string;
   forSolventisGroup: string;
   lender: string;
   borrower: string;
@@ -116,14 +116,14 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article9Content: "Le présent contrat est régi par le droit irlandais. En cas de litige, les parties s'efforceront de trouver une solution amiable. À défaut, les tribunaux compétents de Dublin seront seuls compétents.",
     signatureSection: 'Signatures',
     madeInDuplicates: 'Fait en deux exemplaires originaux',
-    inLuxembourg: 'À Dublin, le',
+    inIreland: 'À Dublin, le',
     forSolventisGroup: 'Pour SOLVENTIS GROUP',
     lender: 'Le Prêteur',
     borrower: "L'Emprunteur",
     preSigned: '✓ Document pré-signé et validé',
     management: 'Direction Générale',
     solventisStamp: 'SOLVENTIS GROUP',
-    luxembourg: 'Luxembourg',
+    luxembourg: 'Irlande',
     electronicSignature: 'Signature électronique certifiée',
     date: 'Date',
     signatureInstructions: 'Instructions de signature :',
@@ -192,14 +192,14 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article9Content: 'This contract is governed by Irish law. In case of dispute, the parties will endeavor to find an amicable solution. Failing that, the competent courts of Dublin shall have sole jurisdiction.',
     signatureSection: 'Signatures',
     madeInDuplicates: 'Made in two original copies',
-    inLuxembourg: 'In Dublin, on',
+    inIreland: 'In Dublin, on',
     forSolventisGroup: 'For SOLVENTIS GROUP',
     lender: 'The Lender',
     borrower: 'The Borrower',
     preSigned: '✓ Pre-signed and validated document',
     management: 'General Management',
     solventisStamp: 'SOLVENTIS GROUP',
-    luxembourg: 'Luxembourg',
+    luxembourg: 'Irlande',
     electronicSignature: 'Certified electronic signature',
     date: 'Date',
     signatureInstructions: 'Signature instructions:',
@@ -268,7 +268,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article9Content: 'Dieser Vertrag unterliegt irischem Recht. Im Streitfall werden sich die Parteien bemühen, eine gütliche Lösung zu finden. Andernfalls sind ausschließlich die zuständigen Gerichte in Dublin zuständig.',
     signatureSection: 'Unterschriften',
     madeInDuplicates: 'In zwei Originalexemplaren erstellt',
-    inLuxembourg: 'In Dublin, am',
+    inIreland: 'In Dublin, am',
     forSolventisGroup: 'Für SOLVENTIS GROUP',
     lender: 'Der Darlehensgeber',
     borrower: 'Der Darlehensnehmer',
@@ -344,7 +344,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article9Content: 'Este contrato é regido pelo direito irlandês. Em caso de litígio, as parties esforçar-se-ão por encontrar uma solução amigável. Na sua falta, apenas os tribunais competentes de Dublin terão jurisdição.',
     signatureSection: 'Assinaturas',
     madeInDuplicates: 'Feito em dois originais',
-    inLuxembourg: 'Em Dublin, em',
+    inIreland: 'Em Dublin, em',
     forSolventisGroup: 'Por SOLVENTIS GROUP',
     lender: 'O Mutuante',
     borrower: 'O Mutuário',
@@ -420,7 +420,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article9Content: "El presente contrato se rige por la ley irlandesa. En caso de litigio, las partes se esforzarán por encontrar una solución amistosa. En su defecto, los tribunales competentes de Dublín serán los únicos competentes.",
     signatureSection: 'Firmas',
     madeInDuplicates: 'Hecho en dos originales',
-    inLuxembourg: 'En Dublín, el',
+    inIreland: 'En Dublín, el',
     forSolventisGroup: 'Por SOLVENTIS GROUP',
     lender: 'El Prestamista',
     borrower: 'El Prestatario',
@@ -496,7 +496,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article9Content: 'Il presente contratto è regolato dalla legge irlandese. In caso di controversia, le parti si sforzeranno di trovare una soluzione amichevole. In mancanza, solo i tribunali competenti di Dublino avranno giurisdizione.',
     signatureSection: 'Firme',
     madeInDuplicates: 'Fatto in due originali',
-    inLuxembourg: 'A Dublino, il',
+    inIreland: 'A Dublino, il',
     forSolventisGroup: 'Per SOLVENTIS GROUP',
     lender: 'Il Prestatore',
     borrower: 'Il Mutuatario',
@@ -572,7 +572,7 @@ const contractTranslations: Record<ContractLanguage, ContractTranslations> = {
     article9Content: 'Dit contract wordt beheerst door het Ierse recht. In geval van geschil zullen de partijen streven naar een minnelijke oplossing. Bij gebrek daaraan zijn alleen de bevoegde rechtbanken van Dublin bevoegd.',
     signatureSection: 'Handtekeningen',
     madeInDuplicates: 'Opgesteld in twee originelen',
-    inLuxembourg: 'In Dublin, op',
+    inIreland: 'In Dublin, op',
     forSolventisGroup: 'Voor SOLVENTIS GROUP',
     lender: 'De Kredietgever',
     borrower: 'De Lener',
@@ -1056,7 +1056,7 @@ const getContractTemplate = (data: ContractData): string => {
   <div class="signature-section">
     <p style="margin-bottom: 30px; text-align: center;">
       <strong style="font-size: 11pt;">${t.madeInDuplicates}</strong><br>
-      <span style="color: #64748b;">${t.inLuxembourg} ${contractDate}</span>
+      <span style="color: #64748b;">${t.inIreland} ${contractDate}</span>
     </p>
 
     <div class="signature-box">
