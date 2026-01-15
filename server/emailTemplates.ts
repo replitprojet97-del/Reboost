@@ -639,14 +639,14 @@ const translations = {
       step1Text: "Download and carefully read your loan contract",
       step2Title: "Sign the document",
       step2Text: "Print, sign with the mention \"Read and approved\" followed by your signature",
-      step3Title: "Return the signed contract",
-      step3Text: "Upload the signed document from your client area and click send.",
-      downloadButton: "📥 Download contract",
-      importantTitle: "⚠️ Important:",
-      importantMessage: "Funds will be released within a few minutes to a maximum of 24 hours.",
-      accessNote: "You can also access your contract from your client area at any time.",
-      contactText: "Questions? Contact us at support@solventisgroup.org",
-      footer: "All rights reserved."
+      step3Title: "Retourner le contrat signé",
+      step3Text: "Téléchargez le document signé depuis votre espace client et cliquer sur envoyer.",
+      downloadButton: "📥 Télécharger le contrat",
+      importantTitle: "⚠️ Important :",
+      importantMessage: "Les fonds seront débloqués dans un délai allant de quelques minutes à 24 heures maximum.",
+      accessNote: "Vous pouvez également accéder à votre contrat depuis votre espace client à tout moment.",
+      contactText: "Des questions ? Contactez-nous à support@solventisgroup.org",
+      footer: "Tous droits réservés."
     },
     fundingRelease: {
       subject: "Your funds have been released - SOLVENTIS GROUP",
