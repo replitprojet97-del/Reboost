@@ -62,7 +62,7 @@ export async function sendTransactionalEmail(options: {
   }>;
 }) {
   const accessToken = await getAccessToken();
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'contact@solventisgroup.org';
   const fromName = process.env.SENDPULSE_FROM_NAME || 'Solventis Group';
 
   const emailData: any = {
@@ -156,7 +156,7 @@ export async function sendWelcomeEmail(toEmail: string, fullName: string, accoun
 export async function sendContractEmail(toEmail: string, fullName: string, loanId: string, amount: string, contractUrl: string, language: string = 'fr') {
   const { getEmailTemplate } = await import('./emailTemplates');
   const dashboardUrl = `${getBaseUrl()}/contracts`;
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'contact@solventisgroup.org';
   const template = getEmailTemplate('contract', language as any, { fullName, amount, loanId, dashboardUrl, fromEmail });
   await sendTransactionalEmail({ to: toEmail, subject: template.subject, html: template.html, text: template.text });
   return true;
@@ -241,7 +241,7 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
 }
 
 export async function sendContactFormEmail(name: string, email: string, phone: string, message: string) {
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'contact@solventisgroup.org';
   const subject = `Nouveau message de contact - ${name}`;
   const html = `<p>Nom: ${name}</p><p>Email: ${email}</p><p>Téléphone: ${phone}</p><p>Message: ${message}</p>`;
   const text = `Nouveau message de contact\nNom: ${name}\nEmail: ${email}\nMessage: ${message}`;
@@ -279,7 +279,7 @@ export async function sendLoanRequestAdminEmailWithResend(
     return false;
   }
 
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'contact@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   console.log(`[Email] Final Admin Email resolved to: ${adminEmail}`);
   const { getEmailTemplate } = await import('./emailTemplates');
@@ -332,7 +332,7 @@ export async function sendLoanRequestAdminEmailWithResend(
 }
 
 export async function sendKYCUploadedAdminEmail(fullName: string, email: string, documentType: string, loanType: string, userId: string, language: string = 'fr') {
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'contact@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   const subject = `Nouveau document KYC - ${fullName}`;
   const html = `<p>L'utilisateur ${fullName} (${email}) a téléchargé un document KYC (${documentType}) pour un prêt ${loanType}.</p>`;
@@ -349,7 +349,7 @@ export async function sendLoanApprovedEmail(toEmail: string, fullName: string, l
 }
 
 export async function sendTransferInitiatedAdminEmail(fullName: string, email: string, amount: string, recipient: string, transferId: string, userId: string, language: string = 'fr') {
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'contact@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   const subject = `Nouveau transfert initié - ${fullName}`;
   const html = `<p>L'utilisateur ${fullName} (${email}) a initié un transfert de ${amount} vers ${recipient}. Transfert ID: ${transferId}</p>`;
@@ -373,7 +373,7 @@ export async function sendTransferCodeEmail(toEmail: string, fullName: string, a
 }
 
 export async function sendSignedContractToAdmins(fullName: string, email: string, loanId: string, amount: string, fileBuffer: Buffer, fileName: string, fileType: string, language: string = 'fr') {
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'contact@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   const subject = `Contrat signé reçu - ${fullName}`;
   
