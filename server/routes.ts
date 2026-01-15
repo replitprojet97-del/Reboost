@@ -594,6 +594,32 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
     });
   });
 
+  app.post("/api/admin/users/:userId/approve-kyc", requireAuth, requireAdmin, adminLimiter, async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const user = await storage.approveUserKycManually(userId, req.session.userId!);
+      
+      if (!user) {
+        return res.status(404).json({ error: "Utilisateur non trouvé" });
+      }
+
+      // Notifier l'utilisateur
+      await notifyKycApproved(userId);
+      
+      // Message admin pour trace
+      await createAdminMessageLoanApproved(userId, "Votre compte a été validé par un administrateur.");
+
+      // Émettre une mise à jour socket
+      emitUserUpdate(userId, user);
+      emitAdminDashboardUpdate();
+
+      res.json(user);
+    } catch (error) {
+      console.error('[APPROVE-KYC-MANUAL] Erreur:', error);
+      res.status(500).json({ error: "Erreur serveur lors de l'approbation KYC" });
+    }
+  });
+
   app.get("/api/admin/all-kyc-documents", requireAuth, requireAdmin, adminLimiter, async (req, res) => {
     return res.status(410).json({
       error: "KYC admin désactivé. Les documents sont désormais transmis uniquement par email."
