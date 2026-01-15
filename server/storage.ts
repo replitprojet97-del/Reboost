@@ -3070,6 +3070,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async approveUserKycManually(userId: string, adminId: string): Promise<User | undefined> {
+    console.log(`[STORAGE] Approving KYC manually for user ${userId} by admin ${adminId}`);
     const [user] = await db.update(users)
       .set({
         status: 'active',
@@ -3078,6 +3079,12 @@ export class DatabaseStorage implements IStorage {
       })
       .where(eq(users.id, userId))
       .returning();
+
+    if (user) {
+      console.log(`[STORAGE] Successfully updated user ${userId}: kycStatus=${user.kycStatus}, status=${user.status}`);
+    } else {
+      console.error(`[STORAGE] Failed to update user ${userId}: user not found`);
+    }
 
     return user;
   }
