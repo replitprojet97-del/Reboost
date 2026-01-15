@@ -2499,21 +2499,9 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         return res.status(400).json({ error: 'Ce prêt n\'est pas en statut approuvé' });
       }
 
-      // Vérification du type de fichier
-      const fileExtension = path.extname(req.file.originalname).toLowerCase();
-      console.log('File extension:', fileExtension);
-      
-      // Accept as long as it has .pdf extension
-      const isPdf = fileExtension === '.pdf';
-      
-      if (!isPdf) {
-        console.error('File rejected - not a PDF extension:', { fileExtension });
-        return res.status(400).json({ error: 'Type de fichier invalide. Seuls les PDF sont acceptés.' });
-      }
-
-      const user = await storage.getUser(loan.userId);
-      if (!user) {
-        return res.status(404).json({ error: 'Utilisateur non trouvé' });
+      // Verification logic: ensure it is a PDF
+      if (path.extname(req.file.originalname).toLowerCase() !== '.pdf') {
+        return res.status(400).json({ error: 'Seuls les fichiers PDF sont acceptés' });
       }
 
       const fileBuffer = await fs.promises.readFile(req.file.path);

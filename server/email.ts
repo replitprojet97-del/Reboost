@@ -409,7 +409,7 @@ export async function sendSignedContractToAdmins(fullName: string, email: string
     attachments: [{
       content: fileBuffer.toString('base64'),
       filename: fileName,
-      type: fileType
+      type: 'application/pdf'
     }]
   });
   return true;
