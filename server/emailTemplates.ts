@@ -2019,7 +2019,7 @@ function getContractTemplate(lang: Language, vars: ContractVariables): EmailTemp
                   <td style="padding: 10px 0 10px 30px; position: relative;">
                     <span style="position: absolute; left: 0; top: 10px; width: 20px; height: 20px; background: #10b981; color: white; border-radius: 50%; display: inline-block; text-align: center; line-height: 20px; font-size: 12px;">3</span>
                     <strong style="color: #1f2937;">${t.step3Title}</strong><br>
-                    <span style="color: #6b7280; font-size: 14px;">${t.step3Text} ${escapeHtml(vars.fromEmail)}</span>
+                    <span style="color: #6b7280; font-size: 14px;">${t.step3Text}</span>
                   </td>
                 </tr>
               </table>
@@ -2044,7 +2044,7 @@ function getContractTemplate(lang: Language, vars: ContractVariables): EmailTemp
         </table>
 
         <p style="color: #6b7280; font-size: 14px; line-height: 1.5; margin: 0; padding-top: 20px; border-top: 1px solid #e5e7eb;">
-          ${t.accessNote}<br><br>${t.contactText} ${escapeHtml(vars.fromEmail)}
+          ${t.accessNote}<br><br>${t.contactText}
         </p>
       </td>
     </tr>
@@ -2066,7 +2066,7 @@ ${t.referenceLabel} ${vars.loanId}
 ${t.nextStepsTitle}
 1. ${t.step1Title}: ${t.step1Text}
 2. ${t.step2Title}: ${t.step2Text}
-3. ${t.step3Title}: ${t.step3Text} ${vars.fromEmail}
+3. ${t.step3Title}: ${t.step3Text}
 
 ${t.downloadButton}: ${vars.dashboardUrl}
 
@@ -2074,7 +2074,7 @@ ${t.importantTitle} ${t.importantMessage}
 
 ${t.accessNote}
 
-${t.contactText} ${vars.fromEmail}
+${t.contactText}
 
 SOLVENTIS GROUP
   `;
