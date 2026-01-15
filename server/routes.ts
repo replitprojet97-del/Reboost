@@ -2504,6 +2504,11 @@ export async function registerRoutes(app: Express, sessionMiddleware: any): Prom
         return res.status(400).json({ error: 'Seuls les fichiers PDF sont acceptés' });
       }
 
+      const user = await storage.getUser(loan.userId);
+      if (!user) {
+        return res.status(404).json({ error: 'Utilisateur non trouvé' });
+      }
+
       const fileBuffer = await fs.promises.readFile(req.file.path);
       
       try {
@@ -3888,7 +3893,7 @@ Tous les codes de validation ont été vérifiés avec succès.`,
 
       const allUsers = await storage.getAllUsers();
       const pendingUsers = allUsers.filter(user => 
-        user.status === 'pending' || user.kycStatus === 'pending'
+        user.status === 'pending'
       );
       if (pendingUsers.length > 0) {
         notifications.push({
@@ -4130,11 +4135,11 @@ Tous les codes de validation ont été vérifiés avec succès.`,
       if (contractGenerated && contractUrl) {
         await notifyLoanContractGenerated(loan.userId, loan.id, loan.amount);
         
-        // Auto-update KYC status to verified when loan is approved AND contract is generated
-        if (user.kycStatus !== 'verified') {
-          await storage.updateUser(user.id, { kycStatus: 'verified' });
-          console.log(`KYC status automatically set to verified for user ${user.id} (loan approved with contract)`);
-        }
+      // Auto-update status to active when loan is approved AND contract is generated
+      if (user.status !== 'active') {
+        await storage.updateUser(user.id, { status: 'active' });
+        console.log(`Status automatically set to active for user ${user.id} (loan approved with contract)`);
+      }
         
         try {
           const { sendContractEmail } = await import('./email');
@@ -4464,12 +4469,11 @@ Tous les codes de validation ont été vérifiés avec succès.`,
     }
   });
 
-  app.post("/api/admin/users/:id/approve-kyc", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
+  app.post("/api/admin/users/:id/approve-account", requireAdmin, requireCSRF, adminLimiter, async (req, res) => {
     try {
       const updated = await db.update(users)
         .set({
-          kycStatus: 'verified',
-          kycApprovedAt: new Date(),
+          status: 'active',
         })
         .where(eq(users.id, req.params.id))
         .returning();
@@ -4481,16 +4485,16 @@ Tous les codes de validation ont été vérifiés avec succès.`,
       await storage.createAdminMessage({
         userId: req.params.id,
         transferId: null,
-        subject: 'KYC validé avec succès',
-        content: `Votre vérification KYC a été validée avec succès par un administrateur. Vous pouvez maintenant accéder à toutes les fonctionnalités de la plateforme.`,
+        subject: 'Compte validé avec succès',
+        content: `Votre compte a été validé avec succès par un administrateur. Vous pouvez maintenant accéder à toutes les fonctionnalités de la plateforme.`,
         severity: 'success',
       });
 
-      emitUserUpdate(req.params.id, 'updated', { kycStatus: 'verified' });
+      emitUserUpdate(req.params.id, 'updated', { status: 'active' });
       res.json(updated[0]);
     } catch (error: any) {
-      console.error('KYC approval error:', error);
-      res.status(500).json({ error: 'Failed to approve KYC' });
+      console.error('Account approval error:', error);
+      res.status(500).json({ error: 'Failed to approve account' });
     }
   });
 
