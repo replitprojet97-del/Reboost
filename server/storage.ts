@@ -3073,6 +3073,7 @@ export class DatabaseStorage implements IStorage {
     const [user] = await db.update(users)
       .set({
         status: 'active',
+        kycStatus: 'verified',
         updatedAt: new Date()
       })
       .where(eq(users.id, userId))
