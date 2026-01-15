@@ -12,11 +12,6 @@ function getEmailBaseUrl(): string {
   return 'https://solventisgroup.org';
 }
 
-function getEmailLogoUrl(): string {
-  // Use the official SolventisGroup email logo from Cloudinary
-  return "https://res.cloudinary.com/dm2x1y5zi/image/upload/v1736863600/solventis_assets/solventis-email-logo.png";
-}
-
 interface EmailHeaderOptions {
   title?: string;
   subtitle?: string;
@@ -32,7 +27,27 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
     showLogo = true
   } = options;
   
-  const logoUrl = getEmailLogoUrl();
+  const logoTextHtml = `
+    <div style="
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #1e3a8a;
+    ">
+      SOLVENTIS
+      <span style="color:#0f172a;">GROUP</span>
+    </div>
+    <div style="
+      margin-top: 6px;
+      text-align: center;
+      font-size: 14px;
+      color: #64748b;
+    ">
+      Financing Solutions
+    </div>
+  `;
   
   return `
     <tr>
@@ -41,7 +56,9 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
           ${showLogo ? `
           <tr>
             <td align="center" style="padding-bottom: 15px;">
-              <img src="${logoUrl}" alt="SolventisGroup" width="180" style="display: block; width: 180px; max-width: 100%; border: 0; outline: none; text-decoration: none;">
+              <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; display: inline-block;">
+                ${logoTextHtml}
+              </div>
             </td>
           </tr>
           ` : ''}
@@ -67,7 +84,21 @@ function getEmailHeader(options: EmailHeaderOptions = {}): string {
 
 function getEmailFooter(footerText: string): string {
   const currentYear = new Date().getFullYear();
-  const logoUrl = getEmailLogoUrl();
+  
+  const logoTextHtml = `
+    <div style="
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #1e3a8a;
+      opacity: 0.8;
+    ">
+      SOLVENTIS
+      <span style="color:#0f172a;">GROUP</span>
+    </div>
+  `;
   
   return `
     <tr>
@@ -75,7 +106,7 @@ function getEmailFooter(footerText: string): string {
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
           <tr>
             <td align="center" style="padding-bottom: 15px;">
-              <img src="${logoUrl}" alt="SolventisGroup" width="120" style="display: block; width: 120px; max-width: 100%; border: 0; outline: none; text-decoration: none; opacity: 0.8; filter: grayscale(100%);">
+              ${logoTextHtml}
             </td>
           </tr>
           <tr>

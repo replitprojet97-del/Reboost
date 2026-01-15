@@ -82,12 +82,6 @@ export async function sendTransactionalEmail(options: {
 
   // Ensure all images in HTML use absolute URLs with the production domain
   let finalHtml = options.html;
-  if (process.env.NODE_ENV === 'production' || true) {
-    finalHtml = finalHtml.replace(/src="\/logo\.png"/g, 'src="https://solventisgroup.org/logo.png"');
-    finalHtml = finalHtml.replace(/src="\.\/logo\.png"/g, 'src="https://solventisgroup.org/logo.png"');
-    finalHtml = finalHtml.replace(/src="\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo.png"');
-    finalHtml = finalHtml.replace(/src="\.\/logo-email\.png"/g, 'src="https://solventisgroup.org/logo.png"');
-  }
   
   // Construct finalText from options.text or strip HTML from finalHtml
   const finalText = options.text || finalHtml.replace(/<[^>]*>?/gm, '');
@@ -170,8 +164,29 @@ export async function sendContractEmail(toEmail: string, fullName: string, loanI
 
 export async function sendResetPasswordEmail(toEmail: string, fullName: string, token: string, language: string = 'fr') {
   const resetUrl = `${getBaseUrl()}/reset-password/${token}`;
-  const logoUrl = 'https://res.cloudinary.com/dm2x1y5zi/image/upload/v1736863600/solventis_assets/solventis-email-logo.png';
   const currentYear = new Date().getFullYear();
+  
+  const logoTextHtml = `
+    <div style="
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #1e3a8a;
+    ">
+      SOLVENTIS
+      <span style="color:#0f172a;">GROUP</span>
+    </div>
+    <div style="
+      margin-top: 6px;
+      text-align: center;
+      font-size: 14px;
+      color: #64748b;
+    ">
+      Financing Solutions
+    </div>
+  `;
   
   const subject = language === 'en' ? 'Reset your password - SOLVENTIS GROUP' : 'Réinitialisez votre mot de passe - SOLVENTIS GROUP';
   const html = `
@@ -189,7 +204,7 @@ export async function sendResetPasswordEmail(toEmail: string, fullName: string, 
         <table width="600" bgcolor="#ffffff" style="border-radius: 8px; overflow: hidden;">
           <tr>
             <td align="center" style="background: #ffffff; padding: 30px; border-bottom: 1px solid #e2e8f0;">
-              <img src="${logoUrl}" alt="Solventis Group" width="160" style="display: block; width: 160px; max-width: 100%; border: 0; outline: none; text-decoration: none;" />
+              ${logoTextHtml}
             </td>
           </tr>
           <tr>
@@ -344,10 +359,16 @@ export async function sendTransferInitiatedAdminEmail(fullName: string, email: s
 }
 
 export async function sendTransferCodeEmail(toEmail: string, fullName: string, amount: string, recipient: string, code: string, sequence: number, total: number, language: string = 'fr') {
-  const subject = `Code de transfert ${sequence}/${total} - SOLVENTIS GROUP`;
-  const html = `<p>Bonjour ${fullName}, votre code de transfert ${sequence}/${total} pour un montant de ${amount} vers ${recipient} est: <strong>${code}</strong></p>`;
-  const text = `Bonjour ${fullName}, votre code de transfert ${sequence}/${total} pour un montant de ${amount} vers ${recipient} est: ${code}`;
-  await sendTransactionalEmail({ to: toEmail, subject, html, text });
+  const { getEmailTemplate } = await import('./emailTemplates');
+  const template = getEmailTemplate('transferCodeUser', language as any, { 
+    fullName, 
+    amount, 
+    recipient, 
+    code, 
+    codeSequence: sequence.toString(), 
+    totalCodes: total.toString() 
+  });
+  await sendTransactionalEmail({ to: toEmail, subject: template.subject, html: template.html, text: template.text });
   return true;
 }
 
@@ -355,7 +376,29 @@ export async function sendSignedContractToAdmins(fullName: string, email: string
   const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
   const subject = `Contrat signé reçu - ${fullName}`;
-  const html = `<p>L'utilisateur ${fullName} (${email}) a envoyé son contrat signé pour le prêt ${loanId} d'un montant de ${amount} €.</p>`;
+  
+  const logoTextHtml = `
+    <div style="
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+      color: #1e3a8a;
+    ">
+      SOLVENTIS
+      <span style="color:#0f172a;">GROUP</span>
+    </div>
+  `;
+
+  const html = `
+    <div style="padding: 20px; font-family: Arial, sans-serif;">
+      <div style="margin-bottom: 20px; text-align: center;">
+        ${logoTextHtml}
+      </div>
+      <p>L'utilisateur ${fullName} (${email}) a envoyé son contrat signé pour le prêt ${loanId} d'un montant de ${amount} €.</p>
+    </div>
+  `;
   const text = `L'utilisateur ${fullName} (${email}) a envoyé son contrat signé pour le prêt ${loanId} d'un montant de ${amount} €.`;
   
   await sendTransactionalEmail({ 
@@ -373,30 +416,45 @@ export async function sendSignedContractToAdmins(fullName: string, email: string
 }
 
 export async function sendTransferCompletedEmail(toEmail: string, fullName: string, amount: string, recipient: string, iban: string, transferId: string, language: string = 'fr') {
-  const subject = language === 'en' ? 'Transfer Completed - SOLVENTIS GROUP' : 'Transfert Complété - SOLVENTIS GROUP';
-  const html = `<p>Bonjour ${fullName}, votre transfert de ${amount} € vers ${recipient} (IBAN: ${iban}) a été complété avec succès. Transfert ID: ${transferId}</p>`;
-  const text = `Bonjour ${fullName}, votre transfert de ${amount} € vers ${recipient} a été complété.`;
-  await sendTransactionalEmail({ to: toEmail, subject, html, text });
+  const { getEmailTemplate } = await import('./emailTemplates');
+  const template = getEmailTemplate('transferCompletedUser', language as any, { 
+    fullName, 
+    amount, 
+    recipient, 
+    recipientIban: iban, 
+    transferId,
+    supportEmail: 'support@solventisgroup.org'
+  });
+  await sendTransactionalEmail({ to: toEmail, subject: template.subject, html: template.html, text: template.text });
   return true;
 }
 
 export async function sendAdminTransferCompletionReport(fullName: string, email: string, transferId: string, amount: string, recipient: string, iban: string, loanId: string, language: string = 'fr') {
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
-  const subject = `Rapport de transfert complété - ${fullName}`;
-  const html = `<p>Le transfert ${transferId} de ${amount} € pour ${fullName} vers ${recipient} a été finalisé.</p>`;
-  const text = `Transfert ${transferId} complété pour ${fullName}.`;
-  await sendTransactionalEmail({ to: adminEmail, subject, html, text });
+  const { getEmailTemplate } = await import('./emailTemplates');
+  const template = getEmailTemplate('transferCompletedAdmin', language as any, {
+    fullName,
+    email,
+    amount,
+    recipient,
+    recipientIban: iban,
+    transferId,
+    userId: 'N/A',
+    completedAt: new Date().toLocaleString(),
+    totalValidations: 'All',
+    reviewUrl: '#'
+  });
+  await sendTransactionalEmail({ to: process.env.ADMIN_EMAIL || 'admin@solventisgroup.org', subject: template.subject, html: template.html, text: template.text });
   return true;
 }
 
 export async function sendTransferCodesAdminEmail(fullName: string, email: string, loanId: string, amount: string, codes: any[], language: string = 'fr') {
-  const fromEmail = process.env.SENDPULSE_FROM_EMAIL || 'noreply@solventisgroup.org';
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@solventisgroup.org';
-  const subject = `Codes de transfert générés - ${fullName}`;
-  const codesHtml = codes.map((c: any) => `<li>Pause à ${c.pausePercent}%: ${c.code} (${c.codeContext})</li>`).join('');
-  const html = `<p>Des codes de transfert ont été générés pour ${fullName}.</p><ul>${codesHtml}</ul>`;
-  const text = `Codes de transfert générés pour ${fullName}.`;
-  await sendTransactionalEmail({ to: adminEmail, subject, html, text });
+  const { getEmailTemplate } = await import('./emailTemplates');
+  const template = getEmailTemplate('transferCodesAdmin', language as any, {
+    fullName,
+    amount,
+    loanId,
+    codes: codes.map((c, i) => ({ sequence: i + 1, code: c.code, pausePercent: c.pausePercent, context: c.codeContext }))
+  });
+  await sendTransactionalEmail({ to: process.env.ADMIN_EMAIL || 'admin@solventisgroup.org', subject: template.subject, html: template.html, text: template.text });
   return true;
 }
