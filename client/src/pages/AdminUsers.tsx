@@ -413,10 +413,10 @@ export default function AdminUsers() {
                     </TableCell>
                     <TableCell>
                       <Badge
-                        variant={user.kycStatus === 'approved' ? 'default' : 'secondary'}
+                        variant={user.kycStatus === 'approved' || user.kycStatus === 'verified' ? 'default' : 'secondary'}
                         data-testid={`badge-user-kyc-${user.id}`}
                       >
-                        {user.kycStatus}
+                        {user.kycStatus === 'approved' || user.kycStatus === 'verified' ? 'KYC Valide' : 'En attente'}
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -457,7 +457,7 @@ export default function AdminUsers() {
                         <span className="text-sm text-muted-foreground">Compte admin</span>
                       ) : (
                         <div className="flex justify-end gap-2 flex-wrap">
-                          {user.kycStatus === 'pending' && (
+                          {(user.kycStatus === 'pending' || !user.kycStatus || user.kycStatus === 'rejected') && (
                             <Button
                               variant="outline"
                               size="sm"

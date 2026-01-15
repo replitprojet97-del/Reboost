@@ -314,15 +314,15 @@ export default function Dashboard() {
                 </Badge>
               )}
               <Badge 
-                variant={user.kycStatus === 'verified' ? 'default' : user.kycStatus === 'pending' ? 'secondary' : 'destructive'}
+                variant={user.kycStatus === 'verified' || user.kycStatus === 'approved' ? 'default' : user.kycStatus === 'pending' ? 'secondary' : 'destructive'}
                 className="text-xs whitespace-nowrap flex items-center gap-1.5"
                 data-testid="badge-kyc-status"
               >
-                {user.kycStatus === 'verified' && <Check className="w-3.5 h-3.5" />}
+                {(user.kycStatus === 'verified' || user.kycStatus === 'approved') && <Check className="w-3.5 h-3.5" />}
                 {user.kycStatus === 'pending' && <Clock className="w-3.5 h-3.5" />}
                 {user.kycStatus === 'rejected' && <AlertCircle className="w-3.5 h-3.5" />}
-                {user.kycStatus !== 'verified' && user.kycStatus !== 'pending' && user.kycStatus !== 'rejected' && <HelpCircle className="w-3.5 h-3.5" />}
-                <span>KYC: {user.kycStatus === 'verified' ? 'Verified' : user.kycStatus === 'pending' ? 'Pending' : user.kycStatus === 'rejected' ? 'Rejected' : 'Not submitted'}</span>
+                {user.kycStatus !== 'verified' && user.kycStatus !== 'approved' && user.kycStatus !== 'pending' && user.kycStatus !== 'rejected' && <HelpCircle className="w-3.5 h-3.5" />}
+                <span>KYC: {user.kycStatus === 'verified' || user.kycStatus === 'approved' ? 'KYC Valide' : user.kycStatus === 'pending' ? 'En attente' : user.kycStatus === 'rejected' ? 'Rejeté' : 'Non soumis'}</span>
               </Badge>
             </div>
           )}
