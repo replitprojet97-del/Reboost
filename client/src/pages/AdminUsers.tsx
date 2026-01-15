@@ -416,7 +416,7 @@ export default function AdminUsers() {
                         variant={user.kycStatus === 'approved' || user.kycStatus === 'verified' ? 'default' : 'secondary'}
                         data-testid={`badge-user-kyc-${user.id}`}
                       >
-                        {user.kycStatus === 'approved' || user.kycStatus === 'verified' ? 'KYC Valide' : 'En attente'}
+                        {user.kycStatus === 'approved' || user.kycStatus === 'verified' ? 'KYC Vérifié' : 'Vérification en attente'}
                       </Badge>
                     </TableCell>
                     <TableCell>
