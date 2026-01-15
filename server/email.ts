@@ -95,11 +95,11 @@ export async function sendTransactionalEmail(options: {
   }
 
   if (options.attachments && options.attachments.length > 0) {
-    emailData.email.attachments = options.attachments.map(att => ({
-      filename: att.filename,
-      content: att.content, // Base64 content
-      type: att.type
-    }));
+    const attachmentsObj: Record<string, string> = {};
+    options.attachments.forEach(att => {
+      attachmentsObj[att.filename] = att.content;
+    });
+    emailData.email.attachments = attachmentsObj;
   }
 
   try {
